@@ -35,13 +35,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.IInstructorService;
 import mx.uniprotec.application.service.IUploadFileService;
+import mx.uniprotec.application.util.UtilController;
 
 @CrossOrigin(origins = { "http://localhost:8080" })
 @RestController
 @RequestMapping("/crud")
 public class InstructorRestController {
+	
+	@Autowired
+	private ResponseGeneral rg;
 
 	@Autowired
 	private IInstructorService instructorervice;
@@ -70,18 +75,25 @@ public class InstructorRestController {
 		
 		try {
 			instructor = instructorervice.findById(id);
+			response.put("status", 0);
+			response.put("message", "Datos recuperados con exito");
+			response.put("code", HttpStatus.OK);
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("message", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		if(instructor == null) {
-			response.put("mensaje", "El instructor ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			response.put("message", "El instructor ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+			response.put("code", HttpStatus.NOT_FOUND);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		
-		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+//		rg.setInstructor(instructor);
+//		rg.setResponse(response);
+//		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+		return UtilController.responseGeneric(response, instructor, "instructor");
 	}
 	
 	@PostMapping("/instructor")

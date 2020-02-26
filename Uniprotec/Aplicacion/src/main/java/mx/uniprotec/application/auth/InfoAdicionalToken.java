@@ -3,6 +3,8 @@ package mx.uniprotec.application.auth;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -16,6 +18,8 @@ import mx.uniprotec.application.service.IUsuarioService;
 @Component
 public class InfoAdicionalToken implements TokenEnhancer{
 	
+	private static final Logger log = LoggerFactory.getLogger(InfoAdicionalToken.class);
+	
 	@Autowired
 	private IUsuarioService usuarioService;
 
@@ -24,11 +28,25 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		
 		Usuario usuario = usuarioService.findByUsername(authentication.getName());
 		Map<String, Object> info = new HashMap<>();
-		info.put("info_adicional", "Hola que tal!: ".concat(authentication.getName()));
+		Map<String, Object> subInfo = new HashMap<>();
+		Map<String, Object> subsubInfo = new HashMap<>();
 		
-		info.put("nombre", usuario.getNombre());
-		info.put("apellido", usuario.getApellido());
-		info.put("email", usuario.getEmail());
+		info.put("status", 0);
+		info.put("message", "Login Correcto");
+		info.put("code", 200);
+		
+		subsubInfo.put("Id", usuario.getId());
+		subsubInfo.put("nombre", usuario.getNombre());
+		subsubInfo.put("apellido", usuario.getApellido());
+		subsubInfo.put("email", usuario.getEmail());
+		subsubInfo.put("modules", usuario.getRoles());
+		subInfo.put("user", subsubInfo);
+
+		info.put("fields", subInfo);
+		
+		
+		
+
 		
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
 		
