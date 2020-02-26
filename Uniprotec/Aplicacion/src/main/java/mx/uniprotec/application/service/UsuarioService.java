@@ -49,6 +49,12 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 		
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario findByUsername(String username) {
+		return usuarioDao.findByUsername(username);
+	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -86,9 +92,5 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 		return null;
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public Usuario findByUsername(String username) {
-		return usuarioDao.findByUsername(username);
-	}
+	
 }
