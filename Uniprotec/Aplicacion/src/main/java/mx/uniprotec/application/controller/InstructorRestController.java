@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,24 +51,37 @@ public class InstructorRestController {
 	private ResponseGeneral rg;
 
 	@Autowired
-	private IInstructorService instructorervice;
+	private IInstructorService instructorService;
 	
 	@Autowired
 	private IUploadFileService uploadService;
 	
-	// private final Logger log = LoggerFactory.getLogger(instructorRestController.class);
+	 private final Logger log = LoggerFactory.getLogger(InstructorRestController.class);
 
+	 /*
+	  * 
+	  */
 	@GetMapping("/instructores")
-	public List<Instructor> index() {
-		return instructorervice.findAll();
+	public ResponseEntity<?> index() {
+//		return instructorService.findAll();
+		return UtilController.responseGeneric(instructorService.findAll(), "instructores");
 	}
 	
+	
+	 /*
+	  * 
+	  */
 	@GetMapping("/instructores/page/{page}")
-	public Page<Instructor> index(@PathVariable Integer page) {
+	public ResponseEntity<?> index(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 4);
-		return instructorervice.findAll(pageable);
+//		return instructorService.findAll(pageable);
+		return UtilController.responseGeneric(instructorService.findAll(pageable), "instructores");
 	}
 	
+	
+	 /*
+	  * 
+	  */
 	@GetMapping("/instructor/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
@@ -74,7 +89,7 @@ public class InstructorRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			instructor = instructorervice.findById(id);
+			instructor = instructorService.findById(id);
 			response.put("status", 0);
 			response.put("message", "Datos recuperados con exito");
 			response.put("code", HttpStatus.OK);
@@ -93,12 +108,19 @@ public class InstructorRestController {
 //		rg.setInstructor(instructor);
 //		rg.setResponse(response);
 //		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
-		return UtilController.responseGeneric(response, instructor, "instructor");
+//		return UtilController.responseGeneric(response, instructor, "instructor");
+		return UtilController.responseGeneric(instructor, "instructor");
 	}
 	
+	
+	
+	 /*
+	  * 
+	  */
 	@PostMapping("/instructor")
 	public ResponseEntity<?> create(@Valid @RequestBody Instructor instructor, BindingResult result) {
 		
+		HttpStatus status ;
 		Instructor instructorNew = null;
 		Map<String, Object> response = new HashMap<>();
 		
@@ -110,26 +132,34 @@ public class InstructorRestController {
 					.collect(Collectors.toList());
 			
 			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			status = HttpStatus.BAD_REQUEST;
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		try {
-			instructorNew = instructorervice.save(instructor);
+			instructorNew = instructorService.save(instructor);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		response.put("mensaje", "El instructor ha sido creado con éxito!");
 		response.put("instructor", instructorNew);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		status = HttpStatus.CREATED;
+		return UtilController.responseGeneric(instructor, "instructor", status);
 	}
 	
+	
+	/*
+	 * 
+	 */
 	@PutMapping("/instructor/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Instructor instructor, BindingResult result, @PathVariable Long id) {
 
-		Instructor instructorActual = instructorervice.findById(id);
+		Instructor instructorActual = instructorService.findById(id);
 
 		Instructor instructorUpdated = null;
 
@@ -160,7 +190,7 @@ public class InstructorRestController {
 //			instructorActual.setCreateAt(instructor.getCreateAt());
 //			instructorActual.setRegion(instructor.getRegion());
 
-			instructorUpdated = instructorervice.save(instructorActual);
+			instructorUpdated = instructorService.save(instructorActual);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el instructor en la base de datos");
@@ -180,12 +210,12 @@ public class InstructorRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			Instructor instructor = instructorervice.findById(id);
+			Instructor instructor = instructorService.findById(id);
 			String nombreFotoAnterior = "";//instructor.getFoto();
 			
 			uploadService.eliminar(nombreFotoAnterior);
 			
-		    instructorervice.delete(id);
+		    instructorService.delete(id);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar el instructor de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -201,7 +231,7 @@ public class InstructorRestController {
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
 		Map<String, Object> response = new HashMap<>();
 		
-		Instructor instructor = instructorervice.findById(id);
+		Instructor instructor = instructorService.findById(id);
 		
 		if(!archivo.isEmpty()) {
 
@@ -220,7 +250,7 @@ public class InstructorRestController {
 						
 //			instructor.setFoto(nombreArchivo);
 			
-			instructorervice.save(instructor);
+			instructorService.save(instructor);
 			
 			response.put("instructor", instructor);
 			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
@@ -249,6 +279,6 @@ public class InstructorRestController {
 	
 //	@GetMapping("/instructor/regiones")
 //	public List<Region> listarRegiones(){
-//		return instructorervice.findAllRegiones();
+//		return instructorService.findAllRegiones();
 //	}
 }

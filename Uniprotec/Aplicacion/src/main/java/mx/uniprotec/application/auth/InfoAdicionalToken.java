@@ -35,9 +35,9 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		info.put("message", "Login Correcto");
 		info.put("code", 200);
 		
-		subsubInfo.put("Id", usuario.getId());
-		subsubInfo.put("nombre", usuario.getNombre());
-		subsubInfo.put("apellido", usuario.getApellido());
+		subsubInfo.put("id", usuario.getId());
+		subsubInfo.put("name", usuario.getNombre());
+		subsubInfo.put("user", usuario.getApellido());
 		subsubInfo.put("email", usuario.getEmail());
 		subsubInfo.put("modules", usuario.getRoles());
 		subInfo.put("user", subsubInfo);
