@@ -64,7 +64,7 @@ public class InstructorRestController {
 	@GetMapping("/instructores")
 	public ResponseEntity<?> index() {
 //		return instructorService.findAll();
-		return UtilController.responseGeneric(instructorService.findAll(), "instructores");
+		return UtilController.responseGeneric(instructorService.findAll(), "instructores", HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -75,7 +75,7 @@ public class InstructorRestController {
 	public ResponseEntity<?> index(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 4);
 //		return instructorService.findAll(pageable);
-		return UtilController.responseGeneric(instructorService.findAll(pageable), "instructores");
+		return UtilController.responseGeneric(instructorService.findAll(pageable), "instructores",HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -85,31 +85,25 @@ public class InstructorRestController {
 	@GetMapping("/instructor/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
+		HttpStatus status ;
 		Instructor instructor = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
 			instructor = instructorService.findById(id);
-			response.put("status", 0);
-			response.put("message", "Datos recuperados con exito");
-			response.put("code", HttpStatus.OK);
+			status = HttpStatus.OK;
 		} catch(DataAccessException e) {
-			response.put("message", "Error al realizar la consulta en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		if(instructor == null) {
-			response.put("message", "El instructor ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			response.put("code", HttpStatus.NOT_FOUND);
+			status = HttpStatus.NOT_FOUND;
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-//		rg.setInstructor(instructor);
-//		rg.setResponse(response);
-//		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+//		status =  HttpStatus.OK;
 //		return UtilController.responseGeneric(response, instructor, "instructor");
-		return UtilController.responseGeneric(instructor, "instructor");
+		return UtilController.responseGeneric(instructor, "instructor", status);
 	}
 	
 	
@@ -159,6 +153,7 @@ public class InstructorRestController {
 	@PutMapping("/instructor/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Instructor instructor, BindingResult result, @PathVariable Long id) {
 
+		HttpStatus status ;
 		Instructor instructorActual = instructorService.findById(id);
 
 		Instructor instructorUpdated = null;
@@ -173,19 +168,21 @@ public class InstructorRestController {
 					.collect(Collectors.toList());
 			
 			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			status = HttpStatus.BAD_REQUEST;
 		}
 		
 		if (instructorActual == null) {
 			response.put("mensaje", "Error: no se pudo editar, el instructor ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			status = HttpStatus.NOT_FOUND;
 		}
 
 		try {
 
 //			instructorActual.setApellido(instructor.getApellido());
-//			instructorActual.setNombre(instructor.getNombre());
+			instructorActual.setName(instructor.getName());
 //			instructorActual.setEmail(instructor.getEmail());
 //			instructorActual.setCreateAt(instructor.getCreateAt());
 //			instructorActual.setRegion(instructor.getRegion());
@@ -195,22 +192,30 @@ public class InstructorRestController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el instructor en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		response.put("mensaje", "El instructor ha sido actualizado con éxito!");
 		response.put("instructor", instructorUpdated);
 
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		status = HttpStatus.CREATED;
+		return UtilController.responseGeneric(instructorUpdated, "instructor", status);
 	}
 	
+	
+	/*
+	 * 
+	 */
 	@DeleteMapping("/instructor/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		
-		Map<String, Object> response = new HashMap<>();
+		HttpStatus status ;
 		
+		Map<String, Object> response = new HashMap<>();
+		Instructor instructor = null;
 		try {
-			Instructor instructor = instructorService.findById(id);
+			 instructor = instructorService.findById(id);
 			String nombreFotoAnterior = "";//instructor.getFoto();
 			
 			uploadService.eliminar(nombreFotoAnterior);
@@ -219,14 +224,21 @@ public class InstructorRestController {
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al eliminar el instructor de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			status =  HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		
 		response.put("mensaje", "El instructor eliminado con éxito!");
 		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		status =  HttpStatus.OK;
+		return UtilController.responseGeneric(instructor, "instructor", status);
 	}
 	
+	
+	/*
+	 * 
+	 */
 	@PostMapping("/instructor/upload")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
 		Map<String, Object> response = new HashMap<>();

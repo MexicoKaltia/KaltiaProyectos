@@ -19,7 +19,7 @@ public class UtilController {
 	/*
 	 * 
 	 */
-	public static ResponseEntity<Map<String, Object>> responseGeneric(Map<String,Object> response, Object object, String tipoObject) {
+	public static ResponseEntity<Map<String, Object>> responseGeneric2(Map<String,Object> response, Object object, String tipoObject) {
 		
 //		Map<String, Object> response = new HashMap<>();
 		response.put(tipoObject, object);
@@ -42,21 +42,21 @@ public class UtilController {
 		
 		Map<String, Object> response = new HashMap<>();
 		response.put(tipoObject, object);
-		if(status.value() == 200) {
+		
 			response.put("status", status.value());
-			response.put("message", "Datos recuperados con exito");
-			response.put("code", HttpStatus.OK);
+			response.put("message", status.toString());
+			response.put("code", status.name());
 			
-		}else {
-			response.put("status", 99);
-			response.put("message", "Error al realizar la consulta en la base de datos");
-//			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
+//		}else {
+//			response.put("status", 99);
+//			response.put("message", "Error al realizar la consulta en la base de datos");
+////			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+//			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR);
+//			
+//		}
+//		
 		
-		
-		return new ResponseEntity<Map<String,Object>>(response, (HttpStatus) response.get("code"));
+		return new ResponseEntity<Map<String,Object>>(response,  status);
 
 	}
 

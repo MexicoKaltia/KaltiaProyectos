@@ -32,7 +32,7 @@ public class Cliente implements Serializable {
 	@NotEmpty(message ="no puede estar vacio")
 	@Size(min=4, max=12, message="el tamaño tiene que estar entre 4 y 12")
 	@Column(nullable=false)
-	private String nombre;
+	private String name;
 	
 	@NotEmpty(message ="no puede estar vacio")
 	private String apellido;
@@ -64,12 +64,12 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getApellido() {
