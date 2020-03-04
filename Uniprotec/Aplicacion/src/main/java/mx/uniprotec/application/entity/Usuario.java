@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -43,6 +44,27 @@ public class Usuario implements Serializable {
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
+
+	@OneToMany( cascade = CascadeType.ALL)
+	@JoinTable(name="usuarios_modulos", joinColumns= @JoinColumn(name="usuario_id"),
+	inverseJoinColumns=@JoinColumn(name="modulo_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "modulo_id"})})
+	private List<Modulo> modulo;
+	
+	
+	
+	
+
+	
+	
+	
+	public List<Modulo> getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(List<Modulo> modulo) {
+		this.modulo = modulo;
+	}
 
 	public Long getId() {
 		return id;
