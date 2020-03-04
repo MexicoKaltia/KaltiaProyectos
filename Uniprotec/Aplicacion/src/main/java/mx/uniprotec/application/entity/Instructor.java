@@ -25,7 +25,7 @@ public class Instructor implements Serializable {
 	private Long id;
 	
 	@NotEmpty(message ="no puede estar vacio")
-	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 12")
+	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
 	@Column(nullable=false)
 	private String name;
 

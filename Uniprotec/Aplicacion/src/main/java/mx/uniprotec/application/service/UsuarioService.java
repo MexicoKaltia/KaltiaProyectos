@@ -43,7 +43,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 		
 		List<GrantedAuthority> authorities = usuario.getRoles()
 				.stream()
-				.map(role -> new SimpleGrantedAuthority(role.getNombre()))
+				.map(role -> new SimpleGrantedAuthority(role.getName()))
 				.peek(authority -> logger.info("Role: " + authority.getAuthority()))
 				.collect(Collectors.toList());
 		

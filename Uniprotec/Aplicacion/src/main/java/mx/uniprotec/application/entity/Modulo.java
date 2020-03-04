@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,21 +39,32 @@ public class Modulo implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	private String name;
 
-//	@OneToMany( cascade = CascadeType.ALL)
-//	@JoinTable(name="modulos_submodulos", joinColumns= @JoinColumn(name="modulo_id"))
-//	inverseJoinColumns=@JoinColumn(name="submodulo_id"),
-//	uniqueConstraints= {@UniqueConstraint(columnNames= {"modulo_id", "submodulo_id"})})
-//	private List<SubModulo> submodulo;
-//	
-//	
-//	public List<SubModulo> getSubModulo() {
-//		return submodulo;
-//	}
-//
-//	public void setSubModulo(List<SubModulo> submodulo) {
-//		this.submodulo = submodulo;
-//	}
+	@ManyToMany( cascade = CascadeType.ALL)
+	@JoinTable(name="modulos_submodulos", joinColumns= @JoinColumn(name="modulo_id"),
+	inverseJoinColumns=@JoinColumn(name="submodulo_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"modulo_id", "submodulo_id"})})
+	private List<SubModulo> submodulos;
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<SubModulo> getSubmodulos() {
+		return submodulos;
+	}
+
+	public void setSubmodulos(List<SubModulo> submodulos) {
+		this.submodulos = submodulos;
+	}
+
 
 	public Long getId() {
 		return id;

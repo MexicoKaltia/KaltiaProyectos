@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, length = 20)
+	@Column(unique = true, length = 120)
 	private String username;
 
 	@Column(length = 60)
@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
 
 	private Boolean enabled;
 	
-	private String nombre;
+	private String name;
 	private String apellido;
 	
 	@Column(unique = true)
@@ -45,25 +45,20 @@ public class Usuario implements Serializable {
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
 
-	@OneToMany( cascade = CascadeType.ALL)
+	@ManyToMany( cascade = CascadeType.ALL)
 	@JoinTable(name="usuarios_modulos", joinColumns= @JoinColumn(name="usuario_id"),
 	inverseJoinColumns=@JoinColumn(name="modulo_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "modulo_id"})})
-	private List<Modulo> modulo;
+	private List<Modulo> modulos;
 	
 	
 	
-	
-
-	
-	
-	
-	public List<Modulo> getModulo() {
-		return modulo;
+	public List<Modulo> getModulos() {
+		return modulos;
 	}
 
-	public void setModulo(List<Modulo> modulo) {
-		this.modulo = modulo;
+	public void setModulos(List<Modulo> modulos) {
+		this.modulos = modulos;
 	}
 
 	public Long getId() {
@@ -106,12 +101,12 @@ public class Usuario implements Serializable {
 		this.roles = roles;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getApellido() {
