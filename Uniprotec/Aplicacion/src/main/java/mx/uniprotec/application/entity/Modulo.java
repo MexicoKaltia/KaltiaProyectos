@@ -3,6 +3,9 @@ package mx.uniprotec.application.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,13 +45,31 @@ public class Modulo implements Serializable{
 	
 	private String name;
 
-	@ManyToMany( cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="modulos_submodulos", joinColumns= @JoinColumn(name="modulo_id"),
 	inverseJoinColumns=@JoinColumn(name="submodulo_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"modulo_id", "submodulo_id"})})
 	private List<SubModulo> submodulos;
 	
-	
+//	 @OneToMany(mappedBy = "modulo", cascade = CascadeType.ALL)
+//	    private Set<Modulos_SubModulos> modulos_submodulos;
+//
+//	    public Modulo(String name, Modulos_SubModulos... modulos_submodulos) {
+//	        this.name = name;
+//	        for(Modulos_SubModulos modulos_submodulo : modulos_submodulos) modulos_submodulo.setModulo(this);
+//	        this.modulos_submodulos = Stream.of(modulos_submodulos).collect(Collectors.toSet());
+//	    }
+	    
+	public Modulo() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -56,6 +77,15 @@ public class Modulo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+//	public Set<Modulos_SubModulos> getModulos_submodulos() {
+//		return modulos_submodulos;
+//	}
+//
+//	public void setModulos_submodulos(Set<Modulos_SubModulos> modulos_submodulos) {
+//		this.modulos_submodulos = modulos_submodulos;
+//	}
+	
 
 	public List<SubModulo> getSubmodulos() {
 		return submodulos;
@@ -65,14 +95,6 @@ public class Modulo implements Serializable{
 		this.submodulos = submodulos;
 	}
 
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	
 	

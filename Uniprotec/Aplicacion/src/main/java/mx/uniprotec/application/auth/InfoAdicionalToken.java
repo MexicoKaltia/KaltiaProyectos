@@ -44,11 +44,7 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		subInfo.put("user", subsubInfo);
 
 		info.put("fields", subInfo);
-		
-		
-		
-
-		
+			
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
 		
 		return accessToken;
