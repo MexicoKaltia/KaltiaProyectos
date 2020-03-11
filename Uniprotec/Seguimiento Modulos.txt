@@ -1,0 +1,26 @@
+Seguimiento Modulos
+	Facturacion
+	Cobranza
+		Clientes
+	
+	Gastos
+		Operativos
+		Pago a Proovedores
+		Fuerza de Ventas
+		Adminsitracion
+		Impuestos
+		
+	Mapa Localizacion
+	
+	Costeo
+		Transporte
+		Region
+	
+	Viaticos
+		Reporte de Gastos
+		
+	Certificados
+		cursos
+	
+	
+	
