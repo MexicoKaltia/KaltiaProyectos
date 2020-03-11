@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="submodulos")
+@Table(name="submodules")
 public class SubModulo implements Serializable{
 
 	/**

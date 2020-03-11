@@ -47,9 +47,9 @@ public class Modulo implements Serializable{
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="modulos_submodulos", joinColumns= @JoinColumn(name="modulo_id"),
-	inverseJoinColumns=@JoinColumn(name="submodulo_id"),
-	uniqueConstraints= {@UniqueConstraint(columnNames= {"modulo_id", "submodulo_id"})})
-	private List<SubModulo> submodulos;
+	inverseJoinColumns=@JoinColumn(name="submodule_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"modulo_id", "submodule_id"})})
+	private List<SubModulo> submodules;
 	
 //	 @OneToMany(mappedBy = "modulo", cascade = CascadeType.ALL)
 //	    private Set<Modulos_SubModulos> modulos_submodulos;
@@ -77,6 +77,14 @@ public class Modulo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<SubModulo> getSubmodules() {
+		return submodules;
+	}
+
+	public void setSubmodules(List<SubModulo> submodules) {
+		this.submodules = submodules;
+	}
 
 //	public Set<Modulos_SubModulos> getModulos_submodulos() {
 //		return modulos_submodulos;
@@ -85,18 +93,7 @@ public class Modulo implements Serializable{
 //	public void setModulos_submodulos(Set<Modulos_SubModulos> modulos_submodulos) {
 //		this.modulos_submodulos = modulos_submodulos;
 //	}
-	
-
-	public List<SubModulo> getSubmodulos() {
-		return submodulos;
-	}
-
-	public void setSubmodulos(List<SubModulo> submodulos) {
-		this.submodulos = submodulos;
-	}
-
-
-	
+		
 	
 	
 }
