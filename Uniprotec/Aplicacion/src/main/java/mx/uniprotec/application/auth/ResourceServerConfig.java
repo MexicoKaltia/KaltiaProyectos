@@ -12,7 +12,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/crud/clientes", "/crud/clientes/page/**", "/crud/uploads/img/**").permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/crud/clientes", "/crud/clientes/page/**", "/crud/uploads/img/**", "/", "/css/**" , "/scripts/**" , "/images/**" ).permitAll()
 		.antMatchers(HttpMethod.GET, "/crud/cliente/{id}").hasAnyRole("USER", "ADMIN")
 		.antMatchers(HttpMethod.POST, "/crud/cliente/upload").hasAnyRole("USER", "ADMIN")
 		.antMatchers(HttpMethod.POST, "/crud/cliente").hasRole("ADMIN")
