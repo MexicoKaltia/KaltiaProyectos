@@ -1,3 +1,71 @@
+Perfiles
+	Admin Master
+	Operador
+	Vendedor
+	Instructor
+
+Modulos
+	ABC
+		Instructor
+			ID
+			Nombre
+			Correo
+			Sede
+			List<Curso>
+		Curso
+			ID
+			Nombre
+			List<Instructor>
+		Cliente
+			ID
+			Nombre
+			RFC
+			Sede
+		Usuario
+			id
+			nombre
+			correo
+			permisos
+				modulos
+				submodulos
+			
+Asignacion Curso
+Modulo Referente a las Personas tipo perfil Vendedor -- quienes van operar este Modulo
+	Cliente
+		Origen
+		Requisitos
+	Curso
+		Nombre
+	Instructor
+		quienes imparten el curso y no tengan asignacion D-1 y D+1
+	Horarios
+		horario abierto en combo y horario opcional de comida
+	Observaciones
+		Campo abierto para realizar comentarios acerca del curso
+	Notificaciones
+		Envio de correo a las entidades relacionadas
+
+Calendario
+Modulo con referencia a los cursos asignados mostrados en cascada por dia 
+	Instructor
+		puede observar sus asignaciones
+		puede asignar dias no disponibles NA
+	Vendedor
+		puede consultar el formato de cursos asignados
+		puede asignar con los criterios de disponibilidad
+	Operador
+		puede realizar consultas de cursos asignados
+		puede 
+
+Reporte de Cursos asignados
+Verificacion de cursos con los check list para realizar el envio de informacion por paqueteria
+	Perfil Operador
+		realiza un cambio de status con la captura de guias de envio paqueteria
+
+
+	
+
+
 Seguimiento Modulos
 	Facturacion
 	Cobranza

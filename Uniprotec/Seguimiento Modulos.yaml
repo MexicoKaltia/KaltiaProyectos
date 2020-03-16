@@ -1,0 +1,55 @@
+Modulos
+	ABC
+		Instructor
+			ID
+			Nombre
+			Correo
+			Sede
+			List<Curso>
+		Curso
+			ID
+			Nombre
+			List<Instructor>
+		Clientes
+			ID
+			Nombre
+			RFC
+			Sede
+		Usuario
+			id
+			nombre
+			correo
+			permisos
+				modulos
+				submodulos
+			
+	
+
+
+
+Seguimiento Modulos
+	Facturacion
+	Cobranza
+		Clientes
+	
+	Gastos
+		Operativos
+		Pago a Proovedores
+		Fuerza de Ventas
+		Adminsitracion
+		Impuestos
+		
+	Mapa Localizacion
+	
+	Costeo
+		Transporte
+		Region
+	
+	Viaticos
+		Reporte de Gastos
+		
+	Certificados
+		cursos
+	
+	
+	
