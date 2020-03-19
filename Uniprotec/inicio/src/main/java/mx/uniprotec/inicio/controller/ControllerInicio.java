@@ -27,7 +27,6 @@ public class ControllerInicio {
 		}
 		
 		@PostMapping("/loginInit")
-//		public ModelAndView login(@RequestBody User user) {
 		public ModelAndView loginInit(@ModelAttribute("userLogin") User user) {
 			ModelAndView mav ;
 			log.info(user.toString());
