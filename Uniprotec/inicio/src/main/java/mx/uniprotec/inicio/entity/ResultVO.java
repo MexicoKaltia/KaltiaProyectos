@@ -13,12 +13,12 @@ public class ResultVO implements Serializable{
 	private static final long serialVersionUID = -8432269758174775337L;
 	public ResultVO() {}
 	
-	private String accesToken;
-	private Integer codigo;
-	private String	mensaje;
+	private String accesToken;   				//
+	private Integer codigo;						//
+	private String	mensaje;					//
 	private ArrayList<String> mensajeArray;
 	private String  response;
-	private JSONObject jsonResponse;
+	private JSONObject jsonResponse;			//
 	
 	public Integer getCodigo() {
 		return codigo;
