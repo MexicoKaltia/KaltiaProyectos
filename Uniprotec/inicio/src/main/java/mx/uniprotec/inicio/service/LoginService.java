@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -33,27 +34,31 @@ public class LoginService implements ILoginService{
 	private static Logger log = LoggerFactory.getLogger(LoginService.class);
 	
 	
-	@SuppressWarnings("unchecked")
-	public JSONObject login(User user) {
+	
+	public HashMap<String, Object> login(User user) {
 		
 		JSONObject jsonRequest  = new JSONObject();
 		HashMap<String, Object> valoresResponse = new HashMap<String, Object>();
 
 		try {
+			
 			resultVO = baseClientRest.login(user);
+			log.info(resultVO.getCodigo().toString());
 			valoresResponse.put("resultVO", resultVO);
+			
 			if(resultVO.getCodigo() == 200) {
-				jsonRequest = resultVO.getJsonResponse();
-				usuario = (Usuario) jsonRequest.get("user");
+				valoresResponse.put("usuario",  resultVO.getJsonResponse());
+				valoresResponse.put("vista", "index");	
+				log.info(valoresResponse.get("usuario").toString());
+			}else {
+				valoresResponse.put("vista", "login");
 			}
-
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
-		return jsonRequest;
-				
+		return valoresResponse;
 	}
 
 }

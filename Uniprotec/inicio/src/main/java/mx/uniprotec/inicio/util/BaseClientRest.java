@@ -34,7 +34,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	static final String URL_POST_LOGIN 			  =	"http://31.220.63.183:8016/oauth/token";
+//	static final String URL_POST_LOGIN 			  =	"http://localhost:8016/oauth/token";
 	
 	
 	static final String URL_POST_LOGIN 			  =	"http://31.220.63.183:8016/oauth/token";
@@ -43,6 +43,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	static final String GET  = "HttpMethod.GET";
 	static final String PUT  = "HttpMethod.PUT";
 	static final String GRANT_TYPE ="password";
+	static final String APP_ID = "UNIPROTEC:KALTIA2020";
+//	String APP_ID = "angularapp:12345";
 	
 
 	@Override
@@ -55,8 +57,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 	private ResultVO getTemplateLogin(String url, String metodo, User user) {
 		try {
-			 String plainCreds = "angularapp:12345";
-			 String base64Creds = Base64.getEncoder().encodeToString(plainCreds.getBytes());
+			 
+			 String base64Creds = Base64.getEncoder().encodeToString(APP_ID.getBytes());
 
 			 HttpHeaders headers = new HttpHeaders();
 			 headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);//.APPLICATION_JSON);		 
@@ -84,18 +86,20 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	@SuppressWarnings("unchecked")
 	private ResultVO asignaResponse(ResponseEntity<JSONObject> response) {
 
-	    JSONObject jsonResponse = response.getBody();
-	    JSONObject fields = response.getBody();
+	    JSONObject jsonResponse = (JSONObject) response.getBody();
+	    JSONObject fields = new JSONObject();
+	    fields.put("fields", jsonResponse.get("fields"));
+	    
 	    resultVO.setAccesToken(jsonResponse.get("access_token").toString());
 	    resultVO.setCodigo(Integer.valueOf(jsonResponse.get("code").toString()));
 	    resultVO.setMensaje(jsonResponse.get("message").toString());
-	    fields.put("fields", jsonResponse.get("fields"));
 	    resultVO.setJsonResponse(fields);
 	    
 	    log.info(jsonResponse.get("access_token").toString());
 	    log.info(jsonResponse.get("code").toString());
 	    log.info(jsonResponse.get("message").toString());
 	    log.info(jsonResponse.get("fields").toString());
+	    log.info(resultVO.getJsonResponse().toJSONString());
 	    
 	    
 		return resultVO;

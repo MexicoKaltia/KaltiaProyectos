@@ -31,11 +31,35 @@ public class SubModulo implements Serializable{
 	
 	@Column
 	private String name;
+	
+
+	@Column
+	private String referencia;
+	
+	@Column
+	private String idModulo;
+	
 
 //	 @OneToMany(mappedBy = "submodulo", cascade = CascadeType.ALL)
 //	    private Set<Modulos_SubModulos> modulos_submodulos = new HashSet<>();
 
-	    public SubModulo(String name) {
+	    public String getIdModulo() {
+		return idModulo;
+	}
+
+	public void setIdModulo(String idModulo) {
+		this.idModulo = idModulo;
+	}
+
+		public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+		public SubModulo(String name) {
 	        this.name = name;
 	    }
 	    
@@ -59,16 +83,6 @@ public class SubModulo implements Serializable{
 			this.name = name;
 		}
 
-//		public Set<Modulos_SubModulos> getModulos_submodulos() {
-//			return modulos_submodulos;
-//		}
-//
-//		public void setModulos_submodulos(Set<Modulos_SubModulos> modulos_submodulos) {
-//			this.modulos_submodulos = modulos_submodulos;
-//		}
-//	
-//	
-		
 
 	
 }

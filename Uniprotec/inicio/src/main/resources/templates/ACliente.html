@@ -61,7 +61,7 @@
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon fa fa-database"> </i>
-                                Statistics
+                                ACliente
                             </a>
                         </li>
                         <li class="btn-group nav-item">
@@ -168,7 +168,7 @@
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">ADMINISTRACION</li>
-                            <li th:each= "modulo : ${model.loginResponse.usuario.fields.user.modules}">
+                            <li th:each= "modulo : ${model.usuario.fields.user.modules}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
                                     <span th:text="${modulo.name}"></span>
