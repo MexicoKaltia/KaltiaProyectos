@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.uniprotec.inicio.entity.LoginSingle;
 import mx.uniprotec.inicio.entity.Modulo;
 import mx.uniprotec.inicio.entity.ResultVO;
 import mx.uniprotec.inicio.entity.SubModulo;
@@ -19,8 +20,7 @@ import mx.uniprotec.inicio.util.BaseClientRest;
 @Service
 public class LoginService implements ILoginService{
 	
-	@Autowired
-	ResultVO resultVO;
+	
 	@Autowired
 	BaseClientRest baseClientRest;
 	@Autowired
@@ -37,8 +37,8 @@ public class LoginService implements ILoginService{
 	
 	public HashMap<String, Object> login(User user) {
 		
-		JSONObject jsonRequest  = new JSONObject();
 		HashMap<String, Object> valoresResponse = new HashMap<String, Object>();
+		ResultVO resultVO = new ResultVO();
 
 		try {
 			
@@ -47,9 +47,12 @@ public class LoginService implements ILoginService{
 			valoresResponse.put("resultVO", resultVO);
 			
 			if(resultVO.getCodigo() == 200) {
-				valoresResponse.put("usuario",  resultVO.getJsonResponse());
+				valoresResponse.put("jsonResponse",  resultVO.getJsonResponse());
 				valoresResponse.put("vista", "index");	
-				log.info(valoresResponse.get("usuario").toString());
+//				log.info(valoresResponse.get("usuario").toString());
+				
+				LoginSingle.getLoginSingle(resultVO.getAccesToken(), resultVO);
+				
 			}else {
 				valoresResponse.put("vista", "login");
 			}

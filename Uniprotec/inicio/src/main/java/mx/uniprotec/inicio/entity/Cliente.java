@@ -1,98 +1,164 @@
 package mx.uniprotec.inicio.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Cliente implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String name;
-	private String apellido;
-	private String email;
-	private Date createAt;
-	private String foto;
-	private Region region;
+	private String nombreCortoCliente;
+	private String nombreCompletoCliente;
+	private String rfcCliente;
+	private String regionCliente;
+	private String emailCliente;
+	private String telefonoCliente;
+	private String domicilioCliente;
+	private LocalDateTime createAtCliente;
 	
 	
+		
+	public Cliente(Long id, String nombreCortoCliente, String nombreCompletoCliente, String rfcCliente,
+			String regionCliente, String emailCliente, String telefonoCliente, String domicilioCliente,
+			LocalDateTime createAtCliente) {
+		super();
+		this.id = id;
+		this.nombreCortoCliente = nombreCortoCliente;
+		this.nombreCompletoCliente = nombreCompletoCliente;
+		this.rfcCliente = rfcCliente;
+		this.regionCliente = regionCliente;
+		this.emailCliente = emailCliente;
+		this.telefonoCliente = telefonoCliente;
+		this.domicilioCliente = domicilioCliente;
+		this.createAtCliente = createAtCliente;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nombreCortoCliente=" + nombreCortoCliente + ", nombreCompletoCliente="
+				+ nombreCompletoCliente + ", rfcCliente=" + rfcCliente + ", regionCliente=" + regionCliente
+				+ ", emailCliente=" + emailCliente + ", telefonoCliente=" + telefonoCliente + ", domicilioCliente="
+				+ domicilioCliente + ", createAtCliente=" + createAtCliente + "]";
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
+
+
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public String getNombreCortoCliente() {
+		return nombreCortoCliente;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+
+	public void setNombreCortoCliente(String nombreCortoCliente) {
+		this.nombreCortoCliente = nombreCortoCliente;
 	}
 
-	public String getApellido() {
-		return apellido;
+
+
+	public String getNombreCompletoCliente() {
+		return nombreCompletoCliente;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+
+
+	public void setNombreCompletoCliente(String nombreCompletoCliente) {
+		this.nombreCompletoCliente = nombreCompletoCliente;
 	}
 
-	public String getEmail() {
-		return email;
+
+
+	public String getRfcCliente() {
+		return rfcCliente;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+
+	public void setRfcCliente(String rfcCliente) {
+		this.rfcCliente = rfcCliente;
 	}
 
-	public Date getCreateAt() {
-		return createAt;
+
+
+	public String getRegionCliente() {
+		return regionCliente;
 	}
 
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+
+
+	public void setRegionCliente(String regionCliente) {
+		this.regionCliente = regionCliente;
 	}
 
-	public String getFoto() {
-		return foto;
+
+
+	public String getEmailCliente() {
+		return emailCliente;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+
+
+	public void setEmailCliente(String emailCliente) {
+		this.emailCliente = emailCliente;
 	}
 
-	public Region getRegion() {
-		return region;
+
+
+	public String getTelefonoCliente() {
+		return telefonoCliente;
 	}
 
-	public void setRegion(Region region) {
-		this.region = region;
+
+
+	public void setTelefonoCliente(String telefonoCliente) {
+		this.telefonoCliente = telefonoCliente;
 	}
 
-	private static final long serialVersionUID = 1L;
 
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", name=" + name + ", apellido=" + apellido + ", email=" + email + ", createAt="
-				+ createAt + ", foto=" + foto + ", region=" + region + "]";
+	public String getDomicilioCliente() {
+		return domicilioCliente;
 	}
 
-	public Cliente(Long id, String name, String apellido, String email, Date createAt, String foto, Region region) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.apellido = apellido;
-		this.email = email;
-		this.createAt = createAt;
-		this.foto = foto;
-		this.region = region;
+
+
+	public void setDomicilioCliente(String domicilioCliente) {
+		this.domicilioCliente = domicilioCliente;
 	}
-	
+
+
+
+	public LocalDateTime getCreateAtCliente() {
+		return createAtCliente;
+	}
+
+
+
+	public void setCreateAtCliente() {
+		LocalDateTime date = LocalDateTime.now();
+		this.createAtCliente = date;
+	}
+
+
+
 	public Cliente() {}
 	
 }

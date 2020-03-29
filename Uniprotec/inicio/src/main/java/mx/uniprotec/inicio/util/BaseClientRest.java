@@ -17,6 +17,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import mx.uniprotec.inicio.entity.Cliente;
 import mx.uniprotec.inicio.entity.ResultVO;
 import mx.uniprotec.inicio.entity.User;
 
@@ -37,13 +38,18 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 //	static final String URL_POST_LOGIN 			  =	"http://localhost:8016/oauth/token";
 	
 	
-	static final String URL_POST_LOGIN 			  =	"http://31.220.63.183:8016/oauth/token";
+	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
+	public static final String URL_CRUD_CLIENTE		  =	"cliente";
+	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
+	public static final String URL_CRUD_CURSO		  =	"curso";
+	public static final String URL_CRUD_USUARIO		  =	"usuario";
 	
-	static final String POST = "HttpMethod.POST";
-	static final String GET  = "HttpMethod.GET";
-	static final String PUT  = "HttpMethod.PUT";
-	static final String GRANT_TYPE ="password";
-	static final String APP_ID = "UNIPROTEC:KALTIA2020";
+	public static final String POST = "HttpMethod.POST";
+	public static final String GET  = "HttpMethod.GET";
+	public static final String PUT  = "HttpMethod.PUT";
+	public static final String GRANT_TYPE ="password";
+	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 //	String APP_ID = "angularapp:12345";
 	
 
@@ -54,6 +60,40 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		 return resultVO;  
 	}
 	
+	
+
+	@Override
+	public Object altaObjeto(String token, String post2, String urlCrudCliente, JSONObject cliente) {
+		
+		resultVO = getTemplateObjeto(token, post2, urlCrudCliente, cliente);
+		return resultVO;
+	}
+	
+
+	
+	/*
+	 * 
+	 *   Templates 
+	 * 
+	 */
+	
+
+	private ResultVO getTemplateObjeto(String token, String post, String urlCrudCliente, JSONObject cliente) {
+		
+		log.info(URL_CRUD+urlCrudCliente);
+		
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+   	     headers.add("Authorization", "Bearer " + token);
+   	     
+   	    HttpEntity<?> entity = new HttpEntity<>(cliente, headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrudCliente, HttpMethod.POST, entity, JSONObject.class);
+	    
+	    resultVO = asignaResponseObject(response);
+   	     
+		return resultVO;
+	}
 
 	private ResultVO getTemplateLogin(String url, String metodo, User user) {
 		try {
@@ -65,7 +105,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	   	     headers.add("Authorization", "Basic " + base64Creds);
 			 
 	   	    MultiValueMap<String, String> mapbody= new LinkedMultiValueMap<String, String>();
-	   	    mapbody.add("username", user.getUsername());
+	   	    mapbody.add("username", user.getUserName());
 	  		mapbody.add("password", user.getPassword());
 	    	mapbody.add("grant_type", "password");
 	
@@ -95,7 +135,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    resultVO.setMensaje(jsonResponse.get("message").toString());
 	    resultVO.setJsonResponse(fields);
 	    
-	    log.info(jsonResponse.get("access_token").toString());
 	    log.info(jsonResponse.get("code").toString());
 	    log.info(jsonResponse.get("message").toString());
 	    log.info(jsonResponse.get("fields").toString());
@@ -105,6 +144,31 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return resultVO;
 	}
 	
+
+	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
+
+	    JSONObject jsonResponse = (JSONObject) response.getBody();
+//	    JSONObject fields = new JSONObject();
+//	    fields.put("fields", jsonResponse.get("fields"));
+	    
+	    
+//	    resultVO.setStatus(jsonResponse.get("status"));
+	    resultVO.setMensaje(jsonResponse.get("message").toString());
+//	    resultVO.setJsonResponse(fields);
+	    
+	    log.info(jsonResponse.toJSONString());
+//	    log.info(jsonResponse.get("access_token").toString());
+//	    log.info(jsonResponse.get("code").toString());
+	    log.info(jsonResponse.get("message").toString());
+//	    log.info(jsonResponse.get("fields").toString());
+//	    log.info(resultVO.getJsonResponse().toJSONString());
+	    
+	    
+		return resultVO;
+	}
+
+	
+
 	 
 	
 }

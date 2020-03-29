@@ -3,6 +3,8 @@ package mx.uniprotec.inicio.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.inicio.entity.ResultVO;
@@ -23,8 +26,8 @@ import mx.uniprotec.inicio.service.ILoginService;
 
 @CrossOrigin(origins = { "*" })
 @Controller
-//@RequestMapping("/")
-public class ControllerInicio {
+@SessionAttributes ("model")
+public class ControllerInicio extends HttpServlet{
 
 	
 	/**
@@ -41,6 +44,12 @@ public class ControllerInicio {
 	@Autowired
 	Usuario usuario;
 	
+//	 @ModelAttribute
+//     public void modeloComun(Model model) {
+//    	 model.addAttribute("requestLoginVO", requestLoginVO);
+//    	 
+//     }
+	
 		@GetMapping("/")
 		public String inicio(Model model) {
 			model.addAttribute("userLogin", new User());
@@ -51,14 +60,19 @@ public class ControllerInicio {
 		 * 
 		 */
 		@PostMapping("/loginInit")
-		public ModelAndView loginInit(@ModelAttribute("userLogin") User user) {
+		public ModelAndView loginInit(@ModelAttribute("userLogin") User user,
+				HttpServletRequest request,
+				HttpServletResponse response) {
+			
 			ModelAndView mav = new ModelAndView();
 			ModelMap model = new ModelMap();
 			log.info(user.toString());
 			
 			HashMap<String, Object> hashUsuario = loginService.login(user);	 
+			
+			
 			model.addAttribute("loginResponse", hashUsuario);
-//			mav.addObject("loginResponse", hashUsuario);
+			 request.getSession().setAttribute("resultVO", hashUsuario.get("resultVO"));
 			mav.setViewName(hashUsuario.get("vista").toString());
 //			request.getSession().setAttribute("loginResponse", hashUsuario);
 			
