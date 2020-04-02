@@ -2,6 +2,8 @@ package mx.uniprotec.application.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,9 @@ import mx.uniprotec.application.entity.Region;
 
 @Service
 public class ClienteServiceImpl implements IClienteService {
+	
+	 private final Logger log = LoggerFactory.getLogger(ClienteServiceImpl.class);
+
 
 	@Autowired
 	private IClienteDao clienteDao;
@@ -39,6 +44,7 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	@Transactional
 	public Cliente save(Cliente cliente) {
+		log.info("save cliente:"+cliente.getNombreCortoCliente());
 		return clienteDao.save(cliente);
 	}
 

@@ -181,11 +181,13 @@ public class CursoRestController {
 
 		try {
 
-//			cursoActual.setApellido(curso.getApellido());
-			cursoActual.setName(curso.getName());
-//			cursoActual.setEmail(curso.getEmail());
-//			cursoActual.setCreateAt(curso.getCreateAt());
-//			cursoActual.setRegion(curso.getRegion());
+
+			cursoActual.setNombreCurso(curso.getNombreCurso());
+			cursoActual.setInstructores(curso.getInstructores());
+			cursoActual.setNotaCurso(curso.getNotaCurso());
+			cursoActual.setUserCreateCurso(curso.getUserCreateCurso());
+			cursoActual.setCreateAtCurso(curso.getCreateAtCurso());
+			cursoActual.setStatusCurso(curso.getStatusCurso());
 
 			cursoUpdated = cursoService.save(cursoActual);
 

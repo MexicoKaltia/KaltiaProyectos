@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Usuario implements Serializable {
 
-	private Long id;
+	private Long idUsuario;
 	private String username;
 	private String password;
 	private Boolean enabled;
@@ -29,12 +29,12 @@ public class Usuario implements Serializable {
 		this.modulos = modulos;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdUsuario(Long id) {
+		this.idUsuario = id;
 	}
 
 	public String getUsername() {
@@ -98,15 +98,15 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
+		return "Usuario [id=" + idUsuario + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", name=" + name + ", apellido=" + apellido + ", email=" + email + ", roles=" + roles + ", modulos="
 				+ modulos + "]";
 	}
 
 	public Usuario(Long id, String username, String password, Boolean enabled, String name, String apellido,
 			String email, List<Role> roles, List<Modulo> modulos) {
-		super();
-		this.id = id;
+		
+		this.idUsuario = id;
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;

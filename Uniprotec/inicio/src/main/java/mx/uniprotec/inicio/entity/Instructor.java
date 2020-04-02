@@ -13,7 +13,7 @@ public class Instructor implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Long idInstructor;
 	private String name;
 	private List<Curso> curso;
 
@@ -26,12 +26,12 @@ public class Instructor implements Serializable {
 		this.curso = curso;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdInstructor() {
+		return idInstructor;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdInstructor(Long id) {
+		this.idInstructor = id;
 	}
 
 	public String getName() {
@@ -44,14 +44,17 @@ public class Instructor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Instructor [id=" + id + ", name=" + name + ", curso=" + curso + "]";
+		return "Instructor [id=" + idInstructor + ", name=" + name + ", curso=" + curso + "]";
 	}
 
 	public Instructor(Long id, String name, List<Curso> curso) {
-		super();
-		this.id = id;
+		this.idInstructor = id;
 		this.name = name;
 		this.curso = curso;
+	}
+	
+	public Instructor(Long id) {
+		this.idInstructor = id;
 	}
 
 

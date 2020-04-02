@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Role implements Serializable{
 
-	private Long id;
+	private Long idRole;
 	private String name;
 	
-	public Long getId() {
-		return id;
+	public Long getIdRole() {
+		return idRole;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdRole(Long id) {
+		this.idRole = id;
 	}
 
 	public String getName() {
@@ -30,12 +30,12 @@ public class Role implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Role [id=" + idRole + ", name=" + name + "]";
 	}
 
 	public Role(Long id, String name) {
 		super();
-		this.id = id;
+		this.idRole = id;
 		this.name = name;
 	}
 

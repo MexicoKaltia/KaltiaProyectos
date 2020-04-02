@@ -9,7 +9,10 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-    <link th:href="@{main.css}" rel="stylesheet">
+        <link th:href="@{main.css}" rel="stylesheet">
+<!--         <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+    
+    <link th:href="@{css/multi-select.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -219,8 +222,8 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>ALTA CLIENTE
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CLIENTE
+                                <div>ALTA CURSO
+                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CURSO
                                     </div>
                                 </div>
                             </div>
@@ -233,74 +236,40 @@
                     -->
                     <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">CLIENTE UNIPROTEC</h5>
-                                <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
+                                <h5 class="card-title">CURSO UNIPROTEC</h5>
+                                <form id="altaCurso" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCurso}"  th:object="${cursoForm}" method="post">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100" th:field="*{nombreCortoCliente}" required>
+                                            <label for="validationCustom01">Nombre Curso</label>
+                                            <input type="text" class="form-control"  id="nombreCurso" name="nombreCurso" placeholder="Capture Nombre Curso" value=""  maxlength="100" th:field="*{nombreCurso}" required>
                                             <div class="invalid-feedback">
-                                                Capturar Nombre Corto
+                                                Capturar Nombre Curso
                                             </div>
                                         </div>
                                      </div>
-                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Nombre Completo</label>
-                                            <input type="text" class="form-control" th:field="*{nombreCompletoCliente}" id="nombreCompletoCliente" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
+                                            <label for="validationCustom02">Instructores participantes</label>
+                                            <select id='custom-headers' multiple='multiple' th:field="*{listInstructorCurso}" name="listInstructorCurso" class="form-control searchable">
+											  <option value='1' selected>elem 1</option>
+											  <option value='2'>elem 2</option>
+											  <option value='3'>elem 3</option>
+											  <option value='4' selected>elem 4</option>
+											  <option value='100'>elem 100</option>
+											</select>
                                             <div class="invalid-feedback">
-                                                Capturar Nombre Completo
+                                                Capturar por lo menos un instructor
                                             </div>
                                         </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Telefono</label>
-                                            <input type="number" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="50" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Telefono Valido
-                                            </div>
-                                        </div>
-                                      </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">RFC</label>
-                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" maxlength="14" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre RFC Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Sede</label>
-                           				     <select id="regionIdCliente" th:field="*{regionIdCliente}" name="empresaModelo" class="form-control" default="" >
-	                								<option value="1">Queretaro</option>
-	                								<option value="2">Guanajuato</option>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
-                                        </div>
-                                      </div>
                                   <div class="form-row">
-                                      <label class=" control-label" for="textarea">Direccion</label>
+                                      <label class=" control-label" for="textarea">Notas Curso</label>
 								            <div class="">                     
-								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="3" cols="150" required></textarea>
+								              <textarea class="form-control" th:field="*{notaCurso}" id="notaCurso" rows="3" cols="150" ></textarea>
 								            </div>
-							              <div class="invalid-feedback">
-                                                Capturar Domicilio Valido
-                                            </div>
-							         </div>
+							       </div>
                                         
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Agregar Cliente</button>
+                                    <button class="btn btn-primary" type="submit">Agregar Curso</button>
                                 </form>
             
                                 <script>
@@ -322,6 +291,9 @@
                                             });
                                         }, false);
                                     })();
+                                    
+                                    
+                                 
                                 </script>
                             </div>
                         </div>
@@ -375,8 +347,50 @@
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
-    <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript" th:src="@{js/main.js}"></script>
+<!-- 	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js}"></script> -->
+  	<!-- Bootstrap JavaScript -->
+<!--   	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js}"></script> -->
+    
+    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
+    <script>
+    $('.searchable').multiSelect({
+  	  selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='try \"12\"'>",
+  	  selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='try \"4\"'>",
+  	  afterInit: function(ms){
+  	    var that = this,
+  	        $selectableSearch = that.$selectableUl.prev(),
+  	        $selectionSearch = that.$selectionUl.prev(),
+  	        selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+  	        selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+  	    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+  	    .on('keydown', function(e){
+  	      if (e.which === 40){
+  	        that.$selectableUl.focus();
+  	        return false;
+  	      }
+  	    });
+
+  	    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+  	    .on('keydown', function(e){
+  	      if (e.which == 40){
+  	        that.$selectionUl.focus();
+  	        return false;
+  	      }
+  	    });
+  	  },
+  	  afterSelect: function(){
+  	    this.qs1.cache();
+  	    this.qs2.cache();
+  	  },
+  	  afterDeselect: function(){
+  	    this.qs1.cache();
+  	    this.qs2.cache();
+  	  }
+  	});
+
+    </script>
 </body>
 
 </html>

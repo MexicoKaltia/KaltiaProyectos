@@ -168,18 +168,18 @@
                                     CONTROL
                                 </a>
                             </li>
-                             <li class="app-sidebar__heading">MODULOS</li>
+                            <li class="app-sidebar__heading">ADMINISTRACION</li>
                             <li th:each= "modulo : ${model.getJsonResponse().fields.user.modules}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
-                                    <span th:text="${modulo.nombreModulo}"></span>
+                                    <span th:text="${modulo.name}"></span>
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li th:each= "submodulo : ${modulo.submodules}">
-                                        <a th:href="${submodulo.referenciaSubmodulo}">
+                                        <a th:href="${submodulo.referencia}">
                                             <i class="metismenu-icon"></i>
-                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+                                            <span th:text="${submodulo.name}"></span>
                                         </a>
                                     </li>
                                 </ul>

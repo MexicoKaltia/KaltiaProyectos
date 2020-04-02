@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.inicio.entity.Cliente;
+import mx.uniprotec.inicio.entity.Curso;
 import mx.uniprotec.inicio.entity.ResultVO;
 import mx.uniprotec.inicio.entity.User;
 import mx.uniprotec.inicio.entity.Usuario;
@@ -32,7 +33,7 @@ import mx.uniprotec.inicio.service.IUsuarioService;
 @SessionAttributes ("model")
 public class ControllerCrud extends HttpServlet {
 	
-/**
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -102,6 +103,51 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		}
 				
 		
+
+	/*
+	 * CRUD CURSO
+	 * 
+	 */
+	@GetMapping("/ACurso")
+	public ModelAndView acurso(ModelMap model,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		model.addAttribute("cursoForm", new Curso());
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("ACurso model Activo");
+			ResultVO resultVO= (ResultVO) request.getSession().getAttribute("resultVO");
+			log.info(resultVO.toString());
+			return new  ModelAndView("ACurso", "model", resultVO);	
+		}		
+		
+	}
+//	
+	@PostMapping("/altaCurso")
+	public ModelAndView altaCurso(@ModelAttribute("cursoForm") Curso curso) {
+
+		log.info("metodo de alta Curso");
+		log.info(resultVO.toString());
+		resultVO  = cursoService.altaCurso(curso);
+		ModelAndView mav = new ModelAndView("ACurso" );
+		return mav;
+	}
 	
+	@GetMapping("/BCurso")
+	public ModelAndView bcurso(ModelMap model,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("index");
+		
+		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
+		log.info(jsonLogin.toJSONString());
+
+		return mav;
+		}
+
 
 }

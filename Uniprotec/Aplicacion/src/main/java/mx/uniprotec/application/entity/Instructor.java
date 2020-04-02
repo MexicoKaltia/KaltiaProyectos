@@ -29,12 +29,12 @@ public class Instructor implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long idInstructor;
 	
 	@NotEmpty(message ="no puede estar vacio")
 	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
 	@Column(nullable=false)
-	private String name;
+	private String nombreInstructor;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="instructores_cursos", joinColumns= @JoinColumn(name="instructor_id"),
@@ -51,21 +51,22 @@ public class Instructor implements Serializable {
 		this.curso = curso;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdInstructor() {
+		return idInstructor;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdInstructor(Long id) {
+		this.idInstructor = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombreInstructor() {
+		return nombreInstructor;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombreInstructor(String nombreInstructor) {
+		this.nombreInstructor = nombreInstructor;
 	}
 
+	
 	
 }

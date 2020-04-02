@@ -14,17 +14,17 @@ public class Modulo implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Long idModulo;
 	private String name;
 	private List<SubModulo> submodules;
 	    
 
-	public Long getId() {
-		return id;
+	public Long getIdModulo() {
+		return idModulo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdModulo(Long id) {
+		this.idModulo = id;
 	}
 
 	public String getName() {
@@ -45,12 +45,12 @@ public class Modulo implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Modulo [id=" + id + ", name=" + name + ", submodules=" + submodules + "]";
+		return "Modulo [id=" + idModulo + ", name=" + name + ", submodules=" + submodules + "]";
 	}
 
 	public Modulo(Long id, String name, List<SubModulo> submodules) {
 		super();
-		this.id = id;
+		this.idModulo = id;
 		this.name = name;
 		this.submodules = submodules;
 	}

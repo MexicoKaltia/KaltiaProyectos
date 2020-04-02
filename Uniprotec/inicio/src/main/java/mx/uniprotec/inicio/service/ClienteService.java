@@ -1,16 +1,19 @@
 package mx.uniprotec.inicio.service;
 
-import org.json.simple.JSONObject;
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.uniprotec.inicio.controller.ControllerCrud;
 import mx.uniprotec.inicio.entity.Cliente;
 import mx.uniprotec.inicio.entity.LoginSingle;
+import mx.uniprotec.inicio.entity.MonitorEntidades;
+import mx.uniprotec.inicio.entity.Region;
 import mx.uniprotec.inicio.entity.ResultVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
+import mx.uniprotec.inicio.util.ComponenteComun;
 
 
 @Service
@@ -20,32 +23,36 @@ public class ClienteService implements IClienteService {
 	
 	@Autowired
 	Cliente cliente;
+//	@Autowired
+//	Region region;
 	@Autowired
 	ResultVO resultVO;
 	@Autowired
 	BaseClientRest baseClientRest;
+	@Autowired
+	MonitorEntidades me;
 
 
 	@Override
-	public ResultVO altaCliente(Cliente clienteC) {
-//		log.info(cliente.toString());
+	public ResultVO altaCliente(Cliente cliente) {
+		log.info(cliente.toString());
 		log.info(LoginSingle.getToken());
-		JSONObject cliente = new JSONObject();
-		JSONObject region = new JSONObject();
+
+		LocalDateTime now = LocalDateTime.now();
+		Region region = new Region(Long.parseLong(cliente.getRegionIdCliente().toString()));
 		
-		region.put("id", 1);
-		region.put("name", "prueba1region");
+
 		
-		cliente.put("id", null);
-		cliente.put("name", "prueba1");
-		cliente.put("apellido", "prueba1");
-		cliente.put("email", "prueba1@prueba.com");
-		cliente.put("createAt", "2020-03-28");
-		cliente.put("region", region);
-		log.info(cliente.toJSONString());
+		me = ComponenteComun.monitorCampos();
+		cliente.setCreateAtCliente(me.getNowEntidad());
+		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
+		cliente.setStatusCliente(me.getStatusEntidad());
+		cliente.setCreateAtCliente(now);
+		cliente.setRegionCliente(region);
+		log.info(cliente.toString());
 		
-		resultVO = (ResultVO) baseClientRest.altaObjeto(LoginSingle.getToken(),
-				BaseClientRest.POST,
+		resultVO = (ResultVO) baseClientRest.objetoPost(
+				LoginSingle.getToken(),
 				BaseClientRest.URL_CRUD_CLIENTE,
 				cliente);
 		

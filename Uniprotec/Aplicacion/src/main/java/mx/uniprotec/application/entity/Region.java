@@ -14,26 +14,27 @@ public class Region implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idRegion;
 
-	private String name;
+	private String nombreRegion;
 
-	public Long getId() {
-		return id;
+	public String getNombreRegion() {
+		return nombreRegion;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setNombreRegion(String nombreRegion) {
+		this.nombreRegion = nombreRegion;
 	}
 
-	public String getName() {
-		return name;
+	public Long getIdRegion() {
+		return idRegion;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setIdRegion(Long id) {
+		this.idRegion = id;
 	}
 
+	
 	private static final long serialVersionUID = 1L;
 
 }

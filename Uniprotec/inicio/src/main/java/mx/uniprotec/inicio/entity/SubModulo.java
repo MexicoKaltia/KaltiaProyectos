@@ -12,7 +12,7 @@ public class SubModulo implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Long idSubmodulo;
 	private String name;
 
 	    public SubModulo(String name) {
@@ -23,12 +23,12 @@ public class SubModulo implements Serializable{
 			// TODO Auto-generated constructor stub
 		}
 
-		public Long getId() {
-			return id;
+		public Long getIdSubmodulo() {
+			return idSubmodulo;
 		}
 
-		public void setId(Long id) {
-			this.id = id;
+		public void setIdSubmodulo(Long id) {
+			this.idSubmodulo = id;
 		}
 
 		public String getName() {
@@ -41,12 +41,12 @@ public class SubModulo implements Serializable{
 
 		@Override
 		public String toString() {
-			return "SubModulo [id=" + id + ", name=" + name + "]";
+			return "SubModulo [id=" + idSubmodulo + ", name=" + name + "]";
 		}
 
 		public SubModulo(Long id, String name) {
 			super();
-			this.id = id;
+			this.idSubmodulo = id;
 			this.name = name;
 		}
 

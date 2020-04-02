@@ -7,17 +7,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Region implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
-	private Long id;
-
+	private Long idRegion;
 	private String name;
 
-	public Long getId() {
-		return id;
+	public Long getIdRegion() {
+		return idRegion;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdRegion(Long id) {
+		this.idRegion = id;
 	}
 
 	public String getName() {
@@ -28,17 +29,20 @@ public class Region implements Serializable {
 		this.name = name;
 	}
 
-	private static final long serialVersionUID = 1L;
+	
 
 	@Override
 	public String toString() {
-		return "Region [id=" + id + ", name=" + name + "]";
+		return "Region [id=" + idRegion + ", name=" + name + "]";
 	}
 
 	public Region(Long id, String name) {
-		super();
-		this.id = id;
+		this.idRegion = id;
 		this.name = name;
+	}
+	
+	public Region(Long id) {
+		this.idRegion = id;
 	}
 	
 	public Region() {}

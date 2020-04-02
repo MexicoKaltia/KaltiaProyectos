@@ -35,11 +35,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	static final String URL_POST_LOGIN 			  =	"http://localhost:8016/oauth/token";
+	static final String URL_POST_LOGIN 			      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-	
-	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
 	public static final String URL_CRUD_CURSO		  =	"curso";
@@ -63,9 +63,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	
 
 	@Override
-	public Object altaObjeto(String token, String post2, String urlCrudCliente, JSONObject cliente) {
+	public Object objetoPost(String token, String urlCrudCliente, Object objeto) {
 		
-		resultVO = getTemplateObjeto(token, post2, urlCrudCliente, cliente);
+		resultVO = getTemplateObjetoPost(token, urlCrudCliente, objeto);
 		return resultVO;
 	}
 	
@@ -78,7 +78,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	 */
 	
 
-	private ResultVO getTemplateObjeto(String token, String post, String urlCrudCliente, JSONObject cliente) {
+	private ResultVO getTemplateObjetoPost(String token,  String urlCrudCliente, Object object) {
 		
 		log.info(URL_CRUD+urlCrudCliente);
 		
@@ -86,7 +86,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
    	     headers.add("Authorization", "Bearer " + token);
    	     
-   	    HttpEntity<?> entity = new HttpEntity<>(cliente, headers);
+   	    HttpEntity<?> entity = new HttpEntity<>(object, headers);
 	    RestTemplate restTemplate = new RestTemplate();
 	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrudCliente, HttpMethod.POST, entity, JSONObject.class);
 	    

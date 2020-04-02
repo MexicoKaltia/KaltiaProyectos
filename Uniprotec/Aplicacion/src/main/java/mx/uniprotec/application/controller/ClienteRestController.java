@@ -47,6 +47,9 @@ import mx.uniprotec.application.util.UtilController;
 @RequestMapping("/crud")
 public class ClienteRestController {
 	
+	 private final Logger log = LoggerFactory.getLogger(ClienteRestController.class);
+
+	
 	@Autowired
 	private ResponseGeneral rg;
 
@@ -56,7 +59,6 @@ public class ClienteRestController {
 	@Autowired
 	private IUploadFileService uploadService;
 	
-	 private final Logger log = LoggerFactory.getLogger(ClienteRestController.class);
 
 	 /*
 	  * 
@@ -114,6 +116,8 @@ public class ClienteRestController {
 	@PostMapping("/cliente")
 	public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
 		
+		log.info("PostCliente:"+cliente.getNombreCortoCliente());
+		
 		HttpStatus status ;
 		Cliente clienteNew = null;
 		Map<String, Object> response = new HashMap<>();
@@ -132,6 +136,11 @@ public class ClienteRestController {
 		
 		try {
 			clienteNew = clienteService.save(cliente);
+			response.put("mensaje", "El cliente ha sido creado con éxito!");
+			response.put("cliente", clienteNew);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			status = HttpStatus.CREATED;
+			
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -139,10 +148,7 @@ public class ClienteRestController {
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El cliente ha sido creado con éxito!");
-		response.put("cliente", clienteNew);
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
+		log.info("PostClienteStatus:"+status);
 		return UtilController.responseGeneric(cliente, "cliente", status);
 	}
 	
@@ -181,11 +187,15 @@ public class ClienteRestController {
 
 		try {
 
-//			clienteActual.setApellido(cliente.getApellido());
-			clienteActual.setName(cliente.getName());
-//			clienteActual.setEmail(cliente.getEmail());
-//			clienteActual.setCreateAt(cliente.getCreateAt());
-//			clienteActual.setRegion(cliente.getRegion());
+			clienteActual.setNombreCortoCliente(cliente.getNombreCortoCliente());
+			clienteActual.setNombreCompletoCliente(cliente.getNombreCompletoCliente());
+			clienteActual.setRfcCliente(cliente.getRfcCliente());
+			clienteActual.setRegionCliente(cliente.getRegionCliente());
+			clienteActual.setCreateAtCliente(cliente.getCreateAtCliente());
+			clienteActual.setEmailCliente(cliente.getEmailCliente());
+			clienteActual.setTelefonoCliente(cliente.getTelefonoCliente());
+			clienteActual.setDomicilioCliente(cliente.getDomicilioCliente());
+			
 
 			clienteUpdated = clienteService.save(clienteActual);
 

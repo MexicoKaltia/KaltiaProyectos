@@ -41,9 +41,9 @@ public class Modulo implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long idModulo;
 	
-	private String name;
+	private String nombreModulo;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="modulos_submodulos", joinColumns= @JoinColumn(name="modulo_id"),
@@ -62,22 +62,22 @@ public class Modulo implements Serializable{
 	    
 	public Modulo() {}
 
-	public Long getId() {
-		return id;
+	public Long getIdModulo() {
+		return idModulo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdModulo(Long idModulo) {
+		this.idModulo = idModulo;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombreModulo() {
+		return nombreModulo;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombreModulo(String nombreModulo) {
+		this.nombreModulo = nombreModulo;
 	}
-	
+
 	public List<SubModulo> getSubmodules() {
 		return submodules;
 	}
@@ -86,14 +86,6 @@ public class Modulo implements Serializable{
 		this.submodules = submodules;
 	}
 
-//	public Set<Modulos_SubModulos> getModulos_submodulos() {
-//		return modulos_submodulos;
-//	}
-//
-//	public void setModulos_submodulos(Set<Modulos_SubModulos> modulos_submodulos) {
-//		this.modulos_submodulos = modulos_submodulos;
-//	}
 		
-	
 	
 }

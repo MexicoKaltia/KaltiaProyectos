@@ -8,6 +8,6 @@ import mx.uniprotec.inicio.entity.User;
 public interface IBaseClientRest {
 	
 	public Object login(User user);
-	public Object altaObjeto(String token, String post2, String urlCrudCliente, JSONObject cliente);
+	public Object objetoPost(String token, String urlCrudCliente, Object cliente);
 
 }

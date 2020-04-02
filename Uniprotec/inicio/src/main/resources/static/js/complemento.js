@@ -4,6 +4,9 @@ const CRUD = 'crud/';
 const USERNAME = 'angularapp';
 const PASSWORD = '12345';
 
+/*
+ * REST
+ */
 	$('#loginButon').click(function(){
 		console.log($('#username').val());
 	     
@@ -64,3 +67,21 @@ $('#CursoAlta').click(function(){
           }
         });
 });
+
+
+
+
+
+
+
+
+
+
+/*
+ *  FUNCIONES PLUGINS
+ *  
+ */
+
+
+
+

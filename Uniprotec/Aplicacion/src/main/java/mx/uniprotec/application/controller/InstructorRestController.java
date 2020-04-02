@@ -182,7 +182,7 @@ public class InstructorRestController {
 		try {
 
 //			instructorActual.setApellido(instructor.getApellido());
-			instructorActual.setName(instructor.getName());
+			instructorActual.setNombreInstructor(instructor.getNombreInstructor());
 //			instructorActual.setEmail(instructor.getEmail());
 //			instructorActual.setCreateAt(instructor.getCreateAt());
 //			instructorActual.setRegion(instructor.getRegion());

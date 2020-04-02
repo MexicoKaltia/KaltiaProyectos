@@ -26,63 +26,55 @@ public class SubModulo implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long idSubmodulo;
 
 	
 	@Column
-	private String name;
+	private String nombreSubmodulo;
 	
 
 	@Column
-	private String referencia;
+	private String referenciaSubmodulo;
 	
 	@Column
 	private String idModulo;
-	
 
-//	 @OneToMany(mappedBy = "submodulo", cascade = CascadeType.ALL)
-//	    private Set<Modulos_SubModulos> modulos_submodulos = new HashSet<>();
+	public Long getIdSubmodulo() {
+		return idSubmodulo;
+	}
 
-	    public String getIdModulo() {
+	public void setIdSubmodulo(Long idSubmodulo) {
+		this.idSubmodulo = idSubmodulo;
+	}
+
+	public String getNombreSubmodulo() {
+		return nombreSubmodulo;
+	}
+
+	public void setNombreSubmodulo(String nombreSubmodulo) {
+		this.nombreSubmodulo = nombreSubmodulo;
+	}
+
+	public String getReferenciaSubmodulo() {
+		return referenciaSubmodulo;
+	}
+
+	public void setReferenciaSubmodulo(String referenciaSubmodulo) {
+		this.referenciaSubmodulo = referenciaSubmodulo;
+	}
+
+	public String getIdModulo() {
 		return idModulo;
 	}
 
 	public void setIdModulo(String idModulo) {
 		this.idModulo = idModulo;
 	}
+	
 
-		public String getReferencia() {
-		return referencia;
-	}
+//	 @OneToMany(mappedBy = "submodulo", cascade = CascadeType.ALL)
+//	    private Set<Modulos_SubModulos> modulos_submodulos = new HashSet<>();
 
-	public void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
-
-		public SubModulo(String name) {
-	        this.name = name;
-	    }
 	    
-	    public SubModulo() {
-			// TODO Auto-generated constructor stub
-		}
-
-		public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-
 	
 }

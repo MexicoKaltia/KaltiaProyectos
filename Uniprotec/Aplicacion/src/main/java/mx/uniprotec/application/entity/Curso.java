@@ -1,6 +1,7 @@
 package mx.uniprotec.application.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,10 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="cursos")
@@ -29,37 +35,87 @@ public class Curso implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long idCurso;
 	
-	@NotEmpty(message ="no puede estar vacio")
+	@NotEmpty(message ="nombreCurso no puede estar vacio")
 	@Size(min=4, max=220, message="el tamaño tiene que estar entre 4 y 220")
 	@Column(nullable=false)
-	private String name;
+	private String nombreCurso;
 
-//	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinTable(name="instructores_cursos", joinColumns= @JoinColumn(name="curso_id"),
-//	inverseJoinColumns=@JoinColumn(name="curso_id"),
-//	uniqueConstraints= {@UniqueConstraint(columnNames= {"instructor_id", "curso_id"})})
-//	private List<SubModulo> submodulos;
-
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="curso_instructor", joinColumns= @JoinColumn(name="curso_id"),
+	inverseJoinColumns=@JoinColumn(name="instructor_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"curso_id", "instructor_id"})})
+	private List<Instructor> instructores;
 	
 	
+	@Column
+	private String notaCurso;
 	
-	public Long getId() {
-		return id;
+	@Column(nullable=false)
+	private Long userCreateCurso;
+	
+	@Column(nullable=false)
+	private LocalDateTime createAtCurso;
+	
+	@Column(nullable=false)
+	private String statusCurso;
+
+	public Long getIdCurso() {
+		return idCurso;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCurso(Long id) {
+		this.idCurso = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombreCurso() {
+		return nombreCurso;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombreCurso(String nombreCurso) {
+		this.nombreCurso = nombreCurso;
 	}
 
+	public List<Instructor> getInstructores() {
+		return instructores;
+	}
 
+	public void setInstructores(List<Instructor> instructores) {
+		this.instructores = instructores;
+	}
+
+	public String getNotaCurso() {
+		return notaCurso;
+	}
+
+	public void setNotaCurso(String notaCurso) {
+		this.notaCurso = notaCurso;
+	}
+
+	public Long getUserCreateCurso() {
+		return userCreateCurso;
+	}
+
+	public void setUserCreateCurso(Long userCreateCurso) {
+		this.userCreateCurso = userCreateCurso;
+	}
+
+	public LocalDateTime getCreateAtCurso() {
+		return createAtCurso;
+	}
+
+	public void setCreateAtCurso(LocalDateTime createAtCurso) {
+		this.createAtCurso = createAtCurso;
+	}
+
+	public String getStatusCurso() {
+		return statusCurso;
+	}
+
+	public void setStatusCurso(String statusCurso) {
+		this.statusCurso = statusCurso;
+	}
+	
+	
 }
