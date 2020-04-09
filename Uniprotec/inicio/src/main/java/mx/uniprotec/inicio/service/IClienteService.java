@@ -1,7 +1,7 @@
 package mx.uniprotec.inicio.service;
 
-import mx.uniprotec.inicio.entity.Cliente;
-import mx.uniprotec.inicio.entity.ResultVO;
+import mx.uniprotec.entidad.modelo.Cliente;
+import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IClienteService {
 	

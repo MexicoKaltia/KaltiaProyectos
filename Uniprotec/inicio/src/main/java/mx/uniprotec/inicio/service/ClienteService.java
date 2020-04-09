@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.uniprotec.inicio.entity.Cliente;
-import mx.uniprotec.inicio.entity.LoginSingle;
-import mx.uniprotec.inicio.entity.MonitorEntidades;
-import mx.uniprotec.inicio.entity.Region;
-import mx.uniprotec.inicio.entity.ResultVO;
+import mx.uniprotec.entidad.modelo.Cliente;
+import mx.uniprotec.entidad.modelo.LoginSingle;
+import mx.uniprotec.entidad.modelo.MonitorEntidades;
+import mx.uniprotec.entidad.modelo.Region;
+import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.ComponenteComun;
 
@@ -21,34 +21,30 @@ public class ClienteService implements IClienteService {
 	
 	private static Logger log = LoggerFactory.getLogger(ClienteService.class);
 	
-	@Autowired
-	Cliente cliente;
 //	@Autowired
-//	Region region;
+	Cliente cliente  = new Cliente();
+//	@Autowired
+	ResultVO resultVO = new ResultVO();
 	@Autowired
-	ResultVO resultVO;
-	@Autowired
-	BaseClientRest baseClientRest;
-	@Autowired
-	MonitorEntidades me;
+	BaseClientRest baseClientRest ;
+//	@Autowired
+	MonitorEntidades me = new MonitorEntidades();
 
 
 	@Override
 	public ResultVO altaCliente(Cliente cliente) {
 		log.info(cliente.toString());
-		log.info(LoginSingle.getToken());
+//		log.info(LoginSingle.getToken());
 
 		LocalDateTime now = LocalDateTime.now();
-		Region region = new Region(Long.parseLong(cliente.getRegionIdCliente().toString()));
-		
-
-		
+		Region region = new Region(cliente.getIdRegionCliente());
+		cliente.setRegionCliente(region);
 		me = ComponenteComun.monitorCampos();
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
 		cliente.setStatusCliente(me.getStatusEntidad());
 		cliente.setCreateAtCliente(now);
-		cliente.setRegionCliente(region);
+
 		log.info(cliente.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(

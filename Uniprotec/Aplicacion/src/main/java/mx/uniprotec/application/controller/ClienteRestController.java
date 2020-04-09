@@ -1,7 +1,6 @@
 package mx.uniprotec.application.controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +13,9 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -36,11 +32,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Cliente;
-import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.IClienteService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
+
+
 
 @CrossOrigin(origins = { "http://localhost:8080" })
 @RestController
@@ -341,7 +338,7 @@ public class ClienteRestController {
 //	}
 //	
 //	@GetMapping("/clientes/page/{page}")
-//	public Page<Cliente> index(@PathVariable Integer page) {
+//	public Page<Cliente> index(@PathVariable Long page) {
 //		Pageable pageable = PageRequest.of(page, 4);
 //		return clienteService.findAll(pageable);
 //	}

@@ -1,7 +1,6 @@
 package mx.uniprotec.application.controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +13,9 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -36,11 +32,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Curso;
-import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.ICursoService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
+import mx.uniprotec.entidad.modelo.CursoModelo;
 
 @CrossOrigin(origins = { "http://localhost:8080" })
 @RestController
@@ -112,7 +108,9 @@ public class CursoRestController {
 	  * 
 	  */
 	@PostMapping("/curso")
-	public ResponseEntity<?> create(@Valid @RequestBody Curso curso, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result) {
+		
+		Curso curso = new Curso();
 		
 		HttpStatus status ;
 		Curso cursoNew = null;
@@ -131,7 +129,13 @@ public class CursoRestController {
 		}
 		
 		try {
-			cursoNew = cursoService.save(curso);
+			log.info(cursoModelo.toString());
+			cursoNew = cursoService.save(cursoModelo);
+			response.put("mensaje", "El curso ha sido creado con éxito!");
+			response.put("curso", cursoNew);
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			status = HttpStatus.CREATED;
+
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -139,11 +143,7 @@ public class CursoRestController {
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El curso ha sido creado con éxito!");
-		response.put("curso", cursoNew);
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(curso, "curso", status);
+		return UtilController.responseGeneric(cursoNew, "curso", status);
 	}
 	
 	
@@ -151,7 +151,7 @@ public class CursoRestController {
 	 * 
 	 */
 	@PutMapping("/curso/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
 		Curso cursoActual = cursoService.findById(id);
@@ -168,40 +168,39 @@ public class CursoRestController {
 					.collect(Collectors.toList());
 			
 			response.put("errors", errors);
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 			status = HttpStatus.BAD_REQUEST;
+			return UtilController.responseGeneric(cursoUpdated, "curso", status);
 		}
 		
 		if (cursoActual == null) {
 			response.put("mensaje", "Error: no se pudo editar, el curso ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			status = HttpStatus.NOT_FOUND;
+			return UtilController.responseGeneric(cursoUpdated, "curso", status);
 		}
 
 		try {
+//			cursoActual.setNombreCurso(cursoModelo.getNombreCurso());
+////			cursoActual.setInstructores(cursoModelo.getListInstructores());
+//			cursoActual.setNotaCurso(cursoModelo.getNotaCurso());
+//			cursoActual.setUserCreateCurso(cursoModelo.getUserCreateCurso());
+//			cursoActual.setCreateAtCurso(cursoModelo.getCreateAtCurso());
+//			cursoActual.setStatusCurso(cursoModelo.getStatusCurso());
 
+			cursoUpdated = cursoService.save(cursoModelo);
+			response.put("mensaje", "El curso ha sido actualizado con éxito!");
+			response.put("curso", cursoUpdated);
+			status = HttpStatus.CREATED;
 
-			cursoActual.setNombreCurso(curso.getNombreCurso());
-			cursoActual.setInstructores(curso.getInstructores());
-			cursoActual.setNotaCurso(curso.getNotaCurso());
-			cursoActual.setUserCreateCurso(curso.getUserCreateCurso());
-			cursoActual.setCreateAtCurso(curso.getCreateAtCurso());
-			cursoActual.setStatusCurso(curso.getStatusCurso());
-
-			cursoUpdated = cursoService.save(cursoActual);
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el curso en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			status = HttpStatus.BAD_REQUEST;
+			return UtilController.responseGeneric(cursoUpdated, "curso", status);
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El curso ha sido actualizado con éxito!");
-		response.put("curso", cursoUpdated);
-
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
 		return UtilController.responseGeneric(cursoUpdated, "curso", status);
 	}
 	
@@ -264,7 +263,7 @@ public class CursoRestController {
 						
 //			curso.setFoto(nombreArchivo);
 			
-			cursoService.save(curso);
+//			cursoService.save(curso);
 			
 			response.put("curso", curso);
 			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
@@ -356,7 +355,7 @@ public class CursoRestController {
 //	}
 //	
 //	@GetMapping("/cursos/page/{page}")
-//	public Page<Curso> index(@PathVariable Integer page) {
+//	public Page<Curso> index(@PathVariable Long page) {
 //		Pageable pageable = PageRequest.of(page, 4);
 //		return cursoService.findAll(pageable);
 //	}

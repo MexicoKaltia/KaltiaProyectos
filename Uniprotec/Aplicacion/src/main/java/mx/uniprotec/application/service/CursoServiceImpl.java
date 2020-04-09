@@ -1,7 +1,10 @@
 package mx.uniprotec.application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.ICursoDao;
 import mx.uniprotec.application.entity.Curso;
-import mx.uniprotec.application.entity.Curso;
+import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.entidad.modelo.CursoModelo;
+
+
 
 @Service
 public class CursoServiceImpl implements ICursoService {
+	private static Logger log = LoggerFactory.getLogger(CursoServiceImpl.class);
+	
+	@Autowired
+	IInstructorService instructorService;
 
 	@Autowired
 	private ICursoDao CursoDao;
@@ -39,8 +49,33 @@ public class CursoServiceImpl implements ICursoService {
 
 	@Override
 	@Transactional
-	public Curso save(Curso Curso) {
-		return CursoDao.save(Curso);
+	public Curso save(CursoModelo curso) {
+
+		Curso cursoEntity = new Curso();
+		
+		try {
+			cursoEntity.setNombreCurso(curso.getNombreCurso());
+			cursoEntity.setNotaCurso(curso.getNotaCurso());
+			cursoEntity.setCreateAtCurso(curso.getCreateAtCurso());
+			cursoEntity.setStatusCurso(curso.getStatusCurso());
+			cursoEntity.setUserCreateCurso(curso.getUserCreateCurso());
+			
+			List<Instructor> allInstructores = instructorService.findAll();
+			for(Long idInstrucotor : curso.getListInstructores()) {
+				for(Instructor instructor : allInstructores) {
+					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
+						cursoEntity.addInstructor(instructor);
+					}
+				}
+			}
+			log.info(cursoEntity.toString());
+			return CursoDao.save(cursoEntity);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	@Override

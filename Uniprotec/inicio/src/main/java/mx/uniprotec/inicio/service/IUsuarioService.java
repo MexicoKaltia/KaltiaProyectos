@@ -1,7 +1,7 @@
 package mx.uniprotec.inicio.service;
 
-import mx.uniprotec.inicio.entity.Usuario;
-import mx.uniprotec.inicio.entity.ResultVO;
+import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.Usuario;
 
 public interface IUsuarioService {
 

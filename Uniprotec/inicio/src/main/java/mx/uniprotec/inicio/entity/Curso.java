@@ -24,7 +24,9 @@ public class Curso implements Serializable {
 	private String statusCurso;
 	
 	
-	
+	public Curso(Long id) {
+		this.idCurso = id;
+	}
 
 
 	public Long getIdCurso() {
@@ -157,7 +159,7 @@ public class Curso implements Serializable {
 
 	public Curso(Long id, String nombreCurso, List<Instructor> listInstructoresCurso, List<Long> listInstructorCurso,
 			String notaCurso, Long userCreateCurso, LocalDateTime createAtCurso, String statusCurso) {
-		super();
+		
 		this.idCurso = id;
 		this.nombreCurso = nombreCurso;
 		this.listInstructoresCurso = listInstructoresCurso;

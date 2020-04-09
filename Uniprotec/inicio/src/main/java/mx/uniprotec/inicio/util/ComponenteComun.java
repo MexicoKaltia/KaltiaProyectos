@@ -2,8 +2,10 @@ package mx.uniprotec.inicio.util;
 
 import java.time.LocalDateTime;
 
-import mx.uniprotec.inicio.entity.LoginSingle;
-import mx.uniprotec.inicio.entity.MonitorEntidades;
+import mx.uniprotec.entidad.modelo.LoginSingle;
+import mx.uniprotec.entidad.modelo.MonitorEntidades;
+
+
 
 public class ComponenteComun {
 	

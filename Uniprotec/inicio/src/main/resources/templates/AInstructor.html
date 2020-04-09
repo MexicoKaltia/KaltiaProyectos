@@ -219,8 +219,8 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>ALTA CLIENTE
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CLIENTE
+                                <div>ALTA INSTRUCTOR
+                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO INSTRUCTOR
                                     </div>
                                 </div>
                             </div>
@@ -233,53 +233,28 @@
                     -->
                     <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">CLIENTE UNIPROTEC</h5>
-                                <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
+                                <h5 class="card-title">INSTRUCTOR UNIPROTEC</h5>
+                                <form id="altaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaInstructor}"  th:object="${instructorForm}" method="post">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100" th:field="*{nombreCortoCliente}" required>
+                                            <label for="validationCustom01">Nombre Instructor</label>
+                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="100" th:field="*{nombreInstructor}" required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Corto
                                             </div>
                                         </div>
                                      </div>
                                      <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Nombre Completo</label>
-                                            <input type="text" class="form-control" th:field="*{nombreCompletoCliente}" id="nombreCompletoCliente" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Completo
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
+                                            <input type="email" class="form-control" th:field="*{emailInstructor}" id="emailInstructor" placeholder="email" value="" maxlength="100" required>
                                             <div class="invalid-feedback">
                                                 Capturar Email Valido
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Telefono</label>
-                                            <input type="number" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="50" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Telefono Valido
-                                            </div>
-                                        </div>
-                                      </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">RFC</label>
-                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" maxlength="14" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre RFC Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Sede</label>
-                           				     <select id="regionIdCliente" th:field="*{regionIdCliente}" name="empresaModelo" class="form-control" default="" >
+                                            <label for="validationCustom02">Region Origen</label>
+                           				     <select id="regionInstructor" th:field="*{regionInstructor}" name="empresaModelo" class="form-control" default="" >
 	                								<option value="1">Queretaro</option>
 	                								<option value="2">Guanajuato</option>
 	              							</select>
@@ -289,18 +264,30 @@
                                         </div>
                                       </div>
                                   <div class="form-row">
-                                      <label class=" control-label" for="textarea">Direccion</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="3" cols="150" required></textarea>
-								            </div>
-							              <div class="invalid-feedback">
-                                                Capturar Domicilio Valido
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Curso Especialidad</label>
+                                            <select id='custom-headers' multiple='multiple' th:field="*{listCursoInstructor}" name="listCursoInstructor" class="form-control searchable">
+											  <option value='1' selected>elem 1</option>
+											  <option value='2'>elem 2</option>
+											  <option value='3'>elem 3</option>
+											  <option value='4' selected>elem 4</option>
+											  <option value='100'>elem 100</option>
+											</select>
+                                            <div class="invalid-feedback">
+                                                Capturar por lo menos un Curso
                                             </div>
+                                        </div>
+                                   </div>
+                                  <div class="form-row">
+                                      <label class=" control-label" for="textarea">Notas Instructor</label>
+								            <div class="">                     
+								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" ></textarea>
+								            </div>
 							         </div>
                                         
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Agregar Cliente</button>
+                                    <button class="btn btn-primary" type="submit">Agregar Instructor</button>
                                 </form>
             
                                 <script>

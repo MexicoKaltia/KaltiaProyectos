@@ -14,16 +14,16 @@ public class ResultVO implements Serializable{
 	public ResultVO() {}
 	
 	private String accesToken;   				//
-	private Integer codigo;						//
+	private Long codigo;						//
 	private String	mensaje;					//
 	private ArrayList<String> mensajeArray;
 	private String  response;
 	private JSONObject jsonResponse;			//
 	
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 	public String getMensaje() {
@@ -64,7 +64,7 @@ public class ResultVO implements Serializable{
 		return "ResultVO [accesToken=" + accesToken + ", codigo=" + codigo + ", mensaje=" + mensaje + ", mensajeArray="
 				+ mensajeArray + ", response=" + response + ", jsonResponse=" + jsonResponse + "]";
 	}
-	public ResultVO(String accesToken, Integer codigo, String mensaje, ArrayList<String> mensajeArray, String response,
+	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
 			JSONObject jsonResponse) {
 		super();
 		this.accesToken = accesToken;

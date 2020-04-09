@@ -1,9 +1,8 @@
 package mx.uniprotec.inicio.util;
 
-import org.json.simple.JSONObject;
 
-import mx.uniprotec.inicio.entity.Cliente;
-import mx.uniprotec.inicio.entity.User;
+import mx.uniprotec.entidad.modelo.User;
+
 
 public interface IBaseClientRest {
 	

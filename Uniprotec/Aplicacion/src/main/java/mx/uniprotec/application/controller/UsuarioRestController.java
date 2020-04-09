@@ -331,7 +331,7 @@ public class UsuarioRestController {
 //	}
 //	
 //	@GetMapping("/usuarios/page/{page}")
-//	public Page<Usuario> index(@PathVariable Integer page) {
+//	public Page<Usuario> index(@PathVariable Long page) {
 //		Pageable pageable = PageRequest.of(page, 4);
 //		return usuarioService.findAll(pageable);
 //	}

@@ -44,7 +44,7 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	@Transactional
 	public Cliente save(Cliente cliente) {
-		log.info("save cliente:"+cliente.getNombreCortoCliente());
+		log.info("save cliente:"+cliente.toString());
 		return clienteDao.save(cliente);
 	}
 

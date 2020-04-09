@@ -18,11 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import mx.uniprotec.inicio.entity.Cliente;
-import mx.uniprotec.inicio.entity.Curso;
-import mx.uniprotec.inicio.entity.ResultVO;
-import mx.uniprotec.inicio.entity.User;
-import mx.uniprotec.inicio.entity.Usuario;
+import mx.uniprotec.entidad.modelo.Cliente;
+import mx.uniprotec.entidad.modelo.CursoModelo;
+import mx.uniprotec.entidad.modelo.Instructor;
+import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IInstructorService;
@@ -51,8 +50,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@Autowired
 	IUsuarioService usuarioService;
 	
-	@Autowired
-	ResultVO resultVO;
+//	@Autowired
+	ResultVO resultVO = new  ResultVO ();
 	
 	
 	
@@ -81,6 +80,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@PostMapping("/altaCliente")
 	public ModelAndView altaCliente(@ModelAttribute("clienteForm") Cliente cliente) {
 		log.info("metodo de alta Cliente");
+		
 		resultVO  = clienteService.altaCliente(cliente);
 		log.info(resultVO.toString());
 		
@@ -113,7 +113,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		model.addAttribute("cursoForm", new Curso());
+		model.addAttribute("cursoForm", new CursoModelo());
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
@@ -127,7 +127,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 //	
 	@PostMapping("/altaCurso")
-	public ModelAndView altaCurso(@ModelAttribute("cursoForm") Curso curso) {
+	public ModelAndView altaCurso(@ModelAttribute("cursoForm") CursoModelo curso) {
 
 		log.info("metodo de alta Curso");
 		log.info(resultVO.toString());
@@ -149,5 +149,52 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		return mav;
 		}
 
+	
+	/*
+	 * CRUD INSTRUCTOR
+	 * 
+	 */
+	@GetMapping("/AInstructor")
+	public ModelAndView AInstructor(ModelMap model,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		model.addAttribute("instructorForm", new Instructor());
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("AInstructor model Activo");
+			ResultVO resultVO= (ResultVO) request.getSession().getAttribute("resultVO");
+			log.info(resultVO.toString());
+			return new  ModelAndView("AInstructor", "model", resultVO);	
+		}		
+		
+	}
+//	
+	@PostMapping("/altaInstructor")
+	public ModelAndView altaInstructor(@ModelAttribute("instructorForm") Instructor instructor) {
+
+		log.info("metodo de alta Instructor");
+		log.info(resultVO.toString());
+		resultVO  = instructorService.altaInstructor(instructor);
+		ModelAndView mav = new ModelAndView("AInstructor" );
+		return mav;
+	}
+	
+	@GetMapping("/BInstructor")
+	public ModelAndView BInstructor(ModelMap model,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("index");
+		
+		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
+		log.info(jsonLogin.toJSONString());
+
+		return mav;
+		}
+
+	
 
 }

@@ -1,7 +1,7 @@
 package mx.uniprotec.inicio.service;
 
-import mx.uniprotec.inicio.entity.Instructor;
-import mx.uniprotec.inicio.entity.ResultVO;
+import mx.uniprotec.entidad.modelo.Instructor;
+import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IInstructorService {
 

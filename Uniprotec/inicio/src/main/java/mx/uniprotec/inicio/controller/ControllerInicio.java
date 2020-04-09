@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import mx.uniprotec.inicio.entity.ResultVO;
-import mx.uniprotec.inicio.entity.User;
-import mx.uniprotec.inicio.entity.Usuario;
+import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.User;
+import mx.uniprotec.entidad.modelo.Usuario;
 import mx.uniprotec.inicio.service.ILoginService;
 
 @CrossOrigin(origins = { "*" })
@@ -39,10 +39,10 @@ public class ControllerInicio extends HttpServlet{
 	
 	@Autowired
 	ILoginService loginService;
-	@Autowired
-	ResultVO resultVO;
-	@Autowired
-	Usuario usuario;
+//	@Autowired
+	ResultVO resultVO = new ResultVO();
+//	@Autowired
+	Usuario usuario = new Usuario();
 	
 //	 @ModelAttribute
 //     public void modeloComun(Model model) {

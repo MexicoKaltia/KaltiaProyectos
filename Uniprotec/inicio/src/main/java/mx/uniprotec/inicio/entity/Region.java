@@ -11,7 +11,7 @@ public class Region implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long idRegion;
-	private String name;
+	private String nombreRegion;
 
 	public Long getIdRegion() {
 		return idRegion;
@@ -20,25 +20,28 @@ public class Region implements Serializable {
 	public void setIdRegion(Long id) {
 		this.idRegion = id;
 	}
-
-	public String getName() {
-		return name;
+	
+	public String getNombreRegion() {
+		return nombreRegion;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombreRegion(String nombreRegion) {
+		this.nombreRegion = nombreRegion;
 	}
+
+
+	
 
 	
 
 	@Override
 	public String toString() {
-		return "Region [id=" + idRegion + ", name=" + name + "]";
+		return "Region [id=" + idRegion + ", name=" + nombreRegion + "]";
 	}
 
 	public Region(Long id, String name) {
 		this.idRegion = id;
-		this.name = name;
+		this.nombreRegion = name;
 	}
 	
 	public Region(Long id) {
@@ -47,4 +50,5 @@ public class Region implements Serializable {
 	
 	public Region() {}
 
+	
 }

@@ -2,8 +2,10 @@ package mx.uniprotec.inicio.service;
 
 import org.springframework.stereotype.Service;
 
-import mx.uniprotec.inicio.entity.ResultVO;
-import mx.uniprotec.inicio.entity.Usuario;
+import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.Usuario;
+
+
 
 
 @Service

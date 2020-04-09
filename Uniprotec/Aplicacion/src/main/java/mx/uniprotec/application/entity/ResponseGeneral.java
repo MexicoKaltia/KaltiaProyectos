@@ -11,9 +11,9 @@ public class ResponseGeneral {
 		// TODO Auto-generated constructor stub
 	}
 
-	private Integer status;
+	private Long status;
 	private String message;
-	private Integer code;
+	private Long code;
 	
 //	private Usuario usuario;
 //	private Instructor instructor;
@@ -22,10 +22,10 @@ public class ResponseGeneral {
 //	private Map<String, Object> response;
 	
 	
-	public Integer getStatus() {
+	public Long getStatus() {
 		return status;
 	}
-	public void setStatus(Integer status) {
+	public void setStatus(Long status) {
 		this.status = status;
 	}
 	public String getMessage() {
@@ -34,10 +34,10 @@ public class ResponseGeneral {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Integer getCode() {
+	public Long getCode() {
 		return code;
 	}
-	public void setCode(Integer code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 

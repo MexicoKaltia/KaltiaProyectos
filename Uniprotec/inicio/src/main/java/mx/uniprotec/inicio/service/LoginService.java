@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.uniprotec.inicio.entity.LoginSingle;
-import mx.uniprotec.inicio.entity.Modulo;
-import mx.uniprotec.inicio.entity.ResultVO;
-import mx.uniprotec.inicio.entity.SubModulo;
-import mx.uniprotec.inicio.entity.User;
-import mx.uniprotec.inicio.entity.Usuario;
+import mx.uniprotec.entidad.modelo.LoginSingle;
+import mx.uniprotec.entidad.modelo.Modulo;
+import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.SubModulo;
+import mx.uniprotec.entidad.modelo.User;
+import mx.uniprotec.entidad.modelo.Usuario;
 import mx.uniprotec.inicio.util.BaseClientRest;
 
 @Service
@@ -23,12 +23,12 @@ public class LoginService implements ILoginService{
 	
 	@Autowired
 	BaseClientRest baseClientRest;
-	@Autowired
-	Usuario usuario;
-	@Autowired
-	Modulo modulo;
-	@Autowired
-	SubModulo submodulo;
+//	@Autowired
+	Usuario usuario = new Usuario();
+//	@Autowired
+	Modulo modulo = new Modulo();
+//	@Autowired
+	SubModulo submodulo = new SubModulo();
 	
 	
 	private static Logger log = LoggerFactory.getLogger(LoginService.class);
@@ -64,4 +64,7 @@ public class LoginService implements ILoginService{
 		return valoresResponse;
 	}
 
+
+
+	
 }

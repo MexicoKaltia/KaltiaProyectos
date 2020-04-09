@@ -17,15 +17,15 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import mx.uniprotec.inicio.entity.Cliente;
-import mx.uniprotec.inicio.entity.ResultVO;
-import mx.uniprotec.inicio.entity.User;
+import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.User;
+
 
 @Service
 public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClientRest {
 	
-	@Autowired
-	ResultVO resultVO;
+//	@Autowired
+//	ResultVO resultVO;
 	
 	private static Logger log = LoggerFactory.getLogger(BaseClientRest.class);
 	
@@ -52,6 +52,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 //	String APP_ID = "angularapp:12345";
 	
+	ResultVO resultVO = new ResultVO();
 
 	@Override
 	public ResultVO login(User user) {
@@ -63,9 +64,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	
 
 	@Override
-	public Object objetoPost(String token, String urlCrudCliente, Object objeto) {
+	public Object objetoPost(String token, String urlCrud, Object objeto) {
 		
-		resultVO = getTemplateObjetoPost(token, urlCrudCliente, objeto);
+		resultVO = getTemplateObjetoPost(token, urlCrud, objeto);
 		return resultVO;
 	}
 	
@@ -78,9 +79,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	 */
 	
 
-	private ResultVO getTemplateObjetoPost(String token,  String urlCrudCliente, Object object) {
+	private ResultVO getTemplateObjetoPost(String token,  String urlCrud, Object object) {
 		
-		log.info(URL_CRUD+urlCrudCliente);
+		log.info(URL_CRUD+urlCrud);
 		
 		 HttpHeaders headers = new HttpHeaders();
 		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
@@ -88,7 +89,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
    	     
    	    HttpEntity<?> entity = new HttpEntity<>(object, headers);
 	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrudCliente, HttpMethod.POST, entity, JSONObject.class);
+	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.POST, entity, JSONObject.class);
 	    
 	    resultVO = asignaResponseObject(response);
    	     
@@ -113,7 +114,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		    RestTemplate restTemplate = new RestTemplate();
 		    ResponseEntity<JSONObject> response  = restTemplate.exchange(url, HttpMethod.POST, entity, JSONObject.class);
 		    
-		    resultVO = asignaResponse(response);
+		    ResultVO  resultVO = asignaResponse(response);
 	    
 	    }catch(Exception e) {
 	    	resultVO.setMensaje("Fallo conexion RestTemplate");
@@ -131,7 +132,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    fields.put("fields", jsonResponse.get("fields"));
 	    
 	    resultVO.setAccesToken(jsonResponse.get("access_token").toString());
-	    resultVO.setCodigo(Integer.valueOf(jsonResponse.get("code").toString()));
+	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
 	    resultVO.setMensaje(jsonResponse.get("message").toString());
 	    resultVO.setJsonResponse(fields);
 	    
@@ -148,21 +149,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();
-//	    JSONObject fields = new JSONObject();
-//	    fields.put("fields", jsonResponse.get("fields"));
-	    
-	    
-//	    resultVO.setStatus(jsonResponse.get("status"));
 	    resultVO.setMensaje(jsonResponse.get("message").toString());
-//	    resultVO.setJsonResponse(fields);
 	    
 	    log.info(jsonResponse.toJSONString());
-//	    log.info(jsonResponse.get("access_token").toString());
-//	    log.info(jsonResponse.get("code").toString());
 	    log.info(jsonResponse.get("message").toString());
-//	    log.info(jsonResponse.get("fields").toString());
-//	    log.info(resultVO.getJsonResponse().toJSONString());
-	    
 	    
 		return resultVO;
 	}
