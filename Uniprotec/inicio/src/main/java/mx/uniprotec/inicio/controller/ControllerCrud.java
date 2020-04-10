@@ -93,8 +93,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	public ModelAndView bcliente(ModelMap model,
 			HttpServletRequest request,
 			HttpServletResponse response) {
-		
-		ModelAndView mav = new ModelAndView("index");
+		model.addAttribute("cliente", clienteService.)
+		ModelAndView mav = new ModelAndView("BCliente");
 		
 		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
 		log.info(jsonLogin.toJSONString());
@@ -140,6 +140,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	public ModelAndView bcurso(ModelMap model,
 			HttpServletRequest request,
 			HttpServletResponse response) {
+		
 		
 		ModelAndView mav = new ModelAndView("index");
 		

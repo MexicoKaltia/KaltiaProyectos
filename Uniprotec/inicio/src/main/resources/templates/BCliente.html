@@ -9,9 +9,8 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-        
-        <link th:href="@{css/multi-select.css}" rel="stylesheet">
-        <link th:href="@{main.css}" rel="stylesheet">
+	    <link th:href="@{main.css}" rel="stylesheet">
+	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
 </head>
 
 <body>
@@ -171,7 +170,7 @@
                                 </a>
                             </li>
                              <li class="app-sidebar__heading">MODULOS</li>
-                            <li th:each= "modulo : ${model.getJsonResponse().fields.user.modules}">
+                             <li th:each= "modulo : ${model.loginResponse.jsonResponse.fields.user.modules}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
                                     <span th:text="${modulo.nombreModulo}"></span>
@@ -210,155 +209,223 @@
                         </ul>
                     </div>
                 </div>  
-            </div> 
+            </div>
 
-             <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
-                                    </i>
-                                </div>
-                                <div>ALTA CURSO
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CURSO
-                                    </div>
-                                </div>
-                            </div>
+			<div class="app-main__outer">
+				<div class="app-main__inner">
+					<div class="app-page-title">
+						<div class="page-title-wrapper">
+							<div class="page-title-heading">
+								<div class="page-title-icon">
+									<i class="pe-7s-news-paper icon-gradient bg-mean-fruit"> </i>
+								</div>
+								<div>
+									EDICION y CONSULTA CLIENTES
+									<div class="page-title-subheading">TABLA DE CONSULTA
+										CLIENTES</div>
+								</div>
+							</div>
 
-                        </div>
-                    </div>
-                    
-                    <!--  
+						</div>
+					</div>
+
+					<!--  
                     	SECCION DE EDICION  
                     -->
-                    <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">CURSO UNIPROTEC</h5>
-                                <form id="altaCurso" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCurso}"  th:object="${cursoForm}" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Curso</label>
-                                            <input type="text" class="form-control"  id="nombreCurso" name="nombreCurso" placeholder="Capture Nombre Curso" value=""  maxlength="100" th:field="*{nombreCurso}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Curso
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Instructores participantes</label>
-                                            <select id='multiSelectCurso' multiple='multiple' th:field="*{listInstructores}" name="listInstructores" class="form-control" required>
-											  <option value='1' selected>elem 1</option>
-											  <option value='2'>elem 2</option>
-											  <option value='3'>elem 3</option>
-											  <option value='4' selected>elem 4</option>
-											  <option value='100'>elem 100</option>
-											</select>
-                                            <div class="invalid-feedback">
-                                                Capturar por lo menos un instructor
-                                            </div>
-                                        </div>
-                                   </div>
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Notas Curso</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaCurso}" id="notaCurso" rows="3" cols="150" ></textarea>
-								            </div>
-							       </div>
-                                        
-                                <br>
-                                    
-                                    <button class="btn btn-primary" type="submit">Agregar Curso</button>
-                                </form>
-            
-                                <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                    
-                                    
-                                 
-                                </script>
-                            </div>
-                        </div>
-                                              
-                        <!-- 
-                        	FIN DE SECCION DE EDICION 
-                        -->
+					<!-- 
+                     			iNICIO DE SECCION TABLA
+                  			-->
+					<div class="form-row">
+						<div class="col-md-12 mb-3">
+							<div class="main-card mb-3 card">
+								<div class="card-body">
+									<h5 class="card-title">CLIENTES UNIPROTEC</h5>
 
-                                       <!-- Footer-->
-                                       <div class="app-wrapper-footer">
-                                        <div class="app-footer">
-                                            <div class="app-footer__inner">
-                                                <div class="app-footer-left">
-                                                    <ul class="nav">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 1
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 2
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="app-footer-right">
-                                                    <ul class="nav">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 3
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>NEW</small>
-                                                                </div>
-                                                                Footer Link 4
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                         </div>
-                                     </div>
-                                    
-                                <!-- Fin Footer-->
-                
-            </div>  <!--  app-main__inner -->
+									<table id='clienteTable' class="mb-0 table table-striped"
+										data-locale="es-MX" 
+										data-toggle='table' 
+										data-height='460'
+										data-sort-name='statusRegistro' 
+										data-sort-order='asc'
+										data-pagination='true'
+										data-page-list='[10, 25, 50, 100, 200, Todos]'
+										data-search='true' 
+										data-click-to-select='true'
+										data-checkbox-header="false">
+										<thead class='thead-dark'>
+											<tr>
+												<th data-width="50" data-width-unit="%" data-halign="center"
+													data-align="left" data-field='nombreRegistro'
+													data-sortable='true'>Nombre Corto</th>
+												<th data-width="10" data-width-unit="%" data-halign="center"
+													data-align="center" data-field='statusRegistro'
+													data-sortable='true'>Status</th>
+												<th data-width="20" data-width-unit="%" data-halign="center"
+													data-align="center" data-field="operateUpdate"
+													data-formatter="operateFormatterUpdate"
+													data-events="window.operateEventsUpdate">Detalle</th>
+												<th data-width="20" data-width-unit="%" data-halign="center"
+													data-align="center" data-field="operateDelete"
+													data-formatter="operateFormatterDelete"
+													data-events="operateEventsDelete">Edicion</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													Nombre corto1
+												</td>
+												<td>
+													Status
+												</td>
+												<td>
+													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
+												</td>
+												<td>
+													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Nombre corto2
+												</td>
+												<td>
+													Status
+												</td>
+												<td>
+													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
+												</td>
+												<td>
+													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Nombre corto3
+												</td>
+												<td>
+													Status
+												</td>
+												<td>
+													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
+												</td>
+												<td>
+													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
+												</td>
+											</tr>	
+											
+										</tbody>
+										
+									</table>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 
+                     			FIN DE SECCION TABLA
+                  			-->
+					<div class="form-row">
+						<div class="col-md-12 mb-3">
+							<!-- START -->
+
+
+
+
+
+							<!-- END -->
+						</div>
+					</div>
+				</div>
+
+				<!-- 
+                     FIN DE SECCION DE EDICION 
+                  -->
+
+				<!-- Footer-->
+				<div class="app-wrapper-footer">
+					<div class="app-footer">
+						<div class="app-footer__inner">
+							<div class="app-footer-left">
+								<ul class="nav">
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link"> Footer Link 1 </a></li>
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link"> Footer Link 2 </a></li>
+								</ul>
+							</div>
+							<div class="app-footer-right">
+								<ul class="nav">
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link"> Footer Link 3 </a></li>
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link">
+											<div class="badge badge-success mr-1 ml-0">
+												<small>NEW</small>
+											</div> Footer Link 4
+									</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Fin Footer-->
+
+			</div>
+			<!--  app-main__inner -->
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
+
+<!--  -->
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="text" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <p>Not a member? <a href="#">Sign Up</a></p>
+          <p>Forgot <a href="#">Password?</a></p>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+
+
 	
-	<script type="text/javascript" th:src="@{js/main.js}"></script>
-	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
-    <script type="text/javascript">
-  // run pre selected options
-  $('#multiSelectCurso').multiSelect();
-  </script>
+    <script th:src="@{js/bootstrap-table.min.js}"></script>
+    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
     
-    
+    <script type="text/javascript" th:src="@{js/complemento.js}"></script>
+
+
 </body>
 
 </html>

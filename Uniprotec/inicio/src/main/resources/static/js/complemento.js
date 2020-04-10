@@ -1,87 +1,318 @@
-const URL = "http://31.220.63.183:8014/";
-const CONT = 'oauth/token';
-const CRUD = 'crud/';
-const USERNAME = 'angularapp';
-const PASSWORD = '12345';
-
-/*
- * REST
+/**
+ * Archivo de control JS para la pagina de Modulo 
  */
-	$('#loginButon').click(function(){
-		console.log($('#username').val());
-	     
-        registroJson = { 
-            "username": $('#username').val(),
-			"password": $('#password').val()
-        }
-        console.log(registroJson);
 
-    $.ajax({
-          'url': URL + CONT,
-          dataType: 'json',
-          type: 'POST',
-          contentType: "application/json",
-          data: JSON.stringify(registroJson),
-          headers: {  'Access-Control-Allow-Origin': URL, 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'X-PINGOTHER',
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
-          },
-          crossDomain: false,
-          success: 	function(data){					  
-                //   avisaAlerta(data);
-                  console.log(data);
-            },
-          error: function(){
-            console.log(data);
-          }
-        });
-		
+	/*
+	 * Acciones de EVENTOS userEmpresaTable
+	 */
+
+	  function operateFormatterUpdate(value, row, index) {
+	    return [
+	      '<a class="like" href="javascript:void(0)" title="Editar" id="UserUpdate" data-toggle="modal" data-target="#modalRegistro">',
+	      '<i class="fa fa-2x fa-pencil-square-o"></i>',
+	      '</a>  '
+	    ].join('')
+	  }
+	  
+	  function operateFormatterDelete(value, row, index) {
+		    return [
+		      '<a class="remove" href="javascript:void(0)" title="Eliminar">',
+		      '<i class="fa fa-2x fa-user-times"></i>',
+		      '</a>'
+		    ].join('')
+		  }
+
+
+	  
+	  
+$(document).ready(function(){
+	
+	/*
+	 * Variables Globales
+	 */
+	var url = "http://31.220.63.183:8016/";
+//	var urlUpload= "http://31.220.63.183:8011/";
+//	var urlCita = "http://31.220.63.183:8012/";
+//	var url = "http://localhost:8010/";
+//	var urlUpload= "http://localhost:8011/";
+//	var urlCita = "http://localhost:8012/";
+	
+	$.idEmpresa = $("#idEmpresa").val();
+	$.action = $("#idAction").val();
+	$.idUserEmpresa ="";
+	$.url2 = url+"readUserEmpresa/"+$.action+"/"+$.idUserEmpresa
+	
+	var $userEmpresa = $(function(){
+		readIdUserEmpresa("0");
 	});
+	
+	/*
+	 * Carga la Tabla inicial
+	 */
+	$( function() {
+//		var $table = $('#userEmpresaTable');
+//		//$('#userEmpresaTable').bootstrapTable('load', $.userEmpresa);
+//		$table.bootstrapTable({data : JSON.stringify(readIdUserEmpresa("0"))})
+//		console.log("function load data option");
+//		$('#userEmpresaTable').bootstrapTable('load', $userEmpresa);
+//		console.log("function load data metodo");
+//		$('#userEmpresaTable').bootstrapTable('refresh');
+//		console.log("function refresh data");
+		
+	} );       
 
-$('#CursoAlta').click(function(){
-    // limpiaAlerta();
-    valoresRegistro = $('#validationCustom01').val();
-     
-        registroJson = { 
-            "name": valoresRegistro
-        }
-        console.log(registroJson);
-
-    $.ajax({
-          'url': URL + CRUD + 'curso',
-          dataType: 'json',
-          type: 'POST',
-          contentType: "application/json",
-          data: JSON.stringify(registroJson),
-          headers: {  'Access-Control-Allow-Origin': URL, 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'X-PINGOTHER',
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoyMDAsInVzZXJfbmFtZSI6ImFkbWluIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU4Mzg4NjgyNiwibWVzc2FnZSI6IkxvZ2luIENvcnJlY3RvIiwiZmllbGRzIjp7InVzZXIiOnsibmFtZSI6IkFkbWluIiwiaWQiOjIsInVzZXIiOiJVbm8iLCJlbWFpbCI6IkFkbWluQHVuby5jb20iLCJtb2R1bGVzIjpbeyJpZCI6MSwibmFtZSI6IkFETUlOSVNUUkFDSU9OIiwic3VibW9kdWxlcyI6W3siaWQiOjQsIm5hbWUiOiJDbGllbnRlcyJ9LHsiaWQiOjUsIm5hbWUiOiJVc3VhcmlvcyJ9LHsiaWQiOjYsIm5hbWUiOiJJbnN0cnVjdG9yZXMifV19LHsiaWQiOjIsIm5hbWUiOiJBR0VOREEiLCJzdWJtb2R1bGVzIjpbeyJpZCI6MSwibmFtZSI6IkFzaWduYWNpw7NuIn0seyJpZCI6MiwibmFtZSI6Ik1vZGlmaWNhY2nDs24ifV19XX19LCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImYwNWFmYmIyLTgyMzktNGEyYS1iMDI2LWQ5NjJlNzk1NjA2OSIsImNsaWVudF9pZCI6ImFuZ3VsYXJhcHAiLCJzdGF0dXMiOjB9.DEuZQVB1LO_rWqWau8YiExUY1x1WCqkeYhIkJO5QLEQslHYB0Vr5eGmJi4k46gmdy-2TEtQrwe94Sjh79_xSNtvsz3jn6eEUf6noilHBADjpOzL_81veVEranMrJV7iT3tpfUDxeDgpjYMZ6PI2Mo5vyk741pG9oU1MbdHhiMZu-4QCbeMDZY6ZTRTTPp_GByIuribaX6ALGKhXAQVjldf4D7qO9ppzzGrO8eFZ1TuBeYU0aHxz8PoYf7yFGMjnH5Scr6bxexBOFEVZwLQxE0QSEV0CQMN-eXGA22NrjPbaKujNtjcvU_QNQ3vong8OlT6-sV9iFa8EmFMB1yNZKTQ"
-       },
-          crossDomain: false,
-          success: 	function(data){					  
-                //   avisaAlerta(data);
-                  console.log(data);
-            },
-          error: function(){
-            console.log(data);
-          }
-        });
-});
-
-
-
-
-
-
-
-
-
-
+	 
+	 
+	window.operateEventsUpdate = {
+		    'click .like': function (e, value, row, index) {
+//		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+		      $('#idUserEmpresa').val(row.idUserEmpresa);
+		      $('#nombreRegistro').val(row.nombreRegistro);
+		      $('#apellidoRegistro').val(row.apellidoRegistro);
+		      $('#emailRegistro').val(row.emailRegistro);
+		      $('#telefonoRegistro').val(row.telefonoRegistro);
+		      $('#usuarioRegistro').val(row.usuarioRegistro);
+		      $('#passRegistro1').val(row.passRegistro1);
+		      $('#passRegistro2').val(row.passRegistro2);
+		      $('#messageRegistro').val(row.messageRegistro);
+		    }
+		   }
+		  
+	
+	window.operateEventsDelete = {
+	    'click .remove': function (e, value, row, index) {
+	    	confirm("Estás seguro de Eliminar el Registro : "+row.nombreRegistro);
+	    	$('#userEmpresaTable').bootstrapTable('remove', {
+	        field: 'idUserEmpresa',
+	        values: [row.idUserEmpresa]
+	      });
+	      console.log(row);
+	      deleteUserEmpresa(row.idUserEmpresa);
+	    }
+	  }
+		  
+	
 /*
- *  FUNCIONES PLUGINS
- *  
- */
+ * Rest jquery
+ */	
+	$('#btnSaveRegistro').click(function(){
+		limpiaAlerta();
+		console.log($('#idUserEmpresa').val());
+		if($('#idUserEmpresa').val()==null || $('#idUserEmpresa').val()==''){
+		valoresRegistro = $('#nombreRegistro').val()+"++"+$('#apellidoRegistro').val()+"++"+$('#emailRegistro').val()+"++"+$('#telefonoRegistro').val()+"++"+$('#usuarioRegistro').val()+"++"+$('#passRegistro1').val()+"++"+$('#messageRegistro').val();
+		 
+			registroJson = { action : $.action,
+				 idEmpresa : $.idEmpresa,	
+//				 seccion : "bodySeccionArray1",
+				 valoresFinales : valoresRegistro}
+			console.log(registroJson);
 
+		$.ajax({
+		   	  url: url +"createUserEmpresa/",//+ context,//+finalJson.action+"/"+finalJson[1],
+		      dataType: 'json',
+			  type: 'POST',
+			  contentType: "application/json",
+			  data: JSON.stringify(registroJson),
+			  headers: {  'Access-Control-Allow-Origin': url, 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'X-PINGOTHER' },
+			  crossDomain: true,
+			  success: 	function(data){					  
+				  console.log(data);
+				  avisaAlerta(data);
+				  setTimeout(function() {
+					  readIdUserEmpresa(0);
+					}, 8000);
+				},
+			  error: function(){
+				  errorAlerta();
+			  }
+			});
+		}else{
+			
+			valoresRegistro = $('#idUserEmpresa').val()+"++"+$('#nombreRegistro').val()+"++"+$('#apellidoRegistro').val()+"++"+$('#emailRegistro').val()+"++"+$('#telefonoRegistro').val()+"++"+$('#usuarioRegistro').val()+"++"+$('#passRegistro1').val()+"++"+$('#messageRegistro').val();
+			 
+			registroJson = { action : $.action,
+				 idEmpresa : $.idEmpresa,	
+//				 seccion : "bodySeccionArray1",
+				 valoresFinales : valoresRegistro}
+			console.log(registroJson);
+
+		$.ajax({
+		   	  url: url +"updateUserEmpresa/",//+ context,//+finalJson.action+"/"+finalJson[1],
+		      dataType: 'json',
+			  type: 'POST',
+			  contentType: "application/json",
+			  data: JSON.stringify(registroJson),
+			  headers: {  'Access-Control-Allow-Origin': url, 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'X-PINGOTHER' },
+			  crossDomain: true,
+			  success: 	function(data){					  
+				  console.log(data);
+				  avisaAlerta(data);
+				  setTimeout(function() {
+					  readIdUserEmpresa(0);
+					}, 8000);
+				},
+			  error: function(){
+				  errorAlerta();
+			  }
+			});
+
+			
+		}
+	});
+	
+	
+		function readIdUserEmpresa(idUserEmpresa){
+		limpiaAlerta();
+		valoresRegistro = $('#readidUserEmpresa').val();
+		$.idUserEmpresa = idUserEmpresa
+		 
+			registroJson = { idAction : $.action,
+							idUserEmpresa : $.idUserEmpresa,	
+				 }
+			console.log(registroJson);
+
+		$.ajax({
+		   	  url: url +"crud/clientes",
+		      dataType: 'json',
+			  type: 'GET',
+			  contentType: "application/json",
+//			  data: JSON.stringify(registroJson),
+			  headers: {  'Access-Control-Allow-Origin': url, 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'X-PINGOTHER' },
+			  crossDomain: true,
+			  success: 	function(data){
+				  if(data.length > 0){
+    				  console.log(data);
+//	    			  var $table = $('#userEmpresaTable');
+		   			//$('#userEmpresaTable').bootstrapTable('load', $.userEmpresa);
+//					$('#userEmpresaTable').bootstrapTable({data : data})
+//					console.log("function load data option");
+					$('#userEmpresaTable').bootstrapTable('load', data);
+//					console.log("function load data metodo");
+					$('#userEmpresaTable').bootstrapTable('refresh');
+//					console.log("function refresh data");
+//					  console.log(data.length);
+				  }else{
+					  alert("Registros Usuarios: 0");
+					  console.log("No existen usuarios de empresa");
+				  }
+				},
+			  error: function(){
+				  errorAlerta();
+			  }
+			});
+	}
+		
+		function deleteUserEmpresa(idUserEmpresa){
+			
+			limpiaAlerta();
+			
+			$.idUserEmpresa = idUserEmpresa
+			registroJson = { action : $.action,
+								valoresFinales : $.idUserEmpresa,	
+					 }
+				console.log("deleteUSerEmpresa");
+				console.log(registroJson);
+
+			$.ajax({
+			   	  url: url +"deleteUserEmpresa",
+			      dataType: 'json',
+				  type: 'POST',
+				  contentType: "application/json",
+				  data: JSON.stringify(registroJson),
+				  headers: {  'Access-Control-Allow-Origin': url, 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'X-PINGOTHER' },
+				  crossDomain: true,
+				  success: 	function(data){					  
+					  console.log(data);
+					  avisaAlerta(data);
+					  if(data.codigo === 0){
+						  console.log("Registro User Eliminado");
+							$('#userEmpresaTable').bootstrapTable('refresh');
+//						  location.reload();
+						  
+						  }else{
+							  alert("Registros Usuarios: 0");
+							  console.log("No existen usuarios de empresa");
+						  }
+					},
+				  error: function(){
+					  errorAlerta();
+				  }
+				});
+
+			
+			
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+		/*
+		 * ********* ALERTAS  ***********
+		 */
+		function limpiaAlerta(){
+			$( "div" ).remove( "#limpiaAlerta" );
+		}
+		
+		function avisaAlertaEdicion(data){
+			limpiaAlerta();
+			 if(data.codigo===0){
+				  location.reload();
+			  }
+		}
+		
+		function avisaAlerta(data){
+			limpiaAlerta();
+			 if(data.codigo===0){
+				 modalClose();
+//				 $("#alerta").click();
+				 alerta="<div id='limpiaAlerta' class='alert alert-success' role='alert'>"+data.codigo+" "+data.mensaje.toString()+"</div>";
+				 alertaFade(alerta); 
+			 }else{
+				 modalClose();
+				  alerta="<div id='limpiaAlerta' class='alert alert-warning' role='alert'>"+data.codigo+" "+data.mensaje.toString()+"</div>";
+				  alertaFade(alerta); 
+			  }
+		}
+		
+		function errorAlerta(){
+			alerta="<div id='limpiaAlerta' class='alert alert-danger' role='alert'>Error de Enlace</div>";
+			$(alerta).insertAfter($('.alerta_in'));
+		}
+		
+		function modalClose(){
+			 $("#modalIngresa .close").click();
+			 $("#modalCita .close").click();
+			 $("#modalRegistro .close").click();
+			 $(".modal .close").click();
+			 $("body,html").animate({
+			        scrollTop: 0
+			    }, 600);
+		
+		}
+		function alertaFade(alerta){
+			$(alerta).insertAfter($('.alerta_in'));
+			  $('.alerta').fadeIn();
+//			  $('.alerta').delay(2500).fadeOut();
+			  $('.alerta').fadeOut( 4000);
+//				 $('.alerta').hide( "drop", { direction: "down" }, "slow" );
+		}
+		
+		
+		function avisaAlertaImagen(data){
+			
+		}
+		function errorAlertaImagen(){
+			
+		}
+
+				
+
+		
+}); // Fin documento
 
 
 
