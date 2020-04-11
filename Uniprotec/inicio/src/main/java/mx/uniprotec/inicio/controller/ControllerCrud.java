@@ -53,7 +53,20 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 //	@Autowired
 	ResultVO resultVO = new  ResultVO ();
 	
-	
+
+	@GetMapping("/Asignacion")
+	public ModelAndView Asignacion(ModelMap model,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+//		model.addAttribute("cliente", clienteService.)
+		ModelAndView mav = new ModelAndView("Asignacion");
+		
+		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
+		log.info(jsonLogin.toJSONString());
+
+		return mav;
+		}
+
 	
 
 	
@@ -93,10 +106,13 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	public ModelAndView bcliente(ModelMap model,
 			HttpServletRequest request,
 			HttpServletResponse response) {
-		model.addAttribute("cliente", clienteService.)
+		
+		model.addAttribute("clienteForm", new Cliente());
+//		model.addAttribute("cliente", clienteService.)
 		ModelAndView mav = new ModelAndView("BCliente");
 		
-		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
+		JSONObject jsonLogin = new JSONObject();
+		
 		log.info(jsonLogin.toJSONString());
 
 		return mav;

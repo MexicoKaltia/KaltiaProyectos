@@ -72,10 +72,8 @@ public class ControllerInicio extends HttpServlet{
 			
 			
 			model.addAttribute("loginResponse", hashUsuario);
-			 request.getSession().setAttribute("resultVO", hashUsuario.get("resultVO"));
+			request.getSession().setAttribute("resultVO", hashUsuario.get("resultVO"));
 			mav.setViewName(hashUsuario.get("vista").toString());
-//			request.getSession().setAttribute("loginResponse", hashUsuario);
-			
 			
 			return new ModelAndView(hashUsuario.get("vista").toString(), "model", model);
 		}

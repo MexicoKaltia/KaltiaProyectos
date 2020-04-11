@@ -9,15 +9,14 @@
 	  function operateFormatterUpdate(value, row, index) {
 	    return [
 	      '<a class="like" href="javascript:void(0)" title="Editar" id="UserUpdate" data-toggle="modal" data-target="#modalRegistro">',
-	      '<i class="fa fa-2x fa-pencil-square-o"></i>',
-	      '</a>  '
+	      '<i class="pe-7s-look icon-gradient bg-tempting-azure"></i>'
 	    ].join('')
 	  }
 	  
 	  function operateFormatterDelete(value, row, index) {
 		    return [
 		      '<a class="remove" href="javascript:void(0)" title="Eliminar">',
-		      '<i class="fa fa-2x fa-user-times"></i>',
+		      '<i class="pe-7s-albums icon-gradient bg-tempting-azure"></i>',
 		      '</a>'
 		    ].join('')
 		  }

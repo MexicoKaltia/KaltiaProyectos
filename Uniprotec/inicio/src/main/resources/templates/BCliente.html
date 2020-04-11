@@ -188,7 +188,7 @@
             
                             <li class="app-sidebar__heading">ACCIONES</li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{Asignacion}">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
                                 </a>
@@ -263,11 +263,11 @@
 												<th data-width="20" data-width-unit="%" data-halign="center"
 													data-align="center" data-field="operateUpdate"
 													data-formatter="operateFormatterUpdate"
-													data-events="window.operateEventsUpdate">Detalle</th>
+													data-events="window.operateEventsUpdate">Edicion</th>
 												<th data-width="20" data-width-unit="%" data-halign="center"
 													data-align="center" data-field="operateDelete"
 													data-formatter="operateFormatterDelete"
-													data-events="operateEventsDelete">Edicion</th>
+													data-events="operateEventsDelete">Detalle</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -379,41 +379,6 @@
 </div>   <!-- app-container -->
 
 <!--  -->
- <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-          <form role="form">
-            <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" id="psw" placeholder="Enter password">
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
-        </div>
-      </div>
-      
-    </div>
-  </div> 
 
 
 
@@ -429,3 +394,115 @@
 </body>
 
 </html>
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="modalRegistro" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+        <h4>Edicion Cliente</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01">Nombre Corto</label>
+                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100" th:field="*{nombreCortoCliente}" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre Corto
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Nombre Completo</label>
+                                            <input type="text" class="form-control" th:field="*{nombreCompletoCliente}" id="nombreCompletoCliente" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre Completo
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Email</label>
+                                            <input type="email" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Email Valido
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Telefono</label>
+                                            <input type="number" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="50" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Telefono Valido
+                                            </div>
+                                        </div>
+                                      </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">RFC</label>
+                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" maxlength="14" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre RFC Valido
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Sede</label>
+                           				     <select id="idRegionCliente" th:field="*{idRegionCliente}" name="idRegionCliente" class="form-control" default="" >
+	                								<option value="1">Queretaro</option>
+	                								<option value="2">Guanajuato</option>
+	              							</select>
+                                            <div class="invalid-feedback">
+                                                Capturar Sede Valida
+                                            </div>
+                                        </div>
+                                      </div>
+                                  <div class="form-row">
+                                      <label class=" control-label" for="textarea">Direccion</label>
+								            <div class="">                     
+								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="3" cols="150" required></textarea>
+								            </div>
+							              <div class="invalid-feedback">
+                                                Capturar Domicilio Valido
+                                            </div>
+							         </div>
+                                        
+                                <br>
+                                    
+                                    <button class="btn btn-primary" type="submit">Edicion Cliente</button>
+                                </form>
+            
+                                <script>
+                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                    (function() {
+                                        'use strict';
+                                        window.addEventListener('load', function() {
+                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                            var forms = document.getElementsByClassName('needs-validation');
+                                            // Loop over them and prevent submission
+                                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                                form.addEventListener('submit', function(event) {
+                                                    if (form.checkValidity() === false) {
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                    }
+                                                    form.classList.add('was-validated');
+                                                }, false);
+                                            });
+                                        }, false);
+                                    })();
+                                </script>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div> 
