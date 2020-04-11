@@ -26,7 +26,7 @@ public class InstructorService implements IInstructorService {
 	MonitorEntidades me = new  MonitorEntidades();
 
 	@Override
-	public ResultVO altaInstructor(Instructor instructor) {
+	public ResultVO altaInstructor(Instructor instructor, String token) {
 		log.info(instructor.toString());
 		
 //		List<CursoModelo> listCurso =  new ArrayList<CursoModelo>();
@@ -43,7 +43,7 @@ public class InstructorService implements IInstructorService {
 		log.info(instructor.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
-				me.getToken(),
+				token,
 				BaseClientRest.URL_CRUD_INSTRUCTOR,
 				instructor);
 		
@@ -51,13 +51,13 @@ public class InstructorService implements IInstructorService {
 	}
 
 	@Override
-	public ResultVO edicionInstructor(Instructor cliente) {
+	public ResultVO edicionInstructor(Instructor cliente, String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultVO consultaInstructores() {
+	public ResultVO consultaInstructores( String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -32,23 +32,21 @@ public class ClienteService implements IClienteService {
 
 
 	@Override
-	public ResultVO altaCliente(Cliente cliente) {
-		log.info(cliente.toString());
-//		log.info(LoginSingle.getToken());
+	public ResultVO altaCliente(Cliente cliente, String token) {
 
-		LocalDateTime now = LocalDateTime.now();
+//		log.info(cliente.toString());
+		
 		Region region = new Region(cliente.getIdRegionCliente());
 		cliente.setRegionCliente(region);
+		
 		me = ComponenteComun.monitorCampos();
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
 		cliente.setStatusCliente(me.getStatusEntidad());
-		cliente.setCreateAtCliente(now);
-
-		log.info(cliente.toString());
+//		log.info(cliente.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
-				LoginSingle.getToken(),
+				token,
 				BaseClientRest.URL_CRUD_CLIENTE,
 				cliente);
 		
@@ -57,13 +55,13 @@ public class ClienteService implements IClienteService {
 
 
 	@Override
-	public ResultVO edicionCliente(Cliente cliente) {
+	public ResultVO edicionCliente(Cliente cliente , String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultVO consultaClientes() {
+	public ResultVO consultaClientes(String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}

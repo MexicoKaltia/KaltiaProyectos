@@ -5,9 +5,9 @@ import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IInstructorService {
 
-	public ResultVO altaInstructor(Instructor cliente);
-	public ResultVO edicionInstructor(Instructor cliente);
-	public ResultVO consultaInstructores();
+	public ResultVO altaInstructor(Instructor cliente, String token);
+	public ResultVO edicionInstructor(Instructor cliente, String token);
+	public ResultVO consultaInstructores(String token);
 
 }
 

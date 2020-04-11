@@ -55,16 +55,17 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	
 
 	@GetMapping("/Asignacion")
-	public ModelAndView Asignacion(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
-//		model.addAttribute("cliente", clienteService.)
-		ModelAndView mav = new ModelAndView("Asignacion");
-		
-		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
-		log.info(jsonLogin.toJSONString());
+	public ModelAndView Asignacion(ModelMap model) {
 
-		return mav;
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("ACliente model Activo");
+//			log.info(model.values().toString());
+			return new  ModelAndView("Asignacion",  model);	
+		}		
+
 		}
 
 	
@@ -75,26 +76,29 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	 * 
 	 */
 	@GetMapping("/ACliente")
-	public ModelAndView acliente(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView acliente(ModelMap model) {
+		
 		model.addAttribute("clienteForm", new Cliente());
+		
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
 		}else {
 			log.info("ACliente model Activo");
-			ResultVO resultVO= (ResultVO) request.getSession().getAttribute("resultVO");
-			return new  ModelAndView("ACliente", "model", resultVO);	
+//			log.info(model.values().toString());
+			return new  ModelAndView("ACliente",  model);	
 		}		
 		
 	}
 //	
 	@PostMapping("/altaCliente")
-	public ModelAndView altaCliente(@ModelAttribute("clienteForm") Cliente cliente) {
-		log.info("metodo de alta Cliente");
+	public ModelAndView altaCliente(@ModelAttribute("clienteForm") Cliente cliente, ModelMap model) {
+		log.info("Metodo de alta Cliente");
+//		log.info(model.values().toString());
 		
-		resultVO  = clienteService.altaCliente(cliente);
+		ResultVO resultVO = (ResultVO)model.get("model");
+		
+		resultVO  = clienteService.altaCliente(cliente, resultVO.getAccesToken());
 		log.info(resultVO.toString());
 		
 		ModelAndView mav = new ModelAndView("ACliente" );
@@ -125,29 +129,28 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	 * 
 	 */
 	@GetMapping("/ACurso")
-	public ModelAndView acurso(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView acurso(ModelMap model) {
 		
 		model.addAttribute("cursoForm", new CursoModelo());
+		
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
 		}else {
 			log.info("ACurso model Activo");
-			ResultVO resultVO= (ResultVO) request.getSession().getAttribute("resultVO");
-			log.info(resultVO.toString());
-			return new  ModelAndView("ACurso", "model", resultVO);	
+		
+			return new  ModelAndView("ACurso", model);	
 		}		
 		
 	}
 //	
 	@PostMapping("/altaCurso")
-	public ModelAndView altaCurso(@ModelAttribute("cursoForm") CursoModelo curso) {
-
+	public ModelAndView altaCurso(@ModelAttribute("cursoForm") CursoModelo curso , ModelMap model) {
 		log.info("metodo de alta Curso");
-		log.info(resultVO.toString());
-		resultVO  = cursoService.altaCurso(curso);
+
+		ResultVO resultVO = (ResultVO)model.get("model");
+		
+		resultVO  = cursoService.altaCurso(curso, resultVO.getAccesToken());
 		ModelAndView mav = new ModelAndView("ACurso" );
 		return mav;
 	}
@@ -172,29 +175,28 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	 * 
 	 */
 	@GetMapping("/AInstructor")
-	public ModelAndView AInstructor(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView AInstructor(ModelMap model) {
 		
 		model.addAttribute("instructorForm", new Instructor());
+		
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
 		}else {
 			log.info("AInstructor model Activo");
-			ResultVO resultVO= (ResultVO) request.getSession().getAttribute("resultVO");
-			log.info(resultVO.toString());
-			return new  ModelAndView("AInstructor", "model", resultVO);	
+			return new  ModelAndView("AInstructor", model);	
 		}		
 		
 	}
 //	
 	@PostMapping("/altaInstructor")
-	public ModelAndView altaInstructor(@ModelAttribute("instructorForm") Instructor instructor) {
+	public ModelAndView altaInstructor(@ModelAttribute("instructorForm") Instructor instructor, ModelMap model) {
 
 		log.info("metodo de alta Instructor");
-		log.info(resultVO.toString());
-		resultVO  = instructorService.altaInstructor(instructor);
+		
+		ResultVO resultVO = (ResultVO)model.get("model");
+		
+		resultVO  = instructorService.altaInstructor(instructor, resultVO.getAccesToken());
 		ModelAndView mav = new ModelAndView("AInstructor" );
 		return mav;
 	}

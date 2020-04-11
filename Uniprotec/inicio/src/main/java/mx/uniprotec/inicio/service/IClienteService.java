@@ -5,9 +5,9 @@ import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IClienteService {
 	
-	public ResultVO altaCliente(Cliente cliente);
-	public ResultVO edicionCliente(Cliente cliente);
-	public ResultVO consultaClientes();
+	public ResultVO altaCliente(Cliente cliente, String token);
+	public ResultVO edicionCliente(Cliente cliente , String token);
+	public ResultVO consultaClientes( String token);
 	
 	
 

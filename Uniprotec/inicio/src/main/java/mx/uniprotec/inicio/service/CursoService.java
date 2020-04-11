@@ -31,7 +31,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 
 
 	@Override
-	public ResultVO altaCurso(CursoModelo curso) {
+	public ResultVO altaCurso(CursoModelo curso , String token) {
 
 		log.info(curso.toString());
 		
@@ -49,7 +49,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 		log.info(curso.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
-				me.getToken(),
+				token,
 				BaseClientRest.URL_CRUD_CURSO,
 				curso);
 		
@@ -57,13 +57,13 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 	}
 
 	@Override
-	public ResultVO edicionCurso(CursoModelo curso) {
+	public ResultVO edicionCurso(CursoModelo curso, String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultVO consultaCursos() {
+	public ResultVO consultaCursos(String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}

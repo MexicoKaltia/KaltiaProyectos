@@ -12,7 +12,7 @@ public class ComponenteComun {
 	
 	public static MonitorEntidades  monitorCampos() {
 		
-		MonitorEntidades me = new MonitorEntidades(LoginSingle.getToken(),
+		MonitorEntidades me = new MonitorEntidades(
 				LocalDateTime.now(),
 				1l,
 				"Creado");

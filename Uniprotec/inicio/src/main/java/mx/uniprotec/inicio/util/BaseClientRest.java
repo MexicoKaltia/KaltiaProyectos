@@ -24,9 +24,6 @@ import mx.uniprotec.entidad.modelo.User;
 @Service
 public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClientRest {
 	
-//	@Autowired
-//	ResultVO resultVO;
-	
 	private static Logger log = LoggerFactory.getLogger(BaseClientRest.class);
 	
 	
@@ -50,14 +47,16 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String PUT  = "HttpMethod.PUT";
 	public static final String GRANT_TYPE ="password";
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
+	
+	public static final Long MAX_TIME_TOKEN = (long) 3600000; 
 //	String APP_ID = "angularapp:12345";
 	
 	ResultVO resultVO = new ResultVO();
-
+	
 	@Override
 	public ResultVO login(User user) {
 		
-		 resultVO = getTemplateLogin(URL_POST_LOGIN, POST, user);
+		 resultVO = getTemplateLogin( user);
 		 return resultVO;  
 	}
 	
@@ -96,7 +95,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return resultVO;
 	}
 
-	private ResultVO getTemplateLogin(String url, String metodo, User user) {
+	private ResultVO getTemplateLogin(User user) {
+		
 		try {
 			 
 			 String base64Creds = Base64.getEncoder().encodeToString(APP_ID.getBytes());
@@ -108,13 +108,13 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	   	    MultiValueMap<String, String> mapbody= new LinkedMultiValueMap<String, String>();
 	   	    mapbody.add("username", user.getUserName());
 	  		mapbody.add("password", user.getPassword());
-	    	mapbody.add("grant_type", "password");
+	    	mapbody.add("grant_type", GRANT_TYPE);
 	
 	    	HttpEntity<?> entity = new HttpEntity<>(mapbody, headers);
 		    RestTemplate restTemplate = new RestTemplate();
-		    ResponseEntity<JSONObject> response  = restTemplate.exchange(url, HttpMethod.POST, entity, JSONObject.class);
+		    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_POST_LOGIN, HttpMethod.POST, entity, JSONObject.class);
 		    
-		    ResultVO  resultVO = asignaResponse(response);
+		    resultVO= asignaResponse(response);
 	    
 	    }catch(Exception e) {
 	    	resultVO.setMensaje("Fallo conexion RestTemplate");
@@ -136,11 +136,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    resultVO.setMensaje(jsonResponse.get("message").toString());
 	    resultVO.setJsonResponse(fields);
 	    
-	    log.info(jsonResponse.get("code").toString());
-	    log.info(jsonResponse.get("message").toString());
-	    log.info(jsonResponse.get("fields").toString());
-	    log.info(resultVO.getJsonResponse().toJSONString());
-	    
+	    log.info(resultVO.toString());
 	    
 		return resultVO;
 	}

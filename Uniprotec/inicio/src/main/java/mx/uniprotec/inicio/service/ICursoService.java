@@ -5,8 +5,8 @@ import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface ICursoService {
 
-	public ResultVO altaCurso(CursoModelo curso);
-	public ResultVO edicionCurso(CursoModelo curso);
-	public ResultVO consultaCursos();
+	public ResultVO altaCurso(CursoModelo curso, String token);
+	public ResultVO edicionCurso(CursoModelo curso, String token);
+	public ResultVO consultaCursos( String token);
 
 }

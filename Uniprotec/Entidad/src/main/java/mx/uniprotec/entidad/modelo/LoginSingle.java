@@ -1,40 +1,53 @@
 package mx.uniprotec.entidad.modelo;
 
+import java.util.Date;
+
 public class LoginSingle {
 
 
-		private static String token;
-	    private static ResultVO resultVO;
-	    private static LoginSingle ls;
-	   
+		
+		public String token;
+		public Long tiempoInicio;
+		public ResultVO resultVO;
+		
+		
+		@Override
+		public String toString() {
+			return "LoginSingle [token=" + token + ", tiempoInicio=" + tiempoInicio + ", resultVO=" + resultVO + "]";
+		}
+		
+		public LoginSingle(String token, Long tiempoInicio, ResultVO resultVO) {
+			super();
+			this.token = token;
+			this.tiempoInicio = tiempoInicio;
+			this.resultVO = resultVO;
+		}
 
-	    public  static LoginSingle getLoginSingle(String token,ResultVO resultVO) {
-	    	 if (ls==null) {
-	    	 ls =new LoginSingle (token,resultVO);
-	    	 }
-	    	 return ls;
-	    	 }
-	    
-	 	 private LoginSingle(String token,ResultVO resultVO){
-	    	 this.token=token;
-	    	 this.resultVO=resultVO;
-	    	 }
-	 	 
-		    public static String getToken() {
-				return token;
-			}
+		
+		public String getToken() {
+			return token;
+		}
+		public void setToken(String token) {
+			this.token = token;
+		}
+		public Long getTiempoInicio() {
+			return tiempoInicio;
+		}
+		public void setTiempoInicio(Long tiempoInicio) {
+			this.tiempoInicio = tiempoInicio;
+		}
 
-			public static void setToken(String token) {
-				LoginSingle.token = token;
-			}
+		public ResultVO getResultVO() {
+			return resultVO;
+		}
 
-			public static ResultVO getResultVO() {
-				return resultVO;
-			}
+		public void setResultVO(ResultVO resultVO) {
+			this.resultVO = resultVO;
+		}
 
-			public static void setResultVO(ResultVO resultVO) {
-				LoginSingle.resultVO = resultVO;
-			}
-
-
+		
+		
+		
+		
+		
 	}

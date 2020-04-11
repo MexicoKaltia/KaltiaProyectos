@@ -67,15 +67,12 @@ public class ControllerInicio extends HttpServlet{
 			ModelAndView mav = new ModelAndView();
 			ModelMap model = new ModelMap();
 			log.info(user.toString());
-			
-			HashMap<String, Object> hashUsuario = loginService.login(user);	 
-			
-			
-			model.addAttribute("loginResponse", hashUsuario);
-			request.getSession().setAttribute("resultVO", hashUsuario.get("resultVO"));
-			mav.setViewName(hashUsuario.get("vista").toString());
-			
-			return new ModelAndView(hashUsuario.get("vista").toString(), "model", model);
+
+			model.addAttribute("loginResponse", loginService.login(user));
+
+			log.info(model.values().toString());			
+			return new ModelAndView(loginService.login(user).getResponse(), "model", loginService.login(user));
+//			return new ModelAndView("test", "model", model);
 		}
 //		
 		/*

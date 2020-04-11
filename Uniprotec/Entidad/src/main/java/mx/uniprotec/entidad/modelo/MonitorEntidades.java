@@ -5,18 +5,13 @@ import java.time.LocalDateTime;
 
 public class MonitorEntidades {
 	
-	private String token;
+	
 	private LocalDateTime nowEntidad ;
 	private Long idUsuarioEntidad;
 	private String statusEntidad;
 	
 	
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
+	
 	public LocalDateTime getNowEntidad() {
 		return nowEntidad;
 	}
@@ -37,11 +32,11 @@ public class MonitorEntidades {
 	}
 	@Override
 	public String toString() {
-		return "MonitorEntidades [token=" + token + ", nowEntidad=" + nowEntidad + ", idUsuarioEntidad="
+		return "MonitorEntidades [nowEntidad=" + nowEntidad + ", idUsuarioEntidad="
 				+ idUsuarioEntidad + ", statusEntidad=" + statusEntidad + "]";
 	}
-	public MonitorEntidades(String token, LocalDateTime nowEntidad, Long idUsuarioEntidad, String statusEntidad) {
-		this.token = token;
+	public MonitorEntidades(LocalDateTime nowEntidad, Long idUsuarioEntidad, String statusEntidad) {
+		
 		this.nowEntidad = nowEntidad;
 		this.idUsuarioEntidad = idUsuarioEntidad;
 		this.statusEntidad = statusEntidad;
