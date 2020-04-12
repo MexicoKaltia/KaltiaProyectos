@@ -81,6 +81,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO getTemplateObjetoPost(String token,  String urlCrud, Object object) {
 		
 		log.info(URL_CRUD+urlCrud);
+		log.info(token);
 		
 		 HttpHeaders headers = new HttpHeaders();
 		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 

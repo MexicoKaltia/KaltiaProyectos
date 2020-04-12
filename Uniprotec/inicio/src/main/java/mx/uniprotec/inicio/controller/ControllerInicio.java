@@ -39,16 +39,9 @@ public class ControllerInicio extends HttpServlet{
 	
 	@Autowired
 	ILoginService loginService;
-//	@Autowired
 	ResultVO resultVO = new ResultVO();
-//	@Autowired
 	Usuario usuario = new Usuario();
 	
-//	 @ModelAttribute
-//     public void modeloComun(Model model) {
-//    	 model.addAttribute("requestLoginVO", requestLoginVO);
-//    	 
-//     }
 	
 		@GetMapping("/")
 		public String inicio(Model model) {
@@ -60,30 +53,34 @@ public class ControllerInicio extends HttpServlet{
 		 * 
 		 */
 		@PostMapping("/loginInit")
-		public ModelAndView loginInit(@ModelAttribute("userLogin") User user,
-				HttpServletRequest request,
-				HttpServletResponse response) {
+		public ModelAndView loginInit(@ModelAttribute("userLogin") User user) {
 			
 			ModelAndView mav = new ModelAndView();
 			ModelMap model = new ModelMap();
 			log.info(user.toString());
+			resultVO = loginService.login(user);
 
-			model.addAttribute("loginResponse", loginService.login(user));
+//			model.addAttribute("loginResponse", resultVO);
 
 			log.info(model.values().toString());			
-			return new ModelAndView(loginService.login(user).getResponse(), "model", loginService.login(user));
-//			return new ModelAndView("test", "model", model);
-		}
-//		
-		/*
-		 * 
-		 */
-		@GetMapping("/formACurso")
-		public String formAcurso(Model model) {
-			model.addAttribute("userLogin", new User());
-			return "form-ACurso";
-		}
+			return new ModelAndView(resultVO.getResponse(), "model", resultVO);
 
+		}
+		
+		
+		@GetMapping("/inicio")
+		public ModelAndView inicio(ModelMap model) {
+
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Inicio model Activo");
+//				log.info(model.values().toString());
+				return new  ModelAndView("index",  model);	
+			}		
+
+			}
 
 }
 

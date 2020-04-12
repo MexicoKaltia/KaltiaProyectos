@@ -25,12 +25,6 @@ public class LoginService implements ILoginService{
 	
 	@Autowired
 	BaseClientRest baseClientRest;
-////	@Autowired
-//	Usuario usuario = new Usuario();
-////	@Autowired
-//	Modulo modulo = new Modulo();
-////	@Autowired
-//	SubModulo submodulo = new SubModulo();
 	UserMap um = UserMap.getSingletonInstance();
 	HashMap<String, Object> valoresResponse = new HashMap<String, Object>();
 	ResultVO resultVO = new ResultVO();
@@ -67,7 +61,7 @@ public class LoginService implements ILoginService{
 
 	private void actualizaSesion(String username, LoginSingle ls) {
 		if(um.getMapLogin().containsKey(username)) {
-			um.getMapLogin().replace(username, ls);
+			um.getMapLogin().remove(username, ls);
 		}else {
 			um.getMapLogin().put(username, ls);
 		}
@@ -75,6 +69,10 @@ public class LoginService implements ILoginService{
 
 
 	private boolean verificaSesion(String user) {
+		
+		log.info("----------------------------------------------");
+		log.info(um.getMapLogin().values().toString());
+		log.info("----------------------------------------------");
 		
 		if(um.getMapLogin().containsKey(user)) {
 			loginSingle = um.getMapLogin().get(user);
