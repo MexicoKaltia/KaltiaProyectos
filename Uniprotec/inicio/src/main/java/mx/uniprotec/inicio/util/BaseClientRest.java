@@ -41,6 +41,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
 	public static final String URL_CRUD_CURSO		  =	"curso";
 	public static final String URL_CRUD_USUARIO		  =	"usuario";
+	public static final String URL_CRUD_CLIENTES	  =	"clientes";
+	public static final String URL_CRUD_INSTRUCTORES  =	"instructores";
+	public static final String URL_CRUD_CURSOS		  =	"cursos";
+	public static final String URL_CRUD_USUARIOS	  =	"usuarios";
+	
+	
 	
 	public static final String POST = "HttpMethod.POST";
 	public static final String GET  = "HttpMethod.GET";
@@ -69,33 +75,22 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return resultVO;
 	}
 	
+	@Override
+	public ResultVO objetoGetAll(String token, String urlCrud) {
+		resultVO = getTemplateObjetoGetAll(token, urlCrud);
+		return resultVO;
+	}
 
 	
+	
+
+
+
 	/*
 	 * 
 	 *   Templates 
 	 * 
 	 */
-	
-
-	private ResultVO getTemplateObjetoPost(String token,  String urlCrud, Object object) {
-		
-		log.info(URL_CRUD+urlCrud);
-		log.info(token);
-		
-		 HttpHeaders headers = new HttpHeaders();
-		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
-   	     headers.add("Authorization", "Bearer " + token);
-   	     
-   	    HttpEntity<?> entity = new HttpEntity<>(object, headers);
-	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.POST, entity, JSONObject.class);
-	    
-	    resultVO = asignaResponseObject(response);
-   	     
-		return resultVO;
-	}
-
 	private ResultVO getTemplateLogin(User user) {
 		
 		try {
@@ -123,7 +118,65 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    }
 	    return resultVO;
 	}
+	
+	
 
+	private ResultVO getTemplateObjetoPost(String token,  String urlCrud, Object object) {
+		
+		log.info(URL_CRUD+urlCrud);
+		log.info(token);
+		
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+   	     headers.add("Authorization", "Bearer " + token);
+   	     
+   	    HttpEntity<?> entity = new HttpEntity<>(object, headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.POST, entity, JSONObject.class);
+	    
+	    resultVO = asignaResponseObject(response);
+   	     
+		return resultVO;
+	}
+
+
+	private ResultVO getTemplateObjetoGetAll(String token, String urlCrud) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+  	     headers.add("Authorization", "Bearer " + token);
+  	     
+  	    HttpEntity<?> entity = new HttpEntity<>(headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.GET, entity, JSONObject.class);
+	    
+	    resultVO = asignaResponseObject(response);
+  	     
+		return resultVO;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	 *  Auxiliares
+	 */
 
 	@SuppressWarnings("unchecked")
 	private ResultVO asignaResponse(ResponseEntity<JSONObject> response) {
@@ -146,7 +199,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();
-	    resultVO.setMensaje(jsonResponse.get("message").toString());
+	    
+	    resultVO.setJsonResponse(jsonResponse);
+	    resultVO.setMensaje(jsonResponse.get("code").toString());
+	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("status").toString()));
+	    
 	    
 	    log.info(jsonResponse.toJSONString());
 	    log.info(jsonResponse.get("message").toString());
@@ -154,6 +211,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return resultVO;
 	}
 
+
+
+	
 	
 
 	 

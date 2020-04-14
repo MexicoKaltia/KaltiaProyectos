@@ -107,18 +107,22 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	
 	
 	@GetMapping("/BCliente")
-	public ModelAndView bcliente(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView bcliente(ModelMap model) {
 		
 		model.addAttribute("clienteForm", new Cliente());
-//		model.addAttribute("cliente", clienteService.)
-		ModelAndView mav = new ModelAndView("BCliente");
+		log.info(model.values().toString());
 		
-		JSONObject jsonLogin = new JSONObject();
+		ResultVO resultVO = (ResultVO)model.get("model");
+//		log.info(resultVO.toString());
+		model.addAttribute("model", resultVO);
 		
-		log.info(jsonLogin.toJSONString());
-
+		ResultVO rs = new ResultVO();
+		rs  = clienteService.consultaClientes(resultVO.getAccesToken());
+		
+		model.addAttribute("result", rs.getJsonResponseArray());
+		log.info(model.values().toString());
+		ModelAndView mav = new ModelAndView("BCliente", model);
+		
 		return mav;
 		}
 				

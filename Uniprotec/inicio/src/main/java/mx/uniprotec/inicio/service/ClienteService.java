@@ -2,6 +2,8 @@ package mx.uniprotec.inicio.service;
 
 import java.time.LocalDateTime;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +64,25 @@ public class ClienteService implements IClienteService {
 
 	@Override
 	public ResultVO consultaClientes(String token) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		me = ComponenteComun.monitorCampos();
+		cliente.setCreateAtCliente(me.getNowEntidad());
+		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
+		cliente.setStatusCliente(me.getStatusEntidad());
+		
+		resultVO = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
+		
+		if(resultVO.getCodigo() == 202) {
+			JSONObject jsonGeneral = resultVO.getJsonResponse();
+//			JSONArray jsonClientes = (JSONArray ) jsonGeneral.get("clientes");
+			
+//			resultVO.setJsonResponseArray(jsonClientes);
+			return resultVO;
+		}else {
+			return resultVO;
+		}
 	}
+	
+	
 
 }

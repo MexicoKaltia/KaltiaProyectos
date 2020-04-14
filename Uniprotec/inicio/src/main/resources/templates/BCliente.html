@@ -164,13 +164,13 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">PRINCIPAL</li>
                             <li>
-                                <a href="index.html" class="mm-active">
+                                <a th:href="@{inicio}" class="mm-active">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
                                     CONTROL
                                 </a>
                             </li>
-                             <li class="app-sidebar__heading">MODULOS</li>
-                             <li th:each= "modulo : ${model.loginResponse.jsonResponse.fields.user.modules}">
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.fields.user.modules}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
                                     <span th:text="${modulo.nombreModulo}"></span>
@@ -241,7 +241,7 @@
 								<div class="card-body">
 									<h5 class="card-title">CLIENTES UNIPROTEC</h5>
 
-									<table id='clienteTable' class="mb-0 table table-striped"
+									<table id='clientesTable' class="mb-0 table table-striped"
 										data-locale="es-MX" 
 										data-toggle='table' 
 										data-height='460'
@@ -271,26 +271,12 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<tr  th:each= "cliente : ${resultvo.getJSONgetJsonResponse().clientes}">
 												<td>
-													Nombre corto1
+													 <span th:text="${cliente.nombreCortoCliente}"></span>
 												</td>
 												<td>
-													Status
-												</td>
-												<td>
-													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
-												</td>
-												<td>
-													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													Nombre corto2
-												</td>
-												<td>
-													Status
+													<span th:text="${cliente.statusCliente}"></span>
 												</td>
 												<td>
 													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
@@ -299,20 +285,6 @@
 													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
 												</td>
 											</tr>
-											<tr>
-												<td>
-													Nombre corto3
-												</td>
-												<td>
-													Status
-												</td>
-												<td>
-													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
-												</td>
-												<td>
-													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
-												</td>
-											</tr>	
 											
 										</tbody>
 										

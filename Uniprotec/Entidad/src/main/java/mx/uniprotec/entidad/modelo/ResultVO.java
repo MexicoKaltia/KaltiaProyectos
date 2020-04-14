@@ -4,6 +4,7 @@ package mx.uniprotec.entidad.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
@@ -18,7 +19,19 @@ public class ResultVO implements Serializable{
 	private ArrayList<String> mensajeArray;
 	private String  response;
 	private JSONObject jsonResponse;			//
+	private JSONArray jsonResponseArray;			//
 	
+	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
+			JSONObject jsonResponse, JSONArray jsonResponseArray) {
+		super();
+		this.accesToken = accesToken;
+		this.codigo = codigo;
+		this.mensaje = mensaje;
+		this.mensajeArray = mensajeArray;
+		this.response = response;
+		this.jsonResponse = jsonResponse;
+		this.jsonResponseArray = jsonResponseArray;
+	}
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -58,22 +71,21 @@ public class ResultVO implements Serializable{
 	public void setAccesToken(String accesToken) {
 		this.accesToken = accesToken;
 	}
+	public JSONArray getJsonResponseArray() {
+		return jsonResponseArray;
+	}
+	public void setJsonResponseArray(JSONArray jsonResponseArray) {
+		this.jsonResponseArray = jsonResponseArray;
+	}
+
 	@Override
 	public String toString() {
 		return "ResultVO [accesToken=" + accesToken + ", codigo=" + codigo + ", mensaje=" + mensaje + ", mensajeArray="
-				+ mensajeArray + ", response=" + response + ", jsonResponse=" + jsonResponse + "]";
+				+ mensajeArray + ", response=" + response + ", jsonResponse=" + jsonResponse + ", jsonResponseArray="
+				+ jsonResponseArray + "]";
 	}
-	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
-			JSONObject jsonResponse) {
-		super();
-		this.accesToken = accesToken;
-		this.codigo = codigo;
-		this.mensaje = mensaje;
-		this.mensajeArray = mensajeArray;
-		this.response = response;
-		this.jsonResponse = jsonResponse;
-	}
-
+	
+	
 
 
 	
