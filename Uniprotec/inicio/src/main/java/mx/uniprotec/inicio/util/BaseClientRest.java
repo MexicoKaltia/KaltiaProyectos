@@ -77,8 +77,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	
 	@Override
 	public ResultVO objetoGetAll(String token, String urlCrud) {
-		resultVO = getTemplateObjetoGetAll(token, urlCrud);
-		return resultVO;
+//		log.info(resultVO.toString());
+//		resultVO = getTemplateObjetoGetAll(token, urlCrud);
+		return getTemplateObjetoGetAll(token, urlCrud);//resultVO;
 	}
 
 	
@@ -149,10 +150,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
   	    HttpEntity<?> entity = new HttpEntity<>(headers);
 	    RestTemplate restTemplate = new RestTemplate();
 	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.GET, entity, JSONObject.class);
-	    
-	    resultVO = asignaResponseObject(response);
+//	    log.info(resultVO.toString());
+//	    resultVO = asignaResponseObject(response);
   	     
-		return resultVO;
+		return asignaResponseObject(response);
 	}
 	
 	
@@ -199,16 +200,15 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();
-	    
-	    resultVO.setJsonResponse(jsonResponse);
-	    resultVO.setMensaje(jsonResponse.get("code").toString());
-	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("status").toString()));
-	    
-	    
+	    ResultVO rs = new ResultVO();
+	    rs.setJsonResponse(jsonResponse);
+	    rs.setMensaje(jsonResponse.get("code").toString());
+	    rs.setCodigo(Long.valueOf(jsonResponse.get("status").toString()));
+	        
 	    log.info(jsonResponse.toJSONString());
 	    log.info(jsonResponse.get("message").toString());
 	    
-		return resultVO;
+		return rs;
 	}
 
 

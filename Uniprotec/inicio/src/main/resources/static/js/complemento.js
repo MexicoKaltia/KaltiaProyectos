@@ -9,14 +9,15 @@
 	  function operateFormatterUpdate(value, row, index) {
 	    return [
 	      '<a class="like" href="javascript:void(0)" title="Editar" id="UserUpdate" data-toggle="modal" data-target="#modalRegistro">',
-	      '<i class="pe-7s-look icon-gradient bg-tempting-azure"></i>'
+	      '<i class="fa fa-2x fa-user-edit"></i>',
+	      '</a>'
 	    ].join('')
 	  }
 	  
 	  function operateFormatterDelete(value, row, index) {
 		    return [
 		      '<a class="remove" href="javascript:void(0)" title="Eliminar">',
-		      '<i class="pe-7s-albums icon-gradient bg-tempting-azure"></i>',
+		      '<i class="fa fa-2x fa-address-book">',
 		      '</a>'
 		    ].join('')
 		  }
@@ -29,51 +30,23 @@ $(document).ready(function(){
 	/*
 	 * Variables Globales
 	 */
-	var url = "http://31.220.63.183:8016/";
-//	var urlUpload= "http://31.220.63.183:8011/";
-//	var urlCita = "http://31.220.63.183:8012/";
-//	var url = "http://localhost:8010/";
-//	var urlUpload= "http://localhost:8011/";
-//	var urlCita = "http://localhost:8012/";
-	
-	$.idEmpresa = $("#idEmpresa").val();
-	$.action = $("#idAction").val();
-	$.idUserEmpresa ="";
-	$.url2 = url+"readUserEmpresa/"+$.action+"/"+$.idUserEmpresa
-	
-	var $userEmpresa = $(function(){
-		readIdUserEmpresa("0");
-	});
+
 	
 	/*
 	 * Carga la Tabla inicial
 	 */
-	$( function() {
-//		var $table = $('#userEmpresaTable');
-//		//$('#userEmpresaTable').bootstrapTable('load', $.userEmpresa);
-//		$table.bootstrapTable({data : JSON.stringify(readIdUserEmpresa("0"))})
-//		console.log("function load data option");
-//		$('#userEmpresaTable').bootstrapTable('load', $userEmpresa);
-//		console.log("function load data metodo");
-//		$('#userEmpresaTable').bootstrapTable('refresh');
-//		console.log("function refresh data");
-		
-	} );       
-
-	 
-	 
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
-		      $('#idUserEmpresa').val(row.idUserEmpresa);
-		      $('#nombreRegistro').val(row.nombreRegistro);
-		      $('#apellidoRegistro').val(row.apellidoRegistro);
-		      $('#emailRegistro').val(row.emailRegistro);
-		      $('#telefonoRegistro').val(row.telefonoRegistro);
-		      $('#usuarioRegistro').val(row.usuarioRegistro);
-		      $('#passRegistro1').val(row.passRegistro1);
-		      $('#passRegistro2').val(row.passRegistro2);
-		      $('#messageRegistro').val(row.messageRegistro);
+
+		      $('#nombreCortoCliente').val(row.nombreCortoCliente);
+		      $('#nombreCompletoCliente').val(row.nombreCompletoCliente);
+		      $('#emailCliente').val(row.emailCliente);
+		      $('#telefonoCliente').val(row.telefonoCliente);
+		      $('#rfcCliente').val(row.rfcCliente);
+		      $('#idRegionCliente').val(row.idRegionCliente);
+		      $('#domicilioCliente').val(row.domicilioCliente);
+		      
 		    }
 		   }
 		  
@@ -81,7 +54,7 @@ $(document).ready(function(){
 	window.operateEventsDelete = {
 	    'click .remove': function (e, value, row, index) {
 	    	confirm("Estás seguro de Eliminar el Registro : "+row.nombreRegistro);
-	    	$('#userEmpresaTable').bootstrapTable('remove', {
+	    	$('#clientesTable').bootstrapTable('remove', {
 	        field: 'idUserEmpresa',
 	        values: [row.idUserEmpresa]
 	      });
@@ -89,7 +62,31 @@ $(document).ready(function(){
 	      deleteUserEmpresa(row.idUserEmpresa);
 	    }
 	  }
+	
+	
+	
+	/*
+	 *  funciones
+	 */
+	var $table = $('#clientesTable')
+	var $button = $('#selectId')
+
+	  
+	 $('.selectId').click(function () {
+	      alert('getSelections: ' + JSON.stringify($table.bootstrapTable('getSelections')));
+	      alert('jsonCompleto: ' + username);
+//	      alert('jsonIndividual: ' + cliente.nombreCortoCliente);
+	    });
 		  
+	  
+	    var $data = clientes
+//	    console.log(JSON.stringify(clientes));
+//	    console.log($data);
+	    $table.bootstrapTable({data: $data});
+//	    $('#clientesTable').bootstrapTable('load', clientes);
+	  
+
+
 	
 /*
  * Rest jquery

@@ -62,6 +62,7 @@ public class ClienteService implements IClienteService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ResultVO consultaClientes(String token) {
 		
@@ -69,17 +70,22 @@ public class ClienteService implements IClienteService {
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
 		cliente.setStatusCliente(me.getStatusEntidad());
+//		log.info(resultVO.toString());
 		
-		resultVO = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
+		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
 		
-		if(resultVO.getCodigo() == 202) {
-			JSONObject jsonGeneral = resultVO.getJsonResponse();
-//			JSONArray jsonClientes = (JSONArray ) jsonGeneral.get("clientes");
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonClientes = new JSONObject();
+			jsonClientes.put("clientes", jsonGeneral.get("clientes"));
 			
-//			resultVO.setJsonResponseArray(jsonClientes);
-			return resultVO;
+//			jsonClientesArray.add(jsonClientes);
+			
+			
+			rs.setJsonResponseObject(jsonClientes);
+			return rs;
 		}else {
-			return resultVO;
+			return rs;
 		}
 	}
 	

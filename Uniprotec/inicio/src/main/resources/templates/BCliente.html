@@ -241,55 +241,43 @@
 								<div class="card-body">
 									<h5 class="card-title">CLIENTES UNIPROTEC</h5>
 
-									<table id='clientesTable' class="mb-0 table table-striped"
+									<table id='clientesTable' class="mb-0 table table-striped table-sm"
 										data-locale="es-MX" 
 										data-toggle='table' 
-										data-height='460'
-										data-sort-name='statusRegistro' 
+									
+										data-sort-name='nombreRegistro' 
 										data-sort-order='asc'
 										data-pagination='true'
 										data-page-list='[10, 25, 50, 100, 200, Todos]'
 										data-search='true' 
-										data-click-to-select='true'
-										data-checkbox-header="false">
+										
+										data-detail-view="true"
+										data-detail-formatter="detailFormatter"
+										data-row-attributes="rowAttributes">
 										<thead class='thead-dark'>
 											<tr>
+<!-- 											<th data-field="state" data-checkbox="true"></th> -->
 												<th data-width="50" data-width-unit="%" data-halign="center"
-													data-align="left" data-field='nombreRegistro'
+													data-align="center" data-field='nombreCortoCliente'
 													data-sortable='true'>Nombre Corto</th>
 												<th data-width="10" data-width-unit="%" data-halign="center"
-													data-align="center" data-field='statusRegistro'
+													data-align="center" data-field='statusCliente'
 													data-sortable='true'>Status</th>
-												<th data-width="20" data-width-unit="%" data-halign="center"
-													data-align="center" data-field="operateUpdate"
-													data-formatter="operateFormatterUpdate"
-													data-events="window.operateEventsUpdate">Edicion</th>
-												<th data-width="20" data-width-unit="%" data-halign="center"
-													data-align="center" data-field="operateDelete"
-													data-formatter="operateFormatterDelete"
-													data-events="operateEventsDelete">Detalle</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center"
+													data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center"
+													data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="operateEventsDelete">Eliminar</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr  th:each= "cliente : ${resultvo.getJSONgetJsonResponse().clientes}">
-												<td>
-													 <span th:text="${cliente.nombreCortoCliente}"></span>
-												</td>
-												<td>
-													<span th:text="${cliente.statusCliente}"></span>
-												</td>
-												<td>
-													<button class="mb-2 mr-2 btn btn-primary"><i class="pe-7s-look icon-gradient bg-tempting-azure"></i></button>
-												</td>
-												<td>
-													<button class="mb-2 mr-2 btn btn-info"><i class="pe-7s-albums icon-gradient bg-tempting-azure"></i></button>
-												</td>
-											</tr>
-											
-										</tbody>
-										
+							
 									</table>
-
+									<script th:inline="javascript">
+									    var clientes = [[${model.jsonResponseObject.clientes}]];
+									</script>
+									<script>
+									  
+									</script>
+									
 								</div>
 							</div>
 						</div>
@@ -384,7 +372,7 @@
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100" th:field="*{nombreCortoCliente}" required>
+                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value="${cliente.nombreCortoCliente}"  maxlength="100"  required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Corto
                                             </div>
