@@ -14,8 +14,7 @@
 </head>
 
 <body>
-
-    
+   	
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
@@ -244,63 +243,28 @@
 									<table id='clientesTable' class="mb-0 table table-striped table-sm"
 										data-locale="es-MX" 
 										data-toggle='table' 
-									
-										data-sort-name='nombreRegistro' 
+										data-sort-name='nombreRegistro'
+										data-search='true' 
 										data-sort-order='asc'
 										data-pagination='true'
-										data-page-list='[10, 25, 50, 100, 200, Todos]'
-										data-search='true' 
-										
-										data-detail-view="true"
-										data-detail-formatter="detailFormatter"
-										data-row-attributes="rowAttributes">
+										data-page-list='[10, 25, 50, 100, 200, Todos]'>
 										<thead class='thead-dark'>
 											<tr>
-<!-- 											<th data-field="state" data-checkbox="true"></th> -->
-												<th data-width="50" data-width-unit="%" data-halign="center"
-													data-align="center" data-field='nombreCortoCliente'
-													data-sortable='true'>Nombre Corto</th>
-												<th data-width="10" data-width-unit="%" data-halign="center"
-													data-align="center" data-field='statusCliente'
-													data-sortable='true'>Status</th>
-												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center"
-													data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
-												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center"
-													data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="operateEventsDelete">Eliminar</th>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreCortoCliente' data-sortable='true'>Nombre Corto</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='statusCliente' data-sortable='true'>Status</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th>
 											</tr>
-										</thead>
-							
+										</thead>					
 									</table>
-									<script th:inline="javascript">
-									    var clientes = [[${model.jsonResponseObject.clientes}]];
-									</script>
-									<script>
-									  
-									</script>
-									
+								
 								</div>
+								<!-- FIN DE SECCION TABLA                  			-->
 							</div>
 						</div>
 					</div>
-					<!-- 
-                     			FIN DE SECCION TABLA
-                  			-->
-					<div class="form-row">
-						<div class="col-md-12 mb-3">
-							<!-- START -->
-
-
-
-
-
-							<!-- END -->
-						</div>
-					</div>
-				</div>
-
-				<!-- 
-                     FIN DE SECCION DE EDICION 
-                  -->
+					
+				<!--  FIN DE SECCION DE EDICION     -->
 
 				<!-- Footer-->
 				<div class="app-wrapper-footer">
@@ -341,15 +305,20 @@
 <!--  -->
 
 
-
 	
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    
+    <script th:inline="javascript">
+		 var $data = [[${model.jsonResponseObject.clientes}]];
+	</script>
+											    
+    <script type="text/javascript" th:src="@{js/complemento.js}"></script>
+    
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
-    
-    <script type="text/javascript" th:src="@{js/complemento.js}"></script>
-
+	
+	
 
 </body>
 
@@ -358,21 +327,22 @@
 
  <!-- Modal -->
   <div class="modal fade" id="modalRegistro" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-        <h4>Edicion Cliente</h4>
+        <div class="modal-header" style="background-color: #F1FFFE">
+          <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+          <h4 style="padding:35px 50px; position: center">Edicion Cliente</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
-        <div class="modal-body" style="padding:40px 50px;">
+        <div class="modal-body" style="padding:40px 50px; ">
           <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value="${cliente.nombreCortoCliente}"  maxlength="100"  required>
+                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100"  required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Corto
                                             </div>
@@ -413,7 +383,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Sede</label>
-                           				     <select id="idRegionCliente" th:field="*{idRegionCliente}" name="idRegionCliente" class="form-control" default="" >
+                           				     <select id="idRegionCliente" th:field="*{regionCliente.nombreRegion}" name="idRegionCliente" class="form-control" default="*{regionCliente.nombreRegion}" >
 	                								<option value="1">Queretaro</option>
 	                								<option value="2">Guanajuato</option>
 	              							</select>
@@ -458,7 +428,7 @@
                                     })();
                                 </script>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" style=" background-color: #F1FFFE">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
           
         </div>
