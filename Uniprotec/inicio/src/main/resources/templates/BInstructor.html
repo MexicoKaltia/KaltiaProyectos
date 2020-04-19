@@ -9,12 +9,12 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-    <link th:href="@{main.css}" rel="stylesheet">
+	    <link th:href="@{main.css}" rel="stylesheet">
+	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
 </head>
 
 <body>
-
-    
+   	
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
@@ -168,8 +168,8 @@
                                     CONTROL
                                 </a>
                             </li>
-                             <li class="app-sidebar__heading">MODULOS</li>
-								<li th:each= "modulo : ${model.jsonResponse.fields.user.modules}">
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.fields.user.modules}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
                                     <span th:text="${modulo.nombreModulo}"></span>
@@ -187,7 +187,7 @@
             
                             <li class="app-sidebar__heading">ACCIONES</li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{Asignacion}">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
                                 </a>
@@ -208,100 +208,167 @@
                         </ul>
                     </div>
                 </div>  
-            </div> 
+            </div>
 
-             <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
-                                    </i>
-                                </div>
-                                <div>ALTA CLIENTE
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CLIENTE
-                                    </div>
-                                </div>
-                            </div>
+			<div class="app-main__outer">
+				<div class="app-main__inner">
+					<div class="app-page-title">
+						<div class="page-title-wrapper">
+							<div class="page-title-heading">
+								<div class="page-title-icon">
+									<i class="pe-7s-news-paper icon-gradient bg-mean-fruit"> </i>
+								</div>
+								<div>
+									EDICION y CONSULTA INSTRUCTORES
+									<div class="page-title-subheading">TABLA DE CONSULTA INSTRUCTORES</div>
+								</div>
+							</div>
 
-                        </div>
-                    </div>
-                    
-                    <!--  
+						</div>
+					</div>
+
+					<!--  
                     	SECCION DE EDICION  
                     -->
-                    <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">CLIENTE UNIPROTEC</h5>
-                                <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
+					<!-- 
+                     			iNICIO DE SECCION TABLA
+                  			-->
+					<div class="form-row">
+						<div class="col-md-12 mb-3">
+							<div class="main-card mb-3 card">
+								<div class="card-body">
+									<h5 class="card-title">INSTRUCTORES UNIPROTEC</h5>
+
+									<table id='instructoresTable' class="mb-0 table table-striped table-sm"
+										data-locale="es-MX" 
+										data-toggle='table' 
+										data-sort-name='nombreInstructor'
+										data-search='true' 
+										data-sort-order='asc'
+										data-pagination='true'
+										data-page-list='[10, 25, 50, 100, 200, Todos]'>
+										<thead class='thead-dark'>
+											<tr>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreInstructor' data-sortable='true'>Nombre Instructor</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='statusInstructor' data-sortable='true'>Status</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateInstructor">Editar</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th>
+											</tr>
+										</thead>					
+									</table>
+								
+								</div>
+								<!-- FIN DE SECCION TABLA                  			-->
+							</div>
+						</div>
+					</div>
+					
+				<!--  FIN DE SECCION DE EDICION     -->
+
+				<!-- Footer-->
+				<div class="app-wrapper-footer">
+					<div class="app-footer">
+						<div class="app-footer__inner">
+							<div class="app-footer-left">
+								<ul class="nav">
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link"> Footer Link 1 </a></li>
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link"> Footer Link 2 </a></li>
+								</ul>
+							</div>
+							<div class="app-footer-right">
+								<ul class="nav">
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link"> Footer Link 3 </a></li>
+									<li class="nav-item"><a href="javascript:void(0);"
+										class="nav-link">
+											<div class="badge badge-success mr-1 ml-0">
+												<small>NEW</small>
+											</div> Footer Link 4
+									</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Fin Footer-->
+
+			</div>
+			<!--  app-main__inner -->
+        </div>  <!-- fin de app-main__outer-->
+	</div>  <!-- app-main -->
+</div>   <!-- app-container -->
+
+<!--  -->
+
+
+	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    
+    <script th:inline="javascript">
+		 var $data = [[${model.jsonResponseObject.instructores}]];
+	</script>
+											    
+    <script type="text/javascript" th:src="@{js/complemento.js}"></script>
+    
+    <script th:src="@{js/bootstrap-table.min.js}"></script>
+    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+	
+	
+
+</body>
+
+</html>
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="modalRegistro" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F1FFFE">
+          <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+          <h4 style="padding:35px 50px; position: center">Edicion Instructor</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; ">
+          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaInstructor}"  th:object="${instructorForm}" method="post">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100" th:field="*{nombreCortoCliente}" required>
+                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="150"  required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Corto
                                             </div>
                                         </div>
                                      </div>
                                      <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Nombre Completo</label>
-                                            <input type="text" class="form-control" th:field="*{nombreCompletoCliente}" id="nombreCompletoCliente" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Completo
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Telefono</label>
-                                            <input type="number" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="50" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Telefono Valido
-                                            </div>
+aqui van la sede de instructor
                                         </div>
                                       </div>
+                                     
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">RFC</label>
-                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" maxlength="14" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre RFC Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Sede</label>
-                           				     <select id="idRegionCliente" th:field="*{regionCliente}" name="idRegionCliente" class="form-control" default="Selecciona Sede" >
-	                								 <option th:each="region: ${regiones}"
-											             th:value="${region.idRegion}"
-											             th:text="${region.nombreRegion}"/>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
+aqui van los cursos
                                         </div>
                                       </div>
+                                     
                                   <div class="form-row">
-                                      <label class=" control-label" for="textarea">Direccion</label>
+                                      <label class=" control-label" for="textarea">Nota Instructor</label>
 								            <div class="">                     
-								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="3" cols="150" required></textarea>
+								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" required></textarea>
 								            </div>
-							              <div class="invalid-feedback">
-                                                Capturar Domicilio Valido
-                                            </div>
 							         </div>
                                         
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Agregar Cliente</button>
+                                    <button class="btn btn-primary" type="submit">Edicion Instructor</button>
                                 </form>
             
                                 <script>
@@ -324,60 +391,12 @@
                                         }, false);
                                     })();
                                 </script>
-                            </div>
-                        </div>
-                                              
-                        <!-- 
-                        	FIN DE SECCION DE EDICION 
-                        -->
-
-                                       <!-- Footer-->
-                                       <div class="app-wrapper-footer">
-                                        <div class="app-footer">
-                                            <div class="app-footer__inner">
-                                                <div class="app-footer-left">
-                                                    <ul class="nav">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 1
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 2
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="app-footer-right">
-                                                    <ul class="nav">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 3
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>NEW</small>
-                                                                </div>
-                                                                Footer Link 4
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                         </div>
-                                     </div>
-                                    
-                                <!-- Fin Footer-->
-                
-            </div>  <!--  app-main__inner -->
-        </div>  <!-- fin de app-main__outer-->
-	</div>  <!-- app-main -->
-</div>   <!-- app-container -->
-    <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-</body>
-
-</html>
+        </div>
+        <div class="modal-footer" style=" background-color: #F1FFFE">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div> 

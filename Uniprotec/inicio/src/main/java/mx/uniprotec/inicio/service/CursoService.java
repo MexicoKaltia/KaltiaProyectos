@@ -3,6 +3,7 @@ package mx.uniprotec.inicio.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +65,26 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 
 	@Override
 	public ResultVO consultaCursos(String token) {
-		// TODO Auto-generated method stub
-		return null;
+
+//		me = ComponenteComun.monitorCampos();
+//		cliente.setCreateAtCliente(me.getNowEntidad());
+//		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
+//		cliente.setStatusCliente(me.getStatusEntidad());
+////		log.info(resultVO.toString());
+//		
+		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CURSOS);
+		
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonClientes = new JSONObject();
+			jsonClientes.put("cursos", jsonGeneral.get("cursos"));
+			
+			rs.setJsonResponseObject(jsonClientes);
+			return rs;
+		}else {
+			return rs;
+		}
+		
 	}
 
 }

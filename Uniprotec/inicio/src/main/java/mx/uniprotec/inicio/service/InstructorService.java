@@ -1,5 +1,6 @@
 package mx.uniprotec.inicio.service;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,18 @@ public class InstructorService implements IInstructorService {
 
 	@Override
 	public ResultVO consultaInstructores( String token) {
-		// TODO Auto-generated method stub
-		return null;
+		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_INSTRUCTORES);
+		
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonClientes = new JSONObject();
+			jsonClientes.put("instructores", jsonGeneral.get("instructores"));
+			
+			rs.setJsonResponseObject(jsonClientes);
+			return rs;
+		}else {
+			return rs;
+		}
 	}
 
 }

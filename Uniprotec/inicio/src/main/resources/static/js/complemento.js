@@ -44,6 +44,25 @@ $(document).ready(function(){
 		      $('#domicilioCliente').val(row.domicilioCliente);      
 		    }
 		   }
+	
+	window.operateEventsUpdateInstructor = {
+		    'click .like': function (e, value, row, index) {
+//		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+		      $('#nombreInstructor').val(row.nombreInstructor);
+//		      $('#idRegionCliente').val(row.idRegionCliente);
+		      $('#notaInstructor').val(row.notaInstructor);
+		    }
+		   }
+
+	
+	window.operateEventsUpdateCurso = {
+		    'click .like': function (e, value, row, index) {
+//		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+		      $('#nombreCurso').val(row.nombreCurso);
+		      $('#notaCurso').val(row.notaCurso);
+		    }
+		   }
+
 		  
 	
 	window.operateEventsDelete = {
@@ -59,6 +78,8 @@ $(document).ready(function(){
 	  }
 
 	$('#clientesTable').bootstrapTable({data : $data})
+	$('#cursosTable').bootstrapTable({data : $data})
+	$('#instructoresTable').bootstrapTable({data : $data})
 //		$table.bootstrapTable('load', data)
 	
 	

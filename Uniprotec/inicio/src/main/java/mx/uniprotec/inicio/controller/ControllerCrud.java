@@ -22,6 +22,7 @@ import mx.uniprotec.entidad.modelo.Cliente;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.Instructor;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.inicio.entity.Curso;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IInstructorService;
@@ -85,7 +86,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return new  ModelAndView("login");
 		}else {
 			log.info("ACliente model Activo");
-//			log.info(model.values().toString());
+
 			return new  ModelAndView("ACliente",  model);	
 		}		
 		
@@ -110,16 +111,12 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	public ModelAndView bcliente(ModelMap model) {
 		
 		model.addAttribute("clienteForm", new Cliente());
-//		log.info(model.values().toString());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
-//		log.info(resultVO.toString());
 		model.addAttribute("model", resultVO);
 		
-//		ResultVO rs = new ResultVO();
 		ResultVO rs = clienteService.consultaClientes(resultVO.getAccesToken());
 		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-//		model.addAttribute("result", rs.getJsonResponse());
 		log.info(model.values().toString());
 		ModelAndView mav = new ModelAndView("BCliente", model);
 		
@@ -160,18 +157,21 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 	
 	@GetMapping("/BCurso")
-	public ModelAndView bcurso(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView bCurso(ModelMap model) {
 		
+		model.addAttribute("cursoForm", new Curso());
 		
-		ModelAndView mav = new ModelAndView("index");
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
 		
-		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
-		log.info(jsonLogin.toJSONString());
-
+		ResultVO rs = cursoService.consultaCursos(resultVO.getAccesToken());
+		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+		log.info(model.values().toString());
+		ModelAndView mav = new ModelAndView("BCurso", model);
+		
 		return mav;
 		}
+
 
 	
 	/*
@@ -206,18 +206,22 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 	
 	@GetMapping("/BInstructor")
-	public ModelAndView BInstructor(ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
-		
-		ModelAndView mav = new ModelAndView("index");
-		
-		JSONObject jsonLogin = new JSONObject((Map) model.get("model"));
-		log.info(jsonLogin.toJSONString());
+	public ModelAndView BInstructor(ModelMap model) {
+			
+			model.addAttribute("instructorForm", new Instructor());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = instructorService.consultaInstructores(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			log.info(model.values().toString());
+			ModelAndView mav = new ModelAndView("BInstructor", model);
+			
+			return mav;
 
-		return mav;
 		}
 
-	
+
 
 }

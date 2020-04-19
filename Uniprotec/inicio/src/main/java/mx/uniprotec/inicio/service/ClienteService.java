@@ -79,9 +79,6 @@ public class ClienteService implements IClienteService {
 			JSONObject jsonClientes = new JSONObject();
 			jsonClientes.put("clientes", jsonGeneral.get("clientes"));
 			
-//			jsonClientesArray.add(jsonClientes);
-			
-			
 			rs.setJsonResponseObject(jsonClientes);
 			return rs;
 		}else {

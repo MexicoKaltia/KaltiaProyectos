@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
@@ -60,10 +61,9 @@ public class Instructor implements Serializable {
 //	inverseJoinColumns=@JoinColumn(name="cursos_id"))
 ////	uniqueConstraints= {@UniqueConstraint(columnNames= {"instructores_id", "cursos_id"})})
 //	private List<Curso> cursos = new ArrayList<>();
-	
-	
-	@Column(nullable=false)
-	private Long regionInstructor;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Region regionInstructor;
 	@Column
 	private String notaInstructor;
 	@Column(nullable=false)
@@ -77,12 +77,20 @@ public class Instructor implements Serializable {
 	public Instructor() {
 		
 	}
-	
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "Instructor [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
+				+ ", regionInstructor=" + regionInstructor + ", notaInstructor=" + notaInstructor
+				+ ", userCreateInstructor=" + userCreateInstructor + ", createAtInstructor=" + createAtInstructor
+				+ ", statusInstructor=" + statusInstructor + "]";
+	}
+
+
 	public Instructor(Long idInstructor,
 			@NotEmpty(message = "nombreInstructor no puede estar vacio") @Size(min = 4, max = 300, message = "el tamaño tiene que estar entre 4 y 300") String nombreInstructor,
-			Long regionInstructor, String notaInstructor, Long userCreateInstructor, LocalDateTime createAtInstructor,
+			Region regionInstructor, String notaInstructor, Long userCreateInstructor, LocalDateTime createAtInstructor,
 			String statusInstructor) {
 		super();
 		this.idInstructor = idInstructor;
@@ -95,51 +103,78 @@ public class Instructor implements Serializable {
 	}
 
 
-
 	public Long getIdInstructor() {
 		return idInstructor;
 	}
+
+
 	public void setIdInstructor(Long idInstructor) {
 		this.idInstructor = idInstructor;
 	}
+
+
 	public String getNombreInstructor() {
 		return nombreInstructor;
 	}
+
+
 	public void setNombreInstructor(String nombreInstructor) {
 		this.nombreInstructor = nombreInstructor;
 	}
-	public Long getRegionInstructor() {
+
+
+	public Region getRegionInstructor() {
 		return regionInstructor;
 	}
-	public void setRegionInstructor(Long regionInstructor) {
+
+
+	public void setRegionInstructor(Region regionInstructor) {
 		this.regionInstructor = regionInstructor;
 	}
+
+
 	public String getNotaInstructor() {
 		return notaInstructor;
 	}
+
+
 	public void setNotaInstructor(String notaInstructor) {
 		this.notaInstructor = notaInstructor;
 	}
+
+
 	public Long getUserCreateInstructor() {
 		return userCreateInstructor;
 	}
+
+
 	public void setUserCreateInstructor(Long userCreateInstructor) {
 		this.userCreateInstructor = userCreateInstructor;
 	}
+
+
 	public LocalDateTime getCreateAtInstructor() {
 		return createAtInstructor;
 	}
+
+
 	public void setCreateAtInstructor(LocalDateTime createAtInstructor) {
 		this.createAtInstructor = createAtInstructor;
 	}
+
+
 	public String getStatusInstructor() {
 		return statusInstructor;
 	}
+
+
 	public void setStatusInstructor(String statusInstructor) {
 		this.statusInstructor = statusInstructor;
 	}
 	
-
-		
+	
+	
+	
+	
 	
 }
