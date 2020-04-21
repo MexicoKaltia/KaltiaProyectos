@@ -15,7 +15,7 @@ public class ComponenteComun {
 		MonitorEntidades me = new MonitorEntidades(
 				LocalDateTime.now(),
 				1l,
-				"Creado");
+				"Activo");
 				
 		return me;
 		

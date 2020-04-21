@@ -32,11 +32,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	static final String URL_POST_LOGIN 			      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
+	
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
 	public static final String URL_CRUD_CURSO		  =	"curso";
@@ -45,6 +46,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_INSTRUCTORES  =	"instructores";
 	public static final String URL_CRUD_CURSOS		  =	"cursos";
 	public static final String URL_CRUD_USUARIOS	  =	"usuarios";
+	public static final String URL_CRUD_REGIONES	  =	"regiones";
 	
 	
 	
@@ -75,6 +77,15 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return resultVO;
 	}
 	
+	@Override
+	public Object objetoPut(String token, String urlCrud, Object objeto, Long idObjeto) {
+		
+		resultVO = getTemplateObjetoPut(token, urlCrud, objeto, idObjeto);
+		return resultVO;
+	}
+	
+
+
 	@Override
 	public ResultVO objetoGetAll(String token, String urlCrud) {
 //		log.info(resultVO.toString());
@@ -139,6 +150,25 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
    	     
 		return resultVO;
 	}
+	
+	private ResultVO getTemplateObjetoPut(String token, String urlCrud, Object objeto, Long idObjeto) {
+
+		String urlPut = URL_CRUD+urlCrud + "/" +Long.valueOf(idObjeto).toString();
+		log.info(urlPut);
+		
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+   	     headers.add("Authorization", "Bearer " + token);
+   	     
+   	    HttpEntity<?> entity = new HttpEntity<>(objeto, headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<JSONObject> response  = restTemplate.exchange(urlPut, HttpMethod.PUT, entity, JSONObject.class);
+	    
+	    resultVO = asignaResponseObject(response);
+   	     
+		return resultVO;
+	}
+
 
 
 	private ResultVO getTemplateObjetoGetAll(String token, String urlCrud) {

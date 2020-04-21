@@ -1,12 +1,12 @@
 package mx.uniprotec.inicio.service;
 
-import mx.uniprotec.entidad.modelo.Instructor;
+import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IInstructorService {
 
-	public ResultVO altaInstructor(Instructor cliente, String token);
-	public ResultVO edicionInstructor(Instructor cliente, String token);
+	public ResultVO altaInstructor(InstructorModelo cliente, String token);
+	public ResultVO edicionInstructor(InstructorModelo cliente, String token);
 	public ResultVO consultaInstructores(String token);
 
 }

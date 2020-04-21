@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
-import mx.uniprotec.entidad.modelo.Usuario;
+import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.service.ILoginService;
 
 @CrossOrigin(origins = { "*" })
@@ -40,7 +40,7 @@ public class ControllerInicio extends HttpServlet{
 	@Autowired
 	ILoginService loginService;
 	ResultVO resultVO = new ResultVO();
-	Usuario usuario = new Usuario();
+	UsuarioModelo usuario = new UsuarioModelo();
 	
 	
 		@GetMapping("/")

@@ -15,7 +15,7 @@ import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.SubModulo;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UserMap;
-import mx.uniprotec.entidad.modelo.Usuario;
+import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.util.BaseClientRest;
 
 @Service

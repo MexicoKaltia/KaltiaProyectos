@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import mx.uniprotec.entidad.modelo.Cliente;
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
-import mx.uniprotec.entidad.modelo.Instructor;
+import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.entity.Curso;
+import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IInstructorService;
@@ -50,6 +51,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	ICursoService cursoService;
 	@Autowired
 	IUsuarioService usuarioService;
+	@Autowired
+	IAplicacionService aplicacionService;
 	
 //	@Autowired
 	ResultVO resultVO = new  ResultVO ();
@@ -79,7 +82,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@GetMapping("/ACliente")
 	public ModelAndView acliente(ModelMap model) {
 		
-		model.addAttribute("clienteForm", new Cliente());
+		model.addAttribute("clienteForm", new ClienteModelo());
 		
 		if(model.equals(null)) {
 			log.info("NULL");
@@ -87,13 +90,20 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		}else {
 			log.info("ACliente model Activo");
 
-			return new  ModelAndView("ACliente",  model);	
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			log.info(model.values().toString());
+			
+			return new  ModelAndView("ACliente",  model);
 		}		
 		
 	}
 //	
 	@PostMapping("/altaCliente")
-	public ModelAndView altaCliente(@ModelAttribute("clienteForm") Cliente cliente, ModelMap model) {
+	public ModelAndView altaCliente(@ModelAttribute("clienteForm") ClienteModelo cliente, ModelMap model) {
 		log.info("Metodo de alta Cliente");
 //		log.info(model.values().toString());
 		
@@ -107,15 +117,39 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/BCliente")
 	public ModelAndView bcliente(ModelMap model) {
 		
-		model.addAttribute("clienteForm", new Cliente());
+		model.addAttribute("clienteForm", new ClienteModelo());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 		
 		ResultVO rs = clienteService.consultaClientes(resultVO.getAccesToken());
+		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+
+		ResultVO rs2 = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+		JSONObject jsonResponse = resultVO.getJsonResponseObject();
+		jsonResponse.put("regiones", rs2.getJsonResponseObject());
+		
+		resultVO.setJsonResponseObject(jsonResponse);
+		
+		log.info(model.values().toString());
+		ModelAndView mav = new ModelAndView("BCliente", model);
+		
+		return mav;
+		}
+	
+	@PostMapping("/actualizaCliente")
+	public ModelAndView actualizaCliente(@ModelAttribute("clienteForm") ClienteModelo cliente, ModelMap model) {
+		
+		model.addAttribute("clienteForm", new ClienteModelo());
+			
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		
+		ResultVO rs = clienteService.edicionCliente(cliente, resultVO.getAccesToken());
 		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 		log.info(model.values().toString());
 		ModelAndView mav = new ModelAndView("BCliente", model);
@@ -181,7 +215,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@GetMapping("/AInstructor")
 	public ModelAndView AInstructor(ModelMap model) {
 		
-		model.addAttribute("instructorForm", new Instructor());
+		model.addAttribute("instructorForm", new InstructorModelo());
 		
 		if(model.equals(null)) {
 			log.info("NULL");
@@ -194,7 +228,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 //	
 	@PostMapping("/altaInstructor")
-	public ModelAndView altaInstructor(@ModelAttribute("instructorForm") Instructor instructor, ModelMap model) {
+	public ModelAndView altaInstructor(@ModelAttribute("instructorForm") InstructorModelo instructor, ModelMap model) {
 
 		log.info("metodo de alta Instructor");
 		
@@ -208,7 +242,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@GetMapping("/BInstructor")
 	public ModelAndView BInstructor(ModelMap model) {
 			
-			model.addAttribute("instructorForm", new Instructor());
+			model.addAttribute("instructorForm", new InstructorModelo());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);

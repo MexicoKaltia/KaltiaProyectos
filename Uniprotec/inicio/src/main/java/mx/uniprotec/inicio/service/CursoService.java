@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.CursoModelo;
-import mx.uniprotec.entidad.modelo.Instructor;
+import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.util.BaseClientRest;

@@ -38,9 +38,11 @@ import org.springframework.web.multipart.MultipartFile;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
+import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.application.service.IInstructorService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
+import mx.uniprotec.entidad.modelo.InstructorModelo;
 
 @CrossOrigin(origins = { "http://localhost:8080" })
 @RestController
@@ -55,6 +57,10 @@ public class InstructorRestController {
 	
 	@Autowired
 	private IUploadFileService uploadService;
+	
+	@Autowired
+	private IAplicacionService aplicacionService;
+
 	
 	 private final Logger log = LoggerFactory.getLogger(InstructorRestController.class);
 
@@ -111,8 +117,9 @@ public class InstructorRestController {
 	 /*
 	  * 
 	  */
+	@SuppressWarnings("null")
 	@PostMapping("/instructor")
-	public ResponseEntity<?> create(@Valid @RequestBody Instructor instructor, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody InstructorModelo instructor, BindingResult result) {
 		
 		HttpStatus status ;
 		Instructor instructorNew = null;
@@ -131,7 +138,17 @@ public class InstructorRestController {
 		}
 		
 		try {
-			instructorNew = instructorService.save(instructor);
+	Region region = aplicacionService.findRegion(instructor.getRegionInstructor());
+			
+			instructorNew.setNombreInstructor(instructor.getNombreInstructor());
+			instructorNew.setEmailInstructor(instructor.getEmailInstructor());
+			instructorNew.setRegionInstructor(region);
+			instructorNew.setNotaInstructor(instructor.getNotaInstructor());
+			instructorNew.setCreateAtInstructor(instructor.getCreateAtInstructor());
+			instructorNew.setStatusInstructor(instructor.getStatusInstructor());
+			instructorNew.setUserCreateInstructor(instructor.getUserCreateInstructor());
+			
+			instructorNew = instructorService.save(instructorNew);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -151,7 +168,7 @@ public class InstructorRestController {
 	 * 
 	 */
 	@PutMapping("/instructor/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Instructor instructor, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody InstructorModelo instructor, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
 		Instructor instructorActual = instructorService.findById(id);
@@ -180,13 +197,14 @@ public class InstructorRestController {
 		}
 
 		try {
-
-//			instructorActual.setApellido(instructor.getApellido());
+			Region region = aplicacionService.findRegion(instructor.getRegionInstructor());
+			
 			instructorActual.setNombreInstructor(instructor.getNombreInstructor());
-//			instructorActual.setEmail(instructor.getEmail());
-//			instructorActual.setCreateAt(instructor.getCreateAt());
-//			instructorActual.setRegion(instructor.getRegion());
-
+			instructorActual.setEmailInstructor(instructor.getEmailInstructor());
+			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
+			instructorActual.setRegionInstructor(region);
+			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
+			
 			instructorUpdated = instructorService.save(instructorActual);
 
 		} catch (DataAccessException e) {

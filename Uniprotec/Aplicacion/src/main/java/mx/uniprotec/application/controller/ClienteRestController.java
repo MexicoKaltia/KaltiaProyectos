@@ -32,10 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Cliente;
+import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
+import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.application.service.IClienteService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 
 
 
@@ -55,7 +58,10 @@ public class ClienteRestController {
 	
 	@Autowired
 	private IUploadFileService uploadService;
-	
+
+	@Autowired
+	private IAplicacionService aplicacionService;
+
 
 	 /*
 	  * 
@@ -86,8 +92,6 @@ public class ClienteRestController {
 		
 		HttpStatus status ;
 		Cliente cliente = null;
-		Map<String, Object> response = new HashMap<>();
-		
 		try {
 			cliente = clienteService.findById(id);
 			status = HttpStatus.OK;
@@ -110,13 +114,14 @@ public class ClienteRestController {
 	 /*
 	  * 
 	  */
+	@SuppressWarnings("null")
 	@PostMapping("/cliente")
-	public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody ClienteModelo cliente, BindingResult result) {
 		
 		log.info("PostCliente:"+cliente.getNombreCortoCliente());
 		
 		HttpStatus status ;
-		Cliente clienteNew = null;
+		Cliente clienteNew = new Cliente();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -132,7 +137,21 @@ public class ClienteRestController {
 		}
 		
 		try {
-			clienteNew = clienteService.save(cliente);
+			
+			Region region = aplicacionService.findRegion(cliente.getIdRegionCliente());
+			
+			clienteNew.setNombreCortoCliente(cliente.getNombreCortoCliente());
+			clienteNew.setNombreCompletoCliente(cliente.getNombreCompletoCliente());
+			clienteNew.setRfcCliente(cliente.getRfcCliente());
+			clienteNew.setRegionCliente(region);
+			clienteNew.setCreateAtCliente(cliente.getCreateAtCliente());
+			clienteNew.setEmailCliente(cliente.getEmailCliente());
+			clienteNew.setTelefonoCliente(cliente.getTelefonoCliente());
+			clienteNew.setDomicilioCliente(cliente.getDomicilioCliente());
+			clienteNew.setStatusCliente(cliente.getStatusCliente());
+			clienteNew.setUserCreateCliente(cliente.getUserCreateCliente());
+			
+			clienteNew = clienteService.save(clienteNew);
 			response.put("mensaje", "El cliente ha sido creado con éxito!");
 			response.put("cliente", clienteNew);
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -154,12 +173,11 @@ public class ClienteRestController {
 	 * 
 	 */
 	@PutMapping("/cliente/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody ClienteModelo cliente, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
 		Cliente clienteActual = clienteService.findById(id);
-
-		Cliente clienteUpdated = null;
+		Cliente clienteUpdated = new Cliente();
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -184,14 +202,19 @@ public class ClienteRestController {
 
 		try {
 
+			Region region = aplicacionService.findRegion(cliente.getIdRegionCliente());
+			
 			clienteActual.setNombreCortoCliente(cliente.getNombreCortoCliente());
 			clienteActual.setNombreCompletoCliente(cliente.getNombreCompletoCliente());
 			clienteActual.setRfcCliente(cliente.getRfcCliente());
-			clienteActual.setRegionCliente(cliente.getRegionCliente());
+			clienteActual.setRegionCliente(region);
 			clienteActual.setCreateAtCliente(cliente.getCreateAtCliente());
 			clienteActual.setEmailCliente(cliente.getEmailCliente());
 			clienteActual.setTelefonoCliente(cliente.getTelefonoCliente());
 			clienteActual.setDomicilioCliente(cliente.getDomicilioCliente());
+			clienteActual.setCreateAtCliente(cliente.getCreateAtCliente());
+			clienteActual.setStatusCliente(cliente.getStatusCliente());
+			clienteActual.setUserCreateCliente(cliente.getUserCreateCliente());
 			
 
 			clienteUpdated = clienteService.save(clienteActual);

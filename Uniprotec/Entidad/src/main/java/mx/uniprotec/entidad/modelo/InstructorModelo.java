@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-public class Instructor implements Serializable {
+public class InstructorModelo implements Serializable {
 
 	/**
 	 * 
@@ -23,17 +23,17 @@ public class Instructor implements Serializable {
 	private String statusInstructor;
 	
 
-	public Instructor() {}
+	public InstructorModelo() {}
 
 	
 	
-	public Instructor(Long id) {
+	public InstructorModelo(Long id) {
 		this.idInstructor = id;
 	}
 	
 	
 
-	public Instructor(Long idInstructor, String nombreInstructor, String emailInstructor, Long regionInstructor,
+	public InstructorModelo(Long idInstructor, String nombreInstructor, String emailInstructor, Long regionInstructor,
 			List<Long> listCursoInstructor, String notaInstructor, Long userCreateInstructor,
 			LocalDateTime createAtInstructor, String statusInstructor) {
 		super();

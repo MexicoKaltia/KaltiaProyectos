@@ -5,7 +5,7 @@ import java.util.List;
 
 
 
-public class Usuario implements Serializable {
+public class UsuarioModelo implements Serializable {
 
 	private Long idUsuario;
 	private String username;
@@ -101,7 +101,7 @@ public class Usuario implements Serializable {
 				+ modulos + "]";
 	}
 
-	public Usuario(Long id, String username, String password, Boolean enabled, String name, String apellido,
+	public UsuarioModelo(Long id, String username, String password, Boolean enabled, String name, String apellido,
 			String email, List<Role> roles, List<Modulo> modulos) {
 		
 		this.idUsuario = id;
@@ -115,7 +115,7 @@ public class Usuario implements Serializable {
 		this.modulos = modulos;
 	}
 
-	public Usuario() {	}
+	public UsuarioModelo() {	}
 	
 	
 	

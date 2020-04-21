@@ -247,7 +247,9 @@
 										data-search='true' 
 										data-sort-order='asc'
 										data-pagination='true'
-										data-page-list='[10, 25, 50, 100, 200, Todos]'>
+										data-page-list='[10, 25, 50, 100, 200, Todos]'
+										data-detail-view="true"
+  										data-detail-formatter="detailFormatter">
 										<thead class='thead-dark'>
 											<tr>
 												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreCortoCliente' data-sortable='true'>Nombre Corto</th>
@@ -257,6 +259,15 @@
 											</tr>
 										</thead>					
 									</table>
+									<script>
+  function detailFormatter(index, row) {
+    var html = []
+    $.each(row, function (key, value) {
+      html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+    })
+    return html.join('')
+  }
+</script>
 								
 								</div>
 								<!-- FIN DE SECCION TABLA                  			-->
@@ -338,7 +349,8 @@
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
         <div class="modal-body" style="padding:40px 50px; ">
-          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
+          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaCliente}"  th:object="${clienteForm}" method="post">
+          	<input type="hidden" id="idCliente" th:field="*{idCliente}" th:value="*{idCliente}"/>
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
@@ -383,9 +395,10 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Sede</label>
-                           				     <select id="idRegionCliente" th:field="*{regionCliente.nombreRegion}" name="idRegionCliente" class="form-control" default="*{regionCliente.nombreRegion}" >
-	                								<option value="1">Queretaro</option>
-	                								<option value="2">Guanajuato</option>
+                           				     <select id="idRegionCliente"name="idRegionCliente" class="form-control" required>
+													<option th:each="region: ${model.jsonResponseObject.regiones.regiones}"
+											             th:value="${region.idRegion}"
+											             th:text="${region.nombreRegion}"/>
 	              							</select>
                                             <div class="invalid-feedback">
                                                 Capturar Sede Valida

@@ -34,13 +34,14 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
-//		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+//		      alert('You click like action, row: ' + JSON.stringify(row.regionCliente.nombreRegion) + ' ' + JSON.stringify(row.regionCliente.idRegion));
+		      $('#idCliente').val(row.idCliente);
 		      $('#nombreCortoCliente').val(row.nombreCortoCliente);
 		      $('#nombreCompletoCliente').val(row.nombreCompletoCliente);
 		      $('#emailCliente').val(row.emailCliente);
 		      $('#telefonoCliente').val(row.telefonoCliente);
 		      $('#rfcCliente').val(row.rfcCliente);
-		      $('#idRegionCliente').val(row.idRegionCliente);
+		      $('#idRegionCliente').append('<option value="'+row.regionCliente.idRegion+'" selected >'+row.regionCliente.nombreRegion+'</option>');
 		      $('#domicilioCliente').val(row.domicilioCliente);      
 		    }
 		   }
@@ -48,6 +49,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateInstructor = {
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
 //		      $('#idRegionCliente').val(row.idRegionCliente);
 		      $('#notaInstructor').val(row.notaInstructor);
@@ -58,6 +60,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateCurso = {
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+		      $('#idCurso').val(row.idCurso);
 		      $('#nombreCurso').val(row.nombreCurso);
 		      $('#notaCurso').val(row.notaCurso);
 		    }
@@ -82,6 +85,7 @@ $(document).ready(function(){
 	$('#instructoresTable').bootstrapTable({data : $data})
 //		$table.bootstrapTable('load', data)
 	
+
 	
 	
 	

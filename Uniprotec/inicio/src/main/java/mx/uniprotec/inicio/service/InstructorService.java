@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.uniprotec.entidad.modelo.Instructor;
+import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
@@ -18,7 +18,7 @@ public class InstructorService implements IInstructorService {
 	private static Logger log = LoggerFactory.getLogger(ClienteService.class);
 	
 //	@Autowired
-	Instructor instructor = new Instructor();
+	InstructorModelo instructor = new InstructorModelo();
 //	@Autowired
 	ResultVO resultVO = new  ResultVO();
 	@Autowired
@@ -27,7 +27,7 @@ public class InstructorService implements IInstructorService {
 	MonitorEntidades me = new  MonitorEntidades();
 
 	@Override
-	public ResultVO altaInstructor(Instructor instructor, String token) {
+	public ResultVO altaInstructor(InstructorModelo instructor, String token) {
 		log.info(instructor.toString());
 		
 //		List<CursoModelo> listCurso =  new ArrayList<CursoModelo>();
@@ -52,7 +52,7 @@ public class InstructorService implements IInstructorService {
 	}
 
 	@Override
-	public ResultVO edicionInstructor(Instructor cliente, String token) {
+	public ResultVO edicionInstructor(InstructorModelo cliente, String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}

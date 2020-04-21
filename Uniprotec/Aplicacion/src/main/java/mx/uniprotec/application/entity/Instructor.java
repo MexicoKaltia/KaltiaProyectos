@@ -48,6 +48,8 @@ public class Instructor implements Serializable {
 	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
 	@Column(nullable=false)
 	private String nombreInstructor;
+	@Column(nullable=false)
+	private String emailInstructor;
 	
 //	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "ainstructores")
 //	private List<Curso> curso = new ArrayList<>();
@@ -170,6 +172,16 @@ public class Instructor implements Serializable {
 
 	public void setStatusInstructor(String statusInstructor) {
 		this.statusInstructor = statusInstructor;
+	}
+
+
+	public String getEmailInstructor() {
+		return emailInstructor;
+	}
+
+
+	public void setEmailInstructor(String emailInstructor) {
+		this.emailInstructor = emailInstructor;
 	}
 	
 	

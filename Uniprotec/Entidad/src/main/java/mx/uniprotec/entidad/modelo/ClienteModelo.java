@@ -3,7 +3,7 @@ package mx.uniprotec.entidad.modelo;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Cliente implements Serializable {
+public class ClienteModelo implements Serializable {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class Cliente implements Serializable {
 	
 
 	
-	public Cliente() {}
+	public ClienteModelo() {}
 
 
 
@@ -42,7 +42,7 @@ public class Cliente implements Serializable {
 
 
 
-	public Cliente(Long idCliente, String nombreCortoCliente, String nombreCompletoCliente, String rfcCliente,
+	public ClienteModelo(Long idCliente, String nombreCortoCliente, String nombreCompletoCliente, String rfcCliente,
 			String regionIdCliente, Long idRegionCliente, Region regionCliente, String emailCliente,
 			String telefonoCliente, String domicilioCliente, String notaCliente, Long userCreateCliente,
 			LocalDateTime createAtCliente, String statusCliente) {

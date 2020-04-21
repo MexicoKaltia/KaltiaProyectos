@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.uniprotec.entidad.modelo.Cliente;
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.LoginSingle;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
@@ -24,7 +24,7 @@ public class ClienteService implements IClienteService {
 	private static Logger log = LoggerFactory.getLogger(ClienteService.class);
 	
 //	@Autowired
-	Cliente cliente  = new Cliente();
+	ClienteModelo cliente  = new ClienteModelo();
 //	@Autowired
 	ResultVO resultVO = new ResultVO();
 	@Autowired
@@ -34,7 +34,7 @@ public class ClienteService implements IClienteService {
 
 
 	@Override
-	public ResultVO altaCliente(Cliente cliente, String token) {
+	public ResultVO altaCliente(ClienteModelo cliente, String token) {
 
 //		log.info(cliente.toString());
 		
@@ -57,20 +57,34 @@ public class ClienteService implements IClienteService {
 
 
 	@Override
-	public ResultVO edicionCliente(Cliente cliente , String token) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultVO edicionCliente(ClienteModelo cliente , String token) {
+		Region region = new Region(cliente.getIdRegionCliente());
+		cliente.setRegionCliente(region);
+		
+		me = ComponenteComun.monitorCampos();
+		cliente.setCreateAtCliente(me.getNowEntidad());
+		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
+		cliente.setStatusCliente("Actualizado");
+		log.info(cliente.toString());
+		
+		resultVO = (ResultVO) baseClientRest.objetoPut(
+				token,
+				BaseClientRest.URL_CRUD_CLIENTE,
+				cliente,
+				cliente.getIdCliente());
+		
+		return resultVO;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ResultVO consultaClientes(String token) {
 		
-		me = ComponenteComun.monitorCampos();
-		cliente.setCreateAtCliente(me.getNowEntidad());
-		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
-		cliente.setStatusCliente(me.getStatusEntidad());
-//		log.info(resultVO.toString());
+//		me = ComponenteComun.monitorCampos();
+//		cliente.setCreateAtCliente(me.getNowEntidad());
+//		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
+//		cliente.setStatusCliente(me.getStatusEntidad());
+////		log.info(resultVO.toString());
 		
 		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
 		

@@ -279,8 +279,8 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Sede</label>
-                           				     <select id="idRegionCliente" th:field="*{regionCliente}" name="idRegionCliente" class="form-control" default="Selecciona Sede" >
-	                								 <option th:each="region: ${regiones}"
+                           				     <select id="idRegionCliente" th:field="*{idRegionCliente}" name="idRegionCliente" class="form-control" default="Selecciona Sede" required>
+	                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
 											             th:value="${region.idRegion}"
 											             th:text="${region.nombreRegion}"/>
 	              							</select>
