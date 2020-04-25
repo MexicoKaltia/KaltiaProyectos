@@ -1,6 +1,8 @@
+ALTER TABLE db_uniprotec.usuarios AUTO_INCREMENT = 1
 INSERT INTO db_uniprotec.usuarios (username, password, enabled, name, apellido, email) VALUES ('admin','$2a$10$RmdEsvEfhI7Rcm9f/uZXPebZVCcPC7ZXZwV51efAvMAp1rIaRAfPK',1, 'Admin', 'Uno','uno@gmail.com');
 INSERT INTO db_uniprotec.usuarios (username, password, enabled, name, apellido, email) VALUES ('olivier','$2a$10$C3Uln5uqnzx/GswADURJGOIdBqYrly9731fnwKDaUdBkt/M3qvtLq',1, 'Olivier', 'Sanchez','operacion@gmail.com');
 
+ALTER TABLE db_uniprotec.roles AUTO_INCREMENT = 1
 INSERT INTO db_uniprotec.roles (name) VALUES ('ROLE_USER');
 INSERT INTO db_uniprotec.roles (name) VALUES ('ROLE_ADMIN');
 
@@ -9,6 +11,8 @@ INSERT INTO db_uniprotec.usuarios_roles (usuario_id, role_id) VALUES (1, 2);
 INSERT INTO db_uniprotec.usuarios_roles (usuario_id, role_id) VALUES (2, 2);
 INSERT INTO db_uniprotec.usuarios_roles (usuario_id, role_id) VALUES (2, 1);
 
+
+ALTER TABLE db_uniprotec.modulos AUTO_INCREMENT = 1;
 INSERT INTO db_uniprotec.modulos  VALUES (1	,'CLIENTES');
 INSERT INTO db_uniprotec.modulos  VALUES (2	,'CURSOS');
 INSERT INTO db_uniprotec.modulos  VALUES (3	,'INSTRUCTORES');
@@ -25,18 +29,16 @@ INSERT INTO db_uniprotec.usuarios_modulos (usuario_id, modulo_id) VALUES (2,2);
 INSERT INTO db_uniprotec.usuarios_modulos (usuario_id, modulo_id) VALUES (1,4);
 INSERT INTO db_uniprotec.usuarios_modulos (usuario_id, modulo_id) VALUES (1,5);
 
+ALTER TABLE db_uniprotec.submodules AUTO_INCREMENT = 1;
 insert into db_uniprotec.submodules values(1	,1	,'Alta Cliente' , 'ACliente');
 insert into db_uniprotec.submodules values(2	,1	,'Edicion Cliente' , 'BCliente');
-insert into db_uniprotec.submodules values(3	,1	,'Consulta Clientes' , 'CCliente');
 insert into db_uniprotec.submodules values(4	,2	,'Alta Curso' , 'ACurso');
 insert into db_uniprotec.submodules values(5	,2	,'Edicion Curso' , 'BCurso');
-insert into db_uniprotec.submodules values(6	,2	,'Consulta Cursos' , 'CCurso');
 insert into db_uniprotec.submodules values(7	,3	,'Alta Instructor' , 'AInstructor');
 insert into db_uniprotec.submodules values(8	,3	,'Edicion Instructor' , 'BInstructor');
-insert into db_uniprotec.submodules values(9	,3	,'Consulta Instructores' , 'CInstrunctor');
 insert into db_uniprotec.submodules values(10	,4	,'Alta Usuario' , 'AUsuario');
 insert into db_uniprotec.submodules values(11	,4	,'Edicion Usuario' , 'BUsuario');
-insert into db_uniprotec.submodules values(12	,4	,'Consulta Ususarios' , 'CUsuario');
+
 
 INSERT INTO db_uniprotec.modulos_submodulos (modulo_id, submodule_id) VALUES (1,1);
 INSERT INTO db_uniprotec.modulos_submodulos (modulo_id, submodule_id) VALUES (1,2);
@@ -47,6 +49,8 @@ INSERT INTO db_uniprotec.modulos_submodulos (modulo_id, submodule_id) VALUES (3,
 INSERT INTO db_uniprotec.modulos_submodulos (modulo_id, submodule_id) VALUES (4,10);
 INSERT INTO db_uniprotec.modulos_submodulos (modulo_id, submodule_id) VALUES (4,11);
 
+
+ALTER TABLE db_uniprotec.regiones AUTO_INCREMENT = 1;
 INSERT INTO db_uniprotec.regiones (id_region, nombre_region) VALUES (1, 'ESTADO DE SAN LUIS POTOSI');
 INSERT INTO db_uniprotec.regiones (id_region, nombre_region) VALUES (2, 'ESTADO DE QUERETARO + CELAYA Y SAN JOSE ITURBIDE GTO + TEPEJI DEL RIO HIDALGO');
 INSERT INTO db_uniprotec.regiones (id_region, nombre_region) VALUES (3, 'ESTADO DE GUANAJUATO MENOS CELAYA Y SAN JOSE ITURBIDE + LAGOS DE MORENO + EDO DE AGUASCALIENTES');
@@ -56,22 +60,24 @@ INSERT INTO db_uniprotec.regiones (id_region, nombre_region) VALUES (6, 'CIUDAD 
 INSERT INTO db_uniprotec.regiones (id_region, nombre_region) VALUES (7, 'ESTADO DE PUEBLA + ESTADO DE TLAXCALA + ESTADO DE MORELOS');
 INSERT INTO db_uniprotec.regiones (id_region, nombre_region) VALUES (8, 'CUALQUIER OTRA UBICACIÓN');
 
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Felipe Javier Castillo Damian',2,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Cesar Octavio Vazquez Galicia',2,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Carlos Alberto Dominguez Mejia',2,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Juan Antonio Gomez Diaz',2,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Gerardo Federico Moreno Specia',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Lic. Mayra Andrea Padron Aguilar',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Lic. Claudia Alejandra Campos Segura',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Juan Alberto Zuñiga Vazquez',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Ricardo Geciel Velazquez Medina',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Diana Laura Vazquez Gomez',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Ramon Noriega Lopez',3,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Fernando Mares Ortiz',1,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Maximino Garcia Camilo',1,'nota','2020-04-05 15:24:15.183000','Activo',1);
-INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Rafael Humberto Cebada Beltran	Externo',1,'nota','2020-04-05 15:24:15.183000','Activo',1);
+ALTER TABLE db_uniprotec.instructores AUTO_INCREMENT = 1;
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Felipe Javier Castillo Damian',2, 'javier.castillo@uniprotec.net--javiercdamian1965@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Cesar Octavio Vazquez Galicia',2, 'cesar.vazquez@uniprotec.net--vazquezcesarovg@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Carlos Alberto Dominguez Mejia',2, 'carlos.dominguez@uniprotec.net	car.dominguez90@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Juan Antonio Gomez Diaz',2, 'antonio.gomez@uniprotec.net--gozafest@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Gerardo Federico Moreno Specia',3, 'gerardo.moreno@uniprotec.net--gspecia652008@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Lic. Mayra Andrea Padron Aguilar',3, 'mayra.padron@uniprotec.net--mayrapadron66@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Lic. Claudia Alejandra Campos Segura',3, 'alejandra.campos@uniprotec.net--alecmpss@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Juan Alberto Zuñiga Vazquez',3, 'alberto.zuniga@uniprotec.net--yakk.74@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Ricardo Geciel Velazquez Medina',3, 'ricardo.velazquez@uniprotec.net--ricardovm472@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Diana Laura Vazquez Gomez',3, 'diana.vazquez@uniprotec.net--didivago2@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Ramon Noriega Lopez',3, 'ramon.noriega@uniprotec.net--norlopmx@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Fernando Mares Ortiz',1, 'fernando.mares@uniprotec.net--ferblumares@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Maximino Garcia Camilo',1, 'maximino.garcia@uniprotec.net--maximino.garcia.camilo@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Ing. Rafael Humberto Cebada Beltran',1, 'rafadel.cebada@uniprotec.net--cebada1984@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
+INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor) VALUES ('Externo',1, 'olivier.sanchez@uniprotec.net--olivier.sanchez201184@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1);
 
-
+ALTER TABLE db_uniprotec.cursos AUTO_INCREMENT = 1;
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('OPERADOR DE MONTACARGAS','',1,'2020-04-05 15:24:15.183000','Activo');
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('OPERADOR DE MONTACARGAS (ORDER PICKER)','',1,'2020-04-05 15:24:15.183000','Activo');
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('OPERADOR DE GRUAS VIAJERAS Y POLIPASTOS','',1,'2020-04-05 15:24:15.183000','Activo');
@@ -164,8 +170,6 @@ INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, cr
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('INTELIGENCIA EMOCIONAL PNL','',1,'2020-04-05 15:24:15.183000','Activo');
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('TOMA DE DECISIONES','',1,'2020-04-05 15:24:15.183000','Activo');
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('TRABAJO EN EQUIPO','',1,'2020-04-05 15:24:15.183000','Activo');
-
---ALTER TABLE tablename AUTO_INCREMENT = 1
 
 insert into db_uniprotec.cursos_instructores values(1, 1);
 insert into db_uniprotec.cursos_instructores values(1, 2);
@@ -626,7 +630,6 @@ insert into db_uniprotec.cursos_instructores values(91, 7);
 insert into db_uniprotec.cursos_instructores values(92, 6);
 insert into db_uniprotec.cursos_instructores values(92, 7);
 insert into db_uniprotec.cursos_instructores values(92, 15);
-
 
 insert into db_uniprotec.instructores_cursos values(1	,"1");
 insert into db_uniprotec.instructores_cursos values(1	,"2");

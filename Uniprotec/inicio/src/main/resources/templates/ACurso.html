@@ -250,11 +250,9 @@
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Instructores participantes</label>
                                             <select id='multiSelectCurso' multiple='multiple' th:field="*{listInstructores}" name="listInstructores" class="form-control" required>
-											  <option value='1' selected>elem 1</option>
-											  <option value='2'>elem 2</option>
-											  <option value='3'>elem 3</option>
-											  <option value='4' selected>elem 4</option>
-											  <option value='100'>elem 100</option>
+											   <option th:each="instructor: ${model.jsonResponseObject.instructores}"
+											             th:value="${instructor.idInstructor}"
+											             th:text="${instructor.nombreInstructor}"/>
 											</select>
                                             <div class="invalid-feedback">
                                                 Capturar por lo menos un instructor

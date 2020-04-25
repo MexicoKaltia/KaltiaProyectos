@@ -57,12 +57,12 @@ public class Curso implements Serializable {
 //	private List<Instructor> ainstructores = new ArrayList<>();
 	
 //	 @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursos")
-//	 private List<Instructor> ainstructores = new ArrayList<>();
+//	 private List<Instructor> instructores = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="cursos_instructores", joinColumns= @JoinColumn(name="curso_id"),
-	inverseJoinColumns=@JoinColumn(name="instructor_id"))
-//	uniqueConstraints= {@UniqueConstraint(columnNames= {"curso_id", "instructor_id"})})
+	inverseJoinColumns=@JoinColumn(name="instructor_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"curso_id", "instructor_id"})})
 	private List<Instructor> instructores = new ArrayList<>();
 	 
 	public void addInstructor(Instructor instructor){

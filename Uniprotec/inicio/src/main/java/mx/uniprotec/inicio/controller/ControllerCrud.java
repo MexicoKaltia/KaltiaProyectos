@@ -112,7 +112,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		resultVO  = clienteService.altaCliente(cliente, resultVO.getAccesToken());
 		log.info(resultVO.toString());
 		
-		ModelAndView mav = new ModelAndView("ACliente" );
+		ModelAndView mav = new ModelAndView("redirect:/inicio" );
 		return mav;
 	}
 	
@@ -152,7 +152,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		ResultVO rs = clienteService.edicionCliente(cliente, resultVO.getAccesToken());
 		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 		log.info(model.values().toString());
-		ModelAndView mav = new ModelAndView("BCliente", model);
+		ModelAndView mav = new ModelAndView("redirect:/inicio", model);
 		
 		return mav;
 		}
@@ -173,6 +173,13 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return new  ModelAndView("login");
 		}else {
 			log.info("ACurso model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = instructorService.consultaInstructores(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			log.info(model.values().toString());
 		
 			return new  ModelAndView("ACurso", model);	
 		}		
@@ -186,10 +193,11 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		ResultVO resultVO = (ResultVO)model.get("model");
 		
 		resultVO  = cursoService.altaCurso(curso, resultVO.getAccesToken());
-		ModelAndView mav = new ModelAndView("ACurso" );
+		ModelAndView mav = new ModelAndView("redirect:/inicio" );
 		return mav;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/BCurso")
 	public ModelAndView bCurso(ModelMap model) {
 		
@@ -200,8 +208,30 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		
 		ResultVO rs = cursoService.consultaCursos(resultVO.getAccesToken());
 		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+		
+		ResultVO rs2 = instructorService.consultaInstructores(resultVO.getAccesToken());
+		JSONObject jsonResponse = resultVO.getJsonResponseObject();
+		jsonResponse.put("instructor", rs2.getJsonResponseObject());
+		resultVO.setJsonResponseObject(jsonResponse);
+		
 		log.info(model.values().toString());
 		ModelAndView mav = new ModelAndView("BCurso", model);
+		
+		return mav;
+		}
+	
+	@PostMapping("/actualizaCurso")
+	public ModelAndView actualizaCurso(@ModelAttribute("cursoForm") CursoModelo curso, ModelMap model) {
+		
+		model.addAttribute("cursoForm", new CursoModelo());
+			
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		
+		ResultVO rs = cursoService.edicionCurso(curso, resultVO.getAccesToken());
+		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+		log.info(model.values().toString());
+		ModelAndView mav = new ModelAndView("redirect:/inicio", model);
 		
 		return mav;
 		}

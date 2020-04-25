@@ -51,12 +51,12 @@ public class Instructor implements Serializable {
 	@Column(nullable=false)
 	private String emailInstructor;
 	
-//	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "ainstructores")
-//	private List<Curso> curso = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "instructores")
+	private List<Curso> curso = new ArrayList<>();
 	
 //	 @ManyToOne
 //	 @JoinColumn(name = "id_curso", nullable = false, updatable = false)
-//	 private Curso curso;
+//	 private Curso cursos;
 	
 //	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JoinTable(name="instructores_cursos", joinColumns= @JoinColumn(name="instructores_id"),

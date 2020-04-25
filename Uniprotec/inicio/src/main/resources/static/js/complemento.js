@@ -46,9 +46,67 @@ $(document).ready(function(){
 		    }
 		   }
 	
+	window.operateEventsUpdateCurso = {
+		    'click .like': function (e, value, row, index) {
+		    	
+		      alert('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
+//		      $('#listInstructores').multiSelect();
+		      $('#listInstructores').multiSelect({
+				  selectableHeader: "<div class='custom-header'>Instructores</div>",
+				  selectionHeader: "<div class='custom-header'>Instructores Participantes</div>"
+				  });
+		      
+		      var $instructores = $instructoresTotal;
+		      var $cursoInstructor = row.instructores;
+		      var $instructoresParticipantes =[];
+		      
+		      $($cursoInstructor).each(function(index, element){
+		    	  $($instructores).each(function(index2, element2){
+	    			  $('#listInstructores').multiSelect('addOption', {
+	    				  value: element2.idInstructor,
+	    				  text: element2.nombreInstructor
+	    			  });
+
+		    		  if(element === element2.idInstructor){
+		    			  $instructoresParticipantes.push(element2.idInstructor.toString());
+		    		  }
+		    	  })
+
+		      });
+			  $('#listInstructores').multiSelect('select', $instructoresParticipantes);
+			  
+		      $('#notaCurso').val(row.notaCurso);
+		      
+//				$('.removeParticipantes').click(function(index, element){
+//					console.log('removeParticipantes')
+//					var elemento = $(this);
+//					var value = elemento.attr('value');
+//					var texto = elemento.text();
+//					 $('#listInstructores').prepend('<li><a class ="removeParticipantes instructores" value="'+value+'" >'+texto+'</a></li>');
+//					 $(this).addClass('elimina');
+//					 $(".elimina").remove();
+//					 console.log(element);
+//					 $($instructoresParticipantes).each(function(index, element){
+//			    		  if(element.idInstructor === $instructoresParticipantes.idInstructor){
+//			    			  $instructoresParticipantes.splice(index, index);
+//		    			  }   			  
+//		    		  })
+//		    		  reorganiza();
+//				});
+//				
+//				function reorganiza(){
+//					$($instructoresParticipantes).each(function(index, element){
+//						  $('#instructoresParticipantes').append('<li><a class ="removeParticipantes instructores" value="'+$instructor.idInstructor+'">'+$instructor.nombreInstructor+'</a></li>');
+//					});
+//				}
+
+		    }
+		   }
+
+	
 	window.operateEventsUpdateInstructor = {
 		    'click .like': function (e, value, row, index) {
-//		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
+		      alert('You click like action, row: ' +JSON.stringify(row));
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
 //		      $('#idRegionCliente').val(row.idRegionCliente);
@@ -56,17 +114,6 @@ $(document).ready(function(){
 		    }
 		   }
 
-	
-	window.operateEventsUpdateCurso = {
-		    'click .like': function (e, value, row, index) {
-//		      alert('You click like action, row: ' + row.idUserEmpresa);//JSON.stringify(row))
-		      $('#idCurso').val(row.idCurso);
-		      $('#nombreCurso').val(row.nombreCurso);
-		      $('#notaCurso').val(row.notaCurso);
-		    }
-		   }
-
-		  
 	
 	window.operateEventsDelete = {
 	    'click .remove': function (e, value, row, index) {
@@ -93,7 +140,8 @@ $(document).ready(function(){
 	/*
 	 *  funciones
 	 */
-	  
+
+	
 
 
 	
