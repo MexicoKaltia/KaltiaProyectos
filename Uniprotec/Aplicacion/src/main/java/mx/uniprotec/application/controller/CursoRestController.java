@@ -1,6 +1,7 @@
 package mx.uniprotec.application.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Curso;
+import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.ICursoService;
+import mx.uniprotec.application.service.IInstructorService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.CursoModelo;
@@ -51,6 +54,10 @@ public class CursoRestController {
 	
 	@Autowired
 	private IUploadFileService uploadService;
+	
+	@Autowired
+	IInstructorService instructorService;
+
 	
 	 private final Logger log = LoggerFactory.getLogger(CursoRestController.class);
 
@@ -110,10 +117,10 @@ public class CursoRestController {
 	@PostMapping("/curso")
 	public ResponseEntity<?> create(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result) {
 		
-		Curso curso = new Curso();
+//		Curso curso = new Curso();
 		
 		HttpStatus status ;
-		Curso cursoNew = null;
+		Curso cursoNew = new Curso();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -129,8 +136,23 @@ public class CursoRestController {
 		}
 		
 		try {
-			log.info(cursoModelo.toString());
-			cursoNew = cursoService.save(cursoModelo);
+			List<Instructor> allInstructores = instructorService.findAll();
+			for(Long idInstrucotor : cursoModelo.getListInstructores()) {
+				for(Instructor instructor : allInstructores) {
+					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
+						cursoNew.addInstructor(instructor);
+					}
+				}
+			}
+			
+			
+			cursoNew.setNombreCurso(cursoModelo.getNombreCurso());
+//			cursoNew.setInstructores(instructores);
+			cursoNew.setNotaCurso(cursoModelo.getNotaCurso());
+			cursoNew.setUserCreateCurso(cursoModelo.getUserCreateCurso());
+			cursoNew.setCreateAtCurso(cursoModelo.getCreateAtCurso());
+			cursoNew.setStatusCurso(cursoModelo.getStatusCurso());
+			cursoNew = cursoService.save(cursoNew);
 			response.put("mensaje", "El curso ha sido creado con éxito!");
 			response.put("curso", cursoNew);
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -180,14 +202,24 @@ public class CursoRestController {
 		}
 
 		try {
-//			cursoActual.setNombreCurso(cursoModelo.getNombreCurso());
-////			cursoActual.setInstructores(cursoModelo.getListInstructores());
-//			cursoActual.setNotaCurso(cursoModelo.getNotaCurso());
-//			cursoActual.setUserCreateCurso(cursoModelo.getUserCreateCurso());
-//			cursoActual.setCreateAtCurso(cursoModelo.getCreateAtCurso());
-//			cursoActual.setStatusCurso(cursoModelo.getStatusCurso());
+			List<Instructor> allInstructores = instructorService.findAll();
+			for(Long idInstrucotor : cursoModelo.getListInstructores()) {
+				for(Instructor instructor : allInstructores) {
+					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
+						cursoActual.addInstructor(instructor);
+					}
+				}
+			}
+			
+			
+			cursoActual.setNombreCurso(cursoModelo.getNombreCurso());
+//			cursoActual.setInstructores(instructores);
+			cursoActual.setNotaCurso(cursoModelo.getNotaCurso());
+			cursoActual.setUserCreateCurso(cursoModelo.getUserCreateCurso());
+			cursoActual.setCreateAtCurso(cursoModelo.getCreateAtCurso());
+			cursoActual.setStatusCurso(cursoModelo.getStatusCurso());
 
-			cursoUpdated = cursoService.save(cursoModelo);
+			cursoUpdated = cursoService.save(cursoActual);
 			response.put("mensaje", "El curso ha sido actualizado con éxito!");
 			response.put("curso", cursoUpdated);
 			status = HttpStatus.CREATED;

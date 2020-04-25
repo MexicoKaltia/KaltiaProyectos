@@ -252,6 +252,20 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return new  ModelAndView("login");
 		}else {
 			log.info("AInstructor model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ResultVO rs2 = cursoService.consultaCursos(resultVO.getAccesToken());
+			JSONObject jsonResponse = resultVO.getJsonResponseObject();
+			jsonResponse.put("cursos", rs2.getJsonResponseObject());
+			resultVO.setJsonResponseObject(jsonResponse);
+			
+			log.info(model.values().toString());
+			
 			return new  ModelAndView("AInstructor", model);	
 		}		
 		

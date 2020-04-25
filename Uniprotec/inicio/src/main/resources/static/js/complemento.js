@@ -50,13 +50,15 @@ $(document).ready(function(){
 		    'click .like': function (e, value, row, index) {
 		    	
 		      alert('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
+		      $('#idCurso').val(row.idCurso);
+		      $('#nombreCurso').val(row.nombreCurso);
 //		      $('#listInstructores').multiSelect();
 		      $('#listInstructores').multiSelect({
 				  selectableHeader: "<div class='custom-header'>Instructores</div>",
 				  selectionHeader: "<div class='custom-header'>Instructores Participantes</div>"
 				  });
-		      
-		      var $instructores = $instructoresTotal;
+		      $('#listInstructores').multiSelect('deselect_all');
+		      const $instructores = $instructoresTotal;
 		      var $cursoInstructor = row.instructores;
 		      var $instructoresParticipantes =[];
 		      

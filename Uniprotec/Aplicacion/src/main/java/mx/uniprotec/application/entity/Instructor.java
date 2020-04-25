@@ -103,6 +103,10 @@ public class Instructor implements Serializable {
 		this.createAtInstructor = createAtInstructor;
 		this.statusInstructor = statusInstructor;
 	}
+	
+	public Instructor(Long idInstructor) {
+		this.idInstructor = idInstructor;
+	}
 
 
 	public Long getIdInstructor() {

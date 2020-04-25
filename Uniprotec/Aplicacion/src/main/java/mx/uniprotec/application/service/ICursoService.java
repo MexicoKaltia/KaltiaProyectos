@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.Region;
-import mx.uniprotec.entidad.modelo.CursoModelo;
 
 public interface ICursoService {
 
@@ -17,7 +16,7 @@ public interface ICursoService {
 	
 	public Curso findById(Long id);
 	
-	public Curso save(CursoModelo Curso);
+	public Curso save(Curso Curso);
 	
 	public void delete(Long id);
 	

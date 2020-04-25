@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
+import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.inicio.entity.Instructor;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.ComponenteComun;
 
@@ -59,8 +61,28 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 
 	@Override
 	public ResultVO edicionCurso(CursoModelo curso, String token) {
-		// TODO Auto-generated method stub
-		return null;
+log.info(curso.toString());
+		
+//		List<Instructor> listInstructor =  new ArrayList<Instructor>();
+//		for(Long idInstructor : curso.getListInstructores()) {
+//			listInstructor.add(new Instructor(idInstructor));
+//		}
+//		curso.setListInstructores(listInstructor);
+		
+		me = ComponenteComun.monitorCampos();
+		curso.setCreateAtCurso(me.getNowEntidad());
+		curso.setUserCreateCurso(me.getIdUsuarioEntidad());
+		curso.setStatusCurso(me.getStatusEntidad());
+		
+		log.info(curso.toString());
+		
+		resultVO = (ResultVO) baseClientRest.objetoPut(
+				token,
+				BaseClientRest.URL_CRUD_CURSO,
+				curso,
+				curso.getIdCurso());
+				
+		return resultVO;
 	}
 
 	@Override

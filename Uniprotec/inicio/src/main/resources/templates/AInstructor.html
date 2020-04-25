@@ -9,6 +9,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
+                <link th:href="@{css/multi-select.css}" rel="stylesheet">
     <link th:href="@{main.css}" rel="stylesheet">
 </head>
 
@@ -187,7 +188,7 @@
             
                             <li class="app-sidebar__heading">ACCIONES</li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{Asignacion}">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
                                 </a>
@@ -254,9 +255,10 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Region Origen</label>
-                           				     <select id="regionInstructor" th:field="*{regionInstructor}" name="empresaModelo" class="form-control" default="" >
-	                								<option value="1">Queretaro</option>
-	                								<option value="2">Guanajuato</option>
+                           				     <select id="idRegionInstructor"  name="idRegionInstructor" class="form-control" default="Selecciona Region Origen" required>
+	                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
+											             th:value="${region.idRegion}"
+											             th:text="${region.nombreRegion}"/>
 	              							</select>
                                             <div class="invalid-feedback">
                                                 Capturar Sede Valida
@@ -265,14 +267,14 @@
                                       </div>
                                   <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Curso Especialidad</label>
-                                            <select id='custom-headers' multiple='multiple' th:field="*{listCursoInstructor}" name="listCursoInstructor" class="form-control searchable">
-											  <option th:each="instructor: ${model.jsonResponseObject.instructores}"
-											             th:value="${instructor.idInstructor}"
-											             th:text="${instructor.nombreInstructor}"/>
+                                            <label for="validationCustom02">Cursos Asignados</label>
+                                            <select id='listCursos' multiple='multiple'  name="listCursos" class="form-control" required>
+											   <option th:each="curso: ${model.jsonResponseObject.cursos.cursos}"
+											             th:value="${curso.idCurso}"
+											             th:text="${curso.nombreCurso}"/>
 											</select>
                                             <div class="invalid-feedback">
-                                                Capturar por lo menos un Curso
+                                                Capturar por lo menos un instructor
                                             </div>
                                         </div>
                                    </div>
@@ -361,7 +363,13 @@
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
     <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
+    <script type="text/javascript">
+  // run pre selected options
+  $('#listCursos').multiSelect();
+  </script>
+    
 </body>
 
 </html>

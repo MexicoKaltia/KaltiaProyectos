@@ -49,27 +49,27 @@ public class CursoServiceImpl implements ICursoService {
 
 	@Override
 	@Transactional
-	public Curso save(CursoModelo curso) {
+	public Curso save(Curso curso) {
 
-		Curso cursoEntity = new Curso();
+//		Curso cursoEntity = new Curso();
 		
 		try {
-			cursoEntity.setNombreCurso(curso.getNombreCurso());
-			cursoEntity.setNotaCurso(curso.getNotaCurso());
-			cursoEntity.setCreateAtCurso(curso.getCreateAtCurso());
-			cursoEntity.setStatusCurso(curso.getStatusCurso());
-			cursoEntity.setUserCreateCurso(curso.getUserCreateCurso());
-			
-			List<Instructor> allInstructores = instructorService.findAll();
-			for(Long idInstrucotor : curso.getListInstructores()) {
-				for(Instructor instructor : allInstructores) {
-					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
-						cursoEntity.addInstructor(instructor);
-					}
-				}
-			}
-			log.info(cursoEntity.toString());
-			return CursoDao.save(cursoEntity);
+//			cursoEntity.setNombreCurso(curso.getNombreCurso());
+//			cursoEntity.setNotaCurso(curso.getNotaCurso());
+//			cursoEntity.setCreateAtCurso(curso.getCreateAtCurso());
+//			cursoEntity.setStatusCurso(curso.getStatusCurso());
+//			cursoEntity.setUserCreateCurso(curso.getUserCreateCurso());
+//			
+//			List<Instructor> allInstructores = instructorService.findAll();
+//			for(Long idInstrucotor : curso.getListInstructores()) {
+//				for(Instructor instructor : allInstructores) {
+//					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
+//						cursoEntity.addInstructor(instructor);
+//					}
+//				}
+//			}
+			log.info(curso.toString());
+			return CursoDao.save(curso);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
