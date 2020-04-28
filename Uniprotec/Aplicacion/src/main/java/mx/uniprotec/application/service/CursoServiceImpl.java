@@ -3,11 +3,14 @@ package mx.uniprotec.application.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,7 @@ import mx.uniprotec.application.dao.ICursoDao;
 import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 
 
@@ -49,27 +53,38 @@ public class CursoServiceImpl implements ICursoService {
 
 	@Override
 	@Transactional
-	public Curso save(Curso curso) {
+	public Curso save(CursoModelo cursoModelo) {
 
-//		Curso cursoEntity = new Curso();
+		Curso cursoEntity = new Curso();
 		
 		try {
-//			cursoEntity.setNombreCurso(curso.getNombreCurso());
-//			cursoEntity.setNotaCurso(curso.getNotaCurso());
-//			cursoEntity.setCreateAtCurso(curso.getCreateAtCurso());
-//			cursoEntity.setStatusCurso(curso.getStatusCurso());
-//			cursoEntity.setUserCreateCurso(curso.getUserCreateCurso());
-//			
-//			List<Instructor> allInstructores = instructorService.findAll();
-//			for(Long idInstrucotor : curso.getListInstructores()) {
+			List<Instructor> allInstructores = instructorService.findAll();
+//			for(Long idInstrucotor : cursoModelo.getListInstructores()) {
 //				for(Instructor instructor : allInstructores) {
 //					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
 //						cursoEntity.addInstructor(instructor);
 //					}
 //				}
 //			}
-			log.info(curso.toString());
-			return CursoDao.save(curso);
+			List<Instructor> instructores = new ArrayList<Instructor>();
+			for(Long idInstructor : cursoModelo.getListInstructores()) {
+				for(Instructor instructor : allInstructores) {
+					if(instructor.getIdInstructor().longValue() == idInstructor ) {
+						instructores.add(instructor);
+					}
+				}
+			}
+			
+			
+			cursoEntity.setNombreCurso(cursoModelo.getNombreCurso());
+			cursoEntity.setInstructores(instructores);
+			cursoEntity.setNotaCurso(cursoModelo.getNotaCurso());
+			cursoEntity.setUserCreateCurso(cursoModelo.getUserCreateCurso());
+			cursoEntity.setCreateAtCurso(cursoModelo.getCreateAtCurso());
+			cursoEntity.setStatusCurso(cursoModelo.getStatusCurso());
+			
+			log.info(cursoEntity.toString());
+			return CursoDao.save(cursoEntity);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,6 +92,16 @@ public class CursoServiceImpl implements ICursoService {
 		}
 		
 	}
+	
+	@Override
+	public Curso update(@Valid Curso curso) {
+		
+		log.info(curso.toString());
+		return CursoDao.save(curso);
+		
+
+	}
+
 
 	@Override
 	@Transactional
@@ -90,4 +115,5 @@ public class CursoServiceImpl implements ICursoService {
 		return null;
 	}
 
+	
 }

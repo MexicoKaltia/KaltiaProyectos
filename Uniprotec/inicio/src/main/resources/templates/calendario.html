@@ -9,8 +9,10 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-                <link th:href="@{css/multi-select.css}" rel="stylesheet">
+
     <link th:href="@{main.css}" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -164,7 +166,7 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">PRINCIPAL</li>
                             <li>
-									<a th:href="@{inicio}" class="mm-active">
+                                <a th:href="@{inicio}" class="mm-active">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
                                     CONTROL
                                 </a>
@@ -188,7 +190,7 @@
             
                             <li class="app-sidebar__heading">ACCIONES</li>
                             <li>
-                                <a th:href="@{Asignacion}">
+                                <a href="#">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
                                 </a>
@@ -211,108 +213,63 @@
                 </div>  
             </div> 
 
-             <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
-                                    </i>
+              <div class="app-main__outer">
+                    <div class="app-main__inner">
+                        <div class="app-page-title">
+                            <div class="page-title-wrapper">
+                                <div class="page-title-heading">
+                                    <div class="page-title-icon">
+                                        <i class="pe-7s-car icon-gradient bg-warm-flame">
+                                        </i>
+                                    </div>
+                                    <div>CALENDARIO
+                                        <div class="page-title-subheading">AGENDA DE CURSOS UNIPROTEC.
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>ALTA INSTRUCTOR
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO INSTRUCTOR
+                                </div>
+                        </div>
+                        <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                                    <span>Vista Calendario</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+                                    <span>Lista de Asignaciones</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+                                    <span>Eventos</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div id='calendar'></div>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-                    
-                    <!--  
-                    	SECCION DE EDICION  
-                    -->
-                    <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">INSTRUCTOR UNIPROTEC</h5>
-                                <form id="altaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaInstructor}"  th:object="${instructorForm}" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Instructor</label>
-                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="100" th:field="*{nombreInstructor}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Corto
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailInstructor}" id="emailInstructor" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Region Origen</label>
-                           				     <select id="regionInstructor"  name="regionInstructor" class="form-control" default="Selecciona Region Origen" th:field="*{regionInstructor}" required>
-	                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
-											             th:value="${region.idRegion}"
-											             th:text="${region.nombreRegion}"/>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
-                                        </div>
-                                      </div>
-                                  <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Cursos Asignados</label>
-                                            <select id='listCursoInstructor' multiple='multiple'  name="listCursoInstructor"  th:field="*{listCursoInstructor}" class="form-control" required>
-											   <option th:each="curso: ${model.jsonResponseObject.cursos.cursos}"
-											             th:value="${curso.idCurso}"
-											             th:text="${curso.nombreCurso}"/>
-											</select>
-                                            <div class="invalid-feedback">
-                                                Capturar por lo menos un curso
-                                            </div>
-                                        </div>
-                                   </div>
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Notas Instructor</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" ></textarea>
-								            </div>
-							         </div>
-                                        
-                                <br>
-                                    
-                                    <button class="btn btn-primary" type="submit">Agregar Instructor</button>
-                                </form>
-            
-                                <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                </script>
+                            <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div id='calendar-list'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div id="calendar-bg-events"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                                              
+                    </div>                            
                         <!-- 
                         	FIN DE SECCION DE EDICION 
                         -->
@@ -362,13 +319,8 @@
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
+	
     <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
-    <script type="text/javascript">
-  // run pre selected options
-  $('#listCursoInstructor').multiSelect();
-  </script>
     
 </body>
 

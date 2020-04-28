@@ -1,8 +1,5 @@
 package mx.uniprotec.inicio.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.CursoModelo;
-import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
-import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
-import mx.uniprotec.inicio.entity.Instructor;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.ComponenteComun;
 
@@ -61,7 +55,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 
 	@Override
 	public ResultVO edicionCurso(CursoModelo curso, String token) {
-log.info(curso.toString());
+		log.info(curso.toString());
 		
 //		List<Instructor> listInstructor =  new ArrayList<Instructor>();
 //		for(Long idInstructor : curso.getListInstructores()) {

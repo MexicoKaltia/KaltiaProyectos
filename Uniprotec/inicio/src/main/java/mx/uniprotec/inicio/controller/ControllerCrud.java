@@ -58,20 +58,6 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	ResultVO resultVO = new  ResultVO ();
 	
 
-	@GetMapping("/Asignacion")
-	public ModelAndView Asignacion(ModelMap model) {
-
-		if(model.equals(null)) {
-			log.info("NULL");
-			return new  ModelAndView("login");
-		}else {
-			log.info("ACliente model Activo");
-//			log.info(model.values().toString());
-			return new  ModelAndView("Asignacion",  model);	
-		}		
-
-		}
-
 	
 
 	
@@ -279,7 +265,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		ResultVO resultVO = (ResultVO)model.get("model");
 		
 		resultVO  = instructorService.altaInstructor(instructor, resultVO.getAccesToken());
-		ModelAndView mav = new ModelAndView("AInstructor" );
+		ModelAndView mav = new ModelAndView("redirect:/inicio" );
 		return mav;
 	}
 	
@@ -293,13 +279,38 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			
 			ResultVO rs = instructorService.consultaInstructores(resultVO.getAccesToken());
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ResultVO rs2 = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			JSONObject jsonResponse = resultVO.getJsonResponseObject();
+			jsonResponse.put("regiones", rs2.getJsonResponseObject());
+			
+			ResultVO rs3 = cursoService.consultaCursos(resultVO.getAccesToken());
+//			resultVO.setJsonResponseObject(rs3.getJsonResponseObject());
+			jsonResponse.put("cursos", rs3.getJsonResponseObject());
+			
+			resultVO.setJsonResponseObject(jsonResponse);
+			
 			log.info(model.values().toString());
 			ModelAndView mav = new ModelAndView("BInstructor", model);
 			
 			return mav;
-
 		}
 
-
+	@PostMapping("/actualizaInstructor")
+	public ModelAndView actualizaInstructor(@ModelAttribute("instructorForm") InstructorModelo instructor, ModelMap model) {
+			
+			model.addAttribute("instructorForm", new InstructorModelo());
+				
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = instructorService.edicionInstructor(instructor, resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			log.info(model.values().toString());
+			ModelAndView mav = new ModelAndView("redirect:/inicio", model);
+			
+			return mav;
+			}
+	
 
 }

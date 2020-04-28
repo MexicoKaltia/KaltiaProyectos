@@ -2,6 +2,7 @@ package mx.uniprotec.application.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
@@ -122,7 +124,7 @@ public class InstructorRestController {
 	public ResponseEntity<?> create(@Valid @RequestBody InstructorModelo instructor, BindingResult result) {
 		
 		HttpStatus status ;
-		Instructor instructorNew = null;
+		Instructor instructorNew = new Instructor();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -139,10 +141,17 @@ public class InstructorRestController {
 		
 		try {
 	Region region = aplicacionService.findRegion(instructor.getRegionInstructor());
+	List<Curso> cursos = new ArrayList<Curso>();
+	
+	for(Long idCurso : instructor.getListCursoInstructor()) {
+		Curso curso = new Curso(idCurso);
+		cursos.add(curso);
+	}
 			
 			instructorNew.setNombreInstructor(instructor.getNombreInstructor());
 			instructorNew.setEmailInstructor(instructor.getEmailInstructor());
 			instructorNew.setRegionInstructor(region);
+			instructorNew.setCursosInstructor(instructor.getListCursoInstructor().toString());
 			instructorNew.setNotaInstructor(instructor.getNotaInstructor());
 			instructorNew.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorNew.setStatusInstructor(instructor.getStatusInstructor());
@@ -201,9 +210,12 @@ public class InstructorRestController {
 			
 			instructorActual.setNombreInstructor(instructor.getNombreInstructor());
 			instructorActual.setEmailInstructor(instructor.getEmailInstructor());
-			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorActual.setRegionInstructor(region);
+			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
+			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
+			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
+			instructorActual.setUserCreateInstructor(instructor.getUserCreateInstructor());
 			
 			instructorUpdated = instructorService.save(instructorActual);
 

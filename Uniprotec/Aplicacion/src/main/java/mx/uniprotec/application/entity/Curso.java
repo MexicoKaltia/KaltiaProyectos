@@ -166,6 +166,10 @@ public class Curso implements Serializable {
 		this.statusCurso = statusCurso;
 	}
 
+	public Curso(Long idCurso) {
+		this.idCurso = idCurso;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

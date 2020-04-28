@@ -105,10 +105,10 @@
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        <span th:text="${model.jsonResponse.fields.user.name}"></span>
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        ${model.jsonResponse.fields.user.perfil}"
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -190,6 +190,12 @@
                                 <a th:href="@{Asignacion}">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
+                                </a>
+                            </li>
+                             <li>
+                                <a th:href="@{Calendario}">
+                                    <i class="metismenu-icon pe-7s-mouse">
+                                    </i>CALENARIO
                                 </a>
                             </li>
                             <li>

@@ -15,6 +15,7 @@ public class InstructorModelo implements Serializable {
 	private Long idInstructor;
 	private String nombreInstructor;
 	private String emailInstructor;
+	private String emailInstructorGmail;
 	private Long regionInstructor;
 	private List<Long> listCursoInstructor;
 	private String notaInstructor;
@@ -132,6 +133,18 @@ public class InstructorModelo implements Serializable {
 
 	public void setStatusInstructor(String statusInstructor) {
 		this.statusInstructor = statusInstructor;
+	}
+
+
+
+	public String getEmailInstructorGmail() {
+		return emailInstructorGmail;
+	}
+
+
+
+	public void setEmailInstructorGmail(String emailInstructorGmail) {
+		this.emailInstructorGmail = emailInstructorGmail;
 	}
 	
 }

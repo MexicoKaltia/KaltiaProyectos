@@ -81,6 +81,38 @@ public class ControllerInicio extends HttpServlet{
 			}		
 
 			}
+		
+		
+		@GetMapping("/Asignacion")
+		public ModelAndView asignacion(ModelMap model) {
+
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Asignacion model Activo");
+//				log.info(model.values().toString());
+				return new  ModelAndView("Asignacion",  model);	
+			}		
+
+			}
+
+		
+		@GetMapping("/Calendario")
+		public ModelAndView calendario(ModelMap model) {
+
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Calendario model Activo");
+//				log.info(model.values().toString());
+				return new  ModelAndView("calendario",  model);	
+			}		
+
+			}
+
+		
 
 }
 

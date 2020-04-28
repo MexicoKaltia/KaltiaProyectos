@@ -49,7 +49,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateCurso = {
 		    'click .like': function (e, value, row, index) {
 		    	
-		      alert('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
+//		      alert('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
 		      $('#idCurso').val(row.idCurso);
 		      $('#nombreCurso').val(row.nombreCurso);
 //		      $('#listInstructores').multiSelect();
@@ -108,10 +108,39 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdateInstructor = {
 		    'click .like': function (e, value, row, index) {
-		      alert('You click like action, row: ' +JSON.stringify(row));
+//		      alert('You click like action, row: ' +JSON.stringify(row));
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
-//		      $('#idRegionCliente').val(row.idRegionCliente);
+		      $('#idRegionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
+		      $('#emailInstructor').val(row.emailInstructor);
+		      $('#emailInstructorGmail').val(row.emailInstructorGmail);
+		      $('#listCursoInstructor').multiSelect({
+				  selectableHeader: "<div class='custom-header'>Cursos</div>",
+				  selectionHeader: "<div class='custom-header'>Cursos Asignados</div>"
+				  });
+		      $('#listCursoInstructor').multiSelect('deselect_all');
+		      const $cursos = $cursosTotal;
+		      var $instructorCursos = row.cursosInstructor.replace('[','').replace(']','').replace(' ','').split(',');
+//		      $instructorCursos = $instructorCursos.split(',');
+//		      console.log($instructorCursos);
+		      var $cursosAsignados =[];
+		      
+		      $($instructorCursos).each(function(index, element){
+		    	  element = element.replace(' ','');
+		    	  element = (element * 1);
+		    	  $($cursos).each(function(index2, element2){
+	    			  $('#listCursoInstructor').multiSelect('addOption', {
+	    				  value: element2.idCurso,
+	    				  text: element2.nombreCurso
+	    			  });
+
+		    		  if(element === element2.idCurso){
+		    			  $cursosAsignados.push(element2.idCurso.toString());
+		    		  }
+		    	  })
+
+		      });
+			  $('#listCursoInstructor').multiSelect('select', $cursosAsignados);
 		      $('#notaInstructor').val(row.notaInstructor);
 		    }
 		   }

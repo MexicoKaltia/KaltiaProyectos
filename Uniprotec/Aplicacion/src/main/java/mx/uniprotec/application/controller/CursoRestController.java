@@ -136,23 +136,9 @@ public class CursoRestController {
 		}
 		
 		try {
-			List<Instructor> allInstructores = instructorService.findAll();
-			for(Long idInstrucotor : cursoModelo.getListInstructores()) {
-				for(Instructor instructor : allInstructores) {
-					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
-						cursoNew.addInstructor(instructor);
-					}
-				}
-			}
 			
+			cursoNew = cursoService.save(cursoModelo);
 			
-			cursoNew.setNombreCurso(cursoModelo.getNombreCurso());
-//			cursoNew.setInstructores(instructores);
-			cursoNew.setNotaCurso(cursoModelo.getNotaCurso());
-			cursoNew.setUserCreateCurso(cursoModelo.getUserCreateCurso());
-			cursoNew.setCreateAtCurso(cursoModelo.getCreateAtCurso());
-			cursoNew.setStatusCurso(cursoModelo.getStatusCurso());
-			cursoNew = cursoService.save(cursoNew);
 			response.put("mensaje", "El curso ha sido creado con éxito!");
 			response.put("curso", cursoNew);
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
@@ -203,23 +189,24 @@ public class CursoRestController {
 
 		try {
 			List<Instructor> allInstructores = instructorService.findAll();
-			for(Long idInstrucotor : cursoModelo.getListInstructores()) {
+			List<Instructor> instructores = new ArrayList<Instructor>();
+			for(Long idInstructor : cursoModelo.getListInstructores()) {
 				for(Instructor instructor : allInstructores) {
-					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
-						cursoActual.addInstructor(instructor);
+					if(instructor.getIdInstructor().longValue() == idInstructor ) {
+						instructores.add(instructor);
 					}
 				}
 			}
 			
 			
 			cursoActual.setNombreCurso(cursoModelo.getNombreCurso());
-//			cursoActual.setInstructores(instructores);
+			cursoActual.setInstructores(instructores);
 			cursoActual.setNotaCurso(cursoModelo.getNotaCurso());
 			cursoActual.setUserCreateCurso(cursoModelo.getUserCreateCurso());
 			cursoActual.setCreateAtCurso(cursoModelo.getCreateAtCurso());
 			cursoActual.setStatusCurso(cursoModelo.getStatusCurso());
 
-			cursoUpdated = cursoService.save(cursoActual);
+			cursoUpdated = cursoService.update(cursoActual);
 			response.put("mensaje", "El curso ha sido actualizado con éxito!");
 			response.put("curso", cursoUpdated);
 			status = HttpStatus.CREATED;

@@ -10,6 +10,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
 	    <link th:href="@{main.css}" rel="stylesheet">
+	    <link rel="stylesheet" th:href="@{css/multi-select.css}">
 	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
 </head>
 
@@ -244,7 +245,7 @@
 										data-toggle='table' 
 										data-sort-name='nombreInstructor'
 										data-search='true' 
-										data-sort-order='asc'
+										data-sort-order='desc'
 										data-pagination='true'
 										data-page-list='[10, 25, 50, 100, 200, Todos]'>
 										<thead class='thead-dark'>
@@ -307,9 +308,11 @@
 	
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
     
     <script th:inline="javascript">
 		 var $data = [[${model.jsonResponseObject.instructores}]];
+		 var $cursosTotal = [[${model.jsonResponseObject.cursos.cursos}]];
 	</script>
 											    
     <script type="text/javascript" th:src="@{js/complemento.js}"></script>
@@ -337,7 +340,8 @@
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
         <div class="modal-body" style="padding:40px 50px; ">
-          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaInstructor}"  th:object="${instructorForm}" method="post">
+          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaInstructor}"  th:object="${instructorForm}" method="post">
+          <input type="hidden" id="idInstructor" th:field="*{idInstructor}" th:value="*{idInstructor}"/>
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
@@ -349,15 +353,50 @@
                                      </div>
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
-aqui van la sede de instructor
+                                            <label for="validationCustom01">Email Instructor Empresa</label>
+                                            <input type="email" class="form-control"  id="emailInstructor" name="emailInstructor" placeholder="Capture Email Instructor" value=""  maxlength="150"  required>
+                                            <div class="invalid-feedback">
+                                                Capturar Email Válido
+                                            </div>
                                         </div>
-                                      </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Email Instructor Gmail</label>
+                                            <input type="email" class="form-control"  id="emailInstructorGmail" name="emailInstructorGmail" placeholder="Capture Email Gmail Instructor" value=""  maxlength="150"  required>
+                                            <div class="invalid-feedback">
+                                                Capturar Email Válido
+                                            </div>
+                                        </div>
+                                     </div>
                                      
                                      <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-aqui van los cursos
-                                        </div>
+                                         <label for="validationCustom02">Region Instructor</label>
+                           				     <select id="regionInstructor"name="regionInstructor" class="form-control" required>
+													<option th:each="region: ${model.jsonResponseObject.regiones.regiones}"
+											             th:value="${region.idRegion}"
+											             th:text="${region.nombreRegion}"/>
+	              							</select>
+                                            <div class="invalid-feedback">
+                                                Capturar Sede Valida
+                                            </div>
                                       </div>
+                                     
+                                      <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Lista de Cursos.</label>
+                                            <select id='listCursoInstructor' multiple='multiple'  name="listCursoInstructor" class="form-control" required>
+<!-- 											   <option th:each="instructor: ${model.jsonResponseObject.instructor.instructores}" -->
+<!-- 											             th:value="${instructor.idInstructor}" -->
+<!-- 											             th:text="${instructor.nombreInstructor}" /> -->
+<!-- <option value="1" selected >1</option> -->
+<!-- <option value="2"  >2</option> -->
+<!-- <option value="3" selected >3</option> -->
+<!-- <option value="4" >4</option> -->
+											</select>
+                                            <div class="invalid-feedback">
+                                                Capturar por lo menos un instructor
+                                           </div>
+                                       </div>                                     
+                                   </div>
                                      
                                   <div class="form-row">
                                       <label class=" control-label" for="textarea">Nota Instructor</label>

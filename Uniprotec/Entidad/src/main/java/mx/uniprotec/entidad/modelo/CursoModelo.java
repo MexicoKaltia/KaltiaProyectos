@@ -46,6 +46,12 @@ public class CursoModelo implements Serializable {
 		this.createAtCurso = createAtCurso;
 		this.statusCurso = statusCurso;
 	}
+	
+	public CursoModelo(Long idCurso) {
+	
+		this.idCurso = idCurso;
+		
+	}
 
 
 

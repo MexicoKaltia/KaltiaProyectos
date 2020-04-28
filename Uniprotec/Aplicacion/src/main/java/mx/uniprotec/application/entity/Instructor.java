@@ -51,6 +51,9 @@ public class Instructor implements Serializable {
 	@Column(nullable=false)
 	private String emailInstructor;
 	
+	@Column(nullable=false)
+	private String cursosInstructor;
+	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "instructores")
 	private List<Curso> curso = new ArrayList<>();
 	
@@ -187,8 +190,29 @@ public class Instructor implements Serializable {
 	public void setEmailInstructor(String emailInstructor) {
 		this.emailInstructor = emailInstructor;
 	}
-	
-	
+
+
+//	public List<Curso> getCurso() {
+//		return curso;
+//	}
+//
+//
+//	public void setCurso(List<Curso> curso) {
+//		this.curso = curso;
+//	}
+
+
+	public String getCursosInstructor() {
+		return cursosInstructor;
+	}
+
+
+	public void setCursosInstructor(String cursosInstructor) {
+		this.cursosInstructor = cursosInstructor;
+	}
+
+
+
 	
 	
 	

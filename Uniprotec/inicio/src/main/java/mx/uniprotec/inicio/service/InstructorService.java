@@ -1,11 +1,15 @@
 package mx.uniprotec.inicio.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.ResultVO;
@@ -15,7 +19,7 @@ import mx.uniprotec.inicio.util.ComponenteComun;
 @Service
 public class InstructorService implements IInstructorService {
 	
-	private static Logger log = LoggerFactory.getLogger(ClienteService.class);
+	private static Logger log = LoggerFactory.getLogger(InstructorService.class);
 	
 //	@Autowired
 	InstructorModelo instructor = new InstructorModelo();
@@ -30,11 +34,11 @@ public class InstructorService implements IInstructorService {
 	public ResultVO altaInstructor(InstructorModelo instructor, String token) {
 		log.info(instructor.toString());
 		
-//		List<CursoModelo> listCurso =  new ArrayList<CursoModelo>();
-//		for(Long idCurso : instructor.getListCursoInstructor()) {
-//			listCurso.add(new Curso(idCurso));
-//		}
-//		instructor.setCurso(listCurso);
+		List<CursoModelo> listCurso =  new ArrayList<CursoModelo>();
+		for(Long idCurso : instructor.getListCursoInstructor()) {
+			listCurso.add(new CursoModelo(idCurso));
+		}
+//		instructor.setListCursoInstructor(listCursoInstructor);
 		
 		me = ComponenteComun.monitorCampos();
 		instructor.setCreateAtInstructor(me.getNowEntidad());
@@ -52,9 +56,24 @@ public class InstructorService implements IInstructorService {
 	}
 
 	@Override
-	public ResultVO edicionInstructor(InstructorModelo cliente, String token) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultVO edicionInstructor(InstructorModelo instructor, String token) {
+		me = ComponenteComun.monitorCampos();
+		String email = instructor.getEmailInstructor().concat("--").concat(instructor.getEmailInstructorGmail()) ;
+		instructor.setEmailInstructor(email);
+		
+		instructor.setCreateAtInstructor(me.getNowEntidad());
+		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());
+		instructor.setStatusInstructor(me.getStatusEntidad());
+		
+		log.info(instructor.toString());
+		
+		resultVO = (ResultVO) baseClientRest.objetoPut(
+				token,
+				BaseClientRest.URL_CRUD_INSTRUCTOR,
+				instructor,
+				instructor.getIdInstructor());
+				
+		return resultVO;
 	}
 
 	@Override
