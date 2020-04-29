@@ -16,7 +16,8 @@
 
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow bg-royal header-text-light" >
+        <!--      HEAD INICIO    -->
+    <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
                 <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
                 <div class="header__pane ml-auto">
@@ -51,30 +52,13 @@
             </div>
             <div class="app-header__content">
                 <div class="app-header-left">
-                    <div class="search-wrapper">
-                        <div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>
-                    </div>
+                    
                     <ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                ACliente
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-edit"></i>
-                                Projects
-                            </a>
-                        </li>
+                    
                         <li class="dropdown nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
+                            <a href="javascript:alerta();" class="nav-link">
                                 <i class="nav-link-icon fa fa-cog"></i>
-                                Settings
+                                Configuracion
                             </a>
                         </li>
                     </ul>
@@ -93,22 +77,20 @@
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">User
-                                                Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Configuracion</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Acciones</button>
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        <span th:text="${model.jsonResponse.fields.user.name}"></span>
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        Perfil
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -123,9 +105,11 @@
                 </div>
             </div>
         </div>
+       <!--      HEAD FIN    --> 
         
         <div class="app-main">
-            <div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+            <!--     LEFT INICIO -->
+			<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>
                     <div class="header__pane ml-auto">
@@ -163,23 +147,23 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">PRINCIPAL</li>
                             <li>
-                                <a href="index.html" class="mm-active">
+                                <a th:href="@{inicio}" class="mm-active">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
                                     CONTROL
                                 </a>
                             </li>
-                            <li class="app-sidebar__heading">ADMINISTRACION</li>
-                            <li th:each= "modulo : ${model.getJsonResponse().fields.user.modules}">
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.fields.user.modules}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
-                                    <span th:text="${modulo.name}"></span>
+                                    <span th:text="${modulo.nombreModulo}"></span>
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li th:each= "submodulo : ${modulo.submodules}">
-                                        <a th:href="${submodulo.referencia}">
+                                        <a th:href="${submodulo.referenciaSubmodulo}">
                                             <i class="metismenu-icon"></i>
-                                            <span th:text="${submodulo.name}"></span>
+                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -187,9 +171,15 @@
             
                             <li class="app-sidebar__heading">ACCIONES</li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{Asignacion}">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
+                                </a>
+                            </li>
+                             <li>
+                                <a th:href="@{Calendario}">
+                                    <i class="metismenu-icon pe-7s-keypad">
+                                    </i>CALENDARIO
                                 </a>
                             </li>
                             <li>
@@ -209,9 +199,12 @@
                     </div>
                 </div>  
             </div> 
+<!--     LEFT FIN -->
 
              <div class="app-main__outer">
+             <!--     BODY INICIO -->
                 <div class="app-main__inner">
+                <!--     BODY Encabezado -->
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -219,164 +212,52 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>ALTA CLIENTE
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CLIENTE
+                                <div>TABLERO DE CONTROL
+                                    <div class="page-title-subheading">PANTALLA PRINCIPAL CON LOS INDICADORES DE
+                                        SERVICIO.
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    
-                    <!--  
-                    	SECCION DE EDICION  
-                    -->
-                    <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">CLIENTE UNIPROTEC</h5>
-                                <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCliente}"  th:object="${clienteForm}" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreCortoCliente" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100" th:field="*{nombreCortoCliente}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Corto
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Nombre Completo</label>
-                                            <input type="text" class="form-control" th:field="*{nombreCompletoCliente}" id="nombreCompletoCliente" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Completo
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Telefono</label>
-                                            <input type="number" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="50" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Telefono Valido
-                                            </div>
-                                        </div>
-                                      </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">RFC</label>
-                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" maxlength="14" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre RFC Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Sede</label>
-                           				     <select id="regionIdCliente" th:field="*{regionIdCliente}" name="empresaModelo" class="form-control" default="" >
-	                								<option value="1">Queretaro</option>
-	                								<option value="2">Guanajuato</option>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
-                                        </div>
-                                      </div>
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Direccion</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="3" cols="150" required></textarea>
-								            </div>
-							              <div class="invalid-feedback">
-                                                Capturar Domicilio Valido
-                                            </div>
-							         </div>
-                                        
-                                <br>
-                                    
-                                    <button class="btn btn-primary" type="submit">Agregar Cliente</button>
-                                </form>
-            
-                                <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                </script>
-                            </div>
-                        </div>
-                                              
-                        <!-- 
-                        	FIN DE SECCION DE EDICION 
-                        -->
-
-                                       <!-- Footer-->
+                    <!--     BODY Encabezado FIN -->
+                </div>
+                <!--     BODY FIN -->
+                                      	<!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
                                                 <div class="app-footer-left">
                                                     <ul class="nav">
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 1
+                                                            <a href="javascript:alerta();" class="nav-link">
+                                                                Enlace Pie 
                                                             </a>
                                                         </li>
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 2
-                                                            </a>
-                                                        </li>
+                                                        
                                                     </ul>
                                                 </div>
                                                 <div class="app-footer-right">
                                                     <ul class="nav">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                Footer Link 3
-                                                            </a>
-                                                        </li>
+                                                        
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>NEW</small>
+                                                                    <small>GO</small>
                                                                 </div>
-                                                                Footer Link 4
+                                                                Enlace Pie 2
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div>
-                                         </div>
-                                     </div>
-                                    
+                                            </div></div></div>                                    
                                 <!-- Fin Footer-->
                 
-            </div>  <!--  app-main__inner -->
-        </div>  <!-- fin de app-main__outer-->
-	</div>  <!-- app-main -->
-</div>   <!-- app-container -->
+            </div> <!-- fin de app-main__outer-->  
+        </div>  <!-- app-main --> 
+	</div>  <!-- app-container -->  
+   
     <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 </body>
 
 </html>

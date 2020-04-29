@@ -24,7 +24,8 @@ ul.demo {
 <body>
    	
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow bg-royal header-text-light" >
+        <!--      HEAD INICIO    -->
+    <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
                 <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
                 <div class="header__pane ml-auto">
@@ -59,30 +60,13 @@ ul.demo {
             </div>
             <div class="app-header__content">
                 <div class="app-header-left">
-                    <div class="search-wrapper">
-                        <div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>
-                    </div>
+                    
                     <ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                ACliente
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-edit"></i>
-                                Projects
-                            </a>
-                        </li>
+                    
                         <li class="dropdown nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
+                            <a href="javascript:alerta();" class="nav-link">
                                 <i class="nav-link-icon fa fa-cog"></i>
-                                Settings
+                                Configuracion
                             </a>
                         </li>
                     </ul>
@@ -101,22 +85,20 @@ ul.demo {
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">User
-                                                Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Configuracion</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Acciones</button>
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        <span th:text="${model.jsonResponse.fields.user.name}"></span>
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        Perfil
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -131,9 +113,11 @@ ul.demo {
                 </div>
             </div>
         </div>
+       <!--      HEAD FIN    --> 
         
         <div class="app-main">
-            <div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+            <!--     LEFT INICIO -->
+	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>
                     <div class="header__pane ml-auto">
@@ -200,6 +184,12 @@ ul.demo {
                                     </i>NUEVA ASIGNACION
                                 </a>
                             </li>
+                             <li>
+                                <a th:href="@{Calendario}">
+                                    <i class="metismenu-icon pe-7s-keypad">
+                                    </i>CALENDARIO
+                                </a>
+                            </li>
                             <li>
                                 <a href="">
                                     <i class="metismenu-icon pe-7s-eyedropper">
@@ -216,7 +206,8 @@ ul.demo {
                         </ul>
                     </div>
                 </div>  
-            </div>
+            </div> 
+<!--     LEFT FIN -->
 
 			<div class="app-main__outer">
 				<div class="app-main__inner">
@@ -273,35 +264,36 @@ ul.demo {
 					
 				<!--  FIN DE SECCION DE EDICION     -->
 
-				<!-- Footer-->
-				<div class="app-wrapper-footer">
-					<div class="app-footer">
-						<div class="app-footer__inner">
-							<div class="app-footer-left">
-								<ul class="nav">
-									<li class="nav-item"><a href="javascript:void(0);"
-										class="nav-link"> Footer Link 1 </a></li>
-									<li class="nav-item"><a href="javascript:void(0);"
-										class="nav-link"> Footer Link 2 </a></li>
-								</ul>
-							</div>
-							<div class="app-footer-right">
-								<ul class="nav">
-									<li class="nav-item"><a href="javascript:void(0);"
-										class="nav-link"> Footer Link 3 </a></li>
-									<li class="nav-item"><a href="javascript:void(0);"
-										class="nav-link">
-											<div class="badge badge-success mr-1 ml-0">
-												<small>NEW</small>
-											</div> Footer Link 4
-									</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+					<!-- Footer-->
+                                       <div class="app-wrapper-footer">
+                                        <div class="app-footer">
+                                            <div class="app-footer__inner">
+                                                <div class="app-footer-left">
+                                                    <ul class="nav">
+                                                        <li class="nav-item">
+                                                            <a href="javascript:alerta();" class="nav-link">
+                                                                Enlace Pie 
+                                                            </a>
+                                                        </li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="app-footer-right">
+                                                    <ul class="nav">
+                                                        
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="nav-link">
+                                                                <div class="badge badge-success mr-1 ml-0">
+                                                                    <small>GO</small>
+                                                                </div>
+                                                                Enlace Pie 2
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div></div></div>
+                                <!-- Fin Footer-->
 
-				<!-- Fin Footer-->
 
 			</div>
 			<!--  app-main__inner -->

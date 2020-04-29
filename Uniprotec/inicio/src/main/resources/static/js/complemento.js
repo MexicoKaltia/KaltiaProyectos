@@ -252,6 +252,9 @@ $(document).ready(function(){
 		function errorAlertaImagen(){
 			
 		}
+		
+		
+		
 
 				
 
@@ -260,3 +263,6 @@ $(document).ready(function(){
 
 
 
+function alerta(){
+	alert("prueba js invocada desde html");
+}
