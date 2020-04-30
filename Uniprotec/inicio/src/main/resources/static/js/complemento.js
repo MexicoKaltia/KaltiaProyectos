@@ -34,6 +34,7 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
+//		    	alert('You click like action, row: ' + JSON.stringify(row));
 //		      alert('You click like action, row: ' + JSON.stringify(row.regionCliente.nombreRegion) + ' ' + JSON.stringify(row.regionCliente.idRegion));
 		      $('#idCliente').val(row.idCliente);
 		      $('#nombreCortoCliente').val(row.nombreCortoCliente);
@@ -111,7 +112,7 @@ $(document).ready(function(){
 //		      alert('You click like action, row: ' +JSON.stringify(row));
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
-		      $('#idRegionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
+		      $('#regionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
 		      $('#emailInstructor').val(row.emailInstructor);
 		      $('#emailInstructorGmail').val(row.emailInstructorGmail);
 		      $('#listCursoInstructor').multiSelect({
