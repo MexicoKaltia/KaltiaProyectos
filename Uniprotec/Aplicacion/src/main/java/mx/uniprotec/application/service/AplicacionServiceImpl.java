@@ -1,14 +1,15 @@
 package mx.uniprotec.application.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.IRegionDao;
+import mx.uniprotec.application.dao.IVendedorDao;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.entity.Vendedor;
 
 
 @Service
@@ -22,6 +23,9 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	IClienteService clienteService;
 	
 	@Autowired
+	IVendedorDao vendedorDao;
+	
+	@Autowired
 	IRegionDao regionDao;
 	
 	@Override
@@ -33,6 +37,11 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	@Override
 	public List<Region> findAllRegiones() {
 			return clienteService.findAllRegiones();
+	}
+
+	@Override
+	public Vendedor findVendedor(Long idVendedorCliente) {
+		return vendedorDao.findById(idVendedorCliente).orElse(null);
 	}
 
 }

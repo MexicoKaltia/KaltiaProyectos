@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import mx.uniprotec.application.entity.Cliente;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
+import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.application.service.IClienteService;
 import mx.uniprotec.application.service.IUploadFileService;
@@ -138,18 +139,34 @@ public class ClienteRestController {
 		
 		try {
 			
-			Region region = aplicacionService.findRegion(cliente.getIdRegionCliente());
+			Region region = 	aplicacionService.findRegion(	cliente.getIdRegionCliente());
+			Vendedor vendedor = aplicacionService.findVendedor(	cliente.getIdVendedorCliente());
 			
 			clienteNew.setNombreCortoCliente(cliente.getNombreCortoCliente());
 			clienteNew.setNombreCompletoCliente(cliente.getNombreCompletoCliente());
 			clienteNew.setRfcCliente(cliente.getRfcCliente());
 			clienteNew.setRegionCliente(region);
+			clienteNew.setVendedorCliente(vendedor);
 			clienteNew.setCreateAtCliente(cliente.getCreateAtCliente());
 			clienteNew.setEmailCliente(cliente.getEmailCliente());
 			clienteNew.setTelefonoCliente(cliente.getTelefonoCliente());
 			clienteNew.setDomicilioCliente(cliente.getDomicilioCliente());
 			clienteNew.setStatusCliente(cliente.getStatusCliente());
 			clienteNew.setUserCreateCliente(cliente.getUserCreateCliente());
+			
+			clienteNew.setNombreContactoRecibeCliente(cliente.getNombreContactoRecibeCliente());
+			clienteNew.setGoogleMapsCliente(cliente.getGoogleMapsCliente());
+			clienteNew.setPautaOperativaCliente(cliente.getPautaOperativaCliente());
+			clienteNew.setReglasAccesoCliente(cliente.getReglasAccesoCliente());
+			clienteNew.setDocumentosAccesoCliente(cliente.getDocumentosAccesoCliente());
+			clienteNew.setMaterialDidacticoCliente(cliente.getMaterialDidacticoCliente());
+			clienteNew.setPautaGeneralCliente(cliente.getPautaGeneralCliente());
+			clienteNew.setPautaEntregableCliente(cliente.getPautaEntregableCliente());
+			clienteNew.setRepresentanteEmpresaCliente(cliente.getRepresentanteEmpresaCliente());
+			clienteNew.setRepresentanteTrabajadorCliente(cliente.getRepresentanteTrabajadorCliente());
+			clienteNew.setInformacionPaqueteriaCliente(cliente.getInformacionPaqueteriaCliente());
+			clienteNew.setImagenLogoCliente(cliente.getImagenLogoCliente());
+			clienteNew.setArchivosCliente(cliente.getArchivosCliente());
 			
 			clienteNew = clienteService.save(clienteNew);
 			response.put("mensaje", "El cliente ha sido creado con éxito!");
@@ -215,6 +232,21 @@ public class ClienteRestController {
 			clienteActual.setCreateAtCliente(cliente.getCreateAtCliente());
 			clienteActual.setStatusCliente(cliente.getStatusCliente());
 			clienteActual.setUserCreateCliente(cliente.getUserCreateCliente());
+			
+
+			clienteActual.setNombreContactoRecibeCliente(cliente.getNombreContactoRecibeCliente());
+			clienteActual.setGoogleMapsCliente(cliente.getGoogleMapsCliente());
+			clienteActual.setPautaOperativaCliente(cliente.getPautaOperativaCliente());
+			clienteActual.setReglasAccesoCliente(cliente.getReglasAccesoCliente());
+			clienteActual.setDocumentosAccesoCliente(cliente.getDocumentosAccesoCliente());
+			clienteActual.setMaterialDidacticoCliente(cliente.getMaterialDidacticoCliente());
+			clienteActual.setPautaGeneralCliente(cliente.getPautaGeneralCliente());
+			clienteActual.setPautaEntregableCliente(cliente.getPautaEntregableCliente());
+			clienteActual.setRepresentanteEmpresaCliente(cliente.getRepresentanteEmpresaCliente());
+			clienteActual.setRepresentanteTrabajadorCliente(cliente.getRepresentanteTrabajadorCliente());
+			clienteActual.setInformacionPaqueteriaCliente(cliente.getInformacionPaqueteriaCliente());
+			clienteActual.setImagenLogoCliente(cliente.getImagenLogoCliente());
+			clienteActual.setArchivosCliente(cliente.getArchivosCliente());
 			
 
 			clienteUpdated = clienteService.save(clienteActual);

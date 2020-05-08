@@ -9,13 +9,13 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-                <link th:href="@{css/multi-select.css}" rel="stylesheet">
-    <link th:href="@{main.css}" rel="stylesheet">
+	    <link th:href="@{main.css}" rel="stylesheet">
+	    <link rel="stylesheet" th:href="@{css/multi-select.css}">
+	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
 </head>
 
 <body>
-
-    
+   	
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
         <!--      HEAD INICIO    -->
     <div class="app-header header-shadow bg-royal header-text-light" >
@@ -107,7 +107,7 @@
             </div>
         </div>
        <!--      HEAD FIN    --> 
-               
+        
         <div class="app-main">
             <!--     LEFT INICIO -->
 	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
@@ -202,122 +202,62 @@
             </div> 
 <!--     LEFT FIN -->
 
-             <div class="app-main__outer">
-                <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
-                                    </i>
-                                </div>
-                                <div>ALTA INSTRUCTOR
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO INSTRUCTOR
-                                    </div>
-                                </div>
-                            </div>
+			<div class="app-main__outer">
+				<div class="app-main__inner">
+					<div class="app-page-title">
+						<div class="page-title-wrapper">
+							<div class="page-title-heading">
+								<div class="page-title-icon">
+									<i class="pe-7s-news-paper icon-gradient bg-mean-fruit"> </i>
+								</div>
+								<div>
+									EDICION y CONSULTA VENDEDORES
+									<div class="page-title-subheading">TABLA DE CONSULTA VENDEDORES</div>
+								</div>
+							</div>
 
-                        </div>
-                    </div>
-                    
-                    <!--  
+						</div>
+					</div>
+
+					<!--  
                     	SECCION DE EDICION  
                     -->
-                    <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">INSTRUCTOR UNIPROTEC</h5>
-                                <form id="altaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaInstructor}"  th:object="${instructorForm}" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Instructor</label>
-                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="100" th:field="*{nombreInstructor}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Corto
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailInstructor}" id="emailInstructor" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email Gmail</label>
-                                            <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Gmail Valido
-                                            </div>
-                                        </div>
-                                       </div>
-                                       <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Region Origen</label>
-                           				     <select id="regionInstructor"  name="regionInstructor" class="form-control" default="Selecciona Region Origen" th:field="*{regionInstructor}" required>
-	                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
-											             th:value="${region.idRegion}"
-											             th:text="${region.nombreRegion}"/>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
-                                        </div>
-                                      </div>
-                                  <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Cursos Asignados</label>
-                                            <select id='listCursoInstructor' multiple='multiple'  name="listCursoInstructor"  th:field="*{listCursoInstructor}" class="form-control" required>
-											   <option th:each="curso: ${model.jsonResponseObject.cursos.cursos}"
-											             th:value="${curso.idCurso}"
-											             th:text="${curso.nombreCurso}"/>
-											</select>
-                                            <div class="invalid-feedback">
-                                                Capturar por lo menos un curso
-                                            </div>
-                                        </div>
-                                   </div>
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Notas Instructor</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" ></textarea>
-								            </div>
-							         </div>
-                                        
-                                <br>
-                                    
-                                    <button class="btn btn-primary" type="submit">Agregar Instructor</button>
-                                </form>
-            
-                                <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                </script>
-                            </div>
-                        </div>
-                                              
-                        <!-- 
-                        	FIN DE SECCION DE EDICION 
-                        -->
+					<!-- 
+                     			iNICIO DE SECCION TABLA
+                  			-->
+					<div class="form-row">
+						<div class="col-md-12 mb-3">
+							<div class="main-card mb-3 card">
+								<div class="card-body">
+									<h5 class="card-title">VENDEDORES UNIPROTEC</h5>
 
-                     	<!-- Footer-->
+									<table id='vendedoresTable' class="mb-0 table table-striped table-sm"
+										data-locale="es-MX" 
+										data-toggle='table' 
+										data-sort-name='nombreVendedor'
+										data-search='true' 
+										data-sort-order='desc'
+										data-pagination='true'
+										data-page-list='[10, 25, 50, 100, 200, Todos]'>
+										<thead class='thead-dark'>
+											<tr>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreVendedor' data-sortable='true'>Nombre Vendedor</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='statusVendedor' data-sortable='true'>Status</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateVendedor">Editar</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th>
+											</tr>
+										</thead>					
+									</table>
+								
+								</div>
+								<!-- FIN DE SECCION TABLA                  			-->
+							</div>
+						</div>
+					</div>
+					
+				<!--  FIN DE SECCION DE EDICION     -->
+
+					<!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
@@ -344,22 +284,120 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div></div></div>                                    
+                                            </div></div></div>
                                 <!-- Fin Footer-->
 
-                
-            </div>  <!--  app-main__inner -->
+			</div>
+			<!--  app-main__inner -->
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
+
+<!--  -->
+
+
+	
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
-    <script type="text/javascript">
-  // run pre selected options
-  $('#listCursoInstructor').multiSelect();
-  </script>
     
+    <script th:inline="javascript">
+		 var $data = [[${model.jsonResponseObject.vendedores}]];
+	</script>
+											    
+    <script type="text/javascript" th:src="@{js/complemento.js}"></script>
+    
+    <script th:src="@{js/bootstrap-table.min.js}"></script>
+    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+	
+	
+
 </body>
 
 </html>
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="modalRegistro" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F1FFFE">
+          <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+          <h4 style="padding:35px 50px; position: center">Edicion Vendedor</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; ">
+          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaVendedor}"  th:object="${vendedorForm}" method="post">
+          <input type="hidden" id="idVendedor" th:field="*{idVendedor}" th:value="*{idVendedor}"/>
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01">Nombre Corto</label>
+                                            <input type="text" class="form-control"  id="nombreVendedor" name="nombreVendedor" placeholder="Capture Nombre Vendedor" value=""  maxlength="150"  required>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre Corto
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Email Vendedor </label>
+                                            <input type="email" class="form-control"  id="emailVendedor" name="emailVendedor" placeholder="Capture Email Vendedor" value=""  maxlength="150"  required>
+                                            <div class="invalid-feedback">
+                                                Capturar Email Válido
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Email Vendedor Gmail</label>
+                                            <input type="email" class="form-control"  id="emailGmailVendedor" name="emailGmailVendedor" placeholder="Capture Email Gmail Vendedor" value=""  maxlength="150"  required>
+                                            <div class="invalid-feedback">
+                                                Capturar Email Válido
+                                            </div>
+                                        </div>
+                                     </div>
+                                                                      
+                                      >
+                                     
+                                  <div class="form-row">
+                                      <label class=" control-label" for="textarea">Nota Vendedor</label>
+								            <div class="">                     
+								              <textarea class="form-control" th:field="*{notaVendedor}" id="notaVendedor" rows="3" cols="150" required></textarea>
+								            </div>
+							         </div>
+                                        
+                                <br>
+                                    
+                                    <button class="btn btn-primary" type="submit">Edicion Vendedor</button>
+                                </form>
+            
+                                <script>
+                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                    (function() {
+                                        'use strict';
+                                        window.addEventListener('load', function() {
+                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                            var forms = document.getElementsByClassName('needs-validation');
+                                            // Loop over them and prevent submission
+                                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                                form.addEventListener('submit', function(event) {
+                                                    if (form.checkValidity() === false) {
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                    }
+                                                    form.classList.add('was-validated');
+                                                }, false);
+                                            });
+                                        }, false);
+                                    })();
+                                </script>
+        </div>
+        <div class="modal-footer" style=" background-color: #F1FFFE">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div> 

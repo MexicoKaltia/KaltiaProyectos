@@ -18,6 +18,7 @@ import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.inicio.entity.Curso;
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IClienteService;
@@ -25,6 +26,7 @@ import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IInstructorService;
 import mx.uniprotec.inicio.service.ILoginService;
 import mx.uniprotec.inicio.service.IUsuarioService;
+import mx.uniprotec.inicio.service.IVendedorService;
 
 @Controller
 @SessionAttributes ("model")
@@ -44,11 +46,14 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@Autowired
 	IInstructorService instructorService;
 	@Autowired
+	IVendedorService vendedorService;
+	@Autowired
 	ICursoService cursoService;
 	@Autowired
 	IUsuarioService usuarioService;
 	@Autowired
 	IAplicacionService aplicacionService;
+	
 	
 //	@Autowired
 	ResultVO resultVO = new  ResultVO ();
@@ -77,6 +82,13 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			
 			ResultVO rs = aplicacionService.consultaRegiones(resultVO.getAccesToken());
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ResultVO rs2 = vendedorService.consultaVendedores(resultVO.getAccesToken());
+			JSONObject jsonResponse = resultVO.getJsonResponseObject();
+			jsonResponse.put("vendedores", rs2.getJsonResponseObject());
+			
+			resultVO.setJsonResponseObject(jsonResponse);
+			
 			log.info(model.values().toString());
 			
 			return new  ModelAndView("ACliente",  model);
@@ -308,5 +320,94 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return mav;
 			}
 	
+
+	
+	/*
+	 * CRUD VENDEDOR
+	 * 
+	 */
+	@GetMapping("/AVendedor")
+	public ModelAndView AVendedor(ModelMap model) {
+		
+		model.addAttribute("vendedorForm", new VendedorModelo());
+		
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("AVendedor model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+//			ResultVO rs = clienteService.consultaClientes(resultVO.getAccesToken());
+//			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+//			ResultVO rs2 = cursoService.consultaCursos(resultVO.getAccesToken());
+//			JSONObject jsonResponse = resultVO.getJsonResponseObject();
+//			jsonResponse.put("cursos", rs2.getJsonResponseObject());
+//			resultVO.setJsonResponseObject(jsonResponse);
+			
+			log.info(model.values().toString());
+			
+			return new  ModelAndView("AVendedor", model);	
+		}		
+		
+	}
+//	
+	@PostMapping("/altaVendedor")
+	public ModelAndView altaVendedor(@ModelAttribute("vendedorForm") VendedorModelo vendedor, ModelMap model) {
+
+		log.info("metodo de alta Vendedor");
+		
+		ResultVO resultVO = (ResultVO)model.get("model");
+		
+		resultVO  = vendedorService.altaVendedor(vendedor, resultVO.getAccesToken());
+		ModelAndView mav = new ModelAndView("redirect:/inicio" );
+		return mav;
+	}
+	
+	@GetMapping("/BVendedor")
+	public ModelAndView BVendedor(ModelMap model) {
+			
+			model.addAttribute("vendedorForm", new VendedorModelo());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = vendedorService.consultaVendedores(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+//			ResultVO rs2 = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+//			JSONObject jsonResponse = resultVO.getJsonResponseObject();
+//			jsonResponse.put("regiones", rs2.getJsonResponseObject());
+//			
+//			ResultVO rs3 = cursoService.consultaCursos(resultVO.getAccesToken());
+////			resultVO.setJsonResponseObject(rs3.getJsonResponseObject());
+//			jsonResponse.put("cursos", rs3.getJsonResponseObject());
+			
+//			resultVO.setJsonResponseObject(jsonResponse);
+			
+			log.info(model.values().toString());
+			ModelAndView mav = new ModelAndView("BVendedor", model);
+			
+			return mav;
+		}
+
+	@PostMapping("/actualizaVendedor")
+	public ModelAndView actualizaVendedor(@ModelAttribute("vendedorForm") VendedorModelo vendedor, ModelMap model) {
+			
+			model.addAttribute("vendedorForm", new VendedorModelo());
+				
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = vendedorService.edicionVendedor(vendedor, resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			log.info(model.values().toString());
+			ModelAndView mav = new ModelAndView("redirect:/inicio", model);
+			
+			return mav;
+			}
 
 }

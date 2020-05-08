@@ -21,6 +21,11 @@
 		      '</a>'
 		    ].join('')
 		  }
+	  
+
+	  function alerta(){
+	  	alert("prueba js invocada desde html");
+	  }
 
 
 	  
@@ -44,6 +49,20 @@ $(document).ready(function(){
 		      $('#rfcCliente').val(row.rfcCliente);
 		      $('#idRegionCliente').append('<option value="'+row.regionCliente.idRegion+'" selected >'+row.regionCliente.nombreRegion+'</option>');
 		      $('#domicilioCliente').val(row.domicilioCliente);      
+		      $('#nombreContactoRecibeCliente').val(row.nombreContactoRecibeCliente);
+		      $('#googleMapsCliente').val(row.googleMapsCliente);
+		      $('#pautaOperativaCliente').val(row.pautaOperativaCliente);
+		      $('#reglasAccesoCliente').val(row.reglasAccesoCliente);
+		      $('#documentosAccesoCliente').val(row.documentosAccesoCliente);
+		      $('#materialDidacticoCliente').val(row.materialDidacticoCliente);
+		      $('#pautaGeneralCliente').val(row.pautaGeneralCliente);
+		      $('#pautaEntregableCliente').val(row.pautaEntregableCliente);
+		      $('#representanteEmpresaCliente').val(row.representanteEmpresaCliente);
+		      $('#representanteTrabajadorCliente').val(row.representanteTrabajadorCliente);
+		      $('#informacionPaqueteriaCliente').val(row.informacionPaqueteriaCliente);
+		      $('#imagenLogoCliente').val(row.imagenLogoCliente);
+		      $('#archivosCliente').val(row.archivosCliente);
+		      
 		    }
 		   }
 	
@@ -114,7 +133,7 @@ $(document).ready(function(){
 		      $('#nombreInstructor').val(row.nombreInstructor);
 		      $('#regionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
 		      $('#emailInstructor').val(row.emailInstructor);
-		      $('#emailInstructorGmail').val(row.emailInstructorGmail);
+		      $('#emailGmailInstructor').val(row.emailGmailInstructor);
 		      $('#listCursoInstructor').multiSelect({
 				  selectableHeader: "<div class='custom-header'>Cursos</div>",
 				  selectionHeader: "<div class='custom-header'>Cursos Asignados</div>"
@@ -145,6 +164,17 @@ $(document).ready(function(){
 		      $('#notaInstructor').val(row.notaInstructor);
 		    }
 		   }
+	
+	window.operateEventsUpdateVendedor = {
+		    'click .like': function (e, value, row, index) {
+//		      alert('You click like action, row: ' +JSON.stringify(row));
+		      $('#idVendedor').val(row.idVendedor);
+		      $('#nombreVendedor').val(row.nombreVendedor);
+		      $('#emailVendedor').val(row.emailVendedor);
+		      $('#emailGmailVendedor').val(row.emailGmailVendedor);
+		      $('#notaVendedor').val(row.notaVendedor);
+		    }
+		   }
 
 	
 	window.operateEventsDelete = {
@@ -162,6 +192,7 @@ $(document).ready(function(){
 	$('#clientesTable').bootstrapTable({data : $data})
 	$('#cursosTable').bootstrapTable({data : $data})
 	$('#instructoresTable').bootstrapTable({data : $data})
+	$('#vendedoresTable').bootstrapTable({data : $data})
 //		$table.bootstrapTable('load', data)
 	
 
@@ -178,8 +209,59 @@ $(document).ready(function(){
 
 	
 /*
+ * 
+ * 
  * Rest jquery
- */	
+ * 
+ * 
+ */
+	$('#imagenLogoCliente').on('change', function(){ 
+		
+		enviaImagen($('imagenLogoCliente')); 
+	
+	});
+	var  urlUpload = "http://localhost:8015/"
+	function enviaImagen(idImagenForm){
+		
+		limpiaAlerta(),
+			console.log("Comineza envio imagenBody:"+idImagenForm);
+			var alerta="";
+			  $.ajax({
+//			    url: "http://localhost:8010/fileUpload",
+				url: urlUpload+"fileUpload/"+$.action,
+			    type: "POST",
+//			    data: new FormData($("#upload-file-form")[0]),
+			    data: new FormData($("#"+idImagenForm)[0]),
+			    enctype: 'multipart/form-data',
+			    processData: false,
+			    contentType: false,
+			    cache: false,
+			    success: 	function(data){
+			    	if(data.codigo==="00"){
+			    		if(data.codigo==="00"){
+			  			  alerta="<div class='alert alert-success' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
+			  			  $(alerta).insertAfter($('.'+idImagenForm));
+			  			  console.log("envio ok");
+			  	    	}else{
+			  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
+			  				  $(alerta).insertAfter($('.'+idImagenForm));
+			  	    		console.log("envio Nok");
+			  	    	}
+			    	  } 
+			    	},
+			    error: function () {
+			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
+					  $(alerta).insertAfter($('.'+idImagenForm));
+			  	console.log("envio error");
+			    }
+			  });
+			  //$(alerta).insertAfter($('.'+idImagenForm));
+	}
+	
+	
+	
+	
+	
 	$('#btnSaveRegistro').click(function(){
 		limpiaAlerta();
 		console.log($('#idUserEmpresa').val());
@@ -263,7 +345,3 @@ $(document).ready(function(){
 }); // Fin documento
 
 
-
-function alerta(){
-	alert("prueba js invocada desde html");
-}

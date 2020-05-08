@@ -211,8 +211,8 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>ALTA INSTRUCTOR
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO INSTRUCTOR
+                                <div>ALTA VENDEDOR
+                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO VENDEDOR
                                     </div>
                                 </div>
                             </div>
@@ -225,12 +225,12 @@
                     -->
                     <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">INSTRUCTOR UNIPROTEC</h5>
-                                <form id="altaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaInstructor}"  th:object="${instructorForm}" method="post">
+                                <h5 class="card-title">VENDEDOR UNIPROTEC</h5>
+                                <form id="altaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaVendedor}"  th:object="${vendedorForm}" method="post">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Instructor</label>
-                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="100" th:field="*{nombreInstructor}" required>
+                                            <label for="validationCustom01">Nombre Vendedor</label>
+                                            <input type="text" class="form-control"  id="nombreVendedor" name="nombreVendedor" placeholder="Capture Nombre Vendedor" value=""  maxlength="100" th:field="*{nombreVendedor}" required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Corto
                                             </div>
@@ -239,55 +239,38 @@
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailInstructor}" id="emailInstructor" placeholder="email" value="" maxlength="100" required>
+                                            <input type="email" class="form-control" th:field="*{emailVendedor}" id="emailVendedor" placeholder="email" value="" maxlength="100" required>
                                             <div class="invalid-feedback">
                                                 Capturar Email Valido
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Email Gmail</label>
-                                            <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" placeholder="email" value="" maxlength="100" required>
+                                            <input type="email" class="form-control" th:field="*{emailGmailVendedor}" id="emailGmailVendedor" placeholder="email" value="" maxlength="100" required>
                                             <div class="invalid-feedback">
-                                                Capturar Email Gmail Valido
+                                                Capturar Email Valido
                                             </div>
                                         </div>
-                                       </div>
-                                       <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Region Origen</label>
-                           				     <select id="regionInstructor"  name="regionInstructor" class="form-control" default="Selecciona Region Origen" th:field="*{regionInstructor}" required>
-	                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
-											             th:value="${region.idRegion}"
-											             th:text="${region.nombreRegion}"/>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
-                                        </div>
+<!--                                         <div class="col-md-6 mb-3"> -->
+<!--                                             <label for="validationCustom02">Clientes Asignados</label> -->
+<!--                            				     <select id="clienteVendedor"  name="clienteVendedor" class="form-control" multiple='multiple' default="Selecciona Region Origen" th:field="*{clienteVendedor}" > -->
+<!-- 	                								 <option th:each="region: ${model.jsonResponseObject.clientes}" -->
+<!-- 											             th:value="${region.idCliente}" -->
+<!-- 											             th:text="${region.nombreCliente}"/> -->
+<!-- 	              							</select> -->
+<!--                                         </div> -->
                                       </div>
+                                  
                                   <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Cursos Asignados</label>
-                                            <select id='listCursoInstructor' multiple='multiple'  name="listCursoInstructor"  th:field="*{listCursoInstructor}" class="form-control" required>
-											   <option th:each="curso: ${model.jsonResponseObject.cursos.cursos}"
-											             th:value="${curso.idCurso}"
-											             th:text="${curso.nombreCurso}"/>
-											</select>
-                                            <div class="invalid-feedback">
-                                                Capturar por lo menos un curso
-                                            </div>
-                                        </div>
-                                   </div>
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Notas Instructor</label>
+                                      <label class=" control-label" for="textarea">Notas Vendedor</label>
 								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" ></textarea>
+								              <textarea class="form-control" th:field="*{notaVendedor}" id="notaVendedor" rows="3" cols="150" ></textarea>
 								            </div>
 							         </div>
                                         
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Agregar Instructor</button>
+                                    <button class="btn btn-primary" type="submit">Agregar Vendedor</button>
                                 </form>
             
                                 <script>
@@ -357,7 +340,7 @@
     <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
     <script type="text/javascript">
   // run pre selected options
-  $('#listCursoInstructor').multiSelect();
+  $('#listClienteVendedor').multiSelect();
   </script>
     
 </body>

@@ -50,6 +50,8 @@ public class Instructor implements Serializable {
 	private String nombreInstructor;
 	@Column(nullable=false)
 	private String emailInstructor;
+	@Column(nullable=false)
+	private String emailGmailInstructor;
 	
 	@Column(nullable=false)
 	private String cursosInstructor;
@@ -79,36 +81,33 @@ public class Instructor implements Serializable {
 	private String statusInstructor;
 	
 
-	public Instructor() {
-		
+	public Instructor() {		}
+
+	
+	public Instructor(Long idInstructor) {
+		this.idInstructor = idInstructor;
 	}
 
 
-	@Override
-	public String toString() {
-		return "Instructor [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
-				+ ", regionInstructor=" + regionInstructor + ", notaInstructor=" + notaInstructor
-				+ ", userCreateInstructor=" + userCreateInstructor + ", createAtInstructor=" + createAtInstructor
-				+ ", statusInstructor=" + statusInstructor + "]";
-	}
-
-
+	
+	
 	public Instructor(Long idInstructor,
 			@NotEmpty(message = "nombreInstructor no puede estar vacio") @Size(min = 4, max = 300, message = "el tamaño tiene que estar entre 4 y 300") String nombreInstructor,
+			String emailInstructor, String emailGmailInstructor, String cursosInstructor, List<Curso> curso,
 			Region regionInstructor, String notaInstructor, Long userCreateInstructor, LocalDateTime createAtInstructor,
 			String statusInstructor) {
 		super();
 		this.idInstructor = idInstructor;
 		this.nombreInstructor = nombreInstructor;
+		this.emailInstructor = emailInstructor;
+		this.emailGmailInstructor = emailGmailInstructor;
+		this.cursosInstructor = cursosInstructor;
+		this.curso = curso;
 		this.regionInstructor = regionInstructor;
 		this.notaInstructor = notaInstructor;
 		this.userCreateInstructor = userCreateInstructor;
 		this.createAtInstructor = createAtInstructor;
 		this.statusInstructor = statusInstructor;
-	}
-	
-	public Instructor(Long idInstructor) {
-		this.idInstructor = idInstructor;
 	}
 
 
@@ -209,6 +208,27 @@ public class Instructor implements Serializable {
 
 	public void setCursosInstructor(String cursosInstructor) {
 		this.cursosInstructor = cursosInstructor;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Instructor [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
+				+ ", emailInstructor=" + emailInstructor + ", emailGmailInstructor=" + emailGmailInstructor
+				+ ", cursosInstructor=" + cursosInstructor + ", curso=" + curso + ", regionInstructor="
+				+ regionInstructor + ", notaInstructor=" + notaInstructor + ", userCreateInstructor="
+				+ userCreateInstructor + ", createAtInstructor=" + createAtInstructor + ", statusInstructor="
+				+ statusInstructor + "]";
+	}
+
+
+	public String getEmailGmailInstructor() {
+		return emailGmailInstructor;
+	}
+
+
+	public void setEmailGmailInstructor(String emailGmailInstructor) {
+		this.emailGmailInstructor = emailGmailInstructor;
 	}
 
 

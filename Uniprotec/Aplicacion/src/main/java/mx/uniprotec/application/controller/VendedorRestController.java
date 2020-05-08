@@ -36,82 +36,82 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import mx.uniprotec.application.entity.Curso;
-import mx.uniprotec.application.entity.Instructor;
-import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.entity.Cliente;
+import mx.uniprotec.application.entity.Vendedor;
+import mx.uniprotec.application.entity.Cliente;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.IAplicacionService;
-import mx.uniprotec.application.service.IInstructorService;
+import mx.uniprotec.application.service.IVendedorService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
-import mx.uniprotec.entidad.modelo.InstructorModelo;
+import mx.uniprotec.entidad.modelo.VendedorModelo;
 
 @CrossOrigin(origins = { "http://localhost:8080" })
 @RestController
 @RequestMapping("/crud")
-public class InstructorRestController {
+public class VendedorRestController {
 	
 	@Autowired
 	private ResponseGeneral rg;
 
 	@Autowired
-	private IInstructorService instructorService;
+	private IVendedorService vendedorService;
 	
 	@Autowired
 	private IUploadFileService uploadService;
 	
-	@Autowired
-	private IAplicacionService aplicacionService;
+//	@Autowired
+//	private IAplicacionService aplicacionService;
 
 	
-	 private final Logger log = LoggerFactory.getLogger(InstructorRestController.class);
+	 private final Logger log = LoggerFactory.getLogger(VendedorRestController.class);
 
 	 /*
 	  * 
 	  */
-	@GetMapping("/instructores")
+	@GetMapping("/vendedores")
 	public ResponseEntity<?> index() {
-//		return instructorService.findAll();
-		return UtilController.responseGeneric(instructorService.findAll(), "instructores", HttpStatus.ACCEPTED);
+//		return vendedorService.findAll();
+		return UtilController.responseGeneric(vendedorService.findAll(), "vendedores", HttpStatus.ACCEPTED);
 	}
 	
 	
 	 /*
 	  * 
 	  */
-	@GetMapping("/instructores/page/{page}")
+	@GetMapping("/vendedores/page/{page}")
 	public ResponseEntity<?> index(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 4);
-//		return instructorService.findAll(pageable);
-		return UtilController.responseGeneric(instructorService.findAll(pageable), "instructores",HttpStatus.ACCEPTED);
+//		return vendedorService.findAll(pageable);
+		return UtilController.responseGeneric(vendedorService.findAll(pageable), "vendedores",HttpStatus.ACCEPTED);
 	}
 	
 	
 	 /*
 	  * 
 	  */
-	@GetMapping("/instructor/{id}")
+	@GetMapping("/vendedor/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
 		HttpStatus status ;
-		Instructor instructor = null;
+		Vendedor vendedor = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			instructor = instructorService.findById(id);
+			vendedor = vendedorService.findById(id);
 			status = HttpStatus.OK;
 		} catch(DataAccessException e) {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if(instructor == null) {
+		if(vendedor == null) {
 			status = HttpStatus.NOT_FOUND;
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 //		status =  HttpStatus.OK;
-//		return UtilController.responseGeneric(response, instructor, "instructor");
-		return UtilController.responseGeneric(instructor, "instructor", status);
+//		return UtilController.responseGeneric(response, vendedor, "vendedor");
+		return UtilController.responseGeneric(vendedor, "vendedor", status);
 	}
 	
 	
@@ -120,11 +120,11 @@ public class InstructorRestController {
 	  * 
 	  */
 	@SuppressWarnings("null")
-	@PostMapping("/instructor")
-	public ResponseEntity<?> create(@Valid @RequestBody InstructorModelo instructor, BindingResult result) {
+	@PostMapping("/vendedor")
+	public ResponseEntity<?> create(@Valid @RequestBody VendedorModelo vendedor, BindingResult result) {
 		
 		HttpStatus status ;
-		Instructor instructorNew = new Instructor();
+		Vendedor vendedorNew = new Vendedor();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -140,25 +140,22 @@ public class InstructorRestController {
 		}
 		
 		try {
-	Region region = aplicacionService.findRegion(instructor.getRegionInstructor());
-	List<Curso> cursos = new ArrayList<Curso>();
+//	Cliente cliente = aplicacionService.findCliente(vendedor.getClienteVendedor());
+	List<Cliente> clientes = new ArrayList<Cliente>();
 	
-	for(Long idCurso : instructor.getListCursoInstructor()) {
-		Curso curso = new Curso(idCurso);
-		cursos.add(curso);
+	for(Long idCliente : vendedor.getListClienteVendedor()) {
+		Cliente cliente = new Cliente(idCliente);
+		clientes.add(cliente);
 	}
 			
-			instructorNew.setNombreInstructor(instructor.getNombreInstructor());
-			instructorNew.setEmailInstructor(instructor.getEmailInstructor());
-			instructorNew.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
-			instructorNew.setRegionInstructor(region);
-			instructorNew.setCursosInstructor(instructor.getListCursoInstructor().toString());
-			instructorNew.setNotaInstructor(instructor.getNotaInstructor());
-			instructorNew.setCreateAtInstructor(instructor.getCreateAtInstructor());
-			instructorNew.setStatusInstructor(instructor.getStatusInstructor());
-			instructorNew.setUserCreateInstructor(instructor.getUserCreateInstructor());
+			vendedorNew.setNombreVendedor(vendedor.getNombreVendedor());
+			vendedorNew.setEmailVendedor(vendedor.getEmailVendedor());
+			vendedorNew.setNotaVendedor(vendedor.getNotaVendedor());
+			vendedorNew.setCreateAtVendedor(vendedor.getCreateAtVendedor());
+			vendedorNew.setStatusVendedor(vendedor.getStatusVendedor());
+			vendedorNew.setUserCreateVendedor(vendedor.getUserCreateVendedor());
 			
-			instructorNew = instructorService.save(instructorNew);
+			vendedorNew = vendedorService.save(vendedorNew);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -166,24 +163,24 @@ public class InstructorRestController {
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El instructor ha sido creado con éxito!");
-		response.put("instructor", instructorNew);
+		response.put("mensaje", "El vendedor ha sido creado con éxito!");
+		response.put("vendedor", vendedorNew);
 //		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(instructor, "instructor", status);
+		return UtilController.responseGeneric(vendedor, "vendedor", status);
 	}
 	
 	
 	/*
 	 * 
 	 */
-	@PutMapping("/instructor/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody InstructorModelo instructor, BindingResult result, @PathVariable Long id) {
+	@PutMapping("/vendedor/{id}")
+	public ResponseEntity<?> update(@Valid @RequestBody VendedorModelo vendedor, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
-		Instructor instructorActual = instructorService.findById(id);
+		Vendedor vendedorActual = vendedorService.findById(id);
 
-		Instructor instructorUpdated = null;
+		Vendedor vendedorUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -199,83 +196,86 @@ public class InstructorRestController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		
-		if (instructorActual == null) {
-			response.put("mensaje", "Error: no se pudo editar, el instructor ID: "
+		if (vendedorActual == null) {
+			response.put("mensaje", "Error: no se pudo editar, el vendedor ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			status = HttpStatus.NOT_FOUND;
 		}
 
 		try {
-			Region region = aplicacionService.findRegion(instructor.getRegionInstructor());
+			List<Cliente> clientes = new ArrayList<Cliente>();
 			
-			instructorActual.setNombreInstructor(instructor.getNombreInstructor());
-			instructorActual.setEmailInstructor(instructor.getEmailInstructor());
-			instructorActual.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
-			instructorActual.setRegionInstructor(region);
-			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
-			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
-			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
-			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
-			instructorActual.setUserCreateInstructor(instructor.getUserCreateInstructor());
+			for(Long idCliente : vendedor.getListClienteVendedor()) {
+				Cliente cliente = new Cliente(idCliente);
+				clientes.add(cliente);
+			}
 			
-			instructorUpdated = instructorService.save(instructorActual);
+			vendedorActual.setCliente(clientes);
+			vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());
+			vendedorActual.setEmailVendedor(vendedor.getEmailVendedor());
+			vendedorActual.setNotaVendedor(vendedor.getNotaVendedor());
+			vendedorActual.setCreateAtVendedor(vendedor.getCreateAtVendedor());
+			vendedorActual.setStatusVendedor(vendedor.getStatusVendedor());
+			vendedorActual.setUserCreateVendedor(vendedor.getUserCreateVendedor());
+			
+			vendedorUpdated = vendedorService.save(vendedorActual);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el instructor en la base de datos");
+			response.put("mensaje", "Error al actualizar el vendedor en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El instructor ha sido actualizado con éxito!");
-		response.put("instructor", instructorUpdated);
+		response.put("mensaje", "El vendedor ha sido actualizado con éxito!");
+		response.put("vendedor", vendedorUpdated);
 
 //		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(instructorUpdated, "instructor", status);
+		return UtilController.responseGeneric(vendedorUpdated, "vendedor", status);
 	}
 	
 	
 	/*
 	 * 
 	 */
-	@DeleteMapping("/instructor/{id}")
+	@DeleteMapping("/vendedor/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
-		Instructor instructor = null;
+		Vendedor vendedor = null;
 		try {
-			 instructor = instructorService.findById(id);
-			String nombreFotoAnterior = "";//instructor.getFoto();
+			 vendedor = vendedorService.findById(id);
+			String nombreFotoAnterior = "";//vendedor.getFoto();
 			
 			uploadService.eliminar(nombreFotoAnterior);
 			
-		    instructorService.delete(id);
+		    vendedorService.delete(id);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar el instructor de la base de datos");
+			response.put("mensaje", "Error al eliminar el vendedor de la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 //			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			status =  HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		
-		response.put("mensaje", "El instructor eliminado con éxito!");
+		response.put("mensaje", "El vendedor eliminado con éxito!");
 		
 //		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		status =  HttpStatus.OK;
-		return UtilController.responseGeneric(instructor, "instructor", status);
+		return UtilController.responseGeneric(vendedor, "vendedor", status);
 	}
 	
 	
 	/*
 	 * 
 	 */
-	@PostMapping("/instructor/upload")
+	@PostMapping("/vendedor/upload")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
 		Map<String, Object> response = new HashMap<>();
 		
-		Instructor instructor = instructorService.findById(id);
+		Vendedor vendedor = vendedorService.findById(id);
 		
 		if(!archivo.isEmpty()) {
 
@@ -283,20 +283,20 @@ public class InstructorRestController {
 			try {
 				nombreArchivo = uploadService.copiar(archivo);
 			} catch (IOException e) {
-				response.put("mensaje", "Error al subir la imagen del instructor");
+				response.put("mensaje", "Error al subir la imagen del vendedor");
 				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			
-			String nombreFotoAnterior = "";//instructor.getFoto();
+			String nombreFotoAnterior = "";//vendedor.getFoto();
 			
 			uploadService.eliminar(nombreFotoAnterior);
 						
-//			instructor.setFoto(nombreArchivo);
+//			vendedor.setFoto(nombreArchivo);
 			
-			instructorService.save(instructor);
+			vendedorService.save(vendedor);
 			
-			response.put("instructor", instructor);
+			response.put("vendedor", vendedor);
 			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
 			
 		}
@@ -307,22 +307,22 @@ public class InstructorRestController {
 //	@GetMapping("/uploads/img/{nombreFoto:.+}")
 //	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto){
 //
-//		Resource recurso = null;
+//		Resource recliente = null;
 //		
 //		try {
-//			recurso = uploadService.cargar(nombreFoto);
+//			recliente = uploadService.cargar(nombreFoto);
 //		} catch (MalformedURLException e) {
 //			e.printStackTrace();
 //		}
 //		
 //		HttpHeaders cabecera = new HttpHeaders();
-//		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+//		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recliente.getFilename() + "\"");
 //		
-//		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+//		return new ResponseEntity<Resource>(recliente, cabecera, HttpStatus.OK);
 //	}
 	
-//	@GetMapping("/instructor/regiones")
-//	public List<Region> listarRegiones(){
-//		return instructorService.findAllRegiones();
+//	@GetMapping("/vendedor/clientees")
+//	public List<Cliente> listarClientees(){
+//		return vendedorService.findAllClientees();
 //	}
 }

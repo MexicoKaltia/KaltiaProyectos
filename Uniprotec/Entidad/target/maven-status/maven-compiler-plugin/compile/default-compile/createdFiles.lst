@@ -1,5 +1,6 @@
 mx\uniprotec\entidad\modelo\CursoModelo.class
 mx\uniprotec\entidad\modelo\MonitorEntidades.class
+mx\uniprotec\entidad\modelo\VendedorModelo.class
 mx\uniprotec\entidad\modelo\Modulo.class
 mx\uniprotec\entidad\modelo\ResultVO.class
 mx\uniprotec\entidad\modelo\UserMap.class

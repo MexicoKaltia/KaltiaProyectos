@@ -354,10 +354,19 @@
                                      </div>
                                      <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Nombre Completo</label>
+                                            <label for="validationCustom02">Razon Social</label>
                                             <input type="text" class="form-control" th:field="*{nombreCompletoCliente}" id="nombreCompletoCliente" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Completo
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Contacto Quien Recibe Instructor</label>
+                                            <input type="text" class="form-control" th:field="*{nombreContactoRecibeCliente}" id="nombreContactoRecibeCliente" placeholder="Capture Nombre Contacto " value="" maxlength="100" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre Contacto
                                             </div>
                                         </div>
                                      </div>
@@ -386,7 +395,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Sede</label>
+                                            <label for="validationCustom02">Zona Geográfica</label>
                            				     <select id="idRegionCliente"name="idRegionCliente" class="form-control" required>
 													<option th:each="region: ${model.jsonResponseObject.regiones.regiones}"
 											             th:value="${region.idRegion}"
@@ -406,6 +415,108 @@
                                                 Capturar Domicilio Valido
                                             </div>
 							         </div>
+							         <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Google Maps</label>
+                                            <div class="">                     
+								              <textarea class="form-control" th:field="*{googleMapsCliente}" id="googleMapsCliente" rows="3" cols="150" required></textarea>
+								            </div>
+                                            <div class="invalid-feedback">
+                                                Capturar Direccion URL Google Maps
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Pauta Operativa</label>
+                                            <input type="text" class="form-control" th:field="*{pautaOperativaCliente}" id="pautaOperativaCliente" placeholder="Capture Pauta Operativa" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Pauta Operativa
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Reglas de Acceso</label>
+                                            <input type="text" class="form-control" th:field="*{reglasAccesoCliente}" id="reglasAccesoCliente" placeholder="Capture Reglas de Acceso" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Reglas de Acceso
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Documentos de Acceso</label>
+                                            <input type="text" class="form-control" th:field="*{documentosAccesoCliente}" id="documentosAccesoCliente" placeholder="Capture Documentos de Acceso" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capture Documentos de Acceso
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Material Didactico</label>
+                                            <input type="text" class="form-control" th:field="*{materialDidacticoCliente}" id="materialDidacticoCliente" placeholder="Capture Material Didactico" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Material Didactico
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Pauta General de Enfoque</label>
+                                            <input type="text" class="form-control" th:field="*{pautaGeneralCliente}" id="pautaGeneralCliente" placeholder="Capture Pauta General de Enfoque" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capture Pauta General de Enfoque
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Pauta Entregable</label>
+                                            <input type="text" class="form-control" th:field="*{pautaEntregableCliente}" id="pautaEntregableCliente" placeholder="Capture Pauta Entregable" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Pauta Entregable
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Representante Empresa</label>
+                                            <input type="text" class="form-control" th:field="*{representanteEmpresaCliente}" id="representanteEmpresaCliente" placeholder="Capture Representante Empresa" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capture Representante Empresa
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Representante Trabajador</label>
+                                            <input type="text" class="form-control" th:field="*{representanteTrabajadorCliente}" id="representanteTrabajadorCliente" placeholder="Capture Representante Trabajador" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Representante Trabajador
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Informacion Paqueteria</label>
+                                            <input type="text" class="form-control" th:field="*{informacionPaqueteriaCliente}" id="informacionPaqueteriaCliente" placeholder="Capture Informacion Paqueteria" value="" maxlength="300" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Informacion Paqueteria
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Adjuntar Imagen Logo Empresa</label>
+<!--                                             <label for="exampleFile" class="col-sm-2 col-form-label">File</label> -->
+<!-- 												<form id="imagenBSA3Form<s:property value='#conta'/>" class="imagenArrayForm"> -->
+                                                <div class="col-sm-10">
+                                                	<input name="imagenLogoCliente" id="imagenLogoCliente" type="file" th:field="*{imagenLogoCliente}" class="form-control-file">
+                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
+                                                </div>
+<!--                                                 </form> -->
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Adjuntar Archivos</label>
+                                            <div class="col-sm-10"><input name="archivosCliente" id="archivosCliente" type="file" th:field="*{archivosCliente}" class="form-control-file">
+                                                    <small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls, *.rar,  *.zip.</small>
+                                                </div>
+                                        </div>
+                                     </div>
                                         
                                 <br>
                                     
