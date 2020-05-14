@@ -256,6 +256,7 @@
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Region Origen</label>
                            				     <select id="regionInstructor"  name="regionInstructor" class="form-control" default="Selecciona Region Origen" th:field="*{regionInstructor}" required>
+                           				     <option value="" selected  >Selecciona Region Origen</option>
 	                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
 											             th:value="${region.idRegion}"
 											             th:text="${region.nombreRegion}"/>

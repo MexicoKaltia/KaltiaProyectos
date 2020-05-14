@@ -427,6 +427,19 @@
                                         </div>
                                      </div>
                                      <div class="form-row">
+	                                     <div class="col-md-12 mb-3">
+	                                            <label for="validationCustom02">Vendedor Asignado</label>
+	                           				     <select id="idVendedorCliente" th:field="*{idVendedorCliente}" name="idVendedorCliente" class="form-control" required>
+		                								 <option th:each="vendedor: ${model.jsonResponseObject.vendedores.vendedores}" 
+												             th:value="${vendedor.idVendedor}"
+												             th:text="${vendedor.nombreVendedor}"/>
+		              							</select>
+	                                            <div class="invalid-feedback">
+	                                                Capturar Vendedor
+	                                            </div>
+	                                        </div>
+	                                 </div>
+                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Pauta Operativa</label>
                                             <input type="text" class="form-control" th:field="*{pautaOperativaCliente}" id="pautaOperativaCliente" placeholder="Capture Pauta Operativa" value="" maxlength="300" required>

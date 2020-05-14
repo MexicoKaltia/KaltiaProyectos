@@ -27,6 +27,7 @@ public class ResultVO implements Serializable{
 	private List<ClienteModelo> clientes;
 	private List<InstructorModelo> instructores;
 	private List<CursoModelo> cursos;
+	private List<VendedorModelo> vendedores;
 	private List<UsuarioModelo> usuarios;
 	
 	@Override
@@ -34,13 +35,12 @@ public class ResultVO implements Serializable{
 		return "ResultVO [accesToken=" + accesToken + ", codigo=" + codigo + ", mensaje=" + mensaje + ", mensajeArray="
 				+ mensajeArray + ", response=" + response + ", jsonResponse=" + jsonResponse + ", jsonResponseArray="
 				+ jsonResponseArray + ", jsonResponseObject=" + jsonResponseObject + ", regiones=" + regiones
-				+ ", clientes=" + clientes + ", instructores=" + instructores + ", cursos=" + cursos + ", usuarios="
-				+ usuarios + "]";
+				+ ", clientes=" + clientes + ", instructores=" + instructores + ", cursos=" + cursos + ", vendedores="
+				+ vendedores + ", usuarios=" + usuarios + "]";
 	}
 	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
 			JSONObject jsonResponse, JSONArray jsonResponseArray, JSONObject jsonResponseObject, List<Region> regiones,
-			List<ClienteModelo> clientes, List<InstructorModelo> instructores, List<CursoModelo> cursos, List<UsuarioModelo> usuarios) {
-		super();
+			List<ClienteModelo> clientes, List<InstructorModelo> instructores, List<CursoModelo> cursos, List<UsuarioModelo> usuarios,  List<VendedorModelo> vendedores) {
 		this.accesToken = accesToken;
 		this.codigo = codigo;
 		this.mensaje = mensaje;
@@ -54,6 +54,7 @@ public class ResultVO implements Serializable{
 		this.instructores = instructores;
 		this.cursos = cursos;
 		this.usuarios = usuarios;
+		this.vendedores = vendedores;
 	}
 	
 	
@@ -134,6 +135,12 @@ public class ResultVO implements Serializable{
 	}
 	public void setUsuarios(List<UsuarioModelo> usuarios) {
 		this.usuarios = usuarios;
+	}
+	public List<VendedorModelo> getVendedores() {
+		return vendedores;
+	}
+	public void setVendedores(List<VendedorModelo> vendedores) {
+		this.vendedores = vendedores;
 	}
 	
 	

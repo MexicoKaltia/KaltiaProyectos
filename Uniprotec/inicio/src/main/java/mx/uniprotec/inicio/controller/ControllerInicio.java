@@ -62,7 +62,7 @@ public class ControllerInicio extends HttpServlet{
 
 //			model.addAttribute("loginResponse", resultVO);
 
-			log.info(model.values().toString());			
+//			log.info(model.values().toString());			
 			return new ModelAndView(resultVO.getResponse(), "model", resultVO);
 
 		}

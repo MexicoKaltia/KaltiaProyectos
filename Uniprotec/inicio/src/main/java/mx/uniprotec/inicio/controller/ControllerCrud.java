@@ -114,7 +114,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@SuppressWarnings("unchecked")
 	@GetMapping("/BCliente")
 	public ModelAndView bcliente(ModelMap model) {
-		
+		log.info("BCliente model Activo");
 		model.addAttribute("clienteForm", new ClienteModelo());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
@@ -122,10 +122,12 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		
 		ResultVO rs = clienteService.consultaClientes(resultVO.getAccesToken());
 		resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+		JSONObject jsonResponse = resultVO.getJsonResponseObject();
 
 		ResultVO rs2 = aplicacionService.consultaRegiones(resultVO.getAccesToken());
-		JSONObject jsonResponse = resultVO.getJsonResponseObject();
+		ResultVO rs3 = vendedorService.consultaVendedores(resultVO.getAccesToken());
 		jsonResponse.put("regiones", rs2.getJsonResponseObject());
+		jsonResponse.put("vendedores", rs3.getJsonResponseObject());
 		
 		resultVO.setJsonResponseObject(jsonResponse);
 		
@@ -137,7 +139,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	
 	@PostMapping("/actualizaCliente")
 	public ModelAndView actualizaCliente(@ModelAttribute("clienteForm") ClienteModelo cliente, ModelMap model) {
-		
+		log.info("ActualizaCliente model Activo");
 		model.addAttribute("clienteForm", new ClienteModelo());
 			
 		ResultVO resultVO = (ResultVO)model.get("model");
@@ -194,7 +196,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@SuppressWarnings("unchecked")
 	@GetMapping("/BCurso")
 	public ModelAndView bCurso(ModelMap model) {
-		
+		log.info("BCurso model Activo");
 		model.addAttribute("cursoForm", new Curso());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
@@ -216,7 +218,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	
 	@PostMapping("/actualizaCurso")
 	public ModelAndView actualizaCurso(@ModelAttribute("cursoForm") CursoModelo curso, ModelMap model) {
-		
+		log.info("ActualizaCurso model Activo");
 		model.addAttribute("cursoForm", new CursoModelo());
 			
 		ResultVO resultVO = (ResultVO)model.get("model");
@@ -279,7 +281,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	
 	@GetMapping("/BInstructor")
 	public ModelAndView BInstructor(ModelMap model) {
-			
+		log.info("BInstructor model Activo");
 			model.addAttribute("instructorForm", new InstructorModelo());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
@@ -306,7 +308,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 
 	@PostMapping("/actualizaInstructor")
 	public ModelAndView actualizaInstructor(@ModelAttribute("instructorForm") InstructorModelo instructor, ModelMap model) {
-			
+		log.info("ActualizaInstructor model Activo");
 			model.addAttribute("instructorForm", new InstructorModelo());
 				
 			ResultVO resultVO = (ResultVO)model.get("model");
@@ -369,7 +371,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	
 	@GetMapping("/BVendedor")
 	public ModelAndView BVendedor(ModelMap model) {
-			
+		log.info("BVendedor model Activo");
 			model.addAttribute("vendedorForm", new VendedorModelo());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
@@ -396,7 +398,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 
 	@PostMapping("/actualizaVendedor")
 	public ModelAndView actualizaVendedor(@ModelAttribute("vendedorForm") VendedorModelo vendedor, ModelMap model) {
-			
+		log.info("ActualizaVendedor model Activo");
 			model.addAttribute("vendedorForm", new VendedorModelo());
 				
 			ResultVO resultVO = (ResultVO)model.get("model");

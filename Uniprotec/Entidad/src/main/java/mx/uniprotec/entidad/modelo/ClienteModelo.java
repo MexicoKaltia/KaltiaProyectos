@@ -39,6 +39,7 @@ public class ClienteModelo implements Serializable {
 	private String archivosCliente;
 	
 	private Long idVendedorCliente;
+	private VendedorModelo vendedorCliente;
 
 	
 	
@@ -386,6 +387,16 @@ public class ClienteModelo implements Serializable {
 
 	public void setIdVendedorCliente(Long idVendedorCliente) {
 		this.idVendedorCliente = idVendedorCliente;
+	}
+
+
+	public VendedorModelo getVendedorCliente() {
+		return vendedorCliente;
+	}
+
+
+	public void setVendedorCliente(VendedorModelo vendedorCliente) {
+		this.vendedorCliente = vendedorCliente;
 	}
 	
 	

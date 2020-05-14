@@ -64,7 +64,7 @@ public class Cliente implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Region regionCliente;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Vendedor vendedorCliente;
 	
 	
@@ -121,12 +121,6 @@ public class Cliente implements Serializable {
 	private String imagenLogoCliente;
 	@Column(nullable=false)
 	private String archivosCliente;
-	
-	@ManyToOne
-	@JoinColumn( nullable = false, updatable = false)
-	private Vendedor vendedor;
-
-
 
 	public Cliente(Long idCliente) {
 		super();
@@ -136,591 +130,216 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-
-	
-	
-
-
-
-
 	public Long getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(Long id) {
-		this.idCliente = id;
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getNombreCortoCliente() {
 		return nombreCortoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setNombreCortoCliente(String nombreCortoCliente) {
 		this.nombreCortoCliente = nombreCortoCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getNombreCompletoCliente() {
 		return nombreCompletoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setNombreCompletoCliente(String nombreCompletoCliente) {
 		this.nombreCompletoCliente = nombreCompletoCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getRfcCliente() {
 		return rfcCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setRfcCliente(String rfcCliente) {
 		this.rfcCliente = rfcCliente;
 	}
-
-
-
-
-
-
-
 
 	public Region getRegionCliente() {
 		return regionCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setRegionCliente(Region regionCliente) {
 		this.regionCliente = regionCliente;
 	}
 
+	public Vendedor getVendedorCliente() {
+		return vendedorCliente;
+	}
 
-
-
-
-
-
+	public void setVendedorCliente(Vendedor vendedorCliente) {
+		this.vendedorCliente = vendedorCliente;
+	}
 
 	public String getEmailCliente() {
 		return emailCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getTelefonoCliente() {
 		return telefonoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setTelefonoCliente(String telefonoCliente) {
 		this.telefonoCliente = telefonoCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getDomicilioCliente() {
 		return domicilioCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setDomicilioCliente(String domicilioCliente) {
 		this.domicilioCliente = domicilioCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getNotaCliente() {
 		return notaCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setNotaCliente(String notaCliente) {
 		this.notaCliente = notaCliente;
 	}
-
-
-
-
-
-
-
 
 	public Long getUserCreateCliente() {
 		return userCreateCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setUserCreateCliente(Long userCreateCliente) {
 		this.userCreateCliente = userCreateCliente;
 	}
-
-
-
-
-
-
-
 
 	public LocalDateTime getCreateAtCliente() {
 		return createAtCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setCreateAtCliente(LocalDateTime createAtCliente) {
 		this.createAtCliente = createAtCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getStatusCliente() {
 		return statusCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setStatusCliente(String statusCliente) {
 		this.statusCliente = statusCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getNombreContactoRecibeCliente() {
 		return nombreContactoRecibeCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setNombreContactoRecibeCliente(String nombreContactoRecibeCliente) {
 		this.nombreContactoRecibeCliente = nombreContactoRecibeCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getGoogleMapsCliente() {
 		return googleMapsCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setGoogleMapsCliente(String googleMapsCliente) {
 		this.googleMapsCliente = googleMapsCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getPautaOperativaCliente() {
 		return pautaOperativaCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setPautaOperativaCliente(String pautaOperativaCliente) {
 		this.pautaOperativaCliente = pautaOperativaCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getReglasAccesoCliente() {
 		return reglasAccesoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setReglasAccesoCliente(String reglasAccesoCliente) {
 		this.reglasAccesoCliente = reglasAccesoCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getDocumentosAccesoCliente() {
 		return documentosAccesoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setDocumentosAccesoCliente(String documentosAccesoCliente) {
 		this.documentosAccesoCliente = documentosAccesoCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getMaterialDidacticoCliente() {
 		return materialDidacticoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setMaterialDidacticoCliente(String materialDidacticoCliente) {
 		this.materialDidacticoCliente = materialDidacticoCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getPautaGeneralCliente() {
 		return pautaGeneralCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setPautaGeneralCliente(String pautaGeneralCliente) {
 		this.pautaGeneralCliente = pautaGeneralCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getPautaEntregableCliente() {
 		return pautaEntregableCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setPautaEntregableCliente(String pautaEntregableCliente) {
 		this.pautaEntregableCliente = pautaEntregableCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getRepresentanteEmpresaCliente() {
 		return representanteEmpresaCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setRepresentanteEmpresaCliente(String representanteEmpresaCliente) {
 		this.representanteEmpresaCliente = representanteEmpresaCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getRepresentanteTrabajadorCliente() {
 		return representanteTrabajadorCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setRepresentanteTrabajadorCliente(String representanteTrabajadorCliente) {
 		this.representanteTrabajadorCliente = representanteTrabajadorCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getInformacionPaqueteriaCliente() {
 		return informacionPaqueteriaCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setInformacionPaqueteriaCliente(String informacionPaqueteriaCliente) {
 		this.informacionPaqueteriaCliente = informacionPaqueteriaCliente;
 	}
-
-
-
-
-
-
-
 
 	public String getImagenLogoCliente() {
 		return imagenLogoCliente;
 	}
 
-
-
-
-
-
-
-
 	public void setImagenLogoCliente(String imagenLogoCliente) {
 		this.imagenLogoCliente = imagenLogoCliente;
 	}
 
-
-
-
-
-
-
-
 	public String getArchivosCliente() {
 		return archivosCliente;
 	}
-
-
-
-
-
-
-
 
 	public void setArchivosCliente(String archivosCliente) {
 		this.archivosCliente = archivosCliente;
 	}
 
 
-
-
-
-
-	public Vendedor getVendedor() {
-		return vendedor;
-	}
-
-
-
-
-
-
-
-
-	public void setVendedor(Vendedor vendedor) {
-		this.vendedor = vendedor;
-	}
-
-
-
-
-
-
-
-
-	public void setVendedorCliente(Vendedor vendedor2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
-
-
-
-	public Vendedor getVendedorCliente() {
-		return vendedorCliente;
-	}
-
+	
 
 
 

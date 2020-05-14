@@ -48,6 +48,7 @@ $(document).ready(function(){
 		      $('#telefonoCliente').val(row.telefonoCliente);
 		      $('#rfcCliente').val(row.rfcCliente);
 		      $('#idRegionCliente').append('<option value="'+row.regionCliente.idRegion+'" selected >'+row.regionCliente.nombreRegion+'</option>');
+		      $('#idVendedorCliente').append('<option value="'+row.vendedorCliente.idVendedor+'" selected >'+row.vendedorCliente.nombreVendedor+'</option>');
 		      $('#domicilioCliente').val(row.domicilioCliente);      
 		      $('#nombreContactoRecibeCliente').val(row.nombreContactoRecibeCliente);
 		      $('#googleMapsCliente').val(row.googleMapsCliente);
