@@ -26,6 +26,9 @@
 	  function alerta(){
 	  	alert("prueba js invocada desde html");
 	  }
+	  
+	  
+
 
 
 	  
@@ -61,8 +64,8 @@ $(document).ready(function(){
 		      $('#representanteEmpresaCliente').val(row.representanteEmpresaCliente);
 		      $('#representanteTrabajadorCliente').val(row.representanteTrabajadorCliente);
 		      $('#informacionPaqueteriaCliente').val(row.informacionPaqueteriaCliente);
-		      $('#imagenLogoCliente').val(row.imagenLogoCliente);
-		      $('#archivosCliente').val(row.archivosCliente);
+//		      $('#imagenLogoCliente').val(row.imagenLogoCliente);
+//		      $('#archivosCliente').val(row.archivosCliente);
 		      
 		    }
 		   }
@@ -194,7 +197,9 @@ $(document).ready(function(){
 	$('#cursosTable').bootstrapTable({data : $data})
 	$('#instructoresTable').bootstrapTable({data : $data})
 	$('#vendedoresTable').bootstrapTable({data : $data})
-//		$table.bootstrapTable('load', data)
+
+	
+  
 	
 
 	
@@ -207,7 +212,6 @@ $(document).ready(function(){
 
 	
 
-
 	
 /*
  * 
@@ -216,11 +220,11 @@ $(document).ready(function(){
  * 
  * 
  */
-	$('#imagenLogoCliente').on('change', function(){ 
-		
-		enviaImagen($('imagenLogoCliente')); 
-	
-	});
+//	$('#imagenLogoCliente').on('change', function(){ 
+//		
+//		enviaImagen($('imagenLogoCliente')); 
+//	
+//	});
 	var  urlUpload = "http://localhost:8015/"
 	function enviaImagen(idImagenForm){
 		
@@ -229,7 +233,7 @@ $(document).ready(function(){
 			var alerta="";
 			  $.ajax({
 //			    url: "http://localhost:8010/fileUpload",
-				url: urlUpload+"fileUpload/"+$.action,
+				url: urlUpload+"fileUpload/"+$.cliente,
 			    type: "POST",
 //			    data: new FormData($("#upload-file-form")[0]),
 			    data: new FormData($("#"+idImagenForm)[0]),
