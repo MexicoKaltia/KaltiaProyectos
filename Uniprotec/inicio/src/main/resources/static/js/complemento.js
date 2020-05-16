@@ -1,12 +1,12 @@
-/**
- * Archivo de control JS para la pagina de Modulo 
+/*
+ * funciones de table Genericas
  */
 
 	/*
 	 * Acciones de EVENTOS userEmpresaTable
 	 */
 
-	  function operateFormatterUpdate(value, row, index) {
+ function operateFormatterUpdate(value, row, index) {
 	    return [
 	      '<a class="like" href="javascript:void(0)" title="Editar" id="UserUpdate" data-toggle="modal" data-target="#modalRegistro">',
 	      '<i class="fa fa-2x fa-user-edit"></i>',
@@ -27,12 +27,7 @@
 	  	alert("prueba js invocada desde html");
 	  }
 	  
-	  
-
-
-
-	  
-	  
+	
 $(document).ready(function(){
 	
 		
@@ -199,20 +194,6 @@ $(document).ready(function(){
 	$('#vendedoresTable').bootstrapTable({data : $data})
 
 	
-  
-	
-
-	
-	
-	
-	
-	/*
-	 *  funciones
-	 */
-
-	
-
-	
 /*
  * 
  * 
@@ -220,48 +201,9 @@ $(document).ready(function(){
  * 
  * 
  */
-//	$('#imagenLogoCliente').on('change', function(){ 
-//		
-//		enviaImagen($('imagenLogoCliente')); 
-//	
-//	});
-	var  urlUpload = "http://localhost:8015/"
-	function enviaImagen(idImagenForm){
-		
-		limpiaAlerta(),
-			console.log("Comineza envio imagenBody:"+idImagenForm);
-			var alerta="";
-			  $.ajax({
-//			    url: "http://localhost:8010/fileUpload",
-				url: urlUpload+"fileUpload/"+$.cliente,
-			    type: "POST",
-//			    data: new FormData($("#upload-file-form")[0]),
-			    data: new FormData($("#"+idImagenForm)[0]),
-			    enctype: 'multipart/form-data',
-			    processData: false,
-			    contentType: false,
-			    cache: false,
-			    success: 	function(data){
-			    	if(data.codigo==="00"){
-			    		if(data.codigo==="00"){
-			  			  alerta="<div class='alert alert-success' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
-			  			  $(alerta).insertAfter($('.'+idImagenForm));
-			  			  console.log("envio ok");
-			  	    	}else{
-			  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
-			  				  $(alerta).insertAfter($('.'+idImagenForm));
-			  	    		console.log("envio Nok");
-			  	    	}
-			    	  } 
-			    	},
-			    error: function () {
-			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
-					  $(alerta).insertAfter($('.'+idImagenForm));
-			  	console.log("envio error");
-			    }
-			  });
-			  //$(alerta).insertAfter($('.'+idImagenForm));
-	}
+	
+	
+	
 	
 	
 	
@@ -273,79 +215,6 @@ $(document).ready(function(){
 
 	});
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		/*
-		 * ********* ALERTAS  ***********
-		 */
-		function limpiaAlerta(){
-			$( "div" ).remove( "#limpiaAlerta" );
-		}
-		
-		function avisaAlertaEdicion(data){
-			limpiaAlerta();
-			 if(data.codigo===0){
-				  location.reload();
-			  }
-		}
-		
-		function avisaAlerta(data){
-			limpiaAlerta();
-			 if(data.codigo===0){
-				 modalClose();
-//				 $("#alerta").click();
-				 alerta="<div id='limpiaAlerta' class='alert alert-success' role='alert'>"+data.codigo+" "+data.mensaje.toString()+"</div>";
-				 alertaFade(alerta); 
-			 }else{
-				 modalClose();
-				  alerta="<div id='limpiaAlerta' class='alert alert-warning' role='alert'>"+data.codigo+" "+data.mensaje.toString()+"</div>";
-				  alertaFade(alerta); 
-			  }
-		}
-		
-		function errorAlerta(){
-			alerta="<div id='limpiaAlerta' class='alert alert-danger' role='alert'>Error de Enlace</div>";
-			$(alerta).insertAfter($('.alerta_in'));
-		}
-		
-		function modalClose(){
-			 $("#modalIngresa .close").click();
-			 $("#modalCita .close").click();
-			 $("#modalRegistro .close").click();
-			 $(".modal .close").click();
-			 $("body,html").animate({
-			        scrollTop: 0
-			    }, 600);
-		
-		}
-		function alertaFade(alerta){
-			$(alerta).insertAfter($('.alerta_in'));
-			  $('.alerta').fadeIn();
-//			  $('.alerta').delay(2500).fadeOut();
-			  $('.alerta').fadeOut( 4000);
-//				 $('.alerta').hide( "drop", { direction: "down" }, "slow" );
-		}
-		
-		
-		function avisaAlertaImagen(data){
-			
-		}
-		function errorAlertaImagen(){
-			
-		}
-		
-		
-		
-
-				
-
 		
 }); // Fin documento
 
