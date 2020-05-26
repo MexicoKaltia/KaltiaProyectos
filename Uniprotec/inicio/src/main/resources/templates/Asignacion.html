@@ -12,12 +12,14 @@
 
     <link th:href="@{main.css}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{css/process.css}">
+    <link th:href="@{css/default.css}" rel="stylesheet">
+    <link th:href="@{css/default.date.css}" rel="stylesheet">
+    <link th:href="@{css/default.time.css}" rel="stylesheet">
 
 
 </head>
 
-<body>
-
+<body background="images/fondo3.png">
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
 <!--      HEAD INICIO    -->
@@ -229,215 +231,263 @@
                     <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <div class="container mt-3">
-       <h5>Linea de Proceso</h5>
-       <br><br>
-       <div class="stepwizard col-md-offset-3">
+							       <h5>Linea de Proceso</h5>
+							       <br><br>
+							       <div class="stepwizard col-md-offset-3 col-md-12 mb-3">
+							
+							           <div class="stepwizard-row setup-panel">
+							               <div class="stepwizard-step"> <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+							                   <p>Fecha</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+							                   <p>Cliente</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+							                   <p>Curso</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+							                   <p>Instructor</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+							                   <p>Horarios</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
+							                   <p>Observaciones</p>
+							               </div>
+							           </div>
+							       </div>
+							       <form role="form" action="" method="post">
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->							       
+							       <div class="row setup-content" id="step-1">
+							               <div class="col-md-12 mb-3">
+							                       <h3> Seleccione Fecha</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 1</label>
+							                         <input id="asignaFecha" class="datepicker form-control" name="date" type="text" autofocus required onchange="validaFecha(this)"/>
+							                       </div>
+							                       <div class="invalid-feedback">
+													  Seleccione Fecha
+													</div>
+													<div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaFecha" type="button" disabled>Siguiente</button>
+							                   </div>
+							                   <script th:inline="javascript">
+													 var asignacionClientes = [[${model.jsonResponseObject.clientes}]];
+													 var asignacionCurso = [[${model.jsonResponseObject.cursos}]];
+													 var asignacionInstructores = [[${model.jsonResponseObject.instructores}]];
+													 var asignacionRegiones = [[${model.jsonResponseObject.regiones}]];
+													 var asignacionVendedores = [[${model.jsonResponseObject.vendedores}]];
+												</script>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-2">
+							               <div class="col-md-12 mb-3">
+							                       <h3> Seleccione Cliente</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 2</label>
+							                           <select id="asignaCliente"  name="asignaCliente" class="form-control"  required onchange="validaCliente()">
+				                								 <option value="" selected  >Selecciona Cliente</option>
+				                								 <option th:each="cliente: ${model.jsonResponseObject.clientes}"
+														             th:value="${cliente.idCliente}"
+														             th:text="${cliente.nombreCortoCliente}"/>
+				              							</select>
+							                       </div>
+							                       <div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+													<button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaCliente" type="button" disabled>Siguiente</button>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-3">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3> Seleccione Curso</h3>
+							                       <br>
+							                       <div class="form-inline">
+								                       <h5>Modalidad Curso :_</h5>
+								                       <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                                                	<button type="button" id="tipoCurso" class="btn btn-alternate" onclick="checkTipoCurso()">PRESENCIAL</button>
+	                                            		</div>
+	                                               </div>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 3</label>
+							                           <select id="asignaCurso"  name="asignaCurso" class="form-control"  required onchange="validaCurso()" disabled>
+				                								 <option value="" selected  >Selecciona Curso</option>
+				                								 <option th:each="curso: ${model.jsonResponseObject.cursos}"
+														             th:value="${curso.idCurso}"
+														             th:text="${curso.nombreCurso}"/>
+				              							</select>
+							                       </div>
+							                       <div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> 
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right"  id="btnAsignaCurso" type="button" disabled>Siguiente</button>
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-4">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3>Seleccione Instructor</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 4</label>
+							                           <select id="asignaInstructor"  name="asignaInstructor" class="form-control"  required onchange="validaInstructor()">
+				                								 <option value="" selected  >Selecciona Instructor</option>
+<!-- 				                								 <option th:each="instructor: ${model.jsonResponseObject.instructores}" -->
+<!-- 														             th:value="${instructor.idInstructor}" -->
+<!-- 														             th:text="${instructor.nombreInstructor}"/> -->
+				              							</select>
+							                       </div>
+							                       <div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> 
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaInstructor" type="button" disabled>Siguiente</button>
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-5">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3> Horario</h3>
+							                       <div class="form-group">
+							                           <div class="row">
+							                               <div class="embed-responsive embed-responsive-1by1">
+							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/month-view-demo" allowfullscreen></iframe>
+							                               </div>
+							                               <div class="embed-responsive embed-responsive-1by1">
+							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/timegrid-custom-view-demo" allowfullscreen></iframe>
+							                               </div>
+							                           </div>
+							                           <br><br>
+							                           <div class="row">
+							                               <div class="col">
+							                                   <label class="form-check-label" for="cita11">Horario Inicial</label>
+							                                   <select id="cita11" name="cita11" class="form-control">
+							
+							                                       <option value="700">7:00</option>
+							                                       <option value="800">8:00</option>
+							                                       <option value="900">9:00</option>
+							                                       <option value="1000">10:00</option>
+							                                       <option value="1100">11:00</option>
+							                                       <option value="1200">12:00</option>
+							                                       <option value="1300">13:00</option>
+							                                       <option value="1400">14:00</option>
+							                                       <option value="1500">15:00</option>
+							                                       <option value="1600">16:00</option>
+							                                       <option value="1700">17:00</option>
+							                                       <option value="1800">18:00</option>
+							                                       <option value="1900">19:00</option>
+							                                       <option value="2000">20:00</option>
+							
+							                                   </select>
+							                               </div>
+							                               <div class="col">
+							                                   <label class="form-check-label" for="cita11">Horario . Final </label>
+							                                   <select id="cita11" name="cita11" class="form-control">
+							
+							                                       <option value="700">7:00</option>
+							                                       <option value="800">8:00</option>
+							                                       <option value="900">9:00</option>
+							                                       <option value="1000">10:00</option>
+							                                       <option value="1100">11:00</option>
+							                                       <option value="1200">12:00</option>
+							                                       <option value="1300">13:00</option>
+							                                       <option value="1400">14:00</option>
+							                                       <option value="1500">15:00</option>
+							                                       <option value="1600">16:00</option>
+							                                       <option value="1700">17:00</option>
+							                                       <option value="1800">18:00</option>
+							                                       <option value="1900">19:00</option>
+							                                       <option value="2000">20:00</option>
+							
+							                                   </select>
+							                               </div>
+							                               <div class="col">
+							                                   <label class="form-check-label" for="cita11">Comida</label>
+							                                   <select id="cita11" name="cita11" class="form-control">
+							
+							                                       <option value="700">7:00</option>
+							                                       <option value="800">8:00</option>
+							                                       <option value="900">9:00</option>
+							                                       <option value="1000">10:00</option>
+							                                       <option value="1100">11:00</option>
+							                                       <option value="1200">12:00</option>
+							                                       <option value="1300">13:00</option>
+							                                       <option value="1400">14:00</option>
+							                                       <option value="1500">15:00</option>
+							                                       <option value="1600">16:00</option>
+							                                       <option value="1700">17:00</option>
+							                                       <option value="1800">18:00</option>
+							                                       <option value="1900">19:00</option>
+							                                       <option value="2000">20:00</option>
+							
+							                                   </select>
+							                               </div>
+							                               <div class="col">
+							                                   <label class="form-check-label" for="cita11">Comida Final</label>
+							                                   <select id="cita11" name="cita11" class="form-control">
+							
+							                                       <option value="700">7:00</option>
+							                                       <option value="800">8:00</option>
+							                                       <option value="900">9:00</option>
+							                                       <option value="1000">10:00</option>
+							                                       <option value="1100">11:00</option>
+							                                       <option value="1200">12:00</option>
+							                                       <option value="1300">13:00</option>
+							                                       <option value="1400">14:00</option>
+							                                       <option value="1500">15:00</option>
+							                                       <option value="1600">16:00</option>
+							                                       <option value="1700">17:00</option>
+							                                       <option value="1800">18:00</option>
+							                                       <option value="1900">19:00</option>
+							                                       <option value="2000">20:00</option>
+							
+							                                   </select>
+							                               </div>
+							
+							                           </div>
+							                       </div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+							
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-6">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3> Adjuntar Observaciones</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 6</label>
+							                           <textarea required="required" class="form-control" placeholder="Observaciones" rows="4" cols="100"></textarea>
+							
+							                       </div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                       <!--<button class="btn btn-success btn-lg pull-right" type="submit">Agendar</button>-->
+							                       <!-- Button to Open the Modal -->
+							                       <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal">
+							                           Agendar
+							                       </button>
+							
+							
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->							           
+							       </form>
+							   </div>
 
-           <div class="stepwizard-row setup-panel">
-               <div class="stepwizard-step"> <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                   <p>Empresa</p>
-               </div>
-               <div class="stepwizard-step"> <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                   <p>Curso</p>
-               </div>
-               <div class="stepwizard-step"> <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                   <p>Instructor</p>
-               </div>
-               <div class="stepwizard-step"> <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                   <p>Horario</p>
-               </div>
-               <div class="stepwizard-step"> <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-                   <p>Observaciones</p>
-               </div>
-           </div>
-       </div>
-       <form role="form" action="" method="post">
-           <div class="row setup-content" id="step-1">
-               <div class="col-xs-6 col-md-offset-3">
-                   <div class="col-md-12">
-                       <h3> Seleccione Cliente</h3>
-                       <div class="form-group">
-                           <label for="exampleFormControlSelect1">Paso 1</label>
-                           <select class="form-control" id="exampleFormControlSelect1">
-                               <option>Cliente 1</option>
-                               <option>Cliente 2</option>
-                               <option>Cliente 3</option>
-                               <option>Cliente 4</option>
-                               <option>Cliente 5</option>
-                           </select>
-                       </div>
-                       <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
-                   </div>
-               </div>
-           </div>
-           <div class="row setup-content" id="step-2">
-               <div class="col-xs-6 col-md-offset-3">
-                   <div class="col-md-12">
-                       <h3> Seleccione Curso</h3>
-                       <div class="form-group">
-                           <label for="exampleFormControlSelect1">Paso 2</label>
-                           <select class="form-control" id="exampleFormControlSelect1">
-                               <option>Curso 1</option>
-                               <option>Curso 2</option>
-                               <option>Curso 3</option>
-                               <option>Curso 4</option>
-                               <option>Curso 5</option>
-                           </select>
-                       </div><button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
-                   </div>
-               </div>
-           </div>
-           <div class="row setup-content" id="step-3">
-               <div class="col-xs-6 col-md-offset-3">
-                   <div class="col-md-12">
-                       <h3>Seleccione Instructor</h3>
-                       <div class="form-group">
-                           <label for="exampleFormControlSelect1">Paso 3</label>
-                           <select class="form-control" id="exampleFormControlSelect1">
-                               <option>Instructor 1</option>
-                               <option>Instructor 2</option>
-                               <option>Instructor 3</option>
-                               <option>Instructor 4</option>
-                               <option>Instructor 5</option>
-                           </select>
-                       </div><button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
 
-                   </div>
-               </div>
-           </div>
-           <div class="row setup-content" id="step-4">
-               <div class="col-xs-6 col-md-offset-3">
-                   <div class="col-md-12">
-                       <h3> Calendario y Horario</h3>
-                       <div class="form-group">
-                           <div class="row">
-                               <div class="embed-responsive embed-responsive-1by1">
-                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/month-view-demo" allowfullscreen></iframe>
-                               </div>
-                               <div class="embed-responsive embed-responsive-1by1">
-                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/timegrid-custom-view-demo" allowfullscreen></iframe>
-                               </div>
-                           </div>
-                           <br><br>
-                           <div class="row">
-                               <div class="col">
-                                   <label class="form-check-label" for="cita11">Horario Inicial</label>
-                                   <select id="cita11" name="cita11" class="form-control">
-
-                                       <option value="700">7:00</option>
-                                       <option value="800">8:00</option>
-                                       <option value="900">9:00</option>
-                                       <option value="1000">10:00</option>
-                                       <option value="1100">11:00</option>
-                                       <option value="1200">12:00</option>
-                                       <option value="1300">13:00</option>
-                                       <option value="1400">14:00</option>
-                                       <option value="1500">15:00</option>
-                                       <option value="1600">16:00</option>
-                                       <option value="1700">17:00</option>
-                                       <option value="1800">18:00</option>
-                                       <option value="1900">19:00</option>
-                                       <option value="2000">20:00</option>
-
-                                   </select>
-                               </div>
-                               <div class="col">
-                                   <label class="form-check-label" for="cita11">Horario . Final </label>
-                                   <select id="cita11" name="cita11" class="form-control">
-
-                                       <option value="700">7:00</option>
-                                       <option value="800">8:00</option>
-                                       <option value="900">9:00</option>
-                                       <option value="1000">10:00</option>
-                                       <option value="1100">11:00</option>
-                                       <option value="1200">12:00</option>
-                                       <option value="1300">13:00</option>
-                                       <option value="1400">14:00</option>
-                                       <option value="1500">15:00</option>
-                                       <option value="1600">16:00</option>
-                                       <option value="1700">17:00</option>
-                                       <option value="1800">18:00</option>
-                                       <option value="1900">19:00</option>
-                                       <option value="2000">20:00</option>
-
-                                   </select>
-                               </div>
-                               <div class="col">
-                                   <label class="form-check-label" for="cita11">Comida</label>
-                                   <select id="cita11" name="cita11" class="form-control">
-
-                                       <option value="700">7:00</option>
-                                       <option value="800">8:00</option>
-                                       <option value="900">9:00</option>
-                                       <option value="1000">10:00</option>
-                                       <option value="1100">11:00</option>
-                                       <option value="1200">12:00</option>
-                                       <option value="1300">13:00</option>
-                                       <option value="1400">14:00</option>
-                                       <option value="1500">15:00</option>
-                                       <option value="1600">16:00</option>
-                                       <option value="1700">17:00</option>
-                                       <option value="1800">18:00</option>
-                                       <option value="1900">19:00</option>
-                                       <option value="2000">20:00</option>
-
-                                   </select>
-                               </div>
-                               <div class="col">
-                                   <label class="form-check-label" for="cita11">Comida Final</label>
-                                   <select id="cita11" name="cita11" class="form-control">
-
-                                       <option value="700">7:00</option>
-                                       <option value="800">8:00</option>
-                                       <option value="900">9:00</option>
-                                       <option value="1000">10:00</option>
-                                       <option value="1100">11:00</option>
-                                       <option value="1200">12:00</option>
-                                       <option value="1300">13:00</option>
-                                       <option value="1400">14:00</option>
-                                       <option value="1500">15:00</option>
-                                       <option value="1600">16:00</option>
-                                       <option value="1700">17:00</option>
-                                       <option value="1800">18:00</option>
-                                       <option value="1900">19:00</option>
-                                       <option value="2000">20:00</option>
-
-                                   </select>
-                               </div>
-
-                           </div>
-                       </div>
-                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
-
-                   </div>
-               </div>
-           </div>
-           <div class="row setup-content" id="step-5">
-               <div class="col-xs-6 col-md-offset-3">
-                   <div class="col-md-12">
-                       <h3> Adjuntar Observaciones</h3>
-                       <div class="form-group">
-                           <label for="exampleFormControlSelect1">Paso 5</label>
-                           <textarea required="required" class="form-control" placeholder="Observaciones" rows="4" cols="100"></textarea>
-
-                       </div>
-                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
-                       <!--<button class="btn btn-success btn-lg pull-right" type="submit">Agendar</button>-->
-                       <!-- Button to Open the Modal -->
-                       <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal">
-                           Agendar
-                       </button>
-
-
-                   </div>
-               </div>
-           </div>
-       </form>
-   </div>
-
-
-                            </div>
-                        </div>
+							</div>
+						</div>
                                               
                         <!-- 
                         	FIN DE SECCION DE EDICION 
@@ -481,6 +531,20 @@
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
     <script th:src="@{js/process.js}"></script>
+    <script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+<!--     <script th:src="@{js/legacy.js}"></script> -->
+    <script th:src="@{js/es_ES.js}"></script>
+    <script th:src="@{js/asignacion.js}"></script>
+    <script type="text/javascript">
+    var today = new Date();
+    var $datepicker = $( '.datepicker' ).pickadate({
+     min : today
+    })
+
+        </script>
+    
 </body>
 
 </html>

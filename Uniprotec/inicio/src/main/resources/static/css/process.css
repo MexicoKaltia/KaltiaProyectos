@@ -7,7 +7,7 @@
 }
 .stepwizard {
     display: table;
-    width: 50%;
+    width: 100%;
     position: relative;
 }
 .stepwizard-step button[disabled] {
@@ -30,11 +30,11 @@
     position: relative;
 }
 .btn-circle {
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
+    padding: 16px 0;
+    font-size: 14px;
     line-height: 1.428571429;
     border-radius: 15px;
 }

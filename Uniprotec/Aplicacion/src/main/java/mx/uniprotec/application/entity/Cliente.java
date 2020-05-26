@@ -29,10 +29,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="clientes")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "idCliente")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIdentityInfo(
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "idCliente")
+
 public class Cliente implements Serializable {
 	
 	
@@ -62,9 +62,11 @@ public class Cliente implements Serializable {
 	private String rfcCliente;
 	
 	@OneToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	private Region regionCliente;
 	
 	@OneToOne(fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	private Vendedor vendedorCliente;
 	
 	

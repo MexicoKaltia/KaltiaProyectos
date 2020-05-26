@@ -44,7 +44,7 @@
 	    $("#imagenLogoCliente").fileinput({
 	        browseClass: "btn btn-success",
 	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-	        browseLabel: "Seleccionar Archivos",
+	        browseLabel: "Selecciona Imagen",
 	        removeClass: "btn btn-warning",
 	        removeLabel: "Remover",
 	 	   showCaption: false, 

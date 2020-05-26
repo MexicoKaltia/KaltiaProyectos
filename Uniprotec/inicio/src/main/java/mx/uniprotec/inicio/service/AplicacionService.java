@@ -53,7 +53,7 @@ public class AplicacionService implements IAplicacionService {
 		}
 	}
 
-
+	@Override
 	@SuppressWarnings("unchecked")
 	public ResultVO consultaData(ResultVO resultVO) {
 		
@@ -74,6 +74,16 @@ public class AplicacionService implements IAplicacionService {
 			
 		rs.setAccesToken(token);
 		rs.setJsonResponse(resultVO.getJsonResponse());
+		
+		JSONObject jsonData = new JSONObject();
+		jsonData.put("clientes", rs.getClientes());
+		jsonData.put("instructores", rs.getInstructores());
+		jsonData.put("cursos", rs.getCursos());
+		jsonData.put("regiones", rs.getRegiones());
+		jsonData.put("vendedores", rs.getVendedores());
+		
+		rs.setJsonResponseObject(jsonData);
+		
 
 		log.info(rs.toString());
 		return rs;

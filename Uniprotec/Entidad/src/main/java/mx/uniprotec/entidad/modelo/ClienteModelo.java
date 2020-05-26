@@ -13,7 +13,7 @@ public class ClienteModelo implements Serializable {
 	private String nombreCortoCliente;
 	private String nombreCompletoCliente;
 	private String rfcCliente;
-	private String regionIdCliente;
+
 	private Long idRegionCliente;
 	private Region regionCliente;
 	private String emailCliente;
@@ -53,7 +53,7 @@ public class ClienteModelo implements Serializable {
 	public String toString() {
 		return "ClienteModelo [idCliente=" + idCliente + ", nombreCortoCliente=" + nombreCortoCliente
 				+ ", nombreCompletoCliente=" + nombreCompletoCliente + ", rfcCliente=" + rfcCliente
-				+ ", regionIdCliente=" + regionIdCliente + ", idRegionCliente=" + idRegionCliente + ", regionCliente="
+				+ ", idRegionCliente=" + idRegionCliente + ", regionCliente="
 				+ regionCliente + ", emailCliente=" + emailCliente + ", telefonoCliente=" + telefonoCliente
 				+ ", domicilioCliente=" + domicilioCliente + ", notaCliente=" + notaCliente + ", userCreateCliente="
 				+ userCreateCliente + ", createAtCliente=" + createAtCliente + ", statusCliente=" + statusCliente
@@ -70,7 +70,7 @@ public class ClienteModelo implements Serializable {
 
 
 	public ClienteModelo(Long idCliente, String nombreCortoCliente, String nombreCompletoCliente, String rfcCliente,
-			String regionIdCliente, Long idRegionCliente, Region regionCliente, String emailCliente,
+			Long idRegionCliente, Region regionCliente, String emailCliente,
 			String telefonoCliente, String domicilioCliente, String notaCliente, Long userCreateCliente,
 			LocalDateTime createAtCliente, String statusCliente, String nombreContactoRecibeCliente,
 			String googleMapsCliente, String pautaOperativaCliente, String reglasAccesoCliente,
@@ -83,7 +83,6 @@ public class ClienteModelo implements Serializable {
 		this.nombreCortoCliente = nombreCortoCliente;
 		this.nombreCompletoCliente = nombreCompletoCliente;
 		this.rfcCliente = rfcCliente;
-		this.regionIdCliente = regionIdCliente;
 		this.idRegionCliente = idRegionCliente;
 		this.regionCliente = regionCliente;
 		this.emailCliente = emailCliente;
@@ -147,16 +146,6 @@ public class ClienteModelo implements Serializable {
 
 	public void setRfcCliente(String rfcCliente) {
 		this.rfcCliente = rfcCliente;
-	}
-
-
-	public String getRegionIdCliente() {
-		return regionIdCliente;
-	}
-
-
-	public void setRegionIdCliente(String regionIdCliente) {
-		this.regionIdCliente = regionIdCliente;
 	}
 
 

@@ -1,6 +1,8 @@
 package mx.uniprotec.inicio.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
+import mx.uniprotec.entidad.modelo.VendedorModelo;
+import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.ILoginService;
 
 @CrossOrigin(origins = { "*" })
@@ -39,7 +44,10 @@ public class ControllerInicio extends HttpServlet{
 	
 	@Autowired
 	ILoginService loginService;
-	ResultVO resultVO = new ResultVO();
+	@Autowired
+	IAplicacionService aplicacionService;
+	
+//	ResultVO resultVO = new ResultVO();
 	UsuarioModelo usuario = new UsuarioModelo();
 	
 	
@@ -58,6 +66,8 @@ public class ControllerInicio extends HttpServlet{
 			ModelAndView mav = new ModelAndView();
 			ModelMap model = new ModelMap();
 			log.info(user.toString());
+			
+			ResultVO resultVO = new ResultVO();
 			resultVO = loginService.login(user);
 
 //			model.addAttribute("loginResponse", resultVO);
@@ -76,8 +86,7 @@ public class ControllerInicio extends HttpServlet{
 				return new  ModelAndView("login");
 			}else {
 				log.info("Inicio model Activo");
-//				log.info(model.values().toString());
-				return new  ModelAndView("index",  model);	
+						return new  ModelAndView("index",  model);	
 			}		
 
 			}
@@ -91,7 +100,21 @@ public class ControllerInicio extends HttpServlet{
 				return new  ModelAndView("login");
 			}else {
 				log.info("Asignacion model Activo");
-//				log.info(model.values().toString());
+				
+				ResultVO resultVO = (ResultVO)model.get("model");			
+				ResultVO rs = aplicacionService.consultaData(resultVO);
+				model.addAttribute("model", rs);
+				
+//				ArrayList<ClienteModelo> clientes = (ArrayList<ClienteModelo>) rs.getClientes();
+//				for(int i= 0; i<rs.getClientes().size(); i++) {
+//					ClienteModelo cliente = (ClienteModelo)clientes.get(i);
+//					log.info(cliente.getIdCliente() + ":" + cliente.getNombreCortoCliente());
+//				}
+				
+//				for(VendedorModelo vendedor : rs.getVendedores()) {
+//					log.info(vendedor.getIdVendedor() + ":" + vendedor.getNombreVendedor());
+//				}
+
 				return new  ModelAndView("Asignacion",  model);	
 			}		
 

@@ -10,6 +10,6 @@ import mx.uniprotec.entidad.modelo.ResultVO;
 public interface IAplicacionService {
 	
 	public ResultVO consultaRegiones(String token);
-
+	public ResultVO consultaData(ResultVO resultVO);
 
 }

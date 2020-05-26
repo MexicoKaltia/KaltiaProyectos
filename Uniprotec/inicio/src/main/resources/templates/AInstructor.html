@@ -246,11 +246,17 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Email Gmail</label>
-                                            <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
+<!--                                             <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" placeholder="email" value="" maxlength="100" required> -->                                       
+											<div class="input-group mb-3">
+											  <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" maxlength="100" required placeholder="Usuario Gmail" aria-label="Usuario Gmail" aria-describedby="basic-addon2">
+											  <div class="input-group-append">
+											    <span class="input-group-text" id="basic-addon2">@gmail.com</span>
+											  </div>
+											  <div class="invalid-feedback">
                                                 Capturar Email Gmail Valido
                                             </div>
-                                        </div>
+										 </div>
+										</div>
                                        </div>
                                        <div class="form-row">
                                         <div class="col-md-12 mb-3">

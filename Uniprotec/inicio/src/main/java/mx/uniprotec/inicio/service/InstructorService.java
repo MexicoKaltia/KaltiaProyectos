@@ -44,6 +44,7 @@ public class InstructorService implements IInstructorService {
 		instructor.setCreateAtInstructor(me.getNowEntidad());
 		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());
 		instructor.setStatusInstructor(me.getStatusEntidad());
+		instructor.setEmailGmailInstructor(instructor.getEmailGmailInstructor().concat("@gmail.com"));
 		
 		log.info(instructor.toString());
 		
