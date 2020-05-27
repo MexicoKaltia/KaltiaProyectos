@@ -98,29 +98,6 @@ $(document).ready(function(){
 			  
 		      $('#notaCurso').val(row.notaCurso);
 		      
-//				$('.removeParticipantes').click(function(index, element){
-//					console.log('removeParticipantes')
-//					var elemento = $(this);
-//					var value = elemento.attr('value');
-//					var texto = elemento.text();
-//					 $('#listInstructores').prepend('<li><a class ="removeParticipantes instructores" value="'+value+'" >'+texto+'</a></li>');
-//					 $(this).addClass('elimina');
-//					 $(".elimina").remove();
-//					 console.log(element);
-//					 $($instructoresParticipantes).each(function(index, element){
-//			    		  if(element.idInstructor === $instructoresParticipantes.idInstructor){
-//			    			  $instructoresParticipantes.splice(index, index);
-//		    			  }   			  
-//		    		  })
-//		    		  reorganiza();
-//				});
-//				
-//				function reorganiza(){
-//					$($instructoresParticipantes).each(function(index, element){
-//						  $('#instructoresParticipantes').append('<li><a class ="removeParticipantes instructores" value="'+$instructor.idInstructor+'">'+$instructor.nombreInstructor+'</a></li>');
-//					});
-//				}
-
 		    }
 		   }
 

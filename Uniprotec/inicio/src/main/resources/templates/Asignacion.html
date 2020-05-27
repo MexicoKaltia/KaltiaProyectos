@@ -15,6 +15,10 @@
     <link th:href="@{css/default.css}" rel="stylesheet">
     <link th:href="@{css/default.date.css}" rel="stylesheet">
     <link th:href="@{css/default.time.css}" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    
 
 
 </head>
@@ -360,48 +364,67 @@
 							           <div class="row setup-content" id="step-5">
 							               <div class="col-md-12 mb-3">
 							                   <div class="col-md-12">
+							                   	<div class="col-md-12">
 							                       <h3> Horario</h3>
-							                       <div class="form-group">
-							                           <div class="row">
-<!-- 							                               <div class="embed-responsive embed-responsive-1by1"> -->
-<!-- 							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/month-view-demo" allowfullscreen></iframe> -->
-<!-- 							                               </div> -->
-<!-- 							                               <div class="embed-responsive embed-responsive-1by1"> -->
-<!-- 							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/timegrid-custom-view-demo" allowfullscreen></iframe> -->
-<!-- 							                               </div> -->
-							                           </div>
-							                           <br><br>
-							                           <div class="row">
-							                               <div class="col">
-							                                   <label class="form-check-label" for="cita11">Horario Inicial</label>
-							                                   <select id="cita11" name="cita11" class="form-control">
-							                                       <option value="700">7:00</option>
-							                                   </select>
-							                               </div>
-							                               <div class="col">
-							                                   <label class="form-check-label" for="cita11">Horario . Final </label>
-							                                   <select id="cita11" name="cita11" class="form-control">
-							                                       <option value="2000">20:00</option>
-							                                   </select>
-							                               </div>
-							                               <div class="col">
-							                                   <label class="form-check-label" for="cita11">Comida</label>
-							                                   <select id="cita11" name="cita11" class="form-control">
-							                                       <option value="2000">20:00</option>
-							                                   </select>
-							                               </div>
-							                               <div class="col">
-							                                   <label class="form-check-label" for="cita11">Comida Final</label>
-							                                   <select id="cita11" name="cita11" class="form-control">
-							
-							                                   </select>
-							                               </div>
-							
-							                           </div>
-							                       </div>
-							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                       <div class="form-inline">
+								                       <div class="alert alert-dark" role="alert">Horas Efectivas: <b><label id="horasEfectivas"></label></b></div>
+	                                               </div>
+							                     </div>  
+							                   <!-- BODY FORMULARIO -->
+							                   		<div class="form-row">
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+			                                                       <label class="form-check-label" for="asignaHorarioInicio">Horario Inicial</label>
+								                                   <select id="asignaHorarioInicio" name="asignaHorarioInicio" class="form-control" required onchange="validaHorarioInicio()">
+								                                       <option value="" selected  >Selecciona Horario Inicio</option>
+								                                       <option value="0700">07:00</option>
+								                                       <option value="0800">08:00</option>
+								                                       <option value="0900">09:00</option>
+								                                       <option value="1000">10:00</option>
+								                                       <option value="1100">11:00</option>
+								                                       <option value="1200">12:00</option>
+								                                       <option value="1300">13:00</option>
+								                                       <option value="1400">14:00</option>
+								                                       <option value="1500">15:00</option>
+								                                       <option value="1600">16:00</option>
+								                                       <option value="1700">17:00</option>
+								                                       <option value="1800">18:00</option>
+								                                       <option value="1900">19:00</option>
+								                                       <option value="2000">20:00</option>
+								                                       <option value="2100">21:00</option>
+								                                       <option value="2200">22:00</option>
+								                                       <option value="2300">23:00</option>
+								                                   </select>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+		                      										<label class="form-check-label" for="asignaHorarioFinal">Horario . Final </label>
+								                                   <select id="asignaHorarioFinal" name="asignaHorarioFinal" class="form-control" required onchange="validaHorarioFinal()" disabled>   </select>
+								                             </div>
+		                                                </div>
+		                                            </div>
+							                   		<div class="form-row">
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+			                                                       <label class="form-check-label" for="asignaRecesoInicio">Receso Inicial</label>
+								                                   <select id="asignaRecesoInicio" name="asignaRecesoInicio" class="form-control" required onchange="validaRecesoInicio()" disabled>
+								                                       <option value="" selected  >Selecciona Receso Inicio Opcional</option>
+
+								                                   </select>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+		                      										<label class="form-check-label" for="asignaRecesoFinal">Receso . Final </label>
+								                                   <select id="asignaRecesoFinal" name="asignaRecesoFinal" class="form-control" required onchange="validaRecesoFinal()" disabled>   </select>
+								                             </div>
+		                                                </div>
+		                                            </div>	
+							                        
+							                   <!-- FIN BODY FORMULARIO -->
+							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
 							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" disabled>Siguiente</button>
-							
 							                   </div>
 							               </div>
 							           </div>
@@ -413,12 +436,22 @@
 							                       <div class="form-group">
 							                           <label for="exampleFormControlSelect1">Paso 6</label>
 							                           <textarea required="required" class="form-control" placeholder="Observaciones" rows="4" cols="100"></textarea>
-							
+							                           <div class="col-md-6 mb-3">
+				                                        	<label for="validationCustom02">Adjuntar Archivos Asignacion</label>
+				                                        	  <div class="col-sm-10">
+				                                        		<div class="alertaFile">
+																		<hiden class="alerta_in"></hiden>
+																</div>
+				        											<input id="asignaArchivos" name="asignaArchivos[]" type="file" class="file"  data-show-upload="false" multiple onchange="validaArchivos(this,  'llaveAsignacion')"/>
+																<br/>
+				    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
+				    										</div>    
+				                                        </div>
 							                       </div>
 							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
 							                       <!--<button class="btn btn-success btn-lg pull-right" type="submit">Agendar</button>-->
 							                       <!-- Button to Open the Modal -->
-							                       <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal">
+							                       <button type="button" id="asignar" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal">
 							                           Agendar
 							                       </button>
 							
@@ -475,6 +508,11 @@
 	
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+    
     <script th:src="@{js/process.js}"></script>
     <script th:src="@{js/picker.js}"></script>   
     <script th:src="@{js/picker.date.js}"></script>   
@@ -513,12 +551,12 @@
                                            <div class="card-body">
                                                <h5 class="card-title">Resumen de asignacion</h5>
                                                <ul class="list-group">
-                                                   <li class="list-group-item list-group-item-info">Cliente : KaltiaServicios</li>
-                                                   <li class="list-group-item list-group-item-info">Curso : Prevencion COVID-19</li>
-                                                   <li class="list-group-item list-group-item-info">Instructor : Ingeniero Especialista A </li>
-                                                   <li class="list-group-item list-group-item-info">Fecha : Jueves 30 de Abril 2020 </li>
-                                                   <li class="list-group-item list-group-item-info">Horario : 8:00 - 14 hrs </li>
-                                                   <li class="list-group-item list-group-item-info">Observaciones : Contar equipo de prevencion </li>
+                                                   <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Instructor : <span id="modalInstructor"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Fecha : <span id="modalFecha"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Horario <span id="modalHorario"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                </ul>
 
                                            </div>
