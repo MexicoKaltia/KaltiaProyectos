@@ -5,6 +5,7 @@ mx\uniprotec\entidad\modelo\Modulo.class
 mx\uniprotec\entidad\modelo\ResultVO.class
 mx\uniprotec\entidad\modelo\UserMap.class
 mx\uniprotec\entidad\modelo\User.class
+mx\uniprotec\entidad\modelo\AsignacionModelo.class
 mx\uniprotec\entidad\modelo\Region.class
 mx\uniprotec\entidad\modelo\SubModulo.class
 mx\uniprotec\entidad\modelo\ClienteModelo.class

@@ -236,26 +236,29 @@
 							       <div class="stepwizard col-md-offset-3 col-md-12 mb-3">
 							
 							           <div class="stepwizard-row setup-panel">
-							               <div class="stepwizard-step"> <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+							               <div class="stepwizard-step"> <a href="#step-1" type="button" class="btn btn-primary btn-circle" id="procesoFecha">1</a>
 							                   <p>Fecha</p>
 							               </div>
-							               <div class="stepwizard-step"> <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+							               <div class="stepwizard-step"> <a href="#step-2" type="button" class="btn btn-default btn-circle" id="procesoCliente" disabled="disabled">2</a>
 							                   <p>Cliente</p>
 							               </div>
-							               <div class="stepwizard-step"> <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+							               <div class="stepwizard-step"> <a href="#step-3" type="button" class="btn btn-default btn-circle" id="procesoCurso" disabled="disabled">3</a>
 							                   <p>Curso</p>
 							               </div>
-							               <div class="stepwizard-step"> <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+							               <div class="stepwizard-step"> <a href="#step-4" type="button" class="btn btn-default btn-circle" id="procesoInstructor" disabled="disabled">4</a>
 							                   <p>Instructor</p>
 							               </div>
-							               <div class="stepwizard-step"> <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+							               <div class="stepwizard-step"> <a href="#step-5" type="button" class="btn btn-default btn-circle" id="procesoHorario" disabled="disabled">5</a>
 							                   <p>Horarios</p>
 							               </div>
-							               <div class="stepwizard-step"> <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
+							               <div class="stepwizard-step"> <a href="#step-6" type="button" class="btn btn-default btn-circle" id="procesoObservaciones" disabled="disabled">6</a>
 							                   <p>Observaciones</p>
 							               </div>
 							           </div>
 							       </div>
+							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:
+							       		<ul class='listaProceso'></ul>
+							       	</div>
 							       <form role="form" action="" method="post">
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->							       
 							       <div class="row setup-content" id="step-1">
@@ -279,6 +282,7 @@
 													 var asignacionInstructores = [[${model.jsonResponseObject.instructores}]];
 													 var asignacionRegiones = [[${model.jsonResponseObject.regiones}]];
 													 var asignacionVendedores = [[${model.jsonResponseObject.vendedores}]];
+													 var asignacionAsignaciones = [[${model.jsonResponseObject.asignaciones}]];
 												</script>
 							           </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
@@ -359,103 +363,44 @@
 							                       <h3> Horario</h3>
 							                       <div class="form-group">
 							                           <div class="row">
-							                               <div class="embed-responsive embed-responsive-1by1">
-							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/month-view-demo" allowfullscreen></iframe>
-							                               </div>
-							                               <div class="embed-responsive embed-responsive-1by1">
-							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/timegrid-custom-view-demo" allowfullscreen></iframe>
-							                               </div>
+<!-- 							                               <div class="embed-responsive embed-responsive-1by1"> -->
+<!-- 							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/month-view-demo" allowfullscreen></iframe> -->
+<!-- 							                               </div> -->
+<!-- 							                               <div class="embed-responsive embed-responsive-1by1"> -->
+<!-- 							                                   <iframe class="embed-responsive-item" src="https://fullcalendar.io/docs/timegrid-custom-view-demo" allowfullscreen></iframe> -->
+<!-- 							                               </div> -->
 							                           </div>
 							                           <br><br>
 							                           <div class="row">
 							                               <div class="col">
 							                                   <label class="form-check-label" for="cita11">Horario Inicial</label>
 							                                   <select id="cita11" name="cita11" class="form-control">
-							
 							                                       <option value="700">7:00</option>
-							                                       <option value="800">8:00</option>
-							                                       <option value="900">9:00</option>
-							                                       <option value="1000">10:00</option>
-							                                       <option value="1100">11:00</option>
-							                                       <option value="1200">12:00</option>
-							                                       <option value="1300">13:00</option>
-							                                       <option value="1400">14:00</option>
-							                                       <option value="1500">15:00</option>
-							                                       <option value="1600">16:00</option>
-							                                       <option value="1700">17:00</option>
-							                                       <option value="1800">18:00</option>
-							                                       <option value="1900">19:00</option>
-							                                       <option value="2000">20:00</option>
-							
 							                                   </select>
 							                               </div>
 							                               <div class="col">
 							                                   <label class="form-check-label" for="cita11">Horario . Final </label>
 							                                   <select id="cita11" name="cita11" class="form-control">
-							
-							                                       <option value="700">7:00</option>
-							                                       <option value="800">8:00</option>
-							                                       <option value="900">9:00</option>
-							                                       <option value="1000">10:00</option>
-							                                       <option value="1100">11:00</option>
-							                                       <option value="1200">12:00</option>
-							                                       <option value="1300">13:00</option>
-							                                       <option value="1400">14:00</option>
-							                                       <option value="1500">15:00</option>
-							                                       <option value="1600">16:00</option>
-							                                       <option value="1700">17:00</option>
-							                                       <option value="1800">18:00</option>
-							                                       <option value="1900">19:00</option>
 							                                       <option value="2000">20:00</option>
-							
 							                                   </select>
 							                               </div>
 							                               <div class="col">
 							                                   <label class="form-check-label" for="cita11">Comida</label>
 							                                   <select id="cita11" name="cita11" class="form-control">
-							
-							                                       <option value="700">7:00</option>
-							                                       <option value="800">8:00</option>
-							                                       <option value="900">9:00</option>
-							                                       <option value="1000">10:00</option>
-							                                       <option value="1100">11:00</option>
-							                                       <option value="1200">12:00</option>
-							                                       <option value="1300">13:00</option>
-							                                       <option value="1400">14:00</option>
-							                                       <option value="1500">15:00</option>
-							                                       <option value="1600">16:00</option>
-							                                       <option value="1700">17:00</option>
-							                                       <option value="1800">18:00</option>
-							                                       <option value="1900">19:00</option>
 							                                       <option value="2000">20:00</option>
-							
 							                                   </select>
 							                               </div>
 							                               <div class="col">
 							                                   <label class="form-check-label" for="cita11">Comida Final</label>
 							                                   <select id="cita11" name="cita11" class="form-control">
 							
-							                                       <option value="700">7:00</option>
-							                                       <option value="800">8:00</option>
-							                                       <option value="900">9:00</option>
-							                                       <option value="1000">10:00</option>
-							                                       <option value="1100">11:00</option>
-							                                       <option value="1200">12:00</option>
-							                                       <option value="1300">13:00</option>
-							                                       <option value="1400">14:00</option>
-							                                       <option value="1500">15:00</option>
-							                                       <option value="1600">16:00</option>
-							                                       <option value="1700">17:00</option>
-							                                       <option value="1800">18:00</option>
-							                                       <option value="1900">19:00</option>
-							                                       <option value="2000">20:00</option>
-							
 							                                   </select>
 							                               </div>
 							
 							                           </div>
 							                       </div>
-							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" disabled>Siguiente</button>
 							
 							                   </div>
 							               </div>

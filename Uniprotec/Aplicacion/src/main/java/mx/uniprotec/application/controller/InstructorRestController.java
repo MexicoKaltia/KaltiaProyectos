@@ -46,7 +46,7 @@ import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 
-@CrossOrigin(origins = { "http://localhost:8080" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/crud")
 public class InstructorRestController {

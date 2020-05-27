@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
@@ -63,11 +64,13 @@ public class AplicacionService implements IAplicacionService {
 		ResultVO rsInstructores = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_INSTRUCTORES);
 		ResultVO rsRegiones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_REGIONES);
 		ResultVO rsVendedores = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_VENDEDORES);
+		ResultVO rsAsignaciones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
 		
 		rs.setClientes((List<ClienteModelo>) rsClientes.getJsonResponse().get("clientes"));
 		rs.setInstructores((List<InstructorModelo>) rsInstructores.getJsonResponse().get("instructores"));
 		rs.setRegiones((List<Region>) rsRegiones.getJsonResponse().get("regiones"));
 		rs.setVendedores((List<VendedorModelo>) rsVendedores.getJsonResponse().get("vendedores"));
+		rs.setAsignaciones((List<AsignacionModelo>) rsAsignaciones.getJsonResponse().get("asignaciones"));
 			
 		ResultVO rsCursos = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CURSOS);
 		rs.setCursos((List<CursoModelo>) rsCursos.getJsonResponse().get("cursos"));
@@ -81,9 +84,9 @@ public class AplicacionService implements IAplicacionService {
 		jsonData.put("cursos", rs.getCursos());
 		jsonData.put("regiones", rs.getRegiones());
 		jsonData.put("vendedores", rs.getVendedores());
+		jsonData.put("asignaciones", rs.getAsignaciones());
 		
 		rs.setJsonResponseObject(jsonData);
-		
 
 		log.info(rs.toString());
 		return rs;

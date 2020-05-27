@@ -29,6 +29,7 @@ public class ResultVO implements Serializable{
 	private List<CursoModelo> cursos;
 	private List<VendedorModelo> vendedores;
 	private List<UsuarioModelo> usuarios;
+	private List<AsignacionModelo> asignaciones;
 	
 	@Override
 	public String toString() {
@@ -36,11 +37,15 @@ public class ResultVO implements Serializable{
 				+ mensajeArray + ", response=" + response + ", jsonResponse=" + jsonResponse + ", jsonResponseArray="
 				+ jsonResponseArray + ", jsonResponseObject=" + jsonResponseObject + ", regiones=" + regiones
 				+ ", clientes=" + clientes + ", instructores=" + instructores + ", cursos=" + cursos + ", vendedores="
-				+ vendedores + ", usuarios=" + usuarios + "]";
+				+ vendedores + ", usuarios=" + usuarios + ", asignaciones=" + asignaciones + "]";
 	}
+	
+	
 	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
 			JSONObject jsonResponse, JSONArray jsonResponseArray, JSONObject jsonResponseObject, List<Region> regiones,
-			List<ClienteModelo> clientes, List<InstructorModelo> instructores, List<CursoModelo> cursos, List<UsuarioModelo> usuarios,  List<VendedorModelo> vendedores) {
+			List<ClienteModelo> clientes, List<InstructorModelo> instructores, List<CursoModelo> cursos,
+			List<VendedorModelo> vendedores, List<UsuarioModelo> usuarios, List<AsignacionModelo> asignaciones) {
+		super();
 		this.accesToken = accesToken;
 		this.codigo = codigo;
 		this.mensaje = mensaje;
@@ -53,11 +58,10 @@ public class ResultVO implements Serializable{
 		this.clientes = clientes;
 		this.instructores = instructores;
 		this.cursos = cursos;
-		this.usuarios = usuarios;
 		this.vendedores = vendedores;
+		this.usuarios = usuarios;
+		this.asignaciones = asignaciones;
 	}
-	
-	
 	public String getAccesToken() {
 		return accesToken;
 	}
@@ -141,6 +145,12 @@ public class ResultVO implements Serializable{
 	}
 	public void setVendedores(List<VendedorModelo> vendedores) {
 		this.vendedores = vendedores;
+	}
+	public List<AsignacionModelo> getAsignaciones() {
+		return asignaciones;
+	}
+	public void setAsignaciones(List<AsignacionModelo> asignaciones) {
+		this.asignaciones = asignaciones;
 	}
 	
 	

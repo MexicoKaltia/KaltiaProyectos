@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
@@ -94,6 +95,7 @@ public class ControllerInicio extends HttpServlet{
 		
 		@GetMapping("/Asignacion")
 		public ModelAndView asignacion(ModelMap model) {
+			model.addAttribute("asignacionForm", new AsignacionModelo());
 
 			if(model.equals(null)) {
 				log.info("NULL");

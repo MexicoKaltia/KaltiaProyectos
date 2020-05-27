@@ -32,11 +32,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://31.220.63.183:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://31.220.63.183:8016/crud/";
 	
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -45,10 +45,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_USUARIO		  =	"usuario";
 	public static final String URL_CRUD_CLIENTES	  =	"clientes";
 	public static final String URL_CRUD_INSTRUCTORES  =	"instructores";
-	public static final String URL_CRUD_VENDEDORES  =	"vendedores";
+	public static final String URL_CRUD_VENDEDORES    =	"vendedores";
 	public static final String URL_CRUD_CURSOS		  =	"cursos";
 	public static final String URL_CRUD_USUARIOS	  =	"usuarios";
 	public static final String URL_CRUD_REGIONES	  =	"regiones";
+	public static final String URL_CRUD_ASIGNACIONES  =	"asignaciones";
+	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
 	
 	
 	
