@@ -1,16 +1,21 @@
 
    	
 $(document).ready(function(){
-	$.asignaFecha ;
+	 $.asignaFecha ="";
 	 $.asignaFechaCalendario; 
-	 $.asignaCliente;
-	 $.asignaCurso ;
-	 $.asignaInstructor; 
-	 $.asignaHorario; 
-	 $.asignaObservaciones; 
-	 $.asignaArchivos;
-	 $.asignaInstructorTexto;
-	 $.asignaCursoTexto;
+	 $.asignaCliente ="";
+	 $.asignaCurso="" ;
+	 $.asignaCursoTexto="";
+	 $.asignaInstructor="";
+	 $.asignaInstructorTexto="";
+	 $.asignaHorarioInicio="";
+	 $.asignaHorarioFinal="";
+	 $.asignaParticipantes="";
+	 $.asignaParticipantesTexto="";
+	 $.asignaNivel="";
+	 $.asignaNivelTexto="";
+	 $.asignaObservaciones="";
+	 $.asignaArchivos="";
 	 
 	$('#procesoFecha').click(function(){	
 	})
@@ -36,14 +41,101 @@ $(document).ready(function(){
 		$(".listaProceso").append(procesoCurso);
 		$(".listaProceso").append(procesoInstructor);
 	})
+	$('#procesoParticipantes').click(function(){
+		$(".listaProceso").empty();
+		$(".listaProceso").append(procesoFecha);
+		$(".listaProceso").append(procesoCliente);
+		$(".listaProceso").append(procesoCurso);
+		$(".listaProceso").append(procesoInstructor);
+		$(".listaProceso").append(procesoHorario);
+		
+	})
 	$('#procesoObservaciones').click(function(){
 		$(".listaProceso").empty();
 		$(".listaProceso").append(procesoFecha);
 		$(".listaProceso").append(procesoCliente);
 		$(".listaProceso").append(procesoCurso);
 		$(".listaProceso").append(procesoInstructor);
-		procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
 		$(".listaProceso").append(procesoHorario);
+		$(".listaProceso").append(procesoParticipantes);
+	})
+	
+	for(var i = 1 ; i < 50 ; i++)
+		$('#asignaParticipantes').append('<option value="'+(i)+'">'+(i)+'</option>');
+	$('#asignaParticipantes').append('<option value="51">51 -70</option>');
+	$('#asignaParticipantes').append('<option value="71">71 -100</option>');
+	$('#asignaParticipantes').append('<option value="101">101 -150</option>');
+	$('#asignaParticipantes').append('<option value="151">151 ...</option>');
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+   	/*
+   	 * ASIGNAR
+   	 */
+	
+	$('#asignar').click(function(){
+		
+		alertaEmpty ="";
+		if($.asignaFecha === "" || $.asignaFecha === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Fecha Inválido</b></li>";
+		}else{
+			$('#modalFecha').html('<b>'+$.asignaFechaCalendario+'</b>'); 
+		}
+		if($.asignaCliente === "" || $.asignaCliente === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Cliente Inválido </b></li>";
+		}else{
+			$('#modalCliente').html('<b>'+$.asignaClienteTexto+'</b>');
+		}
+		if($.asignaCurso === "" || $.asignaCurso === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Curso Inválido </b></li>";
+		}else{
+			$('#modalCurso').html('<b>'+$.asignaCursoTexto+'</b>');
+		}
+		if($.asignaInstructor === "" || $.asignaInstructor === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Instructor Inválido </b></li>";
+		}else{
+			$('#modalInstructor').html('<b>'+$.asignaInstructorTexto+'</b>');
+		}
+		if($.asignaHorarioInicio === "" || $.asignaHorarioInicio === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Horario Inicio Inválido </b></li>";
+		}else{
+			$('#modalHorarioInicio').html('<b>'+$.asignaHorarioInicio+'</b>'); 
+		}
+		if($.asignaHorarioFinal === "" || $.asignaHorarioFinal=== null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Horario Final Inválido </b></li>";
+		}else{
+			$('#modalHorario').html("<b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b>"); 
+		}
+		if($.asignaParticipantes === "" || $.asignaParticipantes === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Participantes Inválido </b></li>";
+		}else{
+			$('#modalParticipantes').html('<b>'+$.asignaParticipantes+'</b>'); 
+		}
+		if($.asignaNivel === "" || $.asignaNivel === null){
+			alertaEmpty = alertaEmpty + "<li>Campo: <b> Nivel Inválido </b></li>";
+		}else{
+			console.log($.asignaNivel)
+			$('#modalNivel').html('<b>'+$.asignaNivel+'</b>'); 
+		}
+		
+		validaObservaciones();
+		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
+		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
+		
+		if(alertaEmpty === "" || alertaEmpty === null){
+//			console.log("Avanza al modal");
+			$("#procesoVacio").remove();
+//			abreModal();
+			return true;
+		}else{
+			alertaFadeVacio()
+			$("#listaProcesoVacio").empty();
+			$("#listaProcesoVacio").append(alertaEmpty);
+			return false;
+//			console.log(alertaEmpty)
+			
+		}
+		
 	})
 
 
@@ -52,11 +144,14 @@ $(document).ready(function(){
 
 
 var proceso="<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:<ul id='listaProceso'></ul></div>";
+var procesoVacio="";
+var alertaEmpty;
 var procesoFecha;//="<li>Prospecto Fecha:"+ $.asignaCliente +"</li>";
 var procesoCliente;//="<li>Prospecto Cliente"+ $.asignaCliente +"</li>";
 var procesoCurso;//="<li>Prospecto Curso"+ $.asignaCurso +"</li>";
 var procesoInstructor;//="<li>Prospecto Instructor"+ $.asignaInstructor +"</li>";
 var procesoHorario;//="<li>Prospecto Horario: Horario</li>";
+var procesoParticipantes;
 var procesoObservaciones;//="<li>Prospecto Observaciones"+ $.asignaObservaciones +"</li>";
 
 const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":false,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
@@ -77,7 +172,7 @@ var alerta, proceso;
 		console.log("asignaFecha:"+ $.asignaFechaCalendario);
    		$('#alertaFecha').remove();
    		
-   		if($('#asignaFecha').val() === null || $('#asignaFecha').val() === ""){
+   		if($.asignaFechaCalendario === null || $.asignaFechaCalendario === ""){
    			alerta="<div class='alert alert-danger' id='alertaFecha' role='alert'>Seleccione Fecha</div>";
 			alertaFade(alerta);
 			$('#btnAsignaFecha').attr("disabled", true);
@@ -97,7 +192,7 @@ var alerta, proceso;
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		
-		if($('#asignaCliente').val() === null || $('#asignaCliente').val() === ""){
+		if($.asignaCliente === null || $.asignaCliente === ""){
    			alerta="<div class='alert alert-danger' id='alertaCliente' role='alert'>Seleccione Cliente</div>";
 			alertaFade(alerta);
 			$('#btnAsignaCliente').attr("disabled", true);
@@ -142,7 +237,7 @@ var alerta, proceso;
 		$('#alertaCliente').remove();
 		$('#alertaCurso').remove();
 		
-		if($('#asignaCurso').val() === null || $('#asignaCurso').val() === ""){
+		if($.asignaCurso === null || $.asignaCurso === ""){
    			alerta="<div class='alert alert-danger' id='alertaCurso' role='alert'>Seleccione Curso</div>";
 			alertaFade(alerta);
 			$('#btnAsignaCurso').attr("disabled", true);
@@ -175,6 +270,8 @@ var alerta, proceso;
 		var idInstructor;
 
 //		console.log("tipoCurso:"+tipoCurso);
+		$('#asignaInstructor').empty();
+		$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
 		if(tipoCurso){
 			/*
 			 * Obtener ZonaCliente 
@@ -329,7 +426,7 @@ var alerta, proceso;
 		$('#alertaCurso').remove();
 		$('#alertaInstructor').remove();
 		
-		if($('#asignaInstructor').val() === null || $('#asignaInstructor').val() === ""){
+		if($.asignaInstructor === null || $.asignaInstructor === ""){
    			alerta="<div class='alert alert-danger' id='alertaInstructor' role='alert'>Seleccione Instructor</div>";
 			alertaFade(alerta);
 			$('#btnAsignaInstructor').attr("disabled", true);
@@ -342,7 +439,9 @@ var alerta, proceso;
 	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/*
+	 * ValidaHORARIO
+	 */
 	 $.asignaHorarioInicio;
 	 $.asignaHorarioFinal;
 	 $.asignaRecesoInicio;
@@ -351,7 +450,7 @@ var alerta, proceso;
 	
 	function validaHorarioInicio(){
 		$.asignaHorarioInicio = $('#asignaHorarioInicio').val();
-		console.log("asignaHorarioInicio:"+ $.asignaHorarioInicio);
+		console.log("asignaHorarioInicio:"+ $.asignaHorarioInicio+".");
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -359,11 +458,11 @@ var alerta, proceso;
 		$('#alertaInstructor').remove();
 		$('#alertaHorarioInicio').remove();
 		
-		if($($.asignaHorarioInicio).val() === null || $($.asignaHorarioInicio).val() === ""){
+		if($.asignaHorarioInicio === null || $.asignaHorarioInicio === ""){
    			alerta="<div class='alert alert-danger' id='alertaHorarioInicio' role='alert'>Seleccione Horario</div>";
 			alertaFade(alerta);
 			$('#btnAsignaHorario').attr("disabled", true);
-			console.log("Verdadero");
+			console.log("Horario INVALIDO");
    		}else{
    			$("#asignaHorarioFinal").empty();
    			$("#asignaRecesoInicio").empty();
@@ -372,7 +471,6 @@ var alerta, proceso;
    				$("#asignaHorarioFinal").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
    			}
    			$('#asignaHorarioFinal').attr("disabled", false);
-   			$('#btnAsignaHorario').attr("disabled", false);
    		}
 		$.asignaHorarioInicioTexto = $("#asignaHorarioInicio option:selected").text();
 		procesoHorarioInicio="<li>Prospecto HorarioInicio : <b>"+ $.asignaHorarioInicioTexto +"</b></li>";
@@ -380,13 +478,21 @@ var alerta, proceso;
 	
 	function validaHorarioFinal(){
 		$.asignaHorarioFinal = $('#asignaHorarioFinal').val();
-		$('#horasEfectivas').html(sumaHoras());
+		
 		$("#asignaRecesoInicio").empty();
 		$("#asignaRecesoFinal").empty();
 		$("#asignaRecesoInicio").append('<option value="">Receso Inicio</option>');
 		for(var i = (($.asignaHorarioInicio/100)); i < (($.asignaHorarioFinal/100)-1) ; i++){
 				$("#asignaRecesoInicio").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
 			}
+		if(($.asignaHorarioFinal  === null || $.asignaHorarioFinal === "") || ($.asignaHorarioInicio === null || $.asignaHorarioInicio === "")){
+   			alerta="<div class='alert alert-danger' id='alertaHorario' role='alert'>Seleccione Horario</div>";
+			alertaFade(alerta);
+			$('#btnAsignaHorario').attr("disabled", true);
+   		}else{
+   			$('#btnAsignaHorario').attr("disabled", false);
+   		}
+		$('#horasEfectivas').html(sumaHoras());
 		$('#asignaRecesoInicio').attr("disabled", false);
 	}
 	
@@ -409,6 +515,7 @@ var alerta, proceso;
 		var asignaHorarioInicio	= ($.asignaHorarioInicio  *1);
 		var asignaHorarioFinal	= ($.asignaHorarioFinal  *1);
 		$.horasEfectivas = ((asignaHorarioFinal - asignaHorarioInicio)/100)+":00"; 
+		procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
 		return $.horasEfectivas;
 	}
 	function sumaHorasReceso(){
@@ -424,8 +531,83 @@ var alerta, proceso;
 		var efectivas = (asignaHorarioFinal - asignaHorarioInicio );
 		var receso = (asignaRecesoFinal - asignaRecesoInicio); 
 		$.horasEfectivas = ((efectivas-receso)/100)+":00"; 
+		procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
 		return $.horasEfectivas;
 	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 * ValidaParticipantes
+	 */
+	function validaParticipantes(){
+		
+		$.asignaParticipantes = $('#asignaParticipantes').val();
+		console.log("asignaParticipantes:"+ $.asignaParticipantes);
+		
+		$('#alertaFecha').remove();
+		$('#alertaCliente').remove();
+		$('#alertaCurso').remove();
+		$('#alertaInstructor').remove();
+		$('#alertaHorarios').remove();
+		$('#alertaParticipantes').remove();
+		
+		if($.asignaParticipantes === null || $.asignaParticipantes === ""){
+   			alerta="<div class='alert alert-danger' id='alertaParticipantes' role='alert'>Seleccione Participantes</div>";
+			alertaFade(alerta);
+			$('#asignaNivel').attr("disabled", true);
+			$('#btnAsignaParticipantes').attr("disabled", true);
+   		}else{
+   			$('#asignaNivel').attr("disabled", false);
+   		}
+		
+	}
+	function validaNivel(){
+		$.asignaNivel = $('#asignaNivel').val();
+		console.log("asignaNivel:"+ $.asignaNivel);
+		$('#alertaFecha').remove();
+		$('#alertaCliente').remove();
+		$('#alertaCurso').remove();
+		$('#alertaInstructor').remove();
+		$('#alertaHorarios').remove();
+		$('#alertaParticipantes').remove();
+		$('#alertaNivel').remove();
+		
+		if(($.asignaNivel === null || $.asignaNivel === "") || ($.asignaParticipantes === null || $.asignaParticipantes === "")){
+   			alerta="<div class='alert alert-danger' id='alertaNivel' role='alert'>Seleccione Nivel</div>";
+			alertaFade(alerta);
+			$('#btnAsignaParticipantes').attr("disabled", true);
+   		}else{
+   			$('#btnAsignaParticipantes').attr("disabled", false);
+   		}
+		$.asignaParticipantesTexto = $("#asignaParticipantes option:selected").text();
+		$.asignaNivelTexto = $("#asignaNivel option:selected").text();
+		
+		procesoParticipantes="<li>Prospecto Participantes: <b>"+ $.asignaParticipantesTexto +"</b></li><li>Prospecto Nivel: <b>"+ $.asignaNivelTexto +"</b></li>";
+
+		
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 * ValidaObservaciones
+	 */
+	function validaObservaciones(){
+		$('#alertaFecha').remove();
+		$('#alertaCliente').remove();
+		$('#alertaCurso').remove();
+		$('#alertaInstructor').remove();
+		$('#alertaHorarios').remove();
+		$('#alertaParticipantes').remove();
+		$('#alertaNivel').remove();
+		
+		$.asignaObservaciones = $('#asignaObservaciones').val();
+		$.asignaArchivos = $('#asignaArchivos').val()
+		console.log("asignaObservaciones:"+ $.asignaObservaciones);
+		while($.asignaArchivos.includes("C:\\fakepath\\") ){
+			$.asignaArchivos = $.asignaArchivos.replace("C:\\fakepath\\", "")	
+		}
+		
+	}
+
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -439,19 +621,29 @@ var alerta, proceso;
 		  $('.alerta').fadeIn();
 		  $('.alerta').fadeOut(5000);
 	  
-			$('#alertaFecha').remove();
+		  $('#alertaFecha').remove();
 			$('#alertaCliente').remove();
 			$('#alertaCurso').remove();
+			$('#alertaInstructor').remove();
+			$('#alertaHorarios').remove();
+			$('#alertaParticipantes').remove();
+			$('#alertaNivel').remove();
+	}
+   	
+//   	function alertaFade(alerta){
+//		$(alerta).insertAfter($('.alerta_in'));
+//		  $('.alerta').fadeIn();
+////		  $('.alerta').delay(2500).fadeOut();
+//		  $('.alerta').fadeOut( 4000);
+////			 $('.alerta').hide( "drop", { direction: "down" }, "slow" );
+//	}
+	function alertaFadeVacio(alerta){
+		$("#procesoVacio").remove();
+		procesoVacio="<div class='alert alert-danger' id='procesoVacio' role='alert'>Verificar los campos:<ul id='listaProcesoVacio'></ul></div>";
+		$(procesoVacio).insertAfter($('.alerta_inVacio'));
 	}
 
-   	function procesoAlerta(proceso){
-   	   	
-		$(proceso).insertAfter($('.proceso_in'));
-		  $('.proceso').fadeIn();
-			$('#procesoFecha').remove();
-			$('#procesoCliente').remove();
-			$('#procesoCurso').remove();
-	}
+   	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
    	/*
@@ -562,13 +754,6 @@ var alerta, proceso;
 		    }, 600);
 	
 	}
-	function alertaFade(alerta){
-		$(alerta).insertAfter($('.alerta_in'));
-		  $('.alerta').fadeIn();
-//		  $('.alerta').delay(2500).fadeOut();
-		  $('.alerta').fadeOut( 4000);
-//			 $('.alerta').hide( "drop", { direction: "down" }, "slow" );
-	}
 	
 	
 	function avisaAlertaImagen(data){
@@ -578,22 +763,6 @@ var alerta, proceso;
 		
 	}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-   	/*
-   	 * ASIGNAR
-   	 */
-	
-	$('#asignar').click(function(){
-
-		$('#modalFecha').html('<b>'+$.asignaFecha+'</b>');
-		$('#modalCliente').html('<b>'+$.asignaCliente+'</b>');
-		$('#modalCurso').html('<b>'+$.asignaCursoTexto+'</b>');
-		$('#modalInstructor').html('<b>'+$.asignaInstructorTexto+'</b>');
-		$('#modalHorario').html('<b>'+$.asignaHorarioInicio+"-"+$.asignaHorarioFinal+'</b>');
-		
-		
-	})
 
 
 
