@@ -2,6 +2,7 @@
    	
 $(document).ready(function(){
 	 $.asignaFecha ="";
+	 $.asignaFecha2 ="";
 	 $.asignaFechaCalendario; 
 	 $.asignaCliente ="";
 	 $.asignaCurso="" ;
@@ -164,9 +165,11 @@ var alerta, proceso;
 /*
  * ValidaFECHA
  */
+	
 	function validaFecha(inputAsignaFecha){
-		var elementoPicker = $datepicker.pickadate('picker');
+		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
+		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
    	    console.log($.asignaFecha);
    	    $.asignaFechaCalendario = $('#asignaFecha').val();
 		console.log("asignaFecha:"+ $.asignaFechaCalendario);
@@ -277,7 +280,7 @@ var alerta, proceso;
 			tipoCursoVal = "PRESENCIAL";
 		}
 		$('#asignaCurso').attr("disabled", false);
-		validaCurso();
+//		validaCurso();
 	}
 	
 	
@@ -320,6 +323,20 @@ var alerta, proceso;
 			}
 		}
 		console.log(arrayInstructores);
+		/*
+		 * Valida dias de Ausencia
+		 */
+		var instructorDiaAusencia;
+		var instructoresDiaAusencia = new Array();;
+		for(a in arrayInstructores){
+			instructorDiaAusencia = arrayInstructores[a]; 
+			if(validaDiaAusencia(instructorDiaAusencia)){
+				instructoresDiaAusencia.push(instructorDiaAusencia);
+			}
+		}
+		arrayInstructores = instructoresDiaAusencia ;
+		console.log(arrayInstructores);
+		
 		var regionInstructor;
 		var regionCliente;
 		var instructor;
@@ -405,14 +422,46 @@ var alerta, proceso;
 		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 	}  // fin metodo validaCurso
 	
+	function validaDiaAusencia(instructor){
+		
+		var fechaDisponible = true;
+		var fechaAusente;
+		var fechaSelect = new Date($.asignaFecha2);
+		var fechasAusente = new Array();
+//		console.log(instructor);
+		if(instructor.listFechas){
+			fechasAusente = stringToList(instructor.listFechas)
+			for(e in fechasAusente){
+				fechaAusente = new Date(fechasAusente[e]);
+//				console.log(fechaAusente);
+//				console.log(fechaSelect);
+				if(fechaAusente.toString() === fechaSelect.toString()){
+					fechaDisponible = false;
+					break;
+				}
+			}			
+		}
+		return fechaDisponible;
+	}
+	
+	
+	function stringToList(cadena){
+		return cadena.split(";");
+	}
+	
 	function validaDiaSelect(idInstructor){
+		var fechaDisponible;
+		var asignacion;
 		for(i in asignacionAsignaciones){
-			if((asignacionAsignaciones[i].fechaAsignacion === $.asignaFecha) && (asignacionAsignaciones[i].idInstructorAsignacion === idInstructor)){
-				return false;
+			asignacion = asignacionAsignaciones[i];
+			if((asignacion.fechaAsignacion.toString() === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
+				fechaDisponible = false;
+				break;
 			}else{
-				return true;
+				fechaDisponible = true;
 			}
 		}
+		return fechaDisponible;
 	}
 	
 	function validaDmin1(regionCliente, idInstructor){
