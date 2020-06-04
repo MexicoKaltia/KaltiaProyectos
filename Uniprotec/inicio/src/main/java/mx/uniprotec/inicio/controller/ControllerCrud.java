@@ -76,6 +76,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return new  ModelAndView("login");
 		}else {
 			log.info("ACliente model Activo");
+			log.info(model.values().toString());
 
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
@@ -95,6 +96,36 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		}		
 		
 	}
+	@GetMapping("/AClienteExito")
+	public ModelAndView aclienteExito(ModelMap model) {
+		
+		model.addAttribute("clienteForm", new ClienteModelo());
+		
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("ACliente model Activo");
+			log.info(model.values().toString());
+
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ResultVO rs2 = vendedorService.consultaVendedores(resultVO.getAccesToken());
+			JSONObject jsonResponse = resultVO.getJsonResponseObject();
+			jsonResponse.put("vendedores", rs2.getJsonResponseObject());
+			
+			resultVO.setJsonResponseObject(jsonResponse);
+			
+			log.info(model.values().toString());
+			
+			return new  ModelAndView("AClienteExito",  model);
+		}		
+		
+	}
 //	
 	@PostMapping("/altaCliente")
 	public ModelAndView altaCliente(@ModelAttribute("clienteForm") ClienteModelo cliente, ModelMap model) {
@@ -106,7 +137,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		resultVO  = clienteService.altaCliente(cliente, resultVO.getAccesToken());
 		log.info(resultVO.toString());
 		
-		ModelAndView mav = new ModelAndView("redirect:/inicio" );
+		ModelAndView mav = new ModelAndView("redirect:/AClienteExito" );
 		return mav;
 	}
 	

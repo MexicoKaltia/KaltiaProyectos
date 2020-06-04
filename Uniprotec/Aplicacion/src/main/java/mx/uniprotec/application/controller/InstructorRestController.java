@@ -214,6 +214,7 @@ public class InstructorRestController {
 			instructorActual.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
 			instructorActual.setRegionInstructor(region);
 			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
+			instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
 			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorActual.setStatusInstructor(instructor.getStatusInstructor());

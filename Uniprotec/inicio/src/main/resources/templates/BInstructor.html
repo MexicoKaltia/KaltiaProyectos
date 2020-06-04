@@ -12,6 +12,10 @@
 	    <link th:href="@{main.css}" rel="stylesheet">
 	    <link rel="stylesheet" th:href="@{css/multi-select.css}">
 	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
+ 		<link th:href="@{css/default.css}" rel="stylesheet">
+    	<link th:href="@{css/default.date.css}" rel="stylesheet">
+    	<link th:href="@{css/default.time.css}" rel="stylesheet">    
+	    
 </head>
 
 <body background="images/fondo3.png">
@@ -305,7 +309,13 @@
 		 var $data = [[${model.jsonResponseObject.instructores}]];
 		 var $cursosTotal = [[${model.jsonResponseObject.cursos.cursos}]];
 	</script>
-											    
+	
+    <script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+     
+    											    
     <script type="text/javascript" th:src="@{js/complemento.js}"></script>
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
@@ -333,6 +343,7 @@
         <div class="modal-body" style="padding:40px 50px; ">
           <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaInstructor}"  th:object="${instructorForm}" method="post">
           <input type="hidden" id="idInstructor" th:field="*{idInstructor}" th:value="*{idInstructor}"/>
+          <input type="hidden" id="listFechas" th:field="*{listFechas}" th:value="*{listFechas}"/>
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
@@ -384,23 +395,46 @@
 <!-- <option value="4" >4</option> -->
 											</select>
                                             <div class="invalid-feedback">
-                                                Capturar por lo menos un instructor
+                                                Capturar por lo menos un Curso
                                            </div>
                                        </div>                                     
                                    </div>
-                                     
+                                   <div class="form-row">
+                                      <div class="col-md-6 mb-3">
+							               <label for="validationCustom02">Inicio Fechas Ausencia.</label>
+							               <input id="inicioAusencia" class="datepicker form-control" name="date" type="text" onchange="fechasAusencia(this)" />											
+							          </div>
+							          <div class="col-md-6 mb-3">
+							               <label for="validationCustom02">Fin Fechas Ausencia.</label>
+							               <input id="finAusencia" class="datepicker form-control" name="date" type="text"  />
+							          </div> 
+							          <div id="fechas"></div>
+							          
+							      </div>
+							      <input id="btnFechasAusencia" name="btnFechasAusencia" type="button"  value="Agregar Fechas" class="btn btn-info" onclick="sumaFechas()" disabled/>
+							         <br>
                                   <div class="form-row">
                                       <label class=" control-label" for="textarea">Nota Instructor</label>
 								            <div class="">                     
 								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" required></textarea>
 								            </div>
 							         </div>
-                                        
+ 
                                 <br>
                                     
                                     <button class="btn btn-primary" type="submit">Edicion Instructor</button>
                                 </form>
-            
+						        <script>
+								 	var today = new Date();
+								    var $datepicker = $( '#inicioAusencia' ).pickadate({
+								     min : today
+								    })
+								    
+								    var $datepicker2 = $( '#finAusencia' ).pickadate({
+								     min : today
+								    })
+								</script>
+								<script type="text/javascript" th:src="@{js/fechasAusencia.js}"></script>
                                 <script>
                                     // Example starter JavaScript for disabling form submissions if there are invalid fields
                                     (function() {
@@ -424,7 +458,6 @@
         </div>
         <div class="modal-footer" style=" background-color: #F1FFFE">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          
         </div>
       </div>
       

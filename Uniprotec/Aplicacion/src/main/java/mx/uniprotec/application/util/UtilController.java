@@ -1,5 +1,6 @@
 package mx.uniprotec.application.util;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,24 @@ public class UtilController {
 		
 		return new ResponseEntity<Map<String,Object>>(response,  status);
 
+	}
+
+	public static String listToString(List<String> list) {
+//		List<String> list = Arrays.asList("A", "B", "C");
+		String delim = ";";
+
+		StringBuilder sb = new StringBuilder();
+
+		int i = 0;
+		while (i < list.size() - 1) {
+			sb.append(list.get(i));
+			sb.append(delim);
+			i++;
+		}
+		sb.append(list.get(i));
+
+		return sb.toString();
+		
 	}
 
 }

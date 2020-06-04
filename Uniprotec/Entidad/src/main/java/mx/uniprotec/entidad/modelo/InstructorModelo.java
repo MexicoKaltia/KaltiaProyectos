@@ -22,7 +22,7 @@ public class InstructorModelo implements Serializable {
 	private Long userCreateInstructor;
 	private LocalDateTime createAtInstructor;
 	private String statusInstructor;
-	
+	private List<String> listFechas;
 
 	public InstructorModelo() {}
 
@@ -179,6 +179,18 @@ public class InstructorModelo implements Serializable {
 
 	public void setStatusInstructor(String statusInstructor) {
 		this.statusInstructor = statusInstructor;
+	}
+
+
+
+	public List<String> getListFechas() {
+		return listFechas;
+	}
+
+
+
+	public void setListFechas(List<String> listFechas) {
+		this.listFechas = listFechas;
 	}
 	
 	

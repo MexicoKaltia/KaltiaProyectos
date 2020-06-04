@@ -79,6 +79,9 @@ public class Instructor implements Serializable {
 	private LocalDateTime createAtInstructor;
 	@Column(nullable=false)
 	private String statusInstructor;
+	@Size(max=3000)
+	@Column
+	private String listFechas;
 	
 
 	public Instructor() {		}
@@ -209,6 +212,27 @@ public class Instructor implements Serializable {
 	public void setCursosInstructor(String cursosInstructor) {
 		this.cursosInstructor = cursosInstructor;
 	}
+	
+
+	public String getEmailGmailInstructor() {
+		return emailGmailInstructor;
+	}
+
+
+	public void setEmailGmailInstructor(String emailGmailInstructor) {
+		this.emailGmailInstructor = emailGmailInstructor;
+	}
+
+
+	public String getListFechas() {
+		return listFechas;
+	}
+
+
+	public void setListFechas(String listFechas) {
+		this.listFechas = listFechas;
+	}
+
 
 
 	@Override
@@ -221,15 +245,6 @@ public class Instructor implements Serializable {
 				+ statusInstructor + "]";
 	}
 
-
-	public String getEmailGmailInstructor() {
-		return emailGmailInstructor;
-	}
-
-
-	public void setEmailGmailInstructor(String emailGmailInstructor) {
-		this.emailGmailInstructor = emailGmailInstructor;
-	}
 
 
 

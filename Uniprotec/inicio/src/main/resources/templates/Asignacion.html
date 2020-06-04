@@ -18,6 +18,20 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <style>
+	.zona {
+	  border: none;
+	  color: white;
+	  padding: 10px 22px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  margin: 1px 2px;
+	  cursor: pointer;
+	}
+
+</style>
     
 
 
@@ -371,7 +385,7 @@
 							               <div class="col-md-12 mb-3">
 							                   <div class="col-md-12">
 							                   	<div class="col-md-12">
-							                       <h3> Horario</h3>
+							                       <h3> Horario</h3><label for="exampleFormControlSelect1">Paso 5</label>
 							                       <div class="form-inline">
 								                       <div class="alert alert-dark" role="alert">Horas Efectivas: <b><label id="horasEfectivas"></label></b></div>
 	                                               </div>
@@ -451,6 +465,7 @@
 							                   	<div class="col-md-12">
 							                       <h3> Participantes y Nivel de Curso</h3>
 							                     </div>  
+							                     <label for="exampleFormControlSelect1">Paso 6</label>
 							                   <!-- BODY FORMULARIO -->
 							                   		<div class="form-row">
 		                                                <div class="col-md-6">
@@ -490,7 +505,7 @@
 							                   <div class="col-md-12">
 							                       <h3> Adjuntar Observaciones</h3>
 							                       <div class="form-group">
-							                           <label for="exampleFormControlSelect1">Paso 6</label>
+							                           <label for="exampleFormControlSelect1">Paso 7</label>
 							                           <textarea id="asignaObservaciones" class="form-control" placeholder="Observaciones" rows="4" cols="100"></textarea>
 							                           <div class="col-md-6 mb-3">
 				                                        	<label for="validationCustom02">Adjuntar Archivos Asignacion</label>
@@ -581,7 +596,6 @@
     <script th:src="@{js/picker.js}"></script>   
     <script th:src="@{js/picker.date.js}"></script>   
     <script th:src="@{js/picker.time.js}"></script>   
-<!--     <script th:src="@{js/legacy.js}"></script> -->
     <script th:src="@{js/es_ES.js}"></script>
     <script th:src="@{js/asignacion.js}"></script>
     <script type="text/javascript">
@@ -599,7 +613,7 @@
 
                        <!-- Modal Inicio-->
                        <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					    <div class="modal-dialog" role="document">
+					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
                                    <!-- Modal Header -->

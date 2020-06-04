@@ -26,10 +26,10 @@
 	  function alerta(){
 	  	alert("prueba js invocada desde html");
 	  }
+	 
 	  
 	
 $(document).ready(function(){
-	
 		
 	/*
 	 * Carga la Tabla inicial
@@ -105,6 +105,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateInstructor = {
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' +JSON.stringify(row));
+		    	console.log(row);
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
 		      $('#regionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
@@ -137,6 +138,17 @@ $(document).ready(function(){
 
 		      });
 			  $('#listCursoInstructor').multiSelect('select', $cursosAsignados);
+			  
+			    $('#listFechasAct').remove();
+				$('#listaFechas').empty();
+				var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
+				$(fechas).insertAfter($('#fechas'));
+				$(stringToList(row.listFechas)).each(function(index, element){
+					var elementDate = new Date(element);
+				  $('#listaFechas').append("<li>Ausencia Fecha : <b>"+ transformaDia(elementDate) +"</b></li>");
+			    });
+				$('#listFechas').val(row.listFechas);
+
 		      $('#notaInstructor').val(row.notaInstructor);
 		    }
 		   }
@@ -192,6 +204,14 @@ $(document).ready(function(){
 
 	});
 	
+	
+	
+	/*
+	 * funciones
+	 */
+	function stringToList(cadena){
+		return cadena.split(";");
+	}
 		
 }); // Fin documento
 

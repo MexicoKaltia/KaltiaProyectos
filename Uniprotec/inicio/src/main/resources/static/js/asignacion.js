@@ -84,12 +84,12 @@ $(document).ready(function(){
 		if($.asignaCliente === "" || $.asignaCliente === null){
 			alertaEmpty = alertaEmpty + "<li>Campo: <b> Cliente Inválido </b></li>";
 		}else{
-			$('#modalCliente').html('<b>'+$.asignaClienteTexto+'</b>');
+			$('#modalCliente').html('<b>'+$.asignaClienteTexto+'</b>'+zonaCliente);
 		}
 		if($.asignaCurso === "" || $.asignaCurso === null){
 			alertaEmpty = alertaEmpty + "<li>Campo: <b> Curso Inválido </b></li>";
 		}else{
-			$('#modalCurso').html('<b>'+$.asignaCursoTexto+'</b>');
+			$('#modalCurso').html('<b>'+$.asignaCursoTexto+'</b>'+" : <i><u><b>"+tipoCursoVal+"</b></u></i>");
 		}
 		if($.asignaInstructor === "" || $.asignaInstructor === null){
 			alertaEmpty = alertaEmpty + "<li>Campo: <b> Instructor Inválido </b></li>";
@@ -199,7 +199,59 @@ var alerta, proceso;
    		}else{
    			$('#btnAsignaCliente').attr("disabled", false);
    		}
-		procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b></li>";
+		
+		var zonaCliente = colorZonaCliente($.asignaCliente);
+//		zonaCliente = '<div class="zona" style="background-color:yellow">1</div>';
+		procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+	}
+	
+	var zonaCliente;
+	function colorZonaCliente(cliente){
+		cliente = (cliente * 1);
+		var idRegion;
+		var nombreRegion;
+		
+		var idCliente
+		for(i in asignacionClientes){
+//			console.log(asignacionClientes[i]);
+			idCliente = (asignacionClientes[i].idCliente * 1);
+			if(idCliente === cliente){
+				idRegion = (asignacionClientes[i].regionCliente.idRegion *1 );
+				nombreRegion = asignacionClientes[i].regionCliente.nombreRegion;
+			}
+		}
+			
+//		console.log(idRegion+":"+nombreRegion);
+		
+		switch (idRegion){
+		case 1:
+			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
+			break;
+		case 2:
+			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			break;
+		case 3:
+			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			break;
+		case 4:
+			zonaCliente = '<div class="zona" style="background:lime; color:blue">'+nombreRegion+'</div>';
+			break;
+		case 5:
+			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			break;
+		case 6:
+			zonaCliente = '<div class="zona" style="background:coral; color:blue">'+nombreRegion+'</div>';
+			break;
+		case 7:
+			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			break;
+		case 8:
+			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			break;
+		}
+		
+		return zonaCliente;
+				
 	}
 	
 	
@@ -208,6 +260,7 @@ var alerta, proceso;
 	 * ValidaCURSO
 	 */
 	var tipoCurso = true;
+	var tipoCursoVal = "";
 	function checkTipoCurso(){
 		
 		if(tipoCurso){
@@ -215,13 +268,16 @@ var alerta, proceso;
 			$('#tipoCurso').removeClass("btn-alternate");
 			$('#tipoCurso').addClass("btn-warning");
 			tipoCurso = false;
+			tipoCursoVal = "ON LINE";
 		}else{
 			$('#tipoCurso').html("PRESENCIAL");
 			$('#tipoCurso').removeClass("btn-warning");
 			$('#tipoCurso').addClass("btn-alternate");
 			tipoCurso = true;
+			tipoCursoVal = "PRESENCIAL";
 		}
 		$('#asignaCurso').attr("disabled", false);
+		validaCurso();
 	}
 	
 	
@@ -346,7 +402,7 @@ var alerta, proceso;
 			}
 		}
 		$.asignaCursoTexto = $("#asignaCurso option:selected").text();
-		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +"</b></li>";
+		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 	}  // fin metodo validaCurso
 	
 	function validaDiaSelect(idInstructor){
