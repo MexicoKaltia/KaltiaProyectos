@@ -26,26 +26,54 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Cliente> findAll() {
-		return (List<Cliente>) clienteDao.findAll();
+		List<Cliente> clientes = null;
+		try {
+			clientes = clienteDao.findAll();
+		} catch (Exception e) {
+			clientes.set(0, new Cliente());
+			e.printStackTrace();
+		}
+		return clientes;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Cliente> findAll(Pageable pageable) {
-		return clienteDao.findAll(pageable);
+		Page<Cliente> clientes = null;
+		try {
+			clientes = clienteDao.findAll(pageable);
+		} catch (Exception e) {
+			clientes.toString();
+			e.printStackTrace();
+		}
+		return clientes;
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public Cliente findById(Long id) {
-		return clienteDao.findById(id).orElse(null);
+		Cliente cliente = null;
+		try {
+			cliente = clienteDao.findById(id).orElse(null); 
+		} catch (Exception e) {
+			cliente.setIdCliente(0l);
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 
 	@Override
 	@Transactional
 	public Cliente save(Cliente cliente) {
 		log.info("save cliente:"+cliente.toString());
-		return clienteDao.save(cliente);
+//		Cliente cliente = null;
+		try {
+			cliente = clienteDao.save(cliente); 
+		} catch (Exception e) {
+			cliente.setIdCliente(0l);
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 
 	@Override

@@ -69,7 +69,6 @@ public class ClienteRestController {
 	  */
 	@GetMapping("/clientes")
 	public ResponseEntity<?> index() {
-//		return clienteService.findAll();
 		return UtilController.responseGeneric(clienteService.findAll(), "clientes", HttpStatus.ACCEPTED);
 	}
 	
@@ -80,7 +79,6 @@ public class ClienteRestController {
 	@GetMapping("/clientes/page/{page}")
 	public ResponseEntity<?> index(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 4);
-//		return clienteService.findAll(pageable);
 		return UtilController.responseGeneric(clienteService.findAll(pageable), "clientes",HttpStatus.ACCEPTED);
 	}
 	
