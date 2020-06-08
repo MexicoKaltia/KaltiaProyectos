@@ -37,6 +37,8 @@ public class ClienteModelo implements Serializable {
 	private String informacionPaqueteriaCliente;
 	private String imagenLogoCliente;
 	private String archivosCliente;
+	private String imagenLogoClienteH;
+	private String archivosClienteH;
 	
 	private Long idVendedorCliente;
 	private VendedorModelo vendedorCliente;
@@ -386,6 +388,26 @@ public class ClienteModelo implements Serializable {
 
 	public void setVendedorCliente(VendedorModelo vendedorCliente) {
 		this.vendedorCliente = vendedorCliente;
+	}
+
+
+	public String getImagenLogoClienteH() {
+		return imagenLogoClienteH;
+	}
+
+
+	public void setImagenLogoClienteH(String imagenLogoClienteH) {
+		this.imagenLogoClienteH = imagenLogoClienteH;
+	}
+
+
+	public String getArchivosClienteH() {
+		return archivosClienteH;
+	}
+
+
+	public void setArchivosClienteH(String archivosClienteH) {
+		this.archivosClienteH = archivosClienteH;
 	}
 	
 	

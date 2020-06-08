@@ -5,7 +5,12 @@
 /*
  * funciones para Upload Files
  */
-
+$(document).ready(function(){
+	
+//	$('#imagenLogoCliente').attr('src', "/uniprotec/"+idEmpresa+"/image/");
+	
+	
+});
   function imagenCliente(archivosCampo, rfcCliente){
 	  var $idCliente = rfcCliente
 	  $idCliente = $(rfcCliente).val();
@@ -14,7 +19,9 @@
 	        for (var i = 0; i < files.length; i++) {           
 	            var file = files[i];
 	            enviaImagen(archivosCampo, $idCliente);
-	            }        
+	            }
+	        console.log(archivosCampo.file.name);
+	        console.log($(archivosCampo).val());
 	        }
   
   function archivoCliente(archivosCampo, rfcCliente){
@@ -32,24 +39,24 @@
 
 	 
 	  
-	  $("#archivosCliente").fileinput({
-	        browseClass: "btn btn-info",
-	        browseLabel: "Seleccionar Archivos",
-	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-	        removeClass: "btn btn-warning",
-	        removeLabel: "Remover",
-	 	   showCaption: false, 
-	 	   dropZoneEnabled: false
-	 	  });
-	    $("#imagenLogoCliente").fileinput({
-	        browseClass: "btn btn-success",
-	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-	        browseLabel: "Selecciona Imagen",
-	        removeClass: "btn btn-warning",
-	        removeLabel: "Remover",
-	 	   showCaption: false, 
-	 	   dropZoneEnabled: false
-	 	  });
+//	  $("#archivosCliente").fileinput({
+//	        browseClass: "btn btn-info",
+//	        browseLabel: "Seleccionar Archivos",
+//	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+//	        removeClass: "btn btn-warning",
+//	        removeLabel: "Remover",
+//	 	   showCaption: false, 
+//	 	   dropZoneEnabled: false
+//	 	  });
+//	    $("#imagenLogoCliente").fileinput({
+//	        browseClass: "btn btn-success",
+//	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+//	        browseLabel: "Selecciona Imagen",
+//	        removeClass: "btn btn-warning",
+//	        removeLabel: "Remover",
+//	 	   showCaption: false, 
+//	 	   dropZoneEnabled: false
+//	 	  });
 
 	    
 	    

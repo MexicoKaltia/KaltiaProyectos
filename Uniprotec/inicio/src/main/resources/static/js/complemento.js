@@ -59,7 +59,22 @@ $(document).ready(function(){
 		      $('#representanteEmpresaCliente').val(row.representanteEmpresaCliente);
 		      $('#representanteTrabajadorCliente').val(row.representanteTrabajadorCliente);
 		      $('#informacionPaqueteriaCliente').val(row.informacionPaqueteriaCliente);
-//		      $('#imagenLogoCliente').val(row.imagenLogoCliente);
+//		      $('#imagenLogoClienteH').val(row.imagenLogoCliente);
+		      $('#imagenLogoClientePrev').attr('src', "/uploads/img/"+row.rfcCliente+"/"+row.imagenLogoCliente);
+		      $('#imagenLogoClientePrev').attr('alt', row.imagenLogoCliente);
+		      var imagen = $('#imagenLogoClientePrev').attr('alt');
+		      console.log(imagen);
+//		      if(imagen)
+//		    	  $('#imagenLogoCliente').val(imagen);
+//		      else
+		    	  
+		      
+		      $('#archivosClientePrev').attr('src', "/uploads/file/"+row.rfcCliente+"/"+row.archivosCliente);
+		      $('#archivosClientePrev').attr('alt', row.archivosCliente);
+		      
+		      $('#archivosClienteCliente').val();
+//		      $("#linkImagen").attr('href', 'localhost:8015/uploads/img/'+row.rfcCliente+'/'+row.imagenLogoCliente)
+//		      $("#linkImagen").text(row.imagenLogoCliente);
 //		      $('#archivosCliente').val(row.archivosCliente);
 		      
 		    }
@@ -213,6 +228,10 @@ $(document).ready(function(){
 	/*
 	 * funciones
 	 */
+	
+	function getIdVendedor(vendedorCliente){
+		
+	}
 	function stringToList(cadena){
 //		console.log(cadena);
 		return cadena.split(";");

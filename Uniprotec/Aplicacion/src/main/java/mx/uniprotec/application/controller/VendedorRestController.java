@@ -211,7 +211,7 @@ public class VendedorRestController {
 				clientes.add(cliente);
 			}
 			
-			vendedorActual.setCliente(clientes);
+//			vendedorActual.setCliente(clientes);
 			vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());
 			vendedorActual.setEmailVendedor(vendedor.getEmailVendedor());
 			vendedorActual.setNotaVendedor(vendedor.getNotaVendedor());

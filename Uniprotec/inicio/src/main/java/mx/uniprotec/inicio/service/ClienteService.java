@@ -1,8 +1,5 @@
 package mx.uniprotec.inicio.service;
 
-import java.time.LocalDateTime;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.ClienteModelo;
-import mx.uniprotec.entidad.modelo.LoginSingle;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
@@ -61,6 +57,22 @@ public class ClienteService implements IClienteService {
 		Region region = new Region(cliente.getIdRegionCliente());
 		cliente.setRegionCliente(region);
 		
+		if(cliente.getImagenLogoCliente().equals("")) {
+//			log.info("no se activo el cambio de imagen");
+			cliente.setImagenLogoCliente(cliente.getImagenLogoClienteH());
+		}else {
+//			log.info("SI  activo el cambio de imagen");
+			cliente.setImagenLogoClienteH(cliente.getImagenLogoCliente());
+		}
+		log.info(cliente.getImagenLogoCliente());
+		log.info(cliente.getImagenLogoClienteH());
+		
+//		if(cliente.getArchivosCliente().equals("")) {
+//			cliente.setArchivosCliente(cliente.getArchivosClienteH());
+//		}else {
+//			cliente.setArchivosClienteH(cliente.getArchivosCliente());
+//		}
+//		
 		me = ComponenteComun.monitorCampos();
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());

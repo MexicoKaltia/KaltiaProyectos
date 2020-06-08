@@ -19,12 +19,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name="vendedores")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idVendedor")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idVendedor")
 public class Vendedor implements Serializable{
 
 	/**
@@ -55,8 +57,10 @@ public class Vendedor implements Serializable{
 	private String emailGmailVendedor;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedorCliente")
-	private List<Cliente> cliente= new ArrayList<>();
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedorCliente")
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+////	@Column
+//	private List<Cliente> cliente= new ArrayList<>();
 	
 	@Column
 	private String notaVendedor;
@@ -74,7 +78,7 @@ public class Vendedor implements Serializable{
 	@Override
 	public String toString() {
 		return "Vendedor [idVendedor=" + idVendedor + ", nombreVendedor=" + nombreVendedor + ", emailVendedor="
-				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor + ", cliente=" + cliente
+				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor //+ ", cliente=" + cliente
 				+ ", notaVendedor=" + notaVendedor + ", userCreateVendedor=" + userCreateVendedor
 				+ ", createAtVendedor=" + createAtVendedor + ", statusVendedor=" + statusVendedor + "]";
 	}
@@ -89,7 +93,7 @@ public class Vendedor implements Serializable{
 		this.nombreVendedor = nombreVendedor;
 		this.emailVendedor = emailVendedor;
 		this.emailGmailVendedor = emailGmailVendedor;
-		this.cliente = cliente;
+//		this.cliente = cliente;
 		this.notaVendedor = notaVendedor;
 		this.userCreateVendedor = userCreateVendedor;
 		this.createAtVendedor = createAtVendedor;
@@ -118,12 +122,12 @@ public class Vendedor implements Serializable{
 	public void setEmailVendedor(String emailVendedor) {
 		this.emailVendedor = emailVendedor;
 	}
-	public List<Cliente> getCliente() {
-		return cliente;
-	}
-	public void setCliente(List<Cliente> cliente) {
-		this.cliente = cliente;
-	}
+//	public List<Cliente> getCliente() {
+//		return cliente;
+//	}
+//	public void setCliente(List<Cliente> cliente) {
+//		this.cliente = cliente;
+//	}
 	public String getNotaVendedor() {
 		return notaVendedor;
 	}
