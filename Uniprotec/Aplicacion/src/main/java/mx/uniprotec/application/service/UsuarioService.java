@@ -53,7 +53,14 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario findByUsername(String username) {
-		return usuarioDao.findByUsername(username);
+		try {
+			return usuarioDao.findByUsername(username);
+		} catch (Exception e) {
+			Usuario usuario = new Usuario();
+			usuario.setUsername("false");
+			return usuario;
+		}
+		
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.dao.DataAccessException;
@@ -78,7 +79,23 @@ public class ClienteRestController {
 	  */
 	@GetMapping("/clientes")
 	public ResponseEntity<?> index() {
-		return UtilController.responseGeneric(clienteService.findAll(), "clientes", HttpStatus.ACCEPTED);
+		List<Cliente> clientes = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			 clientes = clienteService.findAll();
+			 response.put("clientes", clientes);
+			 response.put("mensaje", "Exito en la busqueda de clientes");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+//		return UtilController.responseGeneric(clienteService.findAll(), "clientes", HttpStatus.ACCEPTED);
+		
 	}
 	
 	
@@ -98,23 +115,30 @@ public class ClienteRestController {
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
-		HttpStatus status ;
+		Map<String, Object> response = new HashMap<>();
 		Cliente cliente = null;
 		try {
 			cliente = clienteService.findById(id);
-			status = HttpStatus.OK;
+			
+			if(cliente == null) {
+				response.put("mensaje", "Error: no se pudo editar, el cliente ID: "
+						.concat(id.toString().concat(" no existe en la base de datos!")));
+				 response.put("status", HttpStatus.NOT_FOUND);
+				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}
+   			response.put("clientes", cliente);
+			 response.put("mensaje", "Exito en la busqueda de cliente");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if(cliente == null) {
-			status = HttpStatus.NOT_FOUND;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-//		status =  HttpStatus.OK;
-//		return UtilController.responseGeneric(response, cliente, "cliente");
-		return UtilController.responseGeneric(cliente, "cliente", status);
 	}
 	
 	
@@ -129,6 +153,7 @@ public class ClienteRestController {
 		log.info("PostCliente:"+cliente.getNombreCortoCliente());
 		
 		HttpStatus status ;
+		
 		Cliente clienteNew = new Cliente();
 		Map<String, Object> response = new HashMap<>();
 		
@@ -176,20 +201,21 @@ public class ClienteRestController {
 			clienteNew.setArchivosCliente(cliente.getArchivosCliente());
 			
 			clienteNew = clienteService.save(clienteNew);
-			response.put("mensaje", "El cliente ha sido creado con éxito!");
+
 			response.put("cliente", clienteNew);
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-			status = HttpStatus.CREATED;
+			response.put("mensaje", "El cliente ha sido creado con éxito!");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 			
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		log.info("PostClienteStatus:"+status);
-		return UtilController.responseGeneric(cliente, "cliente", status);
+//		log.info("PostClienteStatus:"+status);
+//		return UtilController.responseGeneric(cliente, "cliente", status);
 	}
 	
 	
@@ -213,15 +239,19 @@ public class ClienteRestController {
 					.collect(Collectors.toList());
 			
 			response.put("errors", errors);
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			status = HttpStatus.BAD_REQUEST;
+			response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			
 		}
 		
 		if (clienteActual == null) {
 			response.put("mensaje", "Error: no se pudo editar, el cliente ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			status = HttpStatus.NOT_FOUND;
+			 response.put("status", HttpStatus.NOT_FOUND);
+			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
@@ -255,21 +285,22 @@ public class ClienteRestController {
 			clienteActual.setImagenLogoCliente(cliente.getImagenLogoCliente());
 			clienteActual.setArchivosCliente(cliente.getArchivosCliente());
 			
+			log.info(clienteActual.getArchivosCliente());
 
 			clienteUpdated = clienteService.save(clienteActual);
-
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el cliente en la base de datos");
+			
+			response.put("mensaje", "El cliente ha sido actualizado con éxito!");
+			response.put("cliente", clienteUpdated);
+			response.put("mensaje", "El cliente ha sido creado con éxito!");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		response.put("mensaje", "El cliente ha sido actualizado con éxito!");
-		response.put("cliente", clienteUpdated);
-
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(clienteUpdated, "cliente", status);
 	}
 	
 	
@@ -303,74 +334,5 @@ public class ClienteRestController {
 		status =  HttpStatus.OK;
 		return UtilController.responseGeneric(cliente, "cliente", status);
 	}
-	
-	
-	/*
-	 * Imagenes y Archivos 
-	 */
-	@PostMapping("/clientes/upload")
-	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
-		Map<String, Object> response = new HashMap<>();
 		
-		Cliente cliente = clienteService.findById(id);
-		
-		if(!archivo.isEmpty()) {
-			String nombreArchivo = UUID.randomUUID().toString() + "_" +  archivo.getOriginalFilename().replace(" ", "");
-			
-			Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
-			log.info(rutaArchivo.toString());
-			
-			try {
-				Files.copy(archivo.getInputStream(), rutaArchivo);
-			} catch (IOException e) {
-				response.put("mensaje", "Error al subir la imagen del cliente " + nombreArchivo);
-				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			
-			String nombreFotoAnterior = cliente.getImagenLogoCliente();
-			
-			if(nombreFotoAnterior !=null && nombreFotoAnterior.length() >0) {
-				Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
-				File archivoFotoAnterior = rutaFotoAnterior.toFile();
-				if(archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
-					archivoFotoAnterior.delete();
-				}
-			}
-			
-			cliente.setImagenLogoCliente(nombreArchivo);
-			
-			clienteService.save(cliente);
-			
-			response.put("cliente", cliente);
-			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
-			
-		}
-		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-	}
-	
-	@GetMapping("/uploads/img/{nombreFoto:.+}")
-	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto){
-		
-		Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
-		log.info(rutaArchivo.toString());
-		
-		Resource recurso = null;
-		
-		try {
-			recurso = new UrlResource(rutaArchivo.toUri());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		
-		if(!recurso.exists() && !recurso.isReadable()) {
-			throw new RuntimeException("Error no se pudo cargar la imagen: " + nombreFoto);
-		}
-		HttpHeaders cabecera = new HttpHeaders();
-		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
-		
-		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
-	}
-	
 }

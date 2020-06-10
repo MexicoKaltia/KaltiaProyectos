@@ -37,7 +37,7 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
-//		    	alert('You click like action, row: ' + JSON.stringify(row));
+		    	console.log(JSON.stringify(row));
 //		      alert('You click like action, row: ' + JSON.stringify(row.regionCliente.nombreRegion) + ' ' + JSON.stringify(row.regionCliente.idRegion));
 		      $('#idCliente').val(row.idCliente);
 		      $('#nombreCortoCliente').val(row.nombreCortoCliente);
@@ -59,24 +59,18 @@ $(document).ready(function(){
 		      $('#representanteEmpresaCliente').val(row.representanteEmpresaCliente);
 		      $('#representanteTrabajadorCliente').val(row.representanteTrabajadorCliente);
 		      $('#informacionPaqueteriaCliente').val(row.informacionPaqueteriaCliente);
-//		      $('#imagenLogoClienteH').val(row.imagenLogoCliente);
+		      
+		      $('#imagenLogoClienteH').val(row.imagenLogoCliente);
 		      $('#imagenLogoClientePrev').attr('src', "/uploads/img/"+row.rfcCliente+"/"+row.imagenLogoCliente);
 		      $('#imagenLogoClientePrev').attr('alt', row.imagenLogoCliente);
-		      var imagen = $('#imagenLogoClientePrev').attr('alt');
-		      console.log(imagen);
-//		      if(imagen)
-//		    	  $('#imagenLogoCliente').val(imagen);
-//		      else
-		    	  
 		      
+		      $('#archivosClienteH').val(row.archivosCliente);
 		      $('#archivosClientePrev').attr('src', "/uploads/file/"+row.rfcCliente+"/"+row.archivosCliente);
 		      $('#archivosClientePrev').attr('alt', row.archivosCliente);
-		      
-		      $('#archivosClienteCliente').val();
-//		      $("#linkImagen").attr('href', 'localhost:8015/uploads/img/'+row.rfcCliente+'/'+row.imagenLogoCliente)
-//		      $("#linkImagen").text(row.imagenLogoCliente);
-//		      $('#archivosCliente').val(row.archivosCliente);
-		      
+
+		      $("#linkFile").attr('href', '31.220.63.183:8015/uploads/file/'+row.rfcCliente+'/'+row.archivosCliente)
+		      $("#linkFile").html('<b>'+row.archivosCliente+'</b>');
+//		      $('#archivosCliente').val(row.archivosCliente);		      
 		    }
 		   }
 	
@@ -195,7 +189,7 @@ $(document).ready(function(){
 	      deleteUserEmpresa(row.idUserEmpresa);
 	    }
 	  }
-
+	
 	$('#clientesTable').bootstrapTable({data : $data})
 	$('#cursosTable').bootstrapTable({data : $data})
 	$('#instructoresTable').bootstrapTable({data : $data})

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,10 +54,16 @@ public class ControllerInicio extends HttpServlet{
 	
 	
 		@GetMapping("/")
-		public String inicio(Model model) {
-			model.addAttribute("userLogin", new User());
-			return "login";
+		public ModelAndView inicio(@RequestParam(name="login", required=false) Boolean loginIn) {
+			ModelAndView mav = new ModelAndView("login");
+			mav.addObject("userLogin", new User());
+			mav.addObject("loginForm", loginIn);
+			if(loginIn != null)
+				log.info(loginIn.toString());
+			return mav;
 		}
+		
+		
 //		
 		/*
 		 * 
@@ -70,11 +77,16 @@ public class ControllerInicio extends HttpServlet{
 			
 			ResultVO resultVO = new ResultVO();
 			resultVO = loginService.login(user);
-
-//			model.addAttribute("loginResponse", resultVO);
-
-//			log.info(model.values().toString());			
-			return new ModelAndView(resultVO.getResponse(), "model", resultVO);
+			log.info(resultVO.toString());
+			if(resultVO.getCodigo() != 500) {
+				
+				return new ModelAndView(resultVO.getResponse(), "model", resultVO);
+			}else {
+				log.info("Credenciales inválidas");
+				mav = new ModelAndView("redirect:/", model);
+				mav.addObject("login", true);
+				return mav;
+			}
 
 		}
 		

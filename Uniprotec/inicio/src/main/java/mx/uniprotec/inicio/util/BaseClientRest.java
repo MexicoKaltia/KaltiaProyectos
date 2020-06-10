@@ -1,14 +1,17 @@
 package mx.uniprotec.inicio.util;
 
 import java.util.Base64;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -124,9 +127,20 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	
 	    	HttpEntity<?> entity = new HttpEntity<>(mapbody, headers);
 		    RestTemplate restTemplate = new RestTemplate();
-		    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_POST_LOGIN, HttpMethod.POST, entity, JSONObject.class);
+		    ResponseEntity<JSONObject> response = new ResponseEntity<JSONObject>(HttpStatus.CONTINUE); 
+		    try {
+		    	response  = restTemplate.exchange(URL_POST_LOGIN, HttpMethod.POST, entity, JSONObject.class);
+		    	resultVO= asignaResponse(response);
+			} catch (Exception e) {
+				JSONObject jsonResponse = (JSONObject) response.getBody();
+			    ResultVO rs = new ResultVO();
+			    rs.setJsonResponse(jsonResponse);
+			    rs.setMensaje(e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			    e.printStackTrace();
+				return rs;
+			}
 		    
-		    resultVO= asignaResponse(response);
 	    
 	    }catch(Exception e) {
 	    	resultVO.setMensaje("Fallo conexion RestTemplate");
@@ -148,11 +162,22 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
    	     
    	    HttpEntity<?> entity = new HttpEntity<>(object, headers);
 	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.POST, entity, JSONObject.class);
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.POST, entity, JSONObject.class);	    
+//		    resultVO = asignaResponseObject(response);
+			return asignaResponseObject(response);
+		} catch (Exception e) {
+			JSONObject jsonResponse = new JSONObject();
+		    ResultVO rs = new ResultVO();
+		    rs.setJsonResponse(jsonResponse);
+		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		        
+		   
+		    
+			return rs;
+		}
 	    
-	    resultVO = asignaResponseObject(response);
-   	     
-		return resultVO;
 	}
 	
 	private ResultVO getTemplateObjetoPut(String token, String urlCrud, Object objeto, Long idObjeto) {
@@ -166,11 +191,22 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
    	     
    	    HttpEntity<?> entity = new HttpEntity<>(objeto, headers);
 	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<JSONObject> response  = restTemplate.exchange(urlPut, HttpMethod.PUT, entity, JSONObject.class);
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(urlPut, HttpMethod.PUT, entity, JSONObject.class);
+	    	return asignaResponseObject(response);
+		} catch (Exception e) {
+			JSONObject jsonResponse = new JSONObject();
+		    ResultVO rs = new ResultVO();
+		    rs.setJsonResponse(jsonResponse);
+		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		        
+		   return rs;
+		}
 	    
-	    resultVO = asignaResponseObject(response);
-   	     
-		return resultVO;
+	    
+//	    resultVO = asignaResponseObject(response);
+//		return resultVO;
 	}
 
 
@@ -183,11 +219,25 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
   	     
   	    HttpEntity<?> entity = new HttpEntity<>(headers);
 	    RestTemplate restTemplate = new RestTemplate();
-	    ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.GET, entity, JSONObject.class);
-//	    log.info(resultVO.toString());
-//	    resultVO = asignaResponseObject(response);
-  	     
-		return asignaResponseObject(response);
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(URL_CRUD+urlCrud, HttpMethod.GET, entity, JSONObject.class);
+//		    log.info(resultVO.toString());
+//		    resultVO = asignaResponseObject(response);
+	  	     
+			return asignaResponseObject(response);
+			
+		} catch (Exception e) {
+			
+				JSONObject jsonResponse = new JSONObject();
+			    ResultVO rs = new ResultVO();
+			    rs.setJsonResponse(jsonResponse);
+			    e.printStackTrace();
+			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			        
+				return rs;
+		}
+	    
 	}
 	
 	
@@ -221,7 +271,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    fields.put("fields", jsonResponse.get("fields"));
 	    
 	    resultVO.setAccesToken(jsonResponse.get("access_token").toString());
-	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
+	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("status").toString()));
+//	    resultVO.setCodigo((Long) jsonResponse.get("code"));
 	    resultVO.setMensaje(jsonResponse.get("message").toString());
 	    resultVO.setJsonResponse(fields);
 	    
@@ -235,12 +286,13 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();
 	    ResultVO rs = new ResultVO();
-	    rs.setJsonResponse(jsonResponse);
-	    rs.setMensaje(jsonResponse.get("code").toString());
-	    rs.setCodigo(Long.valueOf(jsonResponse.get("status").toString()));
-	        
 	    log.info(jsonResponse.toJSONString());
-	    log.info(jsonResponse.get("message").toString());
+	    rs.setJsonResponse(jsonResponse);
+	    rs.setMensaje(jsonResponse.get("mensaje").toString());
+	    rs.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
+	        
+//	    log.info(jsonResponse.toJSONString());
+//	    log.info(jsonResponse.get("mensaje").toString());
 	    
 		return rs;
 	}

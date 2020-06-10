@@ -66,14 +66,14 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional
 	public Cliente save(Cliente cliente) {
 		log.info("save cliente:"+cliente.toString());
-//		Cliente cliente = null;
-		try {
-			cliente = clienteDao.save(cliente); 
-		} catch (Exception e) {
-			cliente.setIdCliente(0l);
-			e.printStackTrace();
-		}
-		return cliente;
+
+//		try {
+//			cliente = clienteDao.save(cliente); 
+//		} catch (Exception e) {
+//			cliente.setIdCliente(0l);
+//			e.printStackTrace();
+//		}
+		return clienteDao.save(cliente);
 	}
 
 	@Override

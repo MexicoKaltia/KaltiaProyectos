@@ -81,7 +81,7 @@ public class LoginService implements ILoginService{
 				log.info("usuario y valido:"+ (System.currentTimeMillis()-loginSingle.getTiempoInicio()));
 				return true;
 			}else {
-				log.info("Token expirado valido");
+				log.info("Token expirado inválido");
 					return false;
 				}
 		}else {

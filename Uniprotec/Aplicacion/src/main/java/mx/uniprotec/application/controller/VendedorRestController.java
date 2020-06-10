@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Cliente;
+import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.entity.Cliente;
 import mx.uniprotec.application.entity.ResponseGeneral;
@@ -71,8 +73,22 @@ public class VendedorRestController {
 	  */
 	@GetMapping("/vendedores")
 	public ResponseEntity<?> index() {
-//		return vendedorService.findAll();
-		return UtilController.responseGeneric(vendedorService.findAll(), "vendedores", HttpStatus.ACCEPTED);
+		List<Vendedor> vendedores = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			vendedores = vendedorService.findAll();
+			 response.put("vendedores", vendedores);
+			 response.put("mensaje", "Exito en la busqueda de vendedores");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+//		return UtilController.responseGeneric(vendedorService.findAll(), "vendedores", HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -99,19 +115,26 @@ public class VendedorRestController {
 		
 		try {
 			vendedor = vendedorService.findById(id);
-			status = HttpStatus.OK;
+			if(vendedor == null) {
+				response.put("mensaje", "Error: no se pudo editar, el vendedor ID: "
+						.concat(id.toString().concat(" no existe en la base de datos!")));
+				response.put("status", HttpStatus.NOT_FOUND);
+				response.put("code", HttpStatus.NOT_FOUND.value());
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}
+			response.put("vendedor", vendedor);
+			 response.put("mensaje", "Exito en la busqueda de vendedor");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if(vendedor == null) {
-			status = HttpStatus.NOT_FOUND;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-//		status =  HttpStatus.OK;
-//		return UtilController.responseGeneric(response, vendedor, "vendedor");
-		return UtilController.responseGeneric(vendedor, "vendedor", status);
+		
 	}
 	
 	
@@ -156,18 +179,18 @@ public class VendedorRestController {
 			vendedorNew.setUserCreateVendedor(vendedor.getUserCreateVendedor());
 			
 			vendedorNew = vendedorService.save(vendedorNew);
+			response.put("vendedor", vendedor);
+			 response.put("mensaje", "Vendedor creado con Exito");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El vendedor ha sido creado con éxito!");
-		response.put("vendedor", vendedorNew);
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(vendedor, "vendedor", status);
 	}
 	
 	
@@ -191,16 +214,18 @@ public class VendedorRestController {
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
 					.collect(Collectors.toList());
 			
-			response.put("errors", errors);
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			status = HttpStatus.BAD_REQUEST;
+			response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		if (vendedorActual == null) {
 			response.put("mensaje", "Error: no se pudo editar, el vendedor ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			status = HttpStatus.NOT_FOUND;
+			response.put("status", HttpStatus.NOT_FOUND);
+			response.put("code", HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
@@ -220,19 +245,19 @@ public class VendedorRestController {
 			vendedorActual.setUserCreateVendedor(vendedor.getUserCreateVendedor());
 			
 			vendedorUpdated = vendedorService.save(vendedorActual);
+			response.put("vendedor", vendedor);
+			 response.put("mensaje", "Vendedor actualizado con Exito");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el vendedor en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El vendedor ha sido actualizado con éxito!");
-		response.put("vendedor", vendedorUpdated);
-
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(vendedorUpdated, "vendedor", status);
 	}
 	
 	
@@ -268,61 +293,4 @@ public class VendedorRestController {
 	}
 	
 	
-	/*
-	 * 
-	 */
-	@PostMapping("/vendedor/upload")
-	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
-		Map<String, Object> response = new HashMap<>();
-		
-		Vendedor vendedor = vendedorService.findById(id);
-		
-		if(!archivo.isEmpty()) {
-
-			String nombreArchivo = null;
-			try {
-				nombreArchivo = uploadService.copiar(archivo);
-			} catch (IOException e) {
-				response.put("mensaje", "Error al subir la imagen del vendedor");
-				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			
-			String nombreFotoAnterior = "";//vendedor.getFoto();
-			
-			uploadService.eliminar(nombreFotoAnterior);
-						
-//			vendedor.setFoto(nombreArchivo);
-			
-			vendedorService.save(vendedor);
-			
-			response.put("vendedor", vendedor);
-			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
-			
-		}
-		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-	}
-	
-//	@GetMapping("/uploads/img/{nombreFoto:.+}")
-//	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto){
-//
-//		Resource recliente = null;
-//		
-//		try {
-//			recliente = uploadService.cargar(nombreFoto);
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		HttpHeaders cabecera = new HttpHeaders();
-//		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recliente.getFilename() + "\"");
-//		
-//		return new ResponseEntity<Resource>(recliente, cabecera, HttpStatus.OK);
-//	}
-	
-//	@GetMapping("/vendedor/clientees")
-//	public List<Cliente> listarClientees(){
-//		return vendedorService.findAllClientees();
-//	}
 }

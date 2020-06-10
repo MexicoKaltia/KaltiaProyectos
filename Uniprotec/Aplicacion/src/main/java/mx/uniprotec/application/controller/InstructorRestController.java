@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -71,8 +72,22 @@ public class InstructorRestController {
 	  */
 	@GetMapping("/instructores")
 	public ResponseEntity<?> index() {
-//		return instructorService.findAll();
-		return UtilController.responseGeneric(instructorService.findAll(), "instructores", HttpStatus.ACCEPTED);
+		List<Instructor> instructores = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			instructores = instructorService.findAll();
+			 response.put("instructores", instructores);
+			 response.put("mensaje", "Exito en la busqueda de instructores");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+//		return UtilController.responseGeneric(instructorService.findAll(), "instructores", HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -93,25 +108,30 @@ public class InstructorRestController {
 	@GetMapping("/instructor/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
-		HttpStatus status ;
 		Instructor instructor = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
 			instructor = instructorService.findById(id);
-			status = HttpStatus.OK;
+			if(instructor == null) {
+				response.put("mensaje", "Error: no se pudo editar, el usuario ID: "
+						.concat(id.toString().concat(" no existe en la base de datos!")));
+				response.put("status", HttpStatus.NOT_FOUND);
+				 response.put("code", HttpStatus.NOT_FOUND.value());
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}
+			 response.put("instructor", instructor);
+			 response.put("mensaje", "Exito en la busqueda de instructor");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+
 		} catch(DataAccessException e) {
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		if(instructor == null) {
-			status = HttpStatus.NOT_FOUND;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-//		status =  HttpStatus.OK;
-//		return UtilController.responseGeneric(response, instructor, "instructor");
-		return UtilController.responseGeneric(instructor, "instructor", status);
 	}
 	
 	
@@ -159,18 +179,19 @@ public class InstructorRestController {
 			instructorNew.setUserCreateInstructor(instructor.getUserCreateInstructor());
 			
 			instructorNew = instructorService.save(instructorNew);
+			
+			 response.put("instructor", instructor);
+			 response.put("mensaje", "Se ha generado con Exito el Instructor");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El instructor ha sido creado con éxito!");
-		response.put("instructor", instructorNew);
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(instructor, "instructor", status);
 	}
 	
 	
@@ -194,16 +215,18 @@ public class InstructorRestController {
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
 					.collect(Collectors.toList());
 			
-			response.put("errors", errors);
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			status = HttpStatus.BAD_REQUEST;
+			response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		if (instructorActual == null) {
 			response.put("mensaje", "Error: no se pudo editar, el instructor ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			status = HttpStatus.NOT_FOUND;
+			response.put("status", HttpStatus.NOT_FOUND);
+			 response.put("code", HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
@@ -221,19 +244,20 @@ public class InstructorRestController {
 			instructorActual.setUserCreateInstructor(instructor.getUserCreateInstructor());
 			
 			instructorUpdated = instructorService.save(instructorActual);
+			
+			 response.put("instructor", instructor);
+			 response.put("mensaje", "Se ha actualizado con Exito el Instructor");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el instructor en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El instructor ha sido actualizado con éxito!");
-		response.put("instructor", instructorUpdated);
-
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(instructorUpdated, "instructor", status);
 	}
 	
 	
@@ -269,61 +293,5 @@ public class InstructorRestController {
 	}
 	
 	
-	/*
-	 * 
-	 */
-	@PostMapping("/instructor/upload")
-	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
-		Map<String, Object> response = new HashMap<>();
-		
-		Instructor instructor = instructorService.findById(id);
-		
-		if(!archivo.isEmpty()) {
 
-			String nombreArchivo = null;
-			try {
-				nombreArchivo = uploadService.copiar(archivo);
-			} catch (IOException e) {
-				response.put("mensaje", "Error al subir la imagen del instructor");
-				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			
-			String nombreFotoAnterior = "";//instructor.getFoto();
-			
-			uploadService.eliminar(nombreFotoAnterior);
-						
-//			instructor.setFoto(nombreArchivo);
-			
-			instructorService.save(instructor);
-			
-			response.put("instructor", instructor);
-			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
-			
-		}
-		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-	}
-	
-//	@GetMapping("/uploads/img/{nombreFoto:.+}")
-//	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto){
-//
-//		Resource recurso = null;
-//		
-//		try {
-//			recurso = uploadService.cargar(nombreFoto);
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		HttpHeaders cabecera = new HttpHeaders();
-//		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
-//		
-//		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
-//	}
-	
-//	@GetMapping("/instructor/regiones")
-//	public List<Region> listarRegiones(){
-//		return instructorService.findAllRegiones();
-//	}
 }

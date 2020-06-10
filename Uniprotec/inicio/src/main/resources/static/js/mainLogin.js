@@ -2,6 +2,15 @@
 (function ($) {
     "use strict";
 
+//    console.log(credenciales);
+//    if(credenciales === 500){
+//    	console.log("credencialesInvalidas");
+//    	$('#credencialesInvalidas').show();	
+//    }else{
+//    	console.log("inicio");
+//    	$('#credencialesInvalidas').hide();
+//    }
+//    
 
     /*==================================================================
     [ Focus Contact2 ]*/

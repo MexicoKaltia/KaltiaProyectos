@@ -124,10 +124,10 @@ public class ControllerUtil {
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
 	
-	@GetMapping("/uploads/file/{idEmpresa}/{nombreFoto:.+}")
-	public ResponseEntity<Resource> verFile(@PathVariable String idEmpresa, @PathVariable String nombreFoto){
+	@GetMapping("/uploads/file/{idEmpresa}/{nombreFile:.+}")
+	public ResponseEntity<Resource> verFile(@PathVariable String idEmpresa, @PathVariable String nombreFile){
 		
-		Path rutaArchivo = Paths.get("/uniprotec/\\"+idEmpresa+"/file/").resolve(nombreFoto).toAbsolutePath();
+		Path rutaArchivo = Paths.get("/uniprotec/\\"+idEmpresa+"/file/").resolve(nombreFile).toAbsolutePath();
 		log.info(rutaArchivo.toString());
 		
 		Resource recurso = null;
@@ -139,7 +139,7 @@ public class ControllerUtil {
 		}
 		
 		if(!recurso.exists() && !recurso.isReadable()) {
-			throw new RuntimeException("Error no se pudo cargar la Archivo: " + nombreFoto);
+			throw new RuntimeException("Error no se pudo cargar la Archivo: " + nombreFile);
 		}
 		HttpHeaders cabecera = new HttpHeaders();
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");

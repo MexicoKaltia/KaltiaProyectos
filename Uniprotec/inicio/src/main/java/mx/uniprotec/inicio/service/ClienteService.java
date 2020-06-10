@@ -56,23 +56,34 @@ public class ClienteService implements IClienteService {
 	public ResultVO edicionCliente(ClienteModelo cliente , String token) {
 		Region region = new Region(cliente.getIdRegionCliente());
 		cliente.setRegionCliente(region);
+		log.info(cliente.getImagenLogoCliente());
+		log.info("logoH:"+cliente.getImagenLogoClienteH());
+		log.info(cliente.getArchivosCliente());
+		log.info("archivosH:"+cliente.getArchivosClienteH());
+		log.info("----------------------");
+		
 		
 		if(cliente.getImagenLogoCliente().equals("")) {
-//			log.info("no se activo el cambio de imagen");
+			log.info("no se activo el cambio de imagen");
 			cliente.setImagenLogoCliente(cliente.getImagenLogoClienteH());
 		}else {
-//			log.info("SI  activo el cambio de imagen");
+			log.info("SI  activo el cambio de imagen");
 			cliente.setImagenLogoClienteH(cliente.getImagenLogoCliente());
 		}
-		log.info(cliente.getImagenLogoCliente());
-		log.info(cliente.getImagenLogoClienteH());
 		
-//		if(cliente.getArchivosCliente().equals("")) {
-//			cliente.setArchivosCliente(cliente.getArchivosClienteH());
-//		}else {
-//			cliente.setArchivosClienteH(cliente.getArchivosCliente());
-//		}
-//		
+		if(cliente.getArchivosCliente().equals("")) {
+			cliente.setArchivosCliente(cliente.getArchivosClienteH());
+		}else {
+			cliente.setArchivosClienteH(cliente.getArchivosCliente());
+		}
+		
+		log.info(cliente.getImagenLogoCliente());
+		log.info("logoH:"+cliente.getImagenLogoClienteH());
+		log.info(cliente.getArchivosCliente());
+		log.info("archivosH:"+cliente.getArchivosClienteH());
+		
+
+
 		me = ComponenteComun.monitorCampos();
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
@@ -91,12 +102,6 @@ public class ClienteService implements IClienteService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ResultVO consultaClientes(String token) {
-		
-//		me = ComponenteComun.monitorCampos();
-//		cliente.setCreateAtCliente(me.getNowEntidad());
-//		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
-//		cliente.setStatusCliente(me.getStatusEntidad());
-////		log.info(resultVO.toString());
 		
 		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
 		

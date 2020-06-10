@@ -26,7 +26,9 @@
 			<div class="wrap-login100">
 <!-- 					<div class="login100-more" style="background-image: url('images/logo.png'); background-size: 10% 10%;" ></div> -->
 					<form id="userKaltiaControlFront" class="login100-form validate-form" action="/loginInit" method="post">
-					
+					<div class="alert alert-warning" role="alert">
+  							<b>Su Sesion de Usuario ha caducado, por favor renueve su Ingreso</b>
+					</div>
 					<span class="login100-form-title p-b-43" >
 							Bienvenido Sistema Control Uniprotec
 					</span>
@@ -45,11 +47,6 @@
 						<span class="label-input100">Password</span>
 					</div>
 					<br>
-					<span th:if="${loginForm}">
-						<div class="alert alert-danger" role="alert" id="credencialesInvalidas">
-	  							<b>Credenciales Inválidas, Intenta de nuevo</b>
-						</div>
-					</span>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" id="loginButon2" type="submit">
 							Inicio
@@ -82,9 +79,6 @@
 			</div>
 		</div>
 	</div>
-<!-- 	 <script th:inline="javascript"> -->
-
-<!-- 	</script> -->
 	
 	
 

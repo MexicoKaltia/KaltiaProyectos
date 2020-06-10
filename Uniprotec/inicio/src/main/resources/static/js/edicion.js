@@ -7,7 +7,7 @@
  */
 $(document).ready(function(){
 	
-//	$('#imagenLogoCliente').attr('src', "/uniprotec/"+idEmpresa+"/image/");
+
 	
 	
 });
@@ -20,8 +20,8 @@ $(document).ready(function(){
 	            var file = files[i];
 	            enviaImagen(archivosCampo, $idCliente);
 	            }
-	        console.log(archivosCampo.file.name);
-	        console.log($(archivosCampo).val());
+//	        console.log(archivosCampo.file.name);
+//	        console.log($(archivosCampo).val());
 	        }
   
   function archivoCliente(archivosCampo, rfcCliente){
