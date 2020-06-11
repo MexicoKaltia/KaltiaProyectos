@@ -10,12 +10,12 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.service.IAsignacionService;
-import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 
 @CrossOrigin(origins = { "*" })
@@ -46,8 +45,23 @@ public class AsignacionRestController {
 	
 	@GetMapping("/asignaciones")
 	public ResponseEntity<?> index() {
-//		return asignacionService.findAll();
-		return UtilController.responseGeneric(asignacionService.findAll(), "asignaciones", HttpStatus.ACCEPTED);
+		List<Asignacion> asignaciones = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			asignaciones  = asignacionService.findAll();
+			 response.put("asignaciones ", asignaciones );
+			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 
 	 /*
@@ -62,19 +76,26 @@ public class AsignacionRestController {
 		
 		try {
 			asignacion = asignacionService.findById(id);
-			status = HttpStatus.OK;
+			if(asignacion == null) {
+				response.put("mensaje", "Error: no se pudo editar, asignacion ID: "
+						.concat(id.toString().concat(" no existe en la base de datos!")));
+				 response.put("status", HttpStatus.NOT_FOUND);
+				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}
+			 response.put("asignacion ", asignacion );
+			 response.put("mensaje", "Exito en la busqueda de asignacion ");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if(asignacion == null) {
-			status = HttpStatus.NOT_FOUND;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-//		status =  HttpStatus.OK;
-//		return UtilController.responseGeneric(response, asignacion, "asignacion");
-		return UtilController.responseGeneric(asignacion, "asignacion", status);
+		
 	}
 	
 	
@@ -112,24 +133,25 @@ public class AsignacionRestController {
 			asignacionNew.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
 			asignacionNew.setInstructorAsignacion(asignacion.getInstructorAsignacion());
 			asignacionNew.setHorarioAsignacion(asignacion.getHorarioAsignacion());
+			asignacionNew.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
+			asignacionNew.setNivelAsignacion(asignacion.getNivelAsignacion());
 			asignacionNew.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
 			asignacionNew.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			
 			asignacionNew = asignacionService.save(asignacionNew);
+			response.put("asignacion ", asignacionNew );
+			 response.put("mensaje", "Asignacion creada con Exito");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		response.put("mensaje", "El asignacion ha sido creado con éxito!");
-		response.put("asignacion", asignacionNew);
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(asignacion, "asignacion", status);
 	}
 	
 	
@@ -153,16 +175,19 @@ public class AsignacionRestController {
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
 					.collect(Collectors.toList());
 			
-			response.put("errors", errors);
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			status = HttpStatus.BAD_REQUEST;
+			 response.put("errors", errors);
+			 response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		if (asignacionActual == null) {
-			response.put("mensaje", "Error: no se pudo editar, el asignacion ID: "
+			response.put("mensaje", "Error: no se pudo editar, asignacion ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			status = HttpStatus.NOT_FOUND;
+			 response.put("status", HttpStatus.NOT_FOUND);
+			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
@@ -175,58 +200,31 @@ public class AsignacionRestController {
 			asignacionActual.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
 			asignacionActual.setInstructorAsignacion(asignacion.getInstructorAsignacion());
 			asignacionActual.setHorarioAsignacion(asignacion.getHorarioAsignacion());
+			asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
+			asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
 			asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
 			asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
 			
 			asignacionUpdated = asignacionService.save(asignacionActual);
+			response.put("asignacion ", asignacionUpdated  );
+			 response.put("mensaje", "Asignacion creada con Exito");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el asignacion en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El asignacion ha sido actualizado con éxito!");
-		response.put("asignacion", asignacionUpdated);
-
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		status = HttpStatus.CREATED;
-		return UtilController.responseGeneric(asignacionUpdated, "asignacion", status);
 	}
 	
 	
-	/*
-	 * 
-	 */
-	@DeleteMapping("/asignacion/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
-		HttpStatus status ;
-		
-		Map<String, Object> response = new HashMap<>();
-		Asignacion asignacion = null;
-		try {
-			 asignacion = asignacionService.findById(id);
-			String nombreFotoAnterior = "";//asignacion.getFoto();
-			
-			
-			
-		    asignacionService.delete(id);
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar el asignacion de la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			status =  HttpStatus.INTERNAL_SERVER_ERROR;
-		}
-		
-		response.put("mensaje", "El asignacion eliminado con éxito!");
-		
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		status =  HttpStatus.OK;
-		return UtilController.responseGeneric(asignacion, "asignacion", status);
-	}
+	
 	
 	
 	

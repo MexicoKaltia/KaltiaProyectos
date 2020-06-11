@@ -37,7 +37,7 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
-		    	console.log(JSON.stringify(row));
+//		    	console.log(JSON.stringify(row));
 //		      alert('You click like action, row: ' + JSON.stringify(row.regionCliente.nombreRegion) + ' ' + JSON.stringify(row.regionCliente.idRegion));
 		      $('#idCliente').val(row.idCliente);
 		      $('#nombreCortoCliente').val(row.nombreCortoCliente);

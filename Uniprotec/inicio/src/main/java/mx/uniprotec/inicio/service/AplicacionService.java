@@ -88,7 +88,7 @@ public class AplicacionService implements IAplicacionService {
 		
 		rs.setJsonResponseObject(jsonData);
 
-		log.info(rs.toString());
+//		log.info(rs.toString());
 		return rs;
 	}
 	

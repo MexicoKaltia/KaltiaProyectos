@@ -195,7 +195,7 @@
             
                             <li class="app-sidebar__heading">ACCIONES</li>
                             <li>
-                                <a th:href="@{Asignacion}">
+                                <a th:href="@{AAsignacion}">
                                     <i class="metismenu-icon pe-7s-mouse">
                                     </i>NUEVA ASIGNACION
                                 </a>
@@ -280,7 +280,7 @@
 							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:
 							       		<ul class='listaProceso'></ul>
 							       	</div>
-							       <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
+							       <form role="form"  class="login100-form validate-form needs-validation" >
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->							       
 							       <div class="row setup-content" id="step-1">
 							               <div class="col-md-12 mb-3">
@@ -627,6 +627,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
+                                           <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
                                                <h5 class="card-title">Resumen de asignacion</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
@@ -639,7 +640,20 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                </ul>
-
+                                               <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                                               
+											</form>
                                            </div>
                                        </div>
                                    </div>
@@ -647,7 +661,7 @@
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
                                    		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+                                       <button type="button" id="asignaConfirmar" class="btn btn-success" data-dismiss="modal">Confirmar</button>
                                    </div>
 
                                </div>

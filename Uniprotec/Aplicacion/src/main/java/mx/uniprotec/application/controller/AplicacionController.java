@@ -51,9 +51,7 @@ public class AplicacionController {
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-//		return UtilController.responseGeneric(aplicacionService.findAllRegiones(), "regiones", HttpStatus.ACCEPTED);
-//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		
+	
 	}
 	
 	

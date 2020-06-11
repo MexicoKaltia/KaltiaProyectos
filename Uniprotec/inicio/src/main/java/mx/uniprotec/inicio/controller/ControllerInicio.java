@@ -29,6 +29,7 @@ import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
+import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.ILoginService;
 
 @CrossOrigin(origins = { "*" })
@@ -48,6 +49,8 @@ public class ControllerInicio extends HttpServlet{
 	ILoginService loginService;
 	@Autowired
 	IAplicacionService aplicacionService;
+	@Autowired
+	IAsignacionService asignacionService;
 	
 //	ResultVO resultVO = new ResultVO();
 	UsuarioModelo usuario = new UsuarioModelo();
@@ -105,7 +108,7 @@ public class ControllerInicio extends HttpServlet{
 			}
 		
 		
-		@GetMapping("/Asignacion")
+		@GetMapping("/AAsignacion")
 		public ModelAndView asignacion(ModelMap model) {
 			model.addAttribute("asignacionForm", new AsignacionModelo());
 
@@ -119,20 +122,33 @@ public class ControllerInicio extends HttpServlet{
 				ResultVO rs = aplicacionService.consultaData(resultVO);
 				model.addAttribute("model", rs);
 				
-//				ArrayList<ClienteModelo> clientes = (ArrayList<ClienteModelo>) rs.getClientes();
-//				for(int i= 0; i<rs.getClientes().size(); i++) {
-//					ClienteModelo cliente = (ClienteModelo)clientes.get(i);
-//					log.info(cliente.getIdCliente() + ":" + cliente.getNombreCortoCliente());
-//				}
-				
-//				for(VendedorModelo vendedor : rs.getVendedores()) {
-//					log.info(vendedor.getIdVendedor() + ":" + vendedor.getNombreVendedor());
-//				}
-
 				return new  ModelAndView("Asignacion",  model);	
 			}		
 
+		}
+		
+		@PostMapping("/altaAsignacion")
+		public ModelAndView altaCliente(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
+			log.info("Metodo de alta Asignacion");
+//			log.info(model.values().toString());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			resultVO  = asignacionService.altaAsignacion(asignacion, resultVO.getAccesToken());
+			if(resultVO.getCodigo() != 500) {
+				log.info(resultVO.toString());
+				
+				ModelAndView mav = new ModelAndView("redirect:/BAsignacion" , model);
+				mav.addObject("ejecucion", true);
+				return mav;
+			}else {
+				ModelAndView mav = new ModelAndView("redirect:/Asignacion", model);
+//				mav.addObject("dataEjecutable", resultVO);
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+				return mav;
 			}
+			
+		}
 
 		
 		@GetMapping("/Calendario")

@@ -46,6 +46,8 @@ public class VendedorService implements IVendedorService {
 		vendedor.setStatusVendedor(me.getStatusEntidad());
 		vendedor.setEmailVendedor(vendedor.getEmailGmailVendedor().concat("@gmail.com"));
 		
+		log.info(vendedor.getEmailGmailVendedor());
+		
 		log.info(vendedor.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(

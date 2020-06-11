@@ -123,6 +123,11 @@ $(document).ready(function(){
 		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
 		
+		/*
+		 * asignar valores al formulario 
+		 */
+		asignaCamposSubmit();
+		
 		if(alertaEmpty === "" || alertaEmpty === null){
 //			console.log("Avanza al modal");
 			$("#procesoVacio").remove();
@@ -159,7 +164,29 @@ const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"1
 var alerta, proceso;
 
 
+
 //  JScript
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ *  valores Submit
+ */
+
+	function asignaCamposSubmit(){
+		$('#fechaAsignacion').val($.asignaFecha2);
+		$('#idClienteAsignacion').val($.asignaCliente);
+		$('#clienteAsignacion').val($.asignaClienteTexto);
+		$('#idCursoAsignacion').val($.asignaCurso);
+		$('#cursoAsignacion').val($.asignaCursoTexto);
+		$('#idInstructorAsignacion').val($.asignaInstructor);
+		$('#instructorAsignacion').val($.asignaInstructorTexto);
+		$('#horarioAsignacion').val($.asignaHorarioInicio +";"+ $.asignaHorarioFinal +";"+ $.asignaRecesoInicio +";"+ $.asignaRecesoFinal +";"+ $.horasEfectivas);
+		$('#participantesAsignacion').val($.asignaParticipantesTexto);
+		$('#nivelAsignacion').val($.asignaNivelTexto);
+		$('#archivosAsignacion').val($.asignaArchivos);
+		$('#observacionesAsignacion').val($.asignaObservaciones);
+	}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -450,15 +477,13 @@ var alerta, proceso;
 	}
 	
 	function validaDiaSelect(idInstructor){
-		var fechaDisponible;
+		var fechaDisponible = true;
 		var asignacion;
 		for(i in asignacionAsignaciones){
 			asignacion = asignacionAsignaciones[i];
 			if((asignacion.fechaAsignacion.toString() === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
 				fechaDisponible = false;
 				break;
-			}else{
-				fechaDisponible = true;
 			}
 		}
 		return fechaDisponible;
@@ -735,13 +760,6 @@ var alerta, proceso;
 			$('#alertaNivel').remove();
 	}
    	
-//   	function alertaFade(alerta){
-//		$(alerta).insertAfter($('.alerta_in'));
-//		  $('.alerta').fadeIn();
-////		  $('.alerta').delay(2500).fadeOut();
-//		  $('.alerta').fadeOut( 4000);
-////			 $('.alerta').hide( "drop", { direction: "down" }, "slow" );
-//	}
 	function alertaFadeVacio(alerta){
 		$("#procesoVacio").remove();
 		procesoVacio="<div class='alert alert-danger' id='procesoVacio' role='alert'>Verificar los campos:<ul id='listaProcesoVacio'></ul></div>";

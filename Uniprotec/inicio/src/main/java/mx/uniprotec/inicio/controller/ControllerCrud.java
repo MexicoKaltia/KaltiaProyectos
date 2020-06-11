@@ -496,8 +496,9 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		log.info("metodo de alta Vendedor");
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
+		resultVO  = vendedorService.altaVendedor(vendedor, resultVO.getAccesToken());
+		
 		if(resultVO.getCodigo() != 500) {
-			resultVO  = vendedorService.altaVendedor(vendedor, resultVO.getAccesToken());
 			ModelAndView mav = new ModelAndView("redirect:/inicio" );
 			return mav;
 		}else {

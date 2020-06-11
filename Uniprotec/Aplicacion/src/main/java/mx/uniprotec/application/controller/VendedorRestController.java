@@ -163,16 +163,10 @@ public class VendedorRestController {
 		}
 		
 		try {
-//	Cliente cliente = aplicacionService.findCliente(vendedor.getClienteVendedor());
-	List<Cliente> clientes = new ArrayList<Cliente>();
-	
-	for(Long idCliente : vendedor.getListClienteVendedor()) {
-		Cliente cliente = new Cliente(idCliente);
-		clientes.add(cliente);
-	}
-			
+//			
 			vendedorNew.setNombreVendedor(vendedor.getNombreVendedor());
 			vendedorNew.setEmailVendedor(vendedor.getEmailVendedor());
+			vendedorNew.setEmailGmailVendedor(vendedor.getEmailGmailVendedor());
 			vendedorNew.setNotaVendedor(vendedor.getNotaVendedor());
 			vendedorNew.setCreateAtVendedor(vendedor.getCreateAtVendedor());
 			vendedorNew.setStatusVendedor(vendedor.getStatusVendedor());

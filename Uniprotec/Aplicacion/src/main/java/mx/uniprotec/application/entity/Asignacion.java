@@ -1,6 +1,7 @@
 package mx.uniprotec.application.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,24 +52,29 @@ public class Asignacion implements Serializable{
 	private String instructorAsignacion;
 	@Column(nullable=false)
 	private String horarioAsignacion;
+	@Column(nullable=false)
+	private String participantesAsignacion;
+	@Column(nullable=false)
+	private String nivelAsignacion;
 	@Column
 	private String archivosAsignacion;
 	@Column
 	private String observacionesAsignacion;
 	@Column(nullable=false)
-	private String createAtAsignacion;
+	private LocalDateTime createAtAsignacion;
 	@Column(nullable=false)
-	private String userCreateAsignacion;
+	private Long userCreateAsignacion;
 	@Column(nullable=false)
 	private String statusAsignacion;
-	
+
 	@Override
 	public String toString() {
 		return "Asignacion [idAsignacion=" + idAsignacion + ", fechaAsignacion=" + fechaAsignacion
 				+ ", idClienteAsignacion=" + idClienteAsignacion + ", clienteAsignacion=" + clienteAsignacion
 				+ ", idCursoAsignacion=" + idCursoAsignacion + ", cursoAsignacion=" + cursoAsignacion
 				+ ", idInstructorAsignacion=" + idInstructorAsignacion + ", instructorAsignacion="
-				+ instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion + ", archivosAsignacion="
+				+ instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion + ", participantesAsignacion="
+				+ participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion + ", archivosAsignacion="
 				+ archivosAsignacion + ", observacionesAsignacion=" + observacionesAsignacion + ", createAtAsignacion="
 				+ createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion="
 				+ statusAsignacion + "]";
@@ -77,8 +83,9 @@ public class Asignacion implements Serializable{
 	public Asignacion(Long idAsignacion, String fechaAsignacion, Long idClienteAsignacion,
 			@NotEmpty(message = "clienteAsignacion no puede estar vacio") @Size(min = 1, max = 300, message = "el tamaño tiene que estar entre 4 y 300") String clienteAsignacion,
 			Long idCursoAsignacion, String cursoAsignacion, Long idInstructorAsignacion, String instructorAsignacion,
-			String horarioAsignacion, String archivosAsignacion, String observacionesAsignacion,
-			String createAtAsignacion, String userCreateAsignacion, String statusAsignacion) {
+			String horarioAsignacion, String participantesAsignacion, String nivelAsignacion, String archivosAsignacion,
+			String observacionesAsignacion, LocalDateTime createAtAsignacion, Long userCreateAsignacion,
+			String statusAsignacion) {
 		super();
 		this.idAsignacion = idAsignacion;
 		this.fechaAsignacion = fechaAsignacion;
@@ -89,6 +96,8 @@ public class Asignacion implements Serializable{
 		this.idInstructorAsignacion = idInstructorAsignacion;
 		this.instructorAsignacion = instructorAsignacion;
 		this.horarioAsignacion = horarioAsignacion;
+		this.participantesAsignacion = participantesAsignacion;
+		this.nivelAsignacion = nivelAsignacion;
 		this.archivosAsignacion = archivosAsignacion;
 		this.observacionesAsignacion = observacionesAsignacion;
 		this.createAtAsignacion = createAtAsignacion;
@@ -168,6 +177,22 @@ public class Asignacion implements Serializable{
 		this.horarioAsignacion = horarioAsignacion;
 	}
 
+	public String getParticipantesAsignacion() {
+		return participantesAsignacion;
+	}
+
+	public void setParticipantesAsignacion(String participantesAsignacion) {
+		this.participantesAsignacion = participantesAsignacion;
+	}
+
+	public String getNivelAsignacion() {
+		return nivelAsignacion;
+	}
+
+	public void setNivelAsignacion(String nivelAsignacion) {
+		this.nivelAsignacion = nivelAsignacion;
+	}
+
 	public String getArchivosAsignacion() {
 		return archivosAsignacion;
 	}
@@ -184,19 +209,19 @@ public class Asignacion implements Serializable{
 		this.observacionesAsignacion = observacionesAsignacion;
 	}
 
-	public String getCreateAtAsignacion() {
+	public LocalDateTime getCreateAtAsignacion() {
 		return createAtAsignacion;
 	}
 
-	public void setCreateAtAsignacion(String createAtAsignacion) {
+	public void setCreateAtAsignacion(LocalDateTime createAtAsignacion) {
 		this.createAtAsignacion = createAtAsignacion;
 	}
 
-	public String getUserCreateAsignacion() {
+	public Long getUserCreateAsignacion() {
 		return userCreateAsignacion;
 	}
 
-	public void setUserCreateAsignacion(String userCreateAsignacion) {
+	public void setUserCreateAsignacion(Long userCreateAsignacion) {
 		this.userCreateAsignacion = userCreateAsignacion;
 	}
 
@@ -207,9 +232,7 @@ public class Asignacion implements Serializable{
 	public void setStatusAsignacion(String statusAsignacion) {
 		this.statusAsignacion = statusAsignacion;
 	}
-
 	
-	
-	
+		
 	
 }

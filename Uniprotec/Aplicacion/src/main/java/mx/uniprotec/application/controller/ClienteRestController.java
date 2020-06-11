@@ -257,11 +257,13 @@ public class ClienteRestController {
 		try {
 
 			Region region = aplicacionService.findRegion(cliente.getIdRegionCliente());
+			Vendedor vendedor = aplicacionService.findVendedor(	cliente.getIdVendedorCliente());
 			
 			clienteActual.setNombreCortoCliente(cliente.getNombreCortoCliente());
 			clienteActual.setNombreCompletoCliente(cliente.getNombreCompletoCliente());
 			clienteActual.setRfcCliente(cliente.getRfcCliente());
 			clienteActual.setRegionCliente(region);
+			clienteActual.setVendedorCliente(vendedor);
 			clienteActual.setCreateAtCliente(cliente.getCreateAtCliente());
 			clienteActual.setEmailCliente(cliente.getEmailCliente());
 			clienteActual.setTelefonoCliente(cliente.getTelefonoCliente());
