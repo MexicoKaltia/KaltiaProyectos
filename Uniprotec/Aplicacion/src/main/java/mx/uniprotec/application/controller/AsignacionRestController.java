@@ -49,7 +49,7 @@ public class AsignacionRestController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			asignaciones  = asignacionService.findAll();
-			 response.put("asignaciones ", asignaciones );
+			 response.put("asignaciones", asignaciones );
 			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
@@ -136,6 +136,8 @@ public class AsignacionRestController {
 			asignacionNew.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
 			asignacionNew.setNivelAsignacion(asignacion.getNivelAsignacion());
 			asignacionNew.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+			asignacionNew.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
+			asignacionNew.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
 			asignacionNew.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
@@ -203,6 +205,8 @@ public class AsignacionRestController {
 			asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
 			asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
 			asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+			asignacionActual.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
+			asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
 			asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());

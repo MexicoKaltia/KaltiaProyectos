@@ -117,12 +117,19 @@ public class ControllerInicio extends HttpServlet{
 				return new  ModelAndView("login");
 			}else {
 				log.info("Asignacion model Activo");
-				
 				ResultVO resultVO = (ResultVO)model.get("model");			
 				ResultVO rs = aplicacionService.consultaData(resultVO);
 				model.addAttribute("model", rs);
-				
-				return new  ModelAndView("Asignacion",  model);	
+				if(rs.getCodigo() != 500) {
+//					log.info(resultVO.toString());
+					return new  ModelAndView("Asignacion",  model);
+				}else {
+					ModelAndView mav = new ModelAndView("redirect:/Error", model);
+					mav.addObject("error", true);
+					log.info("NOK AltaCliente");
+					return mav;	
+				}
+					
 			}		
 
 		}
@@ -153,15 +160,26 @@ public class ControllerInicio extends HttpServlet{
 		@GetMapping("/CAsignacion")
 		public ModelAndView consultaAsignacion(ModelMap model) {
 
-			if(model.equals(null)) {
-				log.info("NULL");
-				return new  ModelAndView("login");
-			}else {
-				log.info("Calendario model Activo");
-//				log.info(model.values().toString());
-				return new  ModelAndView("CAsignacion",  model);	
-			}		
 
+				log.info("Calendario model Activo");
+				model.addAttribute("asignacionForm", new AsignacionModelo());
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				model.addAttribute("model", resultVO);
+				
+				ResultVO rs = asignacionService.consultaAsignacion(resultVO.getAccesToken());
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				if(rs.getCodigo() != 500) {
+//					log.info(model.values().toString());
+					ModelAndView mav = new ModelAndView("CAsignacion", model);
+					
+					return mav;
+				}else {
+					ModelAndView mav = new ModelAndView("redirect:/Error", model);
+					mav.addObject("error", true);
+					log.info("NOK ConsultaAsignacion");
+					return mav;
+				}
 			}
 
 

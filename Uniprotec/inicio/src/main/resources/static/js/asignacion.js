@@ -17,6 +17,8 @@ $(document).ready(function(){
 	 $.asignaNivelTexto="";
 	 $.asignaObservaciones="";
 	 $.asignaArchivos="";
+	 $.asignaIdRegion="";
+	 $.asignaNombreRegion="";
 	 
 	$('#procesoFecha').click(function(){	
 	})
@@ -185,6 +187,9 @@ var alerta, proceso;
 		$('#nivelAsignacion').val($.asignaNivelTexto);
 		$('#archivosAsignacion').val($.asignaArchivos);
 		$('#observacionesAsignacion').val($.asignaObservaciones);
+		console.log($.asignaIdRegion +":"+ $.asignaNombreRegion);
+		$('#idRegionAsignacion').val($.asignaIdRegion);
+		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 	}
 
 
@@ -236,6 +241,8 @@ var alerta, proceso;
 	}
 	
 	var zonaCliente;
+	var idRegion;
+	var nombreRegion;
 	function colorZonaCliente(cliente){
 		cliente = (cliente * 1);
 		var idRegion;
@@ -279,7 +286,8 @@ var alerta, proceso;
 			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
 			break;
 		}
-		
+		$.asignaIdRegion = idRegion;
+		$.asignaNombreRegion = nombreRegion;
 		return zonaCliente;
 				
 	}
@@ -598,7 +606,12 @@ var alerta, proceso;
    			$("#asignaRecesoInicio").empty();
    			$("#asignaHorarioFinal").append('<option value="">Horario Final</option>');
    			for(var i = ($.asignaHorarioInicio/100); i < 24 ; i++){
-   				$("#asignaHorarioFinal").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+   				if((i+1) < 10){
+   					$("#asignaHorarioFinal").append('<option value="0'+(i+1)+'00">0'+(i+1)+':00</option>');
+   				}else{
+   					$("#asignaHorarioFinal").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+   				}
+   				
    			}
    			$('#asignaHorarioFinal').attr("disabled", false);
    		}

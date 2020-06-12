@@ -11,10 +11,10 @@
         <link rel="icon" type="image/png" href="images/logo.png"/>
 
     <link th:href="@{main.css}" rel="stylesheet">
-    <link th:href="@{css/fc/core/main.css" rel='stylesheet' />
-	<link th:href="@{css/fc/daygrid/main.css" rel='stylesheet' />
-	<link th:href="@{css/fc/timegrid/main.css" rel='stylesheet' />
-	<link th:href="@{css/fc/list/main.css" rel='stylesheet' />
+    <link th:href="@{css/fc/core/main.css}" rel='stylesheet' />
+	<link th:href="@{css/fc/daygrid/main.css}" rel='stylesheet' />
+	<link th:href="@{css/fc/timegrid/main.css}" rel='stylesheet' />
+	<link th:href="@{css/fc/list/main.css}" rel='stylesheet' />
 	<style>
 		#calendar {
 		    max-width: 900px;
@@ -26,7 +26,7 @@
 
 </head>
 
-<body>
+<body background="images/fondo6.png">
 
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
@@ -237,11 +237,11 @@
                                     <span>Vista Calendario</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
-                                    <span>Lista de Asignaciones</span>
-                                </a>
-                            </li>
+<!--                             <li class="nav-item"> -->
+<!--                                 <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"> -->
+<!--                                     <span>Lista de Asignaciones</span> -->
+<!--                                 </a> -->
+<!--                             </li> -->
                             <li class="nav-item">
                                 <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
                                     <span>Proximos Entregables</span>
@@ -252,125 +252,17 @@
                             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                    <script th:src="@{js/fc/core/main.js"></script>
-									<script th:src="@{js/fc/interaction/main.js"></script>
-									<script th:src="@{js/fc/daygrid/main.js"></script>
-									<script th:src="@{js/fc/timegrid/main.js"></script>
-									<script th:src="@{js/fc/list/main.js"></script>
-                                    
-                                    	<script>
-
-									  document.addEventListener('DOMContentLoaded', function() {
-									    var calendarEl = document.getElementById('calendar');
-									
-									    var calendar = new FullCalendar.Calendar(calendarEl, {
-									      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-									      header: {
-									        left: 'prev,next today',
-									        center: 'title',
-									        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-									      },
-									      defaultDate: '2020-05-12',
-									      navLinks: true, // can click day/week names to navigate views
-									      businessHours: true, // display business hours
-									      editable: true,
-									      locale: 'es',
-									      events: [
-									        {
-									          title: 'Business Lunch',
-									          start: '2020-05-03T11:00:00',
-									          constraint: 'businessHours',
-									            color:  'fuchsia'
-									            
-									        },
-									          {
-									          title: 'Business Lunch',
-									          start: '2020-05-03T13:00:00',
-									          constraint: 'businessHours',
-									            end: '2020-05-03T19:00:00',
-									              color:'yellow'
-									            
-									        },
-									          {
-									          title: 'Business Lunch',
-									          start: '2020-05-03T13:00:00',
-									              end: '2020-05-03T16:00:00',
-									          constraint: 'businessHours',
-									            color:  'blue'
-									            
-									        },
-									          {
-									          title: 'Business Lunch',
-									          start: '2020-05-03T14:00:00',
-									          constraint: 'businessHours',
-									            color:  'lime'
-									            
-									        },
-									        {
-									          title: 'Meeting',
-									          start: '2020-05-13T11:00:00',
-									          constraint: 'availableForMeeting', // defined below
-									          color: '#257e4a'
-									        },
-									        {
-									          title: 'Conference',
-									          start: '2020-05-18',
-									          end: '2020-05-20'
-									        },
-									        {
-									          title: 'Party',
-									          start: '2020-05-29T20:00:00'
-									        },
-									
-									        // areas where "Meeting" must be dropped
-									        {
-									          groupId: 'availableForMeeting',
-									          start: '2020-05-11T10:00:00',
-									          end: '2020-05-11T16:00:00',
-									          rendering: 'background'
-									        },
-									        {
-									          groupId: 'availableForMeeting',
-									          start: '2020-05-13T10:00:00',
-									          end: '2020-05-13T16:00:00',
-									          rendering: 'background'
-									        },
-									
-									        // red areas where no events can be dropped
-									        {
-									          start: '2020-05-24',
-									          end: '2020-05-28',
-									          overlap: false,
-									          rendering: 'background',
-									          color: '#ff9f89'
-									        },
-									        {
-									          start: '2020-05-06',
-									          end: '2020-05-08',
-									          overlap: false,
-									          rendering: 'background',
-									          color: '#ff9f89'
-									        }
-									      ]
-									    });
-									
-									    calendar.render();
-									  });
-									
-									</script>
-									
-                                    	
                                         <div id='calendar'></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-body">
-                                        <div id='calendar-list'></div>
-                                    </div>
-                                </div>
-                            </div>
+<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel"> -->
+<!--                                 <div class="main-card mb-3 card"> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <div id='calendar-list'></div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -419,7 +311,25 @@
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
 	
+ 	<script th:inline="javascript">
+ 		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
+	</script>
+	
+	 
     <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script th:src="@{js/fc/core/main.js}"></script>
+	<script th:src="@{js/fc/interaction/main.js}"></script>
+	<script th:src="@{js/fc/daygrid/main.js}"></script>
+	<script th:src="@{js/fc/timegrid/main.js}"></script>
+	<script th:src="@{js/fc/list/main.js}"></script>
+										 
+	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+	<script th:src="@{js/calendario.js}"></script>
+    
+     
+     									
+                                    	
+    
     
 </body>
 

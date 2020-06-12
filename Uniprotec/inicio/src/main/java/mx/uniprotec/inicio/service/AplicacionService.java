@@ -60,21 +60,56 @@ public class AplicacionService implements IAplicacionService {
 		
 		String token = resultVO.getAccesToken();
 		ResultVO rs = new ResultVO();
-		ResultVO rsClientes = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
-		ResultVO rsInstructores = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_INSTRUCTORES);
-		ResultVO rsRegiones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_REGIONES);
-		ResultVO rsVendedores = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_VENDEDORES);
-		ResultVO rsAsignaciones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
+		ResultVO rsInstructores = new ResultVO();
+		ResultVO rsRegiones = new ResultVO();
+		ResultVO rsVendedores = new ResultVO();
+		ResultVO rsAsignaciones = new ResultVO();
 		
-		rs.setClientes((List<ClienteModelo>) rsClientes.getJsonResponse().get("clientes"));
-		rs.setInstructores((List<InstructorModelo>) rsInstructores.getJsonResponse().get("instructores"));
-		rs.setRegiones((List<Region>) rsRegiones.getJsonResponse().get("regiones"));
-		rs.setVendedores((List<VendedorModelo>) rsVendedores.getJsonResponse().get("vendedores"));
-		rs.setAsignaciones((List<AsignacionModelo>) rsAsignaciones.getJsonResponse().get("asignaciones"));
+		ResultVO rsClientes = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
+		
+		if(rsClientes .getCodigo() != 500) {
+			rs.setClientes((List<ClienteModelo>) rsClientes.getJsonResponse().get("clientes"));
+			rsInstructores = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_INSTRUCTORES);
+			if(rsInstructores.getCodigo() != 500) {
+				rs.setInstructores((List<InstructorModelo>) rsInstructores.getJsonResponse().get("instructores"));
+				rsRegiones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_REGIONES);
+				if(rsRegiones.getCodigo() != 500) {
+					rs.setRegiones((List<Region>) rsRegiones.getJsonResponse().get("regiones"));
+					rsVendedores = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_VENDEDORES);
+					if(rsVendedores.getCodigo() != 500) {
+						rs.setVendedores((List<VendedorModelo>) rsVendedores.getJsonResponse().get("vendedores"));
+						rsAsignaciones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
+						if(rsAsignaciones.getCodigo() != 500) {
+							rs.setAsignaciones((List<AsignacionModelo>) rsAsignaciones.getJsonResponse().get("asignaciones"));
+						}else {
+							return rsAsignaciones;
+						}
+					}else {
+						return rsVendedores;
+					}
+						
+				}else {
+					return rsRegiones;
+				}
+				
+			}else {
+				return rsInstructores;
+			}
+			
+		}else {
+			return rsClientes;
+		}
+		
 			
 		ResultVO rsCursos = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CURSOS);
-		rs.setCursos((List<CursoModelo>) rsCursos.getJsonResponse().get("cursos"));
-			
+		if(rsCursos.getCodigo() != 500) {
+			rs.setCursos((List<CursoModelo>) rsCursos.getJsonResponse().get("cursos"));		
+		}else {
+			return rsCursos;
+		}
+		
+		rs.setCodigo(rsCursos.getCodigo());
+		rs.setMensaje("Exito en las consultas Asignaciones");
 		rs.setAccesToken(token);
 		rs.setJsonResponse(resultVO.getJsonResponse());
 		
@@ -89,6 +124,7 @@ public class AplicacionService implements IAplicacionService {
 		rs.setJsonResponseObject(jsonData);
 
 //		log.info(rs.toString());
+		
 		return rs;
 	}
 	

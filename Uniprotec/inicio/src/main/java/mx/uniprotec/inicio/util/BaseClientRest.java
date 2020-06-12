@@ -290,7 +290,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    rs.setJsonResponse(jsonResponse);
 	    rs.setMensaje(jsonResponse.get("mensaje").toString());
 	    rs.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
-	        
+	    log.info(rs.toString());    
 //	    log.info(jsonResponse.toJSONString());
 //	    log.info(jsonResponse.get("mensaje").toString());
 	    

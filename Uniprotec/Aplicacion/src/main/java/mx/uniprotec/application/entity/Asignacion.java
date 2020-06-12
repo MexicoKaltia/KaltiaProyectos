@@ -61,6 +61,10 @@ public class Asignacion implements Serializable{
 	@Column
 	private String observacionesAsignacion;
 	@Column(nullable=false)
+	private long idRegionAsignacion;
+	@Column(nullable=false)
+	private String nombreRegionAsignacion;
+	@Column(nullable=false)
 	private LocalDateTime createAtAsignacion;
 	@Column(nullable=false)
 	private Long userCreateAsignacion;
@@ -232,6 +236,24 @@ public class Asignacion implements Serializable{
 	public void setStatusAsignacion(String statusAsignacion) {
 		this.statusAsignacion = statusAsignacion;
 	}
+
+	public long getIdRegionAsignacion() {
+		return idRegionAsignacion;
+	}
+
+	public void setIdRegionAsignacion(long idRegionAsignacion) {
+		this.idRegionAsignacion = idRegionAsignacion;
+	}
+
+	public String getNombreRegionAsignacion() {
+		return nombreRegionAsignacion;
+	}
+
+	public void setNombreRegionAsignacion(String nombreRegionAsignacion) {
+		this.nombreRegionAsignacion = nombreRegionAsignacion;
+	}
+	
+	
 	
 		
 	

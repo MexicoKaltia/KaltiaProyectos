@@ -27,9 +27,12 @@ public class AsignacionModelo implements Serializable{
 	private String participantesAsignacion;
 	private String nivelAsignacion;
 	private String observacionesAsignacion;
+	private Long idRegionAsignacion;
+	private String nombreRegionAsignacion;
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
 	private String statusAsignacion;
+	
 	@Override
 	public String toString() {
 		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", fechaAsignacion=" + fechaAsignacion
@@ -164,6 +167,21 @@ public class AsignacionModelo implements Serializable{
 	public void setNivelAsignacion(String nivelAsignacion) {
 		this.nivelAsignacion = nivelAsignacion;
 	}
+	public Long getIdRegionAsignacion() {
+		return idRegionAsignacion;
+	}
+	public void setIdRegionAsignacion(Long idRegionAsignacion) {
+		this.idRegionAsignacion = idRegionAsignacion;
+	}
+	public String getNombreRegionAsignacion() {
+		return nombreRegionAsignacion;
+	}
+	public void setNombreRegionAsignacion(String nombreRegionAsignacion) {
+		this.nombreRegionAsignacion = nombreRegionAsignacion;
+	}
+	
+	
+	
 	
 		
 	

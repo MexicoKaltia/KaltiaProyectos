@@ -81,13 +81,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 
 	@Override
 	public ResultVO consultaCursos(String token) {
-
-//		me = ComponenteComun.monitorCampos();
-//		cliente.setCreateAtCliente(me.getNowEntidad());
-//		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
-//		cliente.setStatusCliente(me.getStatusEntidad());
-////		log.info(resultVO.toString());
-//		
+	
 		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CURSOS);
 		
 		if(rs.getCodigo() == 202) {
