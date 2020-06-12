@@ -178,21 +178,21 @@
                                 </a>
                             </li>
                              <li>
-                                <a th:href="@{Calendario}">
+                                <a th:href="@{CAsignacion}">
                                     <i class="metismenu-icon pe-7s-keypad">
+                                    </i>CURSOS AGENDADOS
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{Calendario}">
+                                    <i class="metismenu-icon pe-7s-eyedropper">
                                     </i>CALENDARIO
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <i class="metismenu-icon pe-7s-eyedropper">
-                                    </i>CURSOS AGENDADOS
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
                                     <i class="metismenu-icon pe-7s-pendrive">
-                                    </i>CONSULTAS
+                                    </i>Auxiliares
                                 </a>
                             </li>
             
@@ -248,7 +248,7 @@
                                             <label for="validationCustom02">Email Gmail</label>
 <!--                                             <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" placeholder="email" value="" maxlength="100" required> -->                                       
 											<div class="input-group mb-3">
-											  <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" maxlength="100" required placeholder="Usuario Gmail" aria-label="Usuario Gmail" aria-describedby="basic-addon2">
+											  <input type="text" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" maxlength="100" required placeholder="Usuario Gmail" aria-label="Usuario Gmail" aria-describedby="basic-addon2">
 											  <div class="input-group-append">
 											    <span class="input-group-text" id="basic-addon2">@gmail.com</span>
 											  </div>

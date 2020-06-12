@@ -128,7 +128,7 @@ public class ControllerInicio extends HttpServlet{
 		}
 		
 		@PostMapping("/altaAsignacion")
-		public ModelAndView altaCliente(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
+		public ModelAndView altaAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
 			log.info("Metodo de alta Asignacion");
 //			log.info(model.values().toString());
 			
@@ -137,7 +137,7 @@ public class ControllerInicio extends HttpServlet{
 			if(resultVO.getCodigo() != 500) {
 				log.info(resultVO.toString());
 				
-				ModelAndView mav = new ModelAndView("redirect:/BAsignacion" , model);
+				ModelAndView mav = new ModelAndView("redirect:/CAsignacion" , model);
 				mav.addObject("ejecucion", true);
 				return mav;
 			}else {
@@ -149,6 +149,21 @@ public class ControllerInicio extends HttpServlet{
 			}
 			
 		}
+		
+		@GetMapping("/CAsignacion")
+		public ModelAndView consultaAsignacion(ModelMap model) {
+
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Calendario model Activo");
+//				log.info(model.values().toString());
+				return new  ModelAndView("CAsignacion",  model);	
+			}		
+
+			}
+
 
 		
 		@GetMapping("/Calendario")

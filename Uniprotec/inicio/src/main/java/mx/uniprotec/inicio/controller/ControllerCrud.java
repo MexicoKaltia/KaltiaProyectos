@@ -268,8 +268,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
-		if(resultVO.getCodigo() != 500) {
 			ResultVO rs = cursoService.consultaCursos(resultVO.getAccesToken());
+			if(rs.getCodigo() != 500) {
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 			
 			ResultVO rs2 = instructorService.consultaInstructores(resultVO.getAccesToken());
@@ -343,8 +343,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
-			if(resultVO.getCodigo() != 500) {
 				ResultVO rs = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+				if(rs.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 				
 				ResultVO rs2 = cursoService.consultaCursos(resultVO.getAccesToken());
@@ -477,14 +477,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
-			if(resultVO.getCodigo() != 500) {
-				log.info(model.values().toString());
-				
-				return new  ModelAndView("AVendedor", model);	
-			}else {
-				ModelAndView mav = new ModelAndView("redirect:/AClienteExito", model);
-				return mav;
-			}
+//			log.info(model.values().toString());
+			return new  ModelAndView("AVendedor", model );
 
 		}		
 		
