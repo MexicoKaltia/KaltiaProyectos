@@ -138,6 +138,7 @@ public class AsignacionRestController {
 			asignacionNew.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
 			asignacionNew.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
 			asignacionNew.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
+			asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
 			asignacionNew.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());

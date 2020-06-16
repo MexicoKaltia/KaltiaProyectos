@@ -330,7 +330,7 @@
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
         <div class="modal-body" style="padding:40px 50px; ">
-          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaVendedor}"  th:object="${vendedorForm}" method="post">
+          <form id="actualizaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaVendedor}"  th:object="${vendedorForm}" method="post">
           <input type="hidden" id="idVendedor" th:field="*{idVendedor}" th:value="*{idVendedor}"/>
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">

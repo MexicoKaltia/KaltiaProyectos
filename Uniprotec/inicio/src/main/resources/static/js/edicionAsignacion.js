@@ -1,6 +1,8 @@
 
    	
 $(document).ready(function(){
+	console.log(asignacionItem);
+	
 	 $.asignaFecha ="";
 	 $.asignaFecha2 ="";
 	 $.asignaFechaCalendario; 

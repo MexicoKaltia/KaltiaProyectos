@@ -29,6 +29,7 @@ public class AsignacionModelo implements Serializable{
 	private String observacionesAsignacion;
 	private Long idRegionAsignacion;
 	private String nombreRegionAsignacion;
+	private String tipoCursoAsignacion;
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
 	private String statusAsignacion;
@@ -178,6 +179,12 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setNombreRegionAsignacion(String nombreRegionAsignacion) {
 		this.nombreRegionAsignacion = nombreRegionAsignacion;
+	}
+	public String getTipoCursoAsignacion() {
+		return tipoCursoAsignacion;
+	}
+	public void setTipoCursoAsignacion(String tipoCursoAsignacion) {
+		this.tipoCursoAsignacion = tipoCursoAsignacion;
 	}
 	
 	

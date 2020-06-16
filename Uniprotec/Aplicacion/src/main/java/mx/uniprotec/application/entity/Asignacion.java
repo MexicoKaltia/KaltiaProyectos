@@ -65,6 +65,8 @@ public class Asignacion implements Serializable{
 	@Column(nullable=false)
 	private String nombreRegionAsignacion;
 	@Column(nullable=false)
+	private String tipoCursoAsignacion;
+	@Column(nullable=false)
 	private LocalDateTime createAtAsignacion;
 	@Column(nullable=false)
 	private Long userCreateAsignacion;
@@ -251,6 +253,14 @@ public class Asignacion implements Serializable{
 
 	public void setNombreRegionAsignacion(String nombreRegionAsignacion) {
 		this.nombreRegionAsignacion = nombreRegionAsignacion;
+	}
+
+	public String getTipoCursoAsignacion() {
+		return tipoCursoAsignacion;
+	}
+
+	public void setTipoCursoAsignacion(String tipoCursoAsignacion) {
+		this.tipoCursoAsignacion = tipoCursoAsignacion;
 	}
 	
 	

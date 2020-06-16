@@ -328,7 +328,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
+                                           <form role="form" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
                                                <h5 class="card-title">Resumen de asignacion</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
@@ -341,10 +341,25 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                </ul>
-                                        		<br>
+                                        		<input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                                       			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success" >Confirmar</button>        
+                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success" >Edicion</button>        
 											</form>
                                            </div>
                                        </div>

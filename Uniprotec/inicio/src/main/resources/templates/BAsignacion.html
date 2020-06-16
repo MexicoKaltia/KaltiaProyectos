@@ -37,7 +37,7 @@
 
 </head>
 
-<body background="images/fondo3.png">
+<body background="images/fondo7.png">
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
 <!--      HEAD INICIO    -->
@@ -234,7 +234,7 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div><h3>Proceso de Asignacion Curso Uniprotec</h3>
+                                <div><h3>EDICION Asignacion Curso Uniprotec</h3>
                                     <div class="page-title-subheading"> Flujo de Asignacion
                                     </div>
                                 </div>
@@ -280,14 +280,23 @@
 							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:
 							       		<ul class='listaProceso'></ul>
 							       	</div>
-							       <form role="form"  class="login100-form validate-form needs-validation" >
+							       <form id="actualizaAsignacion" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaAsignacion}"  th:object="${asignacionForm}" method="post">
+							       <script th:inline="javascript">
+							       		 var asignacionItem = [[${model.asignacionForm}]];
+										 var asignacionClientes = [[${model.jsonResponseObject.clientes}]];
+										 var asignacionCurso = [[${model.jsonResponseObject.cursos}]];
+										 var asignacionInstructores = [[${model.jsonResponseObject.instructores}]];
+										 var asignacionRegiones = [[${model.jsonResponseObject.regiones}]];
+										 var asignacionVendedores = [[${model.jsonResponseObject.vendedores}]];
+										 var asignacionAsignaciones = [[${model.jsonResponseObject.asignaciones}]];
+									</script>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->							       
 							       <div class="row setup-content" id="step-1">
 							               <div class="col-md-12 mb-3">
 							                       <h3> Seleccione Fecha</h3>
 							                       <div class="form-group">
 							                           <label for="exampleFormControlSelect1">Paso 1</label>
-							                         <input id="asignaFecha" class="datepicker form-control" name="date" type="text" autofocus required onchange="validaFecha(this)"/>
+							                         <input id="fechaAsignacion" class="datepicker form-control" name="date" type="text"  required onchange="validaFecha(this)" th:field="*{fechaAsignacion}"/>
 							                       </div>
 							                       <div class="invalid-feedback">
 													  Seleccione Fecha
@@ -297,14 +306,7 @@
 													</div>
 							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaFecha" type="button" disabled>Siguiente</button>
 							                   </div>
-							                   <script th:inline="javascript">
-													 var asignacionClientes = [[${model.jsonResponseObject.clientes}]];
-													 var asignacionCurso = [[${model.jsonResponseObject.cursos}]];
-													 var asignacionInstructores = [[${model.jsonResponseObject.instructores}]];
-													 var asignacionRegiones = [[${model.jsonResponseObject.regiones}]];
-													 var asignacionVendedores = [[${model.jsonResponseObject.vendedores}]];
-													 var asignacionAsignaciones = [[${model.jsonResponseObject.asignaciones}]];
-												</script>
+							                   
 							           </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
 							           <div class="row setup-content" id="step-2">
@@ -597,7 +599,7 @@
     <script th:src="@{js/picker.date.js}"></script>   
     <script th:src="@{js/picker.time.js}"></script>   
     <script th:src="@{js/es_ES.js}"></script>
-    <script th:src="@{js/asignacion.js}"></script>
+    <script th:src="@{js/edicionAsignacion.js}"></script>
     <script type="text/javascript">
     var today = new Date();
     var $datepicker = $( '.datepicker' ).pickadate({
@@ -627,7 +629,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
+                                           <form role="form" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
                                                <h5 class="card-title">Resumen de asignacion</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>

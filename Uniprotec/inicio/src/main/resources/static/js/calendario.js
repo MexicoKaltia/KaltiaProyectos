@@ -26,21 +26,26 @@ $(document).ready(function() {
 				asignaClienteTexto = asignacion.clienteAsignacion;
 				asignaCursoTexto = asignacion.cursoAsignacion;
 				asignaInstructorTexto = asignacion.instructorAsignacion;
-				asignaHorarioInicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				asignaHorarioFinal = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+				asignaHorarioInicio = horaInicio(asignacion.horarioAsignacion.toString());
+				asignaHorarioFinal = horaFin(asignacion.horarioAsignacion.toString());
 				asignaParticipantes = asignacion.participantesAsignacion;
 				asignaNivel = asignacion.nivelAsignacion;
 				asignaObservaciones = asignacion.observacionesAsignacion;
 				asignaArchivos = asignacion.archivosAsignacion;
-				zonaCliente = colorZonaCliente(asignacion.idRegionAsignacion);
+				zonaCliente = colorZonaCliente(asignacion.idRegionAsignacion, asignacion.nombreRegionAsignacion);
+				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
+				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");;
 			}
 		}
 		$('#modalFecha').html('<b>'+asignaFechaCalendario+'</b>'); 
 		$('#modalCliente').html('<b>'+asignaClienteTexto+'</b>'+zonaCliente);
-		$('#modalCurso').html('<b>'+asignaCursoTexto+'</b>'+" : <i><u><b>"+tipoCursoVal+"</b></u></i>");
+		$('#modalCurso').html('<b>'+asignaCursoTexto+'</b>'+" : <i><u><b>"+asignacionTipoCurso+"</b></u></i>");
 		$('#modalInstructor').html('<b>'+asignaInstructorTexto+'</b>');
 		$('#modalHorarioInicio').html('<b>'+asignaHorarioInicio+'</b>');
-		$('#modalHorario').html("<b>"+ asignaHorarioInicio+"-"+asignaHorarioFinal+"</b>- Horas Efectivas: <b>.</b>");
+		if((asignaHorasEfectivas[3] * 1) > 0)
+			$('#modalHorario').html("<b>"+ asignaHorarioInicio+"-"+asignaHorarioFinal+"</b> - Horario Receso: <b>"+asignaHorasEfectivas[2]+"-"+asignaHorasEfectivas[3]+"</b> - Horas Efectivas: <b>"+asignaHorasEfectivas[4]+"</b>");
+		else
+			$('#modalHorario').html("<b>"+ asignaHorarioInicio+"-"+asignaHorarioFinal+"</b> - Horas Efectivas: <b>"+asignaHorasEfectivas[4]+"</b>");
 		$('#modalParticipantes').html('<b>'+asignaParticipantes+'</b>'); 
 		$('#modalNivel').html('<b>'+asignaNivel+'</b>');
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
@@ -179,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		switch (cliente){
 		case 1:
 			zonaCliente = 'yellow';
+			
 			break;
 		case 2:
 			zonaCliente = 'blue';
@@ -205,31 +211,40 @@ document.addEventListener('DOMContentLoaded', function() {
 		return zonaCliente;
 	}
 	
-	function colorZonaCliente(idRegion){
+	function colorZonaCliente(idRegion, nombreRegionAsignacion){
 		
+		var nombreRegion = nombreRegionAsignacion;
 		switch (idRegion){
 		case 1:
+			
 			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 2:
+			
 			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
 			break;
 		case 3:
+			
 			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
 			break;
 		case 4:
+			
 			zonaCliente = '<div class="zona" style="background:lime; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 5:
+			
 			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
 			break;
 		case 6:
+			
 			zonaCliente = '<div class="zona" style="background:coral; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 7:
+			
 			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
 			break;
 		case 8:
+			
 			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
 			break;
 		}
@@ -239,6 +254,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				
 	}
 	
-	
+	function horasEfectivas(horarioAsignacion){
+		horariosAsignacion = horariosAsignacion.split(";");
+		return horariosAsignacion[4];
+	}
 	
 	// fin de documento

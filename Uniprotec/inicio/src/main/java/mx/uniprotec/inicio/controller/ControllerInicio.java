@@ -157,6 +157,38 @@ public class ControllerInicio extends HttpServlet{
 			
 		}
 		
+		@PostMapping("/BAsignacion")
+		public ModelAndView BAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
+//			model.addAttribute("asignacionForm", new AsignacionModelo());
+			model.addAttribute("asignacionForm", asignacion);
+			log.info(asignacion.toString());
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Edicion Asignacion model Activo");
+				ResultVO resultVO = (ResultVO)model.get("model");			
+				ResultVO rs = aplicacionService.consultaData(resultVO);
+//				rs.set
+				model.addAttribute("model", rs);
+				if(rs.getCodigo() != 500) {
+					ModelAndView mav = new  ModelAndView("BAsignacion",  model);
+					mav.addObject("itemAsignacion", asignacion);
+					log.info(model.values().toString());
+					return mav;
+				}else {
+					ModelAndView mav = new ModelAndView("redirect:/Error", model);
+					mav.addObject("error", true);
+					log.info("NOK AltaCliente");
+					return mav;	
+				}
+					
+			}		
+				
+			}
+		
+		
+		
 		@GetMapping("/CAsignacion")
 		public ModelAndView consultaAsignacion(ModelMap model) {
 
