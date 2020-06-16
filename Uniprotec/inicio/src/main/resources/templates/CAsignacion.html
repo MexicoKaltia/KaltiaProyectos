@@ -311,6 +311,56 @@
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
 	
+	
+	  <!-- Modal Inicio-->
+                       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Confirmacion de Asignacion</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
+                                           <div class="card-body">
+                                           <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
+                                               <h5 class="card-title">Resumen de asignacion</h5>
+                                               <ul class="list-group">
+                                                   <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Instructor : <span id="modalInstructor"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Fecha : <span id="modalFecha"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Horario : <span id="modalHorario"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Participantes : <span id="modalParticipantes"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Nivel : <span id="modalNivel"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
+                                               </ul>
+                                        		<br>
+                                       			<br>
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success" >Confirmar</button>        
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
  	<script th:inline="javascript">
  		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
 	</script>
@@ -324,6 +374,7 @@
 	<script th:src="@{js/fc/list/main.js}"></script>
 										 
 	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
 	<script th:src="@{js/calendario.js}"></script>
     
      

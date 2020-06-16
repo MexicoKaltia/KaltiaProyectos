@@ -117,7 +117,7 @@ $(document).ready(function(){
 		if($.asignaNivel === "" || $.asignaNivel === null){
 			alertaEmpty = alertaEmpty + "<li>Campo: <b> Nivel Inválido </b></li>";
 		}else{
-			console.log($.asignaNivel)
+//			console.log($.asignaNivel)
 			$('#modalNivel').html('<b>'+$.asignaNivel+'</b>'); 
 		}
 		
@@ -133,14 +133,12 @@ $(document).ready(function(){
 		if(alertaEmpty === "" || alertaEmpty === null){
 //			console.log("Avanza al modal");
 			$("#procesoVacio").remove();
-//			abreModal();
 			return true;
 		}else{
 			alertaFadeVacio()
 			$("#listaProcesoVacio").empty();
 			$("#listaProcesoVacio").append(alertaEmpty);
 			return false;
-//			console.log(alertaEmpty)
 			
 		}
 		

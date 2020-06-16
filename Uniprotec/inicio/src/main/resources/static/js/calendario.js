@@ -4,6 +4,51 @@
 
 $(document).ready(function() {
 
+	function abrirModal(item){
+		item = item.split('-');
+		var asignacion;
+		var asignaFechaCalendario ;
+		var asignaClienteTexto ;
+		var asignaCursoTexto ;
+		var asignaInstructorTexto ;
+		var asignaHorarioInicio ;
+		var asignaHorarioFinal ;
+		var asignaParticipantes ;
+		var asignaNivel ;
+		var asignaObservaciones ;
+		var asignaArchivos ;
+		var zonaCliente ;
+		for(i in asignaciones){
+			asignacion = asignaciones[i]; 
+			console.log(asignacion);
+			if(asignacion.idAsignacion.toString() === item[0].toString()){
+				asignaFechaCalendario = asignacion.fechaAsignacion;
+				asignaClienteTexto = asignacion.clienteAsignacion;
+				asignaCursoTexto = asignacion.cursoAsignacion;
+				asignaInstructorTexto = asignacion.instructorAsignacion;
+				asignaHorarioInicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+				asignaHorarioFinal = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+				asignaParticipantes = asignacion.participantesAsignacion;
+				asignaNivel = asignacion.nivelAsignacion;
+				asignaObservaciones = asignacion.observacionesAsignacion;
+				asignaArchivos = asignacion.archivosAsignacion;
+				zonaCliente = colorZonaCliente(asignacion.idRegionAsignacion);
+			}
+		}
+		$('#modalFecha').html('<b>'+asignaFechaCalendario+'</b>'); 
+		$('#modalCliente').html('<b>'+asignaClienteTexto+'</b>'+zonaCliente);
+		$('#modalCurso').html('<b>'+asignaCursoTexto+'</b>'+" : <i><u><b>"+tipoCursoVal+"</b></u></i>");
+		$('#modalInstructor').html('<b>'+asignaInstructorTexto+'</b>');
+		$('#modalHorarioInicio').html('<b>'+asignaHorarioInicio+'</b>');
+		$('#modalHorario').html("<b>"+ asignaHorarioInicio+"-"+asignaHorarioFinal+"</b>- Horas Efectivas: <b>.</b>");
+		$('#modalParticipantes').html('<b>'+asignaParticipantes+'</b>'); 
+		$('#modalNivel').html('<b>'+asignaNivel+'</b>');
+		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
+		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
+
+		$('#myModal').modal();
+	}
+	
 	var eventos = new Array();
 	eventos = publicaEventos(asignaciones);
 	var calendarEl = document.getElementById('calendar');
@@ -15,6 +60,11 @@ $(document).ready(function() {
 			center : 'title',
 			right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
 		},
+		eventClick : function(info){
+			alert(info.event.title);
+			abrirModal(info.event.title)
+		},
+		
 		defaultDate : today,
 		navLinks : true, // can click day/week names to navigate views
 		businessHours : true, // display business hours
@@ -23,13 +73,19 @@ $(document).ready(function() {
 	});
 
 	calendar.render();
-
+	
 });
 
 
 document.addEventListener('DOMContentLoaded', function() {
 	
 });
+
+
+
+	
+
+	
 
 	function hoy() {
 		var d = new Date();
@@ -41,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var today = anio + '-' + mes + '-' + dia;
-		console.log(today);
+//		console.log(today);
 		return today;
 	}
 
@@ -54,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var items = new Array();
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-			console.log(asignacion);
+//			console.log(asignacion);
 			inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 			fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 			color = getColor(asignacion.idRegionAsignacion);
@@ -92,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var fecha = anio + '-' + mes + '-' + dia+ 'T';
-		console.log(fecha);
+//		console.log(fecha);
 		return fecha;
 	}
 	
@@ -102,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[0].slice(0, 2);
 		parse = parse + ":00:00";// + horario[0].slice(2, 2) + ":00" ;
-		console.log(parse);
+//		console.log(parse);
 		return parse;
 	}
 	
@@ -112,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[1].slice(0, 2);
 		parse = parse + ":00:00";// + horario[1].slice(2, 2) + ":00" ;
-		console.log(parse);
+//		console.log(parse);
 		return parse;
 	}
 	
@@ -148,6 +204,41 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		return zonaCliente;
 	}
+	
+	function colorZonaCliente(idRegion){
+		
+		switch (idRegion){
+		case 1:
+			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
+			break;
+		case 2:
+			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			break;
+		case 3:
+			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			break;
+		case 4:
+			zonaCliente = '<div class="zona" style="background:lime; color:blue">'+nombreRegion+'</div>';
+			break;
+		case 5:
+			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			break;
+		case 6:
+			zonaCliente = '<div class="zona" style="background:coral; color:blue">'+nombreRegion+'</div>';
+			break;
+		case 7:
+			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			break;
+		case 8:
+			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			break;
+		}
+		$.asignaIdRegion = idRegion;
+		$.asignaNombreRegion = nombreRegion;
+		return zonaCliente;
+				
+	}
+	
 	
 	
 	// fin de documento
