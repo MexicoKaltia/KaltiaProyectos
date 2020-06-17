@@ -529,8 +529,9 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 				
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
-			if(resultVO.getCodigo() != 500) {
-				ResultVO rs = vendedorService.edicionVendedor(vendedor, resultVO.getAccesToken());
+			
+			ResultVO rs = vendedorService.edicionVendedor(vendedor, resultVO.getAccesToken());
+			if(rs.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 				log.info(model.values().toString());
 				ModelAndView mav = new ModelAndView("redirect:/inicio", model);

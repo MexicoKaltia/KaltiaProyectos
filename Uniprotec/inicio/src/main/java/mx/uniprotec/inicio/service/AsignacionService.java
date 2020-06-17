@@ -49,9 +49,23 @@ public class AsignacionService implements IAsignacionService{
 	}
 
 	@Override
-	public ResultVO edicionAsignacion(AsignacionModelo cliente, String token) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultVO edicionAsignacion(AsignacionModelo asignacion, String token) {
+		
+		me = ComponenteComun.monitorCampos();
+		
+		asignacion.setCreateAtAsignacion(me.getNowEntidad());
+		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
+		asignacion.setStatusAsignacion(me.getStatusEntidad());
+		
+		log.info(asignacion.toString());
+		
+		resultVO = (ResultVO) baseClientRest.objetoPut(
+				token,
+				BaseClientRest.URL_CRUD_ASIGNACION,
+				asignacion,
+				1L);
+				
+		return resultVO;
 	}
 
 	@Override

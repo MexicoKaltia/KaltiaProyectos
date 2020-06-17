@@ -137,7 +137,7 @@ public class ControllerInicio extends HttpServlet{
 		@PostMapping("/altaAsignacion")
 		public ModelAndView altaAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
 			log.info("Metodo de alta Asignacion");
-//			log.info(model.values().toString());
+			log.info(asignacion.toString());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			resultVO  = asignacionService.altaAsignacion(asignacion, resultVO.getAccesToken());
@@ -158,23 +158,24 @@ public class ControllerInicio extends HttpServlet{
 		}
 		
 		@PostMapping("/BAsignacion")
-		public ModelAndView BAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
-//			model.addAttribute("asignacionForm", new AsignacionModelo());
-			model.addAttribute("asignacionForm", asignacion);
-			log.info(asignacion.toString());
+		public ModelAndView BAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			model.addAttribute("asignacionItemUpdate", new AsignacionModelo());
+//			model.addAttribute("asignacionForm", asignacion);
+			
 			if(model.equals(null)) {
 				log.info("NULL");
 				return new  ModelAndView("login");
 			}else {
-				log.info("Edicion Asignacion model Activo");
+//				log.info("Edicion Asignacion model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");			
 				ResultVO rs = aplicacionService.consultaData(resultVO);
 //				rs.set
 				model.addAttribute("model", rs);
+				log.info(asignacion.toString());
 				if(rs.getCodigo() != 500) {
 					ModelAndView mav = new  ModelAndView("BAsignacion",  model);
-					mav.addObject("itemAsignacion", asignacion);
-					log.info(model.values().toString());
+					mav.addObject("asignacionItem", asignacion);
+//					log.info(model.values().toString());
 					return mav;
 				}else {
 					ModelAndView mav = new ModelAndView("redirect:/Error", model);
@@ -185,7 +186,7 @@ public class ControllerInicio extends HttpServlet{
 					
 			}		
 				
-			}
+		}
 		
 		
 		
@@ -194,7 +195,7 @@ public class ControllerInicio extends HttpServlet{
 
 
 				log.info("Calendario model Activo");
-				model.addAttribute("asignacionForm", new AsignacionModelo());
+				model.addAttribute("asignacionItem", new AsignacionModelo());
 				
 				ResultVO resultVO = (ResultVO)model.get("model");
 				model.addAttribute("model", resultVO);
@@ -212,6 +213,31 @@ public class ControllerInicio extends HttpServlet{
 					log.info("NOK ConsultaAsignacion");
 					return mav;
 				}
+			}
+		
+		@PostMapping("/actualizaAsignacion")
+		public ModelAndView actualizaAsignacion(@ModelAttribute("asignacionItemUpdate") AsignacionModelo asignacion, ModelMap model) {
+			log.info("Actualiza Asignacion model Activo");
+				
+					
+				ResultVO resultVO = (ResultVO)model.get("model");
+				model.addAttribute("model", resultVO);
+
+				ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken());
+				if(rs.getCodigo() != 500) {
+					resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+					ModelAndView mav = new ModelAndView("redirect:/inicio", model);
+					mav.addObject("exito", rs);
+					log.info(model.values().toString());
+					
+						
+					return mav;
+				}else {
+					ModelAndView mav = new ModelAndView("redirect:/Error", model);
+					return mav;
+				}
+				
+				
 			}
 
 

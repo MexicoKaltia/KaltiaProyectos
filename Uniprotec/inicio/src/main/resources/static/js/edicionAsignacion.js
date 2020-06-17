@@ -1,7 +1,48 @@
 
    	
 $(document).ready(function(){
+	
 	console.log(asignacionItem);
+	
+	//--------------------------------------------------
+	var elementoPicker = $datepicker.pickadate('picker');
+	elementoPicker.set('select', new Date(asignacionItem.fechaAsignacion));
+	//--------------------------------------------------
+	$('#asignaCliente').append('<option value="'+asignacionItem.idClienteAsignacion+'" selected >'+asignacionItem.clienteAsignacion+'</option>');
+	//--------------------------------------------------
+	$('#asignaCurso').append('<option value="'+asignacionItem.idCursoAsignacion+'" selected >'+asignacionItem.cursoAsignacion+'</option>');
+	if(asignacionItem.tipoCursoAsignacion === 'ON LINE'){
+		var tipoCurso = true;
+		 
+	}else{
+		var tipoCurso = false;
+	}
+	checkTipoCurso()
+	//--------------------------------------------------
+	$('#asignaInstructor').append('<option value="'+asignacionItem.idInstructorAsignacion+'" selected >'+asignacionItem.instructorAsignacion+'</option>');
+	//--------------------------------------------------
+	hr = asignacionItem.horarioAsignacion.split(";")
+	hrInicio = horaSel(hr[0]);
+	hrFinal = horaSel(hr[1]);
+	$('#asignaHorarioInicio').append('<option value="'+hrInicio+'00" selected >'+hrInicio+':00</option>');
+	$('#asignaHorarioFinal').append('<option value="'+hrFinal+'00" selected >'+hrFinal+':00</option>');
+	if((hr[3] * 1) > 0){
+		hrDInicio = horaSel(hr[2]);
+		hrDFinal = horaSel(hr[3]);
+		$('#asignaRecesoInicio').append('<option value="'+hrDInicio+'00" selected >'+hrDInicio+':00</option>');
+		$('#asignaRecesoFinal').append('<option value="'+hrDFinal+'00" selected >'+hrDFinal+':00</option>');
+	}
+	$('#horasEfectivas').text(hr[4])
+	//--------------------------------------------------
+	$('#asignaParticipantes').append('<option value="'+asignacionItem.participantesAsignacion+'" selected >'+asignacionItem.participantesAsignacion+'</option>');
+	//--------------------------------------------------
+	$('#asignaNivel').append('<option value="'+asignacionItem.nivelAsignacion+'" selected >'+asignacionItem.nivelAsignacion+'</option>');
+	//--------------------------------------------------
+	$('#asignaObservaciones').text(asignacionItem.observacionesAsignacion);
+	//--------------------------------------------------
+//	$('#asignaArchivos').text();
+	//--------------------------------------------------
+	
 	
 	 $.asignaFecha ="";
 	 $.asignaFecha2 ="";
@@ -147,7 +188,11 @@ $(document).ready(function(){
 		
 	})
 
-
+	
+	
+	function horaSel(horarioAsignacion){
+		return horarioAsignacion.slice(0,2);
+	}
 	
 });  // fin de documento JQuery
 
@@ -188,7 +233,6 @@ var alerta, proceso;
 		$('#nivelAsignacion').val($.asignaNivelTexto);
 		$('#archivosAsignacion').val($.asignaArchivos);
 		$('#observacionesAsignacion').val($.asignaObservaciones);
-		console.log($.asignaIdRegion +":"+ $.asignaNombreRegion);
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
@@ -200,12 +244,13 @@ var alerta, proceso;
  * ValidaFECHA
  */
 	
+	
 	function validaFecha(inputAsignaFecha){
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
    	    console.log($.asignaFecha);
-   	    $.asignaFechaCalendario = $('#asignaFecha').val();
+   	    $.asignaFechaCalendario = $('#fechaAsignacion').val();
 		console.log("asignaFecha:"+ $.asignaFechaCalendario);
    		$('#alertaFecha').remove();
    		
@@ -299,7 +344,7 @@ var alerta, proceso;
 	/*
 	 * ValidaCURSO
 	 */
-	var tipoCurso = true;
+	
 	var tipoCursoVal = "";
 	function checkTipoCurso(){
 		

@@ -4,23 +4,25 @@
 
 $(document).ready(function() {
 
+	var asignacion;
+	var asignaFechaCalendario ;
+	var asignaClienteTexto ;
+	var asignaCursoTexto ;
+	var asignaInstructorTexto ;
+	var asignaHorarioInicio ;
+	var asignaHorarioFinal ;
+	var asignaParticipantes ;
+	var asignaNivel ;
+	var asignaObservaciones ;
+	var asignaArchivos ;
+	var zonaCliente ;
+	var item;
+	
 	function abrirModal(item){
-		item = item.split('-');
-		var asignacion;
-		var asignaFechaCalendario ;
-		var asignaClienteTexto ;
-		var asignaCursoTexto ;
-		var asignaInstructorTexto ;
-		var asignaHorarioInicio ;
-		var asignaHorarioFinal ;
-		var asignaParticipantes ;
-		var asignaNivel ;
-		var asignaObservaciones ;
-		var asignaArchivos ;
-		var zonaCliente ;
+		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
-			console.log(asignacion);
+			
 			if(asignacion.idAsignacion.toString() === item[0].toString()){
 				asignaFechaCalendario = asignacion.fechaAsignacion;
 				asignaClienteTexto = asignacion.clienteAsignacion;
@@ -34,7 +36,10 @@ $(document).ready(function() {
 				asignaArchivos = asignacion.archivosAsignacion;
 				zonaCliente = colorZonaCliente(asignacion.idRegionAsignacion, asignacion.nombreRegionAsignacion);
 				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
-				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");;
+				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
+//				console.log(asignacion);	
+				asignaCamposSubmit(asignacion);
+				break;
 			}
 		}
 		$('#modalFecha').html('<b>'+asignaFechaCalendario+'</b>'); 
@@ -51,8 +56,12 @@ $(document).ready(function() {
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 
+		
 		$('#myModal').modal();
+		
+		
 	}
+	
 	
 	var eventos = new Array();
 	eventos = publicaEventos(asignaciones);
@@ -66,7 +75,7 @@ $(document).ready(function() {
 			right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
 		},
 		eventClick : function(info){
-			alert(info.event.title);
+//			alert(info.event.title);
 			abrirModal(info.event.title)
 		},
 		
@@ -87,6 +96,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+	function asignaCamposSubmit(asignacionSub){
+//		console.log(asignacionSub)
+		$('#idAsignacion').val(asignacionSub.idAsignacion);
+		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
+		$('#idClienteAsignacion').val(asignacionSub.idClienteAsignacion);
+		$('#clienteAsignacion').val(asignacionSub.clienteAsignacion);
+		$('#idCursoAsignacion').val(asignacionSub.idCursoAsignacion);
+		$('#cursoAsignacion').val(asignacionSub.cursoAsignacion);
+		$('#idInstructorAsignacion').val(asignacionSub.idInstructorAsignacion);
+		$('#instructorAsignacion').val(asignacionSub.instructorAsignacion);
+		$('#horarioAsignacion').val(asignacionSub.horarioAsignacion);
+		$('#participantesAsignacion').val(asignacionSub.participantesAsignacion);
+		$('#nivelAsignacion').val(asignacionSub.nivelAsignacion);
+		$('#archivosAsignacion').val(asignacionSub.archivosAsignacion);
+		$('#observacionesAsignacion').val(asignacionSub.observacionesAsignacion);
+		$('#idRegionAsignacion').val(asignacionSub.idRegionAsignacion);
+		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
+		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
+	}
 
 	
 

@@ -280,9 +280,9 @@
 							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:
 							       		<ul class='listaProceso'></ul>
 							       	</div>
-							       <form id="actualizaAsignacion" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaAsignacion}"  th:object="${asignacionForm}" method="post">
+							       <form id="actualizaAsignacion" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaAsignacion}"  th:object="${asignacionItemUpdate}" method="post">
 							       <script th:inline="javascript">
-							       		 var asignacionItem = [[${model.asignacionForm}]];
+							       		 var asignacionItem = [[${asignacionItem}]];
 										 var asignacionClientes = [[${model.jsonResponseObject.clientes}]];
 										 var asignacionCurso = [[${model.jsonResponseObject.cursos}]];
 										 var asignacionInstructores = [[${model.jsonResponseObject.instructores}]];
@@ -314,7 +314,7 @@
 							                       <h3> Seleccione Cliente</h3>
 							                       <div class="form-group">
 							                           <label for="exampleFormControlSelect1">Paso 2</label>
-							                           <select id="asignaCliente"  name="asignaCliente" class="form-control"  required onchange="validaCliente()">
+							                           <select id="asignaCliente"  name="asignaCliente" class="form-control"  required onblur="validaCliente()">
 				                								 <option value="" selected  >Selecciona Cliente</option>
 				                								 <option th:each="cliente: ${model.jsonResponseObject.clientes}"
 														             th:value="${cliente.idCliente}"
@@ -328,7 +328,7 @@
 														<hiden class="alerta_in"></hiden>
 													</div>
 													<button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
-							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaCliente" type="button" disabled>Siguiente</button>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaCliente" type="button" >Siguiente</button>
 							               </div>
 							           </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
@@ -345,7 +345,7 @@
 	                                               </div>
 							                       <div class="form-group">
 							                           <label for="exampleFormControlSelect1">Paso 3</label>
-							                           <select id="asignaCurso"  name="asignaCurso" class="form-control"  required onchange="validaCurso()" disabled>
+							                           <select id="asignaCurso"  name="asignaCurso" class="form-control"  required onblur="validaCurso()" >
 				                								 <option value="" selected  >Selecciona Curso</option>
 				                								 <option th:each="curso: ${model.jsonResponseObject.cursos}"
 														             th:value="${curso.idCurso}"
@@ -356,7 +356,7 @@
 														<hiden class="alerta_in"></hiden>
 													</div>
 							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> 
-							                       <button class="btn btn-primary nextBtn btn-lg pull-right"  id="btnAsignaCurso" type="button" disabled>Siguiente</button>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right"  id="btnAsignaCurso" type="button" >Siguiente</button>
 							                   </div>
 							               </div>
 							           </div>
@@ -367,7 +367,7 @@
 							                       <h3>Seleccione Instructor</h3>
 							                       <div class="form-group">
 							                           <label for="exampleFormControlSelect1">Paso 4</label>
-							                           <select id="asignaInstructor"  name="asignaInstructor" class="form-control"  required onchange="validaInstructor()">
+							                           <select id="asignaInstructor"  name="asignaInstructor" class="form-control"  required onblur="validaInstructor()">
 				                								 <option value="" selected  >Selecciona Instructor</option>
 <!-- 				                								 <option th:each="instructor: ${model.jsonResponseObject.instructores}" -->
 <!-- 														             th:value="${instructor.idInstructor}" -->
@@ -378,7 +378,7 @@
 														<hiden class="alerta_in"></hiden>
 													</div>
 							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> 
-							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaInstructor" type="button" disabled>Siguiente</button>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaInstructor" type="button" >Siguiente</button>
 							                   </div>
 							               </div>
 							           </div>
@@ -397,7 +397,7 @@
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 			                                                       <label class="form-check-label" for="asignaHorarioInicio">Horario Inicial</label>
-								                                   <select id="asignaHorarioInicio" name="asignaHorarioInicio" class="form-control" required onchange="validaHorarioInicio()">
+								                                   <select id="asignaHorarioInicio" name="asignaHorarioInicio" class="form-control" required onblur="validaHorarioInicio()">
 								                                       <option value="" selected  >Selecciona Horario Inicio</option>
 								                                       <option value="0000">00:00</option>
 								                                       <option value="0100">01:00</option>
@@ -430,7 +430,7 @@
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 		                      										<label class="form-check-label" for="asignaHorarioFinal">Horario . Final </label>
-								                                   <select id="asignaHorarioFinal" name="asignaHorarioFinal" class="form-control" required onchange="validaHorarioFinal()" disabled>   </select>
+								                                   <select id="asignaHorarioFinal" name="asignaHorarioFinal" class="form-control" required onblur="validaHorarioFinal()" >   </select>
 								                             </div>
 		                                                </div>
 		                                            </div>
@@ -438,7 +438,7 @@
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 			                                                       <label class="form-check-label" for="asignaRecesoInicio">Receso Inicial</label>
-								                                   <select id="asignaRecesoInicio" name="asignaRecesoInicio" class="form-control"  onchange="validaRecesoInicio()" disabled>
+								                                   <select id="asignaRecesoInicio" name="asignaRecesoInicio" class="form-control"  onblur="validaRecesoInicio()" disabled>
 								                                       <option value="" selected  >Selecciona Receso Inicio Opcional</option>
 
 								                                   </select>
@@ -447,7 +447,7 @@
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 		                      										<label class="form-check-label" for="asignaRecesoFinal">Receso . Final </label>
-								                                   <select id="asignaRecesoFinal" name="asignaRecesoFinal" class="form-control"  onchange="validaRecesoFinal()" disabled>   </select>
+								                                   <select id="asignaRecesoFinal" name="asignaRecesoFinal" class="form-control"  onblur="validaRecesoFinal()" disabled>   </select>
 								                             </div>
 		                                                </div>
 		                                            </div>	
@@ -456,7 +456,7 @@
 													</div>
 							                   <!-- FIN BODY FORMULARIO -->
 							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
-							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" disabled>Siguiente</button>
+							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" >Siguiente</button>
 							                   </div>
 							               </div>
 							           </div>
@@ -473,7 +473,7 @@
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 			                                                       <label class="form-check-label" for="asignaHorarioInicio">Cantidad Participantes</label>
-								                                   <select id="asignaParticipantes" name="asignaParticipantes" class="form-control" required onchange="validaParticipantes()">
+								                                   <select id="asignaParticipantes" name="asignaParticipantes" class="form-control" required onblur="validaParticipantes()">
 								                                       <option value="" selected  >Selecciona Cantidad de Participantes</option>
 								                                       
 								                                   </select>
@@ -482,7 +482,7 @@
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 		                      										<label class="form-check-label" for="asignaNivel">Nivel </label>
-								                                   <select id="asignaNivel" name="asignaNivel" class="form-control" required onchange="validaNivel()" disabled>
+								                                   <select id="asignaNivel" name="asignaNivel" class="form-control" required onblur="validaNivel()" >
 									                                   <option value="" selected  >Selecciona Nivel</option>
 									                                   <option value="Basico" >Básico</option>
 									                                   <option value="Intermedio" >Intermedio</option>
@@ -497,7 +497,7 @@
 							                   									                        
 							                   <!-- FIN BODY FORMULARIO -->
 							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
-							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaParticipantes" disabled>Siguiente</button>
+							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaParticipantes" >Siguiente</button>
 							                   </div>
 							               </div>
 							           </div>
@@ -515,7 +515,7 @@
 				                                        		<div class="alertaFile">
 																		<hiden class="alerta_inFile"></hiden>
 																</div>
-				        											<input id="asignaArchivos" name="asignaArchivos[]" type="file" class="file"  data-show-upload="false" multiple onchange="validaArchivos(this,  'llaveAsignacion')"/>
+				        											<input id="asignaArchivos" name="asignaArchivos[]" type="file" class="file"  data-show-upload="false" multiple onblur="validaArchivos(this,  'llaveAsignacion')"/>
 																<br/>
 				    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
 				    										</div>    
@@ -528,7 +528,7 @@
 <!-- 							                       <button id="asignar" class="btn btn-success btn-lg pull-right"  type="button">Agendar</button> -->
 							                       <!-- Button to Open the Modal -->
 							                       <button type="button" id="asignar" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal" >
-							                           Agendar
+							                           Re Agendar
 							                       </button>
 							
 							
@@ -629,7 +629,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
+                                           <form role="form" th:action="@{/actualizaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionItemUpdate}" method="post">
                                                <h5 class="card-title">Resumen de asignacion</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
@@ -642,6 +642,7 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                </ul>
+                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
                                                <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
                                                <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
@@ -660,7 +661,7 @@
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success" >Confirmar</button>        
+                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Confirmar</button>        
 											</form>
                                            </div>
                                        </div>

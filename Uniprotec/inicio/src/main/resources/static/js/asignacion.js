@@ -186,7 +186,6 @@ var alerta, proceso;
 		$('#nivelAsignacion').val($.asignaNivelTexto);
 		$('#archivosAsignacion').val($.asignaArchivos);
 		$('#observacionesAsignacion').val($.asignaObservaciones);
-		console.log($.asignaIdRegion +":"+ $.asignaNombreRegion);
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
