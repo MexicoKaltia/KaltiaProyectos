@@ -164,15 +164,15 @@ public class AsignacionRestController {
 	@PutMapping("/asignacion/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result, @PathVariable Long id) {
 
-		HttpStatus status ;
+		
 		Asignacion asignacionActual = asignacionService.findById(id);
-
+		
 		Asignacion asignacionUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
 		if(result.hasErrors()) {
-
+			log.info("result.hasErrors");
 			List<String> errors = result.getFieldErrors()
 					.stream()
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
@@ -192,6 +192,7 @@ public class AsignacionRestController {
 			 response.put("code", HttpStatus.NOT_FOUND.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
+//		log.info("update Asignacion:"+asignacionActual.toString());
 
 		try {
 		
@@ -214,7 +215,7 @@ public class AsignacionRestController {
 			
 			asignacionUpdated = asignacionService.save(asignacionActual);
 			response.put("asignacion ", asignacionUpdated  );
-			 response.put("mensaje", "Asignacion creada con Exito");
+			 response.put("mensaje", "Asignacion actualizada con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);

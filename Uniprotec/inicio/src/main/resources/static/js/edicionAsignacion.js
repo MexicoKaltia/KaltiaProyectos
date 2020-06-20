@@ -197,16 +197,16 @@ $(document).ready(function(){
 });  // fin de documento JQuery
 
 
-var proceso="<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:<ul id='listaProceso'></ul></div>";
+var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
 var procesoVacio="";
 var alertaEmpty;
-var procesoFecha;//="<li>Prospecto Fecha:"+ $.asignaCliente +"</li>";
-var procesoCliente;//="<li>Prospecto Cliente"+ $.asignaCliente +"</li>";
-var procesoCurso;//="<li>Prospecto Curso"+ $.asignaCurso +"</li>";
-var procesoInstructor;//="<li>Prospecto Instructor"+ $.asignaInstructor +"</li>";
-var procesoHorario;//="<li>Prospecto Horario: Horario</li>";
+var procesoFecha;//="<li>Edicion Fecha:"+ $.asignaCliente +"</li>";
+var procesoCliente;//="<li>Edicion Cliente"+ $.asignaCliente +"</li>";
+var procesoCurso;//="<li>Edicion Curso"+ $.asignaCurso +"</li>";
+var procesoInstructor;//="<li>Edicion Instructor"+ $.asignaInstructor +"</li>";
+var procesoHorario;//="<li>Edicion Horario: Horario</li>";
 var procesoParticipantes;
-var procesoObservaciones;//="<li>Prospecto Observaciones"+ $.asignaObservaciones +"</li>";
+var procesoObservaciones;//="<li>Edicion Observaciones"+ $.asignaObservaciones +"</li>";
 
 const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":false,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
 var alerta, proceso;
@@ -221,6 +221,7 @@ var alerta, proceso;
  */
 
 	function asignaCamposSubmit(){
+		$('#idAsignacion').val(asignacionItem.idAsignacion);
 		$('#fechaAsignacion').val($.asignaFecha2);
 		$('#idClienteAsignacion').val($.asignaCliente);
 		$('#clienteAsignacion').val($.asignaClienteTexto);
@@ -237,6 +238,16 @@ var alerta, proceso;
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
 	}
+	
+	$('#procesoObservaciones').on(function(){
+		$(".listaProceso").empty();
+		$(".listaProceso").append(procesoFecha);
+		$(".listaProceso").append(procesoCliente);
+		$(".listaProceso").append(procesoCurso);
+		$(".listaProceso").append(procesoInstructor);
+		$(".listaProceso").append(procesoHorario);
+		$(".listaProceso").append(procesoParticipantes);
+	})
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,7 +261,7 @@ var alerta, proceso;
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
    	    console.log($.asignaFecha);
-   	    $.asignaFechaCalendario = $('#fechaAsignacion').val();
+   	    $.asignaFechaCalendario = $('#asignaFecha').val();
 		console.log("asignaFecha:"+ $.asignaFechaCalendario);
    		$('#alertaFecha').remove();
    		
@@ -261,7 +272,7 @@ var alerta, proceso;
    		}else{
    			$('#btnAsignaFecha').attr("disabled", false);
    		}
-   		procesoFecha="<li>Prospecto Fecha : <b>"+ $.asignaFechaCalendario +"</b></li>";
+   		procesoFecha="<li>Edicion Fecha : <b>"+ $.asignaFechaCalendario +"</b></li>";
    	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/*
@@ -284,7 +295,7 @@ var alerta, proceso;
 		
 		var zonaCliente = colorZonaCliente($.asignaCliente);
 //		zonaCliente = '<div class="zona" style="background-color:yellow">1</div>';
-		procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+		procesoCliente="<li>Edicion Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
 	}
 	
 	var zonaCliente;
@@ -362,7 +373,7 @@ var alerta, proceso;
 			tipoCursoVal = "PRESENCIAL";
 		}
 		$('#asignaCurso').attr("disabled", false);
-//		validaCurso();
+
 	}
 	
 	
@@ -500,8 +511,9 @@ var alerta, proceso;
 				}
 			}
 		}
+		$('#asignaInstructor').append('<option value="'+asignacionItem.idInstructorAsignacion+'" selected >'+asignacionItem.instructorAsignacion+'</option>');
 		$.asignaCursoTexto = $("#asignaCurso option:selected").text();
-		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
+		procesoCurso="<li>Edicion Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 		$.asignaTipoCurso = tipoCursoVal;
 	}  // fin metodo validaCurso
 	
@@ -620,7 +632,7 @@ var alerta, proceso;
    			$('#btnAsignaInstructor').attr("disabled", false);
    		}
 		$.asignaInstructorTexto = $("#asignaInstructor option:selected").text();
-		procesoInstructor="<li>Prospecto Instructor : <b>"+ $.asignaInstructorTexto +"</b></li>";
+		procesoInstructor="<li>Edicion Instructor : <b>"+ $.asignaInstructorTexto +"</b></li>";
 	}
 	
 	
@@ -664,7 +676,7 @@ var alerta, proceso;
    			$('#asignaHorarioFinal').attr("disabled", false);
    		}
 		$.asignaHorarioInicioTexto = $("#asignaHorarioInicio option:selected").text();
-		procesoHorarioInicio="<li>Prospecto HorarioInicio : <b>"+ $.asignaHorarioInicioTexto +"</b></li>";
+		procesoHorarioInicio="<li>Edicion HorarioInicio : <b>"+ $.asignaHorarioInicioTexto +"</b></li>";
 	}
 	
 	function validaHorarioFinal(){
@@ -674,7 +686,12 @@ var alerta, proceso;
 		$("#asignaRecesoFinal").empty();
 		$("#asignaRecesoInicio").append('<option value="">Receso Inicio</option>');
 		for(var i = (($.asignaHorarioInicio/100)); i < (($.asignaHorarioFinal/100)-1) ; i++){
-				$("#asignaRecesoInicio").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+			if((i+1) < 10){
+				$("#asignaRecesoInicio").append('<option value="0'+(i+1)+'00">'+(i+1)+':00</option>');
+			}else{
+				$("#asignaRecesoInicio").append('<option value="0'+(i+1)+'00">'+(i+1)+':00</option>');
+			}
+				
 			}
 		if(($.asignaHorarioFinal  === null || $.asignaHorarioFinal === "") || ($.asignaHorarioInicio === null || $.asignaHorarioInicio === "")){
    			alerta="<div class='alert alert-danger' id='alertaHorario' role='alert'>Seleccione Horario</div>";
@@ -692,12 +709,21 @@ var alerta, proceso;
 		$("#asignaRecesoFinal").empty();
 		$("#asignaRecesoFinal").append('<option value="">Receso Final</option>');
 		for(var i = ($.asignaRecesoInicio/100); i < (($.asignaHorarioFinal/100)-0) ; i++){
+			if((i+1) < 10){
+				$("#asignaRecesoFinal").append('<option value="0'+(i+1)+'00">'+(i+1)+':00</option>');
+			}else{
 				$("#asignaRecesoFinal").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+			}
+				
 			}
 		$('#asignaRecesoFinal').attr("disabled", false);
 	}
 	
 	function validaRecesoFinal(){
+		
+		$.asignaHorarioInicio = $('#asignaHorarioInicio').val();
+		$.asignaHorarioFinal = $('#asignaHorarioFinal').val();
+		$.asignaRecesoInicio = $('#asignaRecesoInicio').val();
 		$.asignaRecesoFinal = $('#asignaRecesoFinal').val();
 		$('#horasEfectivas').text(sumaHorasReceso());
 	}
@@ -706,7 +732,7 @@ var alerta, proceso;
 		var asignaHorarioInicio	= ($.asignaHorarioInicio  *1);
 		var asignaHorarioFinal	= ($.asignaHorarioFinal  *1);
 		$.horasEfectivas = ((asignaHorarioFinal - asignaHorarioInicio)/100)+":00"; 
-		procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
+		procesoHorario="<li>Edicion Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
 		return $.horasEfectivas;
 	}
 	function sumaHorasReceso(){
@@ -722,7 +748,7 @@ var alerta, proceso;
 		var efectivas = (asignaHorarioFinal - asignaHorarioInicio );
 		var receso = (asignaRecesoFinal - asignaRecesoInicio); 
 		$.horasEfectivas = ((efectivas-receso)/100)+":00"; 
-		procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
+		procesoHorario="<li>Edicion Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
 		return $.horasEfectivas;
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -771,8 +797,8 @@ var alerta, proceso;
    		}
 		$.asignaParticipantesTexto = $("#asignaParticipantes option:selected").text();
 		$.asignaNivelTexto = $("#asignaNivel option:selected").text();
-		
-		procesoParticipantes="<li>Prospecto Participantes: <b>"+ $.asignaParticipantesTexto +"</b></li><li>Prospecto Nivel: <b>"+ $.asignaNivelTexto +"</b></li>";
+		$.asignaParticipantes = $('#asignaParticipantes').val();
+		procesoParticipantes="<li>Edicion Participantes: <b>"+ $.asignaParticipantesTexto +"</b></li><li>Edicion Nivel: <b>"+ $.asignaNivelTexto +"</b></li>";
 
 		
 	}

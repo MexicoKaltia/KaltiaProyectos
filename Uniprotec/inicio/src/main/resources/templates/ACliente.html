@@ -187,7 +187,7 @@
                             <li>
                                 <a th:href="@{Calendario}">
                                     <i class="metismenu-icon pe-7s-eyedropper">
-                                    </i>CALENDARIO
+                                    </i>ENTREGABLES
                                 </a>
                             </li>
                             <li>
@@ -229,7 +229,7 @@
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revision : </b><u>No se generó Cliente, verifique datos.</u>
+									<b>Revisión : </b><u>No se generó Cliente, verifique datos.</u>
 								</div>
 							</span>
 
@@ -312,7 +312,7 @@
                                   <div class="form-row">
                                       <label class=" control-label" for="textarea">Direccion</label>
 								            <div class="">                     
-								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="3" cols="150" required></textarea>
+								              <textarea class="form-control" th:field="*{domicilioCliente}" id="domicilioCliente" rows="5" cols="150" required></textarea>
 								            </div>
 							              <div class="invalid-feedback">
                                                 Capturar Domicilio Valido
@@ -322,7 +322,7 @@
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Google Maps</label>
                                             <div class="">                     
-								              <textarea class="form-control" th:field="*{googleMapsCliente}" id="googleMapsCliente" rows="3" cols="150" required></textarea>
+								              <textarea class="form-control" th:field="*{googleMapsCliente}" id="googleMapsCliente" rows="5" cols="150" required></textarea>
 								            </div>
                                             <div class="invalid-feedback">
                                                 Capturar Direccion URL Google Maps
@@ -342,7 +342,9 @@
                                                 Capturar Vendedor
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-3">
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Reglas de Acceso</label>
                                             <input type="text" class="form-control" th:field="*{reglasAccesoCliente}" id="reglasAccesoCliente" placeholder="Capture Reglas de Acceso" value="" maxlength="300" required>
                                             <div class="invalid-feedback">
@@ -351,14 +353,16 @@
                                         </div>
                                      </div>
                                      <div class="form-row">
-                                        <div class="col-md-6 mb-3">
+                                        <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Documentos de Acceso</label>
                                             <input type="text" class="form-control" th:field="*{documentosAccesoCliente}" id="documentosAccesoCliente" placeholder="Capture Documentos de Acceso" value="" maxlength="300" required>
                                             <div class="invalid-feedback">
                                                 Capture Documentos de Acceso
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-3">
+                                       </div>
+                                       <div class="form-row">
+                                        <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Material Didactico</label>
                                             <input type="text" class="form-control" th:field="*{materialDidacticoCliente}" id="materialDidacticoCliente" placeholder="Capture Material Didactico" value="" maxlength="300" required>
                                             <div class="invalid-feedback">
@@ -366,28 +370,26 @@
                                             </div>
                                         </div>
                                      </div>
-                                     <div class="form-row">
-                                     	<div class="col-md-4 mb-3">
+                                     <div class="form-row">                                    	
                                             <label for="validationCustom02">Pauta Operativa</label>
-                                            <input type="text" class="form-control" th:field="*{pautaOperativaCliente}" id="pautaOperativaCliente" placeholder="Capture Pauta Operativa" value="" maxlength="300" required>
+                                             <textarea class="form-control" th:field="*{pautaOperativaCliente}" id="pautaOperativaCliente" rows="5" cols="150" required></textarea>
                                             <div class="invalid-feedback">
                                                 Capturar Pauta Operativa
                                             </div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
+                                     </div>
+                                     <div class="form-row">                                    	
                                             <label for="validationCustom02">Pauta General de Enfoque</label>
-                                            <input type="text" class="form-control" th:field="*{pautaGeneralCliente}" id="pautaGeneralCliente" placeholder="Capture Pauta General de Enfoque" value="" maxlength="300" required>
+                                             <textarea class="form-control" th:field="*{pautaGeneralCliente}" id="pautaGeneralCliente" rows="5" cols="150" required></textarea>
                                             <div class="invalid-feedback">
-                                                Capture Pauta General de Enfoque
+                                                Capturar Pauta General de Enfoque
                                             </div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
+                                     </div>
+                                     <div class="form-row">                                    	
                                             <label for="validationCustom02">Pauta Entregable</label>
-                                            <input type="text" class="form-control" th:field="*{pautaEntregableCliente}" id="pautaEntregableCliente" placeholder="Capture Pauta Entregable" value="" maxlength="300" required>
+                                             <textarea class="form-control" th:field="*{pautaEntregableCliente}" id="pautaEntregableCliente" rows="5" cols="150" required></textarea>
                                             <div class="invalid-feedback">
                                                 Capturar Pauta Entregable
                                             </div>
-                                        </div>
                                      </div>
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">

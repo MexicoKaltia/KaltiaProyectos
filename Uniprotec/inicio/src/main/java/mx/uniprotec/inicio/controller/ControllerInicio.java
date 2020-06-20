@@ -226,13 +226,14 @@ public class ControllerInicio extends HttpServlet{
 				ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken());
 				if(rs.getCodigo() != 500) {
 					resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-					ModelAndView mav = new ModelAndView("redirect:/inicio", model);
-					mav.addObject("exito", rs);
+					ModelAndView mav = new ModelAndView("redirect:/CAsignacion", model);
+//					mav.addObject("exito", rs);
+					model.addAttribute("exito", rs);
 					log.info(model.values().toString());
-					
 						
 					return mav;
 				}else {
+					model.addAttribute("exito", rs);
 					ModelAndView mav = new ModelAndView("redirect:/Error", model);
 					return mav;
 				}

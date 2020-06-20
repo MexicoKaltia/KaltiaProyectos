@@ -63,7 +63,7 @@ public class AsignacionService implements IAsignacionService{
 				token,
 				BaseClientRest.URL_CRUD_ASIGNACION,
 				asignacion,
-				1L);
+				asignacion.getIdAsignacion());
 				
 		return resultVO;
 	}

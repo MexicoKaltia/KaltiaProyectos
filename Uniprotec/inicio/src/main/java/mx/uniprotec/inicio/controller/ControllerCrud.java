@@ -128,15 +128,14 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 		resultVO  = clienteService.altaCliente(cliente, resultVO.getAccesToken());
+		ModelAndView mav = new ModelAndView("redirect:/ACliente" , model);
+		mav.addObject("rs", resultVO);
 		if(resultVO.getCodigo() != 500) {
 			log.info(resultVO.toString());
-			
-			ModelAndView mav = new ModelAndView("redirect:/ACliente" , model);
 			mav.addObject("ejecucion", true);
+			
 			return mav;
 		}else {
-			ModelAndView mav = new ModelAndView("redirect:/ACliente", model);
-//			mav.addObject("dataEjecutable", resultVO);
 			mav.addObject("error", true);
 			log.info("NOK AltaCliente");
 			return mav;

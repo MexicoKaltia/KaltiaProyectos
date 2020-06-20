@@ -225,10 +225,10 @@ public class VendedorRestController {
 		try {
 			List<Cliente> clientes = new ArrayList<Cliente>();
 			
-			for(Long idCliente : vendedor.getListClienteVendedor()) {
-				Cliente cliente = new Cliente(idCliente);
-				clientes.add(cliente);
-			}
+//			for(Long idCliente : vendedor.getListClienteVendedor()) {
+//				Cliente cliente = new Cliente(idCliente);
+//				clientes.add(cliente);
+//			}
 			
 //			vendedorActual.setCliente(clientes);
 			vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());

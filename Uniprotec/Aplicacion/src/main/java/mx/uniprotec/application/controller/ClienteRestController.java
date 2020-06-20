@@ -121,7 +121,7 @@ public class ClienteRestController {
 			cliente = clienteService.findById(id);
 			
 			if(cliente == null) {
-				response.put("mensaje", "Error: no se pudo editar, el cliente ID: "
+				response.put("mensaje", "Error: no se pudo encontrar, el cliente ID: "
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				 response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
@@ -211,6 +211,7 @@ public class ClienteRestController {
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			log.info(response.get("error").toString());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
