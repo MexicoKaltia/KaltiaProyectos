@@ -65,13 +65,13 @@ public class Curso implements Serializable {
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"curso_id", "instructor_id"})})
 	private List<Instructor> instructores = new ArrayList<>();
 	 
-	public void addInstructor(Instructor instructor){
-	        if(this.instructores == null){
-	            this.instructores = new ArrayList<>();
-	        }
-	        
-	        this.instructores.add(instructor);
-	    }
+//	public void addInstructor(Instructor instructor){
+//	        if(this.instructores == null){
+//	            this.instructores = new ArrayList<>();
+//	        }
+//	        
+//	        this.instructores.add(instructor);
+//	    }
 
 	@Column
 	private String notaCurso;
@@ -145,12 +145,12 @@ public class Curso implements Serializable {
 		this.statusCurso = statusCurso;
 	}
 
-	@Override
-	public String toString() {
-		return "Curso [idCurso=" + idCurso + ", nombreCurso=" + nombreCurso + ", instructores=" + instructores
-				+ ", notaCurso=" + notaCurso + ", userCreateCurso=" + userCreateCurso + ", createAtCurso="
-				+ createAtCurso + ", statusCurso=" + statusCurso + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Curso [idCurso=" + idCurso + ", nombreCurso=" + nombreCurso + ", instructores=" + instructores
+//				+ ", notaCurso=" + notaCurso + ", userCreateCurso=" + userCreateCurso + ", createAtCurso="
+//				+ createAtCurso + ", statusCurso=" + statusCurso + "]";
+//	}
 
 	public Curso(Long idCurso,
 			@NotEmpty(message = "nombreCurso no puede estar vacio") @Size(min = 4, max = 220, message = "el tamaño tiene que estar entre 4 y 220") String nombreCurso,

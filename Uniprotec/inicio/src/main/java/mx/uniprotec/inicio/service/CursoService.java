@@ -1,5 +1,8 @@
 package mx.uniprotec.inicio.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.CursoModelo;
+import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
@@ -30,11 +34,11 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 	@Override
 	public ResultVO altaCurso(CursoModelo curso , String token) {
 
-		log.info(curso.toString());
+//		log.info(curso.toString());
 		
-//		List<Instructor> listInstructor =  new ArrayList<Instructor>();
+//		List<InstructorModelo> listInstructor =  new ArrayList<InstructorModelo>();
 //		for(Long idInstructor : curso.getListInstructores()) {
-//			listInstructor.add(new Instructor(idInstructor));
+//			listInstructor.add(new InstructorModelo(idInstructor));
 //		}
 //		curso.setListInstructores(listInstructor);
 		
@@ -66,7 +70,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 		me = ComponenteComun.monitorCampos();
 		curso.setCreateAtCurso(me.getNowEntidad());
 		curso.setUserCreateCurso(me.getIdUsuarioEntidad());
-		curso.setStatusCurso(me.getStatusEntidad());
+		curso.setStatusCurso("Actualizado");
 		
 		log.info(curso.toString());
 		

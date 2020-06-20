@@ -203,7 +203,7 @@ public class ClienteRestController {
 			clienteNew = clienteService.save(clienteNew);
 
 			response.put("cliente", clienteNew);
-			response.put("mensaje", "El cliente ha sido creado con éxito!");
+			response.put("mensaje", "El Cliente ha sido creado con éxito!");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);

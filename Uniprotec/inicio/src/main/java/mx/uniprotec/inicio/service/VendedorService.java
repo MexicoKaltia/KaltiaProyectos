@@ -66,7 +66,7 @@ public class VendedorService implements IVendedorService {
 		
 		vendedor.setCreateAtVendedor(me.getNowEntidad());
 		vendedor.setUserCreateVendedor(me.getIdUsuarioEntidad());
-		vendedor.setStatusVendedor(me.getStatusEntidad());
+		vendedor.setStatusVendedor("Actualizado");
 		
 		log.info(vendedor.toString());
 		

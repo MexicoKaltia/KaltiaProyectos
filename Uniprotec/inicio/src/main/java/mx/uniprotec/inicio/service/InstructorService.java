@@ -65,7 +65,7 @@ public class InstructorService implements IInstructorService {
 		
 		instructor.setCreateAtInstructor(me.getNowEntidad());
 		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());
-		instructor.setStatusInstructor(me.getStatusEntidad());
+		instructor.setStatusInstructor("Actualizado");
 		
 		log.info(instructor.toString());
 		

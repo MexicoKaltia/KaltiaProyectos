@@ -140,10 +140,7 @@ public class CursoRestController {
 	  */
 	@PostMapping("/curso")
 	public ResponseEntity<?> create(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result) {
-		
-//		Curso curso = new Curso();
-		
-		HttpStatus status ;
+		log.info(cursoModelo.toString());
 		Curso cursoNew = new Curso();
 		Map<String, Object> response = new HashMap<>();
 		
@@ -152,14 +149,28 @@ public class CursoRestController {
 			List<String> errors = result.getFieldErrors()
 					.stream()
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
-					.collect(Collectors.toList());
-			
+					.collect(Collectors.toList());		
 			response.put("errors", errors);
-			status = HttpStatus.BAD_REQUEST;
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		try {
+//			List<Instructor> allInstructores = instructorService.findAll();
+//			List<Instructor> instructores = new ArrayList<Instructor>();
+//			for(Long idInstructor : cursoModelo.getListInstructores()) {
+//				for(Instructor instructor : allInstructores) {
+//					if(instructor.getIdInstructor().longValue() == idInstructor ) {
+//						instructores.add(instructor);
+//					}
+//				}
+//			}
+//			cursoNew.setNombreCurso(cursoModelo.getNombreCurso());
+//			cursoNew.setInstructores(instructores);
+//			cursoNew.setNotaCurso(cursoModelo.getNotaCurso());
+//			cursoNew.setUserCreateCurso(cursoModelo.getUserCreateCurso());
+//			cursoNew.setCreateAtCurso(cursoModelo.getCreateAtCurso());
+//			cursoNew.setStatusCurso(cursoModelo.getStatusCurso());
+
 			
 			cursoNew = cursoService.save(cursoModelo);
 			
@@ -173,10 +184,10 @@ public class CursoRestController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-//		return UtilController.responseGeneric(cursoNew, "curso", status);
 	}
 	
 	
@@ -186,11 +197,9 @@ public class CursoRestController {
 	@PutMapping("/curso/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result, @PathVariable Long id) {
 
-		HttpStatus status ;
+		
 		Curso cursoActual = cursoService.findById(id);
-
 		Curso cursoUpdated = null;
-
 		Map<String, Object> response = new HashMap<>();
 
 		if(result.hasErrors()) {
@@ -246,6 +255,7 @@ public class CursoRestController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 

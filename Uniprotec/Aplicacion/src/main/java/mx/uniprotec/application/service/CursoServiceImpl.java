@@ -59,13 +59,6 @@ public class CursoServiceImpl implements ICursoService {
 		
 		try {
 			List<Instructor> allInstructores = instructorService.findAll();
-//			for(Long idInstrucotor : cursoModelo.getListInstructores()) {
-//				for(Instructor instructor : allInstructores) {
-//					if(instructor.getIdInstructor().longValue() == idInstrucotor ) {
-//						cursoEntity.addInstructor(instructor);
-//					}
-//				}
-//			}
 			List<Instructor> instructores = new ArrayList<Instructor>();
 			for(Long idInstructor : cursoModelo.getListInstructores()) {
 				for(Instructor instructor : allInstructores) {

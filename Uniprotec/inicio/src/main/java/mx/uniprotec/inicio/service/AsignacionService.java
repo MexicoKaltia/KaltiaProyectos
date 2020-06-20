@@ -55,7 +55,7 @@ public class AsignacionService implements IAsignacionService{
 		
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
 		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
-		asignacion.setStatusAsignacion(me.getStatusEntidad());
+		asignacion.setStatusAsignacion("Actualizado");
 		
 		log.info(asignacion.toString());
 		
