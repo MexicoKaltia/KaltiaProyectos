@@ -197,7 +197,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{Calendario}">
+                                <a th:href="@{CEntregable}">
                                     <i class="metismenu-icon pe-7s-eyedropper">
                                     </i>ENTREGABLES
                                 </a>
@@ -367,6 +367,7 @@
                                                    <li class="list-group-item list-group-item-info">Nivel : <span id="modalNivel"></span></li>
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                         	   <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
@@ -384,6 +385,7 @@
                                                <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
                                                <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
                                                <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                                               <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

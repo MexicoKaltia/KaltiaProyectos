@@ -224,20 +224,31 @@ public class ControllerInicio extends HttpServlet{
 
 
 		
-		@GetMapping("/Calendario")
-		public ModelAndView calendario(ModelMap model) {
-
-			if(model.equals(null)) {
-				log.info("NULL");
-				return new  ModelAndView("login");
-			}else {
-				log.info("Calendario model Activo");
-//				log.info(model.values().toString());
-				return new  ModelAndView("calendario",  model);	
-			}		
-
+		@GetMapping("/CEntregable")
+		public ModelAndView consultaEntregable(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
+				@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+				@RequestParam(name="error", required=false) boolean error,
+				ModelMap model) {
+				log.info("Entregable model Activo");
+				model.addAttribute("entregableItem", new AsignacionModelo());
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				model.addAttribute("model", resultVO);
+				
+				ResultVO rs = asignacionService.consultaAsignacion(resultVO.getAccesToken());
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				ModelAndView mav = new ModelAndView("CEntregable", model);
+				if(rs.getCodigo() != 500) {
+					mav.addObject("ejecucion", ejecucion);
+					mav.addObject("ejecucion2", ejecucion2);
+					mav.addObject("error", error);
+					return mav;
+				}else {
+					mav.addObject("consulta", true);
+					log.info("NOK ConsultaAsignacion");
+					return mav;
+				}
 			}
-
 		
 
 }

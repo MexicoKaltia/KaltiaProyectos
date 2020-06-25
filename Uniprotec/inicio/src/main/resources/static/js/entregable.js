@@ -71,17 +71,26 @@ $(document).ready(function() {
 	var calendarEl = document.getElementById('calendar');
 	var today = hoy();
 	var calendar = new FullCalendar.Calendar(calendarEl, {
-		plugins : [ 'interaction', 'dayGrid', 'timeGrid', 'list'],
-		header : {
-			left : 'prev,next today',
-			center : 'title',
-			right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-		},
+		plugins : [ 'list'],
+		header	: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'listDay,listWeek,listMonth,listYear'
+	      },
+      views: {
+          listDay: { buttonText: 'dia' },
+          listWeek: { buttonText: 'semana' },
+          listMonth : { buttonText: 'mes' },  
+            list: { buttonText: 'todos' }  
+        },
+
+        defaultView: 'listMonth',   
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
 		eventClick : function(info){
 //			alert(info.event.title);
 			abrirModal(info.event.title)
-		},
-		
+		},		
 		defaultDate : today,
 		navLinks : true, // can click day/week names to navigate views
 		businessHours : true, // display business hours
@@ -139,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function publicaEventos(asignaciones){
+		
 		var asignacion;
 		var item;
 		var inicio;
@@ -147,29 +157,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		var items = new Array();
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-//			console.log(asignacion);
-			inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-			fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-			color = getColor(asignacion.idRegionAsignacion);
-			item = {
-					'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-					'start' : inicio,
-					'end' : fin,
-					'constraint' : 'businessHours',
-					'color' : color
+			if(validaHoy(asignacion.fechaAsignacion.toString())){
+				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+				color = getColor(asignacion.statusAsignacion);
+				item = {
+						'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+						'start' : inicio,
+						'end' : fin,
+						'constraint' : 'businessHours',
+						'color' : color
+				}
+				items.push(item);
 			}
-			items.push(item);
 		}
 		return items;
 	}
 	
 	function getInicio(fechaAsignacion, horarioAsignacion){
-		
 		return getFecha(fechaAsignacion) + horaInicio(horarioAsignacion);
 	}
 
 	function getFinal(fechaAsignacion, horarioAsignacion){
-		
 		return getFecha(fechaAsignacion) + horaFin(horarioAsignacion);
 	}
 
@@ -210,37 +219,34 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	
 	
-	function getColor(cliente){
+	function getColor(status){
 		var zonaCliente;	
-		cliente = (cliente * 1)
-		switch (cliente){
-		case 1:
-			zonaCliente = 'yellow';
+		switch (status){
+		case "Curso Asignado":
+			zonaCliente = 'cyan';
 			break;
-		case 2:
-			zonaCliente = 'blue';
+		case "Confirmado Instructor":
+			zonaCliente = 'olive';
 			break;
-		case 3:
-			zonaCliente = 'fuchsia';
+		case "Curso Editado":
+			zonaCliente = 'silver';
 			break;
-		case 4:
-			zonaCliente = 'lime';
+		case "Curso Completado":
+			zonaCliente = 'maroon';
 			break;
-		case 5:
-			zonaCliente = 'gray';
+		case "Curso Cancelado":
+			zonaCliente = 'red';
 			break;
-		case 6:
-			zonaCliente = 'coral';
+		case "Validacion Entregables":
+			zonaCliente = 'orange';
 			break;
-		case 7:
-			zonaCliente = 'chocolate';
-			break;
-		case 8:
-			zonaCliente = 'purple';
+		case "Entregable Capturado":
+			zonaCliente = 'green';
 			break;
 		}
 		return zonaCliente;
 	}
+	
 	
 	function colorZonaCliente(idRegion, nombreRegionAsignacion){
 		
@@ -293,5 +299,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	function cambiaFormatoFecha(fecha){
 		fecha = fecha.split("/");
 		return fecha[1]+"/"+fecha[0]+"/"+fecha[2];
+	}
+	
+	function validaHoy(fechaAsignacion){
+		var hoy = new Date();
+		var asignacion = new Date(fechaAsignacion)
+		if(asignacion < hoy){
+			console.log(asignacion)
+			return true;
+		}else
+			return false;
+			
+		
 	}
 	// fin de documento
