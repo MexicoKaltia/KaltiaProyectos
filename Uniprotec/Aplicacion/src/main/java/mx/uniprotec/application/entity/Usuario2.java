@@ -1,34 +1,50 @@
-package mx.uniprotec.entidad.modelo;
+package mx.uniprotec.application.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
+@Entity
+@Table(name="usuarios2")
+public class Usuario2 {
 
-public class UsuarioModelo implements Serializable {
-
-	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8299641142506231071L;
-	
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idUsuario;
+	@NotEmpty(message ="user no puede estar vacio")
+	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
+	@Column(nullable=false)
 	private String usernameUsuario;
+	@NotEmpty(message ="pass no puede estar vacio")
+	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
+	@Column(nullable=false)
 	private String passwordUsuario;
+	
+	@Column(nullable=false)
 	private String perfilUsuario;
+	@Column(nullable=false)
 	private String nameUsuario;
+	@Column(nullable=false)
 	private String apellidoUsuario;
+	@Column(nullable=false)
 	private String emailUsuario;
+	@Column
 	private String notaUsuario;
+	@Column(nullable=false)
 	private Long userCreateUsuario;
+	@Column(nullable=false)
 	private LocalDateTime createAtUsuario;
+	@Column(nullable=false)
 	private String statusUsuario;
 	
-	public UsuarioModelo() {}
+	public Usuario2() {}
 	
 	@Override
 	public String toString() {
@@ -38,7 +54,7 @@ public class UsuarioModelo implements Serializable {
 				+ userCreateUsuario + ", createAtUsuario=" + createAtUsuario + ", statusUsuario=" + statusUsuario + "]";
 	}
 	
-	public UsuarioModelo(Long idUsuario, String usernameUsuario, String passwordUsuario, String perfilUsuario,
+	public Usuario2(Long idUsuario, String usernameUsuario, String passwordUsuario, String perfilUsuario,
 			String nameUsuario, String apellidoUsuario, String emailUsuario, Long userCreateUsuario,
 			LocalDateTime createAtUsuario, String statusUsuario) {
 		super();
@@ -144,4 +160,5 @@ public class UsuarioModelo implements Serializable {
 	
 	
 	
+
 }

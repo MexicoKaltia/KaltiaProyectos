@@ -17,8 +17,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.uniprotec.application.dao.IUsuario2Dao;
 import mx.uniprotec.application.dao.IUsuarioDao;
 import mx.uniprotec.application.entity.Usuario;
+import mx.uniprotec.application.entity.Usuario2;
+import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Usuario;
 
@@ -29,6 +32,8 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 
 	@Autowired
 	private IUsuarioDao usuarioDao;
+	@Autowired
+	private IUsuario2Dao usuario2Dao;
 	
 	@Override
 	@Transactional(readOnly=true)
@@ -65,39 +70,34 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Usuario> findAll() {
-		return (List<Usuario>) usuarioDao.findAll();
+	public List<Usuario2> findAll() {
+		return (List<Usuario2>) usuario2Dao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Usuario> findAll(Pageable pageable) {
+	public Page<Usuario2> findAll(Pageable pageable) {
 		return null;//usuarioDao.findAll(pageable);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario findById(Long id) {
-		return usuarioDao.findById(id).orElse(null);
+	public Usuario2 findById(Long id) {
+		return usuario2Dao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public Usuario save(Usuario Usuario) {
-		return usuarioDao.save(Usuario);
+	public Usuario2 save(Usuario2 usuario) {
+		return usuario2Dao.save(usuario);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		usuarioDao.deleteById(id);
+		usuario2Dao.deleteById(id);
 	}
 
-	@Override
-	public List<Region> findAllRegiones() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	
 }

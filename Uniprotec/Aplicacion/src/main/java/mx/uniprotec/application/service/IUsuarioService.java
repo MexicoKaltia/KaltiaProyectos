@@ -7,19 +7,18 @@ import org.springframework.data.domain.Pageable;
 
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Usuario;
+import mx.uniprotec.application.entity.Usuario2;
 
 public interface IUsuarioService {
 
 	public Usuario findByUsername(String username);
-	public List<Usuario> findAll();
-	public Page<Usuario> findAll(Pageable pageable);
 	
-	public Usuario findById(Long id);
-	
-	public Usuario save(Usuario Usuario);
-	
+	public List<Usuario2> findAll();
+	public Page<Usuario2> findAll(Pageable pageable);
+	public Usuario2 findById(Long id);
+	public Usuario2 save(Usuario2 usuario);
 	public void delete(Long id);
 	
-	public List<Region> findAllRegiones();
+	//public List<Region> findAllRegiones();
 
 }

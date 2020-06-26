@@ -37,12 +37,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Usuario;
+import mx.uniprotec.application.entity.Usuario2;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.IUsuarioService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
+import mx.uniprotec.entidad.modelo.UsuarioModelo;
 
 @CrossOrigin(origins = { "http://localhost:8080" })
 @RestController
@@ -65,7 +67,7 @@ public class UsuarioRestController {
 	  */
 	@GetMapping("/usuarios")
 	public ResponseEntity<?> index() {
-		List<Usuario> usuarios = null;
+		List<Usuario2> usuarios = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			usuarios = usuarioService.findAll();
@@ -102,7 +104,7 @@ public class UsuarioRestController {
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
 		HttpStatus status ;
-		Usuario usuario = null;
+		Usuario2 usuario = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
@@ -134,10 +136,10 @@ public class UsuarioRestController {
 	  * 
 	  */
 	@PostMapping("/usuario")
-	public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody UsuarioModelo usuario, BindingResult result) {
 		
 		HttpStatus status ;
-		Usuario usuarioNew = null;
+		Usuario2 usuarioNew = new Usuario2();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -153,7 +155,18 @@ public class UsuarioRestController {
 		}
 		
 		try {
-			usuarioNew = usuarioService.save(usuario);
+			usuarioNew.setUsernameUsuario(usuario.getUsernameUsuario());
+			usuarioNew.setPasswordUsuario(usuario.getPasswordUsuario());
+			usuarioNew.setPerfilUsuario(usuario.getPerfilUsuario());
+			usuarioNew.setNameUsuario(usuario.getNameUsuario());
+			usuarioNew.setApellidoUsuario(usuario.getApellidoUsuario());
+			usuarioNew.setEmailUsuario(usuario.getEmailUsuario());
+			usuarioNew.setNotaUsuario(usuario.getNotaUsuario());
+			usuarioNew.setCreateAtUsuario(usuario.getCreateAtUsuario());
+			usuarioNew.setUserCreateUsuario(usuario.getUserCreateUsuario());
+			usuarioNew.setStatusUsuario(usuario.getStatusUsuario());
+			
+			usuarioNew = usuarioService.save(usuarioNew);
 			response.put("usuario", usuario);
 			 response.put("mensaje", "Usuario creado con exito");
 			 response.put("status", HttpStatus.CREATED);
@@ -172,12 +185,12 @@ public class UsuarioRestController {
 	 * 
 	 */
 	@PutMapping("/usuario/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody UsuarioModelo usuario, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
-		Usuario usuarioActual = usuarioService.findById(id);
+		Usuario2 usuarioActual = usuarioService.findById(id);
 
-		Usuario usuarioUpdated = null;
+		Usuario2 usuarioUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -204,11 +217,16 @@ public class UsuarioRestController {
 
 		try {
 
-//			usuarioActual.setApellido(usuario.getApellido());
-			usuarioActual.setUsername(usuario.getUsername());
-//			usuarioActual.setEmail(usuario.getEmail());
-//			usuarioActual.setCreateAt(usuario.getCreateAt());
-//			usuarioActual.setRegion(usuario.getRegion());
+			usuarioActual.setUsernameUsuario(usuario.getUsernameUsuario());
+			usuarioActual.setPasswordUsuario(usuario.getPasswordUsuario());
+			usuarioActual.setPerfilUsuario(usuario.getPerfilUsuario());
+			usuarioActual.setNameUsuario(usuario.getNameUsuario());
+			usuarioActual.setApellidoUsuario(usuario.getApellidoUsuario());
+			usuarioActual.setEmailUsuario(usuario.getEmailUsuario());
+			usuarioActual.setNotaUsuario(usuario.getNotaUsuario());
+			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
+			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
+			usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
 
 			usuarioUpdated = usuarioService.save(usuarioActual);
 			response.put("usuario", usuario);
@@ -237,7 +255,7 @@ public class UsuarioRestController {
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
-		Usuario usuario = null;
+		Usuario2 usuario = null;
 		try {
 			 usuario = usuarioService.findById(id);
 			String nombreFotoAnterior = "";//usuario.getFoto();

@@ -176,6 +176,20 @@ $(document).ready(function(){
 		      $('#notaVendedor').val(row.notaVendedor);
 		    }
 		   }
+	
+	window.operateEventsUpdateUsuario = {
+		    'click .like': function (e, value, row, index) {
+//		      alert('You click like action, row: ' +JSON.stringify(row));
+		      $('#idUsuario').val(row.idUsuario);
+		      $('#usernameUsuario').val(row.usernameUsuario);
+		      $('#passwordUsuario').val(row.passwordUsuario);      
+		      $('#perfilUsuario').val(row.perfilUsuario);
+		      $('#nameUsuario').val(row.nameUsuario);
+		      $('#apellidoUsuario').val(row.apellidoUsuario);
+		      $('#emailUsuario').val(row.emailUsuario);
+		      $('#notaUsuario').val(row.notaUsuario);
+		    }
+		   }
 
 	
 	window.operateEventsDelete = {
@@ -194,6 +208,7 @@ $(document).ready(function(){
 	$('#cursosTable').bootstrapTable({data : $data})
 	$('#instructoresTable').bootstrapTable({data : $data})
 	$('#vendedoresTable').bootstrapTable({data : $data})
+	$('#usuariosTable').bootstrapTable({data : $data})
 
 	
 /*

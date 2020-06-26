@@ -19,6 +19,7 @@ import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.inicio.entity.Curso;
 import mx.uniprotec.inicio.service.IAplicacionService;
@@ -538,6 +539,97 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			}
 			return mav;
 		}
+	
+	
+	
+	
+	/*
+	 * CRUD USUARIO
+	 * 
+	 */
+	@GetMapping("/AUsuario")
+	public ModelAndView AUsuario(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+		
+		model.addAttribute("usuarioForm", new UsuarioModelo());
+		
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("AUsuario model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			ModelAndView mav = new  ModelAndView("AUsuario", model );
+			model.addAttribute("model", resultVO);
+			mav.addObject("error", error);
+			mav.addObject("ejecucion", ejecucion);
+			return mav;
+		}		
+		
+	}
+//	
+	@PostMapping("/altaUsuario")
+	public ModelAndView altaUsuario(@ModelAttribute("usuarioForm") UsuarioModelo usuario, ModelMap model) {
+
+		log.info("metodo de alta Usuario");
+		log.info(usuario.toString());
+		ResultVO resultVO = (ResultVO)model.get("model");
+		resultVO  = usuarioService.altaUsuario(usuario, resultVO.getAccesToken());
+		ModelAndView mav = new  ModelAndView("redirect:/AUsuario", model );
+		if(resultVO.getCodigo() != 500) {
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);		
+		}
+		return mav;
+	}
+	
+	@GetMapping("/BUsuario")
+	public ModelAndView BUsuario(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("BUsuario model Activo");
+			model.addAttribute("usuarioForm", new UsuarioModelo());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = usuarioService.consultaUsuarios(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			ModelAndView mav = new ModelAndView("BUsuario", model);
+			if(resultVO.getCodigo() != 500) {	
+//				log.info(model.values().toString());
+				
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+			}else {
+				mav.addObject("consulta", true);
+			}
+			return mav;
+		}
+
+	@PostMapping("/actualizaUsuario")
+	public ModelAndView actualizaUsuario(@ModelAttribute("usuarioForm") UsuarioModelo usuario, ModelMap model) {
+		log.info("ActualizaUsuario model Activo");
+			model.addAttribute("usuarioForm", new UsuarioModelo());
+				
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = usuarioService.edicionUsuario(usuario, resultVO.getAccesToken());
+			ModelAndView mav = new ModelAndView("redirect:/BUsuario", model);
+			if(rs.getCodigo() != 500) {
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+//				log.info(model.values().toString());
+				mav.addObject("ejecucion", true);
+			}else {
+				mav.addObject("error", true);		
+			}
+			return mav;
+		}
+
 
 	//Fin de clase
 }

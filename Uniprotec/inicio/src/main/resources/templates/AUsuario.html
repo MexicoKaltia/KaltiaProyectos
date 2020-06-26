@@ -9,10 +9,11 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
+                <link th:href="@{css/multi-select.css}" rel="stylesheet">
     <link th:href="@{main.css}" rel="stylesheet">
 </head>
 
-<body>
+<body background="images/fondo9.png">
 
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
@@ -106,10 +107,10 @@
             </div>
         </div>
        <!--      HEAD FIN    --> 
-        
+               
         <div class="app-main">
             <!--     LEFT INICIO -->
-			<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>
                     <div class="header__pane ml-auto">
@@ -202,9 +203,7 @@
 <!--     LEFT FIN -->
 
              <div class="app-main__outer">
-             <!--     BODY INICIO -->
                 <div class="app-main__inner">
-                <!--     BODY Encabezado -->
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -212,18 +211,124 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>TABLERO DE CONTROL
-                                    <div class="page-title-subheading">PANTALLA PRINCIPAL CON LOS INDICADORES DE
-                                        SERVICIO.
+                                <div>ALTA USUARIO
+                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO USUARIO
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        <div class="app-header-right">
+							<br>
+                            <span th:if='${ejecucion}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado correctamente el nuevo Usuario.</u>
+								</div>
+							</span>
+							<span th:if='${error}'>
+								<div class="alert alert-danger" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se Generó  Usuario, Verifique datos. </u>
+								</div>
+							</span>
+							<span th:if='${consulta}'>
+								<div class="alert alert-warning" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Consulta : </b><u>No se realizó la consulta de los Usuarios, Notifique Administrador. </u>
+								</div>
+							</span>
+					 </div>
                     </div>
-                    <!--     BODY Encabezado FIN -->
-                </div>
-                <!--     BODY FIN -->
-                                      	<!-- Footer-->
+                    
+                    <!--  
+                    	SECCION DE EDICION  
+                    -->
+                    <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <h5 class="card-title">USUARIO UNIPROTEC</h5>
+                                <form id="altaUsuario" class="login100-form validate-form needs-validation" novalidate th:action="@{/altaUsuario}"  th:object="${usuarioForm}" method="post">
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Nombre Usuario</label>
+                                            <input type="text" class="form-control"  id="nameUsuario" name="nameUsuario" placeholder="Capture Nombre Usuario" value=""  maxlength="100" th:field="*{nameUsuario}" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre Usuario
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Apellido Usuario</label>
+                                            <input type="text" class="form-control"  id="apellidoUsuario" name="apellidoUsuario" placeholder="Capture Apellido Usuario" value=""  maxlength="100" th:field="*{apellidoUsuario}" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Apellido Usuario
+                                            </div>
+                                        </div>
+                                     </div>                                    
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Email</label>
+                                            <input type="email" class="form-control" th:field="*{emailUsuario}" id="emailUsuario" placeholder="email" value="" maxlength="100" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Email Valido
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Perfil Usuario</label>
+                           				     <select id="perfilUsuario" th:field="*{perfilUsuario}" name="perfilUsuario" class="form-control"  required>
+	                								 <option value="" selected  >Selecciona Perfil</option>
+	                								 <option value="Vendedor"   >Vendedor</option>
+	                								 <option value="Instructor"   >Instructor</option>
+	                								 <option value="Operacion"   >Operacion</option>
+	                								 <option value="Administracion"   >Administracion</option>
+	                								 <option value="Direccion"   >Direccion</option>
+	                								 
+	              							</select>
+                                            <div class="invalid-feedback">
+                                                Capturar Perfil
+                                            </div>
+                                        </div>
+                                      </div>
+                                      
+                                  
+                                  <div class="form-row">
+                                      <label class=" control-label" for="textarea">Notas Usuario</label>
+								            <div class="">                     
+								              <textarea class="form-control" th:field="*{notaUsuario}" id="notaUsuario" rows="3" cols="150" ></textarea>
+								            </div>
+							         </div>
+                                        
+                                <br>
+                                    
+                                    <button class="btn btn-primary" type="submit">Agregar Usuario</button>
+                                </form>
+            
+                                <script>
+                                    (function() {
+                                        'use strict';
+                                        window.addEventListener('load', function() {
+                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                            var forms = document.getElementsByClassName('needs-validation');
+                                            // Loop over them and prevent submission
+                                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                                form.addEventListener('submit', function(event) {
+                                                    if (form.checkValidity() === false) {
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                    }
+                                                    form.classList.add('was-validated');
+                                                }, false);
+                                            });
+                                        }, false);
+                                    })();
+                                </script>
+                            </div>
+                        </div>
+                                              
+                        <!-- 
+                        	FIN DE SECCION DE EDICION 
+                        -->
+
+                     	<!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
@@ -252,12 +357,16 @@
                                                 </div>
                                             </div></div></div>                                    
                                 <!-- Fin Footer-->
+
                 
-            </div> <!-- fin de app-main__outer-->  
-        </div>  <!-- app-main --> 
-	</div>  <!-- app-container -->  
-   
+            </div>  <!--  app-main__inner -->
+        </div>  <!-- fin de app-main__outer-->
+	</div>  <!-- app-main -->
+</div>   <!-- app-container -->
     <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    
+    
 </body>
 
 </html>
