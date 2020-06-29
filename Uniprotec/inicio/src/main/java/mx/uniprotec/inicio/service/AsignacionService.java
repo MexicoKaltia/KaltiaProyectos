@@ -38,6 +38,7 @@ public class AsignacionService implements IAsignacionService{
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
 		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
 		asignacion.setStatusAsignacion(me.getStatusEntidad());
+		asignacion.setIdAsignacionLogica(fecha(asignacion.getFechaAsignacion())+"-"+asignacion.getIdClienteAsignacion()+"-"+asignacion.getIdInstructorAsignacion()+"-"+asignacion.getIdCursoAsignacion());
 		log.info(asignacion.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
@@ -46,6 +47,11 @@ public class AsignacionService implements IAsignacionService{
 				asignacion);
 		
 		return resultVO;
+	}
+
+	private String fecha(String fechaAsignacion) {
+		String[] fechas = fechaAsignacion.split("/");
+		return fechas[1]+fechas[0]+fechas[2];
 	}
 
 	@Override

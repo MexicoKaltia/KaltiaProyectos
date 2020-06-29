@@ -549,9 +549,8 @@
                                         <input type="hidden" id="imagenLogoClienteH" th:field="*{imagenLogoClienteH}" th:value="*{imagenLogoClienteH}"/>
                                         <input type="hidden" id="archivosClienteH" th:field="*{archivosClienteH}" th:value="*{archivosClienteH}"/>
                                             <label for="validationCustom02">Adjuntar Imagen Logo Empresa</label>
-<!--                                             <label for="exampleFile" class="col-sm-2 col-form-label">File</label> -->
 												<div class="alert alert-success alert-dismissible fade show" role="alert">
-<!-- 												<a href="" id="linkImagen"></a> -->
+ 												<a href="" id="linkImg"></a>
 												  <img id="imagenLogoClientePrev" src="" class="img-fluid rounded float-left" alt="">
 												  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 												    <span aria-hidden="true">&times;</span>
@@ -578,12 +577,8 @@
                                       			<div class="file-loading">
         											<input id="archivosCliente" name="archivosCliente[]" type="file" class="file"  th:field="*{archivosCliente}"  data-show-upload="false" multiple onchange="archivoCliente(this,  document.getElementById('rfcCliente'))"/>
     											</div>
-    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
+    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.  *.mp3  no mayor a 10 MB</small> 
     									</div>    
-<!--                                             <div class="file-upload-wrapper"> -->
-<!--   													    <input id="archivosCliente" type="file" name="archivosCliente[]"   th:field="*{archivosCliente}" class="form-control-file" multiple /> -->
-<!--                                          
-<!--                                             </div> -->
                                      </div>
                                         
                                 <br>

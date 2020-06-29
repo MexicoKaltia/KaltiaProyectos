@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function asignaCamposSubmit(asignacionSub){
 //		console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
+		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
 		$('#idClienteAsignacion').val(asignacionSub.idClienteAsignacion);
 		$('#clienteAsignacion').val(asignacionSub.clienteAsignacion);

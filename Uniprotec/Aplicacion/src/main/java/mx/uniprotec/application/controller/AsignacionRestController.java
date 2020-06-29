@@ -125,6 +125,7 @@ public class AsignacionRestController {
 		
 		try {
 			
+			asignacionNew.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
 			asignacionNew.setFechaAsignacion(asignacion.getFechaAsignacion());
 			asignacionNew.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
 			asignacionNew.setClienteAsignacion(asignacion.getClienteAsignacion());
@@ -136,6 +137,7 @@ public class AsignacionRestController {
 			asignacionNew.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
 			asignacionNew.setNivelAsignacion(asignacion.getNivelAsignacion());
 			asignacionNew.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+			asignacionNew.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
 			asignacionNew.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
 			asignacionNew.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
 			asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
@@ -196,6 +198,7 @@ public class AsignacionRestController {
 
 		try {
 		
+			asignacionActual.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
 			asignacionActual.setFechaAsignacion(asignacion.getFechaAsignacion());
 			asignacionActual.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
 			asignacionActual.setClienteAsignacion(asignacion.getClienteAsignacion());
@@ -207,6 +210,7 @@ public class AsignacionRestController {
 			asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
 			asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
 			asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+			asignacionActual.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
 			asignacionActual.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
 			asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
 			asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());

@@ -68,9 +68,12 @@ $(document).ready(function(){
 		      $('#archivosClientePrev').attr('src', "/uploads/file/"+row.rfcCliente+"/"+row.archivosCliente);
 		      $('#archivosClientePrev').attr('alt', row.archivosCliente);
 
-		      $("#linkFile").attr('href', '31.220.63.183:8015/uploads/file/'+row.rfcCliente+'/'+row.archivosCliente)
+		      $("#linkFile").attr('href', '/uploads/file/'+row.rfcCliente+'/'+row.archivosCliente)
 		      $("#linkFile").html('<b>'+row.archivosCliente+'</b>');
-//		      $('#archivosCliente').val(row.archivosCliente);		      
+		      
+		      $("#linkImg").attr('href', '/uploads/img/'+row.rfcCliente+'/'+row.imagenLogoCliente)
+		      $("#linkImg").html('<b>'+row.imagenLogoCliente+'</b>');
+	      
 		    }
 		   }
 	

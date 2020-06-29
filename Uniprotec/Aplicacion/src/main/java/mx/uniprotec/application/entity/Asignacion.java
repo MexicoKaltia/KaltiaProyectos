@@ -35,6 +35,8 @@ public class Asignacion implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idAsignacion;
 	@Column(nullable=false)
+	private String idAsignacionLogica;
+	@Column(nullable=false)
 	private String fechaAsignacion;
 	@Column(nullable=false)
 	private Long idClienteAsignacion;
@@ -261,6 +263,14 @@ public class Asignacion implements Serializable{
 
 	public void setTipoCursoAsignacion(String tipoCursoAsignacion) {
 		this.tipoCursoAsignacion = tipoCursoAsignacion;
+	}
+
+	public String getIdAsignacionLogica() {
+		return idAsignacionLogica;
+	}
+
+	public void setIdAsignacionLogica(String idAsignacionLogica) {
+		this.idAsignacionLogica = idAsignacionLogica;
 	}
 	
 	

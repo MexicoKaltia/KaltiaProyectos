@@ -36,35 +36,13 @@ $(document).ready(function(){
           }        
       }
 
-
-	 
-	  
-//	  $("#archivosCliente").fileinput({
-//	        browseClass: "btn btn-info",
-//	        browseLabel: "Seleccionar Archivos",
-//	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-//	        removeClass: "btn btn-warning",
-//	        removeLabel: "Remover",
-//	 	   showCaption: false, 
-//	 	   dropZoneEnabled: false
-//	 	  });
-//	    $("#imagenLogoCliente").fileinput({
-//	        browseClass: "btn btn-success",
-//	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-//	        browseLabel: "Selecciona Imagen",
-//	        removeClass: "btn btn-warning",
-//	        removeLabel: "Remover",
-//	 	   showCaption: false, 
-//	 	   dropZoneEnabled: false
-//	 	  });
-
 	    
 	    
 	    /*
 	     * REST
 	     */
 
-	    var  urlUpload = "http://localhost:8015/"
+	    
 	    	function enviaImagen(idImagenForm, rfcCliente){
 	    		
 	    		limpiaAlerta(),
@@ -121,9 +99,7 @@ $(document).ready(function(){
     			  $.ajax({
     				url: "fileUpload/"+rfcCliente,
     			    type: "POST",
-//    			    data: $("#archivosCliente").attr("file"),
     			    data: data,
-//    			    data: new FormData($("#formImagenLogoCliente")[0]),
     			    enctype: 'multipart/form-data',
     			    processData: false,
     			    contentType: false,

@@ -52,7 +52,7 @@ public class ControllerUtil {
 	
 	@GetMapping("/version")
 	public  String version() {
-		return  "23012020";
+		return  "01072020";
 	}
 
 
@@ -104,7 +104,7 @@ public class ControllerUtil {
 	@GetMapping("/uploads/img/{idEmpresa}/{nombreFoto:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String idEmpresa, @PathVariable String nombreFoto){
 		
-		Path rutaArchivo = Paths.get("/uniprotec/\\"+idEmpresa+"/image/").resolve(nombreFoto).toAbsolutePath();
+		Path rutaArchivo = Paths.get("/uniprotec/"+idEmpresa+"/image/").resolve(nombreFoto).toAbsolutePath();
 		log.info(rutaArchivo.toString());
 		
 		Resource recurso = null;
@@ -127,7 +127,7 @@ public class ControllerUtil {
 	@GetMapping("/uploads/file/{idEmpresa}/{nombreFile:.+}")
 	public ResponseEntity<Resource> verFile(@PathVariable String idEmpresa, @PathVariable String nombreFile){
 		
-		Path rutaArchivo = Paths.get("/uniprotec/\\"+idEmpresa+"/file/").resolve(nombreFile).toAbsolutePath();
+		Path rutaArchivo = Paths.get("/uniprotec/"+idEmpresa+"/file/").resolve(nombreFile).toAbsolutePath();
 		log.info(rutaArchivo.toString());
 		
 		Resource recurso = null;
@@ -150,7 +150,7 @@ public class ControllerUtil {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/imageUpload/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
 //	@PostMapping("/fileUpload/{idEmpresa}")
-		public ResultVO imageUpload(@PathVariable String idEmpresa, @RequestParam("imagenLogoCliente") MultipartFile imagenLogoCliente){
+	public ResultVO imageUpload(@PathVariable String idEmpresa, @RequestParam("imagenLogoCliente") MultipartFile imagenLogoCliente){
 	   try {
 		   log.info(idEmpresa);
 		    // Get the filename and build the local file path (be sure that the 
@@ -158,8 +158,6 @@ public class ControllerUtil {
 		    String filename = imagenLogoCliente.getOriginalFilename();
 
 		    String directory = "/uniprotec/"+idEmpresa+"/image/";
-//		    String directory = "C:\\Uniprotec\\empresa\\nuevo\\logo\\";
-//		    String directory = "src/main/resources/static/images/uniprotec/"+idEmpresa+"/image/";
 	        File directorio = new File(directory);
 	        if (!directorio.exists()) {
 	            if (directorio.mkdirs()) {
@@ -201,8 +199,7 @@ public class ControllerUtil {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/fileUpload/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
-//	@PostMapping("/fileUpload/{idEmpresa}")
-		public ResultVO fileUpload(@PathVariable String idEmpresa, @RequestParam("archivosCliente") MultipartFile archivosCliente){
+	public ResultVO fileUpload(@PathVariable String idEmpresa, @RequestParam("archivosCliente") MultipartFile archivosCliente){
 	   try {
 		   log.info(idEmpresa);
 		    // Get the filename and build the local file path (be sure that the 
@@ -210,7 +207,6 @@ public class ControllerUtil {
 		    String filename = archivosCliente.getOriginalFilename();
 
 		    String directory = "/uniprotec/"+idEmpresa+"/file/";
-//		    String directory = "C:\\Uniprotec\\empresa\\nuevo\\logo\\";
 	        File directorio = new File(directory);
 	        if (!directorio.exists()) {
 	            if (directorio.mkdirs()) {
@@ -250,6 +246,77 @@ public class ControllerUtil {
 		  }
 	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
 		}
-	
+
+	@RequestMapping(method = RequestMethod.POST, path = "/fileAsignacion/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
+		public ResultVO fileAsignacion(@PathVariable String idEmpresa, @RequestParam("archivosAsignacion") MultipartFile asignaArchivos){
+	   try {
+		   log.info(idEmpresa);
+		    // Get the filename and build the local file path (be sure that the 
+		    // application have write permissions on such directory)
+		    String filename = asignaArchivos.getOriginalFilename();
+
+		    String directory = "/uniprotec/asignacion/"+idEmpresa+"/";
+	        File directorio = new File(directory);
+	        if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	                log.info("Directorio creado");
+	    		    String filepath = Paths.get(directory, filename).toString();
+	    		    
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(asignaArchivos.getBytes());
+	    		    stream.close();
+	            } else {
+	            	log.info("Error al crear directorio");
+	            }
+	        }else {
+	        	log.info("Directorio Ya existe");
+	        	String filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(asignaArchivos.getBytes());
+    		    stream.close();
+	        }
+		    
+		    
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito File Upload");
+		    
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO;//new ResultVO(99, "fallo");
+		  }
+	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+		}
+
+	@GetMapping("/uploads/fileAsignacion/{idEmpresa}/{nombreFile:.+}")
+	public ResponseEntity<Resource> verFileAsignacion(@PathVariable String idEmpresa, @PathVariable String nombreFile){
+		
+		Path rutaArchivo = Paths.get("/uniprotec/asignacion/"+idEmpresa+"/").resolve(nombreFile).toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la Archivo: " + nombreFile);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
 
 }

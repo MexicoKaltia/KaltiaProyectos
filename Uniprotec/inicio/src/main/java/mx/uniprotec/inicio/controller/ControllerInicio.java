@@ -111,6 +111,7 @@ public class ControllerInicio extends HttpServlet{
 		@GetMapping("/AAsignacion")
 		public ModelAndView asignacion(ModelMap model) {
 			model.addAttribute("asignacionForm", new AsignacionModelo());
+			model.addAttribute("asignaForm", new AsignacionModelo());
 
 			if(model.equals(null)) {
 				log.info("NULL");

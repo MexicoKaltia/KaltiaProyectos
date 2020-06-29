@@ -3,6 +3,31 @@
 $(document).ready(function(){
 	
 	console.log(asignacionItem);
+	var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
+	var procesoVacio="";
+	var alertaEmpty;
+	var procesoFecha;//="<li>Edicion Fecha:"+ $.asignaCliente +"</li>";
+	var procesoCliente;//="<li>Edicion Cliente"+ $.asignaCliente +"</li>";
+	var procesoCurso;//="<li>Edicion Curso"+ $.asignaCurso +"</li>";
+	var procesoInstructor;//="<li>Edicion Instructor"+ $.asignaInstructor +"</li>";
+	var procesoHorario;//="<li>Edicion Horario: Horario</li>";
+	var procesoParticipantes;
+	var procesoObservaciones;//="<li>Edicion Observaciones"+ $.asignaObservaciones +"</li>";
+
+	const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":false,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
+	var alerta;
+
+
+	
+	$('#procesoObservaciones').on(function(){
+		$(".listaProceso").empty();
+		$(".listaProceso").append(procesoFecha);
+		$(".listaProceso").append(procesoCliente);
+		$(".listaProceso").append(procesoCurso);
+		$(".listaProceso").append(procesoInstructor);
+		$(".listaProceso").append(procesoHorario);
+		$(".listaProceso").append(procesoParticipantes);
+	})
 	
 	//--------------------------------------------------
 	var elementoPicker = $datepicker.pickadate('picker');
@@ -40,17 +65,18 @@ $(document).ready(function(){
 	//--------------------------------------------------
 	$('#asignaObservaciones').text(asignacionItem.observacionesAsignacion);
 	//--------------------------------------------------
-//	$('#asignaArchivos').text();
+	$("#linkFile").attr('href', '/uploads/fileAsignacion/'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivosAsignacion)
+    $("#linkFile").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
 	//--------------------------------------------------
 	
 	
-	 $.asignaFecha ="";
+	 $.asignaFecha =asignacionItem.fechaAsignacion;
 	 $.asignaFecha2 ="";
 	 $.asignaFechaCalendario; 
-	 $.asignaCliente ="";
-	 $.asignaCurso="" ;
+	 $.asignaCliente =asignacionItem.idClienteAsignacion;
+	 $.asignaCurso=asignacionItem.idCursoAsignacion ;
 	 $.asignaCursoTexto="";
-	 $.asignaInstructor="";
+	 $.asignaInstructor=asignacionItem.idInstructorAsignacion;
 	 $.asignaInstructorTexto="";
 	 $.asignaHorarioInicio="";
 	 $.asignaHorarioFinal="";
@@ -195,22 +221,6 @@ $(document).ready(function(){
 	}
 	
 });  // fin de documento JQuery
-
-
-var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
-var procesoVacio="";
-var alertaEmpty;
-var procesoFecha;//="<li>Edicion Fecha:"+ $.asignaCliente +"</li>";
-var procesoCliente;//="<li>Edicion Cliente"+ $.asignaCliente +"</li>";
-var procesoCurso;//="<li>Edicion Curso"+ $.asignaCurso +"</li>";
-var procesoInstructor;//="<li>Edicion Instructor"+ $.asignaInstructor +"</li>";
-var procesoHorario;//="<li>Edicion Horario: Horario</li>";
-var procesoParticipantes;
-var procesoObservaciones;//="<li>Edicion Observaciones"+ $.asignaObservaciones +"</li>";
-
-const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":false,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
-var alerta, proceso;
-
 
 
 //  JScript
@@ -547,9 +557,13 @@ var alerta, proceso;
 	function validaDiaSelect(idInstructor){
 		var fechaDisponible = true;
 		var asignacion;
+		var asigna;
+		var dia;
 		for(i in asignacionAsignaciones){
 			asignacion = asignacionAsignaciones[i];
-			if((asignacion.fechaAsignacion.toString() === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
+			asigna = asignacion.fechaAsignacion.toString().split("/");
+			dia = asigna[1]+"/"+asigna[0]+"/"+asigna[2];
+			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
 				fechaDisponible = false;
 				break;
 			}
@@ -818,7 +832,6 @@ var alerta, proceso;
 		
 		$.asignaObservaciones = $('#asignaObservaciones').val();
 		$.asignaArchivos = $('#asignaArchivos').val()
-		console.log("asignaObservaciones:"+ $.asignaObservaciones);
 		while($.asignaArchivos.includes("C:\\fakepath\\") ){
 			$.asignaArchivos = $.asignaArchivos.replace("C:\\fakepath\\", "")	
 		}
@@ -856,68 +869,64 @@ var alerta, proceso;
    	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-   	/*
+	/*
    	 * FILEUPLOAD
    	 */
-   	function validaArchivos(archivosCampo, rfcCliente){
-  	  var $idCliente = rfcCliente
-  	  $idCliente = $(rfcCliente).val();
-        enviaFile(archivosCampo, rfcCliente);
+   	function validaArchivos(archivosCampo){
+   	  
+        enviaFile(asignacionItem.idAsignacionLogica);
         var files = archivosCampo.files;
         for (var i = 0; i < files.length; i++) {           
             var file = files[i];
             console.log(file);          
             }        
         }
-  	  
-  	  $("#asignaArchivos").fileinput({
-  	        browseClass: "btn btn-info",
-  	        browseLabel: "Seleccionar Archivos",
-  	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-  	        removeClass: "btn btn-warning",
-  	        removeLabel: "Remover",
-  	 	   showCaption: false, 
-  	 	   dropZoneEnabled: false
-  	 	  });
-
-  	function enviaFile(idImagenForm, rfcCliente){
+   	
+   	function fechaArchivo(fecha){
+   		fecha = fecha.toString();
+   		fecha = fecha.split("/");
+   		return fecha[0]+fecha[1]+fecha[2];	
+   	}
+   	
+   	
+   	
+  	function enviaFile(rfcCliente){
 		
-		limpiaAlerta(),
 
-			console.log("Comineza envio idCliente:"+rfcCliente);
-			var alerta="";
-			 var form = $('#altaCliente')[0]; //$('#formImagenLogoCliente').attr('files'),
-	        var data = new FormData(form);
-	        console.log(data);
-			  $.ajax({
-				url: "fileAsignacion/"+rfcCliente,
-			    type: "POST",
-//			    data: $("#archivosCliente").attr("file"),
-			    data: data,
-//			    data: new FormData($("#formImagenLogoCliente")[0]),
-			    enctype: 'multipart/form-data',
-			    processData: false,
-			    contentType: false,
-			    cache: false,
-			    success: 	function(data){
-			    	if(data.codigo===0){
-			    		if(data.codigo===0){
-			  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
-			  			  $(alerta).insertAfter($('.alertaFile'));
-			  			  console.log("envio ok");
-			  	    	}else{
-			  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
-			  				  $(alerta).insertAfter($('.alertaFile'));
-			  	    		console.log("envio Nok");
-			  	    	}
-			    	  } 
-			    	},
-			    error: function () {
-			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
-					  $(alerta).insertAfter($('.alertaFile'));
-			  	console.log("envio error");
-			    }
-			  });
+  		limpiaAlerta(),
+
+		console.log("envio idAsignacion:"+rfcCliente);
+		var alerta="";
+		 var form = $('#actualizaAsignacion')[0]; //$('#formImagenLogoCliente').attr('files'),
+        var data = new FormData(form);
+        console.log(data);
+		  $.ajax({
+			url: "fileAsignacion/"+rfcCliente,
+		    type: "POST",
+		    data: data,
+		    enctype: 'multipart/form-data',
+		    processData: false,
+		    contentType: false,
+		    cache: false,
+		    success: 	function(data){
+		    	if(data.codigo===0){
+		    		if(data.codigo===0){
+		  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
+		  			  $(alerta).insertAfter($('.alertaFile'));
+		  			  console.log("envio ok");
+		  	    	}else{
+		  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
+		  				  $(alerta).insertAfter($('.alertaFile'));
+		  	    		console.log("envio Nok");
+		  	    	}
+		    	  } 
+		    	},
+		    error: function () {
+		    	alerta="<div class='alert alert-danger' role='alert'>Error en carga de Archivo</div>";
+				  $(alerta).insertAfter($('.alertaFile'));
+		  	console.log("envio error");
+		    }
+		  });
 
 	}
 

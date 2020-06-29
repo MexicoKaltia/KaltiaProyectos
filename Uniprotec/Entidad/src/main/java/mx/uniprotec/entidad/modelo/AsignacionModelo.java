@@ -24,6 +24,7 @@ public class AsignacionModelo implements Serializable{
 	private String instructorAsignacion;
 	private String horarioAsignacion;
 	private String archivosAsignacion;
+	private String archivosAsignacionTexto;
 	private String participantesAsignacion;
 	private String nivelAsignacion;
 	private String observacionesAsignacion;
@@ -33,26 +34,31 @@ public class AsignacionModelo implements Serializable{
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
 	private String statusAsignacion;
-	
 	@Override
 	public String toString() {
-		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", fechaAsignacion=" + fechaAsignacion
-				+ ", idClienteAsignacion=" + idClienteAsignacion + ", clienteAsignacion=" + clienteAsignacion
-				+ ", idCursoAsignacion=" + idCursoAsignacion + ", cursoAsignacion=" + cursoAsignacion
-				+ ", idInstructorAsignacion=" + idInstructorAsignacion + ", instructorAsignacion="
-				+ instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion + ", archivosAsignacion="
-				+ archivosAsignacion + ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion="
-				+ nivelAsignacion + ", observacionesAsignacion=" + observacionesAsignacion + ", createAtAsignacion="
-				+ createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion="
-				+ statusAsignacion + "]";
+		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
+				+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
+				+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
+				+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
+				+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
+				+ ", archivosAsignacion=" + archivosAsignacion + ", archivosAsignacionTexto=" + archivosAsignacionTexto
+				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
+				+ ", observacionesAsignacion=" + observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
+				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
+				+ ", createAtAsignacion=" + createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion
+				+ ", statusAsignacion=" + statusAsignacion + "]";
 	}
-	public AsignacionModelo(Long idAsignacion, String fechaAsignacion, Long idClienteAsignacion,
-			String clienteAsignacion, Long idCursoAsignacion, String cursoAsignacion, Long idInstructorAsignacion,
-			String instructorAsignacion, String horarioAsignacion, String archivosAsignacion,
-			String participantesAsignacion, String nivelAsignacion, String observacionesAsignacion,
-			LocalDateTime createAtAsignacion, Long userCreateAsignacion, String statusAsignacion) {
+	private String idAsignacionLogica;
+	public AsignacionModelo(Long idAsignacion, String idAsignacionLogica, String fechaAsignacion,
+			Long idClienteAsignacion, String clienteAsignacion, Long idCursoAsignacion, String cursoAsignacion,
+			Long idInstructorAsignacion, String instructorAsignacion, String horarioAsignacion,
+			String archivosAsignacion, String archivosAsignacionTexto, String participantesAsignacion,
+			String nivelAsignacion, String observacionesAsignacion, Long idRegionAsignacion,
+			String nombreRegionAsignacion, String tipoCursoAsignacion, LocalDateTime createAtAsignacion,
+			Long userCreateAsignacion, String statusAsignacion) {
 		super();
 		this.idAsignacion = idAsignacion;
+		this.idAsignacionLogica = idAsignacionLogica;
 		this.fechaAsignacion = fechaAsignacion;
 		this.idClienteAsignacion = idClienteAsignacion;
 		this.clienteAsignacion = clienteAsignacion;
@@ -62,9 +68,13 @@ public class AsignacionModelo implements Serializable{
 		this.instructorAsignacion = instructorAsignacion;
 		this.horarioAsignacion = horarioAsignacion;
 		this.archivosAsignacion = archivosAsignacion;
+		this.archivosAsignacionTexto = archivosAsignacionTexto;
 		this.participantesAsignacion = participantesAsignacion;
 		this.nivelAsignacion = nivelAsignacion;
 		this.observacionesAsignacion = observacionesAsignacion;
+		this.idRegionAsignacion = idRegionAsignacion;
+		this.nombreRegionAsignacion = nombreRegionAsignacion;
+		this.tipoCursoAsignacion = tipoCursoAsignacion;
 		this.createAtAsignacion = createAtAsignacion;
 		this.userCreateAsignacion = userCreateAsignacion;
 		this.statusAsignacion = statusAsignacion;
@@ -132,29 +142,11 @@ public class AsignacionModelo implements Serializable{
 	public void setArchivosAsignacion(String archivosAsignacion) {
 		this.archivosAsignacion = archivosAsignacion;
 	}
-	public String getObservacionesAsignacion() {
-		return observacionesAsignacion;
+	public String getArchivosAsignacionTexto() {
+		return archivosAsignacionTexto;
 	}
-	public void setObservacionesAsignacion(String observacionesAsignacion) {
-		this.observacionesAsignacion = observacionesAsignacion;
-	}
-	public LocalDateTime getCreateAtAsignacion() {
-		return createAtAsignacion;
-	}
-	public void setCreateAtAsignacion(LocalDateTime createAtAsignacion) {
-		this.createAtAsignacion = createAtAsignacion;
-	}
-	public Long getUserCreateAsignacion() {
-		return userCreateAsignacion;
-	}
-	public void setUserCreateAsignacion(Long userCreateAsignacion) {
-		this.userCreateAsignacion = userCreateAsignacion;
-	}
-	public String getStatusAsignacion() {
-		return statusAsignacion;
-	}
-	public void setStatusAsignacion(String statusAsignacion) {
-		this.statusAsignacion = statusAsignacion;
+	public void setArchivosAsignacionTexto(String archivosAsignacionTexto) {
+		this.archivosAsignacionTexto = archivosAsignacionTexto;
 	}
 	public String getParticipantesAsignacion() {
 		return participantesAsignacion;
@@ -167,6 +159,12 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setNivelAsignacion(String nivelAsignacion) {
 		this.nivelAsignacion = nivelAsignacion;
+	}
+	public String getObservacionesAsignacion() {
+		return observacionesAsignacion;
+	}
+	public void setObservacionesAsignacion(String observacionesAsignacion) {
+		this.observacionesAsignacion = observacionesAsignacion;
 	}
 	public Long getIdRegionAsignacion() {
 		return idRegionAsignacion;
@@ -186,8 +184,32 @@ public class AsignacionModelo implements Serializable{
 	public void setTipoCursoAsignacion(String tipoCursoAsignacion) {
 		this.tipoCursoAsignacion = tipoCursoAsignacion;
 	}
+	public LocalDateTime getCreateAtAsignacion() {
+		return createAtAsignacion;
+	}
+	public void setCreateAtAsignacion(LocalDateTime createAtAsignacion) {
+		this.createAtAsignacion = createAtAsignacion;
+	}
+	public Long getUserCreateAsignacion() {
+		return userCreateAsignacion;
+	}
+	public void setUserCreateAsignacion(Long userCreateAsignacion) {
+		this.userCreateAsignacion = userCreateAsignacion;
+	}
+	public String getStatusAsignacion() {
+		return statusAsignacion;
+	}
+	public void setStatusAsignacion(String statusAsignacion) {
+		this.statusAsignacion = statusAsignacion;
+	}
+	public String getIdAsignacionLogica() {
+		return idAsignacionLogica;
+	}
+	public void setIdAsignacionLogica(String idAsignacionLogica) {
+		this.idAsignacionLogica = idAsignacionLogica;
+	}
 	
-	
+		
 	
 	
 		
