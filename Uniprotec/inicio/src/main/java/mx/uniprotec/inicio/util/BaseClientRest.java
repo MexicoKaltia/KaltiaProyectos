@@ -285,7 +285,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
 
-	    JSONObject jsonResponse = (JSONObject) response.getBody();
+	    if(response.getStatusCodeValue() == 401) {
+	    	log.info("Estoy en un 401");
+	    }
+		JSONObject jsonResponse = (JSONObject) response.getBody();
 	    ResultVO rs = new ResultVO();
 	    log.info(jsonResponse.toJSONString());
 	    rs.setJsonResponse(jsonResponse);

@@ -277,7 +277,7 @@
 							               </div>
 							           </div>
 							       </div>
-							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:
+							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso de Edicion:
 							       		<ul class='listaProceso'></ul>
 							       	</div>
 							       <form id="actualizaAsignacion" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaAsignacion}"  th:object="${asignacionItemUpdate}" method="post">
@@ -662,6 +662,7 @@
                                                <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
                                                <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
                                                <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
                                                <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
                                                <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
                                                <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />

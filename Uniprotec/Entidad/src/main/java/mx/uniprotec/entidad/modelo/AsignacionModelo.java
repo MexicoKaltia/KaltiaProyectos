@@ -15,6 +15,7 @@ public class AsignacionModelo implements Serializable{
 
 	
 	private Long idAsignacion;
+	private String idAsignacionLogica;
 	private String fechaAsignacion;
 	private Long idClienteAsignacion;
 	private String clienteAsignacion;
@@ -34,6 +35,7 @@ public class AsignacionModelo implements Serializable{
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
 	private String statusAsignacion;
+	
 	@Override
 	public String toString() {
 		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
@@ -48,7 +50,7 @@ public class AsignacionModelo implements Serializable{
 				+ ", createAtAsignacion=" + createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion
 				+ ", statusAsignacion=" + statusAsignacion + "]";
 	}
-	private String idAsignacionLogica;
+	
 	public AsignacionModelo(Long idAsignacion, String idAsignacionLogica, String fechaAsignacion,
 			Long idClienteAsignacion, String clienteAsignacion, Long idCursoAsignacion, String cursoAsignacion,
 			Long idInstructorAsignacion, String instructorAsignacion, String horarioAsignacion,

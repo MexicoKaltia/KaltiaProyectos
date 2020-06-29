@@ -3,31 +3,74 @@
 $(document).ready(function(){
 	
 	console.log(asignacionItem);
-	var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
-	var procesoVacio="";
-	var alertaEmpty;
-	var procesoFecha;//="<li>Edicion Fecha:"+ $.asignaCliente +"</li>";
-	var procesoCliente;//="<li>Edicion Cliente"+ $.asignaCliente +"</li>";
-	var procesoCurso;//="<li>Edicion Curso"+ $.asignaCurso +"</li>";
-	var procesoInstructor;//="<li>Edicion Instructor"+ $.asignaInstructor +"</li>";
-	var procesoHorario;//="<li>Edicion Horario: Horario</li>";
-	var procesoParticipantes;
-	var procesoObservaciones;//="<li>Edicion Observaciones"+ $.asignaObservaciones +"</li>";
 
+	 $.asignaFecha = ordenaFecha(asignacionItem.fechaAsignacion);
+	 $.asignaFecha2 ="";
+	 $.asignaFechaCalendario = ""; 
+	 $.asignaCliente =asignacionItem.idClienteAsignacion ;
+	 $.asignaClienteTexto =asignacionItem.clienteAsignacion ;
+	 $.asignaCurso=asignacionItem.idCursoAsignacion  ;
+	 $.asignaCursoTexto=asignacionItem.cursoAsignacion;
+	 $.asignaInstructor=asignacionItem.idInstructorAsignacion  ;
+	 $.asignaInstructorTexto=asignacionItem.instructorAsignacion;
+	 	var hr = asignacionItem.horarioAsignacion.split(";")
+		var hrInicio = horaSel(hr[0]);
+		var hrFinal = horaSel(hr[1]);
+	 $.asignaHorarioInicio=hrInicio+":00";
+	 $.asignaHorarioFinal=hrFinal+":00";
+	 $.asignaParticipantes=asignacionItem.participantesAsignacion;
+	 $.asignaParticipantesTexto=asignacionItem.participantesAsignacion;
+	 $.asignaNivel=asignacionItem.nivelAsignacion;
+	 $.asignaNivelTexto=asignacionItem.nivelAsignacion;
+	 $.asignaObservaciones=asignacionItem.observacionesAsignacion;
+	 $.asignaArchivos=asignacionItem.archivosAsignacion;
+	 $.asignaIdRegion=asignacionItem.idRegionAsignacion;
+	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
+	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
+	
+//	 $.asignaFecha = "";//ordenaFecha(asignacionItem.fechaAsignacion);
+//	 $.asignaFecha2 ="";//;
+//	 $.asignaFechaCalendario = ""; 
+//	 $.asignaCliente ="";//asignacionItem.idClienteAsignacion ;
+//	 $.asignaClienteTexto ="";//asignacionItem.clienteAsignacion ;
+//	 $.asignaCurso="";//asignacionItem.idCursoAsignacion  ;
+//	 $.asignaCursoTexto="";//asignacionItem.cursoAsignacion;
+//	 $.asignaInstructor="";//asignacionItem.idInstructorAsignacion  ;
+//	 $.asignaInstructorTexto="";//asignacionItem.instructorAsignacion;
+//	 	var hr = asignacionItem.horarioAsignacion.split(";")
+//		var hrInicio = horaSel(hr[0]);
+//		var hrFinal = horaSel(hr[1]);
+//	 $.asignaHorarioInicio="";//hrInicio+":00";
+//	 $.asignaHorarioFinal="";//hrFinal+":00";
+//	 $.asignaParticipantes="";//asignacionItem.participantesAsignacion;
+//	 $.asignaParticipantesTexto="";//asignacionItem.participantesAsignacion;
+//	 $.asignaNivel="";//asignacionItem.nivelAsignacion;
+//	 $.asignaNivelTexto="";//asignacionItem.nivelAsignacion;
+//	 $.asignaObservaciones="";//asignacionItem.observacionesAsignacion;
+//	 $.asignaArchivos="";//asignacionItem.archivosAsignacion;
+//	 $.asignaIdRegion="";//asignacionItem.idRegionAsignacion;
+//	 $.asignaNombreRegion="";//asignacionItem.nombreRegionAsignacion;
+//	 $.asignaTipoCurso="";//asignacionItem.tipoCursoAsignacion;;
+	 
+	 var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
+		var procesoVacio="";
+		var alertaEmpty;
+		var procesoFecha="";
+		var procesoCliente="";
+		var procesoCurso="";
+		var procesoInstructor="";
+		var procesoHorario="";
+		var procesoParticipantes="";
+		var procesoNivel="";
+		var procesoObservaciones="";
+		var procesoArchivo="";
+	 
+	procesoInicial(0);
+	
 	const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":false,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
 	var alerta;
 
-
-	
-	$('#procesoObservaciones').on(function(){
-		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
-		$(".listaProceso").append(procesoCurso);
-		$(".listaProceso").append(procesoInstructor);
-		$(".listaProceso").append(procesoHorario);
-		$(".listaProceso").append(procesoParticipantes);
-	})
+		
 	
 	//--------------------------------------------------
 	var elementoPicker = $datepicker.pickadate('picker');
@@ -46,9 +89,7 @@ $(document).ready(function(){
 	//--------------------------------------------------
 	$('#asignaInstructor').append('<option value="'+asignacionItem.idInstructorAsignacion+'" selected >'+asignacionItem.instructorAsignacion+'</option>');
 	//--------------------------------------------------
-	hr = asignacionItem.horarioAsignacion.split(";")
-	hrInicio = horaSel(hr[0]);
-	hrFinal = horaSel(hr[1]);
+	
 	$('#asignaHorarioInicio').append('<option value="'+hrInicio+'00" selected >'+hrInicio+':00</option>');
 	$('#asignaHorarioFinal').append('<option value="'+hrFinal+'00" selected >'+hrFinal+':00</option>');
 	if((hr[3] * 1) > 0){
@@ -70,67 +111,60 @@ $(document).ready(function(){
 	//--------------------------------------------------
 	
 	
-	 $.asignaFecha =asignacionItem.fechaAsignacion;
-	 $.asignaFecha2 ="";
-	 $.asignaFechaCalendario; 
-	 $.asignaCliente =asignacionItem.idClienteAsignacion;
-	 $.asignaCurso=asignacionItem.idCursoAsignacion ;
-	 $.asignaCursoTexto="";
-	 $.asignaInstructor=asignacionItem.idInstructorAsignacion;
-	 $.asignaInstructorTexto="";
-	 $.asignaHorarioInicio="";
-	 $.asignaHorarioFinal="";
-	 $.asignaParticipantes="";
-	 $.asignaParticipantesTexto="";
-	 $.asignaNivel="";
-	 $.asignaNivelTexto="";
-	 $.asignaObservaciones="";
-	 $.asignaArchivos="";
-	 $.asignaIdRegion="";
-	 $.asignaNombreRegion="";
-	 $.asignaTipoCurso="";
+	 
 	 
 	$('#procesoFecha').click(function(){	
+		$(".listaProceso").empty();
+		procesoInicial(1, $.asignaFecha);
+//		$(".listaProceso").append(procesoFecha);
 	})
 	$('#procesoCliente').click(function(){
 		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
+		procesoInicial(2, $.asignaClienteTexto);
+//		$(".listaProceso").append(procesoFecha);
 	})
 	$('#procesoCurso').click(function(){
 		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
+		procesoInicial(3, $.asignaCursoTexto);
+//		$(".listaProceso").append(procesoFecha);
+//		$(".listaProceso").append(procesoCliente);
 	})
 	$('#procesoInstructor').click(function(){
 		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
-		$(".listaProceso").append(procesoCurso);
+		procesoInicial(4, $.asignaInstructorTexto);
+//		$(".listaProceso").append(procesoFecha);
+//		$(".listaProceso").append(procesoCliente);
+//		$(".listaProceso").append(procesoCurso);
 	})
 	$('#procesoHorario').click(function(){
 		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
-		$(".listaProceso").append(procesoCurso);
-		$(".listaProceso").append(procesoInstructor);
+		procesoInicial(5, procesoHorario);
+//		$(".listaProceso").append(procesoFecha);
+//		$(".listaProceso").append(procesoCliente);
+//		$(".listaProceso").append(procesoCurso);
+//		$(".listaProceso").append(procesoInstructor);
 	})
 	$('#procesoParticipantes').click(function(){
 		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
-		$(".listaProceso").append(procesoCurso);
-		$(".listaProceso").append(procesoInstructor);
-		$(".listaProceso").append(procesoHorario);
+		procesoInicial(6, $.asignaParticipantes);
+		procesoInicial(7, $.asignaNivel);
+//		$(".listaProceso").append(procesoFecha);
+//		$(".listaProceso").append(procesoCliente);
+//		$(".listaProceso").append(procesoCurso);
+//		$(".listaProceso").append(procesoInstructor);
+//		$(".listaProceso").append(procesoHorario);
 		
 	})
 	$('#procesoObservaciones').click(function(){
 		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
-		$(".listaProceso").append(procesoCurso);
-		$(".listaProceso").append(procesoInstructor);
-		$(".listaProceso").append(procesoHorario);
-		$(".listaProceso").append(procesoParticipantes);
+		procesoInicial(8, $.asignaObservaciones);
+		procesoInicial(9, $.asignaArchivos);
+//		$(".listaProceso").append(procesoFecha);
+//		$(".listaProceso").append(procesoCliente);
+//		$(".listaProceso").append(procesoCurso);
+//		$(".listaProceso").append(procesoInstructor);
+//		$(".listaProceso").append(procesoHorario);
+//		$(".listaProceso").append(procesoParticipantes);
 	})
 	
 	for(var i = 1 ; i < 50 ; i++)
@@ -212,7 +246,62 @@ $(document).ready(function(){
 			
 		}
 		
-	})
+	}) // Fin de JQuery
+	
+	function procesoInicial(item, valor){
+		switch (idRegion){
+		case 1:
+			procesoFecha="<li>Edicion Fecha : <b>"+ valor +"</b></li>";
+			break;
+		case 2:
+			procesoCliente="<li>Edicion Cliente : <b>"+ valor +"</b></li>";
+			break;
+		case 3:
+			procesoCurso="<li>Edicion Curso : <b>"+ valor +"</b></li>";
+			break;
+		case 4:
+			procesoInstructor="<li>Edicion Instructor : <b>"+ valor  +"</b></li>";
+			break;
+		case 5:
+			procesoHorario=valor;
+			break;
+		case 6:
+			procesoParticipantes="<li>Edicion Participantes : <b>"+ valor  +"</b></li>";
+			break;
+		case 7:
+			procesoNivel="<li>Edicion Nivel : <b>"+ valor  +"</li>";
+			break;
+		case 8:
+			procesoObservaciones="<li>Edicion Observaciones : <b>"+ valor +"</b></li>";
+			break;
+		case 9:
+			procesoArchivo="<li>Edicion Archivo : <b>"+ valor +"</b></li>";
+			break;
+		default :
+			procesoFecha="<li>Edicion Fecha : <b>"+ $.asignaFecha +"</b></li>";
+			procesoCliente="<li>Edicion Cliente : <b>"+ $.asignaClienteTexto +"</b></li>";
+			procesoCurso="<li>Edicion Curso : <b>"+ $.asignaCursoTexto +"</b></li>";
+			procesoInstructor="<li>Edicion Instructor : <b>"+ $.asignaInstructorTexto  +"</b></li>";
+			procesoHorario="<li>Edicion Horario : <b>"+ hrInicio+":00 - "+hrFinal+":00</b></li>";
+			procesoParticipantes="<li>Edicion Participantes : <b>"+ $.asignaParticipantesTexto  +"</b></li>";
+			procesoNivel="<li>Edicion Nivel : <b>"+ $.asignaNivelTexto  +"</li>";
+			procesoObservaciones="<li>Edicion Observaciones : <b>"+ $.asignaObservaciones +"</b></li>";
+			procesoArchivo="<li>Edicion Archivo : <b>"+ $.asignaArchivos +"</b></li>";
+		break;
+		}
+		
+		$(".listaProceso").empty();
+		$(".listaProceso").append(procesoFecha);
+		$(".listaProceso").append(procesoCliente);
+		$(".listaProceso").append(procesoCurso);
+		$(".listaProceso").append(procesoInstructor);
+		$(".listaProceso").append(procesoHorario);
+		$(".listaProceso").append(procesoParticipantes);
+		$(".listaProceso").append(procesoNivel);
+		$(".listaProceso").append(procesoObservaciones);
+		$(".listaProceso").append(procesoArchivo);
+	
+	}
 
 	
 	
@@ -232,6 +321,7 @@ $(document).ready(function(){
 
 	function asignaCamposSubmit(){
 		$('#idAsignacion').val(asignacionItem.idAsignacion);
+		$('#idAsignacionLogica').val(asignacionItem.idAsignacionLogica);
 		$('#fechaAsignacion').val($.asignaFecha2);
 		$('#idClienteAsignacion').val($.asignaCliente);
 		$('#clienteAsignacion').val($.asignaClienteTexto);
@@ -243,22 +333,13 @@ $(document).ready(function(){
 		$('#participantesAsignacion').val($.asignaParticipantesTexto);
 		$('#nivelAsignacion').val($.asignaNivelTexto);
 		$('#archivosAsignacion').val($.asignaArchivos);
+		$('#archivosAsignacionTexto').val($.asignaArchivos);
 		$('#observacionesAsignacion').val($.asignaObservaciones);
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
 	}
 	
-	$('#procesoObservaciones').on(function(){
-		$(".listaProceso").empty();
-		$(".listaProceso").append(procesoFecha);
-		$(".listaProceso").append(procesoCliente);
-		$(".listaProceso").append(procesoCurso);
-		$(".listaProceso").append(procesoInstructor);
-		$(".listaProceso").append(procesoHorario);
-		$(".listaProceso").append(procesoParticipantes);
-	})
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -864,6 +945,11 @@ $(document).ready(function(){
 		$("#procesoVacio").remove();
 		procesoVacio="<div class='alert alert-danger' id='procesoVacio' role='alert'>Verificar los campos:<ul id='listaProcesoVacio'></ul></div>";
 		$(procesoVacio).insertAfter($('.alerta_inVacio'));
+	}
+	
+	function ordenaFecha(fecha){
+		fecha = fecha.split("/");
+		return fecha[1]+"/"+fecha[0]+"/"+fecha[2];
 	}
 
    	
