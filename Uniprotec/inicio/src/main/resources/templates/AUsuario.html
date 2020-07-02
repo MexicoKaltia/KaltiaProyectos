@@ -248,33 +248,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">USUARIO UNIPROTEC</h5>
                                 <form id="altaUsuario" class="login100-form validate-form needs-validation" novalidate th:action="@{/altaUsuario}"  th:object="${usuarioForm}" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">Nombre Usuario</label>
-                                            <input type="text" class="form-control"  id="nameUsuario" name="nameUsuario" placeholder="Capture Nombre Usuario" value=""  maxlength="100" th:field="*{nameUsuario}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Usuario
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">Apellido Usuario</label>
-                                            <input type="text" class="form-control"  id="apellidoUsuario" name="apellidoUsuario" placeholder="Capture Apellido Usuario" value=""  maxlength="100" th:field="*{apellidoUsuario}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Apellido Usuario
-                                            </div>
-                                        </div>
-                                     </div>                                    
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailUsuario}" id="emailUsuario" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
+                                	<div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Perfil Usuario</label>
-                           				     <select id="perfilUsuario" th:field="*{perfilUsuario}" name="perfilUsuario" class="form-control"  required>
+                           				     <select id="perfilUsuario" th:field="*{perfilUsuario}" name="perfilUsuario" class="form-control"  required onchange="validaUsuario()">
 	                								 <option value="" selected  >Selecciona Perfil</option>
 	                								 <option value="Vendedor"   >Vendedor</option>
 	                								 <option value="Instructor"   >Instructor</option>
@@ -286,20 +262,40 @@
                                             <div class="invalid-feedback">
                                                 Capturar Perfil
                                             </div>
+                                            <div id="alertaPerfil"></div>
+                                    </div>
+                                    <div class="form-row" id="nombreUsuarioDiv">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01">Nombre Usuario</label>
+                                            <input type="text" class="form-control"  id="nombreUsuario" name="nombreUsuario" placeholder="Capture Nombre Usuario" value=""  maxlength="100" th:field="*{nombreUsuario}" required disabled>
+                                            <div class="invalid-feedback">
+                                                Capturar Nombre Usuario
+                                            </div>
+                                        </div>
+                                     </div>                                    
+                                     <div class="form-row" id="emailUsuarioDiv">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom02">Email Usuario</label>
+                                            <div class="input-group mb-3">
+											  <input type="text" class="form-control" th:field="*{emailUsuario}" id="emailUsuario" maxlength="100" required placeholder="Usuario Email" aria-label="Usuario Email" aria-describedby="basic-addon2" disabled>
+											  <div class="input-group-append">
+											    <span class="input-group-text" id="basic-addon2">@uniprotec.net</span>
+											  </div>
+											  <div class="invalid-feedback">
+                                                Capturar Email Válido
+                                            </div>
+										 </div>
                                         </div>
                                       </div>
-                                      
-                                  
-                                  <div class="form-row">
+                                  <div class="form-row" id="notaUsuarioDiv">
                                       <label class=" control-label" for="textarea">Notas Usuario</label>
 								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaUsuario}" id="notaUsuario" rows="3" cols="150" ></textarea>
+								              <textarea class="form-control" th:field="*{notaUsuario}" id="notaUsuario" rows="3" cols="150" disabled></textarea>
 								            </div>
-							         </div>
-                                        
+							         </div>                                      
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Agregar Usuario</button>
+                                    <button class="btn btn-primary" type="submit" id="agregarUsuario">Agregar Usuario</button>
                                 </form>
             
                                 <script>
@@ -365,6 +361,7 @@
 </div>   <!-- app-container -->
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/usuario.js}"></script>
     
     
 </body>

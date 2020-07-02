@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -44,7 +45,7 @@ public class Vendedor implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idVendedor;
-	
+
 	@NotEmpty(message ="nombreVendedor no puede estar vacio")
 	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
 	@Column(nullable=false)
@@ -55,13 +56,8 @@ public class Vendedor implements Serializable{
 
 	@Column(nullable=false)
 	private String emailGmailVendedor;
-	
-	
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedorCliente")
-//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-////	@Column
-//	private List<Cliente> cliente= new ArrayList<>();
-	
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private Usuario1 usuarioVendedor;
 	@Column
 	private String notaVendedor;
 	@Column(nullable=false)
@@ -157,6 +153,14 @@ public class Vendedor implements Serializable{
 	}
 	public void setEmailGmailVendedor(String emailGmailVendedor) {
 		this.emailGmailVendedor = emailGmailVendedor;
+	}
+	public Usuario1 getUsuarioVendedor() {
+		return usuarioVendedor;
+	}
+
+
+	public void setUsuarioVendedor(Usuario1 usuarioVendedor) {
+		this.usuarioVendedor = usuarioVendedor;
 	}
 	
 	

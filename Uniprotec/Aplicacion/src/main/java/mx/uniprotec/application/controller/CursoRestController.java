@@ -155,23 +155,6 @@ public class CursoRestController {
 		}
 		
 		try {
-//			List<Instructor> allInstructores = instructorService.findAll();
-//			List<Instructor> instructores = new ArrayList<Instructor>();
-//			for(Long idInstructor : cursoModelo.getListInstructores()) {
-//				for(Instructor instructor : allInstructores) {
-//					if(instructor.getIdInstructor().longValue() == idInstructor ) {
-//						instructores.add(instructor);
-//					}
-//				}
-//			}
-//			cursoNew.setNombreCurso(cursoModelo.getNombreCurso());
-//			cursoNew.setInstructores(instructores);
-//			cursoNew.setNotaCurso(cursoModelo.getNotaCurso());
-//			cursoNew.setUserCreateCurso(cursoModelo.getUserCreateCurso());
-//			cursoNew.setCreateAtCurso(cursoModelo.getCreateAtCurso());
-//			cursoNew.setStatusCurso(cursoModelo.getStatusCurso());
-
-			
 			cursoNew = cursoService.save(cursoModelo);
 			
 			response.put("curso", cursoNew);

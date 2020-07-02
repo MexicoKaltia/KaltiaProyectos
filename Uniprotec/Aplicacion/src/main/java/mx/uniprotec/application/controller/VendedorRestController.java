@@ -1,7 +1,5 @@
 package mx.uniprotec.application.controller;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +14,9 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -33,18 +28,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Cliente;
-import mx.uniprotec.application.entity.Region;
-import mx.uniprotec.application.entity.Vendedor;
-import mx.uniprotec.application.entity.Cliente;
 import mx.uniprotec.application.entity.ResponseGeneral;
-import mx.uniprotec.application.service.IAplicacionService;
-import mx.uniprotec.application.service.IVendedorService;
+import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.service.IUploadFileService;
+import mx.uniprotec.application.service.IUsuarioService;
+import mx.uniprotec.application.service.IVendedorService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
 
@@ -58,6 +49,8 @@ public class VendedorRestController {
 
 	@Autowired
 	private IVendedorService vendedorService;
+	@Autowired
+	private IUsuarioService usuarioService;
 	
 	@Autowired
 	private IUploadFileService uploadService;
@@ -168,12 +161,13 @@ public class VendedorRestController {
 			vendedorNew.setEmailVendedor(vendedor.getEmailVendedor());
 			vendedorNew.setEmailGmailVendedor(vendedor.getEmailGmailVendedor());
 			vendedorNew.setNotaVendedor(vendedor.getNotaVendedor());
+			vendedorNew.setUsuarioVendedor(usuarioService.findById(vendedor.getUsuarioVendedor()));
 			vendedorNew.setCreateAtVendedor(vendedor.getCreateAtVendedor());
 			vendedorNew.setStatusVendedor(vendedor.getStatusVendedor());
 			vendedorNew.setUserCreateVendedor(vendedor.getUserCreateVendedor());
 			
 			vendedorNew = vendedorService.save(vendedorNew);
-			response.put("vendedor", vendedor);
+			response.put("vendedor", vendedorNew);
 			 response.put("mensaje", "Vendedor creado con Exito");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
@@ -234,12 +228,13 @@ public class VendedorRestController {
 			vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());
 			vendedorActual.setEmailVendedor(vendedor.getEmailVendedor());
 			vendedorActual.setNotaVendedor(vendedor.getNotaVendedor());
+			vendedorActual.setUsuarioVendedor(usuarioService.findById(vendedor.getUsuarioVendedor()));
 			vendedorActual.setCreateAtVendedor(vendedor.getCreateAtVendedor());
 			vendedorActual.setStatusVendedor(vendedor.getStatusVendedor());
 			vendedorActual.setUserCreateVendedor(vendedor.getUserCreateVendedor());
 			
 			vendedorUpdated = vendedorService.save(vendedorActual);
-			response.put("vendedor", vendedor);
+			response.put("vendedor", vendedorUpdated);
 			 response.put("mensaje", "Vendedor actualizado con Exito");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());

@@ -19,6 +19,7 @@ public class InstructorModelo implements Serializable {
 	private Long regionInstructor;
 	private List<Long> listCursoInstructor;
 	private String notaInstructor;
+	private Long usuarioInstructor;
 	private Long userCreateInstructor;
 	private LocalDateTime createAtInstructor;
 	private String statusInstructor;
@@ -39,26 +40,9 @@ public class InstructorModelo implements Serializable {
 		return "InstructorModelo [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
 				+ ", emailInstructor=" + emailInstructor + ", emailGmailInstructor=" + emailGmailInstructor
 				+ ", regionInstructor=" + regionInstructor + ", listCursoInstructor=" + listCursoInstructor
-				+ ", notaInstructor=" + notaInstructor + ", userCreateInstructor=" + userCreateInstructor
-				+ ", createAtInstructor=" + createAtInstructor + ", statusInstructor=" + statusInstructor + "]";
-	}
-
-
-
-	public InstructorModelo(Long idInstructor, String nombreInstructor, String emailInstructor,
-			String emailGmailInstructor, Long regionInstructor, List<Long> listCursoInstructor, String notaInstructor,
-			Long userCreateInstructor, LocalDateTime createAtInstructor, String statusInstructor) {
-		super();
-		this.idInstructor = idInstructor;
-		this.nombreInstructor = nombreInstructor;
-		this.emailInstructor = emailInstructor;
-		this.emailGmailInstructor = emailGmailInstructor;
-		this.regionInstructor = regionInstructor;
-		this.listCursoInstructor = listCursoInstructor;
-		this.notaInstructor = notaInstructor;
-		this.userCreateInstructor = userCreateInstructor;
-		this.createAtInstructor = createAtInstructor;
-		this.statusInstructor = statusInstructor;
+				+ ", notaInstructor=" + notaInstructor + ", usuarioInstructor=" + usuarioInstructor
+				+ ", userCreateInstructor=" + userCreateInstructor + ", createAtInstructor=" + createAtInstructor
+				+ ", statusInstructor=" + statusInstructor + ", listFechas=" + listFechas + "]";
 	}
 
 
@@ -147,6 +131,18 @@ public class InstructorModelo implements Serializable {
 
 
 
+	public Long getUsuarioInstructor() {
+		return usuarioInstructor;
+	}
+
+
+
+	public void setUsuarioInstructor(Long usuarioInstructor) {
+		this.usuarioInstructor = usuarioInstructor;
+	}
+
+
+
 	public Long getUserCreateInstructor() {
 		return userCreateInstructor;
 	}
@@ -192,8 +188,8 @@ public class InstructorModelo implements Serializable {
 	public void setListFechas(List<String> listFechas) {
 		this.listFechas = listFechas;
 	}
-	
-	
+
+
 	
 	
 	

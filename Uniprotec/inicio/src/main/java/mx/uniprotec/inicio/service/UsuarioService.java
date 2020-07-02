@@ -33,8 +33,12 @@ public class UsuarioService implements IUsuarioService {
 		usuario.setCreateAtUsuario(me.getNowEntidad());
 		usuario.setUserCreateUsuario(me.getIdUsuarioEntidad());
 		usuario.setStatusUsuario(me.getStatusEntidad());
-		usuario.setUsernameUsuario(username(usuario));
-		usuario.setPasswordUsuario("12345678");
+		if(usuario.getUsernameUsuario().equals(null)) {
+			usuario.setUsernameUsuario(username(usuario.getNombreUsuario()));
+		}else {
+			usuario.setUsernameUsuario(usernameMail(usuario.getUsernameUsuario()));
+		}
+		usuario.setPasswordUsuario(setPassword());
 		log.info(usuario.toString());
 
 		resultVO = (ResultVO) baseClientRest.objetoPost(
@@ -45,16 +49,7 @@ public class UsuarioService implements IUsuarioService {
 		return resultVO;
 	}
 
-	private String username(UsuarioModelo usuario) {
-		String[] nombres = usuario.getNameUsuario().split(" ");
-		String[] apellidos = usuario.getApellidoUsuario().split(" ");
-		String nombre = nombres[0].toLowerCase();
-		String apellido = apellidos[0].toLowerCase();
-		String a = apellido.substring(0, 1);
-		apellido = a.toUpperCase() + apellido.substring(1, apellido.length());
-		return nombre + apellido;
-	}
-
+	
 	@Override
 	public ResultVO edicionUsuario(UsuarioModelo usuario, String token) {
 		me = ComponenteComun.monitorCampos();
@@ -88,6 +83,24 @@ public class UsuarioService implements IUsuarioService {
 		}else {
 			return rs;
 		}
+	}
+
+	private String setPassword() {
+		return "12345678";
+	}
+
+	private String usernameMail(String usernameUsuario) {
+		String [] userArray = usernameUsuario.split("@");
+		return userArray[0];
+	}
+
+	private String username(String usuario) {
+		String[] nombres = usuario.split(" ");
+		String nombre = nombres[0].toLowerCase();
+		String apellido = nombres[1].toLowerCase();
+		String a = apellido.substring(0, 1);
+		apellido = a.toUpperCase() + apellido.substring(1, apellido.length());
+		return nombre + apellido;
 	}
 
 }

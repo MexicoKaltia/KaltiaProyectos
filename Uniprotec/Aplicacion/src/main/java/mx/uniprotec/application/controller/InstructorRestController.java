@@ -1,7 +1,5 @@
 package mx.uniprotec.application.controller;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +14,9 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -33,17 +28,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
-import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.application.service.IInstructorService;
 import mx.uniprotec.application.service.IUploadFileService;
+import mx.uniprotec.application.service.IUsuarioService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 
@@ -53,10 +46,9 @@ import mx.uniprotec.entidad.modelo.InstructorModelo;
 public class InstructorRestController {
 	
 	@Autowired
-	private ResponseGeneral rg;
-
-	@Autowired
 	private IInstructorService instructorService;
+	@Autowired
+	private IUsuarioService usuarioService;
 	
 	@Autowired
 	private IUploadFileService uploadService;
@@ -172,6 +164,7 @@ public class InstructorRestController {
 			instructorNew.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
 			instructorNew.setRegionInstructor(region);
 			instructorNew.setCursosInstructor(instructor.getListCursoInstructor().toString());
+			instructorNew.setUsuarioInstructor(usuarioService.findById(instructor.getUsuarioInstructor()));
 			instructorNew.setNotaInstructor(instructor.getNotaInstructor());
 			instructorNew.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorNew.setStatusInstructor(instructor.getStatusInstructor());
@@ -179,7 +172,7 @@ public class InstructorRestController {
 			
 			instructorNew = instructorService.save(instructorNew);
 			
-			 response.put("instructor", instructor);
+			 response.put("instructor", instructorNew);
 			 response.put("mensaje", "Se ha generado con Exito el Instructor");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
@@ -235,6 +228,7 @@ public class InstructorRestController {
 			instructorActual.setEmailInstructor(instructor.getEmailInstructor());
 			instructorActual.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
 			instructorActual.setRegionInstructor(region);
+			instructorActual.setUsuarioInstructor(usuarioService.findById(instructor.getUsuarioInstructor()));
 			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
 			instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
@@ -244,7 +238,7 @@ public class InstructorRestController {
 			
 			instructorUpdated = instructorService.save(instructorActual);
 			
-			 response.put("instructor", instructor);
+			 response.put("instructor", instructorUpdated);
 			 response.put("mensaje", "Se ha actualizado con Exito el Instructor");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());

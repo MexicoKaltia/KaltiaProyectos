@@ -16,8 +16,7 @@ public class VendedorModelo implements Serializable {
 	private String nombreVendedor;
 	private String emailVendedor;
 	private String emailGmailVendedor;
-//	private Long clienteVendedor;
-	private List<Long> listClienteVendedor;
+	private Long usuarioVendedor;
 	private String notaVendedor;
 	private Long userCreateVendedor;
 	private LocalDateTime createAtVendedor;
@@ -37,26 +36,9 @@ public class VendedorModelo implements Serializable {
 	@Override
 	public String toString() {
 		return "VendedorModelo [idVendedor=" + idVendedor + ", nombreVendedor=" + nombreVendedor + ", emailVendedor="
-				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor + ", listClienteVendedor="
-				+ listClienteVendedor + ", notaVendedor=" + notaVendedor + ", userCreateVendedor=" + userCreateVendedor
+				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor + ", usuarioVendedor=" + usuarioVendedor
+				+ ", notaVendedor=" + notaVendedor + ", userCreateVendedor=" + userCreateVendedor
 				+ ", createAtVendedor=" + createAtVendedor + ", statusVendedor=" + statusVendedor + "]";
-	}
-
-
-
-	public VendedorModelo(Long idVendedor, String nombreVendedor, String emailVendedor, String emailGmailVendedor,
-			List<Long> listClienteVendedor, String notaVendedor, Long userCreateVendedor,
-			LocalDateTime createAtVendedor, String statusVendedor) {
-		super();
-		this.idVendedor = idVendedor;
-		this.nombreVendedor = nombreVendedor;
-		this.emailVendedor = emailVendedor;
-		this.emailGmailVendedor = emailGmailVendedor;
-		this.listClienteVendedor = listClienteVendedor;
-		this.notaVendedor = notaVendedor;
-		this.userCreateVendedor = userCreateVendedor;
-		this.createAtVendedor = createAtVendedor;
-		this.statusVendedor = statusVendedor;
 	}
 
 
@@ -109,14 +91,14 @@ public class VendedorModelo implements Serializable {
 
 
 
-	public List<Long> getListClienteVendedor() {
-		return listClienteVendedor;
+	public Long getUsuarioVendedor() {
+		return usuarioVendedor;
 	}
 
 
 
-	public void setListClienteVendedor(List<Long> listClienteVendedor) {
-		this.listClienteVendedor = listClienteVendedor;
+	public void setUsuarioVendedor(Long usuarioVendedor) {
+		this.usuarioVendedor = usuarioVendedor;
 	}
 
 
@@ -170,6 +152,6 @@ public class VendedorModelo implements Serializable {
 
 	
 	
-
+	
 		
 }

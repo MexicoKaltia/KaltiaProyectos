@@ -262,7 +262,7 @@
 										data-page-list='[10, 25, 50, 100, 200, Todos]'>
 										<thead class='thead-dark'>
 											<tr>
-												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nameUsuario' data-sortable='true'>Nombre Usuario</th>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreUsuario' data-sortable='true'>Nombre Usuario</th>
 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='statusUsuario' data-sortable='true'>Status</th>
 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateUsuario">Editar</th>
 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th>
@@ -356,20 +356,14 @@
           <input type="hidden" id="usernameUsuario" th:field="*{usernameUsuario}" th:value="*{usernameUsuario}"/>
           <input type="hidden" id="passwordUsuario" th:field="*{passwordUsuario}" th:value="*{passwordUsuario}"/>
 <div class="form-row">
-                                        <div class="col-md-6 mb-3">
+                                        <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Usuario</label>
-                                            <input type="text" class="form-control"  id="nameUsuario" name="nameUsuario" placeholder="Capture Nombre Usuario" value=""  maxlength="100" th:field="*{nameUsuario}" required>
+                                            <input type="text" class="form-control"  id="nombreUsuario" name="nombreUsuario" placeholder="Capture Nombre Usuario" value=""  maxlength="100" th:field="*{nombreUsuario}" required>
                                             <div class="invalid-feedback">
                                                 Capturar Nombre Usuario
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">Apellido Usuario</label>
-                                            <input type="text" class="form-control"  id="apellidoUsuario" name="apellidoUsuario" placeholder="Capture Apellido Usuario" value=""  maxlength="100" th:field="*{apellidoUsuario}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Apellido Usuario
-                                            </div>
-                                        </div>
+                                        
                                      </div>                                    
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">

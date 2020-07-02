@@ -187,8 +187,7 @@ $(document).ready(function(){
 		      $('#usernameUsuario').val(row.usernameUsuario);
 		      $('#passwordUsuario').val(row.passwordUsuario);      
 		      $('#perfilUsuario').val(row.perfilUsuario);
-		      $('#nameUsuario').val(row.nameUsuario);
-		      $('#apellidoUsuario').val(row.apellidoUsuario);
+		      $('#nombreUsuario').val(row.nombreUsuario);
 		      $('#emailUsuario').val(row.emailUsuario);
 		      $('#notaUsuario').val(row.notaUsuario);
 		    }

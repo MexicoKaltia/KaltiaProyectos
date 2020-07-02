@@ -2,6 +2,7 @@ package mx.uniprotec.inicio.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -13,32 +14,43 @@ import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.ComponenteComun;
 
 @Service
 public class InstructorService implements IInstructorService {
 	
-	private static Logger log = LoggerFactory.getLogger(InstructorService.class);
 	
-//	@Autowired
-	InstructorModelo instructor = new InstructorModelo();
-//	@Autowired
-	ResultVO resultVO = new  ResultVO();
+	private static Logger log = LoggerFactory.getLogger(InstructorService.class);
 	@Autowired
+	UsuarioService usuarioService;
+	InstructorModelo instructor = new InstructorModelo();
+	ResultVO resultVO = new  ResultVO();
 	BaseClientRest baseClientRest;
-//	@Autowired
 	MonitorEntidades me = new  MonitorEntidades();
 
 	@Override
 	public ResultVO altaInstructor(InstructorModelo instructor, String token) {
-		log.info(instructor.toString());
+		
+		UsuarioModelo usuario = new UsuarioModelo();
+		usuario.setNombreUsuario(instructor.getNombreInstructor());
+		usuario.setEmailUsuario(instructor.getEmailInstructor());
+		usuario.setPerfilUsuario("Instructor");
+		usuario.setUsernameUsuario(instructor.getEmailInstructor());
+		usuario.setPasswordUsuario("12345678");
+		usuario.setNotaUsuario(instructor.getNotaInstructor());
+		ResultVO resultUsuario = usuarioService.altaUsuario(usuario, token);
+
+		JSONObject jsonObject = (JSONObject) resultUsuario.getJsonResponse();
+		JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("usuario"));
+		Long idUsuario = Long.valueOf( jsonUsuario.get("idUsuario").toString());
+		instructor.setUsuarioInstructor(idUsuario);
 		
 		List<CursoModelo> listCurso =  new ArrayList<CursoModelo>();
 		for(Long idCurso : instructor.getListCursoInstructor()) {
 			listCurso.add(new CursoModelo(idCurso));
 		}
-//		instructor.setListCursoInstructor(listCursoInstructor);
 		
 		me = ComponenteComun.monitorCampos();
 		instructor.setCreateAtInstructor(me.getNowEntidad());

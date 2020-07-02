@@ -58,19 +58,11 @@ public class Instructor implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "instructores")
 	private List<Curso> curso = new ArrayList<>();
-	
-//	 @ManyToOne
-//	 @JoinColumn(name = "id_curso", nullable = false, updatable = false)
-//	 private Curso cursos;
-	
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable(name="instructores_cursos", joinColumns= @JoinColumn(name="instructores_id"),
-//	inverseJoinColumns=@JoinColumn(name="cursos_id"))
-////	uniqueConstraints= {@UniqueConstraint(columnNames= {"instructores_id", "cursos_id"})})
-//	private List<Curso> cursos = new ArrayList<>();
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Region regionInstructor;
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private Usuario1 usuarioInstructor;
 	@Column
 	private String notaInstructor;
 	@Column(nullable=false)
@@ -232,6 +224,19 @@ public class Instructor implements Serializable {
 	public void setListFechas(String listFechas) {
 		this.listFechas = listFechas;
 	}
+	
+	public Usuario1 getUsuarioInstructor() {
+		return usuarioInstructor;
+	}
+
+
+	public void setUsuarioInstructor(Usuario1 usuarioInstructor) {
+		this.usuarioInstructor = usuarioInstructor;
+	}
+
+
+
+
 
 
 

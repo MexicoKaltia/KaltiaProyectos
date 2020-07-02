@@ -20,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mx.uniprotec.application.dao.IUsuario2Dao;
 import mx.uniprotec.application.dao.IUsuarioDao;
 import mx.uniprotec.application.entity.Usuario;
-import mx.uniprotec.application.entity.Usuario2;
-import mx.uniprotec.entidad.modelo.UsuarioModelo;
-import mx.uniprotec.application.entity.Region;
-import mx.uniprotec.application.entity.Usuario;
+import mx.uniprotec.application.entity.Usuario1;
 
 @Service
 public class UsuarioService implements IUsuarioService, UserDetailsService{
@@ -70,25 +67,25 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Usuario2> findAll() {
-		return (List<Usuario2>) usuario2Dao.findAll();
+	public List<Usuario1> findAll() {
+		return (List<Usuario1>) usuario2Dao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Usuario2> findAll(Pageable pageable) {
+	public Page<Usuario1> findAll(Pageable pageable) {
 		return null;//usuarioDao.findAll(pageable);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario2 findById(Long id) {
+	public Usuario1 findById(Long id) {
 		return usuario2Dao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public Usuario2 save(Usuario2 usuario) {
+	public Usuario1 save(Usuario1 usuario) {
 		return usuario2Dao.save(usuario);
 	}
 

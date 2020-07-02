@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Usuario;
-import mx.uniprotec.application.entity.Usuario2;
+import mx.uniprotec.application.entity.Usuario1;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
@@ -67,7 +67,7 @@ public class UsuarioRestController {
 	  */
 	@GetMapping("/usuarios")
 	public ResponseEntity<?> index() {
-		List<Usuario2> usuarios = null;
+		List<Usuario1> usuarios = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			usuarios = usuarioService.findAll();
@@ -104,7 +104,7 @@ public class UsuarioRestController {
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
 		HttpStatus status ;
-		Usuario2 usuario = null;
+		Usuario1 usuario = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
@@ -139,7 +139,7 @@ public class UsuarioRestController {
 	public ResponseEntity<?> create(@Valid @RequestBody UsuarioModelo usuario, BindingResult result) {
 		
 		HttpStatus status ;
-		Usuario2 usuarioNew = new Usuario2();
+		Usuario1 usuarioNew = new Usuario1();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -158,8 +158,7 @@ public class UsuarioRestController {
 			usuarioNew.setUsernameUsuario(usuario.getUsernameUsuario());
 			usuarioNew.setPasswordUsuario(usuario.getPasswordUsuario());
 			usuarioNew.setPerfilUsuario(usuario.getPerfilUsuario());
-			usuarioNew.setNameUsuario(usuario.getNameUsuario());
-			usuarioNew.setApellidoUsuario(usuario.getApellidoUsuario());
+			usuarioNew.setNombreUsuario(usuario.getNombreUsuario());
 			usuarioNew.setEmailUsuario(usuario.getEmailUsuario());
 			usuarioNew.setNotaUsuario(usuario.getNotaUsuario());
 			usuarioNew.setCreateAtUsuario(usuario.getCreateAtUsuario());
@@ -167,7 +166,7 @@ public class UsuarioRestController {
 			usuarioNew.setStatusUsuario(usuario.getStatusUsuario());
 			
 			usuarioNew = usuarioService.save(usuarioNew);
-			response.put("usuario", usuario);
+			response.put("usuario", usuarioNew);
 			 response.put("mensaje", "Usuario creado con exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
@@ -188,9 +187,9 @@ public class UsuarioRestController {
 	public ResponseEntity<?> update(@Valid @RequestBody UsuarioModelo usuario, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
-		Usuario2 usuarioActual = usuarioService.findById(id);
+		Usuario1 usuarioActual = usuarioService.findById(id);
 
-		Usuario2 usuarioUpdated = null;
+		Usuario1 usuarioUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -220,8 +219,7 @@ public class UsuarioRestController {
 			usuarioActual.setUsernameUsuario(usuario.getUsernameUsuario());
 			usuarioActual.setPasswordUsuario(usuario.getPasswordUsuario());
 			usuarioActual.setPerfilUsuario(usuario.getPerfilUsuario());
-			usuarioActual.setNameUsuario(usuario.getNameUsuario());
-			usuarioActual.setApellidoUsuario(usuario.getApellidoUsuario());
+			usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
 			usuarioActual.setEmailUsuario(usuario.getEmailUsuario());
 			usuarioActual.setNotaUsuario(usuario.getNotaUsuario());
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
@@ -229,7 +227,7 @@ public class UsuarioRestController {
 			usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
 
 			usuarioUpdated = usuarioService.save(usuarioActual);
-			response.put("usuario", usuario);
+			response.put("usuario", usuarioUpdated);
 			 response.put("mensaje", "Usuario actualizado con exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
@@ -255,7 +253,7 @@ public class UsuarioRestController {
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
-		Usuario2 usuario = null;
+		Usuario1 usuario = null;
 		try {
 			 usuario = usuarioService.findById(id);
 			String nombreFotoAnterior = "";//usuario.getFoto();
