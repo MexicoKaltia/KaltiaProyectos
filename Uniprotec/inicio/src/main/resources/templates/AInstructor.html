@@ -260,21 +260,25 @@
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailInstructor}" id="emailInstructor" placeholder="email" value="" maxlength="100" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Valido
+                                            <div class="input-group mb-3">
+											  <input type="text" class="form-control" th:field="*{emailInstructor}" id="emailInstructor" maxlength="100" required placeholder="Usuario Email" aria-label="Usuario Email" aria-describedby="basic-addon3">
+											  <div class="input-group-append">
+											    <span class="input-group-text" id="basic-addon3">@uniprotec.net</span>
+											  </div>
+											  <div class="invalid-feedback">
+                                                Capturar Email Gmail Válido
                                             </div>
+										 </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email Gmail</label>
-<!--                                             <input type="email" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" placeholder="email" value="" maxlength="100" required> -->                                       
+                                            <label for="validationCustom02">Email Gmail</label>                                      
 											<div class="input-group mb-3">
 											  <input type="text" class="form-control" th:field="*{emailGmailInstructor}" id="emailGmailInstructor" maxlength="100" required placeholder="Usuario Gmail" aria-label="Usuario Gmail" aria-describedby="basic-addon2">
 											  <div class="input-group-append">
 											    <span class="input-group-text" id="basic-addon2">@gmail.com</span>
 											  </div>
 											  <div class="invalid-feedback">
-                                                Capturar Email Gmail Valido
+                                                Capturar Email Gmail Válido
                                             </div>
 										 </div>
 										</div>

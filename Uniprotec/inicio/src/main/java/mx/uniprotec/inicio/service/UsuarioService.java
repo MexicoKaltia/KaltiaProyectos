@@ -29,16 +29,24 @@ public class UsuarioService implements IUsuarioService {
 	@Override
 	public ResultVO altaUsuario(UsuarioModelo usuario, String token) {
 			
+		
+	
+		if(usuario.getUsernameUsuario() == null) {
+			usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+username(usuario.getNombreUsuario()));
+			usuario.setEmailUsuario(usuario.getEmailUsuario().concat("uniprotec.net"));
+		}else {
+			usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+usernameMail(usuario.getUsernameUsuario()));
+			
+		}
+
+		usuario.setPasswordUsuario(setPassword());
+		
 		me = ComponenteComun.monitorCampos();
 		usuario.setCreateAtUsuario(me.getNowEntidad());
 		usuario.setUserCreateUsuario(me.getIdUsuarioEntidad());
 		usuario.setStatusUsuario(me.getStatusEntidad());
-		if(usuario.getUsernameUsuario().equals(null)) {
-			usuario.setUsernameUsuario(username(usuario.getNombreUsuario()));
-		}else {
-			usuario.setUsernameUsuario(usernameMail(usuario.getUsernameUsuario()));
-		}
-		usuario.setPasswordUsuario(setPassword());
+		
+		
 		log.info(usuario.toString());
 
 		resultVO = (ResultVO) baseClientRest.objetoPost(
@@ -50,10 +58,14 @@ public class UsuarioService implements IUsuarioService {
 	}
 
 	
+	
+
+
 	@Override
 	public ResultVO edicionUsuario(UsuarioModelo usuario, String token) {
 		me = ComponenteComun.monitorCampos();
 		
+		usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+usuario.getUsernameUsuario().substring(1,usuario.getUsernameUsuario().length()));
 		usuario.setCreateAtUsuario(me.getNowEntidad());
 		usuario.setUserCreateUsuario(me.getIdUsuarioEntidad());
 		usuario.setStatusUsuario("Actualizado");
@@ -101,6 +113,23 @@ public class UsuarioService implements IUsuarioService {
 		String a = apellido.substring(0, 1);
 		apellido = a.toUpperCase() + apellido.substring(1, apellido.length());
 		return nombre + apellido;
+	}
+	
+private String letraInicial(String letraInicial) {
+		
+		switch (letraInicial) {
+		case "Vendedor": letraInicial ="V";
+		break;
+		case "Instructor": letraInicial ="I";
+		break;
+		case "Operacion": letraInicial ="O";
+		break;
+		case "Administracion": letraInicial ="A";
+		break;
+		case "Direccion": letraInicial ="D";
+		break;
+		}
+		return letraInicial;
 	}
 
 }

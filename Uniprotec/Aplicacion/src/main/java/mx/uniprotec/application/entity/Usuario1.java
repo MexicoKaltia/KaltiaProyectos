@@ -1,5 +1,6 @@
 package mx.uniprotec.application.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,10 +12,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="usuariosA")
-public class Usuario1 {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Usuario1 implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -983140858748838638L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idUsuario;

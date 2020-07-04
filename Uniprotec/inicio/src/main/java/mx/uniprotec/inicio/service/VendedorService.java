@@ -8,6 +8,8 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
@@ -41,23 +43,37 @@ public class VendedorService implements IVendedorService {
 		
 		UsuarioModelo usuario = new UsuarioModelo();
 		usuario.setNombreUsuario(vendedor.getNombreVendedor());
-		usuario.setEmailUsuario(vendedor.getEmailVendedor());
+		usuario.setEmailUsuario(vendedor.getEmailVendedor().concat("@uniprotec.net"));
 		usuario.setPerfilUsuario("Vendedor");
 		usuario.setUsernameUsuario(vendedor.getEmailVendedor());
-		usuario.setPasswordUsuario("12345678");
+//		usuario.setPasswordUsuario("12345678");
 		usuario.setNotaUsuario(vendedor.getNotaVendedor());
-		ResultVO resultUsuario = usuarioService.altaUsuario(usuario, token);
+		try {
+			ResultVO resultUsuario = usuarioService.altaUsuario(usuario, token);
+			
+			JSONObject jsonObject = (JSONObject) resultUsuario.getJsonResponse();
+			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("usuario"));
+			Long idUsuario = Long.valueOf( jsonUsuario.get("idUsuario").toString());
+			vendedor.setUsuarioVendedor(idUsuario);
+		}catch (Exception e) {
+			JSONObject jsonResponse = new JSONObject();
+		    ResultVO rs = new ResultVO();
+		    rs.setJsonResponse(jsonResponse);
+		    rs.setMensaje("Error: Usuario ya Existe");
+		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		    
+			return rs;
+		}
 		
-		JSONObject jsonObject = (JSONObject) resultUsuario.getJsonResponse();
-		JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("usuario"));
-		Long idUsuario = Long.valueOf( jsonUsuario.get("idUsuario").toString());
-		vendedor.setUsuarioVendedor(idUsuario);
+		
+		vendedor.setEmailVendedor(vendedor.getEmailVendedor().concat("@uniprotec.net"));
+		vendedor.setEmailGmailVendedor(vendedor.getEmailGmailVendedor().concat("@gmail.com"));
 		
 		me = ComponenteComun.monitorCampos();
 		vendedor.setCreateAtVendedor(me.getNowEntidad());
 		vendedor.setUserCreateVendedor(me.getIdUsuarioEntidad());
 		vendedor.setStatusVendedor(me.getStatusEntidad());
-		vendedor.setEmailVendedor(vendedor.getEmailGmailVendedor().concat("@gmail.com"));
+		
 		
 		log.info(vendedor.toString());
 		
