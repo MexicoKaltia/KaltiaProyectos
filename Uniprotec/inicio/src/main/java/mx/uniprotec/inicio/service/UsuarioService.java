@@ -33,7 +33,7 @@ public class UsuarioService implements IUsuarioService {
 	
 		if(usuario.getUsernameUsuario() == null) {
 			usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+username(usuario.getNombreUsuario()));
-			usuario.setEmailUsuario(usuario.getEmailUsuario().concat("uniprotec.net"));
+			usuario.setEmailUsuario(usuario.getEmailUsuario().concat("@uniprotec.net"));
 		}else {
 			usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+usernameMail(usuario.getUsernameUsuario()));
 			
@@ -110,23 +110,23 @@ public class UsuarioService implements IUsuarioService {
 		String[] nombres = usuario.split(" ");
 		String nombre = nombres[0].toLowerCase();
 		String apellido = nombres[1].toLowerCase();
-		String a = apellido.substring(0, 1);
-		apellido = a.toUpperCase() + apellido.substring(1, apellido.length());
-		return nombre + apellido;
+//		String a = apellido.substring(0, 1);
+//		apellido = a.toLowerCase() + apellido.substring(1, apellido.length());
+		return nombre +"."+ apellido;
 	}
 	
 private String letraInicial(String letraInicial) {
 		
 		switch (letraInicial) {
-		case "Vendedor": letraInicial ="V";
+		case "Vendedor": letraInicial ="v.";
 		break;
-		case "Instructor": letraInicial ="I";
+		case "Instructor": letraInicial ="i.";
 		break;
-		case "Operacion": letraInicial ="O";
+		case "Operacion": letraInicial ="o.";
 		break;
-		case "Administracion": letraInicial ="A";
+		case "Administracion": letraInicial ="a.";
 		break;
-		case "Direccion": letraInicial ="D";
+		case "Direccion": letraInicial ="d.";
 		break;
 		}
 		return letraInicial;
