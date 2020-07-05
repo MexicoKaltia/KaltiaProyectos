@@ -36,7 +36,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 	@Transactional(readOnly=true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Usuario usuario = usuarioDao.findByUsername(username);
+		Usuario usuario = usuarioDao.findByUsernameUsuario(username);
 		
 		if(usuario == null) {
 			logger.error("Error en el login: no existe el usuario '"+username+"' en el sistema!");
@@ -49,17 +49,17 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 				.peek(authority -> logger.info("Role2: " + authority.getAuthority()))
 				.collect(Collectors.toList());
 		
-		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
+		return new User(usuario.getUsernameUsuario(), usuario.getPasswordUsuario(), true, true, true, true, authorities);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario findByUsername(String username) {
 		try {
-			return usuarioDao.findByUsername(username);
+			return usuarioDao.findByUsernameUsuario(username);
 		} catch (Exception e) {
 			Usuario usuario = new Usuario();
-			usuario.setUsername("false");
+			usuario.setUsernameUsuario("false");
 			return usuario;
 		}
 		
@@ -67,26 +67,26 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Usuario1> findAll() {
-		return (List<Usuario1>) usuario2Dao.findAll();
+	public List<Usuario> findAll() {
+		return (List<Usuario>) usuarioDao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Usuario1> findAll(Pageable pageable) {
+	public Page<Usuario> findAll(Pageable pageable) {
 		return null;//usuarioDao.findAll(pageable);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario1 findById(Long id) {
-		return usuario2Dao.findById(id).orElse(null);
+	public Usuario findById(Long id) {
+		return usuarioDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public Usuario1 save(Usuario1 usuario) {
-		return usuario2Dao.save(usuario);
+	public Usuario save(Usuario usuario) {
+		return usuarioDao.save(usuario);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Usuario;
-import mx.uniprotec.application.entity.Usuario1;
+import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
@@ -67,7 +67,7 @@ public class UsuarioRestController {
 	  */
 	@GetMapping("/usuarios")
 	public ResponseEntity<?> index() {
-		List<Usuario1> usuarios = null;
+		List<Usuario> usuarios = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			usuarios = usuarioService.findAll();
@@ -104,7 +104,7 @@ public class UsuarioRestController {
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		
 		HttpStatus status ;
-		Usuario1 usuario = null;
+		Usuario usuario = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
@@ -139,7 +139,7 @@ public class UsuarioRestController {
 	public ResponseEntity<?> create(@Valid @RequestBody UsuarioModelo usuario, BindingResult result) {
 		
 		HttpStatus status ;
-		Usuario1 usuarioNew = new Usuario1();
+		Usuario usuarioNew = new Usuario();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -187,9 +187,9 @@ public class UsuarioRestController {
 	public ResponseEntity<?> update(@Valid @RequestBody UsuarioModelo usuario, BindingResult result, @PathVariable Long id) {
 
 		HttpStatus status ;
-		Usuario1 usuarioActual = usuarioService.findById(id);
+		Usuario usuarioActual = usuarioService.findById(id);
 
-		Usuario1 usuarioUpdated = null;
+		Usuario usuarioUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -253,7 +253,7 @@ public class UsuarioRestController {
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
-		Usuario1 usuario = null;
+		Usuario usuario = null;
 		try {
 			 usuario = usuarioService.findById(id);
 			String nombreFotoAnterior = "";//usuario.getFoto();

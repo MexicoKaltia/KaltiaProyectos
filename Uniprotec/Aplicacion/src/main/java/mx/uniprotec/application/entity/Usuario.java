@@ -1,6 +1,7 @@
 package mx.uniprotec.application.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,81 +16,140 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "usuarios")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Usuario implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUsuario;
 
-	@Column(unique = true, length = 120)
-	private String username;
-
-	@Column(length = 60)
-	private String password;
-
-	private Boolean enabled;
+	@NotEmpty(message ="user no puede estar vacio")
+	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
+	@Column(nullable=false, unique = true)
+	private String usernameUsuario;
+	@NotEmpty(message ="pass no puede estar vacio")
+	@Size(min=4, max=300, message="el tamaño tiene que estar entre 4 y 300")
+	@Column(nullable=false)
+	private String passwordUsuario;
+	@Column(nullable=false)
+	private String perfilUsuario;
+	@Column(nullable=false)
+	private String nombreUsuario;
 	
-	private String name;
-	private String apellido;
-	
-	@Column(unique = true)
-	private String email;
+	@Column(nullable=false, unique = true)
+	private String emailUsuario;
+	@Column
+	private String notaUsuario;
+	@Column(nullable=false)
+	private Long userCreateUsuario;
+	@Column(nullable=false)
+	private LocalDateTime createAtUsuario;
+	@Column(nullable=false)
+	private String statusUsuario;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
+	
+	
+	
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name="usuarios_modulos", joinColumns= @JoinColumn(name="usuario_id"),
-	inverseJoinColumns=@JoinColumn(name="modulo_id"),
-	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "modulo_id"})})
-	private List<Modulo> modulos;
-	
-	
-	
-	public List<Modulo> getModulos() {
-		return modulos;
-	}
-
-	public void setModulos(List<Modulo> modulos) {
-		this.modulos = modulos;
-	}
+	public Usuario() {}
 
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(Long id) {
-		this.idUsuario = id;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUsernameUsuario() {
+		return usernameUsuario;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsernameUsuario(String usernameUsuario) {
+		this.usernameUsuario = usernameUsuario;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPasswordUsuario() {
+		return passwordUsuario;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordUsuario(String passwordUsuario) {
+		this.passwordUsuario = passwordUsuario;
 	}
 
-	public Boolean getEnabled() {
-		return enabled;
+	
+
+	public String getPerfilUsuario() {
+		return perfilUsuario;
 	}
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
+	public void setPerfilUsuario(String perfilUsuario) {
+		this.perfilUsuario = perfilUsuario;
+	}
+
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getEmailUsuario() {
+		return emailUsuario;
+	}
+
+	public void setEmailUsuario(String emailUsuario) {
+		this.emailUsuario = emailUsuario;
+	}
+
+	public String getNotaUsuario() {
+		return notaUsuario;
+	}
+
+	public void setNotaUsuario(String notaUsuario) {
+		this.notaUsuario = notaUsuario;
+	}
+
+	public Long getUserCreateUsuario() {
+		return userCreateUsuario;
+	}
+
+	public void setUserCreateUsuario(Long userCreateUsuario) {
+		this.userCreateUsuario = userCreateUsuario;
+	}
+
+	public LocalDateTime getCreateAtUsuario() {
+		return createAtUsuario;
+	}
+
+	public void setCreateAtUsuario(LocalDateTime createAtUsuario) {
+		this.createAtUsuario = createAtUsuario;
+	}
+
+	public String getStatusUsuario() {
+		return statusUsuario;
+	}
+
+	public void setStatusUsuario(String statusUsuario) {
+		this.statusUsuario = statusUsuario;
 	}
 
 	public List<Role> getRoles() {
@@ -100,32 +160,6 @@ public class Usuario implements Serializable {
 		this.roles = roles;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
+	
 }

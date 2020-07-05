@@ -98,7 +98,7 @@ public class UsuarioService implements IUsuarioService {
 	}
 
 	private String setPassword() {
-		return "12345678";
+		return "12345";
 	}
 
 	private String usernameMail(String usernameUsuario) {

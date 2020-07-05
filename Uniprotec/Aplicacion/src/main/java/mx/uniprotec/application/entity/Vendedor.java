@@ -56,8 +56,9 @@ public class Vendedor implements Serializable{
 
 	@Column(nullable=false)
 	private String emailGmailVendedor;
+	
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	private Usuario1 usuarioVendedor;
+	private Usuario usuarioVendedor;
 	@Column
 	private String notaVendedor;
 	@Column(nullable=false)
@@ -154,12 +155,10 @@ public class Vendedor implements Serializable{
 	public void setEmailGmailVendedor(String emailGmailVendedor) {
 		this.emailGmailVendedor = emailGmailVendedor;
 	}
-	public Usuario1 getUsuarioVendedor() {
+	public Usuario getUsuarioVendedor() {
 		return usuarioVendedor;
 	}
-
-
-	public void setUsuarioVendedor(Usuario1 usuarioVendedor) {
+	public void setUsuarioVendedor(Usuario usuarioVendedor) {
 		this.usuarioVendedor = usuarioVendedor;
 	}
 	

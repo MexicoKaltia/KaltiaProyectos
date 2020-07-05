@@ -62,7 +62,7 @@ public class Instructor implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Region regionInstructor;
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	private Usuario1 usuarioInstructor;
+	private Usuario usuarioInstructor;
 	@Column
 	private String notaInstructor;
 	@Column(nullable=false)
@@ -225,12 +225,12 @@ public class Instructor implements Serializable {
 		this.listFechas = listFechas;
 	}
 	
-	public Usuario1 getUsuarioInstructor() {
+	public Usuario getUsuarioInstructor() {
 		return usuarioInstructor;
 	}
 
 
-	public void setUsuarioInstructor(Usuario1 usuarioInstructor) {
+	public void setUsuarioInstructor(Usuario usuarioInstructor) {
 		this.usuarioInstructor = usuarioInstructor;
 	}
 

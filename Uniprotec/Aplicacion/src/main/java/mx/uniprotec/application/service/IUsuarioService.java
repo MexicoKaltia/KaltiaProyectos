@@ -12,10 +12,10 @@ public interface IUsuarioService {
 
 	public Usuario findByUsername(String username);
 	
-	public List<Usuario1> findAll();
-	public Page<Usuario1> findAll(Pageable pageable);
-	public Usuario1 findById(Long id);
-	public Usuario1 save(Usuario1 usuario);
+	public List<Usuario> findAll();
+	public Page<Usuario> findAll(Pageable pageable);
+	public Usuario findById(Long id);
+	public Usuario save(Usuario usuario);
 	public void delete(Long id);
 	
 	//public List<Region> findAllRegiones();

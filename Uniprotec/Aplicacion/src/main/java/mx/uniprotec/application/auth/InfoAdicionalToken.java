@@ -35,15 +35,15 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		info.put("message", "Login Correcto");
 		info.put("code", 200);
 		
-		subsubInfo.put("id", usuario.getIdUsuario());
-		subsubInfo.put("name", usuario.getName());
-		subsubInfo.put("user", usuario.getApellido());
-		subsubInfo.put("email", usuario.getEmail());
+		subInfo.put("id", usuario.getIdUsuario());
+		subInfo.put("nombre", usuario.getNombreUsuario());
+		subInfo.put("email", usuario.getEmailUsuario());
 //		subsubInfo.put("modules", usuario.getRoles());
-		subsubInfo.put("modules", usuario.getModulos());
-		subInfo.put("user", subsubInfo);
+//		subsubInfo.put("modules", usuario.getModulos());
+		subInfo.put("perfil", usuario.getPerfilUsuario());
+		info.put("user", subInfo);
 
-		info.put("fields", subInfo);
+//		info.put("fields", subInfo);
 			
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
 		
