@@ -115,21 +115,21 @@ public class UsuarioService implements IUsuarioService {
 		return nombre +"."+ apellido;
 	}
 	
-private String letraInicial(String letraInicial) {
-		
-		switch (letraInicial) {
-		case "Vendedor": letraInicial ="v.";
-		break;
-		case "Instructor": letraInicial ="i.";
-		break;
-		case "Operacion": letraInicial ="o.";
-		break;
-		case "Administracion": letraInicial ="a.";
-		break;
-		case "Direccion": letraInicial ="d.";
-		break;
+	private String letraInicial(String letraInicial) {
+			
+			switch (letraInicial) {
+			case "Vendedor": letraInicial ="v.";
+			break;
+			case "Instructor": letraInicial ="i.";
+			break;
+			case "Operacion": letraInicial ="o.";
+			break;
+			case "Administracion": letraInicial ="a.";
+			break;
+			case "Direccion": letraInicial ="d.";
+			break;
+			}
+			return letraInicial;
 		}
-		return letraInicial;
-	}
 
 }

@@ -2,6 +2,7 @@ package mx.uniprotec.inicio.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.LoginSingle;
 import mx.uniprotec.entidad.modelo.Modulo;
+import mx.uniprotec.entidad.modelo.PerfilModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.SubModulo;
 import mx.uniprotec.entidad.modelo.User;
@@ -39,12 +41,28 @@ public class LoginService implements ILoginService{
 			log.info("Nuevo Usuario");
 			try {
 				resultVO = baseClientRest.login(user);	
-				log.info(resultVO.getCodigo().toString());
-				
+//				log.info(resultVO.getCodigo().toString());
 				if(resultVO.getCodigo() == 200) {
-					resultVO.setResponse("index");	
+					JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+					JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
+					
+					resultVO.setResponse(jsonUsuario.get("perfil").toString());	
 					LoginSingle ls = new LoginSingle(resultVO.getAccesToken(), System.currentTimeMillis(),  resultVO);
 					actualizaSesion(user.getUserName(), ls);
+								
+					ResultVO resultUsuario = baseClientRest.objetoGetId(
+							resultVO.getAccesToken(),
+							BaseClientRest.URL_CRUD_PERFIL,
+							new PerfilModelo(),
+							jsonUsuario.get("perfil").toString());
+					
+					JSONObject jsonObjectPerfil = (JSONObject) resultUsuario.getJsonResponse();
+					JSONObject jsonPerfil= new JSONObject((Map) jsonObjectPerfil.get("perfil"));
+					JSONObject jsonFields =new JSONObject();
+					jsonUsuario.put("modules", jsonPerfil);
+					jsonFields.put("fields", jsonUsuario);
+					jsonObject.putAll(jsonUsuario);
+					resultVO.setJsonResponse(jsonObject);
 				
 				}else {
 					resultVO.setResponse("index");

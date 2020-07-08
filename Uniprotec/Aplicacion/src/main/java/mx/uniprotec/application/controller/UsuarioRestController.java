@@ -2,6 +2,7 @@ package mx.uniprotec.application.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
+import mx.uniprotec.application.entity.Role;
 import mx.uniprotec.application.service.IUsuarioService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
@@ -158,6 +160,7 @@ public class UsuarioRestController {
 			usuarioNew.setUsernameUsuario(usuario.getUsernameUsuario());
 			usuarioNew.setPasswordUsuario(usuario.getPasswordUsuario());
 			usuarioNew.setPerfilUsuario(usuario.getPerfilUsuario());
+			usuarioNew.setRoles(rolUsuario(usuario.getPerfilUsuario()));
 			usuarioNew.setNombreUsuario(usuario.getNombreUsuario());
 			usuarioNew.setEmailUsuario(usuario.getEmailUsuario());
 			usuarioNew.setNotaUsuario(usuario.getNotaUsuario());
@@ -222,6 +225,7 @@ public class UsuarioRestController {
 			usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
 			usuarioActual.setEmailUsuario(usuario.getEmailUsuario());
 			usuarioActual.setNotaUsuario(usuario.getNotaUsuario());
+			usuarioActual.setRoles(rolUsuario(usuario.getPerfilUsuario()));
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
 			usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
@@ -274,6 +278,29 @@ public class UsuarioRestController {
 		status =  HttpStatus.OK;
 		return UtilController.responseGeneric(usuario, "usuario", status);
 	}
-	
+
+
+	private List<Role> rolUsuario(String perfilUsuario) {
+		Long idPerfilUsuario=0l;
+		switch (perfilUsuario) {
+		case "Vendedor": idPerfilUsuario =3l;
+		break;
+		case "Instructor": idPerfilUsuario =4l;
+		break;
+		case "Operacion": idPerfilUsuario =5l;
+		break;
+		case "Administracion": idPerfilUsuario =6l;
+		break;
+		case "Direccion": idPerfilUsuario =7l;
+		break;
+		}
+		
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(new Role(idPerfilUsuario, perfilUsuario));
+		
+		return roles;
+	}
+
+
 	
 }

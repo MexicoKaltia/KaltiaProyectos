@@ -102,7 +102,9 @@ public class ControllerInicio extends HttpServlet{
 				return new  ModelAndView("login");
 			}else {
 				log.info("Inicio model Activo");
-						return new  ModelAndView("index",  model);	
+				ResultVO resultVO = (ResultVO)model.get("model");
+				log.info(resultVO.getResponse());
+						return new  ModelAndView(resultVO.getResponse(),  model);	
 			}		
 
 			}
@@ -120,13 +122,16 @@ public class ControllerInicio extends HttpServlet{
 				log.info("Asignacion model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");			
 				ResultVO rs = aplicacionService.consultaData(resultVO);
+				
 				model.addAttribute("model", rs);
+				
 				ModelAndView mav = new  ModelAndView("Asignacion",  model);
+				log.info(mav.toString());
 				if(rs.getCodigo() != 500) {
 					return mav;
 				}else {
 					mav.addObject("consulta", true);
-					log.info("NOK AltaCliente");
+					log.info("NOK Asignacion");
 					return mav;	
 				}
 					

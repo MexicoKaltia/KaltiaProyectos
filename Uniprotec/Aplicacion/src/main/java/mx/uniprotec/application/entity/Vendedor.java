@@ -119,12 +119,6 @@ public class Vendedor implements Serializable{
 	public void setEmailVendedor(String emailVendedor) {
 		this.emailVendedor = emailVendedor;
 	}
-//	public List<Cliente> getCliente() {
-//		return cliente;
-//	}
-//	public void setCliente(List<Cliente> cliente) {
-//		this.cliente = cliente;
-//	}
 	public String getNotaVendedor() {
 		return notaVendedor;
 	}

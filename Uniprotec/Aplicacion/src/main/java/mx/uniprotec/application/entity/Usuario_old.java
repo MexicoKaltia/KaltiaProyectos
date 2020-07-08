@@ -16,8 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Entity
-@Table(name = "usuarios")
+//@Entity
+//@Table(name = "usuarios")
 public class Usuario_old implements Serializable {
 
 	@Id

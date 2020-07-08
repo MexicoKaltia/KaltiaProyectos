@@ -11,5 +11,6 @@ public interface IBaseClientRest {
 	public Object objetoPost(String token, String urlCrud, Object cliente);
 	public Object objetoPut(String token, String urlCrud, Object objeto, Long idObjeto);
 	public ResultVO objetoGetAll(String token, String urlCrudCliente);
+	ResultVO objetoGetId(String token, String urlCrud, Object object, String idObject);
 
 }

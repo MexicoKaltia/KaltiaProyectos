@@ -9,16 +9,15 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-                <link th:href="@{css/multi-select.css}" rel="stylesheet">
     <link th:href="@{main.css}" rel="stylesheet">
 </head>
 
-<body background="images/fondo4.png">
+<body background="images/fondo.png">
 
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
-        <!--      HEAD INICIO    -->
-    <div class="app-header header-shadow bg-royal header-text-light" >
+<!--     HEAD INICIO -->
+        <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
                 <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
                 <div class="header__pane ml-auto">
@@ -86,7 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="widget-content-left  ml-3 header-user-info">
+                               <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
                                         <span th:text="${model.jsonResponse.user.nombre}"></span>
                                     </div>
@@ -111,11 +110,11 @@
                 </div>
             </div>
         </div>
-       <!--      HEAD FIN    --> 
-               
+<!--      HEAD FIN    -->
+
         <div class="app-main">
-            <!--     LEFT INICIO -->
-	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+        <!--     LEFT INICIO -->
+            <div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>
                     <div class="header__pane ml-auto">
@@ -206,9 +205,10 @@
                 </div>  
             </div> 
 <!--     LEFT FIN -->
-
-             <div class="app-main__outer">
-                <div class="app-main__inner">
+             <div class="app-main__outer"  >
+             <!--     BODY INICIO -->
+                <div class="app-main__inner" style="background-image: url('images/fondo.png');">
+                <!--     BODY Encabezado -->
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -216,118 +216,18 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>ALTA VENDEDOR
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO VENDEDOR
+                                <div>TABLERO DE CONTROL
+                                    <div class="page-title-subheading">PANTALLA PRINCIPAL CON LOS INDICADORES DE
+                                        SERVICIO.
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="app-header-right">
-							<br>
-                            <span th:if='${ejecucion}'>
-								<div class="alert alert-success" role="alert" id="dataExito">
-		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Generado correctamente el nuevo Vendedor.</u>
-								</div>
-							</span>
-							<span th:if='${error}'>
-								<div class="alert alert-danger" role="alert" id="dataError">
-		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revisión : </b><u>No se Generó el Vendedor, Verifique datos. </u>
-								</div>
-							</span>
-							<span th:if='${consulta}'>
-								<div class="alert alert-warning" role="alert" id="dataError">
-		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Consulta : </b><u>No se realizó la consulta de los Vendedores, Notifique Administrador. </u>
-								</div>
-							</span>
-					 </div>
                     </div>
-                    
-                    <!--  
-                    	SECCION DE EDICION  
-                    -->
-                    <div class="main-card mb-3 card">
-                            <div class="card-body">
-                                <h5 class="card-title">VENDEDOR UNIPROTEC</h5>
-                                <form id="altaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaVendedor}"  th:object="${vendedorForm}" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Vendedor</label>
-                                            <input type="text" class="form-control"  id="nombreVendedor" name="nombreVendedor" placeholder="Capture Nombre Vendedor" value=""  maxlength="100" th:field="*{nombreVendedor}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Vendedor
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email</label>
-                                            <div class="input-group mb-3">
-											  <input type="text" class="form-control" th:field="*{emailVendedor}" id="emailVendedor" maxlength="100" required placeholder="Usuario Email" aria-label="Usuario Email" aria-describedby="basic-addon3">
-											  <div class="input-group-append">
-											    <span class="input-group-text" id="basic-addon3">@uniprotec.net</span>
-											  </div>
-											  <div class="invalid-feedback">
-                                                Capturar Email Válido
-                                            </div>
-										 </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Email Gmail</label>
-                                            <div class="input-group mb-3">
-											  <input type="text" class="form-control" th:field="*{emailGmailVendedor}" id="emailGmailVendedor" maxlength="100" required placeholder="Usuario Gmail" aria-label="Usuario Gmail" aria-describedby="basic-addon2">
-											  <div class="input-group-append">
-											    <span class="input-group-text" id="basic-addon2">@gmail.com</span>
-											  </div>
-											  <div class="invalid-feedback">
-                                                Capturar Email Gmail Válido
-                                            </div>
-										 </div>
-                                        </div>
-                                      </div>
-                                  
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Notas Vendedor</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaVendedor}" id="notaVendedor" rows="3" cols="150" ></textarea>
-								            </div>
-							         </div>
-                                        
-                                <br>
-                                    
-                                    <button class="btn btn-primary" type="submit">Agregar Vendedor</button>
-                                </form>
-            
-                                <script>
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                </script>
-                            </div>
-                        </div>
-                                              
-                        <!-- 
-                        	FIN DE SECCION DE EDICION 
-                        -->
-
-                     	<!-- Footer-->
+                    <!--     BODY Encabezado FIN -->
+                </div>
+                <!--     BODY FIN -->
+                                       <!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
@@ -354,22 +254,16 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div></div></div>                                    
+                                            </div></div></div>
+                                    
                                 <!-- Fin Footer-->
-
                 
-            </div>  <!--  app-main__inner -->
-        </div>  <!-- fin de app-main__outer-->
-	</div>  <!-- app-main -->
-</div>   <!-- app-container -->
+            </div>
+        </div>  <!-- fin de div principal-->
+</div>
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
-    <script type="text/javascript">
-  // run pre selected options
-  $('#listClienteVendedor').multiSelect();
-  </script>
-    
+<!--     <script type="text/javascript" th:src="@{js/complemento.js}"></script> -->
 </body>
 
 </html>

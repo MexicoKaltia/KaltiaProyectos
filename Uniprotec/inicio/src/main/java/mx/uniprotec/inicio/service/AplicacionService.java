@@ -82,21 +82,26 @@ public class AplicacionService implements IAplicacionService {
 						if(rsAsignaciones.getCodigo() != 500) {
 							rs.setAsignaciones((List<AsignacionModelo>) rsAsignaciones.getJsonResponse().get("asignaciones"));
 						}else {
+							log.info("error Asignaciones");
 							return rsAsignaciones;
 						}
 					}else {
+						log.info("error Vendedores");
 						return rsVendedores;
 					}
 						
 				}else {
+					log.info("error Regiones");
 					return rsRegiones;
 				}
 				
 			}else {
+				log.info("error Instructores");
 				return rsInstructores;
 			}
 			
 		}else {
+			log.info("error Clientes");
 			return rsClientes;
 		}
 		

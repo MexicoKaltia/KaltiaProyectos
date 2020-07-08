@@ -27,7 +27,7 @@ public class VendedorServiceImpl implements IVendedorService {
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Vendedor> findAll(Pageable pageable) {
-		return vendedorDao.findAll(pageable);
+		return null;//vendedorDao.findAll(pageable);
 	}
 	
 	@Override

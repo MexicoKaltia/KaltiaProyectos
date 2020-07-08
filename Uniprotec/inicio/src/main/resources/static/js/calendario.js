@@ -23,6 +23,15 @@ $(document).ready(function() {
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
+//			idCliente = asignaciones[i].idClienteAsignacion;
+			if(perfilUsuario === "Vendedor"){
+				if(idUsuario === asignaciones[i].userCreateAsignacion){
+					$("#asignaConfirmar").show();
+				}else{
+					$("#asignaConfirmar").hide();
+				}
+			}
+			
 			
 			if(asignacion.idAsignacion.toString() === item[0].toString()){
 				asignaFechaCalendario = cambiaFormatoFecha(asignacion.fechaAsignacion);
@@ -78,7 +87,6 @@ $(document).ready(function() {
 			right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
 		},
 		eventClick : function(info){
-//			alert(info.event.title);
 			abrirModal(info.event.title)
 		},
 		

@@ -74,12 +74,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="widget-content-left  ml-3 header-user-info">
+                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        <span th:text="${model.jsonResponse.fields.user.name}"></span>
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
                                     </div>
                                     <div class="widget-subheading">
-                                        Perfil
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">

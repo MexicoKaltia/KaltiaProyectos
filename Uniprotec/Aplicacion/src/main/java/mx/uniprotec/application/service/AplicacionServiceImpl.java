@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mx.uniprotec.application.dao.IInstructorDao;
+import mx.uniprotec.application.dao.IPerfilDao;
 import mx.uniprotec.application.dao.IRegionDao;
 import mx.uniprotec.application.dao.IVendedorDao;
+import mx.uniprotec.application.entity.Instructor;
+import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Vendedor;
 
@@ -28,9 +32,13 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	
 	@Autowired
 	IVendedorDao vendedorDao;
+	@Autowired
+	IInstructorDao instructorDao;
 	
 	@Autowired
 	IRegionDao regionDao;
+	@Autowired
+	IPerfilDao perfilDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -71,6 +79,43 @@ public class AplicacionServiceImpl implements IAplicacionService {
 			e.printStackTrace();
 		}
 		return vendedor;
+	}
+
+	@Override
+	public List<Perfil> findAllPerfiles() {
+		List<Perfil> perfiles = null;
+		try {
+			 perfiles = (List<Perfil>) perfilDao.findAll();
+		} catch (Exception e) {
+			log.info("error:  findAllPerfiles");
+			perfiles.set(0, new Perfil());
+			e.printStackTrace();
+		}
+			return perfiles;
+	}
+
+	@Override
+	public Perfil findByNombrePerfil(String nombrePerfil) {
+		Perfil perfil= null;
+		try {
+			perfil = perfilDao.findByNombrePerfil(nombrePerfil);
+		} catch (Exception e) {
+			log.info("error:  findPerfil");
+//			perfil.setNombrePerfil("0l");
+			e.printStackTrace();
+		}
+		return perfil;
+	}
+
+	@Override
+	public Vendedor getOperacionUsuarioV(Long idUsuario) {		 
+		Vendedor vendedor = vendedorDao.findByUsuarioVendedorIdUsuario(idUsuario);
+		return vendedor ;
+	}
+	@Override
+	public Instructor getOperacionUsuarioI(Long idUsuario) {		 
+		Instructor instructor = instructorDao.findByUsuarioInstructorIdUsuario(idUsuario);
+		return instructor ;
 	}
 
 }

@@ -27,30 +27,6 @@ $(document).ready(function(){
 	 $.asignaIdRegion=asignacionItem.idRegionAsignacion;
 	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
-	
-//	 $.asignaFecha = "";//ordenaFecha(asignacionItem.fechaAsignacion);
-//	 $.asignaFecha2 ="";//;
-//	 $.asignaFechaCalendario = ""; 
-//	 $.asignaCliente ="";//asignacionItem.idClienteAsignacion ;
-//	 $.asignaClienteTexto ="";//asignacionItem.clienteAsignacion ;
-//	 $.asignaCurso="";//asignacionItem.idCursoAsignacion  ;
-//	 $.asignaCursoTexto="";//asignacionItem.cursoAsignacion;
-//	 $.asignaInstructor="";//asignacionItem.idInstructorAsignacion  ;
-//	 $.asignaInstructorTexto="";//asignacionItem.instructorAsignacion;
-//	 	var hr = asignacionItem.horarioAsignacion.split(";")
-//		var hrInicio = horaSel(hr[0]);
-//		var hrFinal = horaSel(hr[1]);
-//	 $.asignaHorarioInicio="";//hrInicio+":00";
-//	 $.asignaHorarioFinal="";//hrFinal+":00";
-//	 $.asignaParticipantes="";//asignacionItem.participantesAsignacion;
-//	 $.asignaParticipantesTexto="";//asignacionItem.participantesAsignacion;
-//	 $.asignaNivel="";//asignacionItem.nivelAsignacion;
-//	 $.asignaNivelTexto="";//asignacionItem.nivelAsignacion;
-//	 $.asignaObservaciones="";//asignacionItem.observacionesAsignacion;
-//	 $.asignaArchivos="";//asignacionItem.archivosAsignacion;
-//	 $.asignaIdRegion="";//asignacionItem.idRegionAsignacion;
-//	 $.asignaNombreRegion="";//asignacionItem.nombreRegionAsignacion;
-//	 $.asignaTipoCurso="";//asignacionItem.tipoCursoAsignacion;;
 	 
 	 var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
 		var procesoVacio="";
@@ -117,18 +93,18 @@ $(document).ready(function(){
 		$(".listaProceso").empty();
 		procesoInicial(1, $.asignaFecha);
 //		$(".listaProceso").append(procesoFecha);
-	})
+	});
 	$('#procesoCliente').click(function(){
 		$(".listaProceso").empty();
 		procesoInicial(2, $.asignaClienteTexto);
 //		$(".listaProceso").append(procesoFecha);
-	})
+	});
 	$('#procesoCurso').click(function(){
 		$(".listaProceso").empty();
 		procesoInicial(3, $.asignaCursoTexto);
 //		$(".listaProceso").append(procesoFecha);
 //		$(".listaProceso").append(procesoCliente);
-	})
+	});
 	$('#procesoInstructor').click(function(){
 		$(".listaProceso").empty();
 		procesoInicial(4, $.asignaInstructorTexto);
@@ -143,7 +119,7 @@ $(document).ready(function(){
 //		$(".listaProceso").append(procesoCliente);
 //		$(".listaProceso").append(procesoCurso);
 //		$(".listaProceso").append(procesoInstructor);
-	})
+	});
 	$('#procesoParticipantes').click(function(){
 		$(".listaProceso").empty();
 		procesoInicial(6, $.asignaParticipantes);
@@ -154,7 +130,7 @@ $(document).ready(function(){
 //		$(".listaProceso").append(procesoInstructor);
 //		$(".listaProceso").append(procesoHorario);
 		
-	})
+	});
 	$('#procesoObservaciones').click(function(){
 		$(".listaProceso").empty();
 		procesoInicial(8, $.asignaObservaciones);
@@ -165,7 +141,7 @@ $(document).ready(function(){
 //		$(".listaProceso").append(procesoInstructor);
 //		$(".listaProceso").append(procesoHorario);
 //		$(".listaProceso").append(procesoParticipantes);
-	})
+	});
 	
 	for(var i = 1 ; i < 50 ; i++)
 		$('#asignaParticipantes').append('<option value="'+(i)+'">'+(i)+'</option>');
@@ -246,7 +222,7 @@ $(document).ready(function(){
 			
 		}
 		
-	}) // Fin de JQuery
+	}) // Fin de Asignar
 	
 	function procesoInicial(item, valor){
 		switch (idRegion){
@@ -309,6 +285,17 @@ $(document).ready(function(){
 		return horarioAsignacion.slice(0,2);
 	}
 	
+	var clientesVendedor = new Array();
+//	console.log(idVendedor+":"+perfilVendedor+":"+operacionId);
+	if(perfilUsuario ==="Vendedor"){
+		$('#asignaCliente').empty();
+		clientesVendedor = vendedorCliente(operacionId);
+		$('#asignaCliente').append("<option value='' selected  >Selecciona Cliente</option>");
+		for(i in clientesVendedor){
+			$('#asignaCliente').append("<option value='"+clientesVendedor[i].idCliente+"'>"+clientesVendedor[i].nombreCortoCliente+"</option>");
+		}
+		
+	}
 });  // fin de documento JQuery
 
 
@@ -387,6 +374,20 @@ $(document).ready(function(){
 		var zonaCliente = colorZonaCliente($.asignaCliente);
 //		zonaCliente = '<div class="zona" style="background-color:yellow">1</div>';
 		procesoCliente="<li>Edicion Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+	}
+	
+	function vendedorCliente(idV){
+//		console.log("idVendedorFirmado:"+idV);
+		var idVendedorCliente;
+		var clientes= new Array();
+		for(i in asignacionClientes){
+			idVendedorCliente = asignacionClientes[i].vendedorCliente.idVendedor;
+//			console.log(idVendedorCliente+":"+asignacionClientes[i].nombreCortoCliente);
+			if((idVendedorCliente *1) === (idV*1))
+				clientes.push(asignacionClientes[i]);
+		}
+//		console.log(clientes);
+		return clientes;
 	}
 	
 	var zonaCliente;

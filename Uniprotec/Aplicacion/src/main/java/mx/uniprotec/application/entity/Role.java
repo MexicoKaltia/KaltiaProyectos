@@ -20,6 +20,14 @@ public class Role implements Serializable{
 	@Column(unique=true, length=120)
 	private String name;
 	
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name="roles_modulos", joinColumns= @JoinColumn(name="rol_id"),
+//	inverseJoinColumns=@JoinColumn(name="modulo_id"),
+//	uniqueConstraints= {@UniqueConstraint(columnNames= {"rol_id", "modulo_id"})})
+//	private List<Modulo> modulos;
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -35,6 +43,16 @@ public class Role implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	
+	public Role(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+	public Role() {}
+
 
 	/**
 	 * 

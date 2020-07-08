@@ -88,12 +88,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="widget-content-left  ml-3 header-user-info">
+                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        <span th:text="${model.jsonResponse.fields.user.name}"></span>
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
                                     </div>
                                     <div class="widget-subheading">
-                                        Perfil
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -156,7 +161,7 @@
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">MODULOS</li>
-                            <li th:each= "modulo : ${model.jsonResponse.fields.user.modules}">
+                            <li th:each= "modulo : ${model.jsonResponse.modules.modulos}">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-diamond"></i>
                                     <span th:text="${modulo.nombreModulo}"></span>

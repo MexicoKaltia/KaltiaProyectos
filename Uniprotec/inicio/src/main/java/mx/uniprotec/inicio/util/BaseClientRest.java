@@ -20,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import mx.uniprotec.entidad.modelo.PerfilModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 
@@ -55,6 +56,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_REGIONES	  =	"regiones";
 	public static final String URL_CRUD_ASIGNACIONES  =	"asignaciones";
 	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
+	public static final String URL_CRUD_PERFIL		  =	"perfil";
+	public static final String URL_CRUD_PERFILES	  =	"perfiles";
 	
 	
 	
@@ -93,17 +96,25 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 
-
-	@Override
 	public ResultVO objetoGetAll(String token, String urlCrud) {
-//		log.info(resultVO.toString());
-//		resultVO = getTemplateObjetoGetAll(token, urlCrud);
 		return getTemplateObjetoGetAll(token, urlCrud);//resultVO;
 	}
 
+	@Override
+	public ResultVO objetoGetId(String token, String urlCrud, Object object, String idObject) {
+		resultVO = getTemplateObjetoGetId(token, urlCrud, object, idObject);
+		return resultVO;
+	}
+
+
+
+
 	
 	
 
+
+
+	
 
 
 	/*
@@ -241,7 +252,36 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    
 	}
 	
-	
+	private ResultVO getTemplateObjetoGetId(String token, String urlCrud, Object object, String idObject) {
+		
+		String urlGetId = URL_CRUD+urlCrud + "/" +idObject.toString();
+		HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+ 	     headers.add("Authorization", "Bearer " + token);
+ 	     
+ 	    HttpEntity<?> entity = new HttpEntity<>(headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(urlGetId, HttpMethod.GET, entity, JSONObject.class);
+//		    log.info(resultVO.toString());
+//		    resultVO = asignaResponseObject(response);
+	  	     
+			return asignaResponseObject(response);
+			
+		} catch (Exception e) {
+			
+				JSONObject jsonResponse = new JSONObject();
+			    ResultVO rs = new ResultVO();
+			    rs.setJsonResponse(jsonResponse);
+			    e.printStackTrace();
+			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			        
+				return rs;
+		}
+	    
+	}
+
 	
 	
 	
@@ -268,15 +308,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO asignaResponse(ResponseEntity<JSONObject> response) {
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();
-	    JSONObject fields = new JSONObject();
-	    fields.put("fields", jsonResponse.get("fields"));
-	    
+	   
 	    resultVO.setAccesToken(jsonResponse.get("access_token").toString());
-	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("status").toString()));
-//	    resultVO.setCodigo((Long) jsonResponse.get("code"));
-	    resultVO.setMensaje(jsonResponse.get("message").toString());
-	    resultVO.setJsonResponse(fields);
-	    
+	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
+	    resultVO.setMensaje(jsonResponse.get("message").toString());   
+	    resultVO.setJsonResponse(jsonResponse);
 	    log.info(resultVO.toString());
 	    
 		return resultVO;
@@ -303,6 +339,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 
 
+	
 	
 	
 

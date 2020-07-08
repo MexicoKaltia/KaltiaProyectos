@@ -145,6 +145,18 @@ $(document).ready(function(){
 		
 	})
 
+	var clientesVendedor = new Array();
+//	console.log(idVendedor+":"+perfilVendedor+":"+operacionId);
+	if(perfilUsuario ==="Vendedor"){
+		$('#asignaCliente').empty();
+		clientesVendedor = vendedorCliente(operacionId);
+		$('#asignaCliente').append("<option value='' selected  >Selecciona Cliente</option>");
+		for(i in clientesVendedor){
+			$('#asignaCliente').append("<option value='"+clientesVendedor[i].idCliente+"'>"+clientesVendedor[i].nombreCortoCliente+"</option>");
+		}
+		
+	}
+	
 
 	
 });  // fin de documento JQuery
@@ -238,6 +250,19 @@ var alerta, proceso;
 		var zonaCliente = colorZonaCliente($.asignaCliente);
 //		zonaCliente = '<div class="zona" style="background-color:yellow">1</div>';
 		procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+	}
+	
+	function vendedorCliente(idV){
+//		console.log("idVendedorFirmado:"+idV);
+		var idVendedorCliente;
+		var clientes= new Array();
+		for(i in asignacionClientes){
+			idVendedorCliente = asignacionClientes[i].vendedorCliente.idVendedor;
+//			console.log(idVendedorCliente+":"+asignacionClientes[i].nombreCortoCliente);
+			if((idVendedorCliente *1) === (idV*1))
+				clientes.push(asignacionClientes[i]);
+		}
+		return clientes;
 	}
 	
 	var zonaCliente;
