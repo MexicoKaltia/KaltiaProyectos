@@ -38,6 +38,12 @@ public class Perfil implements Serializable{
 		uniqueConstraints= {@UniqueConstraint(columnNames= {"perfil_id", "modulo_id"})})
 		private List<Modulo> modulos;
 		
+		@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@JoinTable(name="perfiles_acciones", joinColumns= @JoinColumn(name="perfil_id"),
+		inverseJoinColumns=@JoinColumn(name="accion_id"),
+		uniqueConstraints= {@UniqueConstraint(columnNames= {"perfil_id", "accion_id"})})
+		private List<Accion> acciones;
+		
 		
 	public Perfil() {
 		// TODO Auto-generated constructor stub
@@ -77,6 +83,16 @@ public class Perfil implements Serializable{
 	public Perfil orElse(Object object) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	public List<Accion> getAcciones() {
+		return acciones;
+	}
+
+
+	public void setAcciones(List<Accion> acciones) {
+		this.acciones = acciones;
 	}
 
 }

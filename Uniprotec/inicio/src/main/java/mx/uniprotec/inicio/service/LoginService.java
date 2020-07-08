@@ -57,6 +57,7 @@ public class LoginService implements ILoginService{
 							jsonUsuario.get("perfil").toString());
 					
 					JSONObject jsonObjectPerfil = (JSONObject) resultUsuario.getJsonResponse();
+					log.info(jsonObjectPerfil.toJSONString());
 					JSONObject jsonPerfil= new JSONObject((Map) jsonObjectPerfil.get("perfil"));
 					JSONObject jsonFields =new JSONObject();
 					jsonUsuario.put("modules", jsonPerfil);
