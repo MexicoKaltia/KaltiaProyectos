@@ -49,7 +49,7 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		if(usuario.getPerfilUsuario().equals("Vendedor")) {
 			Vendedor vendedor = aplicacionService.getOperacionUsuarioV(usuario.getIdUsuario());
 			subInfo.put("operacionId", vendedor.getIdVendedor());
-		}else if(usuario.getPerfilUsuario().equals("Vendedor")) {
+		}else if(usuario.getPerfilUsuario().equals("Instructor")) {
 			Instructor instructor= aplicacionService.getOperacionUsuarioI(usuario.getIdUsuario());
 			subInfo.put("operacionId", instructor.getIdInstructor());
 		}else {

@@ -256,6 +256,58 @@ public class ControllerInicio extends HttpServlet{
 				}
 			}
 		
+		
+		@GetMapping("/CAsignacionI")
+		public ModelAndView consultaAsignacionInstructor(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
+				@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+				@RequestParam(name="error", required=false) boolean error,
+				ModelMap model) {
+				log.info("Calendario Instructor model Activo");
+				model.addAttribute("asignacionItem", new AsignacionModelo());
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				model.addAttribute("model", resultVO);
+				
+				ResultVO rs = asignacionService.consultaAsignacion(resultVO.getAccesToken());
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				ModelAndView mav = new ModelAndView("CAsignacionI", model);
+				if(rs.getCodigo() != 500) {
+					mav.addObject("ejecucion", ejecucion);
+					mav.addObject("ejecucion2", ejecucion2);
+					mav.addObject("error", error);
+					return mav;
+				}else {
+					mav.addObject("consulta", true);
+					log.info("NOK ConsultaAsignacionInstructor");
+					return mav;
+				}
+			}
+		
+		@PostMapping("/BAsignacionI")
+		public ModelAndView BAsignacionInstructor(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			model.addAttribute("asignacionItemUpdate", new AsignacionModelo());
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Edicion Asignacion model Activo");
+				ResultVO resultVO = (ResultVO)model.get("model");			
+				ResultVO rs = aplicacionService.consultaData(resultVO);
+				model.addAttribute("model", rs);
+				ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
+				if(rs.getCodigo() != 500) {					
+					return mav;
+				}else {
+					mav.addObject("consulta", true);
+					log.info("NOK AltaCliente");
+					return mav;	
+				}
+					
+			}		
+				
+		}
+		
+		
 
 }
 
