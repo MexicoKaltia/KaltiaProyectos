@@ -1,18 +1,11 @@
 package mx.uniprotec.inicio.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +16,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
-import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
-import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IAsignacionService;
+import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ILoginService;
 
 @CrossOrigin(origins = { "*" })
@@ -49,6 +41,8 @@ public class ControllerInicio extends HttpServlet{
 	ILoginService loginService;
 	@Autowired
 	IAplicacionService aplicacionService;
+	@Autowired
+	IClienteService clienteService;
 	@Autowired
 	IAsignacionService asignacionService;
 	
@@ -292,8 +286,10 @@ public class ControllerInicio extends HttpServlet{
 			}else {
 				log.info("Edicion Asignacion model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");			
-				ResultVO rs = aplicacionService.consultaData(resultVO);
-				model.addAttribute("model", rs);
+				ResultVO rs = clienteService.consultaCliente(resultVO.getAccesToken(), asignacion.getIdClienteAsignacion());
+				resultVO.setJsonResponseObject(rs.getJsonResponse());
+				model.addAttribute("model", resultVO);
+				log.info(resultVO.toString());
 				ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
 				if(rs.getCodigo() != 500) {					
 					return mav;

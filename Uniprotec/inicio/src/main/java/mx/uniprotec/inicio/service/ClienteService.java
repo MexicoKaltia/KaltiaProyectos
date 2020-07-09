@@ -116,7 +116,24 @@ public class ClienteService implements IClienteService {
 			return rs;
 		}
 	}
-	
+
+
+	@Override
+	public ResultVO consultaCliente(String token,Long idClienteAsignacion) {
+		
+		ResultVO rs = (ResultVO) baseClientRest.objetoGetId(token, BaseClientRest.URL_CRUD_CLIENTE, null, idClienteAsignacion.toString());
+		
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonClientes = new JSONObject();
+			jsonClientes.put("clientes", jsonGeneral.get("clientes"));
+			
+			rs.setJsonResponseObject(jsonClientes);
+			return rs;
+		}else {
+			return rs;
+		}
+	}
 	
 
 }

@@ -255,6 +255,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO getTemplateObjetoGetId(String token, String urlCrud, Object object, String idObject) {
 		
 		String urlGetId = URL_CRUD+urlCrud + "/" +idObject.toString();
+		log.info(urlGetId);
 		HttpHeaders headers = new HttpHeaders();
 		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
  	     headers.add("Authorization", "Bearer " + token);
@@ -335,6 +336,13 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 //	    log.info(jsonResponse.get("mensaje").toString());
 	    
 		return rs;
+	}
+
+
+
+	public ResultVO objetoGet(String token, String urlCrudCliente, Long idClienteAsignacion) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
