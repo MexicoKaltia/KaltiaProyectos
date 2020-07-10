@@ -279,7 +279,7 @@ public class ControllerInicio extends HttpServlet{
 		
 		@PostMapping("/BAsignacionI")
 		public ModelAndView BAsignacionInstructor(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
-			model.addAttribute("asignacionItemUpdate", new AsignacionModelo());
+			model.addAttribute("asignacionItem", asignacion);
 			if(model.equals(null)) {
 				log.info("NULL");
 				return new  ModelAndView("login");
@@ -303,7 +303,50 @@ public class ControllerInicio extends HttpServlet{
 				
 		}
 		
+		@PostMapping("/actualizaAsignacionI")
+		public ModelAndView actualizaAsignacionI(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			log.info("Actualiza Asignacion model Activo");
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+
+			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken());
+			ModelAndView mav = new ModelAndView("redirect:/CAsignacionI", model);
+			if(rs.getCodigo() != 500) {
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				mav.addObject("ejecucion2", true);
+			}else {
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+			}
+			return mav;			
+		}
 		
+
+		@GetMapping("/CEntregableI")
+		public ModelAndView consultaEntregableI(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
+				@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+				@RequestParam(name="error", required=false) boolean error,
+				ModelMap model) {
+				log.info("Entregable model Activo");
+				model.addAttribute("entregableItem", new AsignacionModelo());
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				model.addAttribute("model", resultVO);
+				
+				ResultVO rs = asignacionService.consultaAsignacion(resultVO.getAccesToken());
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				ModelAndView mav = new ModelAndView("CEntregableI", model);
+				if(rs.getCodigo() != 500) {
+					mav.addObject("ejecucion", ejecucion);
+					mav.addObject("ejecucion2", ejecucion2);
+					mav.addObject("error", error);
+					return mav;
+				}else {
+					mav.addObject("consulta", true);
+					log.info("NOK ConsultaAsignacion");
+					return mav;
+				}
+			}
 
 }
 

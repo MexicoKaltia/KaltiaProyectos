@@ -107,7 +107,8 @@ $(document).ready(function(){
 	$("#link").attr('href', '/uploads/fileAsignacion/'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivosAsignacion)
 //    $("#link").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
 	//--------------------------------------------------
-	$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
+	$('#statusAsignacion1').html($.asignaStatus);
+//	$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
 	
 	 
 	
@@ -121,7 +122,7 @@ $(document).ready(function(){
 	$('#regionCliente').html('<b>'+asignacionCliente.regionCliente.nombreRegion+'</b>');
 	$('#domicilioCliente').html('<b>'+asignacionCliente.domicilioCliente+'</b>');
 	$('#telefonoCliente').html('<b>'+asignacionCliente.telefonoCliente+'</b>');
-	$('#googleMapsCliente').html('<b>'+asignacionCliente.googleMapsCliente+'</b>');
+	$('#googleMapsCliente').html('<b><a href="'+asignacionCliente.googleMapsCliente+'" target="_blank">Ver Mapa</b>');
 	$('#emailCliente').html('<b>'+asignacionCliente.emailCliente+'</b>');
 	$('#documentosAccesoCliente').html('<b>'+asignacionCliente.documentosAccesoCliente+'</b>');
 	$('#reglasAccesoCliente').html('<b>'+asignacionCliente.reglasAccesoCliente+'</b>');
@@ -134,88 +135,70 @@ $(document).ready(function(){
 	$('#materialDidacticoCliente').html('<b>'+asignacionCliente.materialDidacticoCliente+'</b>');
 	$('#informacionPaqueteriaCliente').html('<b>'+asignacionCliente.informacionPaqueteriaCliente+'</b>');
 	$('#notaCliente').html('<b>'+asignacionCliente.notaCliente+'</b>');
+	
 	$('#imagenLogoCliente').html('<b>'+asignacionCliente.imagenLogoCliente+'</b>');
+	$("#linkLogo").attr('href', '/uploads/img/'+asignacionCliente.idCliente+'/'+asignacionCliente.imagenLogoCliente)
+    
 	$('#archivosCliente').html('<b>'+asignacionCliente.archivosCliente+'</b>');
-
+	$("#linkFile").attr('href', '/uploads/file/'+asignacionCliente.idCliente+'/'+asignacionCliente.archivosCliente)
+    
 	
 	
+	/*
+   	 * EDICION STATUS MODAL 
+   	 */
+	$.sigStatus="";
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	$('#asignar').click(function(){
-		
-		alertaEmpty ="";
-		if($.asignaFecha === "" || $.asignaFecha === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Fecha Inválido</b></li>";
+	if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
+		$.sigStatus = "Confirmado Instructor";
+		$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+		$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+	}else if($.asignaStatus === "Confirmado Instructor"){
+		if(validaHoy(asignacionItem.fechaAsignacion)){
+			$.sigStatus = "Curso Completado";
+			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
 		}else{
-			 
-		}
-		if($.asignaCliente === "" || $.asignaCliente === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Cliente Inválido </b></li>";
-		}else{
-			$('#modalCliente').html('<b>'+$.asignaClienteTexto+'</b>'+zonaCliente);
-		}
-		if($.asignaCurso === "" || $.asignaCurso === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Curso Inválido </b></li>";
-		}else{
-			$('#modalCurso').html('<b>'+$.asignaCursoTexto+'</b>'+" : <i><u><b>"+tipoCursoVal+"</b></u></i>");
-		}
-		if($.asignaInstructor === "" || $.asignaInstructor === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Instructor Inválido </b></li>";
-		}else{
-			$('#modalInstructor').html('<b>'+$.asignaInstructorTexto+'</b>');
-		}
-		if($.asignaHorarioInicio === "" || $.asignaHorarioInicio === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Horario Inicio Inválido </b></li>";
-		}else{
-			$('#modalHorarioInicio').html('<b>'+$.asignaHorarioInicio+'</b>'); 
-		}
-		if($.asignaHorarioFinal === "" || $.asignaHorarioFinal=== null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Horario Final Inválido </b></li>";
-		}else{
-			$('#modalHorario').html("<b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b>"); 
-		}
-		if($.asignaParticipantes === "" || $.asignaParticipantes === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Participantes Inválido </b></li>";
-		}else{
-			$('#modalParticipantes').html('<b>'+$.asignaParticipantes+'</b>'); 
-		}
-		if($.asignaNivel === "" || $.asignaNivel === null){
-			alertaEmpty = alertaEmpty + "<li>Campo: <b> Nivel Inválido </b></li>";
-		}else{
-//			console.log($.asignaNivel)
-			$('#modalNivel').html('<b>'+$.asignaNivel+'</b>'); 
+			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+			$('#consirmarStatus').html('<b>Debe de cumplir la fecha de evento: '+$.asignaFecha+'</b>');
 		}
 		
-		validaObservaciones();
-		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
-		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
-		
-		/*
-		 * asignar valores al formulario 
-		 */
-		asignaCamposSubmit();
-		
-		if(alertaEmpty === "" || alertaEmpty === null){
-//			console.log("Avanza al modal");
-			$("#procesoVacio").remove();
+	}
+	
+	function validaHoy(fechaAsignacion){
+		var hoy = new Date();
+		var asignacion = new Date(fechaAsignacion)
+		if(asignacion < hoy){
+//			console.log(asignacion)
 			return true;
-		}else{
-			alertaFadeVacio()
-			$("#listaProcesoVacio").empty();
-			$("#listaProcesoVacio").append(alertaEmpty);
+		}else
 			return false;
-			
-		}
-		
-	}) // Fin de Asignar
+	}
 	
+	
+	
+	console.log($.sigStatus);
+	
+	
+//		$('#idAsignacion').val(asignacionItem.idAsignacion);
+//		$('#idAsignacionLogica').val(asignacionItem.idAsignacionLogica);
+//		$('#fechaAsignacion').val($.asignaFecha);
+//		$('#idClienteAsignacion').val($.asignaCliente);
+//		$('#clienteAsignacion').val($.asignaClienteTexto);
+//		$('#idCursoAsignacion').val($.asignaCurso);
+//		$('#cursoAsignacion').val($.asignaCursoTexto);
+//		$('#idInstructorAsignacion').val($.asignaInstructor);
+//		$('#instructorAsignacion').val($.asignaInstructorTexto);
+//		$('#horarioAsignacion').val(asignacionItem.horarioAsignacion);
+//		$('#participantesAsignacion').val(asignacionItem.participantesAsignacion);
+//		$('#nivelAsignacion').val(asignacionItem.nivelAsignacion);
+//		$('#archivosAsignacion').val(asignacionItem.archivosAsignacion);
+//		$('#archivosAsignacionTexto').val(asignacionItem.archivosAsignacionTexto);
+//		$('#observacionesAsignacion').val(asignacionItem.observacionesAsignacion);
+//		$('#idRegionAsignacion').val($.asignaIdRegion);
+//		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
+//		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
+		$('#statusAsignacion').val($.sigStatus);
 	
 	
 });  // fin de documento JQuery
@@ -225,29 +208,10 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
- *  valores Submit
+ *  valores Submit  185755083081
  */
 
-	function asignaCamposSubmit(){
-		$('#idAsignacion').val(asignacionItem.idAsignacion);
-		$('#idAsignacionLogica').val(asignacionItem.idAsignacionLogica);
-		$('#fechaAsignacion').val($.asignaFecha2);
-		$('#idClienteAsignacion').val($.asignaCliente);
-		$('#clienteAsignacion').val($.asignaClienteTexto);
-		$('#idCursoAsignacion').val($.asignaCurso);
-		$('#cursoAsignacion').val($.asignaCursoTexto);
-		$('#idInstructorAsignacion').val($.asignaInstructor);
-		$('#instructorAsignacion').val($.asignaInstructorTexto);
-		$('#horarioAsignacion').val($.asignaHorarioInicio +";"+ $.asignaHorarioFinal +";"+ $.asignaRecesoInicio +";"+ $.asignaRecesoFinal +";"+ $.horasEfectivas);
-		$('#participantesAsignacion').val($.asignaParticipantesTexto);
-		$('#nivelAsignacion').val($.asignaNivelTexto);
-		$('#archivosAsignacion').val($.asignaArchivos);
-		$('#archivosAsignacionTexto').val($.asignaArchivos);
-		$('#observacionesAsignacion').val($.asignaObservaciones);
-		$('#idRegionAsignacion').val($.asignaIdRegion);
-		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
-		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
-	}
+	
 	
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

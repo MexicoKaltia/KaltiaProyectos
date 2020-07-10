@@ -37,7 +37,7 @@ public class AsignacionService implements IAsignacionService{
 		me = ComponenteComun.monitorCampos();
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
 		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
-		asignacion.setStatusAsignacion(me.getStatusEntidad());
+		asignacion.setStatusAsignacion("Curso Asignado");
 		asignacion.setIdAsignacionLogica(fecha(asignacion.getFechaAsignacion())+"-"+asignacion.getIdClienteAsignacion()+"-"+asignacion.getIdInstructorAsignacion()+"-"+asignacion.getIdCursoAsignacion());
 		log.info(asignacion.toString());
 		
@@ -61,7 +61,7 @@ public class AsignacionService implements IAsignacionService{
 		
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
 		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
-		asignacion.setStatusAsignacion("Actualizado");
+//		asignacion.setStatusAsignacion("Actualizado");
 		
 		log.info(asignacion.toString());
 		
