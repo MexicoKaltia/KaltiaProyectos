@@ -300,32 +300,32 @@
                                                     	<li class="nav-item">
 			                                                <div class="badge mr-1 ml-0">  
 															    <span style="background:cyan; color:black"><small>Curso Asignado</small></span>
-															</div>
+															</div>-->
 														</li>
 														<li class="nav-item">                                                    
 															<div class="badge mr-1 ml-0">
 															    <span style="background:olive; color:white"><small>Confirmado Instructor</small></span>
-															</div>
+															</div>-->
 														</li>
 															<li class="nav-item">
 															<div class="badge mr-1 ml-0">
 															    <span style="background:silver; color:black"><small>Curso Editado</small></span>
-															</div>
+															</div>-->
 														</li>
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
 															    <span style="background:maroon; color:white"><small>Curso Completado</small></span>
-															</div>
+															</div>-->
 														</li>
 														<li class="nav-item">
 															<div class="badge  mr-1 ml-0">
 															    <span style="background:red; color:white"><small>Curso Cancelado</small></span>
-															</div>
+															</div>-->
 														</li>
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
 															    <span style="background:orange; color:black"><small>Validacion Entregables</small></span>
-															</div>
+															</div>-->
 														</li>
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
@@ -374,7 +374,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
+                                           <form role="form" th:action="@{/BAsignacionI}" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
                                                <h5 class="card-title">Resumen de asignacion</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
@@ -387,6 +387,8 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                         	   <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
@@ -408,7 +410,7 @@
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Edicion</button>        
+                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" disabled>Edicion Entregables</button>        
 											</form>
                                            </div>
                                        </div>
@@ -427,6 +429,9 @@
                        
  	<script th:inline="javascript">
  		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
+ 		var idUsuario =  [[${model.jsonResponse.user.id}]];
+		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 	</script>
 	
 	 

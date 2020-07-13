@@ -58,6 +58,8 @@ $(document).ready(function() {
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
+		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 
 		
 		$('#myModal').modal();

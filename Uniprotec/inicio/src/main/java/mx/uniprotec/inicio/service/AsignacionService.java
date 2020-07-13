@@ -33,10 +33,10 @@ public class AsignacionService implements IAsignacionService{
 	}
 
 	@Override
-	public ResultVO altaAsignacion(AsignacionModelo asignacion, String token) {
+	public ResultVO altaAsignacion(AsignacionModelo asignacion, String token, Long idUser) {
 		me = ComponenteComun.monitorCampos();
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
-		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
+		asignacion.setUserCreateAsignacion(idUser);
 		asignacion.setStatusAsignacion("Curso Asignado");
 		asignacion.setIdAsignacionLogica(fecha(asignacion.getFechaAsignacion())+"-"+asignacion.getIdClienteAsignacion()+"-"+asignacion.getIdInstructorAsignacion()+"-"+asignacion.getIdCursoAsignacion());
 		log.info(asignacion.toString());
@@ -55,13 +55,13 @@ public class AsignacionService implements IAsignacionService{
 	}
 
 	@Override
-	public ResultVO edicionAsignacion(AsignacionModelo asignacion, String token) {
+	public ResultVO edicionAsignacion(AsignacionModelo asignacion, String token, String status) {
 		
 		me = ComponenteComun.monitorCampos();
 		
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
 		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
-//		asignacion.setStatusAsignacion("Actualizado");
+		asignacion.setStatusAsignacion(status);
 		
 		log.info(asignacion.toString());
 		

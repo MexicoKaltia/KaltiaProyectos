@@ -1,7 +1,10 @@
 package mx.uniprotec.inicio.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServlet;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,7 +142,12 @@ public class ControllerInicio extends HttpServlet{
 			log.info(asignacion.toString());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
-			resultVO  = asignacionService.altaAsignacion(asignacion, resultVO.getAccesToken());
+			
+			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("usuario"));
+			Long idUsuario = Long.valueOf( jsonUsuario.get("idUsuario").toString());
+			
+			resultVO  = asignacionService.altaAsignacion(asignacion, resultVO.getAccesToken(), idUsuario );
 			ModelAndView mav = new ModelAndView("redirect:/CAsignacion" , model);
 			if(resultVO.getCodigo() != 500) {
 //				log.info(resultVO.toString());
@@ -210,7 +218,7 @@ public class ControllerInicio extends HttpServlet{
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
 
-			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken());
+			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
 			ModelAndView mav = new ModelAndView("redirect:/CAsignacion", model);
 			if(rs.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
@@ -298,9 +306,7 @@ public class ControllerInicio extends HttpServlet{
 					log.info("NOK AltaCliente");
 					return mav;	
 				}
-					
 			}		
-				
 		}
 		
 		@PostMapping("/actualizaAsignacionI")
@@ -308,9 +314,19 @@ public class ControllerInicio extends HttpServlet{
 			log.info("Actualiza Asignacion model Activo");
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
-
-			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken());
-			ModelAndView mav = new ModelAndView("redirect:/CAsignacionI", model);
+			log.info(asignacion.getStatusAsignacion());
+			ModelAndView mav=null;
+			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
+			if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {
+				mav = new ModelAndView("redirect:/CAsignacionI", model);
+			}else {
+				mav = new ModelAndView("redirect:/CEntregable", model);
+			}
+			if(asignacion.getFechaPago() != null || !asignacion.getFechaPago().equals("") ) {
+				mav = new ModelAndView("redirect:/CEntregable", model);
+			}
+			
+			
 			if(rs.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 				mav.addObject("ejecucion2", true);

@@ -325,6 +325,7 @@ $(document).ready(function(){
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
+		$('#statusAsignacion').val("Curso Editado");
 	}
 	
 

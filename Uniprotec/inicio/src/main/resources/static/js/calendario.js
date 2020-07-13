@@ -31,6 +31,9 @@ $(document).ready(function() {
 					$("#asignaConfirmar").hide();
 				}
 			}
+			if(perfilUsuario === "Administrador"){
+				$("#edicionAsignacion").attr("action", "/BAsignacionI");
+			}
 			
 			
 			if(asignacion.idAsignacion.toString() === item[0].toString()){

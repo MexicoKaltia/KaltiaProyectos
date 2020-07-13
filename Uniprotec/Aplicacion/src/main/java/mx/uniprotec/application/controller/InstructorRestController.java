@@ -195,10 +195,9 @@ public class InstructorRestController {
 
 		HttpStatus status ;
 		Instructor instructorActual = instructorService.findById(id);
-
 		Instructor instructorUpdated = null;
-
 		Map<String, Object> response = new HashMap<>();
+		log.info("Actualizar Instructor");
 
 		if(result.hasErrors()) {
 
@@ -214,6 +213,7 @@ public class InstructorRestController {
 		}
 		
 		if (instructorActual == null) {
+			log.info("Error en busqueda de Instructor");
 			response.put("mensaje", "Error: no se pudo editar, el instructor ID: "
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			response.put("status", HttpStatus.NOT_FOUND);
@@ -228,9 +228,10 @@ public class InstructorRestController {
 			instructorActual.setEmailInstructor(instructor.getEmailInstructor());
 			instructorActual.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
 			instructorActual.setRegionInstructor(region);
-			instructorActual.setUsuarioInstructor(usuarioService.findById(instructor.getUsuarioInstructor()));
+//			instructorActual.setUsuarioInstructor(usuarioService.findById(instructor.getUsuarioInstructor()));
 			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
 			instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
+			log.info(instructorActual.getListFechas());
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
 			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
@@ -245,9 +246,11 @@ public class InstructorRestController {
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 		} catch (DataAccessException e) {
+			
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 

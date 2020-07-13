@@ -432,7 +432,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 
 	@PostMapping("/actualizaInstructor")
 	public ModelAndView actualizaInstructor(@ModelAttribute("instructorForm") InstructorModelo instructor, ModelMap model) {
-		log.info("ActualizaInstructor model Activo");
+	    	log.info("ActualizaInstructor model Activo");
 			model.addAttribute("instructorForm", new InstructorModelo());
 				
 			ResultVO resultVO = (ResultVO)model.get("model");

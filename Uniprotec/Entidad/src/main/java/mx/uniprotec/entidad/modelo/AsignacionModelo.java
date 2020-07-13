@@ -32,6 +32,10 @@ public class AsignacionModelo implements Serializable{
 	private Long idRegionAsignacion;
 	private String nombreRegionAsignacion;
 	private String tipoCursoAsignacion;
+	private Boolean verificarEntregable;
+	private String guiaEntregable;
+	private String fechaPago;
+	private String numeroFactura;
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
 	private String statusAsignacion;
@@ -47,8 +51,9 @@ public class AsignacionModelo implements Serializable{
 				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
 				+ ", observacionesAsignacion=" + observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
 				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
-				+ ", createAtAsignacion=" + createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion
-				+ ", statusAsignacion=" + statusAsignacion + "]";
+				+ ", verificarEntregable=" + verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago="
+				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion=" + statusAsignacion + "]";
 	}
 	
 	public AsignacionModelo(Long idAsignacion, String idAsignacionLogica, String fechaAsignacion,
@@ -209,6 +214,38 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setIdAsignacionLogica(String idAsignacionLogica) {
 		this.idAsignacionLogica = idAsignacionLogica;
+	}
+
+	public Boolean getVerificarEntregable() {
+		return verificarEntregable;
+	}
+
+	public void setVerificarEntregable(Boolean verificarEntregable) {
+		this.verificarEntregable = verificarEntregable;
+	}
+
+	public String getGuiaEntregable() {
+		return guiaEntregable;
+	}
+
+	public void setGuiaEntregable(String guiaEntregable) {
+		this.guiaEntregable = guiaEntregable;
+	}
+
+	public String getFechaPago() {
+		return fechaPago;
+	}
+
+	public void setFechaPago(String fechaPago) {
+		this.fechaPago = fechaPago;
+	}
+
+	public String getNumeroFactura() {
+		return numeroFactura;
+	}
+
+	public void setNumeroFactura(String numeroFactura) {
+		this.numeroFactura = numeroFactura;
 	}
 	
 		

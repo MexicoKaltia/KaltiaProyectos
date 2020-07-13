@@ -216,6 +216,10 @@ public class AsignacionRestController {
 			asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
+			asignacionActual.setFechaPago(asignacion.getFechaPago());
+			asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());
+			asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
+			asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
 			
 			asignacionUpdated = asignacionService.save(asignacionActual);
 			response.put("asignacion ", asignacionUpdated  );

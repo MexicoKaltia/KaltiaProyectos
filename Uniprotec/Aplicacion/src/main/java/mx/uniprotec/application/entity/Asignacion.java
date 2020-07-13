@@ -74,6 +74,15 @@ public class Asignacion implements Serializable{
 	private Long userCreateAsignacion;
 	@Column(nullable=false)
 	private String statusAsignacion;
+	@Column
+	private Boolean verificarEntregable;
+	@Column
+	private String guiaEntregable;
+	@Column
+	private String fechaPago;
+	@Column
+	private String numeroFactura;
+	
 
 	@Override
 	public String toString() {
@@ -271,6 +280,38 @@ public class Asignacion implements Serializable{
 
 	public void setIdAsignacionLogica(String idAsignacionLogica) {
 		this.idAsignacionLogica = idAsignacionLogica;
+	}
+
+	public Boolean getVerificarEntregable() {
+		return verificarEntregable;
+	}
+
+	public void setVerificarEntregable(Boolean verificarEntregable) {
+		this.verificarEntregable = verificarEntregable;
+	}
+
+	public String getGuiaEntregable() {
+		return guiaEntregable;
+	}
+
+	public void setGuiaEntregable(String guiaEntregable) {
+		this.guiaEntregable = guiaEntregable;
+	}
+
+	public String getFechaPago() {
+		return fechaPago;
+	}
+
+	public void setFechaPago(String fechaPago) {
+		this.fechaPago = fechaPago;
+	}
+
+	public String getNumeroFactura() {
+		return numeroFactura;
+	}
+
+	public void setNumeroFactura(String numeroFactura) {
+		this.numeroFactura = numeroFactura;
 	}
 	
 	

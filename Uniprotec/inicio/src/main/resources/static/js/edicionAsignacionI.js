@@ -108,6 +108,8 @@ $(document).ready(function(){
 //    $("#link").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
 	//--------------------------------------------------
 	$('#statusAsignacion1').html($.asignaStatus);
+	$('#statusAsignacion0').val($.asignaStatus);
+	
 //	$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
 	
 	 
@@ -148,21 +150,37 @@ $(document).ready(function(){
    	 * EDICION STATUS MODAL 
    	 */
 	$.sigStatus="";
-	
-	if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
-		$.sigStatus = "Confirmado Instructor";
-		$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
-		$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-	}else if($.asignaStatus === "Confirmado Instructor"){
-		if(validaHoy(asignacionItem.fechaAsignacion)){
-			$.sigStatus = "Curso Completado";
-			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+	$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+	if(perfilUsuario === "Instructor"){
+		if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
+			$.sigStatus = "Confirmado Instructor";
+//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-		}else{
-			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
-			$('#consirmarStatus').html('<b>Debe de cumplir la fecha de evento: '+$.asignaFecha+'</b>');
+		}else if($.asignaStatus === "Confirmado Instructor"){
+			if(validaHoy(asignacionItem.fechaAsignacion)){
+				$.sigStatus = "Curso Completado";
+//				$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+				$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+			}else{
+//				$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+				$('#consirmarStatus').html('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  Debe de cumplir la fecha de evento: '+$.asignaFecha+' </u></div>');
+			}	
 		}
-		
+	}
+	
+	
+	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
+		if($.asignaStatus === "Curso Completado"){
+			$.sigStatus = "Validacion Entregables";
+//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+			$('#verificarEntregable').val(true);
+			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+		}else if($.asignaStatus === "Validacion Entregables"){
+			$.sigStatus = "Entregable Capturado";
+//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
+			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+		}
 	}
 	
 	function validaHoy(fechaAsignacion){
@@ -178,27 +196,15 @@ $(document).ready(function(){
 	
 	
 	console.log($.sigStatus);
+	$('#statusAsignacion').val($.sigStatus);
 	
-	
-//		$('#idAsignacion').val(asignacionItem.idAsignacion);
-//		$('#idAsignacionLogica').val(asignacionItem.idAsignacionLogica);
-//		$('#fechaAsignacion').val($.asignaFecha);
-//		$('#idClienteAsignacion').val($.asignaCliente);
-//		$('#clienteAsignacion').val($.asignaClienteTexto);
-//		$('#idCursoAsignacion').val($.asignaCurso);
-//		$('#cursoAsignacion').val($.asignaCursoTexto);
-//		$('#idInstructorAsignacion').val($.asignaInstructor);
-//		$('#instructorAsignacion').val($.asignaInstructorTexto);
-//		$('#horarioAsignacion').val(asignacionItem.horarioAsignacion);
-//		$('#participantesAsignacion').val(asignacionItem.participantesAsignacion);
-//		$('#nivelAsignacion').val(asignacionItem.nivelAsignacion);
-//		$('#archivosAsignacion').val(asignacionItem.archivosAsignacion);
-//		$('#archivosAsignacionTexto').val(asignacionItem.archivosAsignacionTexto);
-//		$('#observacionesAsignacion').val(asignacionItem.observacionesAsignacion);
-//		$('#idRegionAsignacion').val($.asignaIdRegion);
-//		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
-//		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
-		$('#statusAsignacion').val($.sigStatus);
+	if(perfilUsuario !== "Administrador"){
+		$('#edicionAsignacion').hide();
+	}else{
+		var elementoPicker = $datepicker.pickadate('picker');	
+		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
+		$.asignaFechaCalendario = $('#fechaPago').val();
+	}
 	
 	
 });  // fin de documento JQuery

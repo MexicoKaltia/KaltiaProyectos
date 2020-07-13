@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var fin;
 		var color;
 		var items = new Array();
-//		console.log(operacionId)
+		console.log(operacionId)
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
 			if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){

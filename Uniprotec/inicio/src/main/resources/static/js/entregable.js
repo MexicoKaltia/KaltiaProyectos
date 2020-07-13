@@ -20,6 +20,7 @@ $(document).ready(function() {
 	var item;
 	
 	function abrirModal(item){
+		$('#asignaConfirmar').attr("disabled", true);
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
@@ -57,8 +58,25 @@ $(document).ready(function() {
 		$('#modalNivel').html('<b>'+asignaNivel+'</b>');
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
+		$('#modalStatus').empty();
 		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 
+		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Validacion Entregables"){ 
+				$('#asignaConfirmar').attr("disabled", false);
+			}
+			else if(asignaStatus ==="Curso Cancelado") {
+				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, ya no se realiza Edicion. </u></div>');
+			}
+			else if(asignaStatus ==="Entregable Capturado") {
+				$('#modalStatus').append('<div class="alert alert-success" role="alert" ><b>  Evento completo. Guía Paqueteria: '+asignacion.guiaEntregable+' <b></div>');
+			}
+		}else{
+			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
+		}
+		
+		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
+		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		
 		$('#myModal').modal();
 		

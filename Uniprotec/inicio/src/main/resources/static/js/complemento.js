@@ -151,8 +151,10 @@ $(document).ready(function(){
 		      });
 			  $('#listCursoInstructor').multiSelect('select', $cursosAsignados);
 			  
-			    
+			  $('#Fechas').empty();
+			  $('#listaFechas').empty();
 				if(row.listFechas ){
+					$('#Fechas').empty();
 					$('#listFechasAct').remove();
 					$('#listaFechas').empty();
 					var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
