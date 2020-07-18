@@ -9,17 +9,16 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
-        
-        <link th:href="@{css/multi-select.css}" rel="stylesheet">
-        <link th:href="@{main.css}" rel="stylesheet">
+                <link th:href="@{css/multi-select.css}" rel="stylesheet">
+    <link th:href="@{main.css}" rel="stylesheet">
 </head>
 
-<body background="images/fondo2.png">
+<body background="images/fondo4.png">
 
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
-<!--      HEAD INICIO    -->
-    	<div class="app-header header-shadow bg-royal header-text-light" >
+        <!--      HEAD INICIO    -->
+    <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
                 <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
                 <div class="header__pane ml-auto">
@@ -112,10 +111,10 @@
             </div>
         </div>
        <!--      HEAD FIN    --> 
-        
+               
         <div class="app-main">
             <!--     LEFT INICIO -->
-			<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>
                     <div class="header__pane ml-auto">
@@ -199,8 +198,8 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>ALTA CURSO
-                                    <div class="page-title-subheading"> FORMULARIO PARA ACTIVAR NUEVO CURSO
+                                <div>CUENTA DE USUARIO
+                                    <div class="page-title-subheading"> FORMULARIO PARA EDITAR CONFIGURACION DE LA CUENTA DE USUARIO
                                     </div>
                                 </div>
                             </div>
@@ -211,19 +210,19 @@
                             <span th:if='${ejecucion}'>
 								<div class="alert alert-success" role="alert" id="dataExito">
 		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Generado correctamente el nuevo Curso.</u>
+									<b>Éxito : </b><u>Se ha Actualizado correctamente el Usuario.</u>
 								</div>
 							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revisión : </b><u>No se Generó el Cliente, Verifique datos. </u>
+									<b>Revisión : </b><u>No se Actualizó Usuario, Verifique datos. </u>
 								</div>
 							</span>
 							<span th:if='${consulta}'>
 								<div class="alert alert-warning" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Consulta : </b><u>No se realizó la consulta de los Instructores, Notifique Administrador. </u>
+									<b>Consulta : </b><u>Error interno, Notifique Administrador. </u>
 								</div>
 							</span>
 					 </div>
@@ -234,44 +233,65 @@
                     -->
                     <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">CURSO UNIPROTEC</h5>
-                                <form id="altaCurso" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/altaCurso}"  th:object="${cursoForm}" method="post">
+                                <h5 class="card-title">USUARIO UNIPROTEC</h5>
+                                <form id="altaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaUsuario}"  th:object="${usuarioForm}" method="post">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Curso</label>
-                                            <input type="text" class="form-control"  id="nombreCurso" name="nombreCurso" placeholder="Capture Nombre Curso" value=""  maxlength="100" th:field="*{nombreCurso}" required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Curso
-                                            </div>
+                                            <label for="validationCustom01">Nombre Vendedor</label>
+                                            <input type="text" class="form-control"  id="nombreUsuario" name="nombreUsuario"  value=""  maxlength="100" th:field="*{nombreUsuario}" disabled>
                                         </div>
                                      </div>
                                      <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Instructores participantes</label>
-                                            <select id='multiSelectCurso' multiple='multiple' th:field="*{listInstructores}" name="listInstructores" class="form-control" required>
-											   <option th:each="instructor: ${model.jsonResponseObject.instructores}"
-											             th:value="${instructor.idInstructor}"
-											             th:text="${instructor.nombreInstructor}"/>
-											</select>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Email</label>
+                                            <input type="email" class="form-control" th:field="*{emailUsuario}" id="emailUsuario" maxlength="100"  disabled>                                           
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Perfil Usuario</label>
+                           				    <input type="text" class="form-control" th:field="*{perfilUsuario}" id="perfilUsuario" name="perfilUsuario"  maxlength="100"  disabled>
+                                        </div>
+                                      </div>
+                                     <div class="alert alert-info" role="alert" id="password">
+                                      <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Password Anterior</label>
+                                            <input type="password" class="form-control"  id="passAnterior" name="passAnterior" placeholder="Capture Anterior Pass " value=""  maxlength="100" required>
                                             <div class="invalid-feedback">
-                                                Capturar por lo menos un instructor
+                                                Capturar Password Anterior
                                             </div>
                                         </div>
-                                   </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Password Nuevo</label>
+                                            <input type="password" class="form-control"  id="passNuevo" name="passNuevo" placeholder="Capture Nuevo Password" value=""  maxlength="100" required>
+                                            <div class="invalid-feedback">
+                                                Capturar Password Nuevo
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">Confirmar Password</label>
+                                            <input type="password" class="form-control"  id="passConfirm" name="passConfirm" placeholder="Confirme Nuevo Password" value=""  maxlength="100" th:field="*{passwordUsuario}" required>
+                                            <div class="invalid-feedback">
+                                                Confirme Nuevo Password
+                                            </div>
+                                        </div>
+                                     </div>
+                                     </div>
+                                  
                                   <div class="form-row">
-                                      <label class=" control-label" for="textarea">Notas Curso</label>
+                                      <label class=" control-label" for="textarea">Notas Usuario</label>
 								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaCurso}" id="notaCurso" rows="3" cols="150" ></textarea>
+								              <textarea class="form-control" th:field="*{notaUsuario}" id="notaUsuario" rows="3" cols="150" ></textarea>
 								            </div>
-							       </div>
+							         </div>
                                         
                                 <br>
-                                    
-                                    <button class="btn btn-primary" type="submit">Agregar Curso</button>
+                                  <button class="btn btn-primary" type="submit">Edicion Usuario</button>
                                 </form>
-            
                                 <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
                                     (function() {
                                         'use strict';
                                         window.addEventListener('load', function() {
@@ -289,9 +309,6 @@
                                             });
                                         }, false);
                                     })();
-                                    
-                                    
-                                 
                                 </script>
                             </div>
                         </div>
@@ -300,8 +317,8 @@
                         	FIN DE SECCION DE EDICION 
                         -->
 
-                                       	<!-- Footer-->
-                                              <div class="app-wrapper-footer">
+                     	<!-- Footer-->
+                                       <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
                                                 <div class="app-footer-right">
@@ -326,16 +343,13 @@
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
-	
-	<script type="text/javascript" th:src="@{js/main.js}"></script>
-	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
     <script type="text/javascript">
   // run pre selected options
-  $('#multiSelectCurso').multiSelect();
+  $('#listClienteVendedor').multiSelect();
   </script>
-    
     
 </body>
 

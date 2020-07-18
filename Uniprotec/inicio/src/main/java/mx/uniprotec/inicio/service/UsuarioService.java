@@ -132,4 +132,24 @@ public class UsuarioService implements IUsuarioService {
 			return letraInicial;
 		}
 
+
+
+
+
+	@Override
+	public ResultVO consultaUsuario(String token, String l) {
+		ResultVO rs = (ResultVO) baseClientRest.objetoGetId(token, BaseClientRest.URL_CRUD_USUARIO, null, l.toString());
+		
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonClientes = new JSONObject();
+			jsonClientes.put("usuario", jsonGeneral.get("usuario"));
+			
+			rs.setJsonResponseObject(jsonClientes);
+			return rs;
+		}else {
+			return rs;
+		}
+	}
+
 }

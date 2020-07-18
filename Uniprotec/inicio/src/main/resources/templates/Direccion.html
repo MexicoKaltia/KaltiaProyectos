@@ -10,6 +10,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
     <link th:href="@{main.css}" rel="stylesheet">
+        <link th:href="@{css/control.css}" rel="stylesheet">
 </head>
 
 <body background="images/fondo.png">
@@ -77,11 +78,10 @@
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Configuracion</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Acciones</button>
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+                                            
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -188,10 +188,8 @@
                 </div>  
             </div> 
 <!--     LEFT FIN -->
-             <div class="app-main__outer"  >
-             <!--     BODY INICIO -->
-                <div class="app-main__inner" style="background-image: url('images/fondo.png');">
-                <!--     BODY Encabezado -->
+             <div class="app-main__outer">
+                <div class="app-main__inner">
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -199,46 +197,280 @@
                                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>TABLERO DE CONTROL
-                                    <div class="page-title-subheading">PANTALLA PRINCIPAL CON LOS INDICADORES DE
-                                        SERVICIO.
+                                <div>TABLERO DE CONTROL-UNIPROTEC
+                                    <div class="page-title-subheading"> PANTALLA PRINCIPAL CON LOS INDICADORES DE SERVICIO Y ACCESOS DIRECTOS
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                        <div class="app-header-right">
+							<br>
+                            <span th:if='${ejecucion}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado correctamente el nuevo Vendedor.</u>
+								</div>
+							</span>
+							<span th:if='${error}'>
+								<div class="alert alert-danger" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se Generó el Vendedor, Verifique datos. </u>
+								</div>
+							</span>
+							<span th:if='${consulta}'>
+								<div class="alert alert-warning" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Consulta : </b><u>No se realizó la consulta de los Vendedores, Notifique Administrador. </u>
+								</div>
+							</span>
+					 </div>
                     </div>
-                    <!--     BODY Encabezado FIN -->
-                </div>
-                <!--     BODY FIN -->
+                    
+                    <!--  
+                    	SECCION DE EDICION  
+                    -->
+                    <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <h4 class="card-title"></h4>
+                                <form >
+                                
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont fa-volume-up fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Anuncios <span id="diaControl">Martes 14 de Julio 2020</span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Espacio de Comunicacion para los usuarios de Aplicacion</p>
+							                    </div>
+							                </div>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+		                                <div class="col-md-12">
+		                                    <div class="alert alert-info fade show" role="alert"><h5>Modulos</h5>
+		                                        <p class="mb-0">Administración de Entidades y Catálogos de la Aplicación.</p></div>
+		                                </div>
+		                              </div>
+                                     <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/ACliente">
+                                          <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont fa-address-book fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Alta <span>Clientes</span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Registro Nuevo de Cliente, con los atributos correspondientes.</p>
+							                    </div>
+							                </div>
+							                </a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/BCliente">
+                                           <div class="wrap">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-address-card fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Edicion y Consulta Clientes<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Administracion de Entidad CLIENTES</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>
+                                  
+                                  <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/ACurso">
+                                          <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont  fa-cube fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Alta Cursos<span></span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Registro Nuevo de Curso, con los atributos correspondientes.</p>
+							                    </div>
+							                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/BCurso">
+                                           <div class="wrap">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont fa-cubes fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Edicion y Consulta Cursos<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Administracion de Entidad CURSOS</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/AInstructor">
+                                          <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont fa-align-center fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Alta Instructor<span></span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Registro Nuevo de Instructor, con los atributos correspondientes.</p>
+							                    </div>
+							                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/BInstructor">
+                                           <div class="wrap">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-align-justify  fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Edicion y Consulta Instructor<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Administracion de Entidad INSTRUCTORES</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/AVendedor">
+                                          <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont fa-handshake fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Alta Vendedores<span></span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Registro Nuevo de personal de Ventas, con los atributos correspondientes.</p>
+							                    </div>
+							                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/BVendedor">
+                                           <div class="wrap">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont fa-sitemap fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Edicion y Consulta Vendedores<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Administracion de Entidad VENDEDORES</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/AUsuario">
+                                          <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont  fa-user-plus fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Alta Usuarios<span></span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Registro Nuevo de Usuario de Aplicaion, con los atributos correspondientes.</p>
+							                    </div>
+							                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/BUsuario">
+                                           <div class="wrap">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont fa-users fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Edicion y Consulta Usuarios<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Administracion de Entidad USUARIOS</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>    
+                                      <div class="form-row">
+		                                <div class="col-md-12">
+		                                    <div class="alert alert-success fade show" role="alert"><h5>Acciones</h5>
+		                                        <p class="mb-0">Funciones de flujo de operacion en la Asignacion de Eventos.</p></div>
+		                                </div>
+		                              </div>
+		                              <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/AAsignacion">
+                                          <div class="wrap2">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont fa-id-card  fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Alta Asignacion<span></span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Agendar Evento con las relaciones y reglas de Operacion</p>
+							                    </div>
+							                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/CAsignacion">
+                                           <div class="wrap2">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-calendar fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Agenda Global<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Calendario Global de los Eventos Asignados.</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/CAsignacion">
+                                          <div class="wrap2">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont  fa-edit  fa"></span>
+							                    </div>
+							                    <div class="text-wrap vcenter">
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Edicion Evento<span></span></h2>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6"> Consulta y edicion de Evento, considerando las reglas de Operacion.</p>
+							                    </div>
+							                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/CEntregable">
+                                           <div class="wrap2">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-list-alt fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Entregables<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Listado de los Eventos realizados, marcando Status y edicion de Entregables.</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>    
+                                </form>
+                            </div>
+                        </div>
+                                              
+                        <!-- 
+                        	FIN DE SECCION DE EDICION 
+                        -->
+
                                        <!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
-                                                <div class="app-footer-left">
-                                                    <ul class="nav">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:alerta();" class="nav-link">
-                                                                Enlace Pie 
-                                                            </a>
-                                                        </li>
-                                                        
-                                                    </ul>
-                                                </div>
                                                 <div class="app-footer-right">
                                                     <ul class="nav">
                                                         
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>GO</small>
+                                                                    <small>V1.0</small>
                                                                 </div>
-                                                                Enlace Pie 2
+                                                                Derechos Registrados © Uniprotec 2020
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div></div></div>
-                                    
+
                                 <!-- Fin Footer-->
                 
             </div>

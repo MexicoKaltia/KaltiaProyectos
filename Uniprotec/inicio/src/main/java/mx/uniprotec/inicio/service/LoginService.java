@@ -29,16 +29,17 @@ public class LoginService implements ILoginService{
 	BaseClientRest baseClientRest;
 	UserMap um = UserMap.getSingletonInstance();
 	HashMap<String, Object> valoresResponse = new HashMap<String, Object>();
-	ResultVO resultVO = new ResultVO();
+//	ResultVO resultVO;// = new ResultVO();
 	LoginSingle loginSingle;
 
 	
 	public ResultVO login(User user) {
 		
-		if(verificaSesion(user.getUserName())) {
-			resultVO = loginSingle.getResultVO();
-		}else {
+//		if(verificaSesion(user.getUserName())) {
+//			resultVO = loginSingle.getResultVO();
+//		}else {
 			log.info("Nuevo Usuario");
+			ResultVO resultVO = new ResultVO();
 			try {
 				resultVO = baseClientRest.login(user);	
 //				log.info(resultVO.getCodigo().toString());
@@ -68,12 +69,10 @@ public class LoginService implements ILoginService{
 				}else {
 					resultVO.setResponse("index");
 				}
-		
-				
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+//		}
 		return resultVO;
 	}
 
@@ -88,7 +87,7 @@ public class LoginService implements ILoginService{
 
 
 	private boolean verificaSesion(String user) {
-		
+			
 		log.info("----------------------------------------------");
 		log.info(um.getMapLogin().values().toString());
 		log.info("----------------------------------------------");
@@ -98,7 +97,7 @@ public class LoginService implements ILoginService{
 			log.info("usuario ya existente:"+user);
 			if((System.currentTimeMillis()-loginSingle.getTiempoInicio())<BaseClientRest.MAX_TIME_TOKEN) {
 				log.info("usuario y valido:"+ (System.currentTimeMillis()-loginSingle.getTiempoInicio()));
-				return true;
+				return false;
 			}else {
 				log.info("Token expirado inválido");
 					return false;
@@ -106,7 +105,6 @@ public class LoginService implements ILoginService{
 		}else {
 			return false;
 		}
-
 	}
 
 	

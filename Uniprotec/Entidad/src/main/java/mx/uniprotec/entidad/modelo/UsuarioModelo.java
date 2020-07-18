@@ -37,6 +37,19 @@ public class UsuarioModelo implements Serializable {
 				+ ", emailUsuario=" + emailUsuario + ", notaUsuario=" + notaUsuario + ", userCreateUsuario="
 				+ userCreateUsuario + ", createAtUsuario=" + createAtUsuario + ", statusUsuario=" + statusUsuario + "]";
 	}
+	
+	
+
+	public UsuarioModelo(Long idUsuario, String passwordUsuario, String nombreUsuario, String emailUsuario,
+			String notaUsuario, String perfilUsuario) {
+		super();
+		this.idUsuario = idUsuario;
+		this.passwordUsuario = passwordUsuario;
+		this.nombreUsuario = nombreUsuario;
+		this.emailUsuario = emailUsuario;
+		this.notaUsuario = notaUsuario;
+		this.perfilUsuario = perfilUsuario;
+	}
 
 	public UsuarioModelo(Long idUsuario, String usernameUsuario, String passwordUsuario, String perfilUsuario,
 			String nombreUsuario, String emailUsuario, String notaUsuario, Long userCreateUsuario,

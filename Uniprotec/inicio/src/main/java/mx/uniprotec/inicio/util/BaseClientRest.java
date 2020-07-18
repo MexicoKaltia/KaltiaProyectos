@@ -36,11 +36,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
@@ -314,7 +314,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
 	    resultVO.setMensaje(jsonResponse.get("message").toString());   
 	    resultVO.setJsonResponse(jsonResponse);
-	    log.info(resultVO.toString());
+//	    log.info(resultVO.toString());
 	    
 		return resultVO;
 	}
@@ -323,15 +323,15 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
 
 	    if(response.getStatusCodeValue() == 401) {
-	    	log.info("Estoy en un 401");
+	    	log.info("401");
 	    }
 		JSONObject jsonResponse = (JSONObject) response.getBody();
 	    ResultVO rs = new ResultVO();
-	    log.info(jsonResponse.toJSONString());
+//	    log.info(jsonResponse.toJSONString());
 	    rs.setJsonResponse(jsonResponse);
 	    rs.setMensaje(jsonResponse.get("mensaje").toString());
 	    rs.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
-	    log.info(rs.toString());    
+//	    log.info(rs.toString());    
 //	    log.info(jsonResponse.toJSONString());
 //	    log.info(jsonResponse.get("mensaje").toString());
 	    
@@ -340,15 +340,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 
 
-	public ResultVO objetoGet(String token, String urlCrudCliente, Long idClienteAsignacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	
-	
 	
 
 	 

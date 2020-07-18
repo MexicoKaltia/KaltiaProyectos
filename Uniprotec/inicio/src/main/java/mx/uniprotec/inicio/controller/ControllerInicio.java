@@ -3,11 +3,15 @@ package mx.uniprotec.inicio.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +34,7 @@ import mx.uniprotec.inicio.service.ILoginService;
 @CrossOrigin(origins = { "*" })
 @Controller
 @SessionAttributes ("model")
+@Scope("prototype")
 public class ControllerInicio extends HttpServlet{
 
 	
@@ -54,6 +59,7 @@ public class ControllerInicio extends HttpServlet{
 	
 	
 		@GetMapping("/")
+		@Scope("prototype")
 		public ModelAndView inicio(@RequestParam(name="login", required=false) Boolean loginIn) {
 			ModelAndView mav = new ModelAndView("login");
 			mav.addObject("userLogin", new User());
@@ -69,18 +75,26 @@ public class ControllerInicio extends HttpServlet{
 		 * 
 		 */
 		@PostMapping("/loginInit")
-		public ModelAndView loginInit(@ModelAttribute("userLogin") User user) {
+		@Scope("prototype")
+		public ModelAndView loginInit(@ModelAttribute("userLogin") User user, HttpServletRequest request, HttpServletResponse response) {
 			
 			ModelAndView mav = new ModelAndView();
 			ModelMap model = new ModelMap();
+			ResultVO resultVO = new ResultVO();
 			log.info(user.toString());
 			
-			ResultVO resultVO = new ResultVO();
+			HttpSession misession = request.getSession(true);
 			resultVO = loginService.login(user);
+			misession.setAttribute("model",resultVO);
+			
+
 			log.info(resultVO.toString());
 			if(resultVO.getCodigo() != 500) {
+				mav.setViewName(resultVO.getResponse());
 				
-				return new ModelAndView(resultVO.getResponse(), "model", resultVO);
+				mav.addObject("model", misession.getAttribute("model"));
+				return mav;
+//				return new ModelAndView(resultVO.getResponse(), "model", resultVO);
 			}else {
 				log.info("Credenciales inválidas");
 				mav = new ModelAndView("redirect:/", model);
@@ -91,7 +105,10 @@ public class ControllerInicio extends HttpServlet{
 		}
 		
 		
+		
+		
 		@GetMapping("/inicio")
+		@Scope("prototype")
 		public ModelAndView inicio(ModelMap model) {
 
 			if(model.equals(null)) {
@@ -104,11 +121,21 @@ public class ControllerInicio extends HttpServlet{
 						return new  ModelAndView(resultVO.getResponse(),  model);	
 			}		
 
-			}
+		}
+		
+
+		
+		@GetMapping("/OffSession")
+		@Scope("prototype")
+		public ModelAndView offSession() {
+				return new ModelAndView("redirect:/");	
+		}
+
 		
 		
 		@GetMapping("/AAsignacion")
 		public ModelAndView asignacion(ModelMap model) {
+			log.info(model.toString());
 			model.addAttribute("asignacionForm", new AsignacionModelo());
 			model.addAttribute("asignaForm", new AsignacionModelo());
 
@@ -142,10 +169,10 @@ public class ControllerInicio extends HttpServlet{
 			log.info(asignacion.toString());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
-			
+			log.info(resultVO.getJsonResponse().toJSONString());
 			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("usuario"));
-			Long idUsuario = Long.valueOf( jsonUsuario.get("idUsuario").toString());
+			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
+			Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
 			
 			resultVO  = asignacionService.altaAsignacion(asignacion, resultVO.getAccesToken(), idUsuario );
 			ModelAndView mav = new ModelAndView("redirect:/CAsignacion" , model);

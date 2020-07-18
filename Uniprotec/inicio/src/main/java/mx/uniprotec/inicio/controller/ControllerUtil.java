@@ -17,6 +17,7 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -39,6 +40,7 @@ import mx.uniprotec.inicio.service.IClienteService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Scope("prototype")
 public class ControllerUtil {
 	public ControllerUtil() {}
 	

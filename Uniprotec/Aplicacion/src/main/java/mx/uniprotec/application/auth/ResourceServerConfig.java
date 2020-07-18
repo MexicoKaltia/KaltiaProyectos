@@ -27,26 +27,26 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				"/crud/instructor/{id}",
 				"/crud/curso/{id}",
 				"/crud/vendedor/{id}",
-				"/crud/usuario").permitAll()
+				"/crud/usuario/{id}").permitAll()
 //		.antMatchers(HttpMethod.GET, "/crud/cliente/{id}").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/cliente/upload").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/cliente").hasRole("ADMIN")
-		.antMatchers("/crud/clientes/**").hasRole("ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/cliente/upload").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/cliente").hasRole("ADMIN")
+//		.antMatchers("/crud/clientes/**").hasRole("ADMIN")
+//		
+//		.antMatchers(HttpMethod.GET, "/crud/instructor/{id}").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/instructor/upload").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/instructor").hasRole("ADMIN")
+//		.antMatchers("/crud/instructores/**").hasRole("ADMIN")
+//		
+//		.antMatchers(HttpMethod.GET, "/crud/curso/{id}").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/curso/upload").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/curso").hasRole("ADMIN")
+//		.antMatchers("/crud/cursos/**").hasRole("ADMIN")
 		
-		.antMatchers(HttpMethod.GET, "/crud/instructor/{id}").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/instructor/upload").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/instructor").hasRole("ADMIN")
-		.antMatchers("/crud/instructores/**").hasRole("ADMIN")
-		
-		.antMatchers(HttpMethod.GET, "/crud/curso/{id}").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/curso/upload").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/curso").hasRole("ADMIN")
-		.antMatchers("/crud/cursos/**").hasRole("ADMIN")
-		
-		.antMatchers(HttpMethod.GET, "/crud/usuario/{id}").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/usuario/upload").hasAnyRole("USER", "ADMIN")
-		.antMatchers(HttpMethod.POST, "/crud/usuario").hasRole("ADMIN")
-		.antMatchers("/crud/usuarios/**").hasRole("ADMIN")
+//		.antMatchers(HttpMethod.GET, "/crud/usuario/{id}").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/usuario/upload").hasAnyRole("USER", "ADMIN")
+//		.antMatchers(HttpMethod.POST, "/crud/usuario").hasRole("ADMIN")
+//		.antMatchers("/crud/usuarios/**").hasRole("ADMIN")
 		
 		.anyRequest().authenticated()
 		.and();

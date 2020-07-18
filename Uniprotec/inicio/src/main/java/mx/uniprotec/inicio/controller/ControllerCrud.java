@@ -1,11 +1,14 @@
 package mx.uniprotec.inicio.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServlet;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +35,7 @@ import mx.uniprotec.inicio.service.IVendedorService;
 
 @Controller
 @SessionAttributes ("model")
+@Scope("prototype")
 public class ControllerCrud extends HttpServlet {
 	
     /**
@@ -630,6 +634,47 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return mav;
 		}
 
+	@GetMapping("/CUsuario")
+	public ModelAndView CUsuario(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+		
+		
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("CUsuario model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			
+			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
+			
+			ResultVO rs = usuarioService.consultaUsuario(resultVO.getAccesToken(), jsonUsuario.get("id").toString());
+			JSONObject jsonObject2 = (JSONObject) rs.getJsonResponseObject();
+//			log.info(jsonObject2.toJSONString());
+			JSONObject jsonUsuario2 = new JSONObject((Map) jsonObject2.get("usuario"));
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			UsuarioModelo usuario = new UsuarioModelo(Long.valueOf(jsonUsuario2.get("idUsuario").toString()),
+					jsonUsuario2.get("passwordUsuario").toString(),
+					jsonUsuario2.get("nombreUsuario").toString(),
+					jsonUsuario2.get("emailUsuario").toString(),
+					jsonUsuario2.get("notaUsuario").toString(),
+					jsonUsuario2.get("perfilUsuario").toString());
+//			log.info(rs.getJsonResponseObject().toJSONString());
+			
+			model.addAttribute("usuarioForm", usuario);
+			
+			
+			ModelAndView mav = new  ModelAndView("CUsuario", model );
+			model.addAttribute("model", resultVO);
+			mav.addObject("error", error);
+			mav.addObject("ejecucion", ejecucion);
+			return mav;
+		}	
+	}
 
 	//Fin de clase
 }
