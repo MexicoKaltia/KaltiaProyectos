@@ -143,6 +143,7 @@ public class AsignacionRestController {
 			asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
 			asignacionNew.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
+			asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			
 			asignacionNew = asignacionService.save(asignacionNew);
@@ -215,6 +216,7 @@ public class AsignacionRestController {
 			asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
 			asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
+			asignacionActual.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
 			asignacionActual.setFechaPago(asignacion.getFechaPago());
 			asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());

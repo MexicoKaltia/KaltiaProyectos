@@ -127,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#userCreateAsignacion').val(idUsuario);
+		$('#userCreateAsignacionTexto').val(nombreUsuario);
 	}
 
 	
@@ -163,12 +165,23 @@ document.addEventListener('DOMContentLoaded', function() {
 				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 				color = getColor(asignacion.idRegionAsignacion);
-				item = {
-						'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-						'start' : inicio,
-						'end' : fin,
-						'constraint' : 'businessHours',
-						'color' : color
+				if(color === "blue" || color ==="fuchsia" || color ==="chocolate" || color ==="purple"){
+					item = {
+							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color,
+							'textColor': 'white'
+					}
+				}else{
+					item = {
+							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color
+					}
 				}
 				items.push(item);
 			}

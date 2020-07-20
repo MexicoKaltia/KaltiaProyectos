@@ -73,6 +73,26 @@ INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_r
 INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, email_gmail_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor, cursos_instructor) VALUES ('Ing. Maximino Garcia Camilo',1, 'maximino.garcia@uniprotec.net', 'maximino.garcia.camilo@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1,'1, 2, 3, 4, 5, 7, 8, 11, 12, 13, 17, 20, 31, 35');
 INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, email_gmail_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor, cursos_instructor) VALUES ('Ing. Rafael Humberto Cebada Beltran',1, 'rafadel.cebada@uniprotec.net', 'cebada1984@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1,'1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 38, 39, 40, 41, 42, 45, 46, 47, 48, 50, 51, 54, 68, 69, 70, 71, 72, 73, 74');
 INSERT INTO db_uniprotec.instructores (nombre_instructor, region_instructor_id_region, email_instructor, email_gmail_instructor, nota_instructor, create_at_instructor, status_instructor, user_create_instructor, cursos_instructor) VALUES ('Externo',1, 'olivier.sanchez@uniprotec.net', 'olivier.sanchez201184@gmail.com', 'nota','2020-04-05 15:24:15.183000','Activo',1,'1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28, 29, 30, 31, 32, 33, 34, 35, 37, 40, 41, 42, 43, 44, 46, 47, 48, 54, 68, 69, 70, 71, 72, 73, 74, 75, 76, 78, 80');
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,21,23,29,31,32,34,36,48,49,55' where id_instructor = 1;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,48,49,50,51,52,53,54,55,68,69,70,72,73' where id_instructor = 2;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,7,8,11,13,23,49,55' where id_instructor = 3;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,11,12,13,15,16,17,18,21,23,31,32,34,36,48,49,55' where id_instructor = 4;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,21,23,24,26,27,28,29,30,31,32,33,34,36,38,44,48,49,55' where id_instructor = 5;
+UPDATE db_uniprotec.instructores set cursos_instructor ='37,52,55,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92' where id_instructor = 6;
+UPDATE db_uniprotec.instructores set cursos_instructor ='37,55,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92' where id_instructor = 7;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,7,8,9,11,12,16,18,21,23,32,36,55' where id_instructor = 8;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,11,12,15,16,17,18,19,20,21,22,23,24,31,32,34,36,38,41,42,43,48,49,55,67,68,69,70,71,72,73' where id_instructor = 9;
+UPDATE db_uniprotec.instructores set cursos_instructor ='19,20,21,22,23,24,25,30,31,35,39,40,41,42,43,44,45,47,49,51,52,55,72' where id_instructor = 10;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,28,30,31,32,34,35,36,39,40,45,46,48,49,55,67,68,69,70,71,72,73' where id_instructor = 11;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,7,8,11,12,14,18,21,32,36' where id_instructor = 12;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,39,40,41,42,43,46,47,48,49,51,52,55,67,68,69,70,71,72,73' where id_instructor = 13;
+UPDATE db_uniprotec.instructores set cursos_instructor ='1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,29,30,31,32,33,34,35,36,38,41,42,43,44,47,48,49,55,67,68,69,70,71,72,73,77,79' where id_instructor = 14;
+UPDATE db_uniprotec.instructores set cursos_instructor ='47,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,82,85,92' where id_instructor = 15;
+commit;
+
+
+
+
 
 ALTER TABLE db_uniprotec.cursos AUTO_INCREMENT = 1;
 INSERT INTO db_uniprotec.cursos (nombre_curso, nota_curso, user_create_curso, create_at_curso , status_curso ) VALUES ('OPERADOR DE MONTACARGAS','',1,'2020-04-05 15:24:15.183000','Activo');
@@ -687,6 +707,13 @@ insert into db_uniprotec.cursos_instructores values(92, 15);
 
 
 
+CREATE TABLE `db_uniprotec`.`zonabase` (
+  `id_zonabase` INT NOT NULL,
+  `data_zonabase` JSON NULL,
+  PRIMARY KEY (`id_zonabase`));
+
+
+--// Ya no se usa...
 insert into db_uniprotec.instructores_cursos values(1,1);
 insert into db_uniprotec.instructores_cursos values(1,2);
 insert into db_uniprotec.instructores_cursos values(1,3);
@@ -1149,11 +1176,3 @@ insert into db_uniprotec.instructores_cursos values(15,75);
 insert into db_uniprotec.instructores_cursos values(15,76);
 insert into db_uniprotec.instructores_cursos values(15,78);
 insert into db_uniprotec.instructores_cursos values(15,80);
-
-CREATE TABLE `db_uniprotec`.`zonabase` (
-  `id_zonabase` INT NOT NULL,
-  `data_zonabase` JSON NULL,
-  PRIMARY KEY (`id_zonabase`));
-
-
-

@@ -38,8 +38,8 @@ public class AsignacionModelo implements Serializable{
 	private String numeroFactura;
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
+	private String userCreateAsignacionTexto;
 	private String statusAsignacion;
-	
 	@Override
 	public String toString() {
 		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
@@ -53,16 +53,17 @@ public class AsignacionModelo implements Serializable{
 				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
 				+ ", verificarEntregable=" + verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago="
 				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
-				+ ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion=" + statusAsignacion + "]";
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
+				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + "]";
 	}
-	
 	public AsignacionModelo(Long idAsignacion, String idAsignacionLogica, String fechaAsignacion,
 			Long idClienteAsignacion, String clienteAsignacion, Long idCursoAsignacion, String cursoAsignacion,
 			Long idInstructorAsignacion, String instructorAsignacion, String horarioAsignacion,
 			String archivosAsignacion, String archivosAsignacionTexto, String participantesAsignacion,
 			String nivelAsignacion, String observacionesAsignacion, Long idRegionAsignacion,
-			String nombreRegionAsignacion, String tipoCursoAsignacion, LocalDateTime createAtAsignacion,
-			Long userCreateAsignacion, String statusAsignacion) {
+			String nombreRegionAsignacion, String tipoCursoAsignacion, Boolean verificarEntregable,
+			String guiaEntregable, String fechaPago, String numeroFactura, LocalDateTime createAtAsignacion,
+			Long userCreateAsignacion, String userCreateAsignacionTexto, String statusAsignacion) {
 		super();
 		this.idAsignacion = idAsignacion;
 		this.idAsignacionLogica = idAsignacionLogica;
@@ -82,18 +83,26 @@ public class AsignacionModelo implements Serializable{
 		this.idRegionAsignacion = idRegionAsignacion;
 		this.nombreRegionAsignacion = nombreRegionAsignacion;
 		this.tipoCursoAsignacion = tipoCursoAsignacion;
+		this.verificarEntregable = verificarEntregable;
+		this.guiaEntregable = guiaEntregable;
+		this.fechaPago = fechaPago;
+		this.numeroFactura = numeroFactura;
 		this.createAtAsignacion = createAtAsignacion;
 		this.userCreateAsignacion = userCreateAsignacion;
+		this.userCreateAsignacionTexto = userCreateAsignacionTexto;
 		this.statusAsignacion = statusAsignacion;
 	}
-
-
-
 	public Long getIdAsignacion() {
 		return idAsignacion;
 	}
 	public void setIdAsignacion(Long idAsignacion) {
 		this.idAsignacion = idAsignacion;
+	}
+	public String getIdAsignacionLogica() {
+		return idAsignacionLogica;
+	}
+	public void setIdAsignacionLogica(String idAsignacionLogica) {
+		this.idAsignacionLogica = idAsignacionLogica;
 	}
 	public String getFechaAsignacion() {
 		return fechaAsignacion;
@@ -191,6 +200,30 @@ public class AsignacionModelo implements Serializable{
 	public void setTipoCursoAsignacion(String tipoCursoAsignacion) {
 		this.tipoCursoAsignacion = tipoCursoAsignacion;
 	}
+	public Boolean getVerificarEntregable() {
+		return verificarEntregable;
+	}
+	public void setVerificarEntregable(Boolean verificarEntregable) {
+		this.verificarEntregable = verificarEntregable;
+	}
+	public String getGuiaEntregable() {
+		return guiaEntregable;
+	}
+	public void setGuiaEntregable(String guiaEntregable) {
+		this.guiaEntregable = guiaEntregable;
+	}
+	public String getFechaPago() {
+		return fechaPago;
+	}
+	public void setFechaPago(String fechaPago) {
+		this.fechaPago = fechaPago;
+	}
+	public String getNumeroFactura() {
+		return numeroFactura;
+	}
+	public void setNumeroFactura(String numeroFactura) {
+		this.numeroFactura = numeroFactura;
+	}
 	public LocalDateTime getCreateAtAsignacion() {
 		return createAtAsignacion;
 	}
@@ -203,52 +236,18 @@ public class AsignacionModelo implements Serializable{
 	public void setUserCreateAsignacion(Long userCreateAsignacion) {
 		this.userCreateAsignacion = userCreateAsignacion;
 	}
+	public String getUserCreateAsignacionTexto() {
+		return userCreateAsignacionTexto;
+	}
+	public void setUserCreateAsignacionTexto(String userCreateAsignacionTexto) {
+		this.userCreateAsignacionTexto = userCreateAsignacionTexto;
+	}
 	public String getStatusAsignacion() {
 		return statusAsignacion;
 	}
 	public void setStatusAsignacion(String statusAsignacion) {
 		this.statusAsignacion = statusAsignacion;
 	}
-	public String getIdAsignacionLogica() {
-		return idAsignacionLogica;
-	}
-	public void setIdAsignacionLogica(String idAsignacionLogica) {
-		this.idAsignacionLogica = idAsignacionLogica;
-	}
-
-	public Boolean getVerificarEntregable() {
-		return verificarEntregable;
-	}
-
-	public void setVerificarEntregable(Boolean verificarEntregable) {
-		this.verificarEntregable = verificarEntregable;
-	}
-
-	public String getGuiaEntregable() {
-		return guiaEntregable;
-	}
-
-	public void setGuiaEntregable(String guiaEntregable) {
-		this.guiaEntregable = guiaEntregable;
-	}
-
-	public String getFechaPago() {
-		return fechaPago;
-	}
-
-	public void setFechaPago(String fechaPago) {
-		this.fechaPago = fechaPago;
-	}
-
-	public String getNumeroFactura() {
-		return numeroFactura;
-	}
-
-	public void setNumeroFactura(String numeroFactura) {
-		this.numeroFactura = numeroFactura;
-	}
-	
-		
 	
 	
 		

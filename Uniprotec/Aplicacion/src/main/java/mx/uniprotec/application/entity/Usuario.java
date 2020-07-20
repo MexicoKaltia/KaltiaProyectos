@@ -59,7 +59,7 @@ public class Usuario implements Serializable {
 	@Column(nullable=false)
 	private String statusUsuario;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
@@ -158,6 +158,15 @@ public class Usuario implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", usernameUsuario=" + usernameUsuario + ", passwordUsuario="
+				+ passwordUsuario + ", perfilUsuario=" + perfilUsuario + ", nombreUsuario=" + nombreUsuario
+				+ ", emailUsuario=" + emailUsuario + ", notaUsuario=" + notaUsuario + ", userCreateUsuario="
+				+ userCreateUsuario + ", createAtUsuario=" + createAtUsuario + ", statusUsuario=" + statusUsuario
+				+ ", roles=" + roles + "]";
 	}
 
 	

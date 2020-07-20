@@ -578,7 +578,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	public ModelAndView altaUsuario(@ModelAttribute("usuarioForm") UsuarioModelo usuario, ModelMap model) {
 
 		log.info("metodo de alta Usuario");
-		log.info(usuario.toString());
+//		log.info(usuario.toString());
 		ResultVO resultVO = (ResultVO)model.get("model");
 		resultVO  = usuarioService.altaUsuario(usuario, resultVO.getAccesToken());
 		ModelAndView mav = new  ModelAndView("redirect:/AUsuario", model );

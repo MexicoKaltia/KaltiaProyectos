@@ -46,16 +46,21 @@ public class Role implements Serializable{
 
 	
 	public Role(Long id, String name) {
-		super();
 		this.id = id;
 		this.name = name;
 	}
 
 	public Role() {}
 
+	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + "]";
+	}
 }

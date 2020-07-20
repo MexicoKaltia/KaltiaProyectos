@@ -184,7 +184,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		    rs.setJsonResponse(jsonResponse);
 		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-		        
+		        e.printStackTrace();
 		   
 		    
 			return rs;

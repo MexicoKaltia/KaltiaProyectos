@@ -168,6 +168,8 @@ public class UsuarioRestController {
 			usuarioNew.setUserCreateUsuario(usuario.getUserCreateUsuario());
 			usuarioNew.setStatusUsuario(usuario.getStatusUsuario());
 			
+			log.info(usuarioNew.toString());
+			
 			usuarioNew = usuarioService.save(usuarioNew);
 			response.put("usuario", usuarioNew);
 			 response.put("mensaje", "Usuario creado con exito");
@@ -178,6 +180,7 @@ public class UsuarioRestController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -297,7 +300,7 @@ public class UsuarioRestController {
 		
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(new Role(idPerfilUsuario, perfilUsuario));
-		
+		log.info(roles.toString());
 		return roles;
 	}
 

@@ -27,6 +27,8 @@ $(document).ready(function(){
 	 $.asignaIdRegion=asignacionItem.idRegionAsignacion;
 	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
+	 $.asignaUserCreateAsignacion=idUsuario;
+	 $.asignaUserCreateAsignacionTexto=nombreUsuario;
 	 
 	 var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
 		var procesoVacio="";
@@ -204,7 +206,7 @@ $(document).ready(function(){
 		validaObservaciones();
 		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
-		
+		$('#modalVentas').html('<b>'+$.asignaUserCreateAsignacionTexto+'</b>');
 		/*
 		 * asignar valores al formulario 
 		 */
@@ -326,6 +328,8 @@ $(document).ready(function(){
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
 		$('#statusAsignacion').val("Curso Editado");
+		$('#userCreateAsignacion').val(idUsuario);
+		$('#userCreateAsignacionTexto').val(nombreUsuario);
 	}
 	
 

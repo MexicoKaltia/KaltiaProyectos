@@ -198,7 +198,7 @@ $(document).ready(function(){
 	console.log($.sigStatus);
 	$('#statusAsignacion').val($.sigStatus);
 	
-	if(perfilUsuario !== "Administrador"){
+	if(perfilUsuario !== "Administracion"){
 		$('#edicionAsignacion').hide();
 	}else{
 		var elementoPicker = $datepicker.pickadate('picker');	

@@ -17,6 +17,7 @@ $(document).ready(function() {
 	var asignaArchivos ;
 	var asignaStatus;
 	var zonaCliente ;
+	var asignaUserCreateAsignacion;
 	var item;
 	
 	function abrirModal(item){
@@ -31,7 +32,7 @@ $(document).ready(function() {
 					$("#asignaConfirmar").hide();
 				}
 			}
-			if(perfilUsuario === "Administrador"){
+			if(perfilUsuario === "Administracion"){
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
 			}
 			
@@ -51,6 +52,7 @@ $(document).ready(function() {
 				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
+				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -70,7 +72,7 @@ $(document).ready(function() {
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
-
+		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
 		
 		$('#myModal').modal();
 		
@@ -130,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#userCreateAsignacion').val(idUsuario);
+		$('#userCreateAsignacionTexto').val(nombreUsuario);
 	}
 
 	
@@ -163,13 +167,25 @@ document.addEventListener('DOMContentLoaded', function() {
 			inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 			fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 			color = getColor(asignacion.idRegionAsignacion);
-			item = {
-					'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-					'start' : inicio,
-					'end' : fin,
-					'constraint' : 'businessHours',
-					'color' : color
+			if(color === "blue" || color ==="fuchsia" || color ==="chocolate" || color ==="purple"){
+				item = {
+						'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+						'start' : inicio,
+						'end' : fin,
+						'constraint' : 'businessHours',
+						'color' : color,
+						'textColor': 'white'
+				}
+			}else{
+				item = {
+						'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+						'start' : inicio,
+						'end' : fin,
+						'constraint' : 'businessHours',
+						'color' : color
+				}
 			}
+			
 			items.push(item);
 		}
 		return items;
@@ -264,11 +280,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 2:
 			
-			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:blue; color:white">'+nombreRegion+'</div>';
 			break;
 		case 3:
 			
-			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:fuchsia; color:white">'+nombreRegion+'</div>';
 			break;
 		case 4:
 			
@@ -276,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 5:
 			
-			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:gray; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 6:
 			
@@ -284,11 +300,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 7:
 			
-			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:chocolate; color:white">'+nombreRegion+'</div>';
 			break;
 		case 8:
 			
-			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
 		}
 		$.asignaIdRegion = idRegion;

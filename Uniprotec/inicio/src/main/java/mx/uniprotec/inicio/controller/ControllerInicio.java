@@ -59,7 +59,7 @@ public class ControllerInicio extends HttpServlet{
 	
 	
 		@GetMapping("/")
-		@Scope("prototype")
+//		@Scope("prototype")
 		public ModelAndView inicio(@RequestParam(name="login", required=false) Boolean loginIn) {
 			ModelAndView mav = new ModelAndView("login");
 			mav.addObject("userLogin", new User());
@@ -75,7 +75,7 @@ public class ControllerInicio extends HttpServlet{
 		 * 
 		 */
 		@PostMapping("/loginInit")
-		@Scope("prototype")
+//		@Scope("prototype")
 		public ModelAndView loginInit(@ModelAttribute("userLogin") User user, HttpServletRequest request, HttpServletResponse response) {
 			
 			ModelAndView mav = new ModelAndView();
@@ -83,16 +83,16 @@ public class ControllerInicio extends HttpServlet{
 			ResultVO resultVO = new ResultVO();
 			log.info(user.toString());
 			
-			HttpSession misession = request.getSession(true);
+//			HttpSession misession = request.getSession(true);
 			resultVO = loginService.login(user);
-			misession.setAttribute("model",resultVO);
+//			misession.setAttribute("model",resultVO);
 			
 
 			log.info(resultVO.toString());
 			if(resultVO.getCodigo() != 500) {
 				mav.setViewName(resultVO.getResponse());
 				
-				mav.addObject("model", misession.getAttribute("model"));
+				mav.addObject("model", resultVO);
 				return mav;
 //				return new ModelAndView(resultVO.getResponse(), "model", resultVO);
 			}else {
@@ -108,7 +108,7 @@ public class ControllerInicio extends HttpServlet{
 		
 		
 		@GetMapping("/inicio")
-		@Scope("prototype")
+//		@Scope("prototype")
 		public ModelAndView inicio(ModelMap model) {
 
 			if(model.equals(null)) {
@@ -123,10 +123,12 @@ public class ControllerInicio extends HttpServlet{
 
 		}
 		
+		
+		
 
 		
 		@GetMapping("/OffSession")
-		@Scope("prototype")
+//		@Scope("prototype")
 		public ModelAndView offSession() {
 				return new ModelAndView("redirect:/");	
 		}
@@ -158,9 +160,7 @@ public class ControllerInicio extends HttpServlet{
 					log.info("NOK Asignacion");
 					return mav;	
 				}
-					
 			}		
-
 		}
 		
 		@PostMapping("/altaAsignacion")
@@ -189,7 +189,7 @@ public class ControllerInicio extends HttpServlet{
 		
 		@PostMapping("/BAsignacion")
 		public ModelAndView BAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
-			model.addAttribute("asignacionItemUpdate", new AsignacionModelo());
+			model.addAttribute("asignacionItem", asignacion);
 			if(model.equals(null)) {
 				log.info("NULL");
 				return new  ModelAndView("login");

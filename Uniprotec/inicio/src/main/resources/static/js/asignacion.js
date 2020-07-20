@@ -20,6 +20,7 @@ $(document).ready(function(){
 	 $.asignaIdRegion="";
 	 $.asignaNombreRegion="";
 	 $.asignaTipoCurso="";
+	 $.asignaUserCreateAsignacion=nombreUsuario;
 	 
 	$('#procesoFecha').click(function(){	
 	})
@@ -125,6 +126,7 @@ $(document).ready(function(){
 		validaObservaciones();
 		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
+		$('#modalVentas').html('<b>'+$.asignaUserCreateAsignacion+'</b>');
 		
 		/*
 		 * asignar valores al formulario 
@@ -202,6 +204,8 @@ var alerta, proceso;
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
+		$('#userCreateAsignacion').val(idUsuario);
+		$('#userCreateAsignacionTexto').val(nombreUsuario);
 	}
 
 
@@ -920,12 +924,6 @@ var alerta, proceso;
 	}
 	
 	
-	function avisaAlertaImagen(data){
-		
-	}
-	function errorAlertaImagen(){
-		
-	}
 
 
 

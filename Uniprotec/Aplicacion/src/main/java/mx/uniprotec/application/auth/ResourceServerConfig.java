@@ -21,13 +21,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/crud/cliente",
 				"/crud/instructor",
 				"/crud/curso",
-				"/crud/vendedor",
-				"/crud/usuario").permitAll()
+				"/crud/usuario",
+				"/crud/vendedor").permitAll()
 		.antMatchers(HttpMethod.PUT, "/crud/cliente/{id}",
 				"/crud/instructor/{id}",
 				"/crud/curso/{id}",
 				"/crud/vendedor/{id}",
-				"/crud/usuario/{id}").permitAll()
+				"/crud/usuario/{id}",
+				"/crud/usuario").permitAll()
 //		.antMatchers(HttpMethod.GET, "/crud/cliente/{id}").hasAnyRole("USER", "ADMIN")
 //		.antMatchers(HttpMethod.POST, "/crud/cliente/upload").hasAnyRole("USER", "ADMIN")
 //		.antMatchers(HttpMethod.POST, "/crud/cliente").hasRole("ADMIN")

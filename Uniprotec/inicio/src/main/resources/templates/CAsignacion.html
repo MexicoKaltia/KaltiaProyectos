@@ -165,7 +165,7 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">PRINCIPAL</li>
                             <li>
-                                <a th:href="@{inicio}" class="mm-active">
+                                <a th:href="@{/inicio}" class="mm-active">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
                                     CONTROL
                                 </a>
@@ -302,7 +302,7 @@
                                                                 <div class="badge badge-success mr-1 ml-0">
                                                                     <small>V1.0</small>
                                                                 </div>
-                                                                Derechos Registrados © Uniprotec 2020
+                                                                Derechos Reservados © Uniprotec 2020
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -346,6 +346,7 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
@@ -365,6 +366,8 @@
                                                <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
                                                <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
                                                <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -390,6 +393,7 @@
  	<script th:inline="javascript">
  		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
  		 var idUsuario =  [[${model.jsonResponse.user.id}]];
+ 		var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 	</script>

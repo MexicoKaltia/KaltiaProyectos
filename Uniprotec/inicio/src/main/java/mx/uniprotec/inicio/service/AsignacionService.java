@@ -60,7 +60,7 @@ public class AsignacionService implements IAsignacionService{
 		me = ComponenteComun.monitorCampos();
 		
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
-		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
+//		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
 		asignacion.setStatusAsignacion(status);
 		
 		log.info(asignacion.toString());

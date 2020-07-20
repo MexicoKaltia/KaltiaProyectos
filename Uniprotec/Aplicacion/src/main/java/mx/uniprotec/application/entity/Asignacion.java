@@ -73,6 +73,8 @@ public class Asignacion implements Serializable{
 	@Column(nullable=false)
 	private Long userCreateAsignacion;
 	@Column(nullable=false)
+	private String userCreateAsignacionTexto;
+	@Column(nullable=false)
 	private String statusAsignacion;
 	@Column
 	private Boolean verificarEntregable;
@@ -312,6 +314,14 @@ public class Asignacion implements Serializable{
 
 	public void setNumeroFactura(String numeroFactura) {
 		this.numeroFactura = numeroFactura;
+	}
+
+	public String getUserCreateAsignacionTexto() {
+		return userCreateAsignacionTexto;
+	}
+
+	public void setUserCreateAsignacionTexto(String userCreateAsignacionTexto) {
+		this.userCreateAsignacionTexto = userCreateAsignacionTexto;
 	}
 	
 	
