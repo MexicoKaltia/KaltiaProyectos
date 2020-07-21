@@ -23,7 +23,7 @@ import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.application.entity.Region;
 
-@CrossOrigin(origins = { "http://localhost:8080" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/crud")
 public class AplicacionController {

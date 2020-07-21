@@ -53,7 +53,7 @@ import mx.uniprotec.entidad.modelo.ClienteModelo;
 
 
 
-@CrossOrigin(origins = { "http://localhost:8080" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/crud")
 public class ClienteRestController {

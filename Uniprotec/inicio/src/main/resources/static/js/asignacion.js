@@ -291,29 +291,38 @@ var alerta, proceso;
 		
 		switch (idRegion){
 		case 1:
+			
 			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 2:
-			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			
+			zonaCliente = '<div class="zona" style="background:blue; color:white">'+nombreRegion+'</div>';
 			break;
 		case 3:
-			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			
+			zonaCliente = '<div class="zona" style="background:fuchsia; color:white">'+nombreRegion+'</div>';
 			break;
 		case 4:
+			
 			zonaCliente = '<div class="zona" style="background:lime; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 5:
-			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			
+			zonaCliente = '<div class="zona" style="background:gray; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 6:
+			
 			zonaCliente = '<div class="zona" style="background:coral; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 7:
-			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			
+			zonaCliente = '<div class="zona" style="background:chocolate; color:white">'+nombreRegion+'</div>';
 			break;
 		case 8:
-			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			
+			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
+
 		}
 		$.asignaIdRegion = idRegion;
 		$.asignaNombreRegion = nombreRegion;
