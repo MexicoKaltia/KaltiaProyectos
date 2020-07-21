@@ -323,12 +323,12 @@
 														</li>
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
-															    <span style="background:orange; color:black"><small>Validacion Entregables</small></span>
+															    <span style="background:orange; color:black"><small>Entregables Validado</small></span>
 															</div>-->
 														</li>
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
-															    <span style="background:green; color:white"><small>Entregable Capturado</small></span>
+															    <span style="background:green; color:white"><small>Entregable Enviado</small></span>
 															</div>
 														</li>
                                                         
@@ -386,6 +386,7 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
+												   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
                                                    <li class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
                                                    <li class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
                                                </ul>
@@ -406,6 +407,8 @@
                                                <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
                                                <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
                                                <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

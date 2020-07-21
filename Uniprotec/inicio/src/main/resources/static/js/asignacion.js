@@ -659,8 +659,10 @@ var alerta, proceso;
 		$("#asignaRecesoInicio").empty();
 		$("#asignaRecesoFinal").empty();
 		$("#asignaRecesoInicio").append('<option value="">Receso Inicio</option>');
+		$("#asignaRecesoInicio").append('<option value="Sede">Definir en Sede</option>');
 		for(var i = (($.asignaHorarioInicio/100)); i < (($.asignaHorarioFinal/100)-1) ; i++){
 				$("#asignaRecesoInicio").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+				$("#asignaRecesoInicio").append('<option value="'+(i+1)+'30">'+(i+1)+':30</option>');
 			}
 		if(($.asignaHorarioFinal  === null || $.asignaHorarioFinal === "") || ($.asignaHorarioInicio === null || $.asignaHorarioInicio === "")){
    			alerta="<div class='alert alert-danger' id='alertaHorario' role='alert'>Seleccione Horario</div>";
@@ -677,10 +679,27 @@ var alerta, proceso;
 		$.asignaRecesoInicio = $('#asignaRecesoInicio').val();
 		$("#asignaRecesoFinal").empty();
 		$("#asignaRecesoFinal").append('<option value="">Receso Final</option>');
-		for(var i = ($.asignaRecesoInicio/100); i < (($.asignaHorarioFinal/100)-0) ; i++){
-				$("#asignaRecesoFinal").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+		if($.asignaRecesoInicio === "Sede"){
+			$('#asignaRecesoFinal').attr("disabled", true);
+			$('#asignaObservaciones').text("Definir en sede el horario de receso.");
+		}else{
+			if($.asignaRecesoInicio.substring($.asignaRecesoInicio.length-2,$.asignaRecesoInicio.length) === "00"){
+				for(var i = ($.asignaRecesoInicio/100); i < (($.asignaHorarioFinal/100)-0) ; i++){
+					$("#asignaRecesoFinal").append('<option value="'+(i)+'30">'+(i)+':30</option>');
+					$("#asignaRecesoFinal").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
+				}
+			}else{
+				for(var i = ($.asignaRecesoInicio/100); i < (($.asignaHorarioFinal/100)-0)-1 ; i++){
+					o = i - 0.3;
+					console.log(o);
+					$("#asignaRecesoFinal").append('<option value="'+(o+1)+'00">'+(o+1)+':00</option>');
+					$("#asignaRecesoFinal").append('<option value="'+(o+1)+'30">'+(o+1)+':30</option>');
+				}
 			}
-		$('#asignaRecesoFinal').attr("disabled", false);
+			$('#asignaRecesoFinal').attr("disabled", false);
+		}
+		
+		
 	}
 	
 	function validaRecesoFinal(){
@@ -707,9 +726,19 @@ var alerta, proceso;
 		
 		var efectivas = (asignaHorarioFinal - asignaHorarioInicio );
 		var receso = (asignaRecesoFinal - asignaRecesoInicio); 
-		$.horasEfectivas = ((efectivas-receso)/100)+":00"; 
-		procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
-		return $.horasEfectivas;
+		var e = (efectivas-receso)/100;
+		if(Number.isInteger(e)){
+			$.horasEfectivas = e + ":00"; 
+			procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
+			return $.horasEfectivas;
+		}else{
+			e = e+"";
+			e = e.split(".");
+			$.horasEfectivas = e[0] + ":30"; 
+			procesoHorario="<li>Prospecto Horario: <b>"+ $.asignaHorarioInicio+"-"+$.asignaHorarioFinal+"</b>- Receso: <b>"+$.asignaRecesoInicio+"-"+$.asignaRecesoFinal+"</b>- Horas Efectivas: <b>"+$.horasEfectivas+"</b></li>";
+			return $.horasEfectivas;
+		}
+		
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/*

@@ -62,19 +62,19 @@ $(document).ready(function() {
 		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Validacion Entregables"){ 
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Entregables Validado"){ 
 				$('#asignaConfirmar').attr("disabled", false);
 			}
 			else if(asignaStatus ==="Curso Cancelado") {
 				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, ya no se realiza Edicion. </u></div>');
 			}
-			else if(asignaStatus ==="Entregable Capturado") {
-				$('#modalStatus').append('<div class="alert alert-success" role="alert" ><b>  Evento completo. Guía Paqueteria: '+asignacion.guiaEntregable+' <b></div>');
+			else if(asignaStatus ==="Entregable Enviado") {
+				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
 			}
 		}else{
 			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
 		}
-		
+		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		
@@ -145,6 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
+		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 	}
 
 	
@@ -255,10 +257,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		case "Curso Cancelado":
 			zonaCliente = 'red';
 			break;
-		case "Validacion Entregables":
+		case "Entregables Validado":
 			zonaCliente = 'orange';
 			break;
-		case "Entregable Capturado":
+		case "Entregable Enviado":
 			zonaCliente = 'green';
 			break;
 		}
@@ -270,17 +272,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		var nombreRegion = nombreRegionAsignacion;
 		switch (idRegion){
-		case 1:
+case 1:
 			
 			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 2:
 			
-			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:blue; color:white">'+nombreRegion+'</div>';
 			break;
 		case 3:
 			
-			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:fuchsia; color:white">'+nombreRegion+'</div>';
 			break;
 		case 4:
 			
@@ -288,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 5:
 			
-			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:gray; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 6:
 			
@@ -296,11 +298,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 7:
 			
-			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:chocolate; color:white">'+nombreRegion+'</div>';
 			break;
 		case 8:
 			
-			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
 		}
 		$.asignaIdRegion = idRegion;

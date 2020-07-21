@@ -55,28 +55,36 @@ $(document).ready(function(){
 		function regionCliente(idRegion){
 			switch (idRegion){
 			case 1:
+				
 				zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 				break;
 			case 2:
-				zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+				
+				zonaCliente = '<div class="zona" style="background:blue; color:white">'+nombreRegion+'</div>';
 				break;
 			case 3:
-				zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+				
+				zonaCliente = '<div class="zona" style="background:fuchsia; color:white">'+nombreRegion+'</div>';
 				break;
 			case 4:
+				
 				zonaCliente = '<div class="zona" style="background:lime; color:blue">'+nombreRegion+'</div>';
 				break;
 			case 5:
-				zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+				
+				zonaCliente = '<div class="zona" style="background:gray; color:blue">'+nombreRegion+'</div>';
 				break;
 			case 6:
+				
 				zonaCliente = '<div class="zona" style="background:coral; color:blue">'+nombreRegion+'</div>';
 				break;
 			case 7:
-				zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+				
+				zonaCliente = '<div class="zona" style="background:chocolate; color:white">'+nombreRegion+'</div>';
 				break;
 			case 8:
-				zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+				
+				zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 				break;
 			}
 			$.asignaIdRegion = idRegion;
@@ -171,12 +179,12 @@ $(document).ready(function(){
 	
 	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 		if($.asignaStatus === "Curso Completado"){
-			$.sigStatus = "Validacion Entregables";
+			$.sigStatus = "Entregables Validado";
 //			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 			$('#verificarEntregable').val(true);
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-		}else if($.asignaStatus === "Validacion Entregables"){
-			$.sigStatus = "Entregable Capturado";
+		}else if($.asignaStatus === "Entregables Validado"){
+			$.sigStatus = "Entregable Enviado";
 //			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');

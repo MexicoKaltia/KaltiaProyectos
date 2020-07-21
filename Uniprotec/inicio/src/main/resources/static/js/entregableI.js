@@ -58,6 +58,7 @@ $(document).ready(function() {
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 
@@ -129,6 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
+		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 	}
 
 	
@@ -243,10 +246,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		case "Curso Cancelado":
 			zonaCliente = 'red';
 			break;
-		case "Validacion Entregables":
+		case "Entregables Validado":
 			zonaCliente = 'orange';
 			break;
-		case "Entregable Capturado":
+		case "Entregable Enviado":
 			zonaCliente = 'green';
 			break;
 		}
@@ -258,17 +261,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		var nombreRegion = nombreRegionAsignacion;
 		switch (idRegion){
-		case 1:
+case 1:
 			
 			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 2:
 			
-			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:blue; color:white">'+nombreRegion+'</div>';
 			break;
 		case 3:
 			
-			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:fuchsia; color:white">'+nombreRegion+'</div>';
 			break;
 		case 4:
 			
@@ -276,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 5:
 			
-			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:gray; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 6:
 			
@@ -284,11 +287,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 7:
 			
-			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:chocolate; color:white">'+nombreRegion+'</div>';
 			break;
 		case 8:
 			
-			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
 		}
 		$.asignaIdRegion = idRegion;

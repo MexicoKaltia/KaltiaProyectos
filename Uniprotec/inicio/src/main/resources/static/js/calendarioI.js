@@ -17,6 +17,7 @@ $(document).ready(function() {
 	var asignaArchivos ;
 	var asignaStatus;
 	var zonaCliente ;
+	var asignaUserCreateAsignacion;
 	var item;
 	
 	function abrirModal(item){
@@ -48,6 +49,7 @@ $(document).ready(function() {
 				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
+				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -66,8 +68,14 @@ $(document).ready(function() {
 		$('#modalNivel').html('<b>'+asignaNivel+'</b>');
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
-		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
-
+		if(asignaStatus ==="Entregable Enviado") {
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+		}else{
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		}
+		
+		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
 		
 		$('#myModal').modal();
 		
@@ -108,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function asignaCamposSubmit(asignacionSub){
-//		console.log(asignacionSub)
+		console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
 		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
@@ -127,8 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
-		$('#userCreateAsignacion').val(idUsuario);
-		$('#userCreateAsignacionTexto').val(nombreUsuario);
+		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
+		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 	}
 
 	
@@ -272,17 +280,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		var nombreRegion = nombreRegionAsignacion;
 		switch (idRegion){
-		case 1:
+case 1:
 			
 			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 2:
 			
-			zonaCliente = '<div class="zona" style="background:blue">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:blue; color:white">'+nombreRegion+'</div>';
 			break;
 		case 3:
 			
-			zonaCliente = '<div class="zona" style="background:fuchsia">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:fuchsia; color:white">'+nombreRegion+'</div>';
 			break;
 		case 4:
 			
@@ -290,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 5:
 			
-			zonaCliente = '<div class="zona" style="background:gray">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:gray; color:blue">'+nombreRegion+'</div>';
 			break;
 		case 6:
 			
@@ -298,11 +306,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case 7:
 			
-			zonaCliente = '<div class="zona" style="background:chocolate">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:chocolate; color:white">'+nombreRegion+'</div>';
 			break;
 		case 8:
 			
-			zonaCliente = '<div class="zona" style="background:purple">'+nombreRegion+'</div>';
+			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
 		}
 		$.asignaIdRegion = idRegion;

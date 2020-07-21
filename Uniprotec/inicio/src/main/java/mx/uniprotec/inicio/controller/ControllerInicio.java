@@ -148,9 +148,10 @@ public class ControllerInicio extends HttpServlet{
 				log.info("Asignacion model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");			
 				ResultVO rs = aplicacionService.consultaData(resultVO);
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 				
-				model.addAttribute("model", rs);
-				
+				model.addAttribute("model", resultVO);
+				log.info(rs.toString());
 				ModelAndView mav = new  ModelAndView("Asignacion",  model);
 				log.info(mav.toString());
 				if(rs.getCodigo() != 500) {
@@ -347,9 +348,9 @@ public class ControllerInicio extends HttpServlet{
 			if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {
 				mav = new ModelAndView("redirect:/CAsignacionI", model);
 			}else {
-				mav = new ModelAndView("redirect:/CEntregable", model);
+				mav = new ModelAndView("redirect:/CEntregableI", model);
 			}
-			if(asignacion.getFechaPago() != null || !asignacion.getFechaPago().equals("") ) {
+			if(asignacion.getStatusAsignacion().equals("Entregables Validado") || asignacion.getStatusAsignacion().equals("Entregable Enviado") ) {
 				mav = new ModelAndView("redirect:/CEntregable", model);
 			}
 			
