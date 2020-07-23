@@ -1,5 +1,7 @@
 package mx.uniprotec.inicio.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,10 @@ import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
+import mx.uniprotec.inicio.entity.StatusVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
+import mx.uniprotec.inicio.util.IBaseClientRest;
+
 
 @Service
 public class AplicacionService implements IAplicacionService {
@@ -32,7 +37,10 @@ public class AplicacionService implements IAplicacionService {
 	ResultVO resultVO = new ResultVO();
 	
 	@Autowired
-	BaseClientRest baseClientRest ;
+	IBaseClientRest baseClientRest ;
+	
+	@Autowired
+	IMailService mailService;
 //	@Autowired
 	MonitorEntidades me = new MonitorEntidades();
 
@@ -53,6 +61,8 @@ public class AplicacionService implements IAplicacionService {
 			return rs;
 		}
 	}
+	
+	
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -151,57 +161,43 @@ public class AplicacionService implements IAplicacionService {
 
 	    return map;
 	}
+
+
+
 	
-	private void test() {
+	
+	@Override
+	public StatusVO enviaMail(AsignacionModelo asignacion) {
+		String inicio = hora();
+		printWSEdicion(asignacion, "/{envioMail}");
+		StatusVO statusVO = mailService.mailServicePreCorreo(asignacion);
 		
-		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll("token", BaseClientRest.URL_CRUD_CLIENTE);
-		if(rs.getCodigo() == 202) {
-			
-			JSONObject jsonResponse = rs.getJsonResponse();//.get("data");
-			log.info(rs.getJsonResponse().toJSONString());
-//			log.info(rs.getJsonResponse().get("data.regiones").toString());
-			
-			JSONObject jsonData = new JSONObject();
-			jsonData.put("data",  jsonResponse.get("data"));
-			Map<String, Object> map = toMap(jsonData);
-			
-			
-			
-    		JSONObject jsonRegiones = new  JSONObject();
-			jsonRegiones.put("regiones", (JSONArray)jsonData.get("regiones"));
-			JSONObject jsonClientes = new JSONObject();
-			jsonClientes.put("clientes", (JSONArray)jsonData.get("clientes"));		
-			JSONObject jsonInstructores = new JSONObject();
-			jsonInstructores.put("instructores", (JSONArray)jsonData.get("instructores"));
-			JSONObject jsonVendedores = new JSONObject();
-			jsonVendedores.put("vendedores", (JSONArray)jsonData.get("vendedores"));
-			
-//			JSONArray jsonRegiones = (JSONArray)jsonData.get("regiones");
-//			JSONArray jsonClientes = (JSONArray)jsonData.get("clientes");
-//			JSONArray jsonInstructores = (JSONArray)jsonData.get("instructores");
-//			JSONArray jsonVendedores = (JSONArray)jsonData.get("vendedores");
-			
-			log.info(jsonData.toJSONString());
-//			log.info(jsonData.get("regiones").toString());
-			log.info(jsonRegiones.toJSONString());
-			log.info(jsonClientes.toJSONString());
-			log.info(jsonInstructores.toJSONString());
-			log.info(jsonVendedores.toJSONString());
-			
-//			log.info(jsonData.get("regiones").toString());
-//			log.info(jsonData.get("clientes").toString());
-//			log.info(jsonData.get("instructores").toString());
-//			log.info(jsonData.get("vendedores").toString());
-			
-			rs.setRegiones((List<Region>) jsonRegiones);
-			rs.setClientes((List<ClienteModelo>) jsonClientes);
-			rs.setInstructores((List<InstructorModelo>) jsonInstructores);
-			rs.setVendedores((List<VendedorModelo>) jsonVendedores);
-			
-			log.info(rs.getClientes().toString());
-			log.info(rs.getRegiones().toString());
-			log.info(rs.getInstructores().toString());
-			log.info(rs.getVendedores().toString());
-		}
+		log.info("inicio:"+inicio+"\t final:"+hora());
+		
+		return statusVO;
 	}
-}
+	
+	private ResultVO mailServiceCreate(AsignacionModelo asignacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	private void printWSEdicion(AsignacionModelo asignacion, String string) {
+		log.info("_________________________________________");
+		log.info(string);
+		log.info(":"+asignacion.toString());  //OK
+	}
+	
+	private String hora() {
+		
+		java.util.Date date = new java.util.Date();
+		DateFormat hourFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+											//      dd/MM/yyyy
+											//		HH:mm:ss dd/MM/yyyy
+		
+		return hourFormat.format(date);
+	}
+	
+	}

@@ -24,7 +24,7 @@ import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
-import mx.uniprotec.inicio.entity.Curso;
+
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ICursoService;
@@ -277,7 +277,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			@RequestParam(name="error", required=false) boolean error,
 			ModelMap model) {
 		log.info("BCurso model Activo");
-		model.addAttribute("cursoForm", new Curso());
+		model.addAttribute("cursoForm", new CursoModelo());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);

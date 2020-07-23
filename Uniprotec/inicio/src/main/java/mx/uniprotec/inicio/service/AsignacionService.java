@@ -27,6 +27,8 @@ public class AsignacionService implements IAsignacionService{
 	ResultVO resultVO = new ResultVO();
 	@Autowired
 	BaseClientRest baseClientRest ;
+	@Autowired
+	AplicacionService aplicacionService;
 	
 	public AsignacionService() {
 		// TODO Auto-generated constructor stub
@@ -46,6 +48,10 @@ public class AsignacionService implements IAsignacionService{
 				BaseClientRest.URL_CRUD_ASIGNACION,
 				asignacion);
 		
+		//Envio de correo
+		if(resultVO.getCodigo() != 500) {
+			aplicacionService.enviaMail(asignacion);
+		}
 		return resultVO;
 	}
 
