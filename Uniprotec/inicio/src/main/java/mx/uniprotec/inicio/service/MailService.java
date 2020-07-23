@@ -91,36 +91,149 @@ public class MailService implements IMailService{
 				"								</div>" + 
 				"							</div>" + 
 				"						</div>"+
-				"</div>\r\n" + 
-				"					<br>\r\n" + 
-				"					<br>\r\n" + 
-				"					<div class='row'>\r\n" + 
-				"						<div class='col-md-12'>		 \r\n" + 
-				"							<address>\r\n" + 
-				"								 <strong>Uniprotec.</strong><br /> Domicilio <br /> Santiago de Queretaro<br /> <abbr title='Phone'>P:</abbr> (123) 456-7890\r\n" + 
-				"							</address>\r\n" + 
-				"						</div>\r\n" + 
-				"						<p class='text-left text-primary lead'><em> <small>Conficencial datos de correo.</small></em></p>\r\n" + 
-				"					</div>\r\n" + 
-				"				</div>\r\n" + 
-				"				<div class='col-md-2'>\r\n" + 
-				"				           <a href='vendedor.html'><button type='button' class='btn center btn-primary btn-sm'>Visitar Plantilla Vendedor</button></a>\r\n" + 
-				"				</div>\r\n" + 
-				"			</div>\r\n" + 
-				"		</div>\r\n" + 
-				"	</div>\r\n" + 
-				"</div>\r\n" + 
-				"\r\n" + 
-				"<!--\r\n" + 
-				"<script scr='js/jquery.min.js'></script>\r\n" + 
-				"<script scr='js/bootstrap.min.js'></script>\r\n" + 
-				"-->\r\n" + 
-				"<script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script>\r\n" + 
-				"<script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous'></script>\r\n" + 
-				"<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous'></script>\r\n" + 
-				"\r\n" + 
-				"</body>\r\n" + 
+				"</div>" + 
+				"					<br>" + 
+				"					<br>" + 
+				"					<div class='row'>" + 
+				"						<div class='col-md-12'>		 " + 
+				"							<address>" + 
+				"								 <strong>Uniprotec.</strong><br /> Domicilio <br /> Santiago de Queretaro<br /> <abbr title='Phone'>P:</abbr> (123) 456-7890" + 
+				"							</address>" + 
+				"						</div>" + 
+				"						<p class='text-left text-primary lead'><em> <small>Conficencial datos de correo.</small></em></p>" + 
+				"					</div>" + 
+				"				</div>" + 
+				"				<div class='col-md-2'>" + 
+				"				           <a href='vendedor.html'><button type='button' class='btn center btn-primary btn-sm'>Visitar Plantilla Vendedor</button></a>" + 
+				"				</div>" + 
+				"			</div>" + 
+				"		</div>" + 
+				"	</div>" + 
+				"</div>" + 
+				"" + 
+				"<!--" + 
+				"<script scr='js/jquery.min.js'></script>" + 
+				"<script scr='js/bootstrap.min.js'></script>" + 
+				"-->" + 
+				"<script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script>" + 
+				"<script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous'></script>" + 
+				"<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous'></script>" + 
+				"" + 
+				"</body>" + 
 				"</html>";
+		
+		body = "<div class='row'>" + 
+				"<div class='col-md-12'>" + 
+				"<h3 class='text-left' style='text-align: center;'>Buen D&iacute;a: Ing. Carlos Alberto Dominguez Mejia.</h3>" + 
+				"<p class='text-left text-primary lead' style='text-align: center;'>El presente correo tiene la finalidad de notificarle su nueva asignacion: <b><strong>#123Uniprotec</strong></b>.</p>" + 
+				"<p class='text-left text-primary lead' style='text-align: center;'>Con los siguientes datos:</p>" + 
+				"<div class='col-md-2'>" + 
+				"<table style='height: 520px; width: 60%; border-collapse: collapse; border-style: double; border-color: blue; background-color: #D6FBFC; margin-left: auto; margin-right: auto;' border='3'>" + 
+				"<tbody>" + 
+				"<tr style='height: 53px;'>" + 
+				"<td style='width: 100%; height: 53px;'>" + 
+				"<h5 class='card-header' style='text-align: justify;'>Asignacion #123Uniprotec</h5>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 53px;'>" + 
+				"<td style='width: 100%; height: 53px;'>" + 
+				"<h5 class='card-title' style='text-align: left;'>Resumen de asignacion</h5>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Cliente : <b><a href='#' target='_blank' rel='noopener'>"+ asignacion.getClienteAsignacion() +"</a></b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Curso : "+ asignacion.getCursoAsignacion()+"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Instructor : "+ asignacion.getInstructorAsignacion() +"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Fecha : "+asignacion.getFechaAsignacion()+"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>"+ horario(asignacion.getHorarioAsignacion()) +"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Participantes : "+ asignacion.getParticipantesAsignacion() +"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Nivel : "+ asignacion.getNivelAsignacion() +"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Observaciones : "+ asignacion.getObservacionesAsignacion() +"</li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul class='list-group'>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Status : <b>"+ status(asignacion.getStatusAsignacion()) +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr>" + 
+				"<td style='width: 100%;'>" + 
+				"<ul>" + 
+				"<li>Documentos : <a href='#' target='_blank' rel='noopener'>"+ documentos(asignacion.getArchivosAsignacion()) +"</a></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" +
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul class='list-group'>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Nombre de Ventas : "+ asignacion.getUserCreateAsignacionTexto() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" +
+				"<tr>" + 
+				"<td style='width: 100%;'><a href='"+ mapaGoogle(asignacion.getIdClienteAsignacion()) +"' target='_blank' rel='noopener'>Mapa de Ubicacion</a></td>" + 
+				"</tr>" + 
+				"</tbody>" + 
+				"</table><div class='card text-white bg-info'>" + 
+				"<div class='card-body'></div>" + 
+				"</div>" + 
+				"</div>" + 
+				"</div>" + 
+				"<br /><br />" + 
+				"<div class='row'>" + 
+				"<div class='col-md-12' style='text-align: left;'><address><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uniprotec.</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Domicilio <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Santiago de Queretaro<br /><abbr title='Phone'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P:</abbr> (123) 456-7890</address></div>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Conficencial datos de correo.</small></em></p>" + 
+				"</div>" + 
+				"</div>" + 
+				"";
+		
 		
 		return body;
 	}
