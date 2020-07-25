@@ -1,5 +1,7 @@
 package mx.uniprotec.inicio.entity;
 
+import java.util.List;
+
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 
 public class MailVO {
@@ -12,6 +14,7 @@ public class MailVO {
 	private String bodyMail;
 	private String mensajeMail;
 	private String destinatarioMail;
+	private List<String> destinatarioMailList;
 	private AsignacionModelo asignacionMail;
 	public String getAsuntoMail() {
 		return asuntoMail;
@@ -42,6 +45,12 @@ public class MailVO {
 	}
 	public void setAsignacionMail(AsignacionModelo asignacionMail) {
 		this.asignacionMail = asignacionMail;
+	}
+	public List<String> getDestinatarioMailList() {
+		return destinatarioMailList;
+	}
+	public void setDestinatarioMailList(List<String> destinatarioMailList) {
+		this.destinatarioMailList = destinatarioMailList;
 	}
 	
 	

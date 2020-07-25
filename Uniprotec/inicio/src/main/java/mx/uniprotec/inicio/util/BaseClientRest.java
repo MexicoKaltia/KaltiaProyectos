@@ -1,8 +1,12 @@
 package mx.uniprotec.inicio.util;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import mx.uniprotec.entidad.modelo.PerfilModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
+import mx.uniprotec.entidad.modelo.UserCorreo;
 
 
 @Service
@@ -36,11 +41,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
@@ -58,6 +63,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
 	public static final String URL_CRUD_PERFIL		  =	"perfil";
 	public static final String URL_CRUD_PERFILES	  =	"perfiles";
+	public static final String URL_CRUD_CORREOS 	  =	"correos";
 	
 	
 	
@@ -105,6 +111,13 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		resultVO = getTemplateObjetoGetId(token, urlCrud, object, idObject);
 		return resultVO;
 	}
+	
+	@Override
+	public List<UserCorreo> objetoGetObject(String token, String urlCrud, List<UserCorreo> usersCorreo) {
+		return  getTemplateObjetoGet(token, urlCrud, usersCorreo);
+//		return resultVO;
+	}
+
 
 
 
@@ -283,6 +296,36 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    
 	}
 
+	private List<UserCorreo> getTemplateObjetoGet(String token, String urlCrud, List<UserCorreo> usersCorreo) {
+		
+		String urlGetId = URL_CRUD+urlCrud ;
+		log.info(urlGetId);
+		HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+ 	     headers.add("Authorization", "Bearer " + token);
+ 	     
+ 	    HttpEntity<?> entity = new HttpEntity<>(usersCorreo, headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(urlGetId, HttpMethod.POST, entity, JSONObject.class);
+//		    log.info(resultVO.toString());
+//		    resultVO = asignaResponseObject(response);
+	  	     
+			return asignaResponseObjectArray(response);
+			
+		} catch (Exception e) {
+			
+				JSONObject jsonResponse = new JSONObject();
+			    ResultVO rs = new ResultVO();
+			    rs.setJsonResponse(jsonResponse);
+			    e.printStackTrace();
+			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			        
+				return null;
+		}
+	    
+	}
 	
 	
 	
@@ -337,6 +380,54 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    
 		return rs;
 	}
+
+	private List<UserCorreo> asignaResponseObjectArray(ResponseEntity<JSONObject> response) {
+
+	    if(response.getStatusCodeValue() == 401) {
+	    	log.info("401");
+	    }
+		JSONObject jsonResponse = (JSONObject) response.getBody();
+	    ResultVO rs = new ResultVO();
+	    
+	    try {
+	    	Map<String, Object> respuesta = (JSONObject) response.getBody();
+		    List<Object> objecto = (List<Object>) respuesta.get("usersCorreo");
+		    List<UserCorreo> usersCorreo = new ArrayList<UserCorreo>();
+		    for(Object o : objecto) {
+//		    	log.info(o.toString());
+		    	String[] item = o.toString().split(",");
+		    	UserCorreo uc = null ;
+		    	String idUser = "";
+		    	String perfil = "";
+		    	String emailUniprotec = "";
+		    	String emailGmail = "";
+		    	for(String a : item) {
+		    		a = a.replace("[", "");
+		    		a = a.replace("]", "");
+		    		if(a.contains("idUser")) {
+		    			idUser = a.substring(a.indexOf("=")+1,a.length());
+		    		}else if(a.contains("perfil")) {
+		    			perfil = a.substring(a.indexOf("=")+1,a.length());
+		    		}else if(a.contains("emailUniprotec")) {
+		    			emailUniprotec = a.substring(a.indexOf("=")+1,a.length());
+		    		}else if(a.contains("emailGmail")) {
+		    			emailGmail = a.substring(a.indexOf("=")+1,a.length());
+		    		}
+		    		uc = new UserCorreo(Long.valueOf(idUser),perfil,emailUniprotec,emailGmail);
+		    	}
+		    	usersCorreo.add(uc);
+		    }
+		    
+		    
+			return usersCorreo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	    
+	}
+
+
 
 
 

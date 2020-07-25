@@ -5,7 +5,7 @@ import mx.uniprotec.inicio.entity.StatusVO;
 
 public interface IMailService {
 	
-	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion);
+	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion, String token);
 	
 
 }

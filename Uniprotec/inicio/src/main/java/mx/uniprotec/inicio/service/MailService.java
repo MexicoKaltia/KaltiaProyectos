@@ -1,11 +1,15 @@
 package mx.uniprotec.inicio.service;
 
 
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
 
+import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -17,124 +21,122 @@ import javax.mail.internet.MimeMultipart;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.inicio.entity.MailVO;
 import mx.uniprotec.inicio.entity.StatusVO;
 
 @Service
 public class MailService implements IMailService{
 	
+	
 	private static Logger log = LoggerFactory.getLogger(MailService.class);
+	
+	@Autowired
+	IAplicacionService aplicacionService;
 
 	public MailService() {	}
 	
 	
 	@Override
-	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion) {
+	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion, String token) {
+		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
+		INSTRUCTOR_PRE.add("olivier.sanchez@uniprotec.net");
 		
-		MailVO mailVO = new MailVO();
-		String staffDestino = "kaltiaservicios@gmail.com";
-		String referencia = "www.control-uniprotec.com";
-		String nombreBoton = " Revisar expediente cliente y confimar asignación. ";
+		 List<String> STAFF_PRE = new ArrayList<String>();
+		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
+		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
+
 		
-		mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
-		mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton));
-		mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
-		mailVO.setDestinatarioMail(staffDestino);
-		mailVO.setAsignacionMail(asignacion);
+		String staffDestino ;
+		String referencia ;
+		String nombreBoton ;
+		String subTitulo;
+		String[] envioCorreos = {"Instructor", "Staff"};
+		StatusVO statusVO = new StatusVO();
+		List<UserCorreo> usersCorreo = aplicacionService.usersCorreo(asignacion.getIdInstructorAsignacion(), asignacion.getUserCreateAsignacion(), token);
+		log.info(usersCorreo.toString());
 		
-		StatusVO statusVO = mailServiceGeneraCorreo(mailVO);
+		String correoGmailInstructor="";
+		List<String> correoStaff = new ArrayList<String>();
+		List<String> correoInstructor = new ArrayList<String>();
+		correoStaff.clear();
+		for(UserCorreo uc : usersCorreo) {
+			log.info(uc.toString());
+			if(uc.getPerfil().equals("Instructor")) {
+				correoInstructor.add(uc.getEmailUniprotec());
+				correoGmailInstructor = uc.getEmailGmail();
+			}else {
+				correoStaff.add(uc.getEmailUniprotec());
+			}
+		}
+		
+		
+		int i = 0;
+		while (i < envioCorreos.length) {
+			log.info(envioCorreos[i]);
+			if(envioCorreos[i].equals("Instructor")) {
+				MailVO mailVO = new MailVO();		
+				staffDestino = asignacion.getInstructorAsignacion();
+				referencia = "www.control-uniprotec.com";
+				nombreBoton = " Revisar expediente cliente y confimar asignación. ";
+				subTitulo = "El presente correo tiene la finalidad de notificarle su nueva asignación";
+				
+				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
+				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
+				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
+				mailVO.setDestinatarioMailList(correoInstructor);
+				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
+				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
+				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
+				
+				mailVO.setAsignacionMail(asignacion);
+				statusVO = mailServiceGeneraCorreo(mailVO);		
+				
+			}else if(envioCorreos[i].equals("Staff")) {
+				MailVO mailVO = new MailVO();
+				staffDestino = "Equipo Staff Uniprotec";
+				referencia = "www.control-uniprotec.com";
+				nombreBoton = " Revisar expediente cliente";
+				subTitulo = "El presente correo tiene la finalidad de notificar la nueva asignación";
+				
+				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
+				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
+				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
+				mailVO.setDestinatarioMailList(correoStaff);
+				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
+				mailVO.setDestinatarioMailList(STAFF_PRE);
+				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
+				
+				mailVO.setAsignacionMail(asignacion);
+				statusVO = mailServiceGeneraCorreo(mailVO);
+				
+				
+			}
+			i++;
+		}
 		
 		
 		return statusVO;
 
 	}
 
-	private String body(AsignacionModelo asignacion, String staffDestino, String referencia, String nombreBoton) {
+	
+
+	private String body(AsignacionModelo asignacion, String staffDestino, String referencia, String nombreBoton, String subTitulo) {
 		
-		String body = 			
+		String body =	 "<div class='row'>" + 
 				"<div class='col-md-12'>" + 
-				"							<h3 class='text-left'>" + 
-				"								Buen Dia "+ staffDestino + " </h3>" + 
-				"							<p class='text-left text-primary lead'>" + 
-				"								El presente correo tiene la finalidad de notificar: <strong>El número de asignación : <strong>"+ asignacion.getIdAsignacionLogica() +".</strong>" + 
-				"							</p>" + 
-				"							<p class='text-left text-primary lead'>" + 
-				"								Con los siguientes datos: " + 
-				"							</p>" + 
-				"							<div class='card text-white bg-info'>" + 
-				"								<h5 class='card-header'>" + 
-				"									Asignación "+asignacion.getIdAsignacionLogica()+"" + 
-				"								</h5>" + 
-				"								<div class='card-body'>" + 
-				"									<h5 class='card-title'>Resumen de asignación</h5>" + 
-				"                                               <ul class='list-group'>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Cliente : "+ asignacion.getClienteAsignacion() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Curso : "+ asignacion.getCursoAsignacion()+"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Instructor : "+ asignacion.getInstructorAsignacion() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Fecha : "+ asignacion.getFechaAsignacion() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Horario : "+ horario(asignacion.getHorarioAsignacion()) +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Participantes : "+ asignacion.getParticipantesAsignacion() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Nivel : "+ asignacion.getNivelAsignacion() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Observaciones : "+ asignacion.getObservacionesAsignacion() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Status :  "+ status(asignacion.getStatusAsignacion()) +"</li>" +
-				"                                                   <li class='list-group-item list-group-item-info'>Documentos Evento: "+ documentos(asignacion.getArchivosAsignacion()) +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Mapa de Ubicacion : "+ mapaGoogle(asignacion.getIdClienteAsignacion()) +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'>Nombre de Ventas : "+ asignacion.getUserCreateAsignacionTexto() +"</li>" + 
-				"                                                   <li class='list-group-item list-group-item-info'><a href='"+ referencia +"' class='btn btn-info' role='button'> " + nombreBoton + "</a></li>" + 
-				"                                               </ul>" + 
-				"								</div>" + 
-				"								<div class='card-footer'>" + 
-				"									" + 
-				"								</div>" + 
-				"							</div>" + 
-				"						</div>"+
-				"</div>" + 
-				"					<br>" + 
-				"					<br>" + 
-				"					<div class='row'>" + 
-				"						<div class='col-md-12'>		 " + 
-				"							<address>" + 
-				"								 <strong>Uniprotec.</strong><br /> Domicilio <br /> Santiago de Queretaro<br /> <abbr title='Phone'>P:</abbr> (123) 456-7890" + 
-				"							</address>" + 
-				"						</div>" + 
-				"						<p class='text-left text-primary lead'><em> <small>Conficencial datos de correo.</small></em></p>" + 
-				"					</div>" + 
-				"				</div>" + 
-				"				<div class='col-md-2'>" + 
-				"				           <a href='vendedor.html'><button type='button' class='btn center btn-primary btn-sm'>Visitar Plantilla Vendedor</button></a>" + 
-				"				</div>" + 
-				"			</div>" + 
-				"		</div>" + 
-				"	</div>" + 
-				"</div>" + 
-				"" + 
-				"<!--" + 
-				"<script scr='js/jquery.min.js'></script>" + 
-				"<script scr='js/bootstrap.min.js'></script>" + 
-				"-->" + 
-				"<script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script>" + 
-				"<script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous'></script>" + 
-				"<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous'></script>" + 
-				"" + 
-				"</body>" + 
-				"</html>";
-		
-		body = "<div class='row'>" + 
-				"<div class='col-md-12'>" + 
-				"<h3 class='text-left' style='text-align: center;'>Buen D&iacute;a: Ing. Carlos Alberto Dominguez Mejia.</h3>" + 
-				"<p class='text-left text-primary lead' style='text-align: center;'>El presente correo tiene la finalidad de notificarle su nueva asignacion: <b><strong>#123Uniprotec</strong></b>.</p>" + 
+				"<h3 class='text-left' style='text-align: center;'>Buen D&iacute;a: "+ staffDestino +"</h3>" + 
+				"<p class='text-left text-primary lead' style='text-align: center;'>"+ subTitulo +": <b><strong>"+ asignacion.getIdAsignacionLogica() +"</strong></b>.</p>" + 
 				"<p class='text-left text-primary lead' style='text-align: center;'>Con los siguientes datos:</p>" + 
 				"<div class='col-md-2'>" + 
 				"<table style='height: 520px; width: 60%; border-collapse: collapse; border-style: double; border-color: blue; background-color: #D6FBFC; margin-left: auto; margin-right: auto;' border='3'>" + 
 				"<tbody>" + 
-				"<tr style='height: 53px;'>" + 
-				"<td style='width: 100%; height: 53px;'>" + 
-				"<h5 class='card-header' style='text-align: justify;'>Asignacion #123Uniprotec</h5>" + 
-				"</td>" + 
-				"</tr>" + 
+				 
 				"<tr style='height: 53px;'>" + 
 				"<td style='width: 100%; height: 53px;'>" + 
 				"<h5 class='card-title' style='text-align: left;'>Resumen de asignacion</h5>" + 
@@ -143,82 +145,79 @@ public class MailService implements IMailService{
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Cliente : <b><a href='#' target='_blank' rel='noopener'>"+ asignacion.getClienteAsignacion() +"</a></b></li>" + 
+				"<li>Cliente : <b>"+ asignacion.getClienteAsignacion() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Curso : "+ asignacion.getCursoAsignacion()+"</li>" + 
+				"<li>Curso : <b>"+ asignacion.getCursoAsignacion()+"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Instructor : "+ asignacion.getInstructorAsignacion() +"</li>" + 
+				"<li>Instructor : <b>"+ asignacion.getInstructorAsignacion() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Fecha : "+asignacion.getFechaAsignacion()+"</li>" + 
+				"<li>Fecha : <b>"+fecha(asignacion.getFechaAsignacion())+"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>"+ horario(asignacion.getHorarioAsignacion()) +"</li>" + 
+				"<li><b>"+ horario(asignacion.getHorarioAsignacion()) +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Participantes : "+ asignacion.getParticipantesAsignacion() +"</li>" + 
+				"<li>Participantes : <b>"+ asignacion.getParticipantesAsignacion() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Nivel : "+ asignacion.getNivelAsignacion() +"</li>" + 
+				"<li>Nivel : <b>"+ asignacion.getNivelAsignacion() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
-				"<li>Observaciones : "+ asignacion.getObservacionesAsignacion() +"</li>" + 
+				"<li>Observaciones : <b>"+ asignacion.getObservacionesAsignacion() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul class='list-group'>" + 
-				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Status : <b>"+ status(asignacion.getStatusAsignacion()) +"</b></li>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Status : <b>"+ asignacion.getStatusAsignacion() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" + 
-				"<tr>" + 
-				"<td style='width: 100%;'>" + 
-				"<ul>" + 
-				"<li>Documentos : <a href='#' target='_blank' rel='noopener'>"+ documentos(asignacion.getArchivosAsignacion()) +"</a></li>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul class='list-group'>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Nombre de Ventas : <b>"+ asignacion.getUserCreateAsignacionTexto() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" +
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul class='list-group'>" + 
-				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Nombre de Ventas : "+ asignacion.getUserCreateAsignacionTexto() +"</b></li>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'><b><a href='"+ referencia +"'>"+ nombreBoton +"</a></b></li>" + 
 				"</ul>" + 
 				"</td>" + 
-				"</tr>" +
-				"<tr>" + 
-				"<td style='width: 100%;'><a href='"+ mapaGoogle(asignacion.getIdClienteAsignacion()) +"' target='_blank' rel='noopener'>Mapa de Ubicacion</a></td>" + 
 				"</tr>" + 
 				"</tbody>" + 
 				"</table><div class='card text-white bg-info'>" + 
@@ -228,8 +227,8 @@ public class MailService implements IMailService{
 				"</div>" + 
 				"<br /><br />" + 
 				"<div class='row'>" + 
-				"<div class='col-md-12' style='text-align: left;'><address><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uniprotec.</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Domicilio <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Santiago de Queretaro<br /><abbr title='Phone'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P:</abbr> (123) 456-7890</address></div>" + 
-				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Conficencial datos de correo.</small></em></p>" + 
+				"<div class='col-md-12' style='text-align: left;'><address><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uniprotec.</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ambar 20 Mision Mariana , Corregidora, Querétaro, 76903 <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Santiago de Queretaro<br /><abbr title='Phone'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P:</abbr> + 52 - 4423341671</address></div>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Ha recibido este correo electrónico porque está suscrito como usuario registrado del sistema control-uniprotec.com .</small></em></p>" + 
 				"</div>" + 
 				"</div>" + 
 				"";
@@ -240,35 +239,17 @@ public class MailService implements IMailService{
 	
 			
 
-	private String mapaGoogle(Long idClienteAsignacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
-	private String documentos(String archivosAsignacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	private String status(String statusAsignacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	private String horario(String horarioAsignacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 
 	private StatusVO mailServiceGeneraCorreo(MailVO mailVO) {
 		
 		StatusVO statusVO = new StatusVO();
 		 
-		 log.info("Correo Destino: "+mailVO.getDestinatarioMail());
+		 log.info("Correo Destino: "+mailVO.getDestinatarioMailList().toString());
+		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
 	  String correoEnvia = "notificacion@control-uniprotec.com";
 	  String claveCorreo = "Uniprotec2020#";
@@ -295,10 +276,13 @@ public class MailService implements IMailService{
 	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Uniprotec"));
 	 
 	   // Los destinatarios
-	   InternetAddress[] internetAddresses = { new InternetAddress(mailVO.getDestinatarioMail()) };
+//	   hrivas.cortes@gmail.com, hugo.rivas@kaltiaservicios.tech
+//	   InternetAddress[] myToList = InternetAddress.parse("gopi.mani@xyz.com,Maimsa.SF@xyz.com");
+	   InternetAddress[] internetAddresses=  InternetAddress.parse(mailVO.getDestinatarioMail()) ;
+
 	 
 	   // Agregar los destinatarios al mensaje
-	   mimeMessage.setRecipients(Message.RecipientType.TO,internetAddresses);
+	   mimeMessage.addRecipients(Message.RecipientType.TO,internetAddresses);
 	 
 	   // Agregar el asunto al correo
 	   mimeMessage.setSubject(mailVO.getAsuntoMail());
@@ -320,29 +304,33 @@ public class MailService implements IMailService{
 	   msjHTML.append(mailVO.getBodyMail());
 	 
 	   // Url del directorio donde estan los archivos adjuntos
-	   String urlImagenes = "\\uniprotec\\asignacion\\"+mailVO.getAsignacionMail().getIdAsignacionLogica()+"\\";//"C:\\Kaltia\\KaltiaWorkbench\\KaltiaMail\\src\\images\\";
-	   File directorio = new File(urlImagenes);
-	    
-	   // Obtener los nombres de las imagenes en el directorio
-	   String[] imagenesDirectorio = directorio.list();
-	 
-	   // Creo la parte del mensaje HTML
 	   MimeBodyPart mimeBodyPart = new MimeBodyPart();
-	   mimeBodyPart.setContent(msjHTML.toString(), "text/html");
-	 
-	   // Validar que el directorio si tenga las imagenes
-	   if (imagenesDirectorio != null) {
-	    for (int count = 0; count < imagenesDirectorio.length; count++) {
-	 
-	     MimeBodyPart imagePart = new MimeBodyPart();
-	     imagePart.setHeader("Content-ID", "<" + imagenesDirectorio[count].toString() + ">");
-	     imagePart.setDisposition(MimeBodyPart.INLINE);
-	     imagePart.attachFile(urlImagenes + imagenesDirectorio[count].toString());
-	     multipart.addBodyPart(imagePart);
-//	     System.out.println("nombre de las imagenes : "+imagenesDirectorio[count].toString());
-	    }
-	   } else {
-	    System.out.println("No hay archivos en el directorio");
+	   if(mailVO.getAsignacionMail().getIdAsignacionLogica() != null ) {
+		   String urlImagenes = "\\uniprotec\\asignacion\\"+mailVO.getAsignacionMail().getIdAsignacionLogica()+"\\";
+		   File directorio = new File(urlImagenes);
+		    
+		   // Obtener los nombres de las imagenes en el directorio
+		   String[] imagenesDirectorio = directorio.list();
+		 
+		   // Creo la parte del mensaje HTML
+		   mimeBodyPart = new MimeBodyPart();
+		   mimeBodyPart.setContent(msjHTML.toString(), "text/html");
+		 
+		   // Validar que el directorio si tenga las imagenes
+		   if (imagenesDirectorio != null) {
+		    for (int count = 0; count < imagenesDirectorio.length; count++) {
+		 
+		     MimeBodyPart imagePart = new MimeBodyPart();
+		     imagePart.setHeader("Content-ID", "<" + imagenesDirectorio[count].toString() + ">");
+		     imagePart.setDisposition(MimeBodyPart.INLINE);
+		     imagePart.attachFile(urlImagenes + imagenesDirectorio[count].toString());
+		     multipart.addBodyPart(imagePart);
+//		     System.out.println("nombre de las imagenes : "+imagenesDirectorio[count].toString());
+		    }
+		   } else {
+		    System.out.println("No hay archivos en el directorio");
+		   }
+
 	   }
 	 
 	   // Agregar la parte del mensaje HTML al multiPart
@@ -370,6 +358,72 @@ public class MailService implements IMailService{
 	  return statusVO;
 	  
 	 }
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	// UTIL
+	
+	private static String fecha(String fechaAsignacion) {
+//        System.out.println(fechaAsignacion);
+		Calendar fecha = Calendar.getInstance();
+		String[] fechaA = fechaAsignacion.split("/");
+		fecha.set(Integer.valueOf(fechaA[2]),Integer.valueOf(fechaA[0])-1,Integer.valueOf(fechaA[1]));
+		String[] MESES = {	  "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+		String[] DIA = {"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
+		
+		return DIA[fecha.get(Calendar.DAY_OF_WEEK)-1] +", "+ fecha.get(Calendar.DATE) + " de "+ MESES[fecha.get(Calendar.MONTH)]+ " "+ fecha.get(Calendar.YEAR);		
+	}
+
+
+	private AsignacionModelo correoStaff(String instructorAsignacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private AsignacionModelo correoIntructor(String instructorAsignacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private String horario(String horarioAsignacion) {
+		String[] horario = horarioAsignacion.split(";");
+		String hr ="Horario : "+ horario[0].substring(0,2)+":00 - "+horario[1].substring(0,2)+":00 . ";
+		
+		if( horario[2] != null && !horario[2].equals("")) {
+			hr = hr +"Receso : "+ horario[2].substring(0,2)+":"+horario[2].substring(2,2) +" - "+ horario[3].substring(0,2)+":"+horario[3].substring(2,2);
+		}
+		
+		hr = hr +"Horas Efectivas : "+ horario[4];
+		return hr;
+	}
+	
+	private String documentos(String archivosAsignacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private String listOTString(List<String> destinatarioMailList) {
+		String concat = "";
+		for(String a : destinatarioMailList) {
+			concat = concat.concat(a + ", ");
+		}
+		log.info(concat);
+		return concat;
+	}
+	
+	private String limpia(String string) {
+		String a = string.replace("[", "");
+		a = a.replace("]", "");
+		
+		return a;
+	}
 
 
 

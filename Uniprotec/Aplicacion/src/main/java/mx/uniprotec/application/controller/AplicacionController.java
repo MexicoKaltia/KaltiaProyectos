@@ -3,6 +3,9 @@ package mx.uniprotec.application.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,17 +14,19 @@ import org.springframework.core.NestedRuntimeException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.uniprotec.application.entity.Cliente;
 import mx.uniprotec.application.entity.Perfil;
-import mx.uniprotec.application.service.IAplicacionService;
-import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.service.IAplicacionService;
+import mx.uniprotec.entidad.modelo.UserCorreo;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -105,6 +110,41 @@ public class AplicacionController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@PostMapping("/correos")
+	public ResponseEntity<?> correos(@Valid @RequestBody List<UserCorreo> usersCorreo, BindingResult result) {
+		
+		HttpStatus status ;
+		Map<String, Object> response = new HashMap<>();
+		log.info("Correos : " + usersCorreo.toString());
+		if(result.hasErrors()) {
+
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			status = HttpStatus.BAD_REQUEST;
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		try {			
+			usersCorreo = aplicacionService.usersCorreo(usersCorreo);
+			log.info(usersCorreo.toString());
+			response.put("usersCorreo", usersCorreo);
+			 response.put("mensaje", "Consulta Correos Exitosa");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

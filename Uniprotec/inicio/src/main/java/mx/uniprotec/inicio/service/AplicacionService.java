@@ -1,8 +1,11 @@
 package mx.uniprotec.inicio.service;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +24,7 @@ import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.inicio.entity.StatusVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
@@ -143,52 +147,57 @@ public class AplicacionService implements IAplicacionService {
 		return rs;
 	}
 	
-	private static Map<String, Object> toMap(JSONObject jsonObject)  {
-	    Map<String, Object> map = new HashMap<>();
-
-	    for (Object key : jsonObject.keySet()) {
-	        Object value = jsonObject.get(key);
-
-	        if (value instanceof JSONObject) {
-		        map.put(String.valueOf(key), value);
-	        }
-	        if (value instanceof JSONArray) {
-		        map.put(String.valueOf(key), value);
-	        }
-
-
-	    }
-
-	    return map;
-	}
-
-
-
-	
-	
 	@Override
-	public StatusVO enviaMail(AsignacionModelo asignacion) {
+	public void enviaMail(AsignacionModelo asignacion, String token) {
 		String inicio = hora();
-		printWSEdicion(asignacion, "/{envioMail}");
-		StatusVO statusVO = mailService.mailServicePreCorreo(asignacion);
+		StatusVO statusVO = mailService.mailServicePreCorreo(asignacion, token);
 		
 		log.info("inicio:"+inicio+"\t final:"+hora());
 		
-		return statusVO;
+	//	return statusVO;
+		
 	}
 	
-	private ResultVO mailServiceCreate(AsignacionModelo asignacion) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override
+	public List<UserCorreo> usersCorreo(Long idInstructorAsignacion, Long userCreateAsignacion, String token) {
+		
+		UserCorreo userVendedor = new UserCorreo(userCreateAsignacion, "Ventas");
+		UserCorreo userInstructor = new UserCorreo(idInstructorAsignacion, "Instructor");
+		List<UserCorreo> usersCorreo = new ArrayList<UserCorreo>();
+		usersCorreo.add(userVendedor);
+		usersCorreo.add(userInstructor);
+		
+		usersCorreo =  (List<UserCorreo>) baseClientRest.objetoGetObject(token, BaseClientRest.URL_CRUD_CORREOS, usersCorreo);
+		
+//			JSONObject jsonGeneral = rs.getJsonResponse();
+//			JSONObject jsonuserCorreo = new JSONObject();
+//			jsonuserCorreo.put("usersCorreo", jsonGeneral.get("usersCorreo"));
+//			log.info(jsonuserCorreo.toJSONString());
+//			
+//			JSONArray ja = new JSONArray();
+//			ja.add(jsonuserCorreo);
+//			
+//			
+//			Iterator<JSONObject> iter = ja.iterator();//jsonUsuariosCorreo.iterator(); 
+//			while(iter.hasNext()){
+//				log.info(iter.toString());
+//				JSONObject node = iter.next();
+//				log.info(node.get("idUser").toString());
+//				log.info(node.get("perfil").toString());
+//				log.info(node.get("emailUniprotec").toString());
+//				log.info(node.get("emailGmail").toString());
+//				
+//				UserCorreo userCorreo = new UserCorreo(Long.valueOf(node.get("idUser").toString()),node.get("perfil").toString(),node.get("emailUniprotec").toString(),node.get("emailGmail").toString());
+//				usersCorreo.add(userCorreo);
+//			}
+			
+			return usersCorreo;
+		
 	}
-
-
-
-	private void printWSEdicion(AsignacionModelo asignacion, String string) {
-		log.info("_________________________________________");
-		log.info(string);
-		log.info(":"+asignacion.toString());  //OK
-	}
+	
+	
+	
+	
 	
 	private String hora() {
 		
@@ -199,5 +208,21 @@ public class AplicacionService implements IAplicacionService {
 		
 		return hourFormat.format(date);
 	}
+
+
+
+	@Override
+	public StatusVO enviaMail(AsignacionModelo asignacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	
+
+
+
+	
 	
 	}
