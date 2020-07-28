@@ -327,6 +327,40 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    
 	}
 	
+	public ResultVO objetoGetIdCorreo(String urlCrudAsignacion, String idAsignacion) {
+		String urlGetId = URL_CRUD+urlCrudAsignacion + "/" +idAsignacion;
+		log.info(urlGetId);
+		HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+// 	     headers.add("Authorization", "Bearer " + token);
+ 	     
+ 	    HttpEntity<?> entity = new HttpEntity<>(headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(urlGetId, HttpMethod.GET, entity, JSONObject.class);
+//		    log.info(resultVO.toString());
+//		    resultVO = asignaResponseObject(response);
+	  	     
+			return asignaResponseObject(response);
+			
+		} catch (Exception e) {
+			
+				JSONObject jsonResponse = new JSONObject();
+			    ResultVO rs = new ResultVO();
+			    rs.setJsonResponse(jsonResponse);
+			    e.printStackTrace();
+			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			        
+				return rs;
+		}
+	}
+
+
+
+
+
+	
 	
 	
 	
@@ -426,7 +460,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		}
 	    
 	}
-
 
 
 

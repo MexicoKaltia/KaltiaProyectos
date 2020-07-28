@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -86,10 +87,29 @@ public class AsignacionService implements IAsignacionService{
 		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
+			log.info(rs.getJsonResponse().toJSONString());
 			JSONObject jsonAsignaciones = new JSONObject();
 			jsonAsignaciones.put("asignaciones", jsonGeneral.get("asignaciones"));
 			
 			rs.setJsonResponseObject(jsonAsignaciones);
+//			log.info(jsonGeneral.toString());
+//			log.info(rs.toString());
+			return rs;
+		}else {
+			return rs;
+		}
+	}
+	
+	@Override
+	public ResultVO consultaAsignacionCorreo(String idAsignacion) {
+		
+		ResultVO rs= (ResultVO) baseClientRest.objetoGetIdCorreo(BaseClientRest.URL_CRUD_ASIGNACION,  idAsignacion);
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
+			log.info(rs.getJsonResponse().toJSONString());
+			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("asignacion"));
+			
+//			rs.setJsonResponseObject(jsonAsignaciones);
 //			log.info(jsonGeneral.toString());
 //			log.info(rs.toString());
 			return rs;

@@ -12,12 +12,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/crud/clientes", "/crud/cliente/{id}",
-				"/crud/instructores",
-				"/crud/cursos",
-				"/crud/vendedores",
-				"/crud/usuarios",
-				"/crud/clientes/page/**", "/crud/uploads/img/**", "/", "/css/**" , "/scripts/**" , "/images/**" ).permitAll()
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/crud/asignacion/{id}", "/crud/cliente/{id}",
+//				"/crud/instructores",
+//				"/crud/cursos",
+//				"/crud/vendedores",
+//				"/crud/usuarios",
+//				"/crud/clientes/page/**", "/crud/uploads/img/**",
+				"/", "/css/**" , "/scripts/**" , "/images/**" ).permitAll()
 		.antMatchers(HttpMethod.POST, "/crud/cliente",
 				"/crud/instructor",
 				"/crud/curso",

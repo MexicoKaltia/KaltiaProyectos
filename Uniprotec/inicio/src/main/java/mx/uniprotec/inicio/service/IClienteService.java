@@ -9,6 +9,7 @@ public interface IClienteService {
 	public ResultVO edicionCliente(ClienteModelo cliente , String token);
 	public ResultVO consultaClientes( String token);
 	public ResultVO consultaCliente(String token, Long idClienteAsignacion);
+	public ResultVO consultaClienteCorreo(String idClienteAsignacion);
 	
 	
 

@@ -17,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -305,6 +306,39 @@ public class ControllerInicio extends HttpServlet{
 					mav.addObject("ejecucion", ejecucion);
 					mav.addObject("ejecucion2", ejecucion2);
 					mav.addObject("error", error);
+					return mav;
+				}else {
+					mav.addObject("consulta", true);
+					log.info("NOK ConsultaAsignacionInstructor");
+					return mav;
+				}
+			}
+		
+		@GetMapping("/CAsignacionIC/{idAsignacion}/{idInstructor}/")
+		public ModelAndView consultaAsignacionInstructorCorreo(@PathVariable String idAsignacion, @PathVariable String idInstructor) {
+				log.info("Consulta Instructor Correo model Activo");
+				
+				ResultVO rs = asignacionService.consultaAsignacionCorreo(idAsignacion);
+				JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
+				JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("asignacion"));
+
+				ModelMap model =new ModelMap();
+//				model.addAttribute("asignacionItem", asignacion);
+				model.addAttribute("asignacion", jsonUsuario);
+
+				if(jsonUsuario.get("idInstructorAsignacion").toString().equals(idInstructor)) {
+					ResultVO rs1 = clienteService.consultaClienteCorreo(jsonUsuario.get("idClienteAsignacion").toString());
+					jsonObject = (JSONObject) rs1.getJsonResponse();
+					JSONObject jsonCliente = new JSONObject((Map) jsonObject.get("clientes"));
+
+					model.addAttribute("cliente", jsonCliente);
+				}
+				log.info(model.toString());
+				ModelAndView mav = new ModelAndView("CAsignacionIC", model);
+				if(rs.getCodigo() != 500) {
+//					mav.addObject("ejecucion", ejecucion);
+//					mav.addObject("ejecucion2", ejecucion2);
+//					mav.addObject("error", error);
 					return mav;
 				}else {
 					mav.addObject("consulta", true);

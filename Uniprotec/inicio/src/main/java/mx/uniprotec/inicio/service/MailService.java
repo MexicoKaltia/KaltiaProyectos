@@ -44,12 +44,13 @@ public class MailService implements IMailService{
 	@Override
 	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion, String token) {
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
-		INSTRUCTOR_PRE.add("olivier.sanchez@uniprotec.net");
+		INSTRUCTOR_PRE.add("que.nuevo@hotmail.com");
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
-		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
-		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
-
+		STAFF_PRE.add("kaltiaservicios@gmail.com");
+//		STAFF_PRE.add("Rosibautistan@hotmail.com");
+//		STAFF_PRE.add("hugo.rivas@kaltiaservicios.tech");
+		
 		
 		String staffDestino ;
 		String referencia ;
@@ -251,7 +252,7 @@ public class MailService implements IMailService{
 		 log.info("Correo Destino: "+mailVO.getDestinatarioMailList().toString());
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
-	  String correoEnvia = "notificacion@control-uniprotec.com";
+	  String correoEnvia = "notificacion1@control-uniprotec.com";
 	  String claveCorreo = "Uniprotec2020#";
 	 
 	  // La configuración para enviar correo
@@ -276,8 +277,6 @@ public class MailService implements IMailService{
 	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Uniprotec"));
 	 
 	   // Los destinatarios
-//	   hrivas.cortes@gmail.com, hugo.rivas@kaltiaservicios.tech
-//	   InternetAddress[] myToList = InternetAddress.parse("gopi.mani@xyz.com,Maimsa.SF@xyz.com");
 	   InternetAddress[] internetAddresses=  InternetAddress.parse(mailVO.getDestinatarioMail()) ;
 
 	 

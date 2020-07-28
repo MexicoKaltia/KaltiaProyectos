@@ -135,5 +135,21 @@ public class ClienteService implements IClienteService {
 		}
 	}
 	
+	@Override
+	public ResultVO consultaClienteCorreo(String idClienteAsignacion) {
+		
+		ResultVO rs = (ResultVO) baseClientRest.objetoGetIdCorreo(BaseClientRest.URL_CRUD_CLIENTE, idClienteAsignacion.toString());
+		
+		if(rs.getCodigo() == 202) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonClientes = new JSONObject();
+			jsonClientes.put("clientes", jsonGeneral.get("clientes"));
+			
+//			rs.setJsonResponseObject(jsonClientes);
+			return rs;
+		}else {
+			return rs;
+		}
+	}
 
 }

@@ -77,13 +77,13 @@ public class AsignacionRestController {
 		try {
 			asignacion = asignacionService.findById(id);
 			if(asignacion == null) {
-				response.put("mensaje", "Error: no se pudo editar, asignacion ID: "
+				response.put("mensaje", "Error: no se pudo encontrar, asignacion ID: "
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				 response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
 				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
-			 response.put("asignacion ", asignacion );
+			 response.put("asignacion", asignacion );
 			 response.put("mensaje", "Exito en la busqueda de asignacion ");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());

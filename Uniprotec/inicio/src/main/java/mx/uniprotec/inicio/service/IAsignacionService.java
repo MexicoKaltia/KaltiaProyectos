@@ -8,6 +8,7 @@ public interface IAsignacionService {
 	public ResultVO altaAsignacion(AsignacionModelo asignacion, String token, Long idUsuario);
 	public ResultVO edicionAsignacion(AsignacionModelo asignacion, String token, String status);
 	public ResultVO consultaAsignacion(String token);
+	public ResultVO consultaAsignacionCorreo(String idAsignacion);
 	
 	
 
