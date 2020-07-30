@@ -28,6 +28,11 @@ $(document).ready(function(){
 		];
 		
 	$("#diaControl").html("<i>"+DIA[f.getDay()]+" "+f.getDate()+" de "+ MESES[f.getMonth()]+ " "+ f.getFullYear()+"</i>");
+	
+	$('#anuncio').click(function(){	
+		$('#myModal').modal();
+	})
+	
 	 	
 });  // fin de documento JQuery
 

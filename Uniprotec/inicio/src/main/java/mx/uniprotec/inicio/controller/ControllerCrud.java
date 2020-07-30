@@ -617,6 +617,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	@PostMapping("/actualizaUsuario")
 	public ModelAndView actualizaUsuario(@ModelAttribute("usuarioForm") UsuarioModelo usuario, ModelMap model) {
 		log.info("ActualizaUsuario model Activo");
+		log.info(usuario.toString());
 			model.addAttribute("usuarioForm", new UsuarioModelo());
 				
 			ResultVO resultVO = (ResultVO)model.get("model");
@@ -626,7 +627,6 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			ModelAndView mav = new ModelAndView("redirect:/BUsuario", model);
 			if(rs.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-//				log.info(model.values().toString());
 				mav.addObject("ejecucion", true);
 			}else {
 				mav.addObject("error", true);		
@@ -634,47 +634,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			return mav;
 		}
 
-	@GetMapping("/CUsuario")
-	public ModelAndView CUsuario(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
-			@RequestParam(name="error", required=false) boolean error,
-			ModelMap model) {
-		
-		
-		if(model.equals(null)) {
-			log.info("NULL");
-			return new  ModelAndView("login");
-		}else {
-			log.info("CUsuario model Activo");
-			
-			ResultVO resultVO = (ResultVO)model.get("model");
-			
-			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
-			
-			ResultVO rs = usuarioService.consultaUsuario(resultVO.getAccesToken(), jsonUsuario.get("id").toString());
-			JSONObject jsonObject2 = (JSONObject) rs.getJsonResponseObject();
-//			log.info(jsonObject2.toJSONString());
-			JSONObject jsonUsuario2 = new JSONObject((Map) jsonObject2.get("usuario"));
-			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-			
-			UsuarioModelo usuario = new UsuarioModelo(Long.valueOf(jsonUsuario2.get("idUsuario").toString()),
-					jsonUsuario2.get("passwordUsuario").toString(),
-					jsonUsuario2.get("nombreUsuario").toString(),
-					jsonUsuario2.get("emailUsuario").toString(),
-					jsonUsuario2.get("notaUsuario").toString(),
-					jsonUsuario2.get("perfilUsuario").toString());
-//			log.info(rs.getJsonResponseObject().toJSONString());
-			
-			model.addAttribute("usuarioForm", usuario);
-			
-			
-			ModelAndView mav = new  ModelAndView("CUsuario", model );
-			model.addAttribute("model", resultVO);
-			mav.addObject("error", error);
-			mav.addObject("ejecucion", ejecucion);
-			return mav;
-		}	
-	}
+	
 
 	//Fin de clase
 }

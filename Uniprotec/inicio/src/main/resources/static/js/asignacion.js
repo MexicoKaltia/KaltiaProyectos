@@ -239,7 +239,7 @@ var alerta, proceso;
 	function validaCliente(){
 		$.asignaCliente = $('#asignaCliente').val()
 		$.asignaClienteTexto = $("#asignaCliente option:selected").text();
-		console.log("asignaCliente:"+ $.asignaCliente);
+//		console.log("asignaCliente:"+ $.asignaCliente);
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		
@@ -363,7 +363,7 @@ var alerta, proceso;
 		 * Validacion ValorCampo
 		 */
 		$.asignaCurso = $('#asignaCurso').val();
-		console.log("asignaCurso:"+ $.asignaCurso);
+//		console.log("asignaCurso:"+ $.asignaCurso);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -395,7 +395,7 @@ var alerta, proceso;
 				}
 			}
 		}
-		console.log(arrayInstructores);
+//		console.log(arrayInstructores);
 		/*
 		 * Valida dias de Ausencia
 		 */
@@ -408,7 +408,7 @@ var alerta, proceso;
 			}
 		}
 		arrayInstructores = instructoresDiaAusencia ;
-		console.log(arrayInstructores);
+//		console.log(arrayInstructores);
 		
 		var regionInstructor;
 		var regionCliente;
@@ -428,7 +428,7 @@ var alerta, proceso;
 				$('#btnAsignaCurso').attr("disabled", true);
 			}else{
 				var jsonCliente;
-				console.log(asignacionClientes);
+//				console.log(asignacionClientes);
 				for (i in asignacionClientes){
 					if(asignacionClientes[i].idCliente === ($('#asignaCliente').val() * 1)){
 						jsonCliente = asignacionClientes[i];
@@ -454,7 +454,7 @@ var alerta, proceso;
 					instructoresDiaSelect.push(instructor);
 				}
 			}
-				 console.log(instructoresDiaSelect);
+//				 console.log(instructoresDiaSelect);
 				//validar D-1
 			for(i in instructoresDiaSelect){
 				 instructor = instructoresDiaSelect[i];
@@ -465,7 +465,7 @@ var alerta, proceso;
 					instructoresDmin1.push(instructor);
 				}
 			}
-			console.log(instructoresDmin1);
+//			console.log(instructoresDmin1);
 			//validar D+1
 			for(e in instructoresDmin1){
 				instructor = instructoresDmin1[e];
@@ -473,12 +473,13 @@ var alerta, proceso;
 				 nombreInstructor = instructor.nombreInstructor
 				regionInstructor = instructor.regionInstructor.idRegion;
 				regionInstructor = instructor.regionInstructor.idRegion;
-				if(validaDmas1(asignaFecha, regionCliente, regionInstructor)){
-					instructoresDmas1.push(instructoresDmin1[e]);
+//				if(validaDmas1(asignaFecha, regionCliente, regionInstructor)){
+				if(validaDmas1(regionCliente, idInstructor)){
+					instructoresDmas1.push(instructor);
 					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
 				}
 			}
-			console.log(instructoresDmas1);
+//			console.log(instructoresDmas1);
 			
 		}else{
 			//validar dia seleccion
@@ -557,7 +558,7 @@ var alerta, proceso;
 			dia = "0"+dia.toString();
 		if(mes<10)
 			mes = "0"+mes.toString();
-		var dmin1Texto = dia +"/"+ mes +"/"+ anio ;
+		var dmin1Texto = mes +"/"+ dia +"/"+ anio ;
 //		console.log(dmin1Texto);
 //		console.log(asignacionAsignaciones);
 		for(i in asignacionAsignaciones){
@@ -567,15 +568,47 @@ var alerta, proceso;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 			if(asignacionFecha === dmin1Texto && (asignacionInstructor === idInstructor)){
 				idRegionAsignado = getRegionAsignado(asignacion.idClienteAsignacion);
-				console.log(idRegionAsignado);
+//				console.log(idRegionAsignado);
 				return validaZonaBase(regionCliente, idRegionAsignado);
 			}
 		}
 		return true;
 	}
 	
-	function validaDmas1(asignaFecha, regionCliente, regionInstructor){
-		return true
+	function validaDmas1(regionCliente, idInstructor){
+//		console.log("regionCliente:"+regionCliente);
+//		console.log("idInstructor:"+idInstructor);
+//		var flagDiaAnterior;
+		var asignacion;
+		var asignacionFecha;
+		var asignacionInstructor;
+		var idRegionAsignado;
+		var asignacionesDmin1 = new Array();
+		var asignaFechaMin1 = $.asignaFecha.split("/");
+		var dmas1 = new Date(asignaFechaMin1[2] +"/"+ asignaFechaMin1[1] +"/"+ asignaFechaMin1[0]);
+		dmas1.setDate(dmas1.getDate() + 1);
+		var dia = dmas1.getDate();
+		var mes = (dmas1.getMonth()+1);
+		var anio =dmas1.getFullYear();
+		if(dia<10)
+			dia = "0"+dia.toString();
+		if(mes<10)
+			mes = "0"+mes.toString();
+		var dmas1Texto = mes +"/"+ dia +"/"+ anio ;
+//		console.log("dmas1Texto:"+dmas1Texto);
+//		console.log(asignacionAsignaciones);
+		for(i in asignacionAsignaciones){
+			asignacion = asignacionAsignaciones[i];
+			asignacionFecha = asignacion.fechaAsignacion;
+			asignacionInstructor = asignacion.idInstructorAsignacion;
+//			console.log(asignacionFecha);
+			if((asignacionFecha === dmas1Texto) && (asignacionInstructor === idInstructor)){
+				idRegionAsignado = getRegionAsignado(asignacion.idClienteAsignacion);
+//				console.log(idRegionAsignado);
+				return validaZonaBase(regionCliente, idRegionAsignado);
+			}
+		}
+		return true;
 	}
 	
 	function validaZonaBase(regionCliente, regionInstructor){
@@ -600,7 +633,7 @@ var alerta, proceso;
 	function validaInstructor(){
 		
 		$.asignaInstructor = $('#asignaInstructor').val()
-		console.log("asignaInstructor:"+ $.asignaInstructor);
+//		console.log("asignaInstructor:"+ $.asignaInstructor);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -631,7 +664,7 @@ var alerta, proceso;
 	
 	function validaHorarioInicio(){
 		$.asignaHorarioInicio = $('#asignaHorarioInicio').val();
-		console.log("asignaHorarioInicio:"+ $.asignaHorarioInicio+".");
+//		console.log("asignaHorarioInicio:"+ $.asignaHorarioInicio+".");
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -756,7 +789,7 @@ var alerta, proceso;
 	function validaParticipantes(){
 		
 		$.asignaParticipantes = $('#asignaParticipantes').val();
-		console.log("asignaParticipantes:"+ $.asignaParticipantes);
+//		console.log("asignaParticipantes:"+ $.asignaParticipantes);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -777,7 +810,7 @@ var alerta, proceso;
 	}
 	function validaNivel(){
 		$.asignaNivel = $('#asignaNivel').val();
-		console.log("asignaNivel:"+ $.asignaNivel);
+//		console.log("asignaNivel:"+ $.asignaNivel);
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		$('#alertaCurso').remove();

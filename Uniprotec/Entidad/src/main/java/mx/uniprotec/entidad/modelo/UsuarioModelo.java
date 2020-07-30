@@ -21,7 +21,7 @@ public class UsuarioModelo implements Serializable {
 	private String passwordUsuario;
 	private String perfilUsuario;
 	private String nombreUsuario;
-	
+	private String passwordUsuarioOld;
 	private String emailUsuario;
 	private String notaUsuario;
 	private Long userCreateUsuario;
@@ -34,17 +34,18 @@ public class UsuarioModelo implements Serializable {
 	public String toString() {
 		return "UsuarioModelo [idUsuario=" + idUsuario + ", usernameUsuario=" + usernameUsuario + ", passwordUsuario="
 				+ passwordUsuario + ", perfilUsuario=" + perfilUsuario + ", nombreUsuario=" + nombreUsuario
-				+ ", emailUsuario=" + emailUsuario + ", notaUsuario=" + notaUsuario + ", userCreateUsuario="
-				+ userCreateUsuario + ", createAtUsuario=" + createAtUsuario + ", statusUsuario=" + statusUsuario + "]";
+				+ ", passwordUsuarioOld=" + passwordUsuarioOld + ", emailUsuario=" + emailUsuario + ", notaUsuario="
+				+ notaUsuario + ", userCreateUsuario=" + userCreateUsuario + ", createAtUsuario=" + createAtUsuario
+				+ ", statusUsuario=" + statusUsuario + "]";
 	}
-	
+		
 	
 
-	public UsuarioModelo(Long idUsuario, String passwordUsuario, String nombreUsuario, String emailUsuario,
+	public UsuarioModelo(Long idUsuario, String usernameUsuario, String nombreUsuario, String emailUsuario,
 			String notaUsuario, String perfilUsuario) {
 		super();
 		this.idUsuario = idUsuario;
-		this.passwordUsuario = passwordUsuario;
+		this.usernameUsuario = usernameUsuario;
 		this.nombreUsuario = nombreUsuario;
 		this.emailUsuario = emailUsuario;
 		this.notaUsuario = notaUsuario;
@@ -146,6 +147,18 @@ public class UsuarioModelo implements Serializable {
 	public void setStatusUsuario(String statusUsuario) {
 		this.statusUsuario = statusUsuario;
 	}
+
+	public String getPasswordUsuarioOld() {
+		return passwordUsuarioOld;
+	}
+
+	public void setPasswordUsuarioOld(String passwordUsuarioOld) {
+		this.passwordUsuarioOld = passwordUsuarioOld;
+	}
+
+
+
+
 	
 		
 	

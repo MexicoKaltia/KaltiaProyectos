@@ -147,7 +147,7 @@ public class AsignacionRestController {
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			
 			asignacionNew = asignacionService.save(asignacionNew);
-			response.put("asignacion ", asignacionNew );
+			 response.put("asignacion", asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
@@ -224,7 +224,7 @@ public class AsignacionRestController {
 			asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
 			
 			asignacionUpdated = asignacionService.save(asignacionActual);
-			response.put("asignacion ", asignacionUpdated  );
+			response.put("asignacion", asignacionUpdated  );
 			 response.put("mensaje", "Asignacion actualizada con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());

@@ -34,6 +34,7 @@ public class MailService implements IMailService{
 	
 	
 	private static Logger log = LoggerFactory.getLogger(MailService.class);
+	private final String PLANTILLA_CORREO = "/uniprotec/templates/PlantillaCorreo.html"; //"\\uniprotec\\templates\\PlantillaCorreo.html";
 	
 	@Autowired
 	IAplicacionService aplicacionService;
@@ -43,17 +44,24 @@ public class MailService implements IMailService{
 	
 	@Override
 	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion, String token) {
+		
+		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
-		INSTRUCTOR_PRE.add("que.nuevo@hotmail.com");
+//		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
+		INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
 		STAFF_PRE.add("kaltiaservicios@gmail.com");
-//		STAFF_PRE.add("Rosibautistan@hotmail.com");
-//		STAFF_PRE.add("hugo.rivas@kaltiaservicios.tech");
+		STAFF_PRE.add("operacion@uniprotec.net");
+		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
+		STAFF_PRE.add("gasparinho@hotmail.fr");
+//		STAFF_PRE.add("gasparinho@hotmail.fr");
 		
+		log.info(asignacion.toString());
 		
 		String staffDestino ;
-		String referencia ;
+		String referenciaBase = "http://45.80.153.253:8015/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
+		String referencia;
 		String nombreBoton ;
 		String subTitulo;
 		String[] envioCorreos = {"Instructor", "Staff"};
@@ -82,13 +90,14 @@ public class MailService implements IMailService{
 			if(envioCorreos[i].equals("Instructor")) {
 				MailVO mailVO = new MailVO();		
 				staffDestino = asignacion.getInstructorAsignacion();
-				referencia = "www.control-uniprotec.com";
-				nombreBoton = " Revisar expediente cliente y confimar asignación. ";
-				subTitulo = "El presente correo tiene la finalidad de notificarle su nueva asignación";
 				
+				nombreBoton = " Revisar expediente cliente y confimar asignaci&oacute;n. ";
+				subTitulo = "El presente correo tiene la finalidad de notificarle su nueva asignaci&oacute;n";
+				referencia = referenciaBase.concat(asignacion.getIdInstructorAsignacion().toString());
 				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
-				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
+//				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
+				mailVO.setMensajeMail(PLANTILLA_CORREO );
 				mailVO.setDestinatarioMailList(correoInstructor);
 				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
 				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
@@ -100,13 +109,14 @@ public class MailService implements IMailService{
 			}else if(envioCorreos[i].equals("Staff")) {
 				MailVO mailVO = new MailVO();
 				staffDestino = "Equipo Staff Uniprotec";
-				referencia = "www.control-uniprotec.com";
+				referencia = referenciaBase.concat("0");
 				nombreBoton = " Revisar expediente cliente";
-				subTitulo = "El presente correo tiene la finalidad de notificar la nueva asignación";
+				subTitulo = "El presente correo tiene la finalidad de notificar la nueva asignaci&oacute;n";
 				
 				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
-				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
+//				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
+				mailVO.setMensajeMail(PLANTILLA_CORREO );
 				mailVO.setDestinatarioMailList(correoStaff);
 				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				mailVO.setDestinatarioMailList(STAFF_PRE);
@@ -131,16 +141,16 @@ public class MailService implements IMailService{
 		
 		String body =	 "<div class='row'>" + 
 				"<div class='col-md-12'>" + 
-				"<h3 class='text-left' style='text-align: center;'>Buen D&iacute;a: "+ staffDestino +"</h3>" + 
-				"<p class='text-left text-primary lead' style='text-align: center;'>"+ subTitulo +": <b><strong>"+ asignacion.getIdAsignacionLogica() +"</strong></b>.</p>" + 
-				"<p class='text-left text-primary lead' style='text-align: center;'>Con los siguientes datos:</p>" + 
+				"<h3 class='text-left' style='text-align: left;'>Buen D&iacute;a: "+ staffDestino +"</h3>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'>"+ subTitulo +": <b><strong>"+ asignacion.getIdAsignacionLogica() +"</strong></b>.</p>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'>Con los siguientes datos:</p>" + 
 				"<div class='col-md-2'>" + 
-				"<table style='height: 520px; width: 60%; border-collapse: collapse; border-style: double; border-color: blue; background-color: #D6FBFC; margin-left: auto; margin-right: auto;' border='3'>" + 
+				"<table style='height: 520px; width: 75%; border-collapse: collapse; border-style: inset; border-color: blue; background-color: #D6FBFC; margin-left: 20; margin-right: auto;' border='3'>" + 
 				"<tbody>" + 
 				 
 				"<tr style='height: 53px;'>" + 
 				"<td style='width: 100%; height: 53px;'>" + 
-				"<h5 class='card-title' style='text-align: left;'>Resumen de asignacion</h5>" + 
+				"<b><h3  style='text-align: left;'>Resumen de asignaci&oacute;n</h3></b>" + 
 				"</td>" + 
 				"</tr>" + 
 				"<tr style='height: 46px;'>" + 
@@ -170,7 +180,14 @@ public class MailService implements IMailService{
 				"<li>Fecha : <b>"+fecha(asignacion.getFechaAsignacion())+"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
-				"</tr>" + 
+				"</tr>" +
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Tipo de curso : <b>"+ asignacion.getTipoCursoAsignacion() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" +
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul>" + 
@@ -209,7 +226,7 @@ public class MailService implements IMailService{
 				"<tr style='height: 46px;'>" + 
 				"<td style='width: 100%; height: 46px;'>" + 
 				"<ul class='list-group'>" + 
-				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Nombre de Ventas : <b>"+ asignacion.getUserCreateAsignacionTexto() +"</b></li>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Vendedor : <b>"+ asignacion.getUserCreateAsignacionTexto() +"</b></li>" + 
 				"</ul>" + 
 				"</td>" + 
 				"</tr>" +
@@ -228,11 +245,11 @@ public class MailService implements IMailService{
 				"</div>" + 
 				"<br /><br />" + 
 				"<div class='row'>" + 
-				"<div class='col-md-12' style='text-align: left;'><address><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uniprotec.</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ambar 20 Mision Mariana , Corregidora, Querétaro, 76903 <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Santiago de Queretaro<br /><abbr title='Phone'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P:</abbr> + 52 - 4423341671</address></div>" + 
-				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Ha recibido este correo electrónico porque está suscrito como usuario registrado del sistema control-uniprotec.com .</small></em></p>" + 
+				"<div class='col-md-12' style='text-align: left;'><address><strong>Uniprotec.</strong><br/> Ambar 20 Misi&oacute;n Mariana , Corregidora, Quer&eacute;taro, 76903 <br /> Santiago de Quer&eacute;taro<br /><abbr title='Phone'> P:</abbr> + 52 - 4423341671</address></div>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Ha recib&iacute;do este correo electr&oacute;nico porque est&aacute; suscrito como usuario registrado del sistema control-uniprotec.com .</small></em></p>" + 
 				"</div>" + 
 				"</div>" + 
-				"";
+				"</body></html>";
 		
 		
 		return body;
@@ -396,7 +413,12 @@ public class MailService implements IMailService{
 		String hr ="Horario : "+ horario[0].substring(0,2)+":00 - "+horario[1].substring(0,2)+":00 . ";
 		
 		if( horario[2] != null && !horario[2].equals("")) {
-			hr = hr +"Receso : "+ horario[2].substring(0,2)+":"+horario[2].substring(2,2) +" - "+ horario[3].substring(0,2)+":"+horario[3].substring(2,2);
+			if(horario[2].contains("Sede")) {
+				hr = hr +"Receso : Definir en sede el horario de receso. ";
+			}else {
+				hr = hr +"Receso : "+ horario[2].substring(0,2)+":"+horario[2].substring(2,2) +" - "+ horario[3].substring(0,2)+":"+horario[3].substring(2,2);
+			}
+			
 		}
 		
 		hr = hr +"Horas Efectivas : "+ horario[4];

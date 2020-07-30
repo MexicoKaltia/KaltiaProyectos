@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTECT V 1.0 PROTOTIPO.</title>
+    <title>UNIPROTECT V 1.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
@@ -210,13 +210,13 @@
                             <span th:if='${ejecucion}'>
 								<div class="alert alert-success" role="alert" id="dataExito">
 		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Actualizado correctamente el Usuario.</u>
+									<b>Éxito : </b><u>Se ha Actualizado correctamente el Password de Usuario.</u>
 								</div>
 							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revisión : </b><u>No se Actualizó Usuario, Verifique datos. </u>
+									<b>Revisión : </b><u>No se Actualizó Usuario, Verifique datos. Pasword Anterior No Corresponde</u>
 								</div>
 							</span>
 							<span th:if='${consulta}'>
@@ -234,7 +234,13 @@
                     <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">USUARIO UNIPROTEC</h5>
-                                <form id="altaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaUsuario}"  th:object="${usuarioForm}" method="post">
+                                <form id="altaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaUsuarioPass}"  th:object="${usuarioForm}" method="post">
+                                   <input type="hidden" id="idUsuario" th:field="*{idUsuario}" />
+                                   <input type="hidden" id="usernameUsuario" th:field="*{usernameUsuario}" />
+<!--                                    <input type="hidden" id="passwordUsuario" th:field="*{passwordUsuarioOld}" /> -->
+<!--                                    <input type="hidden" id="nombreUsuario" th:field="*{nombreUsuario}" /> -->
+<!--                                    <input type="hidden" id="emailUsuario" th:field="*{emailUsuario}" /> -->
+                                   
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Vendedor</label>
@@ -255,7 +261,7 @@
                                       <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom01">Password Anterior</label>
-                                            <input type="password" class="form-control"  id="passAnterior" name="passAnterior" placeholder="Capture Anterior Pass " value=""  maxlength="100" required>
+                                            <input type="password" class="form-control"  id="passAnterior" name="passAnterior" placeholder="Capture Anterior Pass " value=""  th:field="*{passwordUsuarioOld}" maxlength="100" required onblur="capturePass()">
                                             <div class="invalid-feedback">
                                                 Capturar Password Anterior
                                             </div>
@@ -264,7 +270,7 @@
                                         <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom01">Password Nuevo</label>
-                                            <input type="password" class="form-control"  id="passNuevo" name="passNuevo" placeholder="Capture Nuevo Password" value=""  maxlength="100" required>
+                                            <input type="password" class="form-control"  id="passNuevo" name="passNuevo" placeholder="Capture Nuevo Password" value=""  maxlength="100" required disabled>
                                             <div class="invalid-feedback">
                                                 Capturar Password Nuevo
                                             </div>
@@ -273,12 +279,13 @@
                                         <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom01">Confirmar Password</label>
-                                            <input type="password" class="form-control"  id="passConfirm" name="passConfirm" placeholder="Confirme Nuevo Password" value=""  maxlength="100" th:field="*{passwordUsuario}" required>
+                                            <input type="password" class="form-control"  id="passConfirm" name="passConfirm" placeholder="Confirme Nuevo Password" value=""  maxlength="100" th:field="*{passwordUsuario}" required disabled> 
                                             <div class="invalid-feedback">
                                                 Confirme Nuevo Password
                                             </div>
                                         </div>
                                      </div>
+                                     <div id='alertPass'></div>
                                      </div>
                                   
                                   <div class="form-row">
@@ -289,7 +296,7 @@
 							         </div>
                                         
                                 <br>
-                                  <button class="btn btn-primary" type="submit">Edicion Usuario</button>
+                                  <button class="btn btn-primary" id="submitPass" type="submit" >Edicion Usuario</button>
                                 </form>
                                 <script>
                                     (function() {
@@ -345,11 +352,8 @@
 </div>   <!-- app-container -->
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
-    <script type="text/javascript">
-  // run pre selected options
-  $('#listClienteVendedor').multiSelect();
-  </script>
+    <script type="text/javascript" th:src="@{js/cusuario.js}"></script>
+    
     
 </body>
 

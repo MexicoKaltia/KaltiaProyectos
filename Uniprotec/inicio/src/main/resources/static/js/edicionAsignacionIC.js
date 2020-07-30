@@ -4,7 +4,7 @@ $(document).ready(function(){
 	
 	console.log(asignacionItem);
 
-	 $.asignaFecha = ordenaFecha(asignacion.fechaAsignacion);
+	 $.asignaFecha = valoresFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
 	 $.asignaFechaCalendario = ""; 
 	 $.asignaCliente =asignacionItem.idClienteAsignacion ;
@@ -26,6 +26,36 @@ $(document).ready(function(){
 	 $.asignaStatus=asignacionItem.statusAsignacion;
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
+	 
+		//--------------------------------------------------
+		$('#fechaAsignacion').append("<h4><b>"+$.asignaFecha+"</b></h4><br>");
+		//--------------------------------------------------
+		$('#clienteAsignacion').html($.asignaClienteTexto);
+//		$('#clienteAsignacion2').html($.regionCliente);
+		//--------------------------------------------------
+		$('#cursoAsignacion').append("<h4><b>"+$.asignaCursoTexto+" : "+$.asignaTipoCurso+"</b></h4>");
+		//--------------------------------------------------
+		$('#instructorAsignacion').append("<h4><b>"+$.asignaInstructorTexto+"</b></h4>");
+		//--------------------------------------------------
+		$('#horarioAsignacion').append("<h4><b>"+$.asignaHorario+"</b></h4>");
+		//--------------------------------------------------
+		$('#participantesAsignacion').append("<h4><b>"+$.asignaParticipantes+"</b></h4>");
+		//--------------------------------------------------
+		$('#nivelAsignacion').append("<h4><b>"+$.asignaNivel+"</b></h4>");
+		//--------------------------------------------------
+		$('#observacionesAsignacion').append("<h4><b>"+$.asignaObservaciones+"</b></h4>");
+		//--------------------------------------------------
+		$('#archivosAsignacion').append("<a id='link'><h4><b>"+$.asignaArchivos+"</b></h4></a>");
+		//--------------------------------------------------
+		$("#link").attr('href', '/uploads/fileAsignacion/'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivosAsignacion)
+//	    $("#link").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
+		//--------------------------------------------------
+		$('#statusAsignacion1').html($.asignaStatus);
+		$('#statusAsignacion0').val($.asignaStatus);
+		
+//		$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
+		
+
 	 
 		function ordenaFecha(fecha){
 			fecha = fecha.split("/");
@@ -92,34 +122,6 @@ $(document).ready(function(){
 			return zonaCliente;
 		}
 	
-	//--------------------------------------------------
-	$('#fechaAsignacion').append("<h4><b>"+$.asignaFecha+"</b></h4><br>");
-	//--------------------------------------------------
-	$('#clienteAsignacion').html($.asignaClienteTexto);
-//	$('#clienteAsignacion2').html($.regionCliente);
-	//--------------------------------------------------
-	$('#cursoAsignacion').append("<h4><b>"+$.asignaCursoTexto+" : "+$.asignaTipoCurso+"</b></h4>");
-	//--------------------------------------------------
-	$('#instructorAsignacion').append("<h4><b>"+$.asignaInstructorTexto+"</b></h4>");
-	//--------------------------------------------------
-	$('#horarioAsignacion').append("<h4><b>"+$.asignaHorario+"</b></h4>");
-	//--------------------------------------------------
-	$('#participantesAsignacion').append("<h4><b>"+$.asignaParticipantes+"</b></h4>");
-	//--------------------------------------------------
-	$('#nivelAsignacion').append("<h4><b>"+$.asignaNivel+"</b></h4>");
-	//--------------------------------------------------
-	$('#observacionesAsignacion').append("<h4><b>"+$.asignaObservaciones+"</b></h4>");
-	//--------------------------------------------------
-	$('#archivosAsignacion').append("<a id='link'><h4><b>"+$.asignaArchivos+"</b></h4></a>");
-	//--------------------------------------------------
-	$("#link").attr('href', '/uploads/fileAsignacion/'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivosAsignacion)
-//    $("#link").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
-	//--------------------------------------------------
-	$('#statusAsignacion1').html($.asignaStatus);
-	$('#statusAsignacion0').val($.asignaStatus);
-	
-//	$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
-	
 	 
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,9 +129,9 @@ $(document).ready(function(){
    	/*
    	 * ASIGNAR MODAL CLIENTE asignacionCliente
    	 */
-	console.log(asignacionCliente);
+//	console.log(asignacionCliente);
 	$('#nombreCortoCliente').html('<b>'+asignacionCliente.nombreCortoCliente+'</b>');
-	$('#regionCliente').html('<b>'+asignacionCliente.regionCliente.nombreRegion+'</b>');
+	$('#regionCliente').html('<b>'+regionCliente+'</b>');
 	$('#domicilioCliente').html('<b>'+asignacionCliente.domicilioCliente+'</b>');
 	$('#telefonoCliente').html('<b>'+asignacionCliente.telefonoCliente+'</b>');
 	$('#googleMapsCliente').html('<b><a href="'+asignacionCliente.googleMapsCliente+'" target="_blank">Ver Mapa</b>');
@@ -158,6 +160,7 @@ $(document).ready(function(){
    	 * EDICION STATUS MODAL 
    	 */
 	$.sigStatus="";
+	var perfilUsuario = "Instructor";
 	$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 	if(perfilUsuario === "Instructor"){
 		if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
@@ -176,19 +179,9 @@ $(document).ready(function(){
 		}
 	}
 	
-	
-	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-		if($.asignaStatus === "Curso Completado"){
-			$.sigStatus = "Entregables Validado";
-//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
-			$('#verificarEntregable').val(true);
-			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-		}else if($.asignaStatus === "Entregables Validado"){
-			$.sigStatus = "Entregable Enviado";
-//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
-			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
-			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-		}
+	console.log(staff);
+	if(staff){
+		$('#btnStatus').attr("disabled", true);
 	}
 	
 	function validaHoy(fechaAsignacion){
@@ -203,8 +196,32 @@ $(document).ready(function(){
 	
 	
 	
-	console.log($.sigStatus);
-	$('#statusAsignacion').val($.sigStatus);
+	/*
+	*    Submit Asigancion
+	*/
+	        $("#idAsignacion0").val(asignacionItem.idAsignacion);
+			$("#idAsignacionLogica0").val(asignacionItem.idAsignacionLogica);
+			$("#fechaAsignacion0").val(asignacionItem.fechaAsignacion);
+			$("#idClienteAsignacion0").val(asignacionItem.idClienteAsignacion);
+			$("#clienteAsignacion0").val(asignacionItem.clienteAsignacion);
+			$("#idCursoAsignacion0").val(asignacionItem.idCursoAsignacion);
+			$("#cursoAsignacion0").val(asignacionItem.cursoAsignacion);
+			$("#idInstructorAsignacion0").val(asignacionItem.idInstructorAsignacion);
+			$("#instructorAsignacion0").val(asignacionItem.instructorAsignacion);
+			$("#horarioAsignacion0").val(asignacionItem.horarioAsignacion);
+			$("#participantesAsignacion0").val(asignacionItem.participantesAsignacion);
+			$("#nivelAsignacion0").val(asignacionItem.nivelAsignacion);
+			$("#archivosAsignacion0").val(asignacionItem.archivosAsignacion);
+			$("#archivosAsignacionTexto0").val(asignacionItem.archivosAsignacionTexto);
+			$("#observacionesAsignacion0").val(asignacionItem.observacionesAsignacion);
+			$("#idRegionAsignacion0").val(asignacionItem.idRegionAsignacion);
+			$("#nombreRegionAsignacion0").val(asignacionItem.nombreRegionAsignacion);
+			$("#tipoCursoAsignacion0").val(asignacionItem.tipoCursoAsignacion);
+			$("#statusAsignacion0").val(asignacionItem.statusAsignacion);
+			$("#verificarEntregable0").val(asignacionItem.verificarEntregable);
+			$("#userCreateAsignacion0").val(asignacionItem.userCreateAsignacion);
+			$("#userCreateAsignacionTexto0").val(asignacionItem.userCreateAsignacionTexto);	
+			$('#statusAsignacion0').val($.sigStatus);
 	
 	if(perfilUsuario !== "Administracion"){
 		$('#edicionAsignacion').hide();
@@ -221,10 +238,35 @@ $(document).ready(function(){
 //  JScript
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
- *  valores Submit  185755083081
- */
-
+ function valoresFecha(fecha){
+	 var f = new Date(fecha);
+		const MESES = [
+		  "Enero",
+		  "Febrero",
+		  "Marzo",
+		  "Abril",
+		  "Mayo",
+		  "Junio",
+		  "Julio",
+		  "Agosto",
+		  "Septiembre",
+		  "Octubre",
+		  "Noviembre",
+		  "Diciembre",
+		];
+		const DIA = [
+			  "Domingo",
+			  "Lunes",
+			  "Martes",
+			  "Miercoles",
+			  "Jueves",
+			  "Viernes",
+			  "Sabado",
+			];
+			
+//		$("#diaControl").html("<i>"+DIA[f.getDay()]+" "+f.getDate()+" de "+ MESES[f.getMonth()]+ " "+ f.getFullYear()+"</i>");
+		return DIA[f.getDay()]+" "+f.getDate()+" de "+ MESES[f.getMonth()]+ " "+ f.getFullYear();
+ }
 	
 	
 

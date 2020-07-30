@@ -51,6 +51,9 @@ public class AsignacionService implements IAsignacionService{
 		
 		//Envio de correo
 		if(resultVO.getCodigo() != 500) {
+			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+			JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
+			asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
 			aplicacionService.enviaMail(asignacion, token);
 		}
 		return resultVO;
@@ -80,6 +83,26 @@ public class AsignacionService implements IAsignacionService{
 				
 		return resultVO;
 	}
+	
+	@Override
+	public ResultVO edicionAsignacionC(AsignacionModelo asignacion) {
+		
+		me = ComponenteComun.monitorCampos();
+		
+		asignacion.setCreateAtAsignacion(me.getNowEntidad());
+//		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
+		asignacion.setStatusAsignacion(asignacion.getStatusAsignacion());
+		
+		log.info(asignacion.toString());
+		
+		resultVO = (ResultVO) baseClientRest.objetoPutC(
+				BaseClientRest.URL_CRUD_ASIGNACION,
+				asignacion,
+				asignacion.getIdAsignacion());
+				
+		return resultVO;
+	}
+
 
 	@Override
 	public ResultVO consultaAsignacion(String token) {
@@ -107,9 +130,9 @@ public class AsignacionService implements IAsignacionService{
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
 			log.info(rs.getJsonResponse().toJSONString());
-			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("asignacion"));
+			JSONObject jsonAsignaciones = new JSONObject((Map) jsonObject.get("asignacion"));
 			
-//			rs.setJsonResponseObject(jsonAsignaciones);
+			rs.setJsonResponseObject(jsonAsignaciones);
 //			log.info(jsonGeneral.toString());
 //			log.info(rs.toString());
 			return rs;

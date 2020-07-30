@@ -24,6 +24,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.PerfilModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
@@ -41,11 +42,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-//	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
+	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
@@ -228,10 +229,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		        
 		   return rs;
 		}
-	    
-	    
-//	    resultVO = asignaResponseObject(response);
-//		return resultVO;
 	}
 
 
@@ -355,6 +352,32 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 				return rs;
 		}
 	}
+	
+	public ResultVO objetoPutC(String urlCrudAsignacion, AsignacionModelo asignacion, Long idAsignacion) {
+		String urlPut = URL_CRUD+urlCrudAsignacion + "/" +Long.valueOf(idAsignacion).toString();
+		log.info(urlPut);
+		
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+//   	     headers.add("Authorization", "Bearer " + token);
+   	     
+   	    HttpEntity<?> entity = new HttpEntity<>(asignacion, headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(urlPut, HttpMethod.PUT, entity, JSONObject.class);
+	    	return asignaResponseObject(response);
+		} catch (Exception e) {
+			JSONObject jsonResponse = new JSONObject();
+		    ResultVO rs = new ResultVO();
+		    rs.setJsonResponse(jsonResponse);
+		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		        e.printStackTrace();
+		   return rs;
+		}
+
+	}
+
 
 
 
@@ -404,7 +427,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    }
 		JSONObject jsonResponse = (JSONObject) response.getBody();
 	    ResultVO rs = new ResultVO();
-//	    log.info(jsonResponse.toJSONString());
+	    rs.setObject(response.getBody());
 	    rs.setJsonResponse(jsonResponse);
 	    rs.setMensaje(jsonResponse.get("mensaje").toString());
 	    rs.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
@@ -462,9 +485,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 
 
-
-
-	
 
 	 
 	

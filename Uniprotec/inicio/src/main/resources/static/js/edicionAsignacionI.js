@@ -4,7 +4,7 @@ $(document).ready(function(){
 	
 	console.log(asignacionItem);
 
-	 $.asignaFecha = ordenaFecha(asignacionItem.fechaAsignacion);
+	 $.asignaFecha = valoresFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
 	 $.asignaFechaCalendario = ""; 
 	 $.asignaCliente =asignacionItem.idClienteAsignacion ;
@@ -220,11 +220,35 @@ $(document).ready(function(){
 
 //  JScript
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*
- *  valores Submit  185755083081
- */
-
+function valoresFecha(fecha){
+	 var f = new Date(fecha);
+		const MESES = [
+		  "Enero",
+		  "Febrero",
+		  "Marzo",
+		  "Abril",
+		  "Mayo",
+		  "Junio",
+		  "Julio",
+		  "Agosto",
+		  "Septiembre",
+		  "Octubre",
+		  "Noviembre",
+		  "Diciembre",
+		];
+		const DIA = [
+			  "Domingo",
+			  "Lunes",
+			  "Martes",
+			  "Miercoles",
+			  "Jueves",
+			  "Viernes",
+			  "Sabado",
+			];
+			
+//		$("#diaControl").html("<i>"+DIA[f.getDay()]+" "+f.getDate()+" de "+ MESES[f.getMonth()]+ " "+ f.getFullYear()+"</i>");
+		return DIA[f.getDay()]+" "+f.getDate()+" de "+ MESES[f.getMonth()]+ " "+ f.getFullYear();
+}
 	
 	
 

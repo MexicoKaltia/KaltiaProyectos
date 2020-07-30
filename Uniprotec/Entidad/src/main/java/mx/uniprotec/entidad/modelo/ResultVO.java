@@ -22,6 +22,7 @@ public class ResultVO implements Serializable{
 	private JSONObject jsonResponse;			//
 	private JSONArray jsonResponseArray;			//
 	private JSONObject jsonResponseObject;			//
+	private Object object;
 	
 	private List<Region> regiones;
 	private List<ClienteModelo> clientes;
@@ -151,6 +152,16 @@ public class ResultVO implements Serializable{
 	}
 	public void setAsignaciones(List<AsignacionModelo> asignaciones) {
 		this.asignaciones = asignaciones;
+	}
+
+
+	public Object getObject() {
+		return object;
+	}
+
+
+	public void setObject(Object object) {
+		this.object = object;
 	}
 	
 	

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +32,7 @@ import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ILoginService;
+import mx.uniprotec.inicio.service.IUsuarioService;
 
 @CrossOrigin(origins = { "*" })
 @Controller
@@ -54,27 +56,32 @@ public class ControllerInicio extends HttpServlet{
 	IClienteService clienteService;
 	@Autowired
 	IAsignacionService asignacionService;
+	@Autowired
+	IUsuarioService usuarioService;
+	
 	
 //	ResultVO resultVO = new ResultVO();
 	UsuarioModelo usuario = new UsuarioModelo();
 	
 	
-		@GetMapping("/")
-//		@Scope("prototype")
-		public ModelAndView inicio(@RequestParam(name="login", required=false) Boolean loginIn) {
-			ModelAndView mav = new ModelAndView("login");
-			mav.addObject("userLogin", new User());
-			mav.addObject("loginForm", loginIn);
-			if(loginIn != null)
-				log.info(loginIn.toString());
-			return mav;
-		}
-		
 		
 //		
 		/*
-		 * 
+		 *     USUARIO 
 		 */
+	
+	@GetMapping("/")
+//	@Scope("prototype")
+	public ModelAndView inicio(@RequestParam(name="login", required=false) Boolean loginIn) {
+		ModelAndView mav = new ModelAndView("login");
+		mav.addObject("userLogin", new User());
+		mav.addObject("loginForm", loginIn);
+		if(loginIn != null)
+			log.info(loginIn.toString());
+		return mav;
+	}
+	
+	
 		@PostMapping("/loginInit")
 //		@Scope("prototype")
 		public ModelAndView loginInit(@ModelAttribute("userLogin") User user, HttpServletRequest request, HttpServletResponse response) {
@@ -123,16 +130,79 @@ public class ControllerInicio extends HttpServlet{
 			}		
 
 		}
-		
-		
-		
-
-		
+				
 		@GetMapping("/OffSession")
 //		@Scope("prototype")
 		public ModelAndView offSession() {
 				return new ModelAndView("redirect:/");	
 		}
+		
+		@GetMapping("/CUsuario")
+		public ModelAndView CUsuario(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+				@RequestParam(name="error", required=false) boolean error,
+				ModelMap model) {
+			
+			
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("CUsuario model Activo");
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				
+				JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+				JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
+				
+				ResultVO rs = usuarioService.consultaUsuario(resultVO.getAccesToken(), jsonUsuario.get("id").toString());
+				JSONObject jsonObject2 = (JSONObject) rs.getJsonResponseObject();
+//				log.info(jsonObject2.toJSONString());
+				JSONObject jsonUsuario2 = new JSONObject((Map) jsonObject2.get("usuario"));
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				
+				UsuarioModelo usuario = new UsuarioModelo(Long.valueOf(jsonUsuario2.get("idUsuario").toString()),
+						jsonUsuario2.get("usernameUsuario").toString(),
+						jsonUsuario2.get("nombreUsuario").toString(),
+						jsonUsuario2.get("emailUsuario").toString(),
+						jsonUsuario2.get("notaUsuario").toString(),
+						jsonUsuario2.get("perfilUsuario").toString());
+//				usuario.setPasswordUsuarioOld(jsonUsuario2.get("passwordUsuario").toString());
+				log.info(usuario.toString());
+				model.addAttribute("usuarioForm", usuario);
+				
+				
+				ModelAndView mav = new  ModelAndView("CUsuario", model );
+				model.addAttribute("model", resultVO);
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+				return mav;
+			}	
+		}
+		
+		@PostMapping("/actualizaUsuarioPass")
+		public ModelAndView actualizaUsuarioPass(@ModelAttribute("usuarioForm") UsuarioModelo usuario, ModelMap model) {
+			log.info("ActualizaUsuarioPass model Activo");
+			log.info(usuario.toString());
+				model.addAttribute("usuarioForm", new UsuarioModelo());
+					
+				ResultVO resultVO = (ResultVO)model.get("model");
+				model.addAttribute("model", resultVO);
+				
+				ResultVO rs = usuarioService.edicionUsuario(usuario, resultVO.getAccesToken());
+				ModelAndView mav = new ModelAndView("redirect:/CUsuario", model);
+				if(rs.getCodigo() != 500) {
+					resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+					mav.addObject("ejecucion", true);
+				}else {
+					mav.addObject("error", true);		
+				}
+				return mav;
+			}
+		
+		
+		/*
+		 *   ASIGNACION
+		 */
 
 		
 		
@@ -314,38 +384,7 @@ public class ControllerInicio extends HttpServlet{
 				}
 			}
 		
-		@GetMapping("/CAsignacionIC/{idAsignacion}/{idInstructor}/")
-		public ModelAndView consultaAsignacionInstructorCorreo(@PathVariable String idAsignacion, @PathVariable String idInstructor) {
-				log.info("Consulta Instructor Correo model Activo");
-				
-				ResultVO rs = asignacionService.consultaAsignacionCorreo(idAsignacion);
-				JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
-				JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("asignacion"));
 
-				ModelMap model =new ModelMap();
-//				model.addAttribute("asignacionItem", asignacion);
-				model.addAttribute("asignacion", jsonUsuario);
-
-				if(jsonUsuario.get("idInstructorAsignacion").toString().equals(idInstructor)) {
-					ResultVO rs1 = clienteService.consultaClienteCorreo(jsonUsuario.get("idClienteAsignacion").toString());
-					jsonObject = (JSONObject) rs1.getJsonResponse();
-					JSONObject jsonCliente = new JSONObject((Map) jsonObject.get("clientes"));
-
-					model.addAttribute("cliente", jsonCliente);
-				}
-				log.info(model.toString());
-				ModelAndView mav = new ModelAndView("CAsignacionIC", model);
-				if(rs.getCodigo() != 500) {
-//					mav.addObject("ejecucion", ejecucion);
-//					mav.addObject("ejecucion2", ejecucion2);
-//					mav.addObject("error", error);
-					return mav;
-				}else {
-					mav.addObject("consulta", true);
-					log.info("NOK ConsultaAsignacionInstructor");
-					return mav;
-				}
-			}
 		
 		@PostMapping("/BAsignacionI")
 		public ModelAndView BAsignacionInstructor(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
@@ -425,6 +464,78 @@ public class ControllerInicio extends HttpServlet{
 					return mav;
 				}
 			}
+		
+		
+		@GetMapping("/CAsignacionIC/{idAsignacion}/{idInstructor}")
+		public ModelAndView consultaAsignacionInstructorCorreo(
+				@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+				@RequestParam(name="error", required=false) boolean error,
+				@PathVariable String idAsignacion, @PathVariable String idInstructor) {
+				log.info("Consulta Instructor Correo model Activo");
+				ModelMap model =new ModelMap();
+				
+				ResultVO rs = asignacionService.consultaAsignacionCorreo(idAsignacion);
+				JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
+				JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("asignacion"));
+				model.addAttribute("asignacion", jsonUsuario);
+				model.addAttribute("asignacionItem", new AsignacionModelo());
+				
+				ResultVO rs1 = clienteService.consultaClienteCorreo(jsonUsuario.get("idClienteAsignacion").toString());
+				jsonObject = (JSONObject) rs1.getJsonResponse();
+				JSONObject jsonCliente = new JSONObject((Map) jsonObject.get("clientes"));
+				model.addAttribute("cliente", jsonCliente);
+
+				if(!idInstructor.equals("0")) {
+					if(!jsonUsuario.get("idInstructorAsignacion").toString().equals(idInstructor)) {
+						ModelAndView mav = new ModelAndView("CAsignacionIC0", model);
+						mav.addObject("error", true);
+						return mav;
+					}
+				}
+				
+				ModelAndView mav = new ModelAndView("CAsignacionIC", model);
+				if(idInstructor.equals("0")) {
+					mav.addObject("staff", true);
+				}
+				if(rs.getCodigo() != 500) {
+					mav.addObject("ejecucion2", ejecucion2);
+					mav.addObject("error", error);
+					return mav;
+				}else {
+					mav.addObject("consulta", true);
+					log.info("NOK ConsultaAsignacionInstructor");
+					return mav;
+				}
+			}
+		
+		@PostMapping("/actualizaAsignacionIC")
+		public ModelAndView actualizaAsignacionIC(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			log.info("Actualiza Asignacion Correo model Activo");
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+//			log.info(asignacion.toString());
+//			log.info(asignacion.getStatusAsignacion());
+			ModelAndView mav=null;
+			ResultVO rs = asignacionService.edicionAsignacionC(asignacion);
+			if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {
+				mav = new ModelAndView("CAsignacionIC0", model);
+			}else {
+				mav = new ModelAndView("CAsignacionIC0", model);
+			}
+			if(asignacion.getStatusAsignacion().equals("Entregables Validado") || asignacion.getStatusAsignacion().equals("Entregable Enviado") ) {
+				mav = new ModelAndView("CAsignacionIC0", model);
+			}
+			
+			
+			if(rs.getCodigo() != 500) {
+//				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				mav.addObject("ejecucion2", true);
+			}else {
+				mav.addObject("error", true);
+				log.info("NOK CAsignacionIC0");
+			}
+			return mav;			
+		}
 
 }
 

@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTECT V 1.0 PROTOTIPO.</title>
+    <title>UNIPROTECT V 1.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
@@ -237,7 +237,8 @@
                                 
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <div class="wrap">
+                                            <div class="wrap" id="anuncio">
+<!--                                             	<button type="button" id="anuncio" class="btn btn-default btn-lg pull-right" data-toggle="modal" data-target="#myModal"> -->
 							                    <div class="ico-wrap">
 							                        <span class="mbr-iconfont fa-volume-up fa"></span>
 							                    </div>
@@ -246,6 +247,7 @@
 							                        <p class="mbr-fonts-style text1 mbr-text display-6">Anuncios:</p>
 							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Espacio de Comunicacion para los usuarios de Aplicacion</h2>
 							                    </div>
+<!-- 							                    </button> -->
 							                </div>
                                         </div>
                                      </div>
@@ -479,7 +481,53 @@
 </div>
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/inicio.js}"></script>
+    
 </body>
 
 </html>
+
+
+<!-- Modal Inicio-->
+                       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Confirmacion de Asignacion</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
+                                           <div class="card-body">
+                                           <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation"  method="post">
+                                               <h5 class="card-title">Resumen de asignacion</h5>
+                                               <ul class="list-group">
+                                                   <li class="list-group-item list-group-item-info"><input type="text" id="anuncioMensaje" /></span></li>
+                                               </ul>
+                                               
+<!--                                                <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    /> -->
+                                                                                      			<br>
+                                       			<br>
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Confirmar</button>        
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
+                       <script type="text/javascript" th:src="@{js/inicio.js}"></script>

@@ -24,7 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				"/crud/curso",
 				"/crud/usuario",
 				"/crud/vendedor").permitAll()
-		.antMatchers(HttpMethod.PUT, "/crud/cliente/{id}",
+		.antMatchers(HttpMethod.PUT, "/crud/cliente/{id}","/crud/asignacion/{id}",
 				"/crud/instructor/{id}",
 				"/crud/curso/{id}",
 				"/crud/vendedor/{id}",

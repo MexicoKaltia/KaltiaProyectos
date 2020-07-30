@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,6 +62,10 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private IUploadFileService uploadService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	
 	 private final Logger log = LoggerFactory.getLogger(UsuarioRestController.class);
 
@@ -158,7 +163,7 @@ public class UsuarioRestController {
 		
 		try {
 			usuarioNew.setUsernameUsuario(usuario.getUsernameUsuario());
-			usuarioNew.setPasswordUsuario(usuario.getPasswordUsuario());
+			usuarioNew.setPasswordUsuario("$2a$10$C3Uln5uqnzx/GswADURJGOIdBqYrly9731fnwKDaUdBkt/M3qvtLq");
 			usuarioNew.setPerfilUsuario(usuario.getPerfilUsuario());
 			usuarioNew.setRoles(rolUsuario(usuario.getPerfilUsuario()));
 			usuarioNew.setNombreUsuario(usuario.getNombreUsuario());
@@ -194,13 +199,10 @@ public class UsuarioRestController {
 
 		HttpStatus status ;
 		Usuario usuarioActual = usuarioService.findById(id);
-
 		Usuario usuarioUpdated = null;
-
 		Map<String, Object> response = new HashMap<>();
-
+log.info(usuario.toString());
 		if(result.hasErrors()) {
-
 			List<String> errors = result.getFieldErrors()
 					.stream()
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
@@ -219,11 +221,26 @@ public class UsuarioRestController {
 			 response.put("code", HttpStatus.NOT_FOUND.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-
+		
+		
+		if(usuario.getPasswordUsuarioOld().equals(null) && usuario.getPasswordUsuarioOld().isEmpty()) {
+				usuarioActual.setPasswordUsuario(usuario.getPasswordUsuario());
+		}else {
+			if(passwordEncoder.matches((CharSequence)usuario.getPasswordUsuarioOld(), usuarioActual.getPasswordUsuario())) {
+				usuarioActual.setPasswordUsuario(password(usuario.getPasswordUsuario()));
+			}else {
+				log.info("Password no Coinciden");
+				response.put("mensaje", "Password no Coinciden");
+				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+				 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+		
 		try {
-
+			
 			usuarioActual.setUsernameUsuario(usuario.getUsernameUsuario());
-			usuarioActual.setPasswordUsuario(usuario.getPasswordUsuario());
+		
 			usuarioActual.setPerfilUsuario(usuario.getPerfilUsuario());
 			usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
 			usuarioActual.setEmailUsuario(usuario.getEmailUsuario());
@@ -247,8 +264,12 @@ public class UsuarioRestController {
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+
+		
 
 	}
+	
 	
 	
 	/*
@@ -302,6 +323,11 @@ public class UsuarioRestController {
 		roles.add(new Role(idPerfilUsuario, perfilUsuario));
 		log.info(roles.toString());
 		return roles;
+	}
+	
+	
+	private String password(String passwordUsuario) {
+		return passwordEncoder.encode(passwordUsuario);
 	}
 
 

@@ -65,11 +65,10 @@ public class UsuarioService implements IUsuarioService {
 	public ResultVO edicionUsuario(UsuarioModelo usuario, String token) {
 		me = ComponenteComun.monitorCampos();
 		
-		usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+usuario.getUsernameUsuario().substring(1,usuario.getUsernameUsuario().length()));
+//		usuario.setUsernameUsuario(letraInicial(usuario.getPerfilUsuario())+usuario.getUsernameUsuario().substring(1,usuario.getUsernameUsuario().length()));
 		usuario.setCreateAtUsuario(me.getNowEntidad());
 		usuario.setUserCreateUsuario(me.getIdUsuarioEntidad());
 		usuario.setStatusUsuario("Actualizado");
-		
 		log.info(usuario.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
