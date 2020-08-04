@@ -374,13 +374,16 @@
 							               </div>
 							           </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
-							           <div class="row setup-content" id="step-5">
+							            <div class="row setup-content" id="step-5">
 							               <div class="col-md-12 mb-3">
 							                   <div class="col-md-12">
 							                   	<div class="col-md-12">
 							                       <h3> Horario</h3><label for="exampleFormControlSelect1">Paso 5</label>
 							                       <div class="form-inline">
-								                       <div class="alert alert-dark" role="alert">Horas Efectivas: <b><label id="horasEfectivas"></label></b></div>
+								                       <div class="alert alert-dark" role="alert">Horas Efectivas: 
+									                       <b><select  id="horasEfectivas" class="form-control" name="horasEfectivas" disabled></select></b>
+									                       <button class="btn btn-primary" id="confirmarHorario" type="button">Confirmar Horario</button>
+									                   </div>
 	                                               </div>
 							                     </div>  
 							                   <!-- BODY FORMULARIO -->
@@ -389,65 +392,40 @@
 		                                                    <div class="position-relative form-group">
 			                                                       <label class="form-check-label" for="asignaHorarioInicio">Horario Inicial</label>
 								                                   <select id="asignaHorarioInicio" name="asignaHorarioInicio" class="form-control" required onchange="validaHorarioInicio()">
-								                                       <option value="" selected  >Selecciona Horario Inicio</option>
-								                                       <option value="0000">00:00</option>
-								                                       <option value="0100">01:00</option>
-								                                       <option value="0200">02:00</option>
-								                                       <option value="0300">03:00</option>
-								                                       <option value="0400">04:00</option>
-								                                       <option value="0500">05:00</option>
-								                                       <option value="0600">06:00</option>
-								                                       <option value="0700">07:00</option>
-								                                       <option value="0800">08:00</option>
-								                                       <option value="0900">09:00</option>
-								                                       <option value="1000">10:00</option>
-								                                       <option value="1100">11:00</option>
-								                                       <option value="1200">12:00</option>
-								                                       <option value="1300">13:00</option>
-								                                       <option value="1400">14:00</option>
-								                                       <option value="1500">15:00</option>
-								                                       <option value="1600">16:00</option>
-								                                       <option value="1700">17:00</option>
-								                                       <option value="1800">18:00</option>
-								                                       <option value="1900">19:00</option>
-								                                       <option value="2000">20:00</option>
-								                                       <option value="2100">21:00</option>
-								                                       <option value="2200">22:00</option>
-								                                       <option value="2300">23:00</option>
-								                                       <option value="2300">24:00</option>
-								                                   </select>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="col-md-6">
-		                                                    <div class="position-relative form-group">
-		                      										<label class="form-check-label" for="asignaHorarioFinal">Horario . Final </label>
-								                                   <select id="asignaHorarioFinal" name="asignaHorarioFinal" class="form-control" required onchange="validaHorarioFinal()" >   </select>
-								                             </div>
-		                                                </div>
-		                                            </div>
-							                   		<div class="form-row">
-		                                                <div class="col-md-6">
-		                                                    <div class="position-relative form-group">
-			                                                       <label class="form-check-label" for="asignaRecesoInicio">Receso Inicial</label>
-								                                   <select id="asignaRecesoInicio" name="asignaRecesoInicio" class="form-control"  onchange="validaRecesoInicio()" disabled>
-								                                       <option value="" selected  >Selecciona Receso Inicio Opcional</option>
 
 								                                   </select>
 		                                                    </div>
 		                                                </div>
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
-		                      										<label class="form-check-label" for="asignaRecesoFinal">Receso . Final </label>
-								                                   <select id="asignaRecesoFinal" name="asignaRecesoFinal" class="form-control"  onchange="validaRecesoFinal()" disabled>   </select>
+		                      										<label class="form-check-label" for="asignaHorarioFinal">Horario . Final </label>
+								                                   <select id="asignaHorarioFinal" name="asignaHorarioFinal" class="form-control" required onchange="validaHorarioFinal()" disabled>   </select>
 								                             </div>
 		                                                </div>
-		                                            </div>	
-							                        <div class="alerta">
-														<hiden class="alerta_in"></hiden>
-													</div>
+		                                            </div>
+<!-- 							                   		<div class="form-row"> -->
+<!-- 		                                                <div class="col-md-6"> -->
+<!-- 		                                                    <div class="position-relative form-group"> -->
+<!-- 			                                                       <label class="form-check-label" for="asignaRecesoInicio">Receso Inicial</label> -->
+<!-- 								                                   <select id="asignaRecesoInicio" name="asignaRecesoInicio" class="form-control"  onchange="validaRecesoInicio()" disabled> -->
+<!-- 								                                       <option value="" selected  >Selecciona Receso Inicio Opcional</option> -->
+
+<!-- 								                                   </select> -->
+<!-- 		                                                    </div> -->
+<!-- 		                                                </div> -->
+<!-- 		                                                <div class="col-md-6"> -->
+<!-- 		                                                    <div class="position-relative form-group"> -->
+<!-- 		                      										<label class="form-check-label" for="asignaRecesoFinal">Receso . Final </label> -->
+<!-- 								                                   <select id="asignaRecesoFinal" name="asignaRecesoFinal" class="form-control"  onchange="validaRecesoFinal()" disabled>   </select> -->
+<!-- 								                             </div> -->
+<!-- 		                                                </div> -->
+<!-- 		                                            </div>	 -->
+<!-- 							                        <div class="alerta"> -->
+<!-- 														<hiden class="alerta_in"></hiden> -->
+<!-- 													</div> -->
 							                   <!-- FIN BODY FORMULARIO -->
 							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
-							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" onclick="validaRecesoFinal()">Siguiente</button>
+							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" disabled>Siguiente</button>
 							                   </div>
 							               </div>
 							           </div>

@@ -11,6 +11,7 @@ $(document).ready(function() {
 	var asignaInstructorTexto ;
 	var asignaHorarioInicio ;
 	var asignaHorarioFinal ;
+	var asignaHorasEfectivas ;
 	var asignaParticipantes ;
 	var asignaNivel ;
 	var asignaObservaciones ;
@@ -44,6 +45,7 @@ $(document).ready(function() {
 				asignaInstructorTexto = asignacion.instructorAsignacion;
 				asignaHorarioInicio = horaInicio(asignacion.horarioAsignacion.toString());
 				asignaHorarioFinal = horaFin(asignacion.horarioAsignacion.toString());
+				asignaHorasEfectivas = horaFin(asignacion.horarioAsignacion.toString());
 				asignaParticipantes = asignacion.participantesAsignacion;
 				asignaNivel = asignacion.nivelAsignacion;
 				asignaObservaciones = asignacion.observacionesAsignacion;
@@ -221,8 +223,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		//"1200;2300;undefined;undefined;11:00"
 		//start : '2020-05-03T11:00:00',
 		horario = horario.split(';');
-		var parse =horario[0].slice(0, 2);
-		parse = parse + ":00:00";// + horario[0].slice(2, 2) + ":00" ;
+		var parse =horario[0].substring(0, 2) +":"+ horario[0].substring(2);
+//		parse = parse + ":00";// + horario[0].slice(2, 2) + ":00" ;
 //		console.log(parse);
 		return parse;
 	}
@@ -231,11 +233,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		//"1200;2300;undefined;undefined;11:00"
 		//end : '2020-05-03T19:00:00',
 		horario = horario.split(';');
-		var parse =horario[1].slice(0, 2);
-		parse = parse + ":00:00";// + horario[1].slice(2, 2) + ":00" ;
-//		console.log(parse);
+		var parse =horario[1].substring(0, 2) +":"+ horario[1].substring(2);
+		
 		return parse;
 	}
+	
+
 	
 	
 	function getColor(cliente){

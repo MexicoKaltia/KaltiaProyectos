@@ -80,6 +80,14 @@ public class AsignacionService implements IAsignacionService{
 				BaseClientRest.URL_CRUD_ASIGNACION,
 				asignacion,
 				asignacion.getIdAsignacion());
+		
+		//Envio de correo
+				if(resultVO.getCodigo() != 500) {
+					JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+					JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
+					asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
+					aplicacionService.enviaMail(asignacion, token);
+				}
 				
 		return resultVO;
 	}
