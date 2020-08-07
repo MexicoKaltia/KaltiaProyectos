@@ -11,9 +11,9 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>aplicacion</artifactId>
-	<version>0.2007</version>
+	<version>0.0804</version>
 	<name>aplicacion</name>
-	<description>Microservicio Uniprotec Seguridad</description>
+	<description>Microservicio Control-Uniprotec Seguridad</description>
 
 	<properties>
 		<java.version>1.8</java.version>

@@ -35,8 +35,22 @@ $(document).ready(function() {
 			}
 			if(perfilUsuario === "Administracion"){
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
+				$("#btnSubmit").empty();
+				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edicion Fecha de Pago y Numero de Guía</button>')
+				$("#asignaConfirmar").hide();
+			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
+				$("#btnOperacion").empty();
+				$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
+				$("#btnOperacion").click(function(){
+					$("#edicionAsignacion").attr("action", "/BAsignacionI");
+				})
+			}else{
+				$("#btnSubmit").empty();
+				$("#btnSubmit").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
 			}
 			
+//			$("#btnSubmit").empty();
+//			$("#btnSubmit").append('')
 			
 			if(asignacion.idAsignacion.toString() === item[0].toString()){
 				asignaFechaCalendario = cambiaFormatoFecha(asignacion.fechaAsignacion);

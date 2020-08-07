@@ -390,121 +390,131 @@ var alerta, proceso;
    			$('#btnAsignaCurso').attr("disabled", false);
    		}
 		
-		/*
-		 * Filtra Instructores por Curso
+		/* 
+		 * No VALIDAR Esquemas de movilidad para Perfil Operacion y Direccion
 		 */
-		var valorCurso = $.asignaCurso * 1;
-		var arrayInstructores = new Array();
-		for (i in asignacionInstructores){
-//			console.log(asignacionInstructores[i]);
-//			console.log(asignacionInstructores[i].idInstructor);
-			var arrayCursosInstructor = asignacionInstructores[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
-			for( e in arrayCursosInstructor){
-				arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
-				if(arrayCursosInstructor[e] === valorCurso){
-//					console.log(asignacionInstructores[i].idInstructor);
-//					console.log(asignacionInstructores[i]);
-					arrayInstructores.push(asignacionInstructores[i])
-				}
+		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
+			for(i in asignacionInstructoresOperacion){
+				instructor = asignacionInstructoresOperacion[i];
+				$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
 			}
-		}
-//		console.log(arrayInstructores);
-		/*
-		 * Valida dias de Ausencia
-		 */
-		var instructorDiaAusencia;
-		var instructoresDiaAusencia = new Array();;
-		for(a in arrayInstructores){
-			instructorDiaAusencia = arrayInstructores[a]; 
-			if(validaDiaAusencia(instructorDiaAusencia)){
-				instructoresDiaAusencia.push(instructorDiaAusencia);
-			}
-		}
-		arrayInstructores = instructoresDiaAusencia ;
-//		console.log(arrayInstructores);
-		
-		var regionInstructor;
-		var regionCliente;
-		var instructor;
-		var idInstructor;
-
-//		console.log("tipoCurso:"+tipoCurso);
-		$('#asignaInstructor').empty();
-		$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
-		if(tipoCurso){
+		}else{
 			/*
-			 * Obtener ZonaCliente 
+			 * Filtra Instructores por Curso
 			 */
-			if($('#asignaCliente').val() === null || $('#asignaCliente').val() === ""){
-	   			alerta="<div class='alert alert-danger' id='alertaCliente' role='alert'>Seleccione Cliente</div>";
-				alertaFade(alerta);
-				$('#btnAsignaCurso').attr("disabled", true);
-			}else{
-				var jsonCliente;
-//				console.log(asignacionClientes);
-				for (i in asignacionClientes){
-					if(asignacionClientes[i].idCliente === ($('#asignaCliente').val() * 1)){
-						jsonCliente = asignacionClientes[i];
+			var valorCurso = $.asignaCurso * 1;
+			var arrayInstructores = new Array();
+			for (i in asignacionInstructores){
+	//			console.log(asignacionInstructores[i]);
+	//			console.log(asignacionInstructores[i].idInstructor);
+				var arrayCursosInstructor = asignacionInstructores[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
+				for( e in arrayCursosInstructor){
+					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
+					if(arrayCursosInstructor[e] === valorCurso){
+	//					console.log(asignacionInstructores[i].idInstructor);
+	//					console.log(asignacionInstructores[i]);
+						arrayInstructores.push(asignacionInstructores[i])
 					}
 				}
-				regionCliente = jsonCliente.regionCliente.idRegion;
-//				console.log(jsonCliente);
-//				console.log(jsonCliente.regionCliente.idRegion);
 			}
-			
+	//		console.log(arrayInstructores);
 			/*
-			 * Consultar D-1 y D+1 Instructores
+			 * Valida dias de Ausencia
 			 */
-			var instructoresDiaSelect = new Array();
-			var instructoresDmin1 = new Array();
-			var instructoresDmas1 = new Array();
-			//validar dia seleccion
-			for(i in arrayInstructores){
-				 instructor = arrayInstructores[i];
-				 idInstructor = instructor.idInstructor
-				 nombreInstructor = instructor.nombreInstructor
-				if(validaDiaSelect(idInstructor)){
-					instructoresDiaSelect.push(instructor);
+			var instructorDiaAusencia;
+			var instructoresDiaAusencia = new Array();;
+			for(a in arrayInstructores){
+				instructorDiaAusencia = arrayInstructores[a]; 
+				if(validaDiaAusencia(instructorDiaAusencia)){
+					instructoresDiaAusencia.push(instructorDiaAusencia);
 				}
 			}
-//				 console.log(instructoresDiaSelect);
-				//validar D-1
-			for(i in instructoresDiaSelect){
-				 instructor = instructoresDiaSelect[i];
-				 idInstructor = instructor.idInstructor
-				 nombreInstructor = instructor.nombreInstructor
-				regionInstructor = instructor.regionInstructor.idRegion;
-				if(validaDmin1(regionCliente, idInstructor)){
-					instructoresDmin1.push(instructor);
-				}
-			}
-//			console.log(instructoresDmin1);
-			//validar D+1
-			for(e in instructoresDmin1){
-				instructor = instructoresDmin1[e];
-				 idInstructor = instructor.idInstructor
-				 nombreInstructor = instructor.nombreInstructor
-				regionInstructor = instructor.regionInstructor.idRegion;
-				regionInstructor = instructor.regionInstructor.idRegion;
-//				if(validaDmas1(asignaFecha, regionCliente, regionInstructor)){
-				if(validaDmas1(regionCliente, idInstructor)){
-					instructoresDmas1.push(instructor);
-					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
-				}
-			}
-//			console.log(instructoresDmas1);
+			arrayInstructores = instructoresDiaAusencia ;
+	//		console.log(arrayInstructores);
 			
-		}else{
-			//validar dia seleccion
-			for(i in arrayInstructores){
-				 instructor = arrayInstructores[i];
-				 idInstructor = instructor.idInstructor
-				 nombreInstructor = instructor.nombreInstructor
-				if(validaDiaSelect(idInstructor)){
-					$('#asignaInstructor').append('<option value="'+idInstructor+'">'+nombreInstructor+'</option>');
+			var regionInstructor;
+			var regionCliente;
+			var instructor;
+			var idInstructor;
+	
+	//		console.log("tipoCurso:"+tipoCurso);
+			$('#asignaInstructor').empty();
+			$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
+			if(tipoCurso){
+				/*
+				 * Obtener ZonaCliente 
+				 */
+				if($('#asignaCliente').val() === null || $('#asignaCliente').val() === ""){
+		   			alerta="<div class='alert alert-danger' id='alertaCliente' role='alert'>Seleccione Cliente</div>";
+					alertaFade(alerta);
+					$('#btnAsignaCurso').attr("disabled", true);
+				}else{
+					var jsonCliente;
+	//				console.log(asignacionClientes);
+					for (i in asignacionClientes){
+						if(asignacionClientes[i].idCliente === ($('#asignaCliente').val() * 1)){
+							jsonCliente = asignacionClientes[i];
+						}
+					}
+					regionCliente = jsonCliente.regionCliente.idRegion;
+	//				console.log(jsonCliente);
+	//				console.log(jsonCliente.regionCliente.idRegion);
+				}
+				
+				/*
+				 * Consultar D-1 y D+1 Instructores
+				 */
+				var instructoresDiaSelect = new Array();
+				var instructoresDmin1 = new Array();
+				var instructoresDmas1 = new Array();
+				//validar dia seleccion
+				for(i in arrayInstructores){
+					 instructor = arrayInstructores[i];
+					 idInstructor = instructor.idInstructor
+					 nombreInstructor = instructor.nombreInstructor
+					if(validaDiaSelect(idInstructor)){
+						instructoresDiaSelect.push(instructor);
+					}
+				}
+	//				 console.log(instructoresDiaSelect);
+					//validar D-1
+				for(i in instructoresDiaSelect){
+					 instructor = instructoresDiaSelect[i];
+					 idInstructor = instructor.idInstructor
+					 nombreInstructor = instructor.nombreInstructor
+					regionInstructor = instructor.regionInstructor.idRegion;
+					if(validaDmin1(regionCliente, idInstructor)){
+						instructoresDmin1.push(instructor);
+					}
+				}
+	//			console.log(instructoresDmin1);
+				//validar D+1
+				for(e in instructoresDmin1){
+					instructor = instructoresDmin1[e];
+					 idInstructor = instructor.idInstructor
+					 nombreInstructor = instructor.nombreInstructor
+					regionInstructor = instructor.regionInstructor.idRegion;
+					regionInstructor = instructor.regionInstructor.idRegion;
+	//				if(validaDmas1(asignaFecha, regionCliente, regionInstructor)){
+					if(validaDmas1(regionCliente, idInstructor)){
+						instructoresDmas1.push(instructor);
+						$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+					}
+				}
+	//			console.log(instructoresDmas1);
+				
+			}else{
+				//validar dia seleccion
+				for(i in arrayInstructores){
+					 instructor = arrayInstructores[i];
+					 idInstructor = instructor.idInstructor
+					 nombreInstructor = instructor.nombreInstructor
+					if(validaDiaSelect(idInstructor)){
+						$('#asignaInstructor').append('<option value="'+idInstructor+'">'+nombreInstructor+'</option>');
+					}
 				}
 			}
-		}
+		}	
 		$.asignaCursoTexto = $("#asignaCurso option:selected").text();
 		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 		$.asignaTipoCurso = tipoCursoVal;

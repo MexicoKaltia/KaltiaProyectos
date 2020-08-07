@@ -20,6 +20,7 @@ $(document).ready(function(){
 	 $.asignaNivelTexto=asignacionItem.nivelAsignacion;
 	 $.asignaObservaciones=asignacionItem.observacionesAsignacion;
 	 $.asignaArchivos=asignacionItem.archivosAsignacion;
+	 $.asignaArchivosTexto=asignacionItem.archivosAsignacionTexto;
 	 $.asignaIdRegion=asignacionItem.idRegionAsignacion;
 	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
@@ -46,9 +47,7 @@ $(document).ready(function(){
 		$('#observacionesAsignacion').append("<h4><b>"+$.asignaObservaciones+"</b></h4>");
 		//--------------------------------------------------
 		$('#archivosAsignacion').append("<a id='link'><h4><b>"+$.asignaArchivos+"</b></h4></a>");
-		//--------------------------------------------------
 		$("#link").attr('href', '/uploads/fileAsignacion/'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivosAsignacion)
-//	    $("#link").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
 		//--------------------------------------------------
 		$('#statusAsignacion1').html($.asignaStatus);
 		$('#statusAsignacion0').val($.asignaStatus);
@@ -149,10 +148,11 @@ $(document).ready(function(){
 	$('#notaCliente').html('<b>'+asignacionCliente.notaCliente+'</b>');
 	
 	$('#imagenLogoCliente').html('<b>'+asignacionCliente.imagenLogoCliente+'</b>');
-	$("#linkLogo").attr('href', '/uploads/img/'+asignacionCliente.idCliente+'/'+asignacionCliente.imagenLogoCliente)
+	$("#linkLogo").attr('href', '/uploads/img/'+asignacionCliente.rfcCliente+'/'+asignacionCliente.imagenLogoCliente)
     
 	$('#archivosCliente').html('<b>'+asignacionCliente.archivosCliente+'</b>');
-	$("#linkFile").attr('href', '/uploads/file/'+asignacionCliente.idCliente+'/'+asignacionCliente.archivosCliente)
+	$("#linkFile").attr('href', '/uploads/file/'+asignacionCliente.rfcCliente+'/'+asignacionCliente.archivosCliente)
+    
     
 	
 	
@@ -231,6 +231,7 @@ $(document).ready(function(){
 		$.asignaFechaCalendario = $('#fechaPago').val();
 	}
 	
+	$('#archivosAsignacionTexto0').val(asignacionItem.archivosAsignacion);
 	
 });  // fin de documento JQuery
 

@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>0.2007</version>
+	<version>0.0804</version>
 	<name>inicio</name>
-	<description>Demo project for Spring Boot</description>
+	<description>control-uniprotec</description>
 
 	<properties>
 		<java.version>1.8</java.version>

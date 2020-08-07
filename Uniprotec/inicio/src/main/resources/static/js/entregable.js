@@ -27,6 +27,7 @@ $(document).ready(function() {
 			
 			if(asignacion.idAsignacion.toString() === item[0].toString()){
 				asignaFechaCalendario = cambiaFormatoFecha(asignacion.fechaAsignacion);
+				asignaIdAsignacionLogica = asignacion.idAsignacionLogica;
 				asignaClienteTexto = asignacion.clienteAsignacion;
 				asignaCursoTexto = asignacion.cursoAsignacion;
 				asignaInstructorTexto = asignacion.instructorAsignacion;
@@ -36,6 +37,7 @@ $(document).ready(function() {
 				asignaNivel = asignacion.nivelAsignacion;
 				asignaObservaciones = asignacion.observacionesAsignacion;
 				asignaArchivos = asignacion.archivosAsignacion;
+				asignaArchivosTexto = asignacion.archivosAsignacionTexto;
 				zonaCliente = colorZonaCliente(asignacion.idRegionAsignacion, asignacion.nombreRegionAsignacion);
 				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
@@ -129,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function asignaCamposSubmit(asignacionSub){
 //		console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
+		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
 		$('#idClienteAsignacion').val(asignacionSub.idClienteAsignacion);
 		$('#clienteAsignacion').val(asignacionSub.clienteAsignacion);
@@ -140,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#participantesAsignacion').val(asignacionSub.participantesAsignacion);
 		$('#nivelAsignacion').val(asignacionSub.nivelAsignacion);
 		$('#archivosAsignacion').val(asignacionSub.archivosAsignacion);
+		$('#archivosAsignacionTexto').val(asignacionSub.archivosAsignacionTexto);
 		$('#observacionesAsignacion').val(asignacionSub.observacionesAsignacion);
 		$('#idRegionAsignacion').val(asignacionSub.idRegionAsignacion);
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
