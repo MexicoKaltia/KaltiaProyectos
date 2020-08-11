@@ -29,6 +29,11 @@ $(document).ready(function() {
 			if(perfilUsuario === "Vendedor"){
 				if(idUsuario === asignaciones[i].userCreateAsignacion){
 					$("#asignaConfirmar").show();
+					$("#btnOperacion").empty();
+					$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
+					$("#btnOperacion").click(function(){
+						$("#edicionAsignacion").attr("action", "/BAsignacionI");
+					})
 				}else{
 					$("#asignaConfirmar").hide();
 				}
@@ -46,7 +51,7 @@ $(document).ready(function() {
 				})
 			}else{
 				$("#btnSubmit").empty();
-				$("#btnSubmit").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+//				$("#btnSubmit").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
 			}
 			
 //			$("#btnSubmit").empty();

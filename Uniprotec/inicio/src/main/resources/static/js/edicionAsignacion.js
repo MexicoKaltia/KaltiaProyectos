@@ -317,6 +317,16 @@ $(document).ready(function(){
 			
 		}
 	
+	function modal(){
+		$('#myModalProcess').modal();
+		$("#asignaConfirmar").hide();
+		return true;
+	}
+	$("#asignaConfirmar").click(function(){
+		modal();
+		return true;
+	})
+	
 });  // fin de documento JQuery
 
 
@@ -909,13 +919,17 @@ $(document).ready(function(){
 		$("#horasEfectivas").append('<option value="" selected  >Selecciona Horas Efectivas</option>');
 		$("#horasEfectivas").append('<option value="'+horaEfectiva.substring(0,2)+":"+horaEfectiva.substring(3,2)+'" >'+horaEfectiva+'</option>');
 		var hrEf = horaEfectiva.split(":");
+		var inicioEfe = 0;
+//		if(inicioEfe < ((hrEf[0]*1)-)){
+//			inicioEfe = (hrEf[0]*1)-4;
+//		}
 		if(hrEf[1] === "00"){
-				for(var i = (hrEf[0]*1); i <((hrEf[0]*1)+ 5) ; i++){
+				for(var i = inicioEfe; i <((hrEf[0]*1)+ 5) ; i++){
 						$("#horasEfectivas").append('<option value="'+(i)+'30">'+(i)+':30</option>');
 						$("#horasEfectivas").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
 					}
 			}else{
-				for(var i = (hrEf[0]*1); i <((hrEf[0]*1)+ 5) ; i++){
+				for(var i = inicioEfe; i <((hrEf[0]*1)+ 5) ; i++){
 					o = i - 0.3;
 //					console.log(o);
 					$("#horasEfectivas").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');

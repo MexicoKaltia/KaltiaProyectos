@@ -138,9 +138,15 @@ public class AplicacionServiceImpl implements IAplicacionService {
 
 			if(uc.getPerfil().equals("Ventas")) {
 				Vendedor vendedor = vendedorDao.findByUsuarioVendedorIdUsuario(uc.getIdUser());
-				userCorreo = new UserCorreo(vendedor.getIdVendedor(), "Ventas", vendedor.getEmailVendedor(), vendedor.getEmailGmailVendedor());
-				ussC.add(userCorreo);
-//				jsonArray.add(userCorreo);
+				if(vendedor == null) {
+					 Usuario user = usuarioDao.findById(uc.getIdUser()).orElse(null);
+					 userCorreo = new UserCorreo(user.getIdUsuario(), "Direccion", user.getEmailUsuario(), null);
+						ussC.add(userCorreo);
+				}else {
+					userCorreo = new UserCorreo(vendedor.getIdVendedor(), "Ventas", vendedor.getEmailVendedor(), vendedor.getEmailGmailVendedor());
+					ussC.add(userCorreo);
+//					jsonArray.add(userCorreo);
+				}
 			}else if(uc.getPerfil().equals("Instructor")) {
 				Instructor instructor = instructorDao.findById(uc.getIdUser()).orElse(new Instructor());;
 				userCorreo = new UserCorreo(instructor.getIdInstructor(), "Instructor", instructor.getEmailInstructor(), instructor.getEmailGmailInstructor());

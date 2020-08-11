@@ -48,14 +48,14 @@ public class MailService implements IMailService{
 		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
 //		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
-		INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
+		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
 		STAFF_PRE.add("kaltiaservicios@gmail.com");
 		STAFF_PRE.add("operacion@uniprotec.net");
 		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
 		STAFF_PRE.add("gasparinho@hotmail.fr");
-//		STAFF_PRE.add("gasparinho@hotmail.fr");
+
 		
 		log.info(asignacion.toString());
 		
@@ -114,7 +114,9 @@ public class MailService implements IMailService{
 				subTitulo = "El presente correo tiene la finalidad de notificar la nueva asignaci&oacute;n";
 				
 				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
+				
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
+				
 //				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
 				mailVO.setDestinatarioMailList(correoStaff);
@@ -412,14 +414,14 @@ public class MailService implements IMailService{
 		String[] horario = horarioAsignacion.split(";");
 		String hr ="Horario : "+ horario[0].substring(0,2)+":00 - "+horario[1].substring(0,2)+":00 . ";
 		
-		if( horario[2] != null && !horario[2].equals("")) {
-			if(horario[2].contains("Sede")) {
-				hr = hr +"Receso : Definir en sede el horario de receso. ";
-			}else {
-				hr = hr +"Receso : "+ horario[2].substring(0,2)+":"+horario[2].substring(2,2) +" - "+ horario[3].substring(0,2)+":"+horario[3].substring(2,2);
-			}
-			
-		}
+//		if( horario[2] != null && !horario[2].equals("")) {
+//			if(horario[2].contains("Sede")) {
+//				hr = hr +"Receso : Definir en sede el horario de receso. ";
+//			}else {
+//				hr = hr +"Receso : "+ horario[2].substring(0,2)+":"+horario[2].substring(2,2) +" - "+ horario[3].substring(0,2)+":"+horario[3].substring(2,2);
+//			}
+//			
+//		}
 		
 		hr = hr +"Horas Efectivas : "+ horario[4];
 		return hr;
