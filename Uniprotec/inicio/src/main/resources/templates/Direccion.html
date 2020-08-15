@@ -245,7 +245,7 @@
 							                     <div class="text-wrap vcenter">
 							                    	<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"></h2><b> <span id="diaControl"></span></b>
 							                        <p class="mbr-fonts-style text1 mbr-text display-6">Anuncios:</p>
-							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Espacio de Comunicacion para los usuarios de Aplicacion</h2>
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span id="mensajeTexto" th:text="${model.jsonResponse.mensaje}"></span></h2>
 							                    </div>
 <!-- 							                    </button> -->
 							                </div>
@@ -481,6 +481,13 @@
 </div>
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+
+<!-- JS, Popper.js, and jQuery -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{js/inicio.js}"></script>
+    
     
 </body>
 
@@ -489,12 +496,12 @@
 
 <!-- Modal Inicio-->
                        <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					    <div class="modal-dialog modal-lg" role="document">
+					    <div class="modal-dialog " role="document">
 					        <div class="modal-content">
 
                                    <!-- Modal Header -->
                                    <div class="modal-header">
-                                       <h4 class="modal-title">Confirmacion de Asignacion</h4>
+                                       <h4 class="modal-title">Mensaje de Comunicacion</h4>
                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                    </div>
 
@@ -503,17 +510,19 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/altaAsignacion}" class="login100-form validate-form needs-validation"  method="post">
-                                               <h5 class="card-title">Resumen de asignacion</h5>
+                                           <form role="form" th:action="@{/mensaje}" class="login100-form validate-form needs-validation" th:object="${mensajeItem}" id="mensajeform"method="post">
+                                               <h5 class="card-title">Espacio de Comunicacion para los usuarios de Aplicacion</h5>
                                                <ul class="list-group">
-                                                   <li class="list-group-item list-group-item-info"><input type="text" id="anuncioMensaje" /></span></li>
+                                                   <li class="list-group-item list-group-item-info">
+                                                   	 <textarea class="form-control" th:field="*{mensaje}" id="mensaje" rows="5" cols="150"  required></textarea>
+                                                   </li>
                                                </ul>
                                                
-<!--                                                <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    /> -->
+									
                                                                                       			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Confirmar</button>        
+                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Confirmar Mensaje</button>        
 											</form>
                                            </div>
                                        </div>
@@ -530,4 +539,4 @@
                        </div>
                        <!-- Modal Fin-->
                        
-                       <script type="text/javascript" th:src="@{js/inicio.js}"></script>
+                       

@@ -35,7 +35,7 @@ import mx.uniprotec.inicio.service.IVendedorService;
 
 @Controller
 @SessionAttributes ("model")
-@Scope("prototype")
+//@Scope("prototype")
 public class ControllerCrud extends HttpServlet {
 	
     /**

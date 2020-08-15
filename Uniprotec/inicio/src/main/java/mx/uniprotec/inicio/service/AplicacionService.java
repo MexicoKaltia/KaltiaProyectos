@@ -1,16 +1,10 @@
 package mx.uniprotec.inicio.service;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-//import org.json.JSONException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +15,7 @@ import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
+import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
@@ -66,7 +61,13 @@ public class AplicacionService implements IAplicacionService {
 		}
 	}
 	
-	
+	@Override
+	public ResultVO altaMensaje(MensajeModelo mensaje, String accesToken) {
+		
+		ResultVO rs = (ResultVO) baseClientRest.objetoPost(accesToken, BaseClientRest.URL_CRUD_MENSAJE, mensaje);
+		return rs;
+	}
+
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -158,6 +159,8 @@ public class AplicacionService implements IAplicacionService {
 		
 	}
 	
+	
+	
 	@Override
 	public List<UserCorreo> usersCorreo(Long idInstructorAsignacion, Long userCreateAsignacion, String token) {
 		
@@ -216,6 +219,9 @@ public class AplicacionService implements IAplicacionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 
 
 

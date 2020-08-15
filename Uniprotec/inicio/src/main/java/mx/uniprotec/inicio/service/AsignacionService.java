@@ -82,12 +82,15 @@ public class AsignacionService implements IAsignacionService{
 				asignacion.getIdAsignacion());
 		
 		//Envio de correo
-				if(resultVO.getCodigo() != 500) {
-					JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-					JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
-					asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
-					aplicacionService.enviaMail(asignacion, token);
-				}
+		if(asignacion.getStatusAsignacion().equals("Curso Editado")) {
+			if(resultVO.getCodigo() != 500) {
+				JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+				JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
+				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
+				aplicacionService.enviaMail(asignacion, token);
+			}
+		}
+			
 				
 		return resultVO;
 	}

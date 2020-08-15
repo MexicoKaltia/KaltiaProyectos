@@ -41,7 +41,7 @@ $(document).ready(function() {
 			if(perfilUsuario === "Administracion"){
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				$("#btnSubmit").empty();
-				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edicion Fecha de Pago y Numero de Guía</button>')
+				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edición Fecha de Pago y Numero de Factura</button>')
 				$("#asignaConfirmar").hide();
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 				$("#btnOperacion").empty();

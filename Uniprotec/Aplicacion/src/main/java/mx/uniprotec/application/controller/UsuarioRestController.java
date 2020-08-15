@@ -321,7 +321,7 @@ log.info(usuario.toString());
 		
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(new Role(idPerfilUsuario, perfilUsuario));
-		log.info(roles.toString());
+//		log.info(roles.toString());
 		return roles;
 	}
 	

@@ -1,5 +1,6 @@
 package mx.uniprotec.inicio.controller;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
@@ -37,7 +39,7 @@ import mx.uniprotec.inicio.service.IUsuarioService;
 @CrossOrigin(origins = { "*" })
 @Controller
 @SessionAttributes ("model")
-@Scope("prototype")
+//@Scope("prototype")
 public class ControllerInicio extends HttpServlet{
 
 	
@@ -98,9 +100,10 @@ public class ControllerInicio extends HttpServlet{
 
 			log.info(resultVO.toString());
 			if(resultVO.getCodigo() != 500) {
+				log.info("Bienvenido");
 				mav.setViewName(resultVO.getResponse());
-				
 				mav.addObject("model", resultVO);
+				mav.addObject("mensajeItem", new MensajeModelo());
 				return mav;
 //				return new ModelAndView(resultVO.getResponse(), "model", resultVO);
 			}else {
@@ -125,6 +128,7 @@ public class ControllerInicio extends HttpServlet{
 			}else {
 				log.info("Inicio model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");
+				
 				log.info(resultVO.getResponse());
 						return new  ModelAndView(resultVO.getResponse(),  model);	
 			}		
@@ -531,6 +535,26 @@ public class ControllerInicio extends HttpServlet{
 			
 			if(rs.getCodigo() != 500) {
 //				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				mav.addObject("ejecucion2", true);
+			}else {
+				mav.addObject("error", true);
+				log.info("NOK CAsignacionIC0");
+			}
+			return mav;			
+		}
+
+		@PostMapping("/mensaje")
+		public ModelAndView mensaje(@ModelAttribute("mensajeItem") MensajeModelo mensaje, ModelMap model) {
+			log.info("Actualiza Mensaje de Aplicacion");
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			ModelAndView mav=new ModelAndView("Direccion");
+			JSONObject object = resultVO.getJsonResponse();
+			JSONObject jsonUser= new JSONObject((Map) object.get("user"));
+			mensaje.setUserCreateInstructor(Long.valueOf(jsonUser.get("id").toString()));
+			mensaje.setCreateAtInstructor(LocalDateTime.now());
+			ResultVO rs = aplicacionService.altaMensaje(mensaje, resultVO.getAccesToken());
+			if(rs.getCodigo() != 500) {
 				mav.addObject("ejecucion2", true);
 			}else {
 				mav.addObject("error", true);

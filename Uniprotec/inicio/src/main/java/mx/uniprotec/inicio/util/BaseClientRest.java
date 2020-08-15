@@ -65,6 +65,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_PERFIL		  =	"perfil";
 	public static final String URL_CRUD_PERFILES	  =	"perfiles";
 	public static final String URL_CRUD_CORREOS 	  =	"correos";
+	public static final String URL_CRUD_MENSAJE 	  =	"mensaje";
 	
 	
 	

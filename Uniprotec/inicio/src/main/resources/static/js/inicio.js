@@ -31,8 +31,22 @@ $(document).ready(function(){
 	
 	$('#anuncio').click(function(){	
 		$('#myModal').modal();
+		
 	})
 	
+	function mensajeFuncion(){
+		console.log($('#mensaje').val())
+		$('#mensajeTexto').text($('#mensaje').val());
+		return true
+	}
+	
+	$( "#mensajeform" ).submit(function( event ) {
+		  
+//		  console.log($('#mensaje').val())
+//		  alert( "Handler for .submit() called." );
+			$('#mensajeTexto').text($('#mensaje').val());
+		});
 	 	
 });  // fin de documento JQuery
 
+	

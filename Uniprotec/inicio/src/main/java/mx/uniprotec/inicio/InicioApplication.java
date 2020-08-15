@@ -12,12 +12,13 @@ import mx.uniprotec.inicio.controller.ControllerUtil;
 public class InicioApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(InicioApplication.class, args);
-		ControllerInicio ci = applicationContext.getBean(ControllerInicio.class);
-		applicationContext.getBean(ControllerCrud.class);
-		applicationContext.getBean(ControllerUtil.class);
+		SpringApplication.run(InicioApplication.class, args);
+//		ConfigurableApplicationContext applicationContext = SpringApplication.run(InicioApplication.class, args);
+//		ControllerInicio ci = applicationContext.getBean(ControllerInicio.class);
+//		applicationContext.getBean(ControllerCrud.class);
+//		applicationContext.getBean(ControllerUtil.class);
 		
-		System.out.println(ci);
+//		System.out.println(ci);
 
 	}
 

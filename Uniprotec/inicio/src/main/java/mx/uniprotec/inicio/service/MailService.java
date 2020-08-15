@@ -126,8 +126,6 @@ public class MailService implements IMailService{
 				
 				mailVO.setAsignacionMail(asignacion);
 				statusVO = mailServiceGeneraCorreo(mailVO);
-				
-				
 			}
 			i++;
 		}

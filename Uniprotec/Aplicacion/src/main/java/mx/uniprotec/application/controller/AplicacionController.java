@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.uniprotec.application.entity.Mensaje;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.service.IAplicacionService;
+import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 
 @CrossOrigin(origins = { "*" })
@@ -150,5 +152,38 @@ public class AplicacionController {
 		
 	}
 	
+	@PostMapping("/mensaje")
+	public ResponseEntity<?> mensaje(@Valid @RequestBody MensajeModelo mensaje, BindingResult result) {
+		
+		HttpStatus status ;
+		Map<String, Object> response = new HashMap<>();
+//		log.info("Correos : " + usersCorreo.toString());
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			status = HttpStatus.BAD_REQUEST;
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		try {			
+			Mensaje mensajeDao = aplicacionService.altaMensaje(mensaje);
+			log.info(mensaje.toString());
+			 response.put("mensaje", mensajeDao);
+			 response.put("mensaje", "Alta Mensaje Exitosa");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
 	
 }

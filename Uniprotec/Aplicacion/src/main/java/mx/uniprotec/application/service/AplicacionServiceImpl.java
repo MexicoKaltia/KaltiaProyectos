@@ -14,15 +14,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.IInstructorDao;
+import mx.uniprotec.application.dao.IMensajeDao;
 import mx.uniprotec.application.dao.IPerfilDao;
 import mx.uniprotec.application.dao.IRegionDao;
 import mx.uniprotec.application.dao.IUsuarioDao;
 import mx.uniprotec.application.dao.IVendedorDao;
 import mx.uniprotec.application.entity.Instructor;
+import mx.uniprotec.application.entity.Mensaje;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Vendedor;
+import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 
 
@@ -49,6 +52,8 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	IRegionDao regionDao;
 	@Autowired
 	IPerfilDao perfilDao;
+	@Autowired
+	IMensajeDao mensajeDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -174,4 +179,21 @@ public class AplicacionServiceImpl implements IAplicacionService {
 		return ussC;
 	}
 
+	@Override
+	@Transactional
+	public Mensaje altaMensaje(@Valid MensajeModelo mensajeModelo) {
+		
+		Mensaje mensaje = new Mensaje(mensajeModelo.getMensaje(),mensajeModelo.getUserCreateInstructor(),mensajeModelo.getCreateAtInstructor());
+		
+		return mensajeDao.save(mensaje);
+	}
+
+	@Override
+	public String getMensaje() {
+		Long id = mensajeDao.findMaxId();
+		Mensaje mensaje = mensajeDao.findById(id).orElse(null);
+		
+		return mensaje.getMensaje();
+	}
+	
 }

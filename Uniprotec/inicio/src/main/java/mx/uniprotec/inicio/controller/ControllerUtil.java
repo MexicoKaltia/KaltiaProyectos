@@ -40,7 +40,7 @@ import mx.uniprotec.inicio.service.IClienteService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@Scope("prototype")
+//@Scope("prototype")
 public class ControllerUtil {
 	public ControllerUtil() {}
 	
