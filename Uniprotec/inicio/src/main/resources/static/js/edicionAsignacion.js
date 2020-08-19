@@ -379,6 +379,15 @@ $(document).ready(function(){
 	
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	function limpiaCurso(){
+		$('#asignaCurso').val("");
+		$('#asignaCurso').attr("disabled", true);
+		$('#asignaInstructor').val("");
+		$.asignaCursoTexto= null;
+		$.asignaInstructorTexto= null;
+		$.asignaCurso= null;
+		$.asignaInstructor= null;
+	}
 /*
  * ValidaFECHA
  */
@@ -392,6 +401,8 @@ $(document).ready(function(){
    	    $.asignaFechaCalendario = $('#asignaFecha').val();
 		console.log("asignaFecha:"+ $.asignaFechaCalendario);
    		$('#alertaFecha').remove();
+   		
+   		limpiaCurso()
    		
    		if($.asignaFechaCalendario === null || $.asignaFechaCalendario === ""){
    			alerta="<div class='alert alert-danger' id='alertaFecha' role='alert'>Seleccione Fecha</div>";
@@ -407,6 +418,7 @@ $(document).ready(function(){
 	 * ValidaCLIENTE
 	 */
 	function validaCliente(){
+		limpiaCurso()
 		$.asignaCliente = $('#asignaCliente').val()
 		$.asignaClienteTexto = $("#asignaCliente option:selected").text();
 		console.log("asignaCliente:"+ $.asignaCliente);
@@ -598,6 +610,7 @@ $(document).ready(function(){
 			$('#asignaInstructor').empty();
 			$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
 			if(tipoCurso){
+
 				/*
 				 * Obtener ZonaCliente 
 				 */
@@ -607,57 +620,97 @@ $(document).ready(function(){
 					$('#btnAsignaCurso').attr("disabled", true);
 				}else{
 					var jsonCliente;
-					console.log(asignacionClientes);
 					for (i in asignacionClientes){
 						if(asignacionClientes[i].idCliente === ($('#asignaCliente').val() * 1)){
 							jsonCliente = asignacionClientes[i];
 						}
 					}
 					regionCliente = jsonCliente.regionCliente.idRegion;
-	//				console.log(jsonCliente);
-	//				console.log(jsonCliente.regionCliente.idRegion);
+					console.log(jsonCliente);
 				}
-				
+
 				/*
 				 * Consultar D-1 y D+1 Instructores
 				 */
 				var instructoresDiaSelect = new Array();
 				var instructoresDmin1 = new Array();
 				var instructoresDmas1 = new Array();
-				//validar dia seleccion
+				var instructoresDiaAyer = new Array();
+				var instructoresDiaMan = new Array();
+				/*
+				 * validar dia seleccion
+				 */
 				for(i in arrayInstructores){
 					 instructor = arrayInstructores[i];
-					 idInstructor = instructor.idInstructor
+					 idInstructor = instructor.idInstructor;
 					 nombreInstructor = instructor.nombreInstructor
 					if(validaDiaSelect(idInstructor)){
 						instructoresDiaSelect.push(instructor);
 					}
 				}
 					 console.log(instructoresDiaSelect);
-					//validar D-1
-				for(i in instructoresDiaSelect){
-					 instructor = instructoresDiaSelect[i];
-					 idInstructor = instructor.idInstructor
+				/*
+				 * libre ayer
+				 */
+				for(e in instructoresDiaSelect){
+					instructor = instructoresDiaSelect[e];
+					idInstructor = instructor.idInstructor;
 					 nombreInstructor = instructor.nombreInstructor
-					regionInstructor = instructor.regionInstructor.idRegion;
-					if(validaDmin1(regionCliente, idInstructor)){
-						instructoresDmin1.push(instructor);
+					if(!validaDiaAyer(idInstructor)){
+						instructoresDiaAyer.push(instructor);
+					}else{
+						if(validaDmin1(regionCliente, idInstructor)){
+							instructoresDmin1.push(instructor);
+							instructoresDiaAyer.push(instructor);
+						}
 					}
 				}
-				console.log(instructoresDmin1);
-				//validar D+1
-				for(e in instructoresDmin1){
-					instructor = instructoresDmin1[e];
+				console.log(instructoresDiaAyer);
+				/*
+				 * libre mañana 
+				 */
+				for(a in instructoresDiaAyer){
+					instructor = instructoresDiaAyer[a];
 					 idInstructor = instructor.idInstructor
 					 nombreInstructor = instructor.nombreInstructor
-					regionInstructor = instructor.regionInstructor.idRegion;
-					regionInstructor = instructor.regionInstructor.idRegion;
-					if(validaDmas1(asignaFecha, regionCliente, regionInstructor)){
-						instructoresDmas1.push(instructoresDmin1[e]);
+					if(!validaDiaMan(idInstructor)){
+						instructoresDiaMan.push(instructor);
 						$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+					}else{
+						if(validaDmas1(regionCliente, idInstructor)){
+							instructoresDiaMan.push(instructor);
+							$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+						}
 					}
+						
 				}
-				console.log(instructoresDmas1);
+				console.log(instructoresDiaMan);
+
+				
+				
+				
+//					//validar D-1
+//				for(i in instructoresDiaSelect){
+//					 instructor = instructoresDiaSelect[i];
+//					 idInstructor = instructor.idInstructor
+//					 nombreInstructor = instructor.nombreInstructor
+//					regionInstructor = instructor.regionInstructor.idRegion;
+//					if(validaDmin1(regionCliente, idInstructor)){
+//						instructoresDmin1.push(instructor);
+//					}
+//				}
+//				//validar D+1
+//				for(e in instructoresDiaAyer){
+//					instructor = instructoresDiaAyer[e];
+//					 idInstructor = instructor.idInstructor
+//					 nombreInstructor = instructor.nombreInstructor
+//					regionInstructor = instructor.regionInstructor.idRegion;
+//					if(validaDmas1(regionCliente, idInstructor)){
+//						instructoresDmas1.push(instructor);
+//						$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+//					}
+//				}
+			
 				
 			}else{
 				//validar dia seleccion
@@ -703,6 +756,67 @@ $(document).ready(function(){
 	function stringToList(cadena){
 		return cadena.split(";");
 	}
+	
+	function validaDiaAyer(idInstructor){
+		var asignacion;
+		var asignacionFecha;
+		var asignacionInstructor;
+		var idRegionAsignado;
+		
+		var asignaFechaMin1 = $.asignaFecha.split("/");
+		var dayer = new Date(asignaFechaMin1[2] +"/"+ asignaFechaMin1[1] +"/"+ asignaFechaMin1[0]);
+		dayer.setDate(dayer.getDate() - 1);
+		var dia = dayer.getDate();
+		var mes = (dayer.getMonth()+1);
+		var anio =dayer.getFullYear();
+		if(dia<10)
+			dia = "0"+dia.toString();
+		if(mes<10)
+			mes = "0"+mes.toString();
+		var dayerTexto = mes +"/"+ dia +"/"+ anio ;
+		for(i in asignacionAsignaciones){
+			asignacion = asignacionAsignaciones[i];
+			asignacionFecha = asignacion.fechaAsignacion;
+			asignacionInstructor = asignacion.idInstructorAsignacion;
+			if(asignacionFecha === dayerTexto && (asignacionInstructor === idInstructor)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function validaDiaMan(idInstructor){
+		var asignacion;
+		var asignacionFecha;
+		var asignacionInstructor;
+		var idRegionAsignado;
+		
+		var asignaFechaMin1 = $.asignaFecha.split("/");
+		var dman = new Date(asignaFechaMin1[2] +"/"+ asignaFechaMin1[1] +"/"+ asignaFechaMin1[0]);
+		dman.setDate(dman.getDate() + 1);
+		var dia = dman.getDate();
+		var mes = (dman.getMonth()+1);
+		var anio =dman.getFullYear();
+		if(dia<10)
+			dia = "0"+dia.toString();
+		if(mes<10)
+			mes = "0"+mes.toString();
+		var dManTexto = mes +"/"+ dia +"/"+ anio ;
+		
+		for(i in asignacionAsignaciones){
+			asignacion = asignacionAsignaciones[i];
+			asignacionFecha = asignacion.fechaAsignacion;
+			asignacionInstructor = asignacion.idInstructorAsignacion;
+//			console.log(dManTexto+":"+asignacionFecha);
+			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
+				console.log(idInstructor);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	function validaDiaSelect(idInstructor){
 		var fechaDisponible = true;

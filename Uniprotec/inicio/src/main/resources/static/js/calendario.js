@@ -4,7 +4,7 @@
 
 $(document).ready(function() {
 
-	var asignacion;
+	var asignacion0;
 	var asignaFechaCalendario ;
 	var asignaClienteTexto ;
 	var asignaCursoTexto ;
@@ -19,27 +19,36 @@ $(document).ready(function() {
 	var asignaStatus;
 	var zonaCliente ;
 	var asignaUserCreateAsignacion;
-	var item;
+	var item = new Array();
+	const identificadorUsuario = idUsuario;
 	console.log("id usuario sesion:"+idUsuario)
+	
 	function abrirModal(item){
+		$("#asignaConfirmar").hide();
 		item = item.split('-');	
 		for(i in asignaciones){
-			asignacion = asignaciones[i]; 
+			asignacion0 = asignaciones[i]; 
 			idCliente = asignaciones[i].idClienteAsignacion;
-			if(perfilUsuario === "Vendedor"){
-				if(idUsuario === asignacion.userCreateAsignacion){
-					console.log("sesion:"+idUsuario)
-					console.log("create:"+asignacion.userCreateAsignacion)
-					$("#asignaConfirmar").show();
-					$("#btnOperacion").empty();
-					$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
-					$("#btnOperacion").click(function(){
+			console.log("createA:"+asignacion0.userCreateAsignacion)
+			$("#btnOperacion").empty();
+			$("#edicionVentas").empty();
+//			if(item[0].toString() === asignacion0.idAsignacion.toString()){
+				if(perfilUsuario === "Vendedor"){
+					if(identificadorUsuario === asignacion0.userCreateAsignacion){
+						console.log("sesion:"+idUsuario)
+						console.log("create:"+asignacion0.userCreateAsignacion)
+//						$("#asignaConfirmar").show();
+						$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
+						$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button>')
+						$("#btnOperacion").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionI");
-					})
-				}else{
-					$("#asignaConfirmar").hide();
+						})
+					}else{
+						$("#asignaConfirmar").hide();
+					}
 				}
-			}
+//			}
+			
 			if(perfilUsuario === "Administracion"){
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				$("#btnSubmit").empty();
@@ -48,38 +57,39 @@ $(document).ready(function() {
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 				$("#btnOperacion").empty();
 				$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
+				$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button>')
 				$("#btnOperacion").click(function(){
 					$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				})
 			}else{
 				$("#btnSubmit").empty();
-//				$("#btnSubmit").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+				$("#asignaConfirmar").hide();
 			}
 			
 //			$("#btnSubmit").empty();
 //			$("#btnSubmit").append('')
 			
-			if(asignacion.idAsignacion.toString() === item[0].toString()){
-				asignaFechaCalendario = cambiaFormatoFecha(asignacion.fechaAsignacion);
-				asignaClienteTexto = asignacion.clienteAsignacion;
-				asignaCursoTexto = asignacion.cursoAsignacion;
-				asignaInstructorTexto = asignacion.instructorAsignacion;
-				asignaHorarioInicio = horaInicio(asignacion.horarioAsignacion.toString());
-				asignaHorarioFinal = horaFin(asignacion.horarioAsignacion.toString());
-				asignaHorasEfectivas = horaFin(asignacion.horarioAsignacion.toString());
-				asignaParticipantes = asignacion.participantesAsignacion;
-				asignaNivel = asignacion.nivelAsignacion;
-				asignaObservaciones = asignacion.observacionesAsignacion;
-				asignaArchivos = asignacion.archivosAsignacion;
-				zonaCliente = colorZonaCliente(asignacion.idRegionAsignacion, asignacion.nombreRegionAsignacion);
-				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
-				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
-				asignaStatus = asignacion.statusAsignacion;
-				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
-				asignaFechaPago= asignacion.fechaPago;
-				asignaFactura = asignacion.numeroFactura;
-				console.log(asignacion);	
-				asignaCamposSubmit(asignacion);
+			if(asignacion0.idAsignacion.toString() === item[0].toString()){
+				asignaFechaCalendario = cambiaFormatoFecha(asignacion0.fechaAsignacion);
+				asignaClienteTexto = asignacion0.clienteAsignacion;
+				asignaCursoTexto = asignacion0.cursoAsignacion;
+				asignaInstructorTexto = asignacion0.instructorAsignacion;
+				asignaHorarioInicio = horaInicio(asignacion0.horarioAsignacion.toString());
+				asignaHorarioFinal = horaFin(asignacion0.horarioAsignacion.toString());
+				asignaHorasEfectivas = horaFin(asignacion0.horarioAsignacion.toString());
+				asignaParticipantes = asignacion0.participantesAsignacion;
+				asignaNivel = asignacion0.nivelAsignacion;
+				asignaObservaciones = asignacion0.observacionesAsignacion;
+				asignaArchivos = asignacion0.archivosAsignacion;
+				zonaCliente = colorZonaCliente(asignacion0.idRegionAsignacion, asignacion0.nombreRegionAsignacion);
+				asignacionTipoCurso = asignacion0.tipoCursoAsignacion;
+				asignaHorasEfectivas = asignacion0.horarioAsignacion.split(";");
+				asignaStatus = asignacion0.statusAsignacion;
+				asignaUserCreateAsignacion = asignacion0.userCreateAsignacionTexto
+				asignaFechaPago= asignacion0.fechaPago;
+				asignaFactura = asignacion0.numeroFactura;
+				console.log(asignacion0);	
+				asignaCamposSubmit(asignacion0);
 				break;
 			}
 		}
@@ -98,7 +108,7 @@ $(document).ready(function() {
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 		if(asignaStatus ==="Entregable Enviado") {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
-			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion0.guiaEntregable+' <b></div>');
 		}else{
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		}
