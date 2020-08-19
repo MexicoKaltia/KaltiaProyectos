@@ -474,6 +474,8 @@
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
 							           <div class="row setup-content" id="step-7">
 							               <div class="col-md-12 mb-3">
+							               
+							               
 							                   <div class="col-md-12">
 							                       <h3> Adjuntar Observaciones</h3>
 							                       <div class="form-group">
@@ -500,6 +502,16 @@
 							            			<div class="alertaVacio">
 														<hiden class="alerta_inVacio"></hiden>
 													</div>
+													<br>
+													<div class="col-md-8 mb-3">
+								                       <h5><b>Status Curso :</b></h5>
+								                       <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                                                	<button type="button" id="statusAsignacionbtn" class="btn btn-info" onclick="checkStatusAsignacion()"></button>
+	                                            		</div>
+	                                            		<br>
+		                                                	<small class="form-text text-muted">Dar click en el boton si desea cambiar status a Evento Cancelado.</small>
+	                                               </div>
+	                                               <br><br>
 							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
 <!-- 							                       <button id="asignar" class="btn btn-success btn-lg pull-right"  type="button">Agendar</button> -->
 							                       <!-- Button to Open the Modal -->
@@ -610,6 +622,7 @@
                                                    <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Status Evento : <span id="modalStatus"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />

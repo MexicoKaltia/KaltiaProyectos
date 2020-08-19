@@ -57,7 +57,13 @@ $(document).ready(function() {
 		$('#modalNivel').html('<b>'+asignaNivel+'</b>');
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
-		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+//		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		if(asignaStatus ==="Entregable Enviado") {
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+		}else{
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		}
 		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
@@ -130,6 +136,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
+		$('#fechaPago').val(asignacionSub.fechaPago);
+		$('#numeroFactura').val(asignacionSub.numeroFactura);
+//			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
+//			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 	}

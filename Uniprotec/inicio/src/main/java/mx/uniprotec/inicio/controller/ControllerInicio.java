@@ -266,6 +266,7 @@ public class ControllerInicio extends HttpServlet{
 		@PostMapping("/BAsignacion")
 		public ModelAndView BAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 			model.addAttribute("asignacionItem", asignacion);
+			log.info(asignacion.toString());
 			if(model.equals(null)) {
 				log.info("NULL");
 				return new  ModelAndView("login");
@@ -316,9 +317,9 @@ public class ControllerInicio extends HttpServlet{
 			}
 		
 		@PostMapping("/actualizaAsignacion")
-		public ModelAndView actualizaAsignacion(@ModelAttribute("asignacionItemUpdate") AsignacionModelo asignacion, ModelMap model) {
+		public ModelAndView actualizaAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 			log.info("Actualiza Asignacion model Activo");
-			
+			log.info(asignacion.toString());
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
 
@@ -420,7 +421,7 @@ public class ControllerInicio extends HttpServlet{
 			log.info("Actualiza Asignacion Instructor model Activo");
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
-			log.info(asignacion.getArchivosAsignacion());
+			log.info(asignacion.toString());
 			ModelAndView mav=null;
 			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
 			if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {

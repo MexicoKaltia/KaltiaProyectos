@@ -61,7 +61,12 @@ $(document).ready(function() {
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 		$('#modalStatus').empty();
-		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		if(asignaStatus ==="Entregable Enviado") {
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+		}else{
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		}
 
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Entregables Validado"){ 
@@ -70,9 +75,9 @@ $(document).ready(function() {
 			else if(asignaStatus ==="Curso Cancelado") {
 				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, ya no se realiza Edicion. </u></div>');
 			}
-			else if(asignaStatus ==="Entregable Enviado") {
-				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
-			}
+//			else if(asignaStatus ==="Entregable Enviado") {
+//				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+//			}
 		}else{
 			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
 		}
@@ -149,6 +154,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
+		$('#fechaPago').val(asignacionSub.fechaPago);
+		$('#numeroFactura').val(asignacionSub.numeroFactura);
+//			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
+//			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 	}

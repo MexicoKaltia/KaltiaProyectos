@@ -223,7 +223,7 @@ log.info(usuario.toString());
 		}
 		
 		
-		if(usuario.getPasswordUsuarioOld().equals(null) && usuario.getPasswordUsuarioOld().isEmpty()) {
+		if(usuario.getPasswordUsuarioOld() == null) {
 				usuarioActual.setPasswordUsuario(usuario.getPasswordUsuario());
 		}else {
 			if(passwordEncoder.matches((CharSequence)usuario.getPasswordUsuarioOld(), usuarioActual.getPasswordUsuario())) {

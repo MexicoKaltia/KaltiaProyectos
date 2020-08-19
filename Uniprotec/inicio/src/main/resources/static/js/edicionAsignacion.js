@@ -29,8 +29,11 @@ $(document).ready(function(){
 	 $.asignaIdRegion=asignacionItem.idRegionAsignacion;
 	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
-	 $.asignaUserCreateAsignacion=idUsuario;
-	 $.asignaUserCreateAsignacionTexto=nombreUsuario;
+//	 $.asignaUserCreateAsignacion=idUsuario;
+//	 $.asignaUserCreateAsignacionTexto=nombreUsuario;
+	 $.asignaUserCreateAsignacion=asignacionItem.userCreateAsignacion;
+	 $.asignaUserCreateAsignacionTexto=asignacionItem.userCreateAsignacionTexto;
+	 $.asignaStatusAsignacion=asignacionItem.statusAsignacion
 	 
 	 var proceso="<div class='alert alert-secondary' id='proceso' role='alert'>Resumen de Proceso de Edicion:<ul id='listaProceso'></ul></div>";
 		var procesoVacio="";
@@ -84,7 +87,10 @@ $(document).ready(function(){
 	//--------------------------------------------------
 	$('#asignaNivel').append('<option value="'+asignacionItem.nivelAsignacion+'" selected >'+asignacionItem.nivelAsignacion+'</option>');
 	//--------------------------------------------------
-	$('#asignaObservaciones').text(asignacionItem.observacionesAsignacion);
+
+	$('#statusAsignacionbtn').html($.asignaStatusAsignacion);
+	$.asignaStatusAsignacion="Curso Editado";
+	$('#asignaObservaciones').val($.asignaObservaciones);
 	//--------------------------------------------------
 	$("#linkFile").attr('href', '/uploads/fileAsignacion/'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivosAsignacion)
     $("#linkFile").html('<b>'+asignacionItem.archivosAsignacion+'</b>');
@@ -209,6 +215,13 @@ $(document).ready(function(){
 		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
 		$('#modalVentas').html('<b>'+$.asignaUserCreateAsignacionTexto+'</b>');
+		if($.asignaStatusAsignacion==="Evento Cancelado"){
+			$('#modalStatus').html('<span style="background:red; color:white"><b>'+$.asignaStatusAsignacion+'</b></span>');
+		}else{
+			$('#modalStatus').html('<span style="background:silver; color:black"><b>'+$.asignaStatusAsignacion+'</b></span>');
+		}
+		
+		
 		/*
 		 * asignar valores al formulario 
 		 */
@@ -356,9 +369,12 @@ $(document).ready(function(){
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
-		$('#statusAsignacion').val("Curso Editado");
-		$('#userCreateAsignacion').val(idUsuario);
-		$('#userCreateAsignacionTexto').val(nombreUsuario);
+		
+		$('#statusAsignacion').val($.asignaStatusAsignacion);
+		
+		$('#userCreateAsignacion').val($.asignaUserCreateAsignacion);
+		$('#userCreateAsignacionTexto').val($.asignaUserCreateAsignacionTexto);
+		
 	}
 	
 
@@ -1006,6 +1022,17 @@ $(document).ready(function(){
 	/*
 	 * ValidaObservaciones
 	 */
+function checkStatusAsignacion(){
+			$('#statusAsignacionbtn').html("Evento Cancelado");
+			$('#statusAsignacionbtn').removeClass("btn-info");
+			$('#statusAsignacionbtn').addClass("btn-danger");
+			var r = confirm("Seguro de Cancelar el Evento, esta operacion no se puede reversar, tendría que crear un Evento nuevo.")
+			if(r){
+				$.asignaStatusAsignacion="Evento Cancelado";
+			}
+			
+		}
+
 	function validaObservaciones(){
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();

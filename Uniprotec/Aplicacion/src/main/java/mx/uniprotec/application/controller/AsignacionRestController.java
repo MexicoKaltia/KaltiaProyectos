@@ -195,46 +195,54 @@ public class AsignacionRestController {
 			 response.put("code", HttpStatus.NOT_FOUND.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-//		log.info("update Asignacion:"+asignacionActual.toString());
-
-		try {
-		
-			asignacionActual.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
-			asignacionActual.setFechaAsignacion(asignacion.getFechaAsignacion());
-			asignacionActual.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
-			asignacionActual.setClienteAsignacion(asignacion.getClienteAsignacion());
-			asignacionActual.setIdCursoAsignacion(asignacion.getIdCursoAsignacion());
-			asignacionActual.setCursoAsignacion(asignacion.getCursoAsignacion());
-			asignacionActual.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
-			asignacionActual.setInstructorAsignacion(asignacion.getInstructorAsignacion());
-			asignacionActual.setHorarioAsignacion(asignacion.getHorarioAsignacion());
-			asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
-			asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
-			asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
-			asignacionActual.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
-			asignacionActual.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
-			asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
-			asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
-			asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
-			asignacionActual.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
-			asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
-			asignacionActual.setFechaPago(asignacion.getFechaPago());
-			asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());
-			asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
-			asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
-			
-			asignacionUpdated = asignacionService.save(asignacionActual);
+		log.info("update Asignacion:"+asignacion.toString());
+		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
+			asignacionService.delete(id);
 			response.put("asignacion", asignacionUpdated  );
-			 response.put("mensaje", "Asignacion actualizada con Exito");
+			 response.put("mensaje", "Asignacion Eliminada con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
-			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		}else {
+			try {
+				
+				asignacionActual.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
+				asignacionActual.setFechaAsignacion(asignacion.getFechaAsignacion());
+				asignacionActual.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
+				asignacionActual.setClienteAsignacion(asignacion.getClienteAsignacion());
+				asignacionActual.setIdCursoAsignacion(asignacion.getIdCursoAsignacion());
+				asignacionActual.setCursoAsignacion(asignacion.getCursoAsignacion());
+				asignacionActual.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
+				asignacionActual.setInstructorAsignacion(asignacion.getInstructorAsignacion());
+				asignacionActual.setHorarioAsignacion(asignacion.getHorarioAsignacion());
+				asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
+				asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
+				asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+				asignacionActual.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
+				asignacionActual.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
+				asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
+				asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
+				asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
+				asignacionActual.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
+				asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
+				asignacionActual.setFechaPago(asignacion.getFechaPago());
+				asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());
+				asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
+				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
+				
+				asignacionUpdated = asignacionService.save(asignacionActual);
+				response.put("asignacion", asignacionUpdated  );
+				 response.put("mensaje", "Asignacion actualizada con Exito");
+				 response.put("status", HttpStatus.CREATED);
+				 response.put("code", HttpStatus.CREATED.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
-		} catch (DataAccessException e) {
-			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
-			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
-			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			} catch (DataAccessException e) {
+				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 
 	}

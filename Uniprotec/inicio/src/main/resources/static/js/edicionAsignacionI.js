@@ -25,6 +25,7 @@ $(document).ready(function(){
 	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
 	 $.asignaStatus=asignacionItem.statusAsignacion;
+	 $.asignaGuia=asignacionItem.guiaEntregable
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
 	 
@@ -187,6 +188,7 @@ $(document).ready(function(){
 //			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+			
 		}
 	}
 	
@@ -206,9 +208,15 @@ $(document).ready(function(){
 	$('#statusAsignacion').val($.sigStatus);
 	$('#archivosAsignacionTexto').val(asignacionItem.archivosAsignacion);
 	$('#archivosAsignacionTexto0').val(asignacionItem.archivosAsignacion);
+//	$('#guiaEntregable').val(asignacionItem.guiaEntregable);
+//	$('#fechaPago').val(asignacionItem.fechaPago);
+//	$('#numeroFactura').val(asignacionItem.numeroFactura);
+//	$('#guiaEntregable0').val(asignacionItem.guiaEntregable);
+//	$('#fechaPago0').val(asignacionItem.fechaPago);
+//	$('#numeroFactura0').val(asignacionItem.numeroFactura);
 	
 	if(perfilUsuario !== "Administracion"){
-		$('#edicionAsignacion').hide();
+		$('#edicionAsignacion0').hide();
 	}else{
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');

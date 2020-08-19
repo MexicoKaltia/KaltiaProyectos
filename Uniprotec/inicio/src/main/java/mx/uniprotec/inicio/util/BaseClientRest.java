@@ -42,13 +42,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
-
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
 	public static final String URL_CRUD_VENDEDOR	  =	"vendedor";
@@ -76,7 +75,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 	
 	public static final Long MAX_TIME_TOKEN = (long) 3600000; 
-//	String APP_ID = "angularapp:12345";
 	
 	ResultVO resultVO = new ResultVO();
 	

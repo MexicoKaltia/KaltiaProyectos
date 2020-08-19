@@ -222,6 +222,9 @@ public class InstructorRestController {
 		}
 
 		try {
+			
+			log.info(instructor.toString());
+			
 			Region region = aplicacionService.findRegion(instructor.getRegionInstructor());
 			
 			instructorActual.setNombreInstructor(instructor.getNombreInstructor());
@@ -230,8 +233,10 @@ public class InstructorRestController {
 			instructorActual.setRegionInstructor(region);
 //			instructorActual.setUsuarioInstructor(usuarioService.findById(instructor.getUsuarioInstructor()));
 			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
-			instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
-			log.info(instructorActual.getListFechas());
+			if(instructor.getListFechas().size()>0) {
+				instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
+			}
+//			log.info(instructorActual.getListFechas());
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
 			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorActual.setStatusInstructor(instructor.getStatusInstructor());

@@ -383,7 +383,7 @@
 									      </div>
                                         </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
-                                        <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post" id="edicionAsignacion">
+                                        <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post" id="edicionAsignacion0">
                                         <div class="form-row">                                        
                                         <div class="col-md-6 mb-3">
                                             <div class="wrimagecard wrimagecard-topimage">
@@ -392,7 +392,7 @@
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Fecha de Pago</h6>
 									          
-									          	<input type="text" class="datepicker form-control"  id="fechaPago" name="fechaPago" placeholder="Asigna Fecha de Pago" value=""  maxlength="100" th:field="*{fechaPago}" required>
+									          	<input type="text" class="datepicker form-control"  id="fechaPago0" name="fechaPago0" placeholder="Asigna Fecha de Pago" value=""  maxlength="100" th:field="*{fechaPago}" required>
 									          </div>
 									      </div>
                                         </div>
@@ -402,7 +402,7 @@
 									           <center><i class="fa fa-file" style="color:#3369e8"> </i></center> 
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Numero de Factura</h6>
-									          	<input type="text" class="form-control"  id="numeroFactura" name="numeroFactura" placeholder="Capture Numero de Factura" value=""  maxlength="100" th:field="*{numeroFactura}" required>
+									          	<input type="text" class="form-control"  id="numeroFactura0" name="numeroFactura0" placeholder="Capture Numero de Factura" value=""  maxlength="100" th:field="*{numeroFactura}" required>
 									          </div>
 									          </div>
 									      </div>
@@ -434,10 +434,7 @@
                                                <input type="hidden" id="verificarEntregable0" th:field="*{verificarEntregable}" />
                                                <input type="hidden" id="userCreateAsignacion0" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto0" th:field="*{userCreateAsignacionTexto}" />
-
-<!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
-<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
-<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
+                                               <input type="hidden" id="guiaEntregable0" th:field="*{guiaEntregable}" />
                                         </form>
                                        
 									 </div>
@@ -589,7 +586,7 @@
                                            <div class="card-body">
                                            <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
                                                <h5 class="card-title">Avanzar Etapa de proceso de Evento</h5>
-                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
                                                <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
                                                <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />

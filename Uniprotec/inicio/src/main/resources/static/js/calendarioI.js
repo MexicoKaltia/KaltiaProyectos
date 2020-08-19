@@ -135,6 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
+		$('#fechaPago').val(asignacionSub.fechaPago);
+		$('#numeroFactura').val(asignacionSub.numeroFactura);
+//			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
+//			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 	}

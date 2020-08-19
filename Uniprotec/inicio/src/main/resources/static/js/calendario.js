@@ -20,14 +20,16 @@ $(document).ready(function() {
 	var zonaCliente ;
 	var asignaUserCreateAsignacion;
 	var item;
-	
+	console.log("id usuario sesion:"+idUsuario)
 	function abrirModal(item){
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
-//			idCliente = asignaciones[i].idClienteAsignacion;
+			idCliente = asignaciones[i].idClienteAsignacion;
 			if(perfilUsuario === "Vendedor"){
-				if(idUsuario === asignaciones[i].userCreateAsignacion){
+				if(idUsuario === asignacion.userCreateAsignacion){
+					console.log("sesion:"+idUsuario)
+					console.log("create:"+asignacion.userCreateAsignacion)
 					$("#asignaConfirmar").show();
 					$("#btnOperacion").empty();
 					$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
@@ -74,6 +76,8 @@ $(document).ready(function() {
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
 				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
+				asignaFechaPago= asignacion.fechaPago;
+				asignaFactura = asignacion.numeroFactura;
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -92,9 +96,19 @@ $(document).ready(function() {
 		$('#modalNivel').html('<b>'+asignaNivel+'</b>');
 		$('#modalObservaciones').html('<b>'+asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
-		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		if(asignaStatus ==="Entregable Enviado") {
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+		}else{
+			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
+		}
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
-		
+		$('#modalFechaPago').html('<b>'+asignaFechaPago+'</b>');
+		$('#modalFactura').html('<b>'+asignaFactura+'</b>');
+		if(perfilUsuario !== "Administracion"){
+//			$('#resumenAsignacionModal').
+			$('#admon').hide();
+		}
 		$('#myModal').modal();
 		
 		
@@ -113,6 +127,7 @@ $(document).ready(function() {
 			right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
 		},
 		eventClick : function(info){
+			console.log(info.event.title);
 			abrirModal(info.event.title)
 		},
 		
@@ -153,8 +168,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
 		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
-		$('#userCreateAsignacion').val(idUsuario);
-		$('#userCreateAsignacionTexto').val(nombreUsuario);
+		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
+		$('#fechaPago').val(asignacionSub.fechaPago);
+		$('#numeroFactura').val(asignacionSub.numeroFactura);
+//			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
+//			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
+		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
+		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
+		
+		
 	}
 
 	

@@ -87,11 +87,11 @@ public class AsignacionService implements IAsignacionService{
 				JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 				JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
 				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
-				aplicacionService.enviaMail(asignacion, token);
+				log.info("Listo proceso envia correo");
+//				aplicacionService.enviaMail(asignacion, token);
 			}
 		}
-			
-				
+
 		return resultVO;
 	}
 	
