@@ -90,5 +90,20 @@ Seguimiento Modulos
 	Certificados
 		cursos
 	
-	
+	Solicitud Cursos Cliente
+		cliente solicita por calendario
+		cliente solicita por instructor
+		cliente solicita nuevo curso
+		
+	Reportes
+		Reporte Semanal Direccion
+			Status Corte de Fecha
+			Status Pagos
+			Status Facturacion
+		Reporte Seguimiento de Eventos
+			Reporte Cursos Asignados
+			Reporte Instructores no agendados
+			Reporte Estadistica mayor demanda cursos
+			Reporte Estadistica disponibilidad instructores siguiente semana.
+
 	
