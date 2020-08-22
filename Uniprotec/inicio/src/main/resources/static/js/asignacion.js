@@ -372,6 +372,7 @@ var alerta, proceso;
 	 */
 	var tipoCurso = true;
 	var tipoCursoVal = "";
+	var arrayInstructores = new Array();
 	var instructoresDiaSelect = new Array();
 	var instructoresDmin1 = new Array();
 	var instructoresDmas1 = new Array();
@@ -403,8 +404,14 @@ var alerta, proceso;
 		/*
 		 * Validacion ValorCampo
 		 */
+		 arrayInstructores.length = 0; 
+		 instructoresDiaSelect.length = 0;
+		 instructoresDmin1.length = 0;
+		 instructoresDmas1.length = 0;
+		 instructoresDiaAyer.length = 0;
+		 instructoresDiaMan.length = 0;
 		$.asignaCurso = $('#asignaCurso').val();
-//		console.log("asignaCurso:"+ $.asignaCurso);
+		console.log("asignaCurso:"+ $.asignaCurso);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -431,23 +438,32 @@ var alerta, proceso;
 			 * Filtra Instructores por Curso
 			 */
 			var valorCurso = $.asignaCurso * 1;
-			var arrayInstructores = new Array();
-//			console.log(asignacionInstructores);
 //			console.log(asignacionCurso);
-			for(a in asignacionCurso){
-				curso = asignacionCurso[a];
-				if($.asignaCurso.toString() === curso.idCurso.toString())
-					arrayInstructores = curso.instructores;
-			}
-//			for (i in asignacionInstructores){				
-////				var arrayCursosInstructor = asignacionInstructores[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
-//				for( e in arrayCursosInstructor){
-//					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
-//					if(arrayCursosInstructor[e] === valorCurso){
-//						arrayInstructores.push(asignacionInstructores[i])
-//					}
+//			for(a in asignacionCurso){
+//				curso = asignacionCurso[a];
+//				if($.asignaCurso.toString() === curso.idCurso.toString()){
+//					arrayInstructores = curso.instructores;
+////					for(e in curso.instructores){
+////						for(i in asignacionInstructores){
+////							if(curso.instructores[e].idInstructor === asignacionInstructores[i].idInstructor){
+////								console.log(asignacionInstructores[i]);
+////								arrayInstructores.push(asignacionInstructores[i]);
+////							}
+////						}
+////					}
 //				}
 //			}
+			for (i in asignacionInstructores){				
+				var arrayCursosInstructor = asignacionInstructores[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
+				for( e in arrayCursosInstructor){
+					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace('[','');
+					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(']','');
+					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
+					if(arrayCursosInstructor[e] === valorCurso){
+						arrayInstructores.push(asignacionInstructores[i])
+					}
+				}
+			}
 			console.log(arrayInstructores);
 			/*
 			 * Valida dias de Ausencia
@@ -535,10 +551,11 @@ var alerta, proceso;
 					 idInstructor = instructor.idInstructor
 					 nombreInstructor = instructor.nombreInstructor
 					if(!validaDiaMan(idInstructor)){					
-						idRegionOrigen = getRegionOrigen(idInstructor);
-						if(validaZonaBase(idRegionOrigen, regionCliente)){
-							instructoresDiaMan.push(instructor);
-						}
+						instructoresDiaMan.push(instructor);
+//						idRegionOrigen = getRegionOrigen(idInstructor);
+//						if(validaZonaBase(idRegionOrigen, regionCliente)){
+//							instructoresDiaMan.push(instructor);
+//						}
 					}else{
 						if(validaDmas1(regionCliente, idInstructor)){
 							instructoresDiaMan.push(instructor);

@@ -23,6 +23,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -57,6 +58,7 @@ public class Instructor implements Serializable {
 	private String cursosInstructor;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "instructores")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	private List<Curso> curso = new ArrayList<>();
 
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)

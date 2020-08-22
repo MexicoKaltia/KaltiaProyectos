@@ -63,6 +63,7 @@ public class Curso implements Serializable {
 	@JoinTable(name="cursos_instructores", joinColumns= @JoinColumn(name="curso_id"),
 	inverseJoinColumns=@JoinColumn(name="instructor_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"curso_id", "instructor_id"})})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Instructor> instructores = new ArrayList<>();
 	 
 //	public void addInstructor(Instructor instructor){
