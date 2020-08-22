@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.entity.Cliente;
 import mx.uniprotec.application.entity.ResponseGeneral;
+import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.service.IUsuarioService;
@@ -135,7 +136,6 @@ public class VendedorRestController {
 	 /*
 	  * 
 	  */
-	@SuppressWarnings("null")
 	@PostMapping("/vendedor")
 	public ResponseEntity<?> create(@Valid @RequestBody VendedorModelo vendedor, BindingResult result) {
 		
@@ -194,7 +194,7 @@ public class VendedorRestController {
 		Vendedor vendedorUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
-
+		log.info("Actualizacion Vendedor");
 		if(result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors()
@@ -205,6 +205,7 @@ public class VendedorRestController {
 			response.put("mensaje", errors);
 			 response.put("status", HttpStatus.BAD_REQUEST);
 			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("Error");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -213,40 +214,64 @@ public class VendedorRestController {
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			response.put("status", HttpStatus.NOT_FOUND);
 			response.put("code", HttpStatus.NOT_FOUND.value());
+			log.info("Error: no se pudo editar, el vendedor ID:".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-
-		try {
-			List<Cliente> clientes = new ArrayList<Cliente>();
+		if(vendedor.getStatusVendedor().equals("Baja")) {
+//			Usuario usuario = usuarioService.findById(vendedorActual.getUsuarioVendedor().getIdUsuario());
+//			usuario.setStatusUsuario(vendedor.getStatusVendedor());
+//			usuario.setPasswordUsuario(vendedor.getStatusVendedor());
+//			usuario.setUsernameUsuario("");
+//			usuario.setPerfilUsuario("x".concat(usuario.getPerfilUsuario()));
+//			usuario = usuarioService.save(usuario);
+//			
+			try {
+				vendedorService.delete(id);
+				
+				response.put("vendedor", vendedor  );
+				 response.put("mensaje", "Vendedor Eliminado con Exito");
+				 response.put("status", HttpStatus.ACCEPTED);
+				 response.put("code", HttpStatus.ACCEPTED.value());
+				 log.info("Vendedor eliminado con Exito");
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+				
+			} catch (Exception e) {
+				
+				response.put("vendedor", vendedor );
+				 response.put("mensaje", "Vendedor Eliminado con Exito");
+				 response.put("status", HttpStatus.ACCEPTED);
+				 response.put("code", HttpStatus.ACCEPTED.value());
+				 log.info("Vendedor Eliminado con Exito");
+				 e.printStackTrace();
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+			}
 			
-//			for(Long idCliente : vendedor.getListClienteVendedor()) {
-//				Cliente cliente = new Cliente(idCliente);
-//				clientes.add(cliente);
-//			}
-			
-//			vendedorActual.setCliente(clientes);
-			vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());
-			vendedorActual.setEmailVendedor(vendedor.getEmailVendedor());
-			vendedorActual.setNotaVendedor(vendedor.getNotaVendedor());
-			vendedorActual.setUsuarioVendedor(usuarioService.findById(vendedor.getUsuarioVendedor()));
-			vendedorActual.setCreateAtVendedor(vendedor.getCreateAtVendedor());
-			vendedorActual.setStatusVendedor(vendedor.getStatusVendedor());
-			vendedorActual.setUserCreateVendedor(vendedor.getUserCreateVendedor());
-			
-			vendedorUpdated = vendedorService.save(vendedorActual);
-			response.put("vendedor", vendedorUpdated);
-			 response.put("mensaje", "Vendedor actualizado con Exito");
-			 response.put("status", HttpStatus.ACCEPTED);
-			 response.put("code", HttpStatus.ACCEPTED.value());
-			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
-
-		} catch (DataAccessException e) {
-			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
-			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
-			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}else {
+			try {
+				
+				vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());
+				vendedorActual.setEmailVendedor(vendedor.getEmailVendedor());
+				vendedorActual.setNotaVendedor(vendedor.getNotaVendedor());
+				vendedorActual.setCreateAtVendedor(vendedor.getCreateAtVendedor());
+				vendedorActual.setStatusVendedor(vendedor.getStatusVendedor());
+				vendedorActual.setUserCreateVendedor(vendedor.getUserCreateVendedor());
+				
+				vendedorUpdated = vendedorService.save(vendedorActual);
+				response.put("vendedor", vendedorUpdated);
+				 response.put("mensaje", "Vendedor actualizado con Exito");
+				 response.put("status", HttpStatus.ACCEPTED);
+				 response.put("code", HttpStatus.ACCEPTED.value());
+				 log.info("Vendedor Actualizado con Exito");
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+	
+			} catch (DataAccessException e) {
+				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				e.printStackTrace();
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
-
 	}
 	
 	

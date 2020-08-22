@@ -225,7 +225,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		    rs.setJsonResponse(jsonResponse);
 		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-		        
+		        e.printStackTrace();
 		   return rs;
 		}
 	}
@@ -421,6 +421,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 	private ResultVO asignaResponseObject(ResponseEntity<JSONObject> response) {
 
+		
 	    if(response.getStatusCodeValue() == 401) {
 	    	log.info("401");
 	    }
@@ -431,9 +432,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    rs.setMensaje(jsonResponse.get("mensaje").toString());
 	    rs.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
 //	    log.info(rs.toString());    
-//	    log.info(jsonResponse.toJSONString());
-//	    log.info(jsonResponse.get("mensaje").toString());
-	    
+//	    log.info("Hello"+rs.getCodigo());	    
 		return rs;
 	}
 

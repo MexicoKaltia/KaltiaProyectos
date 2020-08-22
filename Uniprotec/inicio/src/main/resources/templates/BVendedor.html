@@ -331,6 +331,7 @@
         <div class="modal-body" style="padding:40px 50px; ">
           <form id="actualizaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaVendedor}"  th:object="${vendedorForm}" method="post">
           <input type="hidden" id="idVendedor" th:field="*{idVendedor}" th:value="*{idVendedor}"/>
+          <input type="hidden" id="statusVendedor" th:field="*{statusVendedor}" />
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Corto</label>
@@ -362,6 +363,14 @@
 								              <textarea class="form-control" th:field="*{notaVendedor}" id="notaVendedor" rows="3" cols="150" required></textarea>
 								            </div>
 							         </div>
+							         <div class="col-md-8 mb-3">
+								                       <h5><b>Status Vendedor :</b></h5>
+								                       <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                                                	<button type="button" id="statusVendedorbtn" class="btn btn-info" onclick="checkStatusVendedor()"></button>
+	                                            		</div>
+	                                            		<br>
+		                                                	<small class="form-text text-muted">Dar click en el boton si desea dar de Baja Vendedor.</small>
+	                                               </div>
                                         
                                 <br>
                                     

@@ -94,7 +94,7 @@ public class InstructorService implements IInstructorService {
 		
 		instructor.setCreateAtInstructor(me.getNowEntidad());
 		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());
-		instructor.setStatusInstructor("Actualizado");
+//		instructor.setStatusInstructor("Actualizado");
 		
 		log.info(instructor.toString());
 		
@@ -109,7 +109,7 @@ public class InstructorService implements IInstructorService {
 
 	@Override
 	public ResultVO consultaInstructores( String token) {
-		log.info(token);
+		
 		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_INSTRUCTORES);
 		
 		if(rs.getCodigo() == 202) {

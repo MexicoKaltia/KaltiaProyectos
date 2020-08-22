@@ -35,6 +35,9 @@ $(document).ready(function(){
 	 * Carga la Tabla inicial
 	 */
 	
+	$.statusInstructor="";
+	$.statusCurso="";
+	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
 //		    	console.log(JSON.stringify(row));
@@ -166,19 +169,24 @@ $(document).ready(function(){
 					$('#listFechas').val(row.listFechas);
 				}
 				
-
+				$('#statusInstructor').val("Actualizado");
 		      $('#notaInstructor').val(row.notaInstructor);
+		      $('#statusInstructorbtn').html(row.statusInstructor);
+		      
 		    }
 		   }
 	
 	window.operateEventsUpdateVendedor = {
+			
 		    'click .like': function (e, value, row, index) {
-//		      alert('You click like action, row: ' +JSON.stringify(row));
+		    	console.log(row);
 		      $('#idVendedor').val(row.idVendedor);
 		      $('#nombreVendedor').val(row.nombreVendedor);
 		      $('#emailVendedor').val(row.emailVendedor);
 		      $('#emailGmailVendedor').val(row.emailGmailVendedor);
+		      $('#statusVendedor').val("Actualizado");
 		      $('#notaVendedor').val(row.notaVendedor);
+		      $('#statusVendedorbtn').html(row.statusVendedor);
 		    }
 		   }
 	
@@ -242,14 +250,33 @@ $(document).ready(function(){
 	 * funciones
 	 */
 	
-	function getIdVendedor(vendedorCliente){
-		
-	}
+	
+
 	function stringToList(cadena){
-//		console.log(cadena);
 		return cadena.split(";");
 	}
 		
 }); // Fin documento
 
 
+function checkStatusInstructor(){
+	$('#statusInstructorbtn').html("Instructor Baja");
+	$('#statusInstructorbtn').removeClass("btn-info");
+	$('#statusInstructorbtn').addClass("btn-danger");
+	var r = confirm("Seguro de dar de baja al Instructor, esta operacion no se puede reversar, tendría que dar de Alta Instructor nuevo.")
+	if(r){
+		$('#statusInstructor').val("Baja");
+	}
+	
+}
+
+function checkStatusVendedor(){
+	$('#statusVendedorbtn').html("Vendedor Baja");
+	$('#statusVendedorbtn').removeClass("btn-info");
+	$('#statusVendedorbtn').addClass("btn-danger");
+	var r = confirm("Seguro de dar de baja al Vendedor, esta operacion no se puede reversar, tendría que dar de Alta Vendedor nuevo.")
+	if(r){
+		$('#statusVendedor').val("Baja");
+	}
+	
+}

@@ -198,7 +198,7 @@ var procesoHorario;//="<li>Prospecto Horario: Horario</li>";
 var procesoParticipantes;
 var procesoObservaciones;//="<li>Prospecto Observaciones"+ $.asignaObservaciones +"</li>";
 
-const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":false,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
+const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":true,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
 var alerta, proceso;
 
 
@@ -372,6 +372,12 @@ var alerta, proceso;
 	 */
 	var tipoCurso = true;
 	var tipoCursoVal = "";
+	var instructoresDiaSelect = new Array();
+	var instructoresDmin1 = new Array();
+	var instructoresDmas1 = new Array();
+	var instructoresDiaAyer = new Array();
+	var instructoresDiaMan = new Array();
+	
 	function checkTipoCurso(){
 		
 		if(tipoCurso){
@@ -426,15 +432,22 @@ var alerta, proceso;
 			 */
 			var valorCurso = $.asignaCurso * 1;
 			var arrayInstructores = new Array();
-			for (i in asignacionInstructores){
-				var arrayCursosInstructor = asignacionInstructores[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
-				for( e in arrayCursosInstructor){
-					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
-					if(arrayCursosInstructor[e] === valorCurso){
-						arrayInstructores.push(asignacionInstructores[i])
-					}
-				}
+//			console.log(asignacionInstructores);
+//			console.log(asignacionCurso);
+			for(a in asignacionCurso){
+				curso = asignacionCurso[a];
+				if($.asignaCurso.toString() === curso.idCurso.toString())
+					arrayInstructores = curso.instructores;
 			}
+//			for (i in asignacionInstructores){				
+////				var arrayCursosInstructor = asignacionInstructores[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
+//				for( e in arrayCursosInstructor){
+//					arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
+//					if(arrayCursosInstructor[e] === valorCurso){
+//						arrayInstructores.push(asignacionInstructores[i])
+//					}
+//				}
+//			}
 			console.log(arrayInstructores);
 			/*
 			 * Valida dias de Ausencia
@@ -480,11 +493,7 @@ var alerta, proceso;
 				/*
 				 * Consultar D-1 y D+1 Instructores
 				 */
-				var instructoresDiaSelect = new Array();
-				var instructoresDmin1 = new Array();
-				var instructoresDmas1 = new Array();
-				var instructoresDiaAyer = new Array();
-				var instructoresDiaMan = new Array();
+				
 				/*
 				 * validar dia seleccion
 				 */
@@ -505,7 +514,11 @@ var alerta, proceso;
 					idInstructor = instructor.idInstructor;
 					 nombreInstructor = instructor.nombreInstructor
 					if(!validaDiaAyer(idInstructor)){
-						instructoresDiaAyer.push(instructor);
+						idRegionOrigen = getRegionOrigen(idInstructor);
+						if(validaZonaBase(idRegionOrigen, regionCliente)){
+							instructoresDiaAyer.push(instructor);
+						}
+
 					}else{
 						if(validaDmin1(regionCliente, idInstructor)){
 							instructoresDmin1.push(instructor);
@@ -521,19 +534,22 @@ var alerta, proceso;
 					instructor = instructoresDiaAyer[a];
 					 idInstructor = instructor.idInstructor
 					 nombreInstructor = instructor.nombreInstructor
-					if(!validaDiaMan(idInstructor)){
-						instructoresDiaMan.push(instructor);
-						$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+					if(!validaDiaMan(idInstructor)){					
+						idRegionOrigen = getRegionOrigen(idInstructor);
+						if(validaZonaBase(idRegionOrigen, regionCliente)){
+							instructoresDiaMan.push(instructor);
+						}
 					}else{
 						if(validaDmas1(regionCliente, idInstructor)){
 							instructoresDiaMan.push(instructor);
-							$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
 						}
 					}
-						
 				}
 				console.log(instructoresDiaMan);
-
+				for(i in instructoresDiaMan){
+					instructor = instructoresDiaMan[i];
+					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+				}
 				
 				
 				
@@ -604,11 +620,16 @@ var alerta, proceso;
 		return cadena.split(";");
 	}
 	
+	function stringToList(cadena, separador){
+		return cadena.split(separador);
+	}
+	
+	
 	function validaDiaAyer(idInstructor){
 		var asignacion;
 		var asignacionFecha;
 		var asignacionInstructor;
-		var idRegionAsignado;
+		var idRegionOrigen;
 		
 		var asignaFechaMin1 = $.asignaFecha.split("/");
 		var dayer = new Date(asignaFechaMin1[2] +"/"+ asignaFechaMin1[1] +"/"+ asignaFechaMin1[0]);
@@ -656,7 +677,6 @@ var alerta, proceso;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 //			console.log(dManTexto+":"+asignacionFecha);
 			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
-				console.log(idInstructor);
 				return true;
 			}
 		}
@@ -765,6 +785,17 @@ var alerta, proceso;
 				return asignacionClientes[i].regionCliente.idRegion;
 		}
 		
+	}
+	
+	function getRegionOrigen(idInstructor){
+		var instructor;
+		for(i in instructoresDiaSelect){
+			instructor = instructoresDiaSelect[i];
+			if(idInstructor === instructor.idInstructor){
+				return instructor.regionInstructor.idRegion.toString();
+			}
+		}
+			
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

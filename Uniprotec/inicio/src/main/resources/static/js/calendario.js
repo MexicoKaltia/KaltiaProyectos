@@ -24,27 +24,27 @@ $(document).ready(function() {
 	console.log("id usuario sesion:"+idUsuario)
 	
 	function abrirModal(item){
-		$("#asignaConfirmar").hide();
+//		$("#asignaConfirmar").hide();
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion0 = asignaciones[i]; 
 			idCliente = asignaciones[i].idClienteAsignacion;
-			console.log("createA:"+asignacion0.userCreateAsignacion)
+//			console.log("createA:"+asignacion0.userCreateAsignacion)
 			$("#btnOperacion").empty();
 			$("#edicionVentas").empty();
 //			if(item[0].toString() === asignacion0.idAsignacion.toString()){
 				if(perfilUsuario === "Vendedor"){
 					if(identificadorUsuario === asignacion0.userCreateAsignacion){
-						console.log("sesion:"+idUsuario)
-						console.log("create:"+asignacion0.userCreateAsignacion)
+//						console.log("sesion:"+idUsuario)
+//						console.log("create:"+asignacion0.userCreateAsignacion)
 //						$("#asignaConfirmar").show();
-						$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
-						$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button>')
+						$("#btnOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
+						$("#edicionVentas").append('<button type="submit" id="asignaConfirmar1" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button>')
 						$("#btnOperacion").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionI");
 						})
 					}else{
-						$("#asignaConfirmar").hide();
+//						$("#asignaConfirmar").hide();
 					}
 				}
 //			}

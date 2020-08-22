@@ -92,7 +92,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		usuario2Dao.deleteById(id);
+		usuarioDao.deleteById(id);
 	}
 
 	

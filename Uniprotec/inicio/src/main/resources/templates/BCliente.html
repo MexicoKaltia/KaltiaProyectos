@@ -439,7 +439,7 @@
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Vendedor Asignado</label>
                            				     <select id="idVendedorCliente" th:field="*{idVendedorCliente}" name="idVendedorCliente" class="form-control" default="Selecciona Vendedor" required>
-	                								 <option value="" selected  >Selecciona Vendendor</option>
+	                								 <option value="" selected  >Selecciona Vendedor</option>
 	                								 <option th:each="vendedor: ${model.jsonResponseObject.vendedores.vendedores}"
 											             th:value="${vendedor.idVendedor}"
 											             th:text="${vendedor.nombreVendedor}"/>

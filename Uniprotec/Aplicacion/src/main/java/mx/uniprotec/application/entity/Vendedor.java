@@ -81,25 +81,32 @@ public class Vendedor implements Serializable{
 	}
 	
 	
+	
+	
+	
+	
+
 	public Vendedor(Long idVendedor,
 			@NotEmpty(message = "nombreVendedor no puede estar vacio") @Size(min = 4, max = 300, message = "el tamaño tiene que estar entre 4 y 300") String nombreVendedor,
-			String emailVendedor, String emailGmailVendedor, List<Cliente> cliente, String notaVendedor,
+			String emailVendedor, String emailGmailVendedor, Usuario usuarioVendedor, String notaVendedor,
 			Long userCreateVendedor, LocalDateTime createAtVendedor, String statusVendedor) {
 		super();
 		this.idVendedor = idVendedor;
 		this.nombreVendedor = nombreVendedor;
 		this.emailVendedor = emailVendedor;
 		this.emailGmailVendedor = emailGmailVendedor;
-//		this.cliente = cliente;
+		this.usuarioVendedor = usuarioVendedor;
 		this.notaVendedor = notaVendedor;
 		this.userCreateVendedor = userCreateVendedor;
 		this.createAtVendedor = createAtVendedor;
 		this.statusVendedor = statusVendedor;
 	}
-	
-	
-	
-	
+
+
+
+
+
+
 
 	public Long getIdVendedor() {
 		return idVendedor;

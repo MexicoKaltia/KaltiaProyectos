@@ -21,7 +21,7 @@ public class InstructorServiceImpl implements IInstructorService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Instructor> findAll() {
-		return (List<Instructor>) instructorDao.findAll();
+		return (List<Instructor>) instructorDao.findAllActivo();
 	}
 
 	@Override

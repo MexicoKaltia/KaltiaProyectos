@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.application.service.IInstructorService;
 import mx.uniprotec.application.service.IUploadFileService;
@@ -68,6 +69,7 @@ public class InstructorRestController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			instructores = instructorService.findAll();
+			
 			 response.put("instructores", instructores);
 			 response.put("mensaje", "Exito en la busqueda de instructores");
 			 response.put("status", HttpStatus.ACCEPTED);
@@ -220,7 +222,17 @@ public class InstructorRestController {
 			 response.put("code", HttpStatus.NOT_FOUND.value());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-
+		if(instructor.getStatusInstructor().equals("Baja")) {
+			
+			Usuario usuario = usuarioService.findById(instructorActual.getUsuarioInstructor().getIdUsuario());
+			usuario.setStatusUsuario(instructor.getStatusInstructor());
+			usuario.setPasswordUsuario(instructor.getStatusInstructor());
+			usuario.setUsernameUsuario("");
+			usuario.setPerfilUsuario("x".concat(usuario.getPerfilUsuario()));
+			usuario = usuarioService.save(usuario);
+			
+			instructorActual.setCursosInstructor("");
+		}
 		try {
 			
 			log.info(instructor.toString());
@@ -231,34 +243,30 @@ public class InstructorRestController {
 			instructorActual.setEmailInstructor(instructor.getEmailInstructor());
 			instructorActual.setEmailGmailInstructor(instructor.getEmailGmailInstructor());
 			instructorActual.setRegionInstructor(region);
-//			instructorActual.setUsuarioInstructor(usuarioService.findById(instructor.getUsuarioInstructor()));
 			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
 			if(instructor.getListFechas().size()>0) {
 				instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
 			}
-//			log.info(instructorActual.getListFechas());
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
 			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());
 			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
 			instructorActual.setUserCreateInstructor(instructor.getUserCreateInstructor());
-			
+			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
+
 			instructorUpdated = instructorService.save(instructorActual);
-			
+				
 			 response.put("instructor", instructorUpdated);
 			 response.put("mensaje", "Se ha actualizado con Exito el Instructor");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-
-		} catch (DataAccessException e) {
-			
+		} catch (DataAccessException e) {	
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
+			}
 	}
 	
 	
