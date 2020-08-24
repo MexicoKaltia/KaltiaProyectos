@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+<head>
+    <meta charset="utf-8"/>
+    <title>UNIPROTECT V 1.0</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+        <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link th:href="@{main.css}" rel="stylesheet">
+    <link th:href="@{css/control.css}" rel="stylesheet">
+</head>
+
+<body background="images/fondo.png">
+
+    
+    <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
+<!--     HEAD INICIO -->
+        <div class="app-header header-shadow bg-royal header-text-light" >
+            <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
+                <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
+                    
+                    <ul class="header-menu nav">
+                    
+                        <li class="dropdown nav-item">
+                            <a href="javascript:alerta();" class="nav-link">
+                                <i class="nav-link-icon fa fa-cog"></i>
+                                Configuracion
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+                                            
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
+                                    </div>
+                                    <div class="widget-subheading">
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
+                                    </div>
+                                </div>
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <button type="button"
+                                        class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--      HEAD FIN    -->
+
+        <div class="app-main">
+        <!--     LEFT INICIO -->
+            <div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">  
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">PRINCIPAL</li>
+                            <li>
+                                <a th:href="@{/inicio}" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    CONTROL
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.modules.modulos}">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    <span th:text="${modulo.nombreModulo}"></span>
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li th:each= "submodulo : ${modulo.submodules}">
+                                        <a th:href="${submodulo.referenciaSubmodulo}">
+                                            <i class="metismenu-icon"></i>
+                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                           <li class="app-sidebar__heading">ACCIONES</li>
+                            <li th:each= "accion : ${model.jsonResponse.modules.acciones}">
+                                <a th:href="${accion.referenciaAccion}">
+                                  <i th:class="${accion.iconoAccion}"></i>
+                                  <span th:text="${accion.nombreAccion}"></span>
+                                </a>
+                            </li>
+
+            
+                        </ul>
+                    </div>
+                </div>  
+            </div> 
+<!--     LEFT FIN -->
+<div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>TABLERO DE CONTROL-UNIPROTEC
+                                    <div class="page-title-subheading"> PANTALLA PRINCIPAL CON LOS INDICADORES DE SERVICIO Y ACCESOS DIRECTOS
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="app-header-right">
+							<br>
+                            <span th:if='${ejecucion}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado correctamente el nuevo Vendedor.</u>
+								</div>
+							</span>
+							<span th:if='${error}'>
+								<div class="alert alert-danger" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se Generó el Vendedor, Verifique datos. </u>
+								</div>
+							</span>
+							<span th:if='${consulta}'>
+								<div class="alert alert-warning" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Consulta : </b><u>No se realizó la consulta de los Vendedores, Notifique Administrador. </u>
+								</div>
+							</span>
+					 </div>
+                    </div>
+                    
+                    <!--  
+                    	SECCION DE EDICION  
+                    -->
+                    <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <h4 class="card-title"></h4>
+                                <form >
+                                
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <div class="wrap">
+							                    <div class="ico-wrap">
+							                        <span class="mbr-iconfont fa-volume-up fa"></span>
+							                    </div>
+							                     <div class="text-wrap vcenter">
+							                    	<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"></h2><b> <span id="diaControl"></span></b>
+							                        <p class="mbr-fonts-style text1 mbr-text display-6">Anuncios:</p>
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Espacio de Comunicacion para los usuarios de Aplicacion</h2>
+							                    </div>
+							                </div>
+                                        </div>
+                                     </div>
+                                      <div class="form-row">
+		                                <div class="col-md-12">
+		                                    <div class="alert alert-success fade show" role="alert"><h5>Acciones</h5>
+		                                        <p class="mb-0">Funciones de flujo de operacion en la Asignacion de Eventos.</p></div>
+		                                </div>
+		                              </div>
+		                              <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/CAsignacionI">
+                                           <div class="wrap2">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-calendar fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Agenda Global<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Calendario Global de los Eventos Asignados por Instructor.</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/CEntregableI">
+                                           <div class="wrap2">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-list-alt fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Entregables<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Listado de los Eventos realizados, marcando Status y edicion de Entregables.</p>
+						                    </div>
+						                </div></a>
+                                        </div>
+                                      </div>
+                                </form>
+                            </div>
+                        </div>
+                                              
+                        <!-- 
+                        	FIN DE SECCION DE EDICION 
+                        -->
+                                              <div class="app-wrapper-footer">
+                                        <div class="app-footer">
+                                            <div class="app-footer__inner">
+                                                <div class="app-footer-right">
+                                                    <ul class="nav">
+                                                        
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="nav-link">
+                                                                <div class="badge badge-success mr-1 ml-0">
+                                                                    <small>V1.0</small>
+                                                                </div>
+                                                                Derechos Reservados © Uniprotec 2020
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div></div></div>
+
+                
+            </div>
+        </div>  <!-- fin de div principal-->
+</div>
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/inicio.js}"></script>
+</body>
+
+</html>

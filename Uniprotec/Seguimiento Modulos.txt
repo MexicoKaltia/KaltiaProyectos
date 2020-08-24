@@ -67,6 +67,10 @@ Verificacion de cursos con los check list para realizar el envio de informacion 
 
 
 Seguimiento Modulos
+	Mejoras v1.0
+	Logistica
+		Configurar Tabla D-1 - D+1
+	
 	Facturacion
 	Cobranza
 		Clientes
@@ -106,4 +110,5 @@ Seguimiento Modulos
 			Reporte Estadistica mayor demanda cursos
 			Reporte Estadistica disponibilidad instructores siguiente semana.
 
+	
 	
