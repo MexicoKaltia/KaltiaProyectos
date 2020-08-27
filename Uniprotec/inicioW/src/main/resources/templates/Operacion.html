@@ -78,10 +78,10 @@
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
-                                            <a href="/inicio/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
                                             
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <a href="/inicio/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +244,7 @@
 							                     <div class="text-wrap vcenter">
 							                    	<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"></h2><b> <span id="diaControl"></span></b>
 							                        <p class="mbr-fonts-style text1 mbr-text display-6">Anuncios:</p>
-							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Espacio de Comunicacion para los usuarios de Aplicacion</h2>
+							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span id="mensajeTexto" th:text="${model.jsonResponse.mensaje}"></span></h2>
 							                    </div>
 							                </div>
                                         </div>
