@@ -48,19 +48,19 @@ public class MailService implements IMailService{
 		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
 //		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
-		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
+//		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
 		STAFF_PRE.add("kaltiaservicios@gmail.com");
-		STAFF_PRE.add("operacion@uniprotec.net");
-		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
-		STAFF_PRE.add("gasparinho@hotmail.fr");
+//		STAFF_PRE.add("operacion@uniprotec.net");
+//		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
+//		STAFF_PRE.add("gasparinho@hotmail.fr");
 
 		
 		log.info(asignacion.toString());
 		
 		String staffDestino ;
-		String referenciaBase = "http://45.80.153.253:8015/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
+		String referenciaBase = "http://control-uniprotec.com/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
 		String referencia;
 		String nombreBoton ;
 		String subTitulo;

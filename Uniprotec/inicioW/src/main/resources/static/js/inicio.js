@@ -29,10 +29,6 @@ $(document).ready(function(){
 		
 	$("#diaControl").html("<i>"+DIA[f.getDay()]+" "+f.getDate()+" de "+ MESES[f.getMonth()]+ " "+ f.getFullYear()+"</i>");
 	
-	$('#anuncio').click(function(){	
-		$('#myModal').modal();
-		
-	})
 	
 	function mensajeFuncion(){
 		console.log($('#mensaje').val())
@@ -49,4 +45,7 @@ $(document).ready(function(){
 	 	
 });  // fin de documento JQuery
 
+$('#anuncio').click(function(){	
+//	$('#myModal').modal();
 	
+})

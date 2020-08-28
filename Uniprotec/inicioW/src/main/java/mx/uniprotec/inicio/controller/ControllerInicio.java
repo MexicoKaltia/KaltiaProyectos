@@ -125,9 +125,10 @@ public class ControllerInicio extends HttpServlet{
 			}else {
 				log.info("Inicio model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");
-				
+				ModelAndView mav = new  ModelAndView(resultVO.getResponse(),  model);
+				mav.addObject("mensajeItem", new MensajeModelo());
 				log.info(resultVO.getResponse());
-						return new  ModelAndView(resultVO.getResponse(),  model);	
+						return 	mav;
 			}		
 
 		}

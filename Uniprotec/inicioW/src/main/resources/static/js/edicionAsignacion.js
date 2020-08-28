@@ -50,9 +50,7 @@ $(document).ready(function(){
 	 
 	procesoInicial(0);
 	
-	const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":true,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
-	var alerta;
-
+	
 		
 	
 	//--------------------------------------------------
@@ -217,10 +215,11 @@ $(document).ready(function(){
 		$('#modalObservaciones').html('<b>'+$.asignaObservaciones+'</b>');
 		$('#modalArchivos').html('<b>'+$.asignaArchivos+'</b>');
 		$('#modalVentas').html('<b>'+$.asignaUserCreateAsignacionTexto+'</b>');
-		$.asignaStatusAsignacion="Curso Editado";
+		
 		if($.asignaStatusAsignacion==="Evento Cancelado"){
 			$('#modalStatus').html('<span style="background:red; color:white"><b>'+$.asignaStatusAsignacion+'</b></span>');
 		}else{
+			$.asignaStatusAsignacion="Curso Editado";
 			$('#modalStatus').html('<span style="background:silver; color:black"><b>'+$.asignaStatusAsignacion+'</b></span>');
 		}
 		
@@ -380,6 +379,8 @@ $(document).ready(function(){
 		
 	}
 	
+	const zonabase = {"11":true,"12":true,"13":true,"14":true,"15":true,"16":true,"17":false,"18":false,"21":true,"22":true,"23":true,"24":true,"25":false,"26":true,"27":true,"28":false,"31":true,"32":true,"33":true,"34":true,"35":false,"36":true,"37":false,"38":false,"41":true,"42":true,"43":true,"44":true,"45":false,"46":false,"47":false,"48":false,"51":true,"52":false,"53":false,"54":false,"55":true,"56":false,"57":false,"58":false,"61":true,"62":true,"63":true,"64":false,"65":false,"66":true,"67":true,"68":false,"71":false,"72":true,"73":false,"74":false,"75":false,"76":true,"77":true,"78":false,"81":false,"82":false,"83":false,"84":false,"85":false,"86":false,"87":false,"88":false}
+	var alerta;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function limpiaCurso(){
@@ -522,6 +523,7 @@ $(document).ready(function(){
 	 */
 	var tipoCurso = true;
 	var tipoCursoVal = "";
+	var arrayInstructores = new Array();
 	var instructoresDiaSelect = new Array();
 	var instructoresDmin1 = new Array();
 	var instructoresDmas1 = new Array();
@@ -553,6 +555,12 @@ $(document).ready(function(){
 		/*
 		 * Validacion ValorCampo
 		 */
+		arrayInstructores.length = 0; 
+		 instructoresDiaSelect.length = 0;
+		 instructoresDmin1.length = 0;
+		 instructoresDmas1.length = 0;
+		 instructoresDiaAyer.length = 0;
+		 instructoresDiaMan.length = 0;
 		$.asignaCurso = $('#asignaCurso').val();
 //		console.log("asignaCurso:"+ $.asignaCurso);
 		

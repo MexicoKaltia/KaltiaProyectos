@@ -234,11 +234,11 @@
                             <div class="card-body">
                                 <h4 class="card-title"></h4>
                                 <form >
-                                
+<!--                                 <button type="button" id="anuncio" class="btn btn-default btn-lg pull-right" data-toggle="modal" data-target="#myModal"> -->
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <div class="wrap" id="anuncio">
-<!--                                             	<button type="button" id="anuncio" class="btn btn-default btn-lg pull-right" data-toggle="modal" data-target="#myModal"> -->
+                                        <a data-toggle="modal" href="#myModal">
+                                            	<div class="wrap" id="anuncio">
 							                    <div class="ico-wrap">
 							                        <span class="mbr-iconfont fa-volume-up fa"></span>
 							                    </div>
@@ -246,11 +246,13 @@
 							                    	<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"></h2><b> <span id="diaControl"></span></b>
 							                        <p class="mbr-fonts-style text1 mbr-text display-6">Anuncios:</p>
 							                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span id="mensajeTexto" th:text="${model.jsonResponse.mensaje}"></span></h2>
-							                    </div>
-<!-- 							                    </button> -->
+							                    </div>    
 							                </div>
-                                        </div>
-                                     </div>
+							                </a>
+							                </div>
+							                </div>
+<!-- 							                </button> -->
+
                                      <div class="form-row">
 		                                <div class="col-md-12">
 		                                    <div class="alert alert-info fade show" role="alert"><h5>Modulos</h5>
@@ -477,9 +479,18 @@
             </div>
         </div>  <!-- fin de div principal-->
 </div>
-    <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+
+  
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
+<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
+	<script type="text/javascript" th:src="@{js/main.js}"></script>
+	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{js/inicio.js}"></script>
+    
+	
+    
+    
+    
 </body>
 
 </html>
