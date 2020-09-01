@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTECT V 1.0</title>
+    <title>UNIPROTEC V 1.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
@@ -222,19 +222,19 @@
                             <span th:if='${ejecucion}'>
 								<div class="alert alert-success" role="alert" id="dataExito">
 		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Generado correctamente la nueva Asignacion.</u>
+									<b>Éxito : </b><u>Se ha Generado correctamente la nueva Asignación.</u>
 								</div>
 							</span>
 							<span th:if='${ejecucion2}'>
 								<div class="alert alert-success" role="alert" id="dataExito">
 		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Actualizado correctamente la Asignacion.</u>
+									<b>Éxito : </b><u>Se ha Actualizado correctamente la Asignación.</u>
 								</div>
 							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revisión : </b><u>No se Generó Asignacion, Verifique datos. </u>
+									<b>Revisión : </b><u>No se Generó Asignación, Verifique datos. </u>
 								</div>
 							</span>
 							<span th:if='${consulta}'>
@@ -324,7 +324,7 @@
 
                                    <!-- Modal Header -->
                                    <div class="modal-header">
-                                       <h4 class="modal-title">Asignacion</h4>
+                                       <h4 class="modal-title">Asignación</h4>
                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                    </div>
 
@@ -334,7 +334,7 @@
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
                                            <div class="card-body">
                                            <form role="form" id="edicionAsignacion" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
-                                               <h5 class="card-title">Resumen de asignacion</h5>
+                                               <h5 class="card-title">Resumen de Asignación</h5>
                                                <ul class="list-group" id="resumenAsignacionModal">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
                                                    <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
