@@ -212,6 +212,7 @@ public class AsignacionRestController {
 				asignacionActual.setClienteAsignacion(asignacion.getClienteAsignacion());
 				asignacionActual.setIdCursoAsignacion(asignacion.getIdCursoAsignacion());
 				asignacionActual.setCursoAsignacion(asignacion.getCursoAsignacion());
+				asignacionActual.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
 				asignacionActual.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
 				asignacionActual.setInstructorAsignacion(asignacion.getInstructorAsignacion());
 				asignacionActual.setHorarioAsignacion(asignacion.getHorarioAsignacion());

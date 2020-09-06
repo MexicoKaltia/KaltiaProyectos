@@ -60,7 +60,7 @@ public class MailService implements IMailService{
 		log.info(asignacion.toString());
 		
 		String staffDestino ;
-		String referenciaBase = "http://control-uniprotec.com/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
+		String referenciaBase = "https://control-uniprotec.com/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
 		String referencia;
 		String nombreBoton ;
 		String subTitulo;
