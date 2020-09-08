@@ -65,50 +65,59 @@ Verificacion de cursos con los check list para realizar el envio de informacion 
 
 	
 
-
+Los sistemas de planificación de recursos empresariales 
 Seguimiento Modulos
 	Mejoras v1.0
-	Logistica
-		Configurar Tabla D-1 - D+1
 	
+administracion	
 	Facturacion
 	Cobranza
 		Clientes
-	
+		
 	Gastos
 		Operativos
 		Pago a Proovedores
-		Fuerza de Ventas
+		Fuerza de VentasOp
 		Adminsitracion
 		Impuestos
-		
-	Mapa Localizacion
+
+	Certificados
+			cursos
 	
+	
+operacion
 	Costeo
 		Transporte
 		Region
+		
 	
 	Viaticos
 		Reporte de Gastos
+
 		
-	Certificados
-		cursos
+Logistica
+	Configurar Tabla D-1 - D+1
+	Mapa Localizacion
 	
 	Solicitud Cursos Cliente
 		cliente solicita por calendario
 		cliente solicita por instructor
 		cliente solicita nuevo curso
+	
+	
+	
 		
-	Reportes
-		Reporte Semanal Direccion
-			Status Corte de Fecha
-			Status Pagos
-			Status Facturacion
-		Reporte Seguimiento de Eventos
-			Reporte Cursos Asignados
-			Reporte Instructores no agendados
-			Reporte Estadistica mayor demanda cursos
-			Reporte Estadistica disponibilidad instructores siguiente semana.
+Reportes
+	Reporte Semanal Direccion
+		Status Corte de Fecha
+		Status Pagos
+		Status Facturacion
+	Reporte Seguimiento de Eventos
+		Reporte Cursos Asignados
+		Reporte Instructores agendados
+		Reporte Instructores no agendados
+		Reporte Estadistica mayor demanda cursos
+		Reporte Estadistica disponibilidad instructores siguiente semana.
 
 	
 	
