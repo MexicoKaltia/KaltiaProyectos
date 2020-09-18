@@ -18,5 +18,6 @@ public interface IAplicacionService {
 	public List<UserCorreo> usersCorreo(Long idInstructorAsignacion, Long userCreateAsignacion, String token);
 	public void enviaMail(AsignacionModelo asignacion, String token);
 	public ResultVO altaMensaje(MensajeModelo mensaje, String accesToken);
+	public void citaInstructor(AsignacionModelo asignacion);
 
 }

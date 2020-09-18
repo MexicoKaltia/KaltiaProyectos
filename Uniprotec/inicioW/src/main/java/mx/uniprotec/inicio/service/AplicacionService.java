@@ -1,5 +1,7 @@
 package mx.uniprotec.inicio.service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -198,7 +200,21 @@ public class AplicacionService implements IAplicacionService {
 		
 	}
 	
-	
+	@Override
+	public void citaInstructor(AsignacionModelo asignacion) {
+		try {
+			GoogleCalendar.enviaCitaInstructor(asignacion);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
 	
 	
 	
@@ -220,7 +236,7 @@ public class AplicacionService implements IAplicacionService {
 		return null;
 	}
 
-
+	
 
 
 

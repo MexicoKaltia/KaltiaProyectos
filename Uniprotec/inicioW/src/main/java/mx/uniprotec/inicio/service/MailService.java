@@ -47,6 +47,7 @@ public class MailService implements IMailService{
 		
 		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
+		  INSTRUCTOR_PRE.add("kaltiaservicios@gmail.com");
 //		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
 //		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
 		
@@ -96,12 +97,11 @@ public class MailService implements IMailService{
 				referencia = referenciaBase.concat(asignacion.getIdInstructorAsignacion().toString());
 				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
-//				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
 				mailVO.setDestinatarioMailList(correoInstructor);
 				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
-				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
-				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
+//				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
+//				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
 				
 				mailVO.setAsignacionMail(asignacion);
 				statusVO = mailServiceGeneraCorreo(mailVO);		
@@ -117,12 +117,11 @@ public class MailService implements IMailService{
 				
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
 				
-//				mailVO.setMensajeMail("\\uniprotec\\templates\\PlantillaCorreo.html");
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
 				mailVO.setDestinatarioMailList(correoStaff);
 				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
-				mailVO.setDestinatarioMailList(STAFF_PRE);
-				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
+//				mailVO.setDestinatarioMailList(STAFF_PRE);
+//				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				
 				mailVO.setAsignacionMail(asignacion);
 				statusVO = mailServiceGeneraCorreo(mailVO);

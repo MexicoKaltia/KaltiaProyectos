@@ -513,6 +513,7 @@ public class ControllerInicio extends HttpServlet{
 				}
 			}
 		
+		
 		@PostMapping("/actualizaAsignacionIC")
 		public ModelAndView actualizaAsignacionIC(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 			log.info("Actualiza Asignacion Correo model Activo");
@@ -522,6 +523,12 @@ public class ControllerInicio extends HttpServlet{
 //			log.info(asignacion.getStatusAsignacion());
 			ModelAndView mav=null;
 			ResultVO rs = asignacionService.edicionAsignacionC(asignacion);
+//			if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") && rs.getCodigo() != 500) {
+//				aplicacionService.citaInstructor(asignacion);
+//			}
+
+				
+			
 			if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {
 				mav = new ModelAndView("CAsignacionIC0", model);
 			}else {
