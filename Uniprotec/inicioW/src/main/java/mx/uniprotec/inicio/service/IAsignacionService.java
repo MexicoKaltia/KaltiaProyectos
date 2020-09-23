@@ -10,6 +10,7 @@ public interface IAsignacionService {
 	public ResultVO edicionAsignacionC(AsignacionModelo asignacion);
 	public ResultVO consultaAsignacion(String token);
 	public ResultVO consultaAsignacionCorreo(String idAsignacion);
+	public ResultVO edicionAsignacionV(AsignacionModelo asignacion, String token, String status);
 	
 	
 

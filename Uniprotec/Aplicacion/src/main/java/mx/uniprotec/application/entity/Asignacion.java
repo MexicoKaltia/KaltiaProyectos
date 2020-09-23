@@ -84,7 +84,8 @@ public class Asignacion implements Serializable{
 	private String fechaPago;
 	@Column
 	private String numeroFactura;
-	
+	@Column
+	private String archivoParticipantes;
 
 	@Override
 	public String toString() {
@@ -322,6 +323,14 @@ public class Asignacion implements Serializable{
 
 	public void setUserCreateAsignacionTexto(String userCreateAsignacionTexto) {
 		this.userCreateAsignacionTexto = userCreateAsignacionTexto;
+	}
+
+	public String getArchivoParticipantes() {
+		return archivoParticipantes;
+	}
+
+	public void setArchivoParticipantes(String archivoParticipantes) {
+		this.archivoParticipantes = archivoParticipantes;
 	}
 	
 	

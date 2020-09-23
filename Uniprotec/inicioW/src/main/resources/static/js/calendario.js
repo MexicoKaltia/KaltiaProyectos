@@ -24,30 +24,26 @@ $(document).ready(function() {
 	console.log("id usuario sesion:"+idUsuario)
 	
 	function abrirModal(item){
-//		$("#asignaConfirmar").hide();
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion0 = asignaciones[i]; 
 			idCliente = asignaciones[i].idClienteAsignacion;
-//			console.log("createA:"+asignacion0.userCreateAsignacion)
 			$("#btnOperacion").empty();
 			$("#edicionVentas").empty();
-//			if(item[0].toString() === asignacion0.idAsignacion.toString()){
-				if(perfilUsuario === "Vendedor"){
-					if(identificadorUsuario === asignacion0.userCreateAsignacion){
-//						console.log("sesion:"+idUsuario)
-//						console.log("create:"+asignacion0.userCreateAsignacion)
-//						$("#asignaConfirmar").show();
-						$("#btnOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
-						$("#edicionVentas").append('<button type="submit" id="asignaConfirmar1" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button>')
-						$("#btnOperacion").click(function(){
+			$("#btnArchivoParticipantes").empty();
+			if(perfilUsuario === "Vendedor"){
+				if(identificadorUsuario === asignacion0.userCreateAsignacion){
+					$("#btnOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-info pull-left"  >Revision Expediente Asignación / Cliente</button>')
+					$("#btnArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-warning pull-right"  value="">Adjuntar Archivo Participantes</button>')
+					$("#edicionVentas").append('<button type="submit" id="asignaConfirmar1" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+					$("#btnOperacion").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionI");
-						})
-					}else{
-//						$("#asignaConfirmar").hide();
-					}
+					})
+					$("#btnArchivoParticipantes").click(function(){
+						$("#edicionAsignacion").attr("action", "/BAsignacionV");
+					})
 				}
-//			}
+			}
 			
 			if(perfilUsuario === "Administracion"){
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
@@ -57,9 +53,13 @@ $(document).ready(function() {
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 				$("#btnOperacion").empty();
 				$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
-				$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button>')
+				$("#btnArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-warning pull-right"  value="">Adjuntar Archivo Participantes</button>')
+				$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
 				$("#btnOperacion").click(function(){
 					$("#edicionAsignacion").attr("action", "/BAsignacionI");
+				})
+				$("#btnArchivoParticipantes").click(function(){
+					$("#edicionAsignacion").attr("action", "/BAsignacionV");
 				})
 			}else{
 				$("#btnSubmit").empty();
@@ -88,6 +88,7 @@ $(document).ready(function() {
 				asignaUserCreateAsignacion = asignacion0.userCreateAsignacionTexto
 				asignaFechaPago= asignacion0.fechaPago;
 				asignaFactura = asignacion0.numeroFactura;
+				archivoParticipantes=asignacion0.archivoParticipantes;
 				console.log(asignacion0);	
 				asignaCamposSubmit(asignacion0);
 				break;
@@ -115,6 +116,7 @@ $(document).ready(function() {
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
 		$('#modalFechaPago').html('<b>'+asignaFechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignaFactura+'</b>');
+		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
 		if(perfilUsuario !== "Administracion"){
 //			$('#resumenAsignacionModal').
 			$('#admon').hide();
@@ -186,6 +188,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 		
+		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
+		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
+		
+//		$('#fechaPago').val(asignacionSub.fechaPago);
+//		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
+//		$('#numeroFactura').val(asignacionSub.numeroFactura);
+		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
 		
 	}
 

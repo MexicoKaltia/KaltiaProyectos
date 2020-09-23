@@ -332,6 +332,25 @@ public class ControllerInicio extends HttpServlet{
 			}
 			return mav;			
 		}
+		
+		@PostMapping("/actualizaAsignacionV")
+		public ModelAndView actualizaAsignacionV(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			log.info("Actualiza Asignacion model Activo");
+			log.info(asignacion.toString());
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+
+			ResultVO rs = asignacionService.edicionAsignacionV(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
+			ModelAndView mav = new ModelAndView("redirect:/CAsignacion", model);
+			if(rs.getCodigo() != 500) {
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				mav.addObject("ejecucion2", true);
+			}else {
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+			}
+			return mav;			
+		}
 
 
 		
@@ -411,6 +430,23 @@ public class ControllerInicio extends HttpServlet{
 					log.info("NOK AltaCliente");
 					return mav;	
 				}
+			}		
+		}
+		
+		@PostMapping("/BAsignacionV")
+		public ModelAndView BAsignacionVendedor(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			model.addAttribute("asignacionItem", asignacion);
+			log.info(asignacion.toString());
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Edicion Asignacion Archivo Participantes model Activo");
+				ResultVO resultVO = (ResultVO)model.get("model");			
+//				ResultVO rs = aplicacionService.consultaData(resultVO);
+//				model.addAttribute("model", rs);
+				ModelAndView mav = new  ModelAndView("BAsignacionV",  model);
+				return mav;
 			}		
 		}
 		

@@ -347,6 +347,7 @@
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
                                                    <li id="admon" class="list-group-item list-group-item-info">Fecha de Pago A: <span id="modalFechaPago"></span></li>
                                                    <li id="admon" class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
                                                </ul>
@@ -370,17 +371,19 @@
                                                <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
-                                               <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" />
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
+                                               <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" />
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
                                        			<br>
-                                       			<div id="btnOperacion"></div>
+                                      			<div><div id="btnOperacion"></div><div id="btnArchivoParticipantes"></div></div>
                                        			<br>
-<!--                                        			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">EdicionA Atributos Asignación</button> -->
-                                       			<div id="edicionVentas"></div>
                                        			<div id="btnSubmit"></div>
                                        			<button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
-                                       			
+                                       			<div id="edicionVentas"></div>
 											</form>
                                            </div>
                                        </div>

@@ -474,7 +474,7 @@
 																</div>
 					        									<input id="asignaArchivos" name="asignaArchivos[]"  th:field="*{archivosAsignacion}"  type="file" class="file"    data-show-upload="false" multiple  onchange="validaArchivos(this)"/>
 																<br/>
-					    										  	<small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small> 
+					    										  	<small class="form-text text-muted">Adjuntar documento de asignación.</small> 
 				    										</div>    
 				                                        </div>
 							                       </div>
@@ -603,6 +603,7 @@
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status Evento : <span id="modalStatus"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
@@ -625,6 +626,13 @@
                                                <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
+                                               <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
+                                               <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" />
+                                               <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

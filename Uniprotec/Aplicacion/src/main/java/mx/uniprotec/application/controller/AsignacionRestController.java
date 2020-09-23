@@ -146,6 +146,12 @@ public class AsignacionRestController {
 			asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			
+			asignacionNew.setFechaPago("");
+			asignacionNew.setGuiaEntregable("");
+//			asignacionNew.setVerificarEntregable("");
+			asignacionNew.setNumeroFactura("");
+			asignacionNew.setArchivoParticipantes("");
+			
 			asignacionNew = asignacionService.save(asignacionNew);
 			 response.put("asignacion", asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
@@ -230,6 +236,7 @@ public class AsignacionRestController {
 				asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());
 				asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
 				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
+				asignacionActual.setArchivoParticipantes(asignacion.getArchivoParticipantesTexto());
 				
 				asignacionUpdated = asignacionService.save(asignacionActual);
 				response.put("asignacion", asignacionUpdated  );

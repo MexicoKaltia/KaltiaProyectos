@@ -383,6 +383,22 @@
 									      </div>
                                         </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
+                                        <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="wrimagecard wrimagecard-topimage">
+<!-- 									          <a href="#"> -->
+									          <div class="wrimagecard-topimage_header" style="background-color: rgb(255, 230, 249)">
+									            <center><i class="fa fa-address-card" style="color:#450C38"></i></center>
+									          </div>
+									          <div class="wrimagecard-topimage_title"><h6>Archivo Participantes</h6><div class="" id="archivoParticipantes"></div>
+									          </div>
+<!-- 									        </a> -->
+									      </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+									      </div>
+                                        </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
                                         <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post" id="edicionAsignacion0">
                                         <div class="form-row">                                        
                                         <div class="col-md-6 mb-3">
@@ -435,6 +451,13 @@
                                                <input type="hidden" id="userCreateAsignacion0" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto0" th:field="*{userCreateAsignacionTexto}" />
                                                <input type="hidden" id="guiaEntregable0" th:field="*{guiaEntregable}" />
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
+<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
+<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               
                                         </form>
                                        
 									 </div>
@@ -608,9 +631,15 @@
                                                <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
                                                <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
-<!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
+                                               
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
+<!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               
                                                <ul class="list-group" id="procesoEvento">
                                                    <li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>

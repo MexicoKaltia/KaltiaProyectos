@@ -42,6 +42,7 @@ $(document).ready(function() {
 				asignacionTipoCurso = asignacion.tipoCursoAsignacion;
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
+				asignaArchivoParticipantes = asignacion.archivoParticipantes;
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -84,7 +85,7 @@ $(document).ready(function() {
 		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
-		
+		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
 		$('#myModal').modal();
 		
 		
@@ -161,6 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
 //			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
+		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
+		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
 	}
 
 	

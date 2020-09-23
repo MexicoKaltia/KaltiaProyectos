@@ -26,6 +26,9 @@ $(document).ready(function(){
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
 	 $.asignaStatus=asignacionItem.statusAsignacion;
 	 $.asignaGuia=asignacionItem.guiaEntregable
+	 $.asignaArchivoParticipantes=asignacionItem.archivoParticipantes;
+	 $.asignaArchivoParticipantesTexto=asignacionItem.archivoParticipantes;
+	 
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
 	 
@@ -117,6 +120,9 @@ $(document).ready(function(){
 	//--------------------------------------------------
 	$('#statusAsignacion1').html($.asignaStatus);
 	$('#statusAsignacion0').val($.asignaStatus);
+	//--------------------------------------------------
+	$('#archivoParticipantes').append("<a id='linkArchivoParticipantes'><h4><b>"+$.asignaArchivoParticipantes+"</b></h4></a>");
+	$("#linkArchivoParticipantes").attr('href', '/uploads/fileAsignacion/V'+asignacionItem.idAsignacionLogica+'/'+asignacionItem.archivoParticipantes)
 	
 //	$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
 	
@@ -208,6 +214,9 @@ $(document).ready(function(){
 	$('#statusAsignacion').val($.sigStatus);
 	$('#archivosAsignacionTexto').val(asignacionItem.archivosAsignacion);
 	$('#archivosAsignacionTexto0').val(asignacionItem.archivosAsignacion);
+	$('#archivoParticipantes').val($.asignaArchivoParticipantes);
+	$('#archivoParticipantesTexto').val($.asignaArchivoParticipantes);
+	
 //	$('#guiaEntregable').val(asignacionItem.guiaEntregable);
 //	$('#fechaPago').val(asignacionItem.fechaPago);
 //	$('#numeroFactura').val(asignacionItem.numeroFactura);
@@ -262,7 +271,7 @@ function valoresFecha(fecha){
 	
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
 //   FIN  JScript

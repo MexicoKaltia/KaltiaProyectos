@@ -31,7 +31,9 @@ $(document).ready(function(){
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
 	 $.asignaUserCreateAsignacion=asignacionItem.userCreateAsignacion;
 	 $.asignaUserCreateAsignacionTexto=asignacionItem.userCreateAsignacionTexto;
-	 $.asignaStatusAsignacion=asignacionItem.statusAsignacion
+	 $.asignaStatusAsignacion=asignacionItem.statusAsignacion;
+	 $.asignaArchivoParticipantes=asignacionItem.archivoParticipantes;
+	 
 	 
 	 
 	 
@@ -225,7 +227,7 @@ $(document).ready(function(){
 			$.asignaStatusAsignacion="Curso Editado";
 			$('#modalStatus').html('<span style="background:silver; color:black"><b>'+$.asignaStatusAsignacion+'</b></span>');
 		}
-		
+		$('#modalArchivoParticipantes').html('<b>'+$.asignaArchivoParticipantes+'</b>');
 		
 		/*
 		 * asignar valores al formulario 
@@ -276,7 +278,7 @@ $(document).ready(function(){
 			procesoArchivo="<li>Edicion Archivo : <b>"+ valor +"</b></li>";
 			break;
 		default :
-			procesoFecha="<li>Edicion Fecha A: <b>"+ $.asignaFecha +"</b></li>";
+			procesoFecha="<li>Edicion Fecha: <b>"+ $.asignaFecha +"</b></li>";
 			procesoCliente="<li>Edicion Cliente : <b>"+ $.asignaClienteTexto +"</b></li>";
 			procesoCurso="<li>Edicion Curso : <b>"+ $.asignaCursoTexto +"</b></li>";
 			procesoInstructor="<li>Edicion Instructor : <b>"+ $.asignaInstructorTexto  +"</b></li>";
@@ -362,11 +364,16 @@ $(document).ready(function(){
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
-		
 		$('#statusAsignacion').val($.asignaStatusAsignacion);
-		
 		$('#userCreateAsignacion').val($.asignaUserCreateAsignacion);
 		$('#userCreateAsignacionTexto').val($.asignaUserCreateAsignacionTexto);
+		$('#archivoParticipantes').val($.asignaArchivoParticipantes);
+		$('#archivoParticipantesTexto').val($.asignaArchivoParticipantes);
+		
+		$('#fechaPago').val(asignacionItem.fechaPago);
+		$('#guiaEntregable').val(asignacionItem.guiaEntregable);
+		$('#numeroFactura').val(asignacionItem.numeroFactura);
+		$('#verificarEntregable').val(asignacionItem.verificarEntregable);
 		
 	}
 	
@@ -716,6 +723,7 @@ $(document).ready(function(){
 		$.asignaCursoTexto = $("#asignaCurso option:selected").text();
 		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 		$.asignaTipoCurso = tipoCursoVal;
+		$('#asignaInstructor').append('<option value="'+$.asignaInstructor+'" selected>'+$.asignaInstructorTexto+'</option>');
 	}  // fin metodo validaCurso
 	
 	function validaDiaAusencia(instructor){
@@ -927,6 +935,7 @@ $(document).ready(function(){
 	 * ValidaINSTRUCTOR
 	 */
 	function validaInstructor(){
+		
 		
 		$.asignaInstructor = $('#asignaInstructor').val()
 //		console.log("asignaInstructor:"+ $.asignaInstructor);
@@ -1257,7 +1266,7 @@ $(document).ready(function(){
 		    success: 	function(data){
 		    	if(data.codigo===0){
 		    		if(data.codigo===0){
-		  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
+		  			  alerta="<div class='alert alert-success' role='alert'>Éxito carga</div>";
 		  			  $(alerta).insertAfter($('.alertaFile'));
 		  			  console.log("envio ok");
 		  	    	}else{

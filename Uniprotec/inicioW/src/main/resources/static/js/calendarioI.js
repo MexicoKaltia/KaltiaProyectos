@@ -50,6 +50,7 @@ $(document).ready(function() {
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
 				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
+				archivoParticipantes=asignacion.archivoParticipantes;
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -76,6 +77,7 @@ $(document).ready(function() {
 		}
 		
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
+		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
 		
 		$('#myModal').modal();
 		
@@ -142,6 +144,14 @@ document.addEventListener('DOMContentLoaded', function() {
 //			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
+		
+		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
+		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
+		
+//		$('#fechaPago').val(asignacionSub.fechaPago);
+//		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
+//		$('#numeroFactura').val(asignacionSub.numeroFactura);
+		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
 	}
 
 	

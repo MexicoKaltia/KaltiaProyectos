@@ -40,22 +40,12 @@ public class AsignacionModelo implements Serializable{
 	private Long userCreateAsignacion;
 	private String userCreateAsignacionTexto;
 	private String statusAsignacion;
-	@Override
-	public String toString() {
-		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
-				+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
-				+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
-				+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
-				+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
-				+ ", archivosAsignacion=" + archivosAsignacion + ", archivosAsignacionTexto=" + archivosAsignacionTexto
-				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
-				+ ", observacionesAsignacion=" + observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
-				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
-				+ ", verificarEntregable=" + verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago="
-				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
-				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
-				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + "]";
-	}
+	private String archivoParticipantes;
+	private String archivoParticipantesTexto;
+	
+	
+	
+	
 	public AsignacionModelo(Long idAsignacion, String idAsignacionLogica, String fechaAsignacion,
 			Long idClienteAsignacion, String clienteAsignacion, Long idCursoAsignacion, String cursoAsignacion,
 			Long idInstructorAsignacion, String instructorAsignacion, String horarioAsignacion,
@@ -63,7 +53,8 @@ public class AsignacionModelo implements Serializable{
 			String nivelAsignacion, String observacionesAsignacion, Long idRegionAsignacion,
 			String nombreRegionAsignacion, String tipoCursoAsignacion, Boolean verificarEntregable,
 			String guiaEntregable, String fechaPago, String numeroFactura, LocalDateTime createAtAsignacion,
-			Long userCreateAsignacion, String userCreateAsignacionTexto, String statusAsignacion) {
+			Long userCreateAsignacion, String userCreateAsignacionTexto, String statusAsignacion,
+			String archivoParticipantes, String archivoParticipantesTexto) {
 		super();
 		this.idAsignacion = idAsignacion;
 		this.idAsignacionLogica = idAsignacionLogica;
@@ -91,6 +82,8 @@ public class AsignacionModelo implements Serializable{
 		this.userCreateAsignacion = userCreateAsignacion;
 		this.userCreateAsignacionTexto = userCreateAsignacionTexto;
 		this.statusAsignacion = statusAsignacion;
+		this.archivoParticipantes = archivoParticipantes;
+		this.archivoParticipantesTexto = archivoParticipantesTexto;
 	}
 	public Long getIdAsignacion() {
 		return idAsignacion;
@@ -247,6 +240,35 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setStatusAsignacion(String statusAsignacion) {
 		this.statusAsignacion = statusAsignacion;
+	}
+	public String getArchivoParticipantes() {
+		return archivoParticipantes;
+	}
+	public void setArchivoParticipantes(String archivoParticipantes) {
+		this.archivoParticipantes = archivoParticipantes;
+	}
+	public String getArchivoParticipantesTexto() {
+		return archivoParticipantesTexto;
+	}
+	public void setArchivoParticipantesTexto(String archivoParticipantesTexto) {
+		this.archivoParticipantesTexto = archivoParticipantesTexto;
+	}
+	@Override
+	public String toString() {
+		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
+				+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
+				+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
+				+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
+				+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
+				+ ", archivosAsignacion=" + archivosAsignacion + ", archivosAsignacionTexto=" + archivosAsignacionTexto
+				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
+				+ ", observacionesAsignacion=" + observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
+				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
+				+ ", verificarEntregable=" + verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago="
+				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
+				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", archivoParticipantes="
+				+ archivoParticipantes + ", archivoParticipantesTexto=" + archivoParticipantesTexto + "]";
 	}
 	
 	
