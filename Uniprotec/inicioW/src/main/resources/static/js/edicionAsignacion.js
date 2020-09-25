@@ -388,7 +388,7 @@ $(document).ready(function(){
 //		$.asignaCursoTexto = null;
 //		$.asignaInstructorTexto = null;
 		$.asignaCurso = null;
-		$.asignaInstructor = null;
+//		$.asignaInstructor = null;
 	}
 /*
  * ValidaFECHA

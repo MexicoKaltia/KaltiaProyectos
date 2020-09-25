@@ -227,7 +227,7 @@ public class InstructorRestController {
 			Usuario usuario = usuarioService.findById(instructorActual.getUsuarioInstructor().getIdUsuario());
 			usuario.setStatusUsuario(instructor.getStatusInstructor());
 			usuario.setPasswordUsuario(instructor.getStatusInstructor());
-			usuario.setUsernameUsuario("");
+			usuario.setUsernameUsuario("xxxxx");
 			usuario.setPerfilUsuario("x".concat(usuario.getPerfilUsuario()));
 			usuario = usuarioService.save(usuario);
 			

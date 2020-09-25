@@ -42,11 +42,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 	
-//	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
+	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -65,6 +65,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_PERFILES	  =	"perfiles";
 	public static final String URL_CRUD_CORREOS 	  =	"correos";
 	public static final String URL_CRUD_MENSAJE 	  =	"mensaje";
+	public static final String URL_CRUD_NOTIFICACION 	  =	"notificacion";
 	
 	
 	
@@ -459,6 +460,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		    	for(String a : item) {
 		    		a = a.replace("[", "");
 		    		a = a.replace("]", "");
+		    		a = a.replace("{", "");
+		    		a = a.replace("}", "");
 		    		if(a.contains("idUser")) {
 		    			idUser = a.substring(a.indexOf("=")+1,a.length());
 		    		}else if(a.contains("perfil")) {

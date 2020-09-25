@@ -45,7 +45,7 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		subInfo.put("nombre", usuario.getNombreUsuario());
 		subInfo.put("email", usuario.getEmailUsuario());
 		subInfo.put("perfil", usuario.getPerfilUsuario());
-//		subInfo.put("perfil", usuario.getPerfilUsuario());
+		subInfo.put("notificaciones", aplicacionService.getNotificaciones(usuario.getIdUsuario(), usuario.getPerfilUsuario()));
 		
 		if(usuario.getPerfilUsuario().equals("Vendedor")) {
 			Vendedor vendedor = aplicacionService.getOperacionUsuarioV(usuario.getIdUsuario());

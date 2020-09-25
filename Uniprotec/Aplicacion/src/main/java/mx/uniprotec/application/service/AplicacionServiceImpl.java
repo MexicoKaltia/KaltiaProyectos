@@ -2,7 +2,6 @@ package mx.uniprotec.application.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -15,12 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.IInstructorDao;
 import mx.uniprotec.application.dao.IMensajeDao;
+import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.dao.IPerfilDao;
 import mx.uniprotec.application.dao.IRegionDao;
 import mx.uniprotec.application.dao.IUsuarioDao;
 import mx.uniprotec.application.dao.IVendedorDao;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Mensaje;
+import mx.uniprotec.application.entity.Notificacion;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Usuario;
@@ -54,6 +55,9 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	IPerfilDao perfilDao;
 	@Autowired
 	IMensajeDao mensajeDao;
+	@Autowired
+	INotificacionDao notificacionDao;
+
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -194,6 +198,41 @@ public class AplicacionServiceImpl implements IAplicacionService {
 		Mensaje mensaje = mensajeDao.findById(id).orElse(null);
 		
 		return mensaje.getMensaje();
+	}
+
+	@Override
+	public List<Notificacion> getNotificaciones(Long idUsuario, String perfilUsuario) {
+		
+		List<Notificacion> notificaciones = new ArrayList<Notificacion>(); 
+
+		switch (perfilUsuario) {
+		case "Vendedor":
+			//do Vendedor
+			break;
+		case "Instructor":
+			Instructor instructor = instructorDao.findByUsuarioInstructorIdUsuario(idUsuario);
+//			log.info(instructor.toString());
+			notificaciones = getNotificaciones(instructor.getIdInstructor());
+			
+			break;
+		case "Administrador":
+			//do Vendedor
+			break;
+		case "Operacion":
+			//do Vendedor
+			break;
+		case "Direccion":
+			//do Vendedor
+			break;
+		
+		default:
+			break;
+		}
+		return notificaciones;
+	}
+
+	private List<Notificacion> getNotificaciones(Long idInstructor) {
+		return notificacionDao.findByIdInstructorNotificacion(idInstructor);
 	}
 	
 }

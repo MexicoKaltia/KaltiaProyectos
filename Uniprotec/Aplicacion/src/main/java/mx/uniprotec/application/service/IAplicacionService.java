@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Mensaje;
+import mx.uniprotec.application.entity.Notificacion;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Vendedor;
@@ -25,5 +26,6 @@ public interface IAplicacionService {
 	public @Valid List<UserCorreo> usersCorreo(@Valid List<UserCorreo> usersCorreo);
 	public @Valid Mensaje altaMensaje(@Valid MensajeModelo mensaje);
 	public String getMensaje();
+	public List<Notificacion> getNotificaciones(Long idUsuario, String perfilUsuario);
 
 }

@@ -47,12 +47,12 @@ public class MailService implements IMailService{
 		
 		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
-		  INSTRUCTOR_PRE.add("kaltiaservicios@gmail.com");
+//		  INSTRUCTOR_PRE.add("kaltiaservicios@gmail.com");
 //		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
 //		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
-		STAFF_PRE.add("kaltiaservicios@gmail.com");
+//		STAFF_PRE.add("kaltiaservicios@gmail.com");
 //		STAFF_PRE.add("operacion@uniprotec.net");
 //		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
 //		STAFF_PRE.add("gasparinho@hotmail.fr");
@@ -78,6 +78,7 @@ public class MailService implements IMailService{
 			log.info(uc.toString());
 			if(uc.getPerfil().equals("Instructor")) {
 				correoInstructor.add(uc.getEmailUniprotec());
+				correoInstructor.add(uc.getEmailGmail());
 				correoGmailInstructor = uc.getEmailGmail();
 			}else {
 				correoStaff.add(uc.getEmailUniprotec());

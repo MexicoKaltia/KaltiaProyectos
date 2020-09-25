@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -340,7 +341,7 @@ public class ControllerInicio extends HttpServlet{
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
 
-			ResultVO rs = asignacionService.edicionAsignacionV(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
+			ResultVO rs = asignacionService.edicionAsignacionV(asignacion, resultVO.getAccesToken());
 			ModelAndView mav = new ModelAndView("redirect:/CAsignacion", model);
 			if(rs.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
@@ -352,6 +353,24 @@ public class ControllerInicio extends HttpServlet{
 			return mav;			
 		}
 
+		@PutMapping("/actualizaAsignacionVConfirma")
+		public ModelAndView actualizaAsignacionVConfirma(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+			log.info("Confirma Notificacion Asignacion model Activo");
+			log.info(asignacion.toString());
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+
+			ResultVO rs = asignacionService.edicionAsignacionVConfirma(asignacion, resultVO.getAccesToken());
+			ModelAndView mav = new ModelAndView("redirect:/BAsignacionI/", model);
+			if(rs.getCodigo() != 500) {
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				mav.addObject("ejecucion2", true);
+			}else {
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+			}
+			return mav;			
+		}
 
 		
 		@GetMapping("/CEntregable")

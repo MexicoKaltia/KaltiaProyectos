@@ -23,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.entity.Mensaje;
+import mx.uniprotec.application.entity.Notificacion;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.service.IAplicacionService;
+import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 
@@ -39,7 +42,14 @@ public class AplicacionController {
 	@Autowired
 	private IAplicacionService aplicacionService;
 	
-	 private final Logger log = LoggerFactory.getLogger(UsuarioRestController.class);
+	@Autowired
+	private INotificacionDao notificacionDao;
+
+
+	
+	
+	
+	 private final Logger log = LoggerFactory.getLogger(AplicacionController.class);
 
 	 /*
 	  * 
@@ -174,6 +184,83 @@ public class AplicacionController {
 			log.info(mensaje.toString());
 			 response.put("mensaje", mensajeDao);
 			 response.put("mensaje", "Alta Mensaje Exitosa");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@PostMapping("/notificacion")
+	public ResponseEntity<?> notificacionCreate(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result) {
+		
+		HttpStatus status ;
+		Map<String, Object> response = new HashMap<>();
+//		log.info("Correos : " + usersCorreo.toString());
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			status = HttpStatus.BAD_REQUEST;
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		try {	
+			String mensaje = "Hola, usted tiene una nueva notificación respecto a la Asignación:"
+					+ asignacion.getIdAsignacionLogica() 
+					+". \n Se ha adjuntado el Archivo de Participantes,"
+					+"\n dar click para verificar Archivo de Asignacion y confirmar presente Notificación. ";
+			
+			Notificacion notificacion = new Notificacion();
+			
+			notificacion.setIdAsignacionNotificacion(asignacion.getIdAsignacion());
+			notificacion.setIdAsignacionLogicaNotificacion(asignacion.getIdAsignacionLogica());
+			notificacion.setIdVendedorNotificacion(asignacion.getUserCreateAsignacion());
+			notificacion.setIdInstructorNotificacion(asignacion.getIdInstructorAsignacion());
+			notificacion.setStatusNotificacion("nueva");
+			notificacion.setCreateAtNotificacion(asignacion.getCreateAtAsignacion());
+			notificacion.setUserCreateNotificacion(asignacion.getUserCreateAsignacion());
+			notificacion.setMensaje(mensaje);
+			
+			notificacionDao.save(notificacion);
+			
+//			log.info(mensaje.toString());
+//			 response.put("notificacion", mensajeDao);
+			 response.put("mensaje", "Alta Notificacion Exitosa");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@PostMapping("/notificacion/{id}")
+	public ResponseEntity<?> notificacionUpdate(@PathVariable Long id) {
+		
+		HttpStatus status ;
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			Notificacion notificacionUpdate = notificacionDao.findById(id).orElse(null);
+			notificacionUpdate.setStatusNotificacion("atendida");
+			notificacionDao.save(notificacionUpdate);
+			
+//			log.info(mensaje.toString());
+//			 response.put("notificacion", mensajeDao);
+			 response.put("mensaje", "Actualizacion Notificacion Exitosa");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
