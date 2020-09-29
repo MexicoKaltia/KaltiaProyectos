@@ -19,5 +19,6 @@ public interface IAplicacionService {
 	public void enviaMail(AsignacionModelo asignacion, String token);
 	public ResultVO altaMensaje(MensajeModelo mensaje, String accesToken);
 	public void citaInstructor(AsignacionModelo asignacion);
+	public ResultVO getNotificacion(Long idNotificacion);
 
 }

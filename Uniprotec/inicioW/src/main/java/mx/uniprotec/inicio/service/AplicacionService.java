@@ -201,6 +201,13 @@ public class AplicacionService implements IAplicacionService {
 	}
 	
 	@Override
+	public ResultVO getNotificacion(Long idNotificacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
 	public void citaInstructor(AsignacionModelo asignacion) {
 		try {
 			GoogleCalendar.enviaCitaInstructor(asignacion);
@@ -236,6 +243,7 @@ public class AplicacionService implements IAplicacionService {
 		return null;
 	}
 
+	
 	
 
 

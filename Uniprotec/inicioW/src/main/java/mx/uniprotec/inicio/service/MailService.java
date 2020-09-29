@@ -77,6 +77,7 @@ public class MailService implements IMailService{
 		for(UserCorreo uc : usersCorreo) {
 			log.info(uc.toString());
 			if(uc.getPerfil().equals("Instructor")) {
+//				correoInstructor.add("uniprotec@kaltiaservicios.tech");
 				correoInstructor.add(uc.getEmailUniprotec());
 				correoInstructor.add(uc.getEmailGmail());
 				correoGmailInstructor = uc.getEmailGmail();
@@ -410,7 +411,7 @@ public class MailService implements IMailService{
 
 	private String horario(String horarioAsignacion) {
 		String[] horario = horarioAsignacion.split(";");
-		String hr ="Horario : "+ horario[0].substring(0,2)+":00 - "+horario[1].substring(0,2)+":00 . ";
+		String hr ="Horario : "+ horario[0].substring(0,2)+":"+horario[0].substring(2,4)+" - "+horario[1].substring(0,2)+":"+horario[0].substring(2,4)+".";
 		
 //		if( horario[2] != null && !horario[2].equals("")) {
 //			if(horario[2].contains("Sede")) {
@@ -421,7 +422,9 @@ public class MailService implements IMailService{
 //			
 //		}
 		
-		hr = hr +"Horas Efectivas : "+ horario[4];
+		hr = hr +"  Horas Efectivas : "+ horario[4];
+		
+		log.info(hr);
 		return hr;
 	}
 	

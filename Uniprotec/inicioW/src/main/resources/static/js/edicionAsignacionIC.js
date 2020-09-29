@@ -66,18 +66,25 @@ $(document).ready(function(){
 			var hr = horario.split(";")
 			var hrInicio = horaSel(hr[0]);
 			var hrFinal = horaSel(hr[1]);
+			
+			var hrInicioF = horaSelFin(hr[0]);
+			var hrFinalF = horaSelFin(hr[1]);
+			
 			var hrDesInicio = hr[2];
 			var hrDesFinal = hr[3];
 			var hrEfectivas = hr[4];
 			if(hrDesInicio >0 ){
-				return hrInicio +":00 - "+ hrFinal +":00.  Receso:"+ hrDesInicio +":00-"+ hrDesFinal+":00.  Hrs Efectivas:"+hrEfectivas
+				return hrInicio +":"+hrInicioF+" - "+ hrFinal +":"+ hrFinalF +".  Receso:"+ hrDesInicio +":00-"+ hrDesFinal+":00.  Hrs Efectivas:"+hrEfectivas
 			}else{
-				return hrInicio +":00 - "+ hrFinal +":00.  Hrs Efectivas:"+hrEfectivas
+				return hrInicio +":"+ hrInicioF +" -  "+ hrFinal +":"+ hrFinalF +".  Hrs Efectivas : "+hrEfectivas;
 			}
 		}
 		
 		function horaSel(horarioAsignacion){
 			return horarioAsignacion.slice(0,2);
+		}
+		function horaSelFin(horarioAsignacion){
+			return horarioAsignacion.slice(2,4);
 		}
 		
 		

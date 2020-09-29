@@ -37,6 +37,8 @@ public class Notificacion implements Serializable {
 	@Column
 	private Long idInstructorNotificacion;
 	@Column
+	private String referenciaNotificacion;
+	@Column
 	private String statusNotificacion;
 	@Column
 	private Long userCreateNotificacion;
@@ -143,6 +145,14 @@ public class Notificacion implements Serializable {
 
 	public void setCreateAtNotificacion(LocalDateTime createAtNotificacion) {
 		this.createAtNotificacion = createAtNotificacion;
+	}
+
+	public String getReferenciaNotificacion() {
+		return referenciaNotificacion;
+	}
+
+	public void setReferenciaNotificacion(String referenciaNotificacion) {
+		this.referenciaNotificacion = referenciaNotificacion;
 	}
 
 	

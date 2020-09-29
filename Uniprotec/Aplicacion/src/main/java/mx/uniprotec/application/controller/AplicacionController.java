@@ -214,10 +214,10 @@ public class AplicacionController {
 		}
 		
 		try {	
-			String mensaje = "Hola, usted tiene una nueva notificación respecto a la Asignación:"
+			String mensaje = "Hola, usted tiene una nueva notificación respecto a la Asignación : "
 					+ asignacion.getIdAsignacionLogica() 
-					+". \n Se ha adjuntado el Archivo de Participantes,"
-					+"\n dar click para verificar Archivo de Asignacion y confirmar presente Notificación. ";
+					+". \\n Se ha adjuntado el Archivo de Participantes,"
+					+"\\n dar click para verificar Archivo de Asignacion y confirmar presente Notificación. ";
 			
 			Notificacion notificacion = new Notificacion();
 			
@@ -226,6 +226,7 @@ public class AplicacionController {
 			notificacion.setIdVendedorNotificacion(asignacion.getUserCreateAsignacion());
 			notificacion.setIdInstructorNotificacion(asignacion.getIdInstructorAsignacion());
 			notificacion.setStatusNotificacion("nueva");
+			notificacion.setReferenciaNotificacion("notificacion/".concat(asignacion.getIdAsignacion().toString()));
 			notificacion.setCreateAtNotificacion(asignacion.getCreateAtAsignacion());
 			notificacion.setUserCreateNotificacion(asignacion.getUserCreateAsignacion());
 			notificacion.setMensaje(mensaje);

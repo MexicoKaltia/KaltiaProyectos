@@ -189,6 +189,20 @@
             </div> 
 <!--     LEFT FIN -->
 <div class="app-main__outer">
+			<br>
+			<div  style=" float: right;" ><ul>
+                  <li th:each= "notificacion : ${model.jsonResponse.user.notificaciones}" style = "list-style-type: none;">
+		               <div class="alert alert-info alert-dismissible" role="alert" id="idNotificacion">
+  					    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		                   	<h6><a th:href="${notificacion.referenciaNotificacion}">
+<!-- 		                   	<h6><a th:href="@{/mycontroller/{pathParam}(pathParam=${type}}"> -->
+			                      <i class="metismenu-icon pe-7s-rocket"></i>
+							     <span th:text="${notificacion.mensaje}"></span>
+							</a></h6>
+						</div>
+		          </li>
+                </ul>
+              </div>
                 <div class="app-main__inner">
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
@@ -201,9 +215,10 @@
                                     <div class="page-title-subheading"> PANTALLA PRINCIPAL CON LOS INDICADORES DE SERVICIO Y ACCESOS DIRECTOS
                                     </div>
                                 </div>
+                                
                             </div>
-
                         </div>
+                        
                         <div class="app-header-right">
 							<br>
                             <span th:if='${ejecucion}'>
