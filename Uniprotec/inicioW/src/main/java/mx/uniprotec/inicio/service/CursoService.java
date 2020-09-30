@@ -47,7 +47,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 		curso.setUserCreateCurso(me.getIdUsuarioEntidad());
 		curso.setStatusCurso(me.getStatusEntidad());
 		
-		log.info(curso.toString());
+//		log.info(curso.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				token,
@@ -59,7 +59,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 
 	@Override
 	public ResultVO edicionCurso(CursoModelo curso, String token) {
-		log.info(curso.toString());
+//		log.info(curso.toString());
 		
 //		List<Instructor> listInstructor =  new ArrayList<Instructor>();
 //		for(Long idInstructor : curso.getListInstructores()) {
@@ -72,7 +72,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 		curso.setUserCreateCurso(me.getIdUsuarioEntidad());
 		curso.setStatusCurso("Actualizado");
 		
-		log.info(curso.toString());
+//		log.info(curso.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,

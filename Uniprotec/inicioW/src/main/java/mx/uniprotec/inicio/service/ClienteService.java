@@ -41,7 +41,7 @@ public class ClienteService implements IClienteService {
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
 		cliente.setStatusCliente(me.getStatusEntidad());
-		log.info(cliente.toString());
+//		log.info(cliente.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				token,
@@ -88,7 +88,7 @@ public class ClienteService implements IClienteService {
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
 		cliente.setStatusCliente("Actualizado");
-		log.info(cliente.toString());
+//		log.info(cliente.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,

@@ -69,7 +69,7 @@ public class UsuarioService implements IUsuarioService {
 		usuario.setCreateAtUsuario(me.getNowEntidad());
 		usuario.setUserCreateUsuario(me.getIdUsuarioEntidad());
 		usuario.setStatusUsuario("Actualizado");
-		log.info(usuario.toString());
+//		log.info(usuario.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,

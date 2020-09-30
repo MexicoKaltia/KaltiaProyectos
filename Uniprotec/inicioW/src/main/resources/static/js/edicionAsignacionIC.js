@@ -138,6 +138,8 @@ $(document).ready(function(){
 //	console.log(asignacionCliente);
 	$('#nombreCortoCliente').html('<b>'+asignacionCliente.nombreCortoCliente+'</b>');
 	$('#regionCliente').html('<b>'+regionCliente+'</b>');
+	$('#nombreCompletoCliente').html('<b>'+asignacionCliente.nombreCompletoCliente+'</b>');
+	$('#rfcCliente').html('<b>'+asignacionCliente.rfcCliente+'</b>');
 	$('#domicilioCliente').html('<b>'+asignacionCliente.domicilioCliente+'</b>');
 	$('#telefonoCliente').html('<b>'+asignacionCliente.telefonoCliente+'</b>');
 	$('#googleMapsCliente').html('<b><a href="'+asignacionCliente.googleMapsCliente+'" target="_blank">Ver Mapa</b>');

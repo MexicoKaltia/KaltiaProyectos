@@ -96,7 +96,7 @@ public class ControllerInicio extends HttpServlet{
 //			misession.setAttribute("model",resultVO);
 			
 
-			log.info(resultVO.toString());
+//			log.info(resultVO.toString());
 			if(resultVO.getCodigo() != 500) {
 				log.info("Bienvenido");
 				mav.setViewName(resultVO.getResponse());
@@ -128,7 +128,7 @@ public class ControllerInicio extends HttpServlet{
 				ResultVO resultVO = (ResultVO)model.get("model");
 				ModelAndView mav = new  ModelAndView(resultVO.getResponse(),  model);
 				mav.addObject("mensajeItem", new MensajeModelo());
-				log.info(resultVO.getResponse());
+//				log.info(resultVO.getResponse());
 						return 	mav;
 			}		
 
@@ -170,7 +170,7 @@ public class ControllerInicio extends HttpServlet{
 						jsonUsuario2.get("notaUsuario").toString(),
 						jsonUsuario2.get("perfilUsuario").toString());
 //				usuario.setPasswordUsuarioOld(jsonUsuario2.get("passwordUsuario").toString());
-				log.info(usuario.toString());
+//				log.info(usuario.toString());
 				model.addAttribute("usuarioForm", usuario);
 				
 				
@@ -225,19 +225,21 @@ public class ControllerInicio extends HttpServlet{
 		}
 		
 		@GetMapping("/notificacion/{idAsignacion}")
-		public ModelAndView getNotificacion(@PathVariable String idAsignacion, 
+		public ModelAndView getNotificaciona(@PathVariable String idAsignacion, 
 				ModelMap model) {
 			
 			if(model.equals(null)) {
 				log.info("NULL");
 				return new  ModelAndView("login");
 			}else {
-				log.info("Edicion Asignacion model Activo");
+				log.info("Notificacion Asignacion model Activo");
 				ResultVO resultVO = (ResultVO)model.get("model");	
+				model.addAttribute("model", resultVO);
+				
 				ResultVO rs0 = asignacionService.consultaAsignacionCorreo(idAsignacion);
 				JSONObject jsonObject = (JSONObject) rs0.getJsonResponse();
 				JSONObject asignacionJson = new JSONObject((Map) jsonObject.get("asignacion"));
-//				log.info(asignacion.toJSONString());
+
 				AsignacionModelo asignacion = new AsignacionModelo();
 				asignacion.setIdAsignacionLogica((String) asignacionJson.get("idAsignacionLogica"));
 				asignacion.setFechaAsignacion((String) asignacionJson.get("fechaAsignacion"));
@@ -263,15 +265,19 @@ public class ControllerInicio extends HttpServlet{
 				asignacion.setGuiaEntregable((String) asignacionJson.get("guiaEntregable"));
 				asignacion.setNumeroFactura((String) asignacionJson.get("numeroFactura"));
 				asignacion.setArchivoParticipantes((String) asignacionJson.get("archivoParticipantes"));
-				
 				model.addAttribute("asignacionItem", asignacion);
+				
+				
 				ResultVO rs = clienteService.consultaCliente(resultVO.getAccesToken(), Long.valueOf(asignacionJson.get("idClienteAsignacion").toString()));
+//				log.info(rs.getJsonResponse().toJSONString());
 				resultVO.setJsonResponseObject(rs.getJsonResponse());
 				
-				model.addAttribute("model", resultVO);
-				ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
-				log.info(model.toString());
-				if(rs.getCodigo() != 500) {					
+				aplicacionService.actualizaNotificacion(resultVO.getAccesToken(), idAsignacion);
+				
+				
+				ModelAndView mav = new  ModelAndView("CNotificacion",  model);
+//				log.info(model.toString());
+				if(rs0.getCodigo() != 500) {					
 					return mav;
 				}else {
 					mav.addObject("consulta", true);

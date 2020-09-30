@@ -201,6 +201,11 @@ public class AplicacionService implements IAplicacionService {
 	}
 	
 	@Override
+	public void actualizaNotificacion(String token, String idAsignacion) {
+		baseClientRest.objetoPut(token, BaseClientRest.URL_CRUD_NOTIFICACION, null, Long.valueOf(idAsignacion) );
+	}
+	
+	@Override
 	public ResultVO getNotificacion(Long idNotificacion) {
 		// TODO Auto-generated method stub
 		return null;
@@ -242,6 +247,8 @@ public class AplicacionService implements IAplicacionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 	

@@ -75,7 +75,7 @@ public class VendedorService implements IVendedorService {
 		vendedor.setStatusVendedor(me.getStatusEntidad());
 		
 		
-		log.info(vendedor.toString());
+//		log.info(vendedor.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				token,
@@ -95,7 +95,7 @@ public class VendedorService implements IVendedorService {
 		vendedor.setUserCreateVendedor(me.getIdUsuarioEntidad());
 //		vendedor.setStatusVendedor("Actualizado");
 		
-		log.info(vendedor.toString());
+//		log.info(vendedor.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,

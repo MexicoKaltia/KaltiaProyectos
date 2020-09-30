@@ -8,7 +8,7 @@
     <title>UNIPROTEC V 1.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-        <link rel="icon" type="image/png" href="../../../images/logo.png"/>
+	 <link rel="icon" type="image/png" href="../../../images/logo.png"/>
 
     <link href="../../../main.css" rel="stylesheet">
     <link href="../../../css/fc/core/main.css" rel='stylesheet' />
@@ -16,25 +16,32 @@
 	<link href="../../../css/fc/timegrid/main.css" rel='stylesheet' />
 	<link href="../../../css/fc/list/main.css" rel='stylesheet' />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style>
-		#calendar {
-		    max-width: 900px;
-		    margin: 0 auto;
-		 }								
-	</style>
+    <style>
+	.zona {
+	  border: none;
+	  color: white;
+	  padding: 10px 22px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  margin: 1px 2px;
+	  cursor: pointer;
+	}
+
+</style>
     
 
 
 </head>
 
 <body background="../../../images/fondo6.png">
-
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
-        <!--      HEAD INICIO    -->
+<!--      HEAD INICIO    -->
     <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
-                <div class="logo-src2" ><img width="90%"  src="../../../assets/images/logo.png"alt=""></div>
+                <div class="logo-src2" ><img width="90%"  src="../../../images/logo.png}"alt=""></div>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -90,21 +97,26 @@
                                                 alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
-<!--                                         <div tabindex="-1" role="menu" aria-hidden="true" -->
-<!--                                             class="dropdown-menu dropdown-menu-right"> -->
-<!--                                             <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a> -->
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
                                             
-<!--                                             <div tabindex="-1" class="dropdown-divider"></div> -->
-<!--                                             <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a> -->
-<!--                                         </div> -->
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="widget-content-left  ml-3 header-user-info">
+                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-<!--                                         <span th:text="${asignacion.instructorAsignacion}"></span> -->
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
                                     </div>
                                     <div class="widget-subheading">
-                                    	<span > Instructor</span>
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -122,7 +134,7 @@
        <!--      HEAD FIN    --> 
         
         <div class="app-main">
-            <!--     LEFT INICIO -->
+        <!--     LEFT INICIO -->
 	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>
@@ -161,63 +173,65 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">PRINCIPAL</li>
                             <li>
-                                <a href="/" class="mm-active">
+                                <a th:href="@{/inicio}" class="mm-active">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
                                     CONTROL
                                 </a>
                             </li>
-                            
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.modules.modulos}">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    <span th:text="${modulo.nombreModulo}"></span>
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li th:each= "submodulo : ${modulo.submodules}">
+                                        <a th:href="${submodulo.referenciaSubmodulo}">
+                                            <i class="metismenu-icon"></i>
+                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                           <li class="app-sidebar__heading">ACCIONES</li>
+                            <li th:each= "accion : ${model.jsonResponse.modules.acciones}">
+                                <a th:href="${accion.referenciaAccion}">
+                                  <i th:class="${accion.iconoAccion}"></i>
+                                  <span th:text="${accion.nombreAccion}"></span>
+                                </a>
+                            </li>
+
+            
                         </ul>
                     </div>
                 </div>  
             </div> 
-<!--     LEFT FIN --> 
+<!--     LEFT FIN -->
 
-              <div class="app-main__outer">
-                    <div class="app-main__inner">
-                        <div class="app-page-title">
-                            <div class="page-title-wrapper">
-                                <div class="page-title-heading">
-                                    <div class="page-title-icon">
-                                        <i class="pe-7s-car icon-gradient bg-warm-flame">
-                                        </i>
-                                    </div>
-                                    <div>EXPEDIENTE CLIENTE  
-                                        <div class="page-title-subheading">REVISION EXPEDIENTE CLIENTE Y CONFIRMACION DE EVENTO.
-                                        </div>
+             <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div><h3>Asignación Curso Uniprotec</h3>
+                                    <div class="page-title-subheading"> Detalle de Asignación
                                     </div>
                                 </div>
-                                </div>
-                                <div class="app-header-right">
-							<br>
-                            <span th:if='${ejecucion}'>
-								<div class="alert alert-success" role="alert" id="dataExito">
-		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Generado correctamente la nueva Asignación.</u>
-								</div>
-							</span>
-							<span th:if='${ejecucion2}'>
-								<div class="alert alert-success" role="alert" id="dataExito">
-		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Actualizado correctamente la Asignación.</u>
-								</div>
-							</span>
-							<span th:if='${error}'>
-								<div class="alert alert-danger" role="alert" id="dataError">
-		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revisión : </b><u>No tiene autorizacion para este Evento. </u>
-								</div>
-							</span>
-							<span th:if='${consulta}'>
-								<div class="alert alert-warning" role="alert" id="dataError">
-		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Consulta : </b><u>No se realizó la consulta de la lista de Asignaciones, Notifique Administrador. </u>
-								</div>
-							</span>
-					 </div>
+                            </div>
+
                         </div>
-                        
-                        <div class="main-card mb-3 card">
+                    </div>
+                    
+                    <!--  
+                    	SECCION DE EDICION  
+                    -->
+                    <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <div class="container mt-3">
 							       <h4>Detalles del Evento Asignado</h4>
@@ -225,20 +239,21 @@
 <!-- 							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso de Edicion: -->
 <!-- 							       		<ul class='listaProceso'></ul> -->
 <!-- 							       	</div> -->
-							       <script th:inline="javascript">
-							       		 var asignacionItem = [[${asignacion}]];
-										 var asignacionCliente = [[${cliente}]];
-										 var staff = [[${staff}]];
-										 
-									</script>
 							       
+							       <script th:inline="javascript">
+							       		 var asignacionItem = [[${asignacionItem}]];
+										 var asignacionCliente = [[${model.jsonResponseObject.clientes}]];
+										 var idUsuario =  [[${model.jsonResponse.user.id}]];
+										 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+										 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+									</script>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
  									<div class="form-row">
                                         <div class="col-md-6 mb-4">
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color:  rgba(51, 105, 232, 0.1)">
-									             <center><i class="fa fa-calendar-check-o fa-5x" style="color:#3369e8"> </i></center>
+									             <center><i class="fa fa-calendar-check-o" style="color:#3369e8"> </i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Fecha Asignación</h6><div class="pull-right badge" id="fechaAsignacion"></div></div>
 <!-- 											</a> -->
@@ -248,7 +263,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color:  rgba(250, 188, 9, 0.1)">
-									             <center><i class="fa fa-info-circle fa-5x" style="color:#fabc09"> </i></center>
+									             <center><i class="fa fa-info-circle" style="color:#fabc09"> </i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Informacion Cliente</h6><div class="pull-right badge" id="">
 									          <button type='button' class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal'><h4><b><span id="clienteAsignacion"></span></b></h4></button></div>
@@ -263,7 +278,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color:  rgba(213, 15, 37, 0.1)">
-									            <center><i class="fa fa-pencil-square-o fa-5x" style="color:#d50f25"> </i></center>
+									            <center><i class="fa fa-pencil-square-o" style="color:#d50f25"> </i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Informacion Curso</h6><div class="" id="cursoAsignacion"></div>
 									          </div>							          
@@ -274,7 +289,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1)">
-									            <center><i class="fa fa-user fa-5x" style="color:#BB7824"></i></center>
+									            <center><i class="fa fa-user" style="color:#BB7824"></i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Instructor Asignado</h6><div class="" id="instructorAsignacion"></div>
 									          </div>
@@ -288,7 +303,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color: rgba(22, 160, 133, 0.1)">
-									            <center><i class = "fa fa-clock-o fa-5x" style="color:#16A085"></i></center>
+									            <center><i class = "fa fa-clock-o" style="color:#16A085"></i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Horario Curso</h6><div class="" id="horarioAsignacion"></div>
 									          </div>
@@ -299,7 +314,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									            <div class="wrimagecard-topimage_header" style="background-color: rgba(121, 90, 71, 0.1)">
-									           <center><i class="fa fa-users fa-5x" style="color:#795a47"> </i></center> 
+									           <center><i class="fa fa-users " style="color:#795a47"> </i></center> 
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Cantidad de Participantes</h6><div class="pull-right badge" id="participantesAsignacion"></div>
 									          </div>
@@ -313,7 +328,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									            <div class="wrimagecard-topimage_header" style="background-color: rgba(121, 95, 71, 0.1)">
-									           <center><i class="fa fa-bars fa-5x" style="color:#795a47"> </i></center> 
+									           <center><i class="fa fa-bars" style="color:#795a47"> </i></center> 
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Nivel de Curso</h6><div class="pull-right badge" id="nivelAsignacion"></div>
 									          </div>
@@ -324,7 +339,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color:rgba(51, 105, 232, 0.1)">
-									            <center><i class="fa fa-eye fa-5x" style="color:#BB7824"></i></center>
+									            <center><i class="fa fa-eye" style="color:#BB7824"></i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Observaciones</h6><div class="" id="observacionesAsignacion"></div>
 									          </div>
@@ -338,7 +353,7 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									          <div class="wrimagecard-topimage_header" style="background-color: rgba(250, 188, 9, 0.1)">
-									            <center><i class="fa fa-file-archive-o fa-5x" style="color:#fabc09"></i></center>
+									            <center><i class="fa fa-file-archive-o" style="color:#fabc09"></i></center>
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Archivos Adjuntos</h6><div class="" id="archivosAsignacion"></div>
 									          </div>
@@ -349,10 +364,10 @@
                                             <div class="wrimagecard wrimagecard-topimage">
 <!-- 									          <a href="#"> -->
 									            <div class="wrimagecard-topimage_header" style="background-color: rgba(22, 160, 133, 0.1)">
-									           <center><i class="fa fa-cog fa-5x" style="color:#16A085"> </i></center> 
+									           <center><i class="fa fa-cog" style="color:#16A085"> </i></center> 
 									          </div>
 									          <div class="wrimagecard-topimage_title"><h6>Status Curso</h6><div class="pull-right badge" id="">
-									          <button type='button' id="btnStatus" class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal2'><h4><b><span id="statusAsignacion1"></span></b></h4></button></div>
+									          <button type='button' class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal2'><h4><b><span id="statusAsignacion1"></span></b></h4></button></div>
 									          </div>
 									          </div>
 									          
@@ -360,7 +375,82 @@
 									      </div>
                                         </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
-                                        
+                                        <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="wrimagecard wrimagecard-topimage">
+<!-- 									          <a href="#"> -->
+									          <div class="wrimagecard-topimage_header" style="background-color: rgb(255, 230, 249)">
+									            <center><i class="fa fa-address-card" style="color:#450C38"></i></center>
+									          </div>
+									          <div class="wrimagecard-topimage_title"><h6>Archivo Participantes</h6><div class="" id="archivoParticipantes"></div>
+									          </div>
+<!-- 									        </a> -->
+									      </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+									      </div>
+                                        </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+                                        <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post" id="edicionAsignacion0">
+                                        <div class="form-row">                                        
+                                        <div class="col-md-6 mb-3">
+                                            <div class="wrimagecard wrimagecard-topimage">
+									          <div class="wrimagecard-topimage_header" style="background-color: rgba(213, 15, 37, 0.1)">
+									            <center><i class="fa fa-calendar-check" style="color:#d50f25"></i></center>
+									          </div>
+									          <div class="wrimagecard-topimage_title"><h6>Fecha de Pago</h6>
+									          
+									          	<input type="text" class="datepicker form-control"  id="fechaPago0" name="fechaPago0" placeholder="Asigna Fecha de Pago" value=""  maxlength="100" th:field="*{fechaPago}" required>
+									          </div>
+									      </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="wrimagecard wrimagecard-topimage">
+									            <div class="wrimagecard-topimage_header" style="background-color: rgba(51, 105, 232, 0.1)">
+									           <center><i class="fa fa-file" style="color:#3369e8"> </i></center> 
+									          </div>
+									          <div class="wrimagecard-topimage_title"><h6>Numero de Factura</h6>
+									          	<input type="text" class="form-control"  id="numeroFactura0" name="numeroFactura0" placeholder="Capture Numero de Factura" value=""  maxlength="100" th:field="*{numeroFactura}" required>
+									          </div>
+									          </div>
+									      </div>
+                                        </div>
+                                         <div class="form-row">    
+	                                        <div class="col-md-6 mb-3">
+	                                        	<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >Agregar Administracion</button>
+	                                        </div>
+                                        </div>
+                                         		<input type="hidden" id="idAsignacion0" th:field="*{idAsignacion}" />
+                                               <input type="hidden" id="idAsignacionLogica0" th:field="*{idAsignacionLogica}" />
+                                               <input type="hidden" id="fechaAsignacion0" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion0"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion0"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion0" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion0" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion0" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion0" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion0" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion0" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion0" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacion0" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacionTexto0" th:field="*{archivosAsignacionTexto}" />
+                                               <input type="hidden" id="observacionesAsignacion0" th:field="*{observacionesAsignacion}" />
+                                               <input type="hidden" id="idRegionAsignacion0" th:field="*{idRegionAsignacion}" />
+                                               <input type="hidden" id="nombreRegionAsignacion0" th:field="*{nombreRegionAsignacion}" />
+                                               <input type="hidden" id="tipoCursoAsignacion0" th:field="*{tipoCursoAsignacion}" />
+                                               <input type="hidden" id="statusAsignacion0" th:field="*{statusAsignacion}" />
+                                               <input type="hidden" id="verificarEntregable0" th:field="*{verificarEntregable}" />
+                                               <input type="hidden" id="userCreateAsignacion0" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto0" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="guiaEntregable0" th:field="*{guiaEntregable}" />
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
+<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
+<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               
+                                        </form>
                                        
 									 </div>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
@@ -371,12 +461,13 @@
 							       
 							   </div>
 							</div>
-                    </div>                            
+						</div>
+                                              
                         <!-- 
                         	FIN DE SECCION DE EDICION 
                         -->
 
-										 	<!-- Footer-->
+                                       	<!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
                                             <div class="app-footer__inner">
@@ -401,9 +492,8 @@
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 <!-- </div>   app-container -->
-<!-- 	<script type="text/javascript" src="js/jquery.min.js"></script> -->
+<!-- 	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script> -->
  
-    
     <script type="text/javascript" src="../../../js/main.js"></script>
 <!--     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="../../../js/jquery.min.js"></script>
@@ -419,7 +509,7 @@
     <script src="../../../js/picker.date.js"></script>   
     <script src="../../../js/picker.time.js"></script>   
     <script src="../../../js/es_ES.js"></script>
-    <script src="../../../js/edicionAsignacionIC.js"></script>
+    <script src="../../../js/edicionAsignacionI.js"></script>
     <script type="text/javascript">
     var today = new Date();
     var $datepicker = $( '.datepicker' ).pickadate({
@@ -447,7 +537,7 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
-                                           <img class="card-img-top" src="../../../assets/images/logo.png" alt="Card image cap">
+                                           <img class="card-img-top" src="../../../images/logo.png" alt="Card image cap">
                                            <div class="card-body">
                                            <form role="form" >
                                                <h5 class="card-title">Detalle de cliente</h5>
@@ -459,7 +549,7 @@
                                                    <li class="list-group-item list-group-item-info">Telefono : <span id="telefonoCliente"></span></li>
                                                    <li class="list-group-item list-group-item-info">Google Map : <span id="googleMapsCliente"></span></li>
                                                    <li class="list-group-item list-group-item-info">Domicilio : <span id="domicilioCliente"></span></li>
-                                                   
+                                                   <!-- vendedor asignado -->
                                                    <li class="list-group-item list-group-item-info">Reglas Acceso : <span id="reglasAccesoCliente"></span></li>
                                                    <li class="list-group-item list-group-item-info">Documentos Acceso : <span id="documentosAccesoCliente"></span></li>
                                                    <li class="list-group-item list-group-item-info">Material Didactico : <span id="materialDidacticoCliente"></span></li>
@@ -506,36 +596,41 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
-                                           <img class="card-img-top" src="../../../assets/images/logo.png" alt="Card image cap">
+                                           <img class="card-img-top" src="../../../images/logo.png" alt="Card image cap">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/actualizaAsignacionIC}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
+                                           <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
                                                <h5 class="card-title">Avanzar Etapa de proceso de Evento</h5>
-                                                <input type="hidden" id="idAsignacion0" th:field="*{idAsignacion}" />
-                                               <input type="hidden" id="idAsignacionLogica0" th:field="*{idAsignacionLogica}" />
-                                               <input type="hidden" id="fechaAsignacion0" th:field="*{fechaAsignacion}" />
-                                               <input type="hidden" id="idClienteAsignacion0"   th:field="*{idClienteAsignacion}"    />
-                                               <input type="hidden" id="clienteAsignacion0"   th:field="*{clienteAsignacion}"    />
-                                               <input type="hidden" id="idCursoAsignacion0" th:field="*{idCursoAsignacion}" />
-                                               <input type="hidden" id="cursoAsignacion0" th:field="*{cursoAsignacion}" />
-                                               <input type="hidden" id="idInstructorAsignacion0" th:field="*{idInstructorAsignacion}" />
-                                               <input type="hidden" id="instructorAsignacion0" th:field="*{instructorAsignacion}" />
-                                               <input type="hidden" id="horarioAsignacion0" th:field="*{horarioAsignacion}" />
-                                               <input type="hidden" id="participantesAsignacion0" th:field="*{participantesAsignacion}" />
-                                               <input type="hidden" id="nivelAsignacion0" th:field="*{nivelAsignacion}" />
-                                               <input type="hidden" id="archivosAsignacion0" th:field="*{archivosAsignacion}" />
-                                               <input type="hidden" id="archivosAsignacionTexto0" th:field="*{archivosAsignacionTexto}" />
-                                               <input type="hidden" id="observacionesAsignacion0" th:field="*{observacionesAsignacion}" />
-                                               <input type="hidden" id="idRegionAsignacion0" th:field="*{idRegionAsignacion}" />
-                                               <input type="hidden" id="nombreRegionAsignacion0" th:field="*{nombreRegionAsignacion}" />
-                                               <input type="hidden" id="tipoCursoAsignacion0" th:field="*{tipoCursoAsignacion}" />
-                                               <input type="hidden" id="statusAsignacion0" th:field="*{statusAsignacion}" />
-                                               <input type="hidden" id="verificarEntregable0" th:field="*{verificarEntregable}" />
-                                               <input type="hidden" id="userCreateAsignacion0" th:field="*{userCreateAsignacion}" />
-                                               <input type="hidden" id="userCreateAsignacionTexto0" th:field="*{userCreateAsignacionTexto}" />
-
+                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+                                               <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
+                                               <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                                               <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                               
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
+                                               <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
 <!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
-<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
-<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
+                                               <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               
                                                <ul class="list-group" id="procesoEvento">
                                                    <li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>

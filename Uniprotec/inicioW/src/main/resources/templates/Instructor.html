@@ -194,9 +194,8 @@
                   <li th:each= "notificacion : ${model.jsonResponse.user.notificaciones}" style = "list-style-type: none;">
 		               <div class="alert alert-info alert-dismissible" role="alert" id="idNotificacion">
   					    	<button type="button" class="close" data-dismiss="alert">&times;</button>
-		                   	<h6><a th:href="/+${notificacion.referenciaNotificacion}">
-<!-- 		                   	<h6><a th:href="@{/mycontroller/{pathParam}(pathParam=${type}}"> -->
-			                      <i class="metismenu-icon pe-7s-rocket"></i>
+		                   	<h6><i class="metismenu-icon pe-7s-rocket"></i>
+		                   	<a th:href="${notificacion.referenciaNotificacion}">
 							     <span th:text="${notificacion.mensaje}"></span>
 							</a></h6>
 						</div>

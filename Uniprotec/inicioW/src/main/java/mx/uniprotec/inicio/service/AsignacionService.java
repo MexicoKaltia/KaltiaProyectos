@@ -42,7 +42,7 @@ public class AsignacionService implements IAsignacionService{
 		asignacion.setUserCreateAsignacion(idUser);
 		asignacion.setStatusAsignacion("Curso Asignado");
 		asignacion.setIdAsignacionLogica(fecha(asignacion.getFechaAsignacion())+"-"+asignacion.getIdClienteAsignacion()+"-"+asignacion.getIdInstructorAsignacion()+"-"+asignacion.getIdCursoAsignacion());
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				token,
@@ -74,7 +74,7 @@ public class AsignacionService implements IAsignacionService{
 //		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
 		asignacion.setStatusAsignacion(status);
 		
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,
@@ -139,7 +139,7 @@ public class AsignacionService implements IAsignacionService{
 //		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
 		asignacion.setStatusAsignacion(asignacion.getStatusAsignacion());
 		
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPutC(
 				BaseClientRest.URL_CRUD_ASIGNACION,
@@ -156,7 +156,7 @@ public class AsignacionService implements IAsignacionService{
 		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
-			log.info(rs.getJsonResponse().toJSONString());
+//			log.info(rs.getJsonResponse().toJSONString());
 			JSONObject jsonAsignaciones = new JSONObject();
 			jsonAsignaciones.put("asignaciones", jsonGeneral.get("asignaciones"));
 			
@@ -175,7 +175,7 @@ public class AsignacionService implements IAsignacionService{
 		ResultVO rs= (ResultVO) baseClientRest.objetoGetIdCorreo(BaseClientRest.URL_CRUD_ASIGNACION,  idAsignacion);
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
-			log.info(rs.getJsonResponse().toJSONString());
+//			log.info(rs.getJsonResponse().toJSONString());
 			JSONObject jsonAsignaciones = new JSONObject((Map) jsonObject.get("asignacion"));
 			
 			rs.setJsonResponseObject(jsonAsignaciones);

@@ -67,7 +67,7 @@ public class ControllerAsignacion {
 	
 	@GetMapping("/AAsignacion")
 	public ModelAndView asignacion(ModelMap model) {
-		log.info(model.toString());
+//		log.info(model.toString());
 		model.addAttribute("asignacionForm", new AsignacionModelo());
 		model.addAttribute("asignaForm", new AsignacionModelo());
 
@@ -81,9 +81,9 @@ public class ControllerAsignacion {
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 			
 			model.addAttribute("model", resultVO);
-			log.info(rs.toString());
+//			log.info(rs.toString());
 			ModelAndView mav = new  ModelAndView("Asignacion",  model);
-			log.info(mav.toString());
+//			log.info(mav.toString());
 			if(rs.getCodigo() != 500) {
 				return mav;
 			}else {
@@ -97,10 +97,10 @@ public class ControllerAsignacion {
 	@PostMapping("/altaAsignacion")
 	public ModelAndView altaAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Metodo de alta Asignacion");
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
-		log.info(resultVO.getJsonResponse().toJSONString());
+//		log.info(resultVO.getJsonResponse().toJSONString());
 		JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 		JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
 		Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
@@ -121,7 +121,7 @@ public class ControllerAsignacion {
 	@PostMapping("/BAsignacion")
 	public ModelAndView BAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 		model.addAttribute("asignacionItem", asignacion);
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
@@ -174,7 +174,7 @@ public class ControllerAsignacion {
 	@PostMapping("/actualizaAsignacion")
 	public ModelAndView actualizaAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Actualiza Asignacion model Activo");
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 
@@ -193,7 +193,7 @@ public class ControllerAsignacion {
 	@PostMapping("/actualizaAsignacionV")
 	public ModelAndView actualizaAsignacionV(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Actualiza Asignacion model Activo");
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 
@@ -212,7 +212,7 @@ public class ControllerAsignacion {
 	@PutMapping("/actualizaAsignacionVConfirma")
 	public ModelAndView actualizaAsignacionVConfirma(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Confirma Notificacion Asignacion model Activo");
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 
@@ -298,7 +298,7 @@ public class ControllerAsignacion {
 			model.addAttribute("model", resultVO);
 //			log.info(resultVO.toString());
 			ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
-			log.info(model.toString());
+//			log.info(model.toString());
 			if(rs.getCodigo() != 500) {					
 				return mav;
 			}else {
@@ -330,7 +330,7 @@ public class ControllerAsignacion {
 		log.info("Actualiza Asignacion Instructor model Activo");
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		ModelAndView mav=null;
 		ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
 		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {

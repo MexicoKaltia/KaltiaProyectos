@@ -53,12 +53,12 @@ public class MailService implements IMailService{
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
 //		STAFF_PRE.add("kaltiaservicios@gmail.com");
-//		STAFF_PRE.add("operacion@uniprotec.net");
+		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
 //		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
 //		STAFF_PRE.add("gasparinho@hotmail.fr");
 
 		
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		
 		String staffDestino ;
 		String referenciaBase = "https://control-uniprotec.com/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
@@ -68,14 +68,14 @@ public class MailService implements IMailService{
 		String[] envioCorreos = {"Instructor", "Staff"};
 		StatusVO statusVO = new StatusVO();
 		List<UserCorreo> usersCorreo = aplicacionService.usersCorreo(asignacion.getIdInstructorAsignacion(), asignacion.getUserCreateAsignacion(), token);
-		log.info(usersCorreo.toString());
+//		log.info(usersCorreo.toString());
 		
 		String correoGmailInstructor="";
 		List<String> correoStaff = new ArrayList<String>();
 		List<String> correoInstructor = new ArrayList<String>();
 		correoStaff.clear();
 		for(UserCorreo uc : usersCorreo) {
-			log.info(uc.toString());
+//			log.info(uc.toString());
 			if(uc.getPerfil().equals("Instructor")) {
 //				correoInstructor.add("uniprotec@kaltiaservicios.tech");
 				correoInstructor.add(uc.getEmailUniprotec());
@@ -89,7 +89,7 @@ public class MailService implements IMailService{
 		
 		int i = 0;
 		while (i < envioCorreos.length) {
-			log.info(envioCorreos[i]);
+//			log.info(envioCorreos[i]);
 			if(envioCorreos[i].equals("Instructor")) {
 				MailVO mailVO = new MailVO();		
 				staffDestino = asignacion.getInstructorAsignacion();
@@ -120,10 +120,10 @@ public class MailService implements IMailService{
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
 				
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
-				mailVO.setDestinatarioMailList(correoStaff);
-				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
-//				mailVO.setDestinatarioMailList(STAFF_PRE);
+//				mailVO.setDestinatarioMailList(correoStaff);
 //				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
+				mailVO.setDestinatarioMailList(STAFF_PRE);
+				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				
 				mailVO.setAsignacionMail(asignacion);
 				statusVO = mailServiceGeneraCorreo(mailVO);
@@ -411,7 +411,7 @@ public class MailService implements IMailService{
 
 	private String horario(String horarioAsignacion) {
 		String[] horario = horarioAsignacion.split(";");
-		String hr ="Horario : "+ horario[0].substring(0,2)+":"+horario[0].substring(2,4)+" - "+horario[1].substring(0,2)+":"+horario[0].substring(2,4)+".";
+		String hr ="Horario : "+ horario[0].substring(0,2)+":"+horario[0].substring(2,4)+" - "+horario[1].substring(0,2)+":"+horario[1].substring(2,4)+".";
 		
 //		if( horario[2] != null && !horario[2].equals("")) {
 //			if(horario[2].contains("Sede")) {
@@ -424,7 +424,7 @@ public class MailService implements IMailService{
 		
 		hr = hr +"  Horas Efectivas : "+ horario[4];
 		
-		log.info(hr);
+//		log.info(hr);
 		return hr;
 	}
 	
@@ -438,7 +438,7 @@ public class MailService implements IMailService{
 		for(String a : destinatarioMailList) {
 			concat = concat.concat(a + ", ");
 		}
-		log.info(concat);
+//		log.info(concat);
 		return concat;
 	}
 	

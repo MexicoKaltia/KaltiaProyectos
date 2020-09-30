@@ -75,7 +75,7 @@ public class InstructorService implements IInstructorService {
 		instructor.setStatusInstructor(me.getStatusEntidad());
 		
 		
-		log.info(instructor.toString());
+//		log.info(instructor.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				token,
@@ -96,7 +96,7 @@ public class InstructorService implements IInstructorService {
 		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());
 //		instructor.setStatusInstructor("Actualizado");
 		
-		log.info(instructor.toString());
+//		log.info(instructor.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,

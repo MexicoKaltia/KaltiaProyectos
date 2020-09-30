@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -248,14 +249,15 @@ public class AplicacionController {
 		
 	}
 	
-	@PostMapping("/notificacion/{id}")
+	@PutMapping("/notificacion/{id}")
 	public ResponseEntity<?> notificacionUpdate(@PathVariable Long id) {
 		
 		HttpStatus status ;
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			Notificacion notificacionUpdate = notificacionDao.findById(id).orElse(null);
+//			Notificacion notificacionUpdate = notificacionDao.findById(id).orElse(null);
+			Notificacion notificacionUpdate = notificacionDao.findByIdAsignacionNotificacion(id);
 			notificacionUpdate.setStatusNotificacion("atendida");
 			notificacionDao.save(notificacionUpdate);
 			
