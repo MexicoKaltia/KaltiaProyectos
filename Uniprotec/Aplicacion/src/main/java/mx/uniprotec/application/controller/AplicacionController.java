@@ -103,7 +103,7 @@ public class AplicacionController {
 		Map<String, Object> response = new HashMap<>();
 		Perfil perfil = new Perfil();
 		try {
-			log.info(nombrePerfil);
+//			log.info(nombrePerfil);
 			perfil = aplicacionService.findByNombrePerfil(nombrePerfil);
 			
 			if(perfil == null) {
@@ -132,7 +132,7 @@ public class AplicacionController {
 		
 		HttpStatus status ;
 		Map<String, Object> response = new HashMap<>();
-		log.info("Correos : " + usersCorreo.toString());
+//		log.info("Correos : " + usersCorreo.toString());
 		if(result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors()
@@ -147,7 +147,7 @@ public class AplicacionController {
 		
 		try {			
 			usersCorreo = aplicacionService.usersCorreo(usersCorreo);
-			log.info(usersCorreo.toString());
+//			log.info(usersCorreo.toString());
 			response.put("usersCorreo", usersCorreo);
 			 response.put("mensaje", "Consulta Correos Exitosa");
 			 response.put("status", HttpStatus.ACCEPTED);
@@ -181,7 +181,7 @@ public class AplicacionController {
 		
 		try {			
 			Mensaje mensajeDao = aplicacionService.altaMensaje(mensaje);
-			log.info(mensaje.toString());
+//			log.info(mensaje.toString());
 			 response.put("mensaje", mensajeDao);
 			 response.put("mensaje", "Alta Mensaje Exitosa");
 			 response.put("status", HttpStatus.ACCEPTED);
@@ -216,8 +216,8 @@ public class AplicacionController {
 		try {	
 			String mensaje = "Hola, usted tiene una nueva notificación respecto a la Asignación : "
 					+ asignacion.getIdAsignacionLogica() 
-					+". \\n Se ha adjuntado el Archivo de Participantes,"
-					+"\\n dar click para verificar Archivo de Asignacion y confirmar presente Notificación. ";
+					+". \n Se ha adjuntado el Archivo de Participantes,"
+					+"\n dar click para verificar Archivo de Asignacion y confirmar presente Notificación. ";
 			
 			Notificacion notificacion = new Notificacion();
 			

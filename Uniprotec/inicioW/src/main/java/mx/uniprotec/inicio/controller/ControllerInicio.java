@@ -236,15 +236,41 @@ public class ControllerInicio extends HttpServlet{
 				ResultVO resultVO = (ResultVO)model.get("model");	
 				ResultVO rs0 = asignacionService.consultaAsignacionCorreo(idAsignacion);
 				JSONObject jsonObject = (JSONObject) rs0.getJsonResponse();
-				JSONObject asignacion = new JSONObject((Map) jsonObject.get("asignacion"));
-				log.info(asignacion.toJSONString());
+				JSONObject asignacionJson = new JSONObject((Map) jsonObject.get("asignacion"));
+//				log.info(asignacion.toJSONString());
+				AsignacionModelo asignacion = new AsignacionModelo();
+				asignacion.setIdAsignacionLogica((String) asignacionJson.get("idAsignacionLogica"));
+				asignacion.setFechaAsignacion((String) asignacionJson.get("fechaAsignacion"));
+				asignacion.setIdClienteAsignacion(Long.valueOf(asignacionJson.get("idClienteAsignacion").toString()));
+				asignacion.setClienteAsignacion((String) asignacionJson.get("clienteAsignacion"));
+				asignacion.setIdCursoAsignacion(Long.valueOf(asignacionJson.get("idCursoAsignacion").toString()));
+				asignacion.setCursoAsignacion((String) asignacionJson.get("cursoAsignacion"));
+				asignacion.setIdInstructorAsignacion(Long.valueOf(asignacionJson.get("idInstructorAsignacion").toString()));
+				asignacion.setInstructorAsignacion((String) asignacionJson.get("instructorAsignacion"));
+				asignacion.setHorarioAsignacion((String) asignacionJson.get("horarioAsignacion"));
+				asignacion.setParticipantesAsignacion((String) asignacionJson.get("participantesAsignacion"));
+				asignacion.setNivelAsignacion((String) asignacionJson.get("nivelAsignacion"));
+				asignacion.setObservacionesAsignacion((String) asignacionJson.get("observacionesAsignacion"));
+				asignacion.setArchivosAsignacion((String) asignacionJson.get("archivosAsignacionTexto"));
+				asignacion.setIdRegionAsignacion(Long.valueOf(asignacionJson.get("idRegionAsignacion").toString()));
+				asignacion.setNombreRegionAsignacion((String) asignacionJson.get("nombreRegionAsignacion"));
+				asignacion.setTipoCursoAsignacion((String) asignacionJson.get("tipoCursoAsignacion"));
+				asignacion.setCreateAtAsignacion(LocalDateTime.parse(asignacionJson.get("createAtAsignacion").toString()));
+				asignacion.setUserCreateAsignacion(Long.valueOf(asignacionJson.get("userCreateAsignacion").toString()));
+				asignacion.setUserCreateAsignacionTexto((String) asignacionJson.get("userCreateAsignacionTexto"));
+				asignacion.setStatusAsignacion((String) asignacionJson.get("statusAsignacion"));
+				asignacion.setFechaPago((String) asignacionJson.get("FechaPago"));
+				asignacion.setGuiaEntregable((String) asignacionJson.get("guiaEntregable"));
+				asignacion.setNumeroFactura((String) asignacionJson.get("numeroFactura"));
+				asignacion.setArchivoParticipantes((String) asignacionJson.get("archivoParticipantes"));
+				
 				model.addAttribute("asignacionItem", asignacion);
-				ResultVO rs = clienteService.consultaCliente(resultVO.getAccesToken(), Long.valueOf(asignacion.get("idClienteAsignacion").toString()));
+				ResultVO rs = clienteService.consultaCliente(resultVO.getAccesToken(), Long.valueOf(asignacionJson.get("idClienteAsignacion").toString()));
 				resultVO.setJsonResponseObject(rs.getJsonResponse());
 				
-				
 				model.addAttribute("model", resultVO);
-				ModelAndView mav = new  ModelAndView("CNotificacion",  model);
+				ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
+				log.info(model.toString());
 				if(rs.getCodigo() != 500) {					
 					return mav;
 				}else {

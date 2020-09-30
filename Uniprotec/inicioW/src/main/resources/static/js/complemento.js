@@ -24,7 +24,7 @@
 	  
 
 	  function alerta(){
-	  	alert("prueba js invocada desde html");
+//	  	alert("prueba js invocada desde html");
 	  }
 	 
 	  
@@ -37,6 +37,7 @@ $(document).ready(function(){
 	
 	$.statusInstructor="";
 	$.statusCurso="";
+	$.listFechas="";
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
@@ -157,14 +158,14 @@ $(document).ready(function(){
 			  $('#Fechas').empty();
 			  $('#listaFechas').empty();
 				if(row.listFechas ){
-					$('#Fechas').empty();
+//					$('#Fechas').empty();
 					$('#listFechasAct').remove();
-					$('#listaFechas').empty();
-					var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
+//					$('#listaFechas').empty();
+					var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'>Fechas de Ausencia Actuales:<ul id='listaFechasAct'></ul></div>";
 					$(fechas).insertAfter($('#fechas'));
 					$(stringToList(row.listFechas)).each(function(index, element){
 						var elementDate = new Date(element);
-					  $('#listaFechas').append("<li>Ausencia Fecha : <b>"+ transformaDia(elementDate) +"</b></li>");
+					  $('#listaFechasAct').append("<li>Ausencia Fecha : <b>"+ transformaDia(elementDate) +"</b></li>");
 				    });
 					$('#listFechas').val(row.listFechas);
 				}
@@ -232,16 +233,23 @@ $(document).ready(function(){
  */
 	
 	
-	
-	
-	
-	
-	
-	
 	$('#btnSaveRegistro').click(function(){
 		limpiaAlerta();
 		console.log($('#idUserEmpresa').val());
 
+	});
+	
+	$('#btnBorrarAusencia').click(function(){
+		arrayFechas = [];
+		console.log("fechas Asusentes");
+		console.log($('#listFechas').val());
+		$('#listFechas').val("");
+		console.log($('#listFechas').val());
+		$('#Fechas').empty();
+		$('#listaFechas').empty();
+	    $('#listFechasAct').empty();
+	    
+//	    $('#listFechas').remove("");
 	});
 	
 	
@@ -249,6 +257,9 @@ $(document).ready(function(){
 	/*
 	 * funciones
 	 */
+	function eliminaFechas(){
+		
+	}
 	
 	
 
@@ -256,6 +267,10 @@ $(document).ready(function(){
 		return cadena.split(";");
 	}
 		
+	$('#btnEliminaListaAusencia').click(function(){
+		console.log("HelloW");
+		console.log(this.val());
+	})
 }); // Fin documento
 
 

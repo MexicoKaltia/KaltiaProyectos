@@ -270,8 +270,8 @@ public class MailService implements IMailService{
 		 log.info("Correo Destino: "+mailVO.getDestinatarioMailList().toString());
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
-	  String correoEnvia = "notificacion@control-uniprotec.com";
-	  String claveCorreo = "Uniprotec2020#";
+	  final String correoEnvia = "notificacion@control-uniprotec.com";
+	  final String claveCorreo = "Uniprotec2020#0";
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();

@@ -3,10 +3,11 @@
  */
 var elementoPicker = $datepicker.pickadate('picker');
 var elementoPicker2 = $datepicker2.pickadate('picker');
-var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
+var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'>Nuevas Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
 var arrayFechas = new Array();
 
 function fechasAusencia() {
+	
 	var inicioAusencia = elementoPicker.get('select', 'mm/dd/yyyy');
 	//		  console.log(inicioAusencia);
 	elementoPicker2.set('select', new Date(inicioAusencia));
@@ -16,7 +17,17 @@ function fechasAusencia() {
 		$('#btnFechasAusencia').attr("disabled", true);
 	} else {
 		$('#btnFechasAusencia').attr("disabled", false);
+		var strList = $('#listFechas').val().toString();
+		console.log(strList);
+		if(isEmpty(strList) ){
+			console.log("historico de Lista de Fechas");
+			arrayFechas = stringToList($('#listFechas').val().toString());
+		}
 	}
+}
+
+function isEmpty(str) {
+    return (str || 0 !== str.length);
 }
 
 function sumaFechas() {
@@ -26,47 +37,50 @@ function sumaFechas() {
 	var finAusenciaDate = new Date(finAusencia);
 	var inicioAusenciaMasUno = inicioAusenciaDate;//.setDate(inicioAusenciaDate.getDate());
 	var sem, dia, mes , anio, ausencia;
-	var arrayFechas2 = arrayFechas;
-	arrayFechas = [];
+	var arrayFechas2 = new Array();
+
 //	console.log(inicioAusenciaMasUno);
 //	console.log(finAusenciaDate);
 //	console.log("______________________________");
-	$('#listFechasAct').remove();
-	$('#listaFechas').empty();
+//	$('#listFechasAct').remove();
+//	$('#listaFechas').empty();
 	$(fechas).insertAfter($('#fechas'));
 	
-	ausencia = transformaDia(inicioAusenciaMasUno);
-	$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
-	arrayFechas.push(inicioAusenciaMasUno.toString());
+	if(inicioAusenciaMasUno.toString() === finAusenciaDate.toString()){
+		ausencia = transformaDia(inicioAusenciaMasUno);
+		$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
+		arrayFechas.push(inicioAusenciaMasUno.toString());
+		arrayFechas2.push(ausencia);
+	}else{
 	for(var i = 0 ; i < 365 ; i++){
 		if(inicioAusenciaMasUno.toString() === finAusenciaDate.toString()){
 			break;
 		}else{
-			inicioAusenciaMasUno = sumarDias(inicioAusenciaMasUno, 1);
-			ausencia = transformaDia(inicioAusenciaMasUno);
-			$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
-			arrayFechas.push(inicioAusenciaMasUno.toString());
+			if(i===0){
+				ausencia = transformaDia(inicioAusenciaMasUno);
+				$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
+				arrayFechas.push(inicioAusenciaMasUno.toString());
+				arrayFechas2.push(ausencia);
+			}else{
+				inicioAusenciaMasUno = sumarDias(inicioAusenciaMasUno, 1);
+				ausencia = transformaDia(inicioAusenciaMasUno);
+				$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
+				arrayFechas.push(inicioAusenciaMasUno.toString());
+				arrayFechas2.push(ausencia);
+			  }
+			}
 		}
 	}
-	console.log(arrayFechas);
-//	console.log(arrayFechas2);
-//	var sel ;
-//	for(i in arrayFechas){
-//		for(o in arrayFechas2){
-//			sel = new Date(arrayFechas2[o]);
-//			if(sel.toString() === arrayFechas[i].toString()){
-//				continue;
-//			}else{
-//				sel = sumarDias(sel, 1);
-//				ausencia = transformaDia(sel);
-//				$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
-//				arrayFechas.push(sel.toString());
-//			}
-//		}
-//	}
+	//	console.log(arrayFechas);
+	//	console.log(arrayFechas2);
+		agregaFechas(arrayFechas);
+	}
+function agregaFechas(arrayFechas){
 	$('#listFechas').val(arrayFechas);
+	console.log(arrayFechas)
 	return arrayFechas;
 }
+
 
 function transformaDia(fechaSelect){
 	dia = fechaSelect.getDate();
@@ -87,3 +101,8 @@ function sumarDias(fecha, dias){
 //	  console.log(fecha);
 	  return fecha;
 	}
+
+function stringToList(cadena){
+	return cadena.split(";");
+}
+

@@ -298,6 +298,7 @@ public class ControllerAsignacion {
 			model.addAttribute("model", resultVO);
 //			log.info(resultVO.toString());
 			ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
+			log.info(model.toString());
 			if(rs.getCodigo() != 500) {					
 				return mav;
 			}else {

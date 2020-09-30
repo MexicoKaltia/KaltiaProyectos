@@ -734,8 +734,11 @@ $(document).ready(function(){
 		var fechasAusente = new Array();
 //		console.log(instructor);
 		if(instructor.listFechas){
-			fechasAusente = stringToList(instructor.listFechas)
+			fechasAusente = instructor.listFechas.toString().split(";");
+//			fechasAusente = stringToList(instructor.listFechas);
+//			console.log(fechasAusente)
 			for(e in fechasAusente){
+//				console.log(fechasAusente[e]);
 				fechaAusente = new Date(fechasAusente[e]);
 //				console.log(fechaAusente);
 //				console.log(fechaSelect);

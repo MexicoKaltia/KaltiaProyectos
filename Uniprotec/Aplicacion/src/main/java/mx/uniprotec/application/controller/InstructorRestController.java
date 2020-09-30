@@ -246,6 +246,8 @@ public class InstructorRestController {
 			instructorActual.setCursosInstructor(instructor.getListCursoInstructor().toString());
 			if(instructor.getListFechas().size()>0) {
 				instructorActual.setListFechas(UtilController.listToString(instructor.getListFechas()));
+			}else {
+				instructorActual.setListFechas(null);
 			}
 			instructorActual.setNotaInstructor(instructor.getNotaInstructor());
 			instructorActual.setCreateAtInstructor(instructor.getCreateAtInstructor());

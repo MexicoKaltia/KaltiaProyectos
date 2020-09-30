@@ -423,16 +423,30 @@ var alerta, proceso;
 			$('#btnAsignaCurso').attr("disabled", true);
    		}else{
    			$('#btnAsignaCurso').attr("disabled", false);
+   			$('#asignaInstructor').empty();
    		}
 		
 		/* 
 		 * No VALIDAR Esquemas de movilidad para Perfil Operacion y Direccion
 		 */
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			for(i in asignacionInstructoresOperacion){
-				instructor = asignacionInstructoresOperacion[i];
-				$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
-			}
+			var valorCurso = $.asignaCurso * 1;
+//			for(i in asignacionInstructoresOperacion){
+//				
+				for (i in asignacionInstructoresOperacion){				
+					var arrayCursosInstructor = asignacionInstructoresOperacion[i].cursosInstructor.replace('"','').replace('"','').replace(' ','').split(',');
+					instructor = asignacionInstructoresOperacion[i];
+					for( e in arrayCursosInstructor){
+						arrayCursosInstructor[e] = arrayCursosInstructor[e].replace('[','');
+						arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(']','');
+						arrayCursosInstructor[e] = arrayCursosInstructor[e].replace(' ','') * 1;
+						if(arrayCursosInstructor[e] === valorCurso){
+							arrayInstructores.push(asignacionInstructores[i])
+							$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
+						}
+					}
+				}
+			console.log(arrayInstructores);
 		}else{
 			/*
 			 * Filtra Instructores por Curso
@@ -477,6 +491,7 @@ var alerta, proceso;
 				}
 			}
 			arrayInstructores = instructoresDiaAusencia ;
+			console.log(instructoresDiaAusencia);
 			console.log(arrayInstructores);
 			
 			var regionInstructor;
@@ -618,8 +633,11 @@ var alerta, proceso;
 		var fechasAusente = new Array();
 //		console.log(instructor);
 		if(instructor.listFechas){
-			fechasAusente = stringToList(instructor.listFechas)
+			fechasAusente = instructor.listFechas.toString().split(";");
+//			fechasAusente = stringToList(instructor.listFechas);
+//			console.log(fechasAusente)
 			for(e in fechasAusente){
+//				console.log(fechasAusente[e]);
 				fechaAusente = new Date(fechasAusente[e]);
 //				console.log(fechaAusente);
 //				console.log(fechaSelect);
