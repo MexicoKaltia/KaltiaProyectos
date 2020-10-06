@@ -311,7 +311,7 @@ public class ControllerAsignacion {
 	@PostMapping("/BAsignacionV")
 	public ModelAndView BAsignacionVendedor(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 		model.addAttribute("asignacionItem", asignacion);
-		log.info(asignacion.toString());
+//		log.info(asignacion.toString());
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");

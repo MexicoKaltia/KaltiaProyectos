@@ -424,6 +424,7 @@ var alerta, proceso;
    		}else{
    			$('#btnAsignaCurso').attr("disabled", false);
    			$('#asignaInstructor').empty();
+			$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
    		}
 		
 		/* 
@@ -499,8 +500,7 @@ var alerta, proceso;
 			var instructor;
 			var idInstructor;
 	
-			$('#asignaInstructor').empty();
-			$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
+			
 			if(tipoCurso){
 
 				/*

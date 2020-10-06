@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>0.09301400</version>
+	<version>0.0510</version>
 	<name>inicio</name>
 	<description>control-uniprotec</description>
 
@@ -75,8 +75,7 @@
 	    <artifactId>google-oauth-client-jetty</artifactId>
 	    <version>1.31.0</version>
 	</dependency>
-	
-     
+	 
      
         	<!-- 	propios -->
      <dependency>
@@ -84,10 +83,17 @@
             <artifactId>entidad</artifactId>
             <version>1.0.0</version>
      </dependency>
+     
+         	<!-- 	Tomcat -->
+     <dependency>
+	    <groupId>org.apache.tomcat.embed</groupId>
+	    <artifactId>tomcat-embed-core</artifactId>
+	    <version>8.5.57</version>
+	</dependency>
+	
+	
 	</dependencies>
 	
-	
-
 	<build>
 		<plugins>
 			<plugin>
