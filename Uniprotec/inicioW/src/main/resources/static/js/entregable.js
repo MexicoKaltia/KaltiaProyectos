@@ -73,7 +73,7 @@ $(document).ready(function() {
 			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Entregables Validado"){ 
 				$('#asignaConfirmar').attr("disabled", false);
 			}
-			else if(asignaStatus ==="Curso Cancelado") {
+			else if(asignaStatus ==="Evento Cancelado") {
 				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, ya no se realiza Edicion. </u></div>');
 			}
 //			else if(asignaStatus ==="Entregable Enviado") {

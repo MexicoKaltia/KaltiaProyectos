@@ -21,5 +21,6 @@ public interface IAplicacionService {
 	public void citaInstructor(AsignacionModelo asignacion);
 	public ResultVO getNotificacion(Long idNotificacion);
 	public void actualizaNotificacion(String token, String idAsignacion);
+	public void enviaMailSustitucion(AsignacionModelo asignacion, String token, Long idInstructorAnterior);
 
 }

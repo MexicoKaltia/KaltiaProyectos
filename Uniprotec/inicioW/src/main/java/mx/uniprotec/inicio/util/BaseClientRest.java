@@ -66,6 +66,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_CORREOS 	  =	"correos";
 	public static final String URL_CRUD_MENSAJE 	  =	"mensaje";
 	public static final String URL_CRUD_NOTIFICACION 	  =	"notificacion";
+	public static final String URL_CRUD_NOTIFICACIONES 	  =	"notificaciones";
 	
 	
 	
@@ -118,10 +119,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return  getTemplateObjetoGet(token, urlCrud, usersCorreo);
 //		return resultVO;
 	}
-
-
-
-
+	
+	
 
 	
 	
@@ -157,6 +156,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		    try {
 		    	response  = restTemplate.exchange(URL_POST_LOGIN, HttpMethod.POST, entity, JSONObject.class);
 		    	resultVO= asignaResponse(response);
+//		    	log.info(resultVO.toString());
 			} catch (Exception e) {
 				JSONObject jsonResponse = (JSONObject) response.getBody();
 			    ResultVO rs = new ResultVO();
@@ -353,6 +353,39 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		}
 	}
 	
+	public ResultVO objetoGetNotificaciones(String accesToken, String urlCrudNotificaciones, Integer idInstructor) {
+		String urlGetId = URL_CRUD+urlCrudNotificaciones + "/" +idInstructor;
+		log.info(urlGetId);
+		HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
+ 	     headers.add("Authorization", "Bearer " + accesToken);
+ 	     
+ 	    HttpEntity<?> entity = new HttpEntity<>(headers);
+	    RestTemplate restTemplate = new RestTemplate();
+	    try {
+	    	ResponseEntity<JSONObject> response  = restTemplate.exchange(urlGetId, HttpMethod.GET, entity, JSONObject.class);
+//		    log.info(resultVO.toString());
+//		    resultVO = asignaResponseObject(response);
+	  	     
+			return asignaResponseObject(response);
+			
+		} catch (Exception e) {
+			
+				JSONObject jsonResponse = new JSONObject();
+			    ResultVO rs = new ResultVO();
+			    rs.setJsonResponse(jsonResponse);
+			    e.printStackTrace();
+			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			        
+				return rs;
+		}
+	}
+
+
+
+
+	
 	public ResultVO objetoPutC(String urlCrudAsignacion, AsignacionModelo asignacion, Long idAsignacion) {
 		String urlPut = URL_CRUD+urlCrudAsignacion + "/" +Long.valueOf(idAsignacion).toString();
 		log.info(urlPut);
@@ -484,6 +517,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		}
 	    
 	}
+
+
+
+	
 
 
 

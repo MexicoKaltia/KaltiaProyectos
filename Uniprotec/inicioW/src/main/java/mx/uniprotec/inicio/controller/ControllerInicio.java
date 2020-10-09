@@ -95,8 +95,6 @@ public class ControllerInicio extends HttpServlet{
 			resultVO = loginService.login(user);
 //			misession.setAttribute("model",resultVO);
 			
-
-//			log.info(resultVO.toString());
 			if(resultVO.getCodigo() != 500) {
 				log.info("Bienvenido");
 				mav.setViewName(resultVO.getResponse());

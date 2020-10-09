@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +66,22 @@ public class LoginService implements ILoginService{
 					jsonFields.put("fields", jsonUsuario);
 					jsonObject.putAll(jsonUsuario);
 					resultVO.setJsonResponse(jsonObject);
-				
+					
+					if(jsonUsuario.get("perfil").toString().equals("Instructor")) {
+						ResultVO resultNotificaciones = baseClientRest.objetoGetNotificaciones(
+								resultVO.getAccesToken(),
+								BaseClientRest.URL_CRUD_NOTIFICACIONES,
+								Integer.valueOf(jsonUsuario.get("id").toString()));
+						JSONObject jsonResultNotificaciones = (JSONObject) resultNotificaciones.getJsonResponse();
+//						log.info(jsonResultNotificaciones.toJSONString());
+//						JSONArray jsonNotificaciones = new JSONArray();
+						JSONObject jsonNotificaciones = new JSONObject();
+						jsonNotificaciones.put( "notificaciones", jsonResultNotificaciones.get("notificaciones"));
+						jsonUsuario.put("notificaciones", jsonResultNotificaciones.get("notificaciones"));
+						jsonObject.putAll(jsonUsuario);
+						resultVO.setJsonResponse(jsonObject);
+					}
+					
 				}else {
 					resultVO.setResponse("index");
 				}

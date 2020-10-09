@@ -1,5 +1,6 @@
 package mx.uniprotec.application.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -192,6 +193,36 @@ public class AplicacionController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@GetMapping("/notificaciones/{idUsuario}")
+	public ResponseEntity<?> getNotificaciones(@PathVariable Long idUsuario) {
+		
+		Map<String, Object> response = new HashMap<>();
+		List<Notificacion> notificaciones = new ArrayList<Notificacion>();
+		try {
+//			log.info(nombrePerfil);
+			notificaciones = aplicacionService.getNotificaciones(idUsuario, "Instructor");
+			if(notificaciones == null) {
+				log.info("notificaciones null");
+				response.put("mensaje", "Usuario no tiene notificaciones");
+				 response.put("status", HttpStatus.NOT_FOUND);
+				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}else {
+				response.put("notificaciones", notificaciones);
+				 response.put("mensaje", "Exito en la busqueda de notificaciones");
+				 response.put("status", HttpStatus.ACCEPTED);
+				 response.put("code", HttpStatus.ACCEPTED.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+			}
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

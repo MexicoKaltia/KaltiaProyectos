@@ -69,7 +69,9 @@ $(document).ready(function(){
 	}
 	checkTipoCurso()
 	//--------------------------------------------------
-	$('#asignaInstructor').append('<option value="'+asignacionItem.idInstructorAsignacion+'" selected >'+asignacionItem.instructorAsignacion+'</option>');
+//	$('#asignaInstructor').append('<option value="'+asignacionItem.idInstructorAsignacion+'" selected >'+asignacionItem.instructorAsignacion+'</option>');
+	$('#asignaInstructor').empty();
+	$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
 	//--------------------------------------------------
 	
 	$('#asignaHorarioInicio').append('<option value="'+hr[0]+'" selected >'+$.asignaHorarioInicio+'</option>');
@@ -576,8 +578,7 @@ $(document).ready(function(){
 		 * No VALIDAR Esquemas de movilidad para Perfil Operacion y Direccion
 		 */
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			$('#asignaInstructor').empty();
-			$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
+			
 			var valorCurso = $.asignaCurso * 1;
 			asignacionInstructores = asignacionInstructoresOperacion;
 			for (i in asignacionInstructores){				
@@ -723,7 +724,7 @@ $(document).ready(function(){
 		$.asignaCursoTexto = $("#asignaCurso option:selected").text();
 		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 		$.asignaTipoCurso = tipoCursoVal;
-		$('#asignaInstructor').append('<option value="'+$.asignaInstructor+'" selected>'+$.asignaInstructorTexto+'</option>');
+//		$('#asignaInstructor').append('<option value="'+$.asignaInstructor+'" selected>'+$.asignaInstructorTexto+'</option>');
 	}  // fin metodo validaCurso
 	
 	function validaDiaAusencia(instructor){

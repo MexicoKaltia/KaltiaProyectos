@@ -73,21 +73,52 @@ public class AsignacionService implements IAsignacionService{
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
 		asignacion.setStatusAsignacion(status);
 		
+		//Obtener idInstructor anterior
+		Long idInstructorAnterior = null;
+		JSONObject jsonAsignacionAnterior = null;
+		resultVO = (ResultVO) baseClientRest.objetoGetId(
+				token,
+				BaseClientRest.URL_CRUD_ASIGNACION, null,
+				asignacion.getIdAsignacion().toString());
+		if(resultVO.getCodigo() != 500) {
+			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+			jsonAsignacionAnterior = new JSONObject((Map) jsonObject.get("asignacion"));
+			idInstructorAnterior = Long.valueOf(jsonAsignacionAnterior.get("idInstructorAsignacion").toString());
+			log.info("IdInstructor Anterior:"+idInstructorAnterior);
+		}
+		//
+
+		// Actualiza Asignacion
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,
 				BaseClientRest.URL_CRUD_ASIGNACION,
 				asignacion,
 				asignacion.getIdAsignacion());
+		//
 		
 		//Envio de correo
 		if(asignacion.getStatusAsignacion().equals("Curso Editado")) {
 			if(resultVO.getCodigo() != 500) {
 				JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 				JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
-				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
+//				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
 				log.info("Listo proceso envia correo");
 				aplicacionService.enviaMail(asignacion, token);
 			}
+		}
+		//
+		
+		// Envia Notifiacion SUSTITUCION
+		log.info("idInstructorAnterior : "+idInstructorAnterior.toString());
+		log.info("asignacion : "+asignacion.getIdInstructorAsignacion().toString());
+		if(idInstructorAnterior != Long.valueOf(asignacion.getIdInstructorAsignacion().toString())  || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
+			log.info("--------------EVENTO CAMBIO DE INSTRUCTOR O CANCELACION.....");
+			if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
+				aplicacionService.enviaMailSustitucion(asignacion, token, asignacion.getIdInstructorAsignacion());
+			}else {
+				aplicacionService.enviaMailSustitucion(asignacion, token, idInstructorAnterior);
+			}
+			
 		}
 
 		return resultVO;

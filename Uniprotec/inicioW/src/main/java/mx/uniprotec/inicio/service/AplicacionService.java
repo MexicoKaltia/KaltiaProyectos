@@ -161,6 +161,13 @@ public class AplicacionService implements IAplicacionService {
 		
 	}
 	
+	@Override
+	public void enviaMailSustitucion(AsignacionModelo asignacion, String token, Long idInstructor) {
+		mailService.mailServicePreCorreoSustitucion(asignacion, token, idInstructor);
+		
+	}
+
+	
 	
 	
 	@Override
@@ -247,6 +254,7 @@ public class AplicacionService implements IAplicacionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	
 

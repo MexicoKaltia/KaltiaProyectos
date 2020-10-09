@@ -211,10 +211,15 @@ public class AplicacionServiceImpl implements IAplicacionService {
 			break;
 		case "Instructor":
 			Instructor instructor = instructorDao.findByUsuarioInstructorIdUsuario(idUsuario);
-//			log.info(instructor.toString());
-			notificaciones = getNotificaciones(instructor.getIdInstructor());
-			
-			break;
+			if(instructor != null) {
+				log.info(instructor.toString());
+				notificaciones = getNotificaciones(instructor.getIdInstructor());
+				log.info("notificaciones isEmpty");
+				if(notificaciones.isEmpty()) {
+					
+				}
+				break;
+			}
 		case "Administrador":
 			//do Vendedor
 			break;

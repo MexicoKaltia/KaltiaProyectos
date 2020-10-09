@@ -135,6 +135,56 @@ public class MailService implements IMailService{
 		return statusVO;
 
 	}
+	
+	@Override
+	public void mailServicePreCorreoSustitucion(AsignacionModelo asignacion, String token, Long idInstructor) {
+		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
+
+		  String staffDestino ;
+		String referencia;
+		String nombreBoton ;
+		String subTitulo;
+		String[] envioCorreos = {"Instructor"};
+		StatusVO statusVO = new StatusVO();
+		List<UserCorreo> usersCorreo = aplicacionService.usersCorreo(idInstructor, asignacion.getUserCreateAsignacion(), token);
+		
+		String correoGmailInstructor="";
+		List<String> correoInstructor = new ArrayList<String>();
+		for(UserCorreo uc : usersCorreo) {
+			if(uc.getPerfil().equals("Instructor")) {
+//				correoInstructor.add("uniprotec@kaltiaservicios.tech");
+				correoInstructor.add(uc.getEmailUniprotec());
+				correoInstructor.add(uc.getEmailGmail());
+				correoGmailInstructor = uc.getEmailGmail();
+				String correoUniprotec = uc.getEmailUniprotec();
+				log.info(correoGmailInstructor +":"+ correoUniprotec);
+			}
+		}
+		
+		
+		int i = 0;
+		while (i < envioCorreos.length) {
+//			log.info(envioCorreos[i]);
+			if(envioCorreos[i].equals("Instructor")) {
+				MailVO mailVO = new MailVO();		
+				staffDestino = asignacion.getInstructorAsignacion();
+				
+				
+				subTitulo = "El presente correo tiene la finalidad de notificarle el cambio de Status del Evento : ";
+				
+				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
+				mailVO.setBodyMail(bodySustitucion(asignacion, staffDestino, subTitulo));
+				mailVO.setMensajeMail(PLANTILLA_CORREO );
+				mailVO.setDestinatarioMailList(correoInstructor);
+				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
+
+				mailVO.setAsignacionMail(asignacion);
+				statusVO = mailServiceGeneraCorreo(mailVO);						
+			}
+			i++;
+		}
+	}
+
 
 	
 
@@ -256,12 +306,82 @@ public class MailService implements IMailService{
 		return body;
 	}
 	
+	private String bodySustitucion(AsignacionModelo asignacion, String staffDestino,  String subTitulo) {
+		
+		String body =	 "<div class='row'>" + 
+				"<div class='col-md-12'>" + 
+				"<h3 class='text-left' style='text-align: left;'>Buen D&iacute;a: "+ staffDestino +"</h3>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'>"+ subTitulo +": <b><strong>"+ asignacion.getIdAsignacionLogica() +"</strong></b>.</p>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'>Con los siguientes datos:</p>" + 
+				"<div class='col-md-2'>" + 
+				"<table style='height: 520px; width: 75%; border-collapse: collapse; border-style: inset; border-color: blue; background-color: #D6FBFC; margin-left: 20; margin-right: auto;' border='3'>" + 
+				"<tbody>" + 
+				 
+				"<tr style='height: 53px;'>" + 
+				"<td style='width: 100%; height: 53px;'>" + 
+				"<b><h3  style='text-align: left;'>Resumen de asignaci&oacute;n</h3></b>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Cliente : <b>"+ asignacion.getClienteAsignacion() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Curso : <b>"+ asignacion.getCursoAsignacion()+"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>Fecha : <b>"+fecha(asignacion.getFechaAsignacion())+"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" +
+				 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul class='list-group'>" + 
+				"<li class='list-group-item list-group-item-info' style='text-align: justify;'>Status : <b>"+ colorStatus(asignacion.getStatusAsignacion()) +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				 
+				"</tbody>" + 
+				"</table><div class='card text-white bg-info'>" + 
+				"<div class='card-body'></div>" + 
+				"</div>" + 
+				"</div>" + 
+				"</div>" + 
+				"<br /><br />" + 
+				"<div class='row'>" + 
+				"<div class='col-md-12' style='text-align: left;'><address><strong>Uniprotec.</strong><br/> Ambar 20 Misi&oacute;n Mariana , Corregidora, Quer&eacute;taro, 76903 <br /> Santiago de Quer&eacute;taro<br /><abbr title='Phone'> P:</abbr> + 52 - 4423341671</address></div>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Ha recib&iacute;do este correo electr&oacute;nico porque est&aacute; suscrito como usuario registrado del sistema control-uniprotec.com .</small></em></p>" + 
+				"</div>" + 
+				"</div>" + 
+				"</body></html>";
+		
+		
+		return body;
+	}
 			
-
 	
 
+	private String colorStatus(String statusAsignacion) {
+		if(statusAsignacion.equals("Evento Cancelado")) {
+			return "<div class='zona' style='background:red; color:white'>"+statusAsignacion+"</div>";
+		}else {
+			return "<div class='zona' style='background:yellow; color:blue'>Sustitucion de Instructor</div>";
+		}
+		
+	}
 
-	
 
 	private StatusVO mailServiceGeneraCorreo(MailVO mailVO) {
 		
@@ -271,7 +391,7 @@ public class MailService implements IMailService{
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
 	  final String correoEnvia = "notificacion@control-uniprotec.com";
-	  final String claveCorreo = "Uniprotec2020#0";
+	  final String claveCorreo = "Uniprotec2020#1";
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();
@@ -318,7 +438,9 @@ public class MailService implements IMailService{
 	   while ((strLine = bufferedReader.readLine()) != null) {
 	    msjHTML.append(strLine);
 	   }
-	   msjHTML.append(mailVO.getBodyMail());
+	   
+		msjHTML.append(mailVO.getBodyMail());
+	   
 	 
 	   // Url del directorio donde estan los archivos adjuntos
 	   MimeBodyPart mimeBodyPart = new MimeBodyPart();
@@ -376,6 +498,7 @@ public class MailService implements IMailService{
 	  
 	 }
 
+	
 
 
 
@@ -448,6 +571,8 @@ public class MailService implements IMailService{
 		
 		return a;
 	}
+
+
 
 
 

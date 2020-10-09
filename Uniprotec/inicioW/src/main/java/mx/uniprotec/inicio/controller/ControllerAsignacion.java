@@ -333,7 +333,7 @@ public class ControllerAsignacion {
 //		log.info(asignacion.toString());
 		ModelAndView mav=null;
 		ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken(), asignacion.getStatusAsignacion());
-		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {
+		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 			mav = new ModelAndView("redirect:/CAsignacionI", model);
 		}else {
 			mav = new ModelAndView("redirect:/CEntregableI", model);
@@ -440,7 +440,7 @@ public class ControllerAsignacion {
 
 			
 		
-		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Curso Cancelado")) {
+		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 			mav = new ModelAndView("CAsignacionIC0", model);
 		}else {
 			mav = new ModelAndView("CAsignacionIC0", model);
