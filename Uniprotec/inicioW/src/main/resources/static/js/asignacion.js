@@ -493,7 +493,7 @@ var alerta, proceso;
 			}
 			arrayInstructores = instructoresDiaAusencia ;
 			console.log(instructoresDiaAusencia);
-			console.log(arrayInstructores);
+//			console.log(arrayInstructores);
 			
 			var regionInstructor;
 			var regionCliente;
@@ -512,9 +512,9 @@ var alerta, proceso;
 					$('#btnAsignaCurso').attr("disabled", true);
 				}else{
 					var jsonCliente;
-					for (i in asignacionClientes){
-						if(asignacionClientes[i].idCliente === ($('#asignaCliente').val() * 1)){
-							jsonCliente = asignacionClientes[i];
+					for (o in asignacionClientes){
+						if(asignacionClientes[o].idCliente === ($('#asignaCliente').val() * 1)){
+							jsonCliente = asignacionClientes[o];
 						}
 					}
 					regionCliente = jsonCliente.regionCliente.idRegion;
@@ -528,8 +528,8 @@ var alerta, proceso;
 				/*
 				 * validar dia seleccion
 				 */
-				for(i in arrayInstructores){
-					 instructor = arrayInstructores[i];
+				for(u in instructoresDiaAusencia){
+					 instructor = instructoresDiaAusencia[u];
 					 idInstructor = instructor.idInstructor;
 					 nombreInstructor = instructor.nombreInstructor
 					if(validaDiaSelect(idInstructor)){
@@ -540,8 +540,8 @@ var alerta, proceso;
 				/*
 				 * libre ayer
 				 */
-				for(e in instructoresDiaSelect){
-					instructor = instructoresDiaSelect[e];
+				for(aa in instructoresDiaSelect){
+					instructor = instructoresDiaSelect[aa];
 					idInstructor = instructor.idInstructor;
 					 nombreInstructor = instructor.nombreInstructor
 					if(!validaDiaAyer(idInstructor)){
@@ -561,8 +561,8 @@ var alerta, proceso;
 				/*
 				 * libre mañana 
 				 */
-				for(a in instructoresDiaAyer){
-					instructor = instructoresDiaAyer[a];
+				for(ae in instructoresDiaAyer){
+					instructor = instructoresDiaAyer[ae];
 					 idInstructor = instructor.idInstructor
 					 nombreInstructor = instructor.nombreInstructor
 					if(!validaDiaMan(idInstructor)){					
@@ -578,8 +578,8 @@ var alerta, proceso;
 					}
 				}
 				console.log(instructoresDiaMan);
-				for(i in instructoresDiaMan){
-					instructor = instructoresDiaMan[i];
+				for(ai in instructoresDiaMan){
+					instructor = instructoresDiaMan[ai];
 					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
 				}
 				
