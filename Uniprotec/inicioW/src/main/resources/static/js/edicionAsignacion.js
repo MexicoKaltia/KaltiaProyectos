@@ -720,12 +720,39 @@ $(document).ready(function(){
 					}
 				}
 			}
+			validaAtributosPrimarios()
 		}	
 		$.asignaCursoTexto = $("#asignaCurso option:selected").text();
 		procesoCurso="<li>Prospecto Curso : <b>"+ $.asignaCursoTexto +" : <i><u>"+tipoCursoVal+"</u></i></b></li>";
 		$.asignaTipoCurso = tipoCursoVal;
 //		$('#asignaInstructor').append('<option value="'+$.asignaInstructor+'" selected>'+$.asignaInstructorTexto+'</option>');
 	}  // fin metodo validaCurso
+	
+	function validaAtributosPrimarios(){
+//		console.log(asignacionItem.instructorAsignacion);
+//		console.log($.asignaFecha);
+//		console.log($.asignaCliente);
+//		console.log($.asignaCurso);
+		
+		var fechaAsignada = ordenaFecha(asignacionItem.fechaAsignacion);
+//		console.log(fechaAsignada);
+		
+		if(fechaAsignada.toString() === $.asignaFecha.toString() && 
+				asignacionItem.idClienteAsignacion.toString() === $.asignaCliente.toString() && 
+				asignacionItem.idCursoAsignacion.toString() === $.asignaCurso.toString() && 
+				asignacionItem.tipoCursoAsignacion.toString() === $.asignaTipoCurso.toString() ){
+			
+			$('#asignaInstructor').append('<option value="'+asignacionItem.idInstructorAsignacion+'" selected >'+asignacionItem.instructorAsignacion+'</option>');
+			
+		}
+		
+	}
+	
+	function ordenaFecha(fecha){
+		var fechaArray = new Array();
+		fechaArray = fecha.split("/");
+		return fecha[1]+"/"+fecha[0]+"/"+fecha[2];
+	}
 	
 	function validaDiaAusencia(instructor){
 		

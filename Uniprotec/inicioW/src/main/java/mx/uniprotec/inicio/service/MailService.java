@@ -54,7 +54,7 @@ public class MailService implements IMailService{
 		 List<String> STAFF_PRE = new ArrayList<String>();
 //		STAFF_PRE.add("kaltiaservicios@gmail.com");
 		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
-//		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
+		STAFF_PRE.add("operacion@uniprotec.net");
 //		STAFF_PRE.add("gasparinho@hotmail.fr");
 
 		
@@ -390,8 +390,8 @@ public class MailService implements IMailService{
 		 log.info("Correo Destino: "+mailVO.getDestinatarioMailList().toString());
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
-	  final String correoEnvia = "notificacion@control-uniprotec.com";
-	  final String claveCorreo = "Uniprotec2020#1";
+	  final String correoEnvia = "notificacion2@control-uniprotec.com";
+	  final String claveCorreo = "Uniprotec2020#2";
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();

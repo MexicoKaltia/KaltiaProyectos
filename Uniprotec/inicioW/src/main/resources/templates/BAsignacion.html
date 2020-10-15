@@ -337,7 +337,8 @@
 	                                               </div>
 							                       <div class="form-group">
 							                           <label for="exampleFormControlSelect1">Paso 3</label>
-							                           <select id="asignaCurso"  name="asignaCurso" class="form-control"  required onchange="validaCurso()" >
+<!-- 							                           <select id="asignaCurso"  name="asignaCurso" class="form-control"  required onchange="validaCurso()" > -->
+															<select id="asignaCurso"  name="asignaCurso" class="form-control">
 				                								 <option value="" selected  >Selecciona Curso</option>
 				                								 <option th:each="curso: ${model.jsonResponseObject.cursos}"
 														             th:value="${curso.idCurso}"
