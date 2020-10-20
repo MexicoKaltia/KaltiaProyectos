@@ -274,6 +274,8 @@ public class ControllerInicio extends HttpServlet{
 				
 				
 				ModelAndView mav = new  ModelAndView("CNotificacion",  model);
+//				ModelAndView mav = new  ModelAndView("redirect:/CAsignacionIC/"+asignacion.getIdAsignacion()+"/"+asignacion.getInstructorAsignacion(),  model);
+				
 //				log.info(model.toString());
 				if(rs0.getCodigo() != 500) {					
 					return mav;
