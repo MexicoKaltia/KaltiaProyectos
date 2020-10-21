@@ -214,9 +214,9 @@ public class AplicacionServiceImpl implements IAplicacionService {
 			if(instructor != null) {
 				log.info(instructor.toString());
 				notificaciones = getNotificaciones(instructor.getIdInstructor());
-				log.info("notificaciones isEmpty");
+				
 				if(notificaciones.isEmpty()) {
-					
+					log.info("notificaciones isEmpty");
 				}
 				break;
 			}

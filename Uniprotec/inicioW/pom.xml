@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>0.1410</version>
+	<version>0.2010</version>
 	<name>inicio</name>
 	<description>control-uniprotec</description>
 

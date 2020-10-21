@@ -288,9 +288,12 @@ public class AplicacionController {
 		
 		try {
 //			Notificacion notificacionUpdate = notificacionDao.findById(id).orElse(null);
-			Notificacion notificacionUpdate = notificacionDao.findByIdAsignacionNotificacion(id);
-			notificacionUpdate.setStatusNotificacion("atendida");
-			notificacionDao.save(notificacionUpdate);
+			List<Notificacion> notificacionUpdate = notificacionDao.findByIdAsignacionNotificacion(id);
+			for(Notificacion notificacion : notificacionUpdate) {
+				notificacion.setStatusNotificacion("atendida");
+				notificacionDao.save(notificacion);
+			}
+			
 			
 //			log.info(mensaje.toString());
 //			 response.put("notificacion", mensajeDao);
