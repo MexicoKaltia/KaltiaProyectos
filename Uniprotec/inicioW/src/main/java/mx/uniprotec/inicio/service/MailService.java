@@ -390,13 +390,13 @@ public class MailService implements IMailService{
 		 log.info("Correo Destino: "+mailVO.getDestinatarioMailList().toString());
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
-	  final String correoEnvia = "notificacion2@control-uniprotec.com";
-	  final String claveCorreo = "Uniprotec2020#A";
+	  final String correoEnvia = "notificaciona@control-uniprotec.com";
+	  final String claveCorreo = "Un@1oNOC2:bB";
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();
 //	  properties.put("mail.smtp.host", "smtp.gmail.com");
-	  properties.put("mail.smtp.host", "smtp.hostinger.com");
+	  properties.put("mail.smtp.host", "smtp.hostinger.mx");
 	  properties.put("mail.smtp.starttls.enable", "true");
 	  properties.put("mail.smtp.port", "587");
 	  properties.put("mail.smtp.auth", "true");

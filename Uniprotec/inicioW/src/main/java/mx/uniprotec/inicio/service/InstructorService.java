@@ -114,10 +114,10 @@ public class InstructorService implements IInstructorService {
 		
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
-			JSONObject jsonClientes = new JSONObject();
-			jsonClientes.put("instructores", jsonGeneral.get("instructores"));
+			JSONObject jsonInstructores = new JSONObject();
+			jsonInstructores.put("instructores", jsonGeneral.get("instructores"));
 			
-			rs.setJsonResponseObject(jsonClientes);
+			rs.setJsonResponseObject(jsonInstructores);
 			return rs;
 		}else {
 			return rs;

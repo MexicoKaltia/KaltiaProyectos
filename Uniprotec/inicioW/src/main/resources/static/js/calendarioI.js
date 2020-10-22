@@ -22,6 +22,10 @@ $(document).ready(function() {
 	
 	function abrirModal(item){
 		item = item.split('-');	
+		if(item.length == 1){
+			console.log("instructor dia de ausencia");
+			return null;
+		}
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
 //			idCliente = asignaciones[i].idClienteAsignacion;
@@ -118,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function asignaCamposSubmit(asignacionSub){
-		console.log(asignacionSub)
+//		console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
 		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
@@ -179,7 +183,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		var fin;
 		var color;
 		var items = new Array();
-		console.log(operacionId)
+		var listaFechasAusencia = new Array();
+		var instructor;
+//		console.log(operacionId)
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
 			if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
@@ -207,8 +213,37 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 				}
 				items.push(item);
+				
+				
 			}
 		}
+		
+		for(e in instructores){
+			instructor = instructores[e];
+//			console.log(instructor.idInstructor * 1)
+			 if((instructor.idInstructor * 1) === ( operacionId * 1)){
+//				 console.log(instructor)
+				 if(instructor.listFechas){
+					 listaFechasAusencia = instructor.listFechas.split(";");
+					 for(a in listaFechasAusencia){
+						 fechaAusencia = getFecha(listaFechasAusencia[a]);
+//						 console.log(fechaAusencia);
+						 item = {
+									'title' : instructor.nombreInstructor ,
+									'start' : fechaAusencia+'00:00',
+									'end' : fechaAusencia+'00:00',
+//									'constraint' : 'businessHours',
+									'color' : 'red',
+									'textColor': 'white'
+							}
+						 items.push(item);
+					 }
+				 } 
+			 }
+		}
+		
+		
+		
 		return items;
 	}
 	

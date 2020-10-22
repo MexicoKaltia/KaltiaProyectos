@@ -21,10 +21,15 @@ $(document).ready(function() {
 	var asignaUserCreateAsignacion;
 	var item = new Array();
 	const identificadorUsuario = idUsuario;
-	console.log("id usuario sesion:"+idUsuario)
+//	console.log("id usuario sesion:"+idUsuario)
 	
 	function abrirModal(item){
-		item = item.split('-');	
+		item = item.split('-');
+//		console.log(item.length);
+		if(item.length == 1){
+			console.log("instructor dia de ausencia");
+			return null;
+		}
 		for(i in asignaciones){
 			asignacion0 = asignaciones[i]; 
 			idCliente = asignaciones[i].idClienteAsignacion;
@@ -223,6 +228,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		var fin;
 		var color;
 		var items = new Array();
+		var listaFechasAusencia = new Array();
+		var instructor ;
+		var fechaAusencia ;
+//		console.log(instructores);
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
 //			console.log(asignacion);
@@ -250,6 +259,33 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			items.push(item);
 		}
+		/*
+		 * Recolecta los instructores y asigna los items dias de ausencia por Instructor y dia
+		 */
+		for(e in instructores){
+			 listaFechasAusencia = new Array();
+			 instructor = instructores[e];
+			 if(instructor.listFechas){
+//				 console.log(instructor.nombreInstructor)
+				 listaFechasAusencia = instructor.listFechas.split(";");
+				 for(a in listaFechasAusencia){
+					 fechaAusencia = getFecha(listaFechasAusencia[a]);
+//					 console.log(fechaAusencia);
+					 item = {
+								'title' : instructor.nombreInstructor ,
+								'start' : fechaAusencia+'00:00',
+								'end' : fechaAusencia+'00:00',
+//								'constraint' : 'businessHours',
+								'color' : 'red',
+								'textColor': 'white'
+						}
+					 items.push(item);
+				 }
+				 
+			 }
+		}
+		
+		
 		return items;
 	}
 	

@@ -30,6 +30,8 @@ public class AsignacionService implements IAsignacionService{
 	BaseClientRest baseClientRest ;
 	@Autowired
 	IAplicacionService aplicacionService;
+	@Autowired
+	IInstructorService instructorService;
 	
 	public AsignacionService() {
 		// TODO Auto-generated constructor stub
@@ -182,11 +184,20 @@ public class AsignacionService implements IAsignacionService{
 	public ResultVO consultaAsignacion(String token) {
 		
 		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
-		if(rs.getCodigo() == 202) {
+		if(rs.getCodigo() != 500) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
 //			log.info(rs.getJsonResponse().toJSONString());
 			JSONObject jsonAsignaciones = new JSONObject();
 			jsonAsignaciones.put("asignaciones", jsonGeneral.get("asignaciones"));
+			
+			ResultVO rsInstructores = instructorService.consultaInstructores(token);
+			if(rsInstructores.getCodigo() != 500) {
+				JSONObject jsonInstructores = rsInstructores.getJsonResponseObject();
+				jsonAsignaciones.put("instructores", jsonInstructores.get("instructores"));
+				
+			}else {
+				return rsInstructores;
+			}
 			
 			rs.setJsonResponseObject(jsonAsignaciones);
 //			log.info(jsonGeneral.toString());
