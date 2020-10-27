@@ -28,6 +28,7 @@ $(document).ready(function(){
 	 $.asignaGuia=asignacionItem.guiaEntregable
 	 $.asignaArchivoParticipantes=asignacionItem.archivoParticipantes;
 	 $.asignaArchivoParticipantesTexto=asignacionItem.archivoParticipantes;
+	 $.asignaCostoHotel=asignacionItem.costoHotel;
 	 
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
@@ -233,11 +234,15 @@ $(document).ready(function(){
 //	$('#numeroFactura0').val(asignacionItem.numeroFactura);
 	
 	if(perfilUsuario !== "Administracion"){
-		$('#edicionAsignacion0').hide();
+		$('#formAdministracion').hide();
 	}else{
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFechaCalendario = $('#fechaPago').val();
+	}
+	
+	if(perfilUsuario !== "Operacion"){
+		$('#formOperacion').hide();
 	}
 	
 	

@@ -151,6 +151,7 @@ public class AsignacionRestController {
 //			asignacionNew.setVerificarEntregable("");
 			asignacionNew.setNumeroFactura("");
 			asignacionNew.setArchivoParticipantes("");
+			asignacionNew.setCostoHotel("");
 			
 			asignacionNew = asignacionService.save(asignacionNew);
 			 response.put("asignacion", asignacionNew );
@@ -237,6 +238,7 @@ public class AsignacionRestController {
 				asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
 				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
 				asignacionActual.setArchivoParticipantes(asignacion.getArchivoParticipantesTexto());
+				asignacionActual.setCostoHotel(asignacion.getCostoHotel());
 				
 				asignacionUpdated = asignacionService.save(asignacionActual);
 				response.put("asignacion", asignacionUpdated  );

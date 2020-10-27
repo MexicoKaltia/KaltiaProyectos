@@ -387,9 +387,10 @@
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
 												   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
-												    <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
+		      									   <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
                                                    <li class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
                                                    <li class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
+												   <li id="oper" class="list-group-item list-group-item-info">Costo Hotel : <span id="modalCostoHotel"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
@@ -417,6 +418,7 @@
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
                                                <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
                                                <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

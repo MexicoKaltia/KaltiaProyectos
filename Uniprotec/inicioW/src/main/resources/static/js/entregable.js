@@ -16,6 +16,7 @@ $(document).ready(function() {
 	var asignaObservaciones ;
 	var asignaArchivos ;
 	var asignaStatus;
+	var asignaCostoHotel
 	var zonaCliente ;
 	var item;
 	
@@ -43,6 +44,7 @@ $(document).ready(function() {
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
 				asignaArchivoParticipantes = asignacion.archivoParticipantes;
+				asignaCostoHotel = asignacion.costoHotel;
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -82,10 +84,16 @@ $(document).ready(function() {
 		}else{
 			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
 		}
+		
+		
 		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
+		$('#modalCostoHotel').html('<b>'+asignacion.costoHotel+'</b>');
+		if(perfilUsuario === "Instructor" || perfilUsuario === "Ventas" ){
+			$('#oper').hide();
+		}
 		$('#myModal').modal();
 		
 		

@@ -19,6 +19,7 @@ $(document).ready(function() {
 	var asignaStatus;
 	var zonaCliente ;
 	var asignaUserCreateAsignacion;
+	var costoHotel;
 	var item = new Array();
 	const identificadorUsuario = idUsuario;
 //	console.log("id usuario sesion:"+idUsuario)
@@ -69,6 +70,8 @@ $(document).ready(function() {
 			}else{
 				$("#btnSubmit").empty();
 				$("#asignaConfirmar").hide();
+				$("#oper").hide();
+				
 			}
 			
 //			$("#btnSubmit").empty();
@@ -94,6 +97,7 @@ $(document).ready(function() {
 				asignaFechaPago= asignacion0.fechaPago;
 				asignaFactura = asignacion0.numeroFactura;
 				archivoParticipantes=asignacion0.archivoParticipantes;
+				costoHotel=asignacion0.costoHotel;
 				console.log(asignacion0);	
 				asignaCamposSubmit(asignacion0);
 				break;
@@ -122,6 +126,7 @@ $(document).ready(function() {
 		$('#modalFechaPago').html('<b>'+asignaFechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignaFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
+		$('#modalCostoHotel').html('<b>'+costoHotel+'</b>');
 		if(perfilUsuario !== "Administracion"){
 //			$('#resumenAsignacionModal').
 			$('#admon').hide();
@@ -200,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
 //		$('#numeroFactura').val(asignacionSub.numeroFactura);
 		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
+		$('#costoHotel').val(asignacionSub.costoHotel);
 		
 	}
 
