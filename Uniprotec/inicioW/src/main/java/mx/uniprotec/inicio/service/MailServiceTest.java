@@ -30,33 +30,29 @@ import mx.uniprotec.inicio.entity.MailVO;
 import mx.uniprotec.inicio.entity.StatusVO;
 
 @Service
-public class MailService implements IMailService{
+public class MailServiceTest{
 	
 	
 	private static Logger log = LoggerFactory.getLogger(MailService.class);
-	private final String PLANTILLA_CORREO = "/uniprotec/templates/PlantillaCorreo.html"; //"\\uniprotec\\templates\\PlantillaCorreo.html";
+	private final static String PLANTILLA_CORREO = "/uniprotec/templates/PlantillaCorreo.html"; //"\\uniprotec\\templates\\PlantillaCorreo.html";
 	
 	@Autowired
 	IAplicacionService aplicacionService;
 
-	public MailService() {	}
+	public MailServiceTest() {	}
 	
 	
-	@Override
-	public StatusVO mailServicePreCorreo(AsignacionModelo asignacion, String token) {
+	
+	public static StatusVO mailServicePreCorreo(AsignacionModelo asignacion, String token) {
 		
 		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
-//		  INSTRUCTOR_PRE.add("kaltiaservicios@gmail.com");
-//		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
-//		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
+		  INSTRUCTOR_PRE.add("kaltiaservicios@gmail.com");
+
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
-//		STAFF_PRE.add("kaltiaservicios@gmail.com");
-		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
-		STAFF_PRE.add("operacion@uniprotec.net");
-//		STAFF_PRE.add("gasparinho@hotmail.fr");
-
+		STAFF_PRE.add("uniprotec@kaltiaservicios.tech");
+		
 		
 //		log.info(asignacion.toString());
 		
@@ -67,24 +63,11 @@ public class MailService implements IMailService{
 		String subTitulo;
 		String[] envioCorreos = {"Instructor", "Staff"};
 		StatusVO statusVO = new StatusVO();
-		List<UserCorreo> usersCorreo = aplicacionService.usersCorreo(asignacion.getIdInstructorAsignacion(), asignacion.getUserCreateAsignacion(), token);
-//		log.info(usersCorreo.toString());
 		
 		String correoGmailInstructor="";
 		List<String> correoStaff = new ArrayList<String>();
 		List<String> correoInstructor = new ArrayList<String>();
 		correoStaff.clear();
-		for(UserCorreo uc : usersCorreo) {
-//			log.info(uc.toString());
-			if(uc.getPerfil().equals("Instructor")) {
-//				correoInstructor.add("uniprotec@kaltiaservicios.tech");
-				correoInstructor.add(uc.getEmailUniprotec());
-				correoInstructor.add(uc.getEmailGmail());
-				correoGmailInstructor = uc.getEmailGmail();
-			}else {
-				correoStaff.add(uc.getEmailUniprotec());
-			}
-		}
 		
 		
 		int i = 0;
@@ -100,10 +83,8 @@ public class MailService implements IMailService{
 				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
-				mailVO.setDestinatarioMailList(correoInstructor);
+				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
 				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
-//				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
-//				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
 				
 				mailVO.setAsignacionMail(asignacion);
 				statusVO = mailServiceGeneraCorreo(mailVO);		
@@ -114,14 +95,9 @@ public class MailService implements IMailService{
 				referencia = referenciaBase.concat("0");
 				nombreBoton = " Revisar expediente cliente";
 				subTitulo = "El presente correo tiene la finalidad de notificar la nueva asignaci&oacute;n";
-				
 				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica()+" staff");
-				
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
-				
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
-//				mailVO.setDestinatarioMailList(correoStaff);
-//				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				mailVO.setDestinatarioMailList(STAFF_PRE);
 				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				
@@ -136,7 +112,7 @@ public class MailService implements IMailService{
 
 	}
 	
-	@Override
+	
 	public void mailServicePreCorreoSustitucion(AsignacionModelo asignacion, String token, Long idInstructor) {
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
 
@@ -188,7 +164,7 @@ public class MailService implements IMailService{
 
 	
 
-	private String body(AsignacionModelo asignacion, String staffDestino, String referencia, String nombreBoton, String subTitulo) {
+	private static String body(AsignacionModelo asignacion, String staffDestino, String referencia, String nombreBoton, String subTitulo) {
 		
 		String body =	 "<div class='row'>" + 
 				"<div class='col-md-12'>" + 
@@ -383,7 +359,7 @@ public class MailService implements IMailService{
 	}
 
 
-	private StatusVO mailServiceGeneraCorreo(MailVO mailVO) {
+	private static StatusVO mailServiceGeneraCorreo(MailVO mailVO) {
 		
 		StatusVO statusVO = new StatusVO();
 		 
@@ -532,7 +508,7 @@ public class MailService implements IMailService{
 	}
 
 
-	private String horario(String horarioAsignacion) {
+	private static String horario(String horarioAsignacion) {
 		String[] horario = horarioAsignacion.split(";");
 		String hr ="Horario : "+ horario[0].substring(0,2)+":"+horario[0].substring(2,4)+" - "+horario[1].substring(0,2)+":"+horario[1].substring(2,4)+".";
 		
@@ -565,7 +541,7 @@ public class MailService implements IMailService{
 		return concat;
 	}
 	
-	private String limpia(String string) {
+	private static String limpia(String string) {
 		String a = string.replace("[", "");
 		a = a.replace("]", "");
 		
