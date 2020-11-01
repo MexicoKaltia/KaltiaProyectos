@@ -188,33 +188,33 @@ document.addEventListener('DOMContentLoaded', function() {
 //		console.log(operacionId)
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-			if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
-//				console.log(asignacion);
-//				console.log(asignacion.idInstructorAsignacion);
-				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				color = getColor(asignacion.idRegionAsignacion);
-				if(color === "blue" || color ==="fuchsia" || color ==="chocolate" || color ==="purple"){
-					item = {
-							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-							'start' : inicio,
-							'end' : fin,
-							'constraint' : 'businessHours',
-							'color' : color,
-							'textColor': 'white'
+			if(asignacion.statusAsignacion !== "Evento Cancelado"){
+				if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
+//					console.log(asignacion);
+//					console.log(asignacion.idInstructorAsignacion);
+					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					color = getColor(asignacion.idRegionAsignacion);
+					if(color === "blue" || color ==="fuchsia" || color ==="chocolate" || color ==="purple"){
+						item = {
+								'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+								'start' : inicio,
+								'end' : fin,
+								'constraint' : 'businessHours',
+								'color' : color,
+								'textColor': 'white'
+						}
+					}else{
+						item = {
+								'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+								'start' : inicio,
+								'end' : fin,
+								'constraint' : 'businessHours',
+								'color' : color
+						}
 					}
-				}else{
-					item = {
-							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-							'start' : inicio,
-							'end' : fin,
-							'constraint' : 'businessHours',
-							'color' : color
-					}
+					items.push(item);
 				}
-				items.push(item);
-				
-				
 			}
 		}
 		

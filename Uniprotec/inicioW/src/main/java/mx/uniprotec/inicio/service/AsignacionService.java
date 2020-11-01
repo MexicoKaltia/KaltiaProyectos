@@ -109,20 +109,24 @@ public class AsignacionService implements IAsignacionService{
 //				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
 				log.info("Listo proceso envia correo");
 				aplicacionService.enviaMail(asignacion, token);
+				
+				//Envio correo Test
+//				MailServiceTest.mailServicePreCorreo(asignacion, token);
 			}
 		}
 		//
 		
-		// Envia Notifiacion SUSTITUCION
+		// Envia Notifiacion SUSTITUCION 0 CANCELACION
 		log.info("idInstructorAnterior : "+idInstructorAnterior.toString());
 		log.info("asignacion : "+asignacion.getIdInstructorAsignacion().toString());
 		if(idInstructorAnterior != Long.valueOf(asignacion.getIdInstructorAsignacion().toString())  || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 			log.info("--------------EVENTO CAMBIO DE INSTRUCTOR O CANCELACION.....");
-			if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
-				aplicacionService.enviaMailSustitucion(asignacion, token, asignacion.getIdInstructorAsignacion());
-			}else {
+//			if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 				aplicacionService.enviaMailSustitucion(asignacion, token, idInstructorAnterior);
-			}
+//			}
+//			else {
+//				aplicacionService.enviaMailSustitucion(asignacion, token, asignacion.getIdInstructorAsignacion() );
+//			}
 			
 		}
 

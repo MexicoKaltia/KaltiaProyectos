@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		case "Curso Completado":
 			zonaCliente = 'maroon';
 			break;
-		case "Curso Cancelado":
+		case "Evento Cancelado":
 			zonaCliente = 'red';
 			break;
 		case "Entregables Validado":

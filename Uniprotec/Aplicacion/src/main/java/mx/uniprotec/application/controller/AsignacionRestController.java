@@ -49,6 +49,7 @@ public class AsignacionRestController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			asignaciones  = asignacionService.findAll();
+			
 			 response.put("asignaciones", asignaciones );
 			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
 			 response.put("status", HttpStatus.ACCEPTED);
@@ -76,13 +77,14 @@ public class AsignacionRestController {
 		
 		try {
 			asignacion = asignacionService.findById(id);
-			if(asignacion == null) {
+			if(asignacion == null || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 				response.put("mensaje", "Error: no se pudo encontrar, asignacion ID: "
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				 response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
 				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
+			
 			 response.put("asignacion", asignacion );
 			 response.put("mensaje", "Exito en la busqueda de asignacion ");
 			 response.put("status", HttpStatus.ACCEPTED);
@@ -203,14 +205,14 @@ public class AsignacionRestController {
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		log.info("update Asignacion:"+asignacion.toString());
-		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
-			asignacionService.delete(id);
-			response.put("asignacion", asignacionUpdated  );
-			 response.put("mensaje", "Asignacion Eliminada con Exito");
-			 response.put("status", HttpStatus.CREATED);
-			 response.put("code", HttpStatus.CREATED.value());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		}else {
+//		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
+//			asignacionService.delete(id);
+//			response.put("asignacion", asignacionUpdated  );
+//			 response.put("mensaje", "Asignacion Eliminada con Exito");
+//			 response.put("status", HttpStatus.CREATED);
+//			 response.put("code", HttpStatus.CREATED.value());
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+//		}else {
 			try {
 				
 				asignacionActual.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
@@ -253,7 +255,7 @@ public class AsignacionRestController {
 				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-		}
+//		}
 
 	}
 	
