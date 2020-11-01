@@ -24,7 +24,114 @@ $(document).ready(function() {
 	const identificadorUsuario = idUsuario;
 //	console.log("id usuario sesion:"+idUsuario)
 	
-	function abrirModal(item){
+	
+	
+	
+	if($('#todosInstructores').prop('checked')){
+		calendario(asignaciones, identificadorUsuario);
+	}
+	
+	
+	
+	
+	//check box filtro Instructores
+	var check = false;
+	$( '#todosInstructores' ).on( 'click', function() {
+		
+		if(check === false){
+			check = true;
+		}else{
+			check = false;
+		}
+		$('.checkboxFiltro').prop( "checked", check );
+		
+	});
+	
+	$('#btnFiltroInstructores').click(function(){
+		$('#todosInstructores').prop( "checked", false );
+	});
+	
+	$('#btnFiltro').click(function(){
+		
+		var filtroInstructores = new Array();
+		var asignacionesFiltro = new Array();
+		var instructorFiltro;
+		var asignacionA;
+		
+		$('.checkboxFiltro:checked').each(function(){
+			if($(this).attr('checked',true)){
+				idInstructor = $(this).attr('id')
+				filtroInstructores.push(idInstructor);
+			}
+		});
+//		console.log(filtroInstructores);
+		
+		for(e in asignaciones){
+			asignacionA = asignaciones[e];
+			for(a in filtroInstructores){
+				instructorFiltro = filtroInstructores[a];
+				if((asignacionA.idInstructorAsignacion * 1) === (instructorFiltro * 1)){
+					asignacionesFiltro.push(asignacionA);
+				}
+			}
+		}
+//		console.log(asignacionesFiltro);
+		
+		calendario(asignacionesFiltro, identificadorUsuario);
+		
+		
+//		$(this ".close").click();
+//		$(this).modal('toggle');
+		
+//		for(i in instructores){
+//			instructor = instructores[i];
+//			console.log($('#'+instructor.idInstructor).is(":checked"));
+////			$('#'+instructor.idInstructor).val();
+//		}
+
+		
+	});
+	
+	
+		
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	
+});
+
+
+	function calendario(asignaciones, identificadorUsuario){
+		$('#calendar').empty();
+		var eventos = new Array();
+		eventos = publicaEventos(asignaciones);
+		var calendarEl = document.getElementById('calendar');
+		var today = hoy();
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'interaction', 'dayGrid', 'timeGrid', 'list'],
+			header : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+			},
+			
+			eventClick : function(info){
+//				console.log(info.event.title);
+				abrirModal(info.event.title, identificadorUsuario)
+			},
+			
+			defaultDate : today,
+			navLinks : true, // can click day/week names to navigate views
+			businessHours : true, // display business hours
+			locale : 'es',
+			events : eventos
+		});
+
+		calendar.render();
+	}
+
+	function abrirModal(item, identificadorUsuario){
 		item = item.split('-');
 //		console.log(item.length);
 		if(item.length == 1){
@@ -58,7 +165,7 @@ $(document).ready(function() {
 				$("#asignaConfirmar").hide();
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 				$("#btnOperacion").empty();
-				$("#btnOperacion").append('<button type="submit" id="asignaConfirmar" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
+				$("#btnOperacion").append('<button type="submit" id="asignaConfirmarO" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
 				$("#btnArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-warning pull-right"  value="">Adjuntar Archivo Participantes</button>')
 				$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
 				$("#btnOperacion").click(function(){
@@ -98,7 +205,7 @@ $(document).ready(function() {
 				asignaFactura = asignacion0.numeroFactura;
 				archivoParticipantes=asignacion0.archivoParticipantes;
 				costoHotel=asignacion0.costoHotel;
-				console.log(asignacion0);	
+//				console.log(asignacion0);	
 				asignaCamposSubmit(asignacion0);
 				break;
 			}
@@ -137,39 +244,6 @@ $(document).ready(function() {
 	}
 	
 	
-	var eventos = new Array();
-	eventos = publicaEventos(asignaciones);
-	var calendarEl = document.getElementById('calendar');
-	var today = hoy();
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		plugins : [ 'interaction', 'dayGrid', 'timeGrid', 'list'],
-		header : {
-			left : 'prev,next today',
-			center : 'title',
-			right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-		},
-		eventClick : function(info){
-			console.log(info.event.title);
-			abrirModal(info.event.title)
-		},
-		
-		defaultDate : today,
-		navLinks : true, // can click day/week names to navigate views
-		businessHours : true, // display business hours
-		locale : 'es',
-		events : eventos
-	});
-
-	calendar.render();
-	
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-	
-});
-
-
 	function asignaCamposSubmit(asignacionSub){
 //		console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
