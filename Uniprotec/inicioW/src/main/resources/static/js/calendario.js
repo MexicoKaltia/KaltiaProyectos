@@ -23,21 +23,19 @@ $(document).ready(function() {
 	var item = new Array();
 	const identificadorUsuario = idUsuario;
 //	console.log("id usuario sesion:"+idUsuario)
-	
-	
+	var filtroInstructores = new Array();
+	var asignacionesFiltro = new Array();
+	var instructorFiltro;
+	var asignacionA;
 	
 	
 	if($('#todosInstructores').prop('checked')){
-		calendario(asignaciones, identificadorUsuario);
+		calendario(asignaciones, filtroInstructores, identificadorUsuario);
 	}
-	
-	
-	
 	
 	//check box filtro Instructores
 	var check = false;
 	$( '#todosInstructores' ).on( 'click', function() {
-		
 		if(check === false){
 			check = true;
 		}else{
@@ -53,11 +51,6 @@ $(document).ready(function() {
 	
 	$('#btnFiltro').click(function(){
 		
-		var filtroInstructores = new Array();
-		var asignacionesFiltro = new Array();
-		var instructorFiltro;
-		var asignacionA;
-		
 		$('.checkboxFiltro:checked').each(function(){
 			if($(this).attr('checked',true)){
 				idInstructor = $(this).attr('id')
@@ -65,7 +58,7 @@ $(document).ready(function() {
 			}
 		});
 //		console.log(filtroInstructores);
-		
+		var asignacionA ;
 		for(e in asignaciones){
 			asignacionA = asignaciones[e];
 			for(a in filtroInstructores){
@@ -75,20 +68,9 @@ $(document).ready(function() {
 				}
 			}
 		}
-//		console.log(asignacionesFiltro);
-		
-		calendario(asignacionesFiltro, identificadorUsuario);
-		
-		
-//		$(this ".close").click();
-//		$(this).modal('toggle');
-		
-//		for(i in instructores){
-//			instructor = instructores[i];
-//			console.log($('#'+instructor.idInstructor).is(":checked"));
-////			$('#'+instructor.idInstructor).val();
-//		}
-
+		calendario(asignacionesFiltro, filtroInstructores, identificadorUsuario);
+		filtroInstructores.length = 0;
+		asignacionesFiltro.length =0;
 		
 	});
 	
@@ -102,10 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-	function calendario(asignaciones, identificadorUsuario){
+	function calendario(asignaciones, filtroInstructores, identificadorUsuario){
 		$('#calendar').empty();
 		var eventos = new Array();
-		eventos = publicaEventos(asignaciones);
+		eventos = publicaEventos(asignaciones, filtroInstructores);
 		var calendarEl = document.getElementById('calendar');
 		var today = hoy();
 		var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -301,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		return today;
 	}
 
-	function publicaEventos(asignaciones){
+	function publicaEventos(asignaciones, instructoresFiltro){
 		var asignacion;
 		var item;
 		var inicio;
@@ -345,29 +327,59 @@ document.addEventListener('DOMContentLoaded', function() {
 		/*
 		 * Recolecta los instructores y asigna los items dias de ausencia por Instructor y dia
 		 */
-		for(e in instructores){
-			 listaFechasAusencia = new Array();
-			 instructor = instructores[e];
-			 if(instructor.listFechas){
-//				 console.log(instructor.nombreInstructor)
-				 listaFechasAusencia = instructor.listFechas.split(";");
-				 for(a in listaFechasAusencia){
-					 fechaAusencia = getFecha(listaFechasAusencia[a]);
-//					 console.log(fechaAusencia);
-					 item = {
+		var banderaInstructores = 0;
+		if(instructoresFiltro.length > 0){
+			banderaInstructores = 1;
+		}
+		
+//		console.log(banderaInstructores);
+		if(banderaInstructores == 0){
+			for(e in instructores){
+				 listaFechasAusencia = new Array();
+				 instructor = instructores[e];
+				if(instructor.listFechas){
+//					console.log(instructor.nombreInstructor)
+					 listaFechasAusencia = instructor.listFechas.split(";");
+					 for(a in listaFechasAusencia){
+						 fechaAusencia = getFecha(listaFechasAusencia[a]);
+						 item = {
 								'title' : instructor.nombreInstructor ,
 								'start' : fechaAusencia+'00:00',
 								'end' : fechaAusencia+'00:00',
-//								'constraint' : 'businessHours',
 								'color' : 'red',
 								'textColor': 'white'
-						}
-					 items.push(item);
+								}
+						 items.push(item);
+					 } 
 				 }
-				 
-			 }
+			}
+		}else{
+			for(e in instructores){
+				 listaFechasAusencia = new Array();
+				 instructor = instructores[e];
+				 for(o in instructoresFiltro){
+						if(instructor.idInstructor == instructoresFiltro[o]){
+							if(instructor.listFechas){
+//								 console.log(instructor.nombreInstructor)
+								 listaFechasAusencia = instructor.listFechas.split(";");
+								 for(a in listaFechasAusencia){
+									 fechaAusencia = getFecha(listaFechasAusencia[a]);
+//									 console.log(fechaAusencia);
+									 item = {
+												'title' : instructor.nombreInstructor ,
+												'start' : fechaAusencia+'00:00',
+												'end' : fechaAusencia+'00:00',
+//												'constraint' : 'businessHours',
+												'color' : 'red',
+												'textColor': 'white'
+										}
+									 items.push(item);
+								 } 
+							 }
+						 }
+					}
+			}
 		}
-		
 		
 		return items;
 	}

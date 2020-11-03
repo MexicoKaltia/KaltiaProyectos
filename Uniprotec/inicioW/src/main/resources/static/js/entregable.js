@@ -202,18 +202,20 @@ document.addEventListener('DOMContentLoaded', function() {
 		var items = new Array();
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-			if(validaHoy(asignacion.fechaAsignacion.toString())){
-				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				color = getColor(asignacion.statusAsignacion);
-				item = {
-						'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-						'start' : inicio,
-						'end' : fin,
-						'constraint' : 'businessHours',
-						'color' : color
+			if(asignacion.statusAsignacion !== "Evento Cancelado"){
+				if(validaHoy(asignacion.fechaAsignacion.toString())){
+					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					color = getColor(asignacion.statusAsignacion);
+					item = {
+							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color
+					}
+					items.push(item);
 				}
-				items.push(item);
 			}
 		}
 		return items;
