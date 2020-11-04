@@ -476,12 +476,84 @@
                                             </div>
                                         </div>
                                      </div>
-                                     <div class="form-row">                                    	
-                                            <label for="validationCustom02">Pauta Operativa</label>
-                                             <textarea class="form-control" th:field="*{pautaOperativaCliente}" id="pautaOperativaCliente" rows="5" cols="150" required></textarea>
-                                            <div class="invalid-feedback">
-                                                Capturar Pauta Operativa
-                                            </div>
+                                     <hr>
+                                      <div class="form-row">
+                                      	<label for="textArea">Pauta Operativa</label>
+                                      <input type="hidden" id="pautaOperativaClienteTxt" th:field="*{pautaOperativaCliente}" />
+<!--                                       <span id="pautaOperativaCliente" ></span> -->
+                                     	<div id="seccionPautaOperativa">
+                                     		
+            							</div>
+                                     </div>
+                                     <div class="form-row">      
+							            <div class="form-group purple-border col-md-12">
+
+							
+							                <div class="input-group mb-2 input-group-lg">
+							                    <input type="text" class="form-control" id="txtPrimerNivel" placeholder="Primer Nivel">
+							                    <div class="input-group-append">
+							                        <button class="btn btn-outline-info" id="btnPrimerNivel" type="button">Primer Nivel</button>
+							                    </div>
+							                </div>
+							
+							                <div class="input-group mb-2">
+							                    <input type="text" class="form-control" id="txtSegundoNivel" placeholder="Segundo Nivel" disabled>
+							                    <div class="input-group-append">
+							                        <button class="btn btn-outline-info" id="btnSegundoNivel" type="button" disabled>Segundo Nivel</button>
+							                    </div>
+							                </div>
+							                <div class="input-group mb-2 input-group-sm">
+							                    <input type="text" class="form-control" id="txtTercerNivel" placeholder="Tercer Nivel" disabled>
+							                    <div class="input-group-append">
+							                        <button class="btn btn-outline-info" id="btnTercerNivel" type="button" disabled>Tercer Nivel</button>
+							                    </div>
+							                </div>
+							                <small class="form-text text-muted">Captura Regla o Enunciado de informacion. Para enlistar dar click en boton Agregar </small>
+							            </div>
+							        </div>
+							        <div class="clearfix">
+							            <span class="float-right">
+							                <button type="button" id="agregarPautaOperativa" class="btn btn-success" disabled>Agregar Pauta Operativa</button>
+							            </span>
+        
+                                     </div>
+                                     <hr>
+                                     <div class="form-row">
+                                      	<label>Pauta Entregable</label>
+                                      <input type="hidden" id="pautaEntregableClienteTxt" th:field="*{pautaEntregableCliente}" />
+                                     	<div id="seccionPautaEntregable">
+<!--                                      		<span  id="pautaEntregableCliente"></span> -->
+            							</div>
+                                     </div>
+                                     <div class="form-row">      
+							            <div class="form-group purple-border col-md-12">
+							                <div class="input-group mb-2 input-group-lg">
+							                    <input type="text" class="form-control" id="txtPrimerNivel1" placeholder="Primer Nivel">
+							                    <div class="input-group-append">
+							                        <button class="btn btn-outline-info" id="btnPrimerNivel1" type="button">Primer Nivel</button>
+							                    </div>
+							                </div>
+							
+							                <div class="input-group mb-2">
+							                    <input type="text" class="form-control" id="txtSegundoNivel1" placeholder="Segundo Nivel" disabled>
+							                    <div class="input-group-append">
+							                        <button class="btn btn-outline-info" id="btnSegundoNivel1" type="button" disabled>Segundo Nivel</button>
+							                    </div>
+							                </div>
+							                <div class="input-group mb-2 input-group-sm">
+							                    <input type="text" class="form-control" id="txtTercerNivel1" placeholder="Tercer Nivel" disabled>
+							                    <div class="input-group-append">
+							                        <button class="btn btn-outline-info" id="btnTercerNivel1" type="button" disabled>Tercer Nivel</button>
+							                    </div>
+							                </div>
+							                <small class="form-text text-muted">Captura Regla o Enunciado de informacion. Para enlistar dar click en boton Agregar </small>
+							            </div>
+							        </div>
+							        <div class="clearfix">
+							            <span class="float-right">
+							                <button type="button" id="agregarPautaEntregable" class="btn btn-success" disabled>Agregar Pauta Entregable</button>
+							            </span>
+        
                                      </div>
                                      <div class="form-row">                                    	
                                             <label for="validationCustom02">Pauta General de Enfoque</label>
@@ -490,13 +562,13 @@
                                                 Capturar Pauta General de Enfoque
                                             </div>
                                      </div>
-                                     <div class="form-row">                                    	
-                                            <label for="validationCustom02">Pauta Entregable</label>
-                                             <textarea class="form-control" th:field="*{pautaEntregableCliente}" id="pautaEntregableCliente" rows="5" cols="150" required></textarea>
-                                            <div class="invalid-feedback">
-                                                Capturar Pauta Entregable
-                                            </div>
-                                     </div>
+<!--                                      <div class="form-row">                                    	 -->
+<!--                                             <label for="validationCustom02">Pauta General Entregable</label> -->
+<!--                                              <textarea class="form-control" th:field="*{pautaEntregableCliente}" id="pautaEntregableCliente" rows="5" cols="150" required></textarea> -->
+<!--                                             <div class="invalid-feedback"> -->
+<!--                                                 Capturar Pauta General de Enfoque -->
+<!--                                             </div> -->
+<!--                                      </div> -->
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Representante Empresa</label>
@@ -561,7 +633,7 @@
                                         
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Edicion Cliente</button>
+                                    <button class="btn btn-primary" type="submit"  onclick="pautaEdicion()">Edicion Cliente</button>
                                 </form>
             
                                 <script>

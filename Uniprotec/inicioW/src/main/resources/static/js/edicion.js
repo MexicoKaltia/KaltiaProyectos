@@ -6,11 +6,170 @@
  * funciones para Upload Files
  */
 $(document).ready(function(){
-	
+	/*
+	 * Pauta Operativa y Entregable
+	 */
+
+	var contarPrimerNivel = 0 ;
+    var contarSegundoNivel = 0;
+    var contarTercerNivel = 0;
+    
+    $('#seccionPautaOperativa').each(function(){
+    	contarPrimerNivel++;
+    	$('#listPrimerNivel'+contarPrimerNivel).each(function(){
+    		contarSegundoNivel++;
+    	})
+    })
+    
+    $('#btnPrimerNivel').click(function(){
+        
+        $('#seccionPautaOperativa').append('<div class="alert alert-ligth alert-dismissible fade show" role="alert"><ul id="listPrimerNivel'+contarPrimerNivel+'"></ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        
+        var primerNivel = $('#txtPrimerNivel').val();
+        $('#listPrimerNivel'+contarPrimerNivel).append('<li ><ul id="itemPrimerNivel'+contarPrimerNivel+'">'+primerNivel+' </ul></li>');
+        $('#txtSegundoNivel').attr('disabled', false);
+        $('#btnPrimerNivel').attr('disabled', true);
+        $('#btnSegundoNivel').attr('disabled', false);
+        $('#txtPrimerNivel').val("");
+        $('#txtPrimerNivel').attr('disabled', true);
+        $('#agregarPautaOperativa').attr('disabled', false);
+        contarPrimerNivel++;
+        contarSegundoNivel++;
+    })
+    
+    $('#btnSegundoNivel').click(function(){
+        var segundoNivel = $('#txtSegundoNivel').val();
+        
+        if(segundoNivel.length > 0){
+            
+            $('#itemPrimerNivel'+(contarPrimerNivel-1)).append('<li id ><ul id="itemSegundoNivel'+contarSegundoNivel+'">'+segundoNivel+' </ul></li>');
+            $('#txtPrimerNivel').attr('disabled', true);
+            $('#txtTercerNivel').attr('disabled', false);
+            $('#btnTercerNivel').attr('disabled', false);
+            $('#txtSegundoNivel').val("");
+            contarSegundoNivel++;
+        }
+    })
+    
+    $('#btnTercerNivel').click(function(){
+        
+        var tercerNivel = $('#txtTercerNivel').val();
+        if(tercerNivel.length > 0){
+//            console.log(tercerNivel);
+//            console.log(contarSegundoNivel);
+            contarTercerNivel = contarSegundoNivel - 1 ;
+            console.log($("#itemSegundoNivel"+contarTercerNivel).val());
+        
+            $("#itemSegundoNivel"+contarTercerNivel+"").append('<li >'+tercerNivel+' </li>');
+            //$('#txtSegundoNivel').attr('disabled', true);
+            //$('#btnSegundoNivel').attr('disabled', true);
+            $('#txtTercerNivel').val("");
+        }
+    })
+    
+    $('#agregarPautaOperativa').click(function(){
+//        console.log("agregarInstruccion");
+        $('#btnPrimerNivel').attr('disabled', false);
+        $('#txtPrimerNivel').attr('disabled', false);
+        $('#btnSegundoNivel').attr('disabled', true);
+        $('#txtSegundoNivel').attr('disabled', true);
+        $('#btnTercerNivel').attr('disabled', true);
+        $('#txtTercerNivel').attr('disabled', true);
+               
+    })
+    
+    
+    /*
+     *  Pauta Entregable
+     */
+	var contarPrimerNivel1 = 0 ;
+    var contarSegundoNivel1 = 0;
+    var contarTercerNivel1 = 0;
+    
+    $('#seccionPautaEntregable').each(function(){
+    	contarPrimerNivel1++;
+    	$('#listPrimerNivel1'+contarPrimerNivel1).each(function(){
+    		contarSegundoNivel1++;
+    	});
+    })
+    
+    $('#btnPrimerNivel1').click(function(){
+        
+        $('#seccionPautaEntregable').append('<div  class="alert alert-ligth alert-dismissible fade show" role="alert"><ul id="listPrimerNivel1'+contarPrimerNivel1+'"></ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        
+        var primerNivel = $('#txtPrimerNivel1').val();
+        $('#listPrimerNivel1'+contarPrimerNivel1).append('<li ><ul id="itemPrimerNivel1'+contarPrimerNivel1+'"><b>'+primerNivel+'</b> </ul></li>');
+        $('#txtSegundoNivel1').attr('disabled', false);
+        $('#btnPrimerNivel1').attr('disabled', true);
+        $('#btnSegundoNivel1').attr('disabled', false);
+        $('#txtPrimerNivel1').val("");
+        $('#txtPrimerNivel1').attr('disabled', true);
+        $('#agregarPautaEntregable').attr('disabled', false);
+        contarPrimerNivel1++;
+        contarSegundoNivel1++;
+    })
+    
+    $('#btnSegundoNivel1').click(function(){
+        var segundoNivel = $('#txtSegundoNivel1').val();
+        
+        if(segundoNivel.length > 0){
+            
+            $('#itemPrimerNivel1'+(contarPrimerNivel1-1)).append('<li id ><ul id="itemSegundoNivel1'+contarSegundoNivel1+'">'+segundoNivel+' </ul></li>');
+            $('#txtPrimerNivel1').attr('disabled', true);
+            $('#txtTercerNivel1').attr('disabled', false);
+            $('#btnTercerNivel1').attr('disabled', false);
+            $('#txtSegundoNivel1').val("");
+            contarSegundoNivel1++;
+        }
+    })
+    
+    $('#btnTercerNivel1').click(function(){
+        
+        var tercerNivel = $('#txtTercerNivel1').val();
+        if(tercerNivel.length > 0){
+//            console.log(tercerNivel);
+//            console.log(contarSegundoNivel1);
+            contarTercerNivel1 = contarSegundoNivel1 - 1 ;
+            console.log($("#itemSegundoNivel1"+contarTercerNivel1).val());
+        
+            $("#itemSegundoNivel1"+contarTercerNivel1+"").append('<li >'+tercerNivel+' </li>');
+            //$('#txtSegundoNivel1').attr('disabled', true);
+            //$('#btnSegundoNivel1').attr('disabled', true);
+            $('#txtTercerNivel1').val("");
+        }
+    })
+    
+    $('#agregarPautaEntregable').click(function(){
+//        console.log("agregarInstruccion");
+        $('#btnPrimerNivel1').attr('disabled', false);
+        $('#txtPrimerNivel1').attr('disabled', false);
+        $('#btnSegundoNivel1').attr('disabled', true);
+        $('#txtSegundoNivel1').attr('disabled', true);
+        $('#btnTercerNivel1').attr('disabled', true);
+        $('#txtTercerNivel1').attr('disabled', true);
+               
+    })
+
+    
+});
 
 	
+	function pautaAlta(){
+		
+		$('#pautaOperativaCliente').val($('#seccionPautaOperativa').html());
+		alert($('#pautaOperativaCliente').val());
+		$('#pautaEntregableCliente').val($('#seccionPautaEntregable').html());
+	    alert($('#pautaEntregableCliente').val());
+		}
 	
-});
+	function pautaEdicion(){
+		
+		$('#pautaOperativaClienteTxt').val($('#seccionPautaOperativa').html());
+		alert($('#pautaOperativaClienteTxt').val());
+		$('#pautaEntregableClienteTxt').val($('#seccionPautaEntregable').html());
+	    alert($('#pautaEntregableClienteTxt').val());
+	}
+
   function imagenCliente(archivosCampo, rfcCliente){
 	  var $idCliente = rfcCliente
 	  $idCliente = $(rfcCliente).val();
