@@ -26,7 +26,7 @@ $(document).ready(function(){
         $('#seccionPautaOperativa').append('<div class="alert alert-ligth alert-dismissible fade show" role="alert"><ul id="listPrimerNivel'+contarPrimerNivel+'"></ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         
         var primerNivel = $('#txtPrimerNivel').val();
-        $('#listPrimerNivel'+contarPrimerNivel).append('<li ><ul id="itemPrimerNivel'+contarPrimerNivel+'">'+primerNivel+' </ul></li>');
+        $('#listPrimerNivel'+contarPrimerNivel).append('<li style="list-style-type: disc;" ><ul id="itemPrimerNivel'+contarPrimerNivel+'"><b>'+primerNivel+' </b></ul></li>');
         $('#txtSegundoNivel').attr('disabled', false);
         $('#btnPrimerNivel').attr('disabled', true);
         $('#btnSegundoNivel').attr('disabled', false);
@@ -42,7 +42,7 @@ $(document).ready(function(){
         
         if(segundoNivel.length > 0){
             
-            $('#itemPrimerNivel'+(contarPrimerNivel-1)).append('<li id ><ul id="itemSegundoNivel'+contarSegundoNivel+'">'+segundoNivel+' </ul></li>');
+            $('#itemPrimerNivel'+(contarPrimerNivel-1)).append('<li style="list-style-type: circle;"  ><ul id="itemSegundoNivel'+contarSegundoNivel+'">'+segundoNivel+' </ul></li>');
             $('#txtPrimerNivel').attr('disabled', true);
             $('#txtTercerNivel').attr('disabled', false);
             $('#btnTercerNivel').attr('disabled', false);
@@ -60,7 +60,7 @@ $(document).ready(function(){
             contarTercerNivel = contarSegundoNivel - 1 ;
             console.log($("#itemSegundoNivel"+contarTercerNivel).val());
         
-            $("#itemSegundoNivel"+contarTercerNivel+"").append('<li >'+tercerNivel+' </li>');
+            $("#itemSegundoNivel"+contarTercerNivel+"").append('<li style="list-style-type: square;">'+tercerNivel+' </li>');
             //$('#txtSegundoNivel').attr('disabled', true);
             //$('#btnSegundoNivel').attr('disabled', true);
             $('#txtTercerNivel').val("");
@@ -98,7 +98,7 @@ $(document).ready(function(){
         $('#seccionPautaEntregable').append('<div  class="alert alert-ligth alert-dismissible fade show" role="alert"><ul id="listPrimerNivel1'+contarPrimerNivel1+'"></ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         
         var primerNivel = $('#txtPrimerNivel1').val();
-        $('#listPrimerNivel1'+contarPrimerNivel1).append('<li ><ul id="itemPrimerNivel1'+contarPrimerNivel1+'"><b>'+primerNivel+'</b> </ul></li>');
+        $('#listPrimerNivel1'+contarPrimerNivel1).append('<li style="list-style-type: disc;"><ul id="itemPrimerNivel1'+contarPrimerNivel1+'"><b>'+primerNivel+'</b> </ul></li>');
         $('#txtSegundoNivel1').attr('disabled', false);
         $('#btnPrimerNivel1').attr('disabled', true);
         $('#btnSegundoNivel1').attr('disabled', false);
@@ -114,7 +114,7 @@ $(document).ready(function(){
         
         if(segundoNivel.length > 0){
             
-            $('#itemPrimerNivel1'+(contarPrimerNivel1-1)).append('<li id ><ul id="itemSegundoNivel1'+contarSegundoNivel1+'">'+segundoNivel+' </ul></li>');
+            $('#itemPrimerNivel1'+(contarPrimerNivel1-1)).append('<li style="list-style-type: circle;" ><ul id="itemSegundoNivel1'+contarSegundoNivel1+'">'+segundoNivel+' </ul></li>');
             $('#txtPrimerNivel1').attr('disabled', true);
             $('#txtTercerNivel1').attr('disabled', false);
             $('#btnTercerNivel1').attr('disabled', false);
@@ -132,7 +132,7 @@ $(document).ready(function(){
             contarTercerNivel1 = contarSegundoNivel1 - 1 ;
             console.log($("#itemSegundoNivel1"+contarTercerNivel1).val());
         
-            $("#itemSegundoNivel1"+contarTercerNivel1+"").append('<li >'+tercerNivel+' </li>');
+            $("#itemSegundoNivel1"+contarTercerNivel1+"").append('<li style="list-style-type: square;" >'+tercerNivel+' </li>');
             //$('#txtSegundoNivel1').attr('disabled', true);
             //$('#btnSegundoNivel1').attr('disabled', true);
             $('#txtTercerNivel1').val("");
@@ -157,17 +157,13 @@ $(document).ready(function(){
 	function pautaAlta(){
 		
 		$('#pautaOperativaCliente').val($('#seccionPautaOperativa').html());
-		alert($('#pautaOperativaCliente').val());
 		$('#pautaEntregableCliente').val($('#seccionPautaEntregable').html());
-	    alert($('#pautaEntregableCliente').val());
 		}
 	
 	function pautaEdicion(){
 		
 		$('#pautaOperativaClienteTxt').val($('#seccionPautaOperativa').html());
-		alert($('#pautaOperativaClienteTxt').val());
 		$('#pautaEntregableClienteTxt').val($('#seccionPautaEntregable').html());
-	    alert($('#pautaEntregableClienteTxt').val());
 	}
 
   function imagenCliente(archivosCampo, rfcCliente){
