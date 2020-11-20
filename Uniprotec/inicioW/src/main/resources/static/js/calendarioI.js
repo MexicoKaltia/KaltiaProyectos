@@ -230,8 +230,8 @@ document.addEventListener('DOMContentLoaded', function() {
 //						 console.log(fechaAusencia);
 						 item = {
 									'title' : instructor.nombreInstructor ,
-									'start' : fechaAusencia+'00:00',
-									'end' : fechaAusencia+'00:00',
+									'start' : fechaAusencia+'03:00',
+									'end' : fechaAusencia+'03:00',
 //									'constraint' : 'businessHours',
 									'color' : 'red',
 									'textColor': 'white'

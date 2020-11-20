@@ -344,8 +344,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						 fechaAusencia = getFecha(listaFechasAusencia[a]);
 						 item = {
 								'title' : instructor.nombreInstructor ,
-								'start' : fechaAusencia+'00:00',
-								'end' : fechaAusencia+'00:00',
+								'start' : fechaAusencia+'03:00',
+								'end' : fechaAusencia+'03:00',
 								'color' : 'red',
 								'textColor': 'white'
 								}

@@ -76,7 +76,7 @@ $(document).ready(function() {
 				$('#asignaConfirmar').attr("disabled", false);
 			}
 			else if(asignaStatus ==="Evento Cancelado") {
-				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, ya no se realiza Edicion. </u></div>');
+				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, no se realiza Edición. </u></div>');
 			}
 //			else if(asignaStatus ==="Entregable Enviado") {
 //				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var items = new Array();
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-			if(asignacion.statusAsignacion !== "Evento Cancelado"){
+//			if(asignacion.statusAsignacion !== "Evento Cancelado"){
 				if(validaHoy(asignacion.fechaAsignacion.toString())){
 					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 					items.push(item);
 				}
-			}
+//			}
 		}
 		return items;
 	}
