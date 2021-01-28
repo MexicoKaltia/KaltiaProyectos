@@ -172,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
 		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
+		$('#costoHotel').val(asignacionSub.costoHotel);
 	}
 
 	

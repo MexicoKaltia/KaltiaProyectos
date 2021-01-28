@@ -376,6 +376,7 @@ $(document).ready(function(){
 		$('#guiaEntregable').val(asignacionItem.guiaEntregable);
 		$('#numeroFactura').val(asignacionItem.numeroFactura);
 		$('#verificarEntregable').val(asignacionItem.verificarEntregable);
+		$('#costoHotel').val(asignacionItem.costoHotel);
 		
 	}
 	

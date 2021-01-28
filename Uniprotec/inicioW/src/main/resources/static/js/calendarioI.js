@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
 //		$('#numeroFactura').val(asignacionSub.numeroFactura);
 		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
+		$('#costoHotel').val(asignacionSub.costoHotel);
 	}
 
 	
