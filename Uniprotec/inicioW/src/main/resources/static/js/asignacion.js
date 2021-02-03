@@ -696,7 +696,10 @@ var alerta, proceso;
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 			if(asignacionFecha === dayerTexto && (asignacionInstructor === idInstructor)){
-				return true;
+				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
+					return true;
+				}
+				
 			}
 		}
 		return false;
@@ -726,7 +729,9 @@ var alerta, proceso;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 //			console.log(dManTexto+":"+asignacionFecha);
 			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
-				return true;
+				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
+					return true;
+				}
 			}
 		}
 		return false;
