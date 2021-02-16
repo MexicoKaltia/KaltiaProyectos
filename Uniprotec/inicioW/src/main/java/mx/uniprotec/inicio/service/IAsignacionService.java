@@ -12,6 +12,7 @@ public interface IAsignacionService {
 	public ResultVO consultaAsignacionCorreo(String idAsignacion);
 	public ResultVO edicionAsignacionV(AsignacionModelo asignacion, String token);
 	public ResultVO edicionAsignacionVConfirma(AsignacionModelo asignacion, String token);
+	public ResultVO consultaAsignacionHistorico(String accesToken);
 	
 	
 	

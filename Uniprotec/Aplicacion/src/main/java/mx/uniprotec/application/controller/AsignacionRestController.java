@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.entity.Asignacion;
+import mx.uniprotec.application.entity.AsignacionHistorico;
 import mx.uniprotec.application.service.IAsignacionService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 
@@ -260,7 +261,28 @@ public class AsignacionRestController {
 	}
 	
 	
-	
+	@GetMapping("/asignacionesHistorico")
+	public ResponseEntity<?> asignacionesHistorico() {
+		List<AsignacionHistorico> asignaciones = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			asignaciones  = asignacionService.findAllHistorico();
+			
+			 response.put("asignacionesHistorico", asignaciones );
+			 response.put("mensaje", "Exito en la busqueda de asignaciones Historico");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("asignacionesHistorico:"+asignaciones.size());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}	
 	
 	
 	

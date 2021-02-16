@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+<head>
+    <meta charset="utf-8"/>
+    <title>UNIPROTEC V 1.4</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+        <link rel="icon" type="image/png" th:href="@{images/logo.png}"/>
+
+    <link th:href="@{main.css}" rel="stylesheet">
+    <link th:href="@{css/fc/core/main.css}" rel='stylesheet' />
+	<link th:href="@{css/fc/daygrid/main.css}" rel='stylesheet' />
+	<link th:href="@{css/fc/timegrid/main.css}" rel='stylesheet' />
+	<link th:href="@{css/fc/list/main.css}" rel='stylesheet' />
+	<style>
+		#calendar {
+		    max-width: 900px;
+		    margin: 0 auto;
+		 }								
+	</style>
+    
+
+
+</head>
+
+<body background="images/fondo6.png">
+
+    
+    <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
+        <!--      HEAD INICIO    -->
+    <div class="app-header header-shadow bg-royal header-text-light" >
+            <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
+                <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
+                    
+                    <ul class="header-menu nav">
+                    
+                        <li class="dropdown nav-item">
+                            <a href="javascript:alerta();" class="nav-link">
+                                <i class="nav-link-icon fa fa-cog"></i>
+                                Configuracion
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+                                            
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
+                                    </div>
+                                    <div class="widget-subheading">
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
+                                    </div>
+                                </div>
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <button type="button"
+                                        class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!--      HEAD FIN    --> 
+        
+        <div class="app-main">
+            <!--     LEFT INICIO -->
+	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">  
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">PRINCIPAL</li>
+                            <li>
+                                <a th:href="@{/inicio}" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    CONTROL
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.modules.modulos}">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    <span th:text="${modulo.nombreModulo}"></span>
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li th:each= "submodulo : ${modulo.submodules}">
+                                        <a th:href="${submodulo.referenciaSubmodulo}">
+                                            <i class="metismenu-icon"></i>
+                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                           <li class="app-sidebar__heading">ACCIONES</li>
+                            <li th:each= "accion : ${model.jsonResponse.modules.acciones}">
+                                <a th:href="${accion.referenciaAccion}">
+                                  <i th:class="${accion.iconoAccion}"></i>
+                                  <span th:text="${accion.nombreAccion}"></span>
+                                </a>
+                            </li>
+
+            
+                        </ul>
+                    </div>
+                </div>  
+            </div> 
+<!--     LEFT FIN --> 
+
+              <div class="app-main__outer">
+                    <div class="app-main__inner">
+                        <div class="app-page-title">
+                            <div class="page-title-wrapper">
+                                <div class="page-title-heading">
+                                    <div class="page-title-icon">
+                                        <i class="pe-7s-car icon-gradient bg-warm-flame">
+                                        </i>
+                                    </div>
+                                    <div>CALENDARIO GLOBAL HISTORICO
+                                        <div class="page-title-subheading">REGISTRO DE CURSOS UNIPROTEC HISTORICOS.
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="app-header-right">
+							<br>
+                            <span th:if='${ejecucion}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado correctamente la nueva Asignación.</u>
+								</div>
+							</span>
+							<span th:if='${ejecucion2}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Actualizado correctamente la Asignación.</u>
+								</div>
+							</span>
+							<span th:if='${error}'>
+								<div class="alert alert-danger" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se Generó Asignación, Verifique datos. </u>
+								</div>
+							</span>
+							<span th:if='${consulta}'>
+								<div class="alert alert-warning" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Consulta : </b><u>No se realizó la consulta de la lista de Asignaciones, Notifique Administrador. </u>
+								</div>
+							</span>
+					 </div>
+                        </div>
+                        <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                            <li class="nav-item">
+                                <a  class="nav-link active" id="btnFiltroInstructores" data-toggle="modal" data-target="#modalFiltro">
+                                    <span>Filtro Instructores</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div id='calendar'></div>
+                                    </div>
+                                </div>
+                            </div>
+<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel"> -->
+<!--                                 <div class="main-card mb-3 card"> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <div id='calendar-list'></div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel"> -->
+<!--                                 <div class="main-card mb-3 card"> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <div id="calendar-bg-events"></div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+                        </div>
+                    </div>                            
+                        <!-- 
+                        	FIN DE SECCION DE EDICION 
+                        -->
+
+										<!-- Footer-->
+                                       <div class="app-wrapper-footer">
+                                        <div class="app-footer">
+                                            <div class="app-footer__inner">
+                                                <div class="app-footer-right">
+                                                    <ul class="nav">
+                                                        
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="nav-link">
+                                                                <div class="badge badge-success mr-1 ml-0">
+                                                                    <small>v 1.4</small>
+                                                                </div>
+                                                                Derechos Reservados © Uniprotec 2020
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div></div></div>
+                                    
+                                <!-- Fin Footer-->
+         
+            </div>  <!--  app-main__inner -->
+        </div>  <!-- fin de app-main__outer-->
+	</div>  <!-- app-main -->
+</div>   <!-- app-container -->
+	
+	
+	  <!-- Modal Inicio-->
+                       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Asignación</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
+                                           <div class="card-body">
+                                           <form role="form" id="edicionAsignacion" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
+                                               <h5 class="card-title">Resumen de Asignación</h5>
+                                               <ul class="list-group" id="resumenAsignacionModal">
+                                                   <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Instructor : <span id="modalInstructor"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Fecha : <span id="modalFecha"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Horario : <span id="modalHorario"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Participantes : <span id="modalParticipantes"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Nivel : <span id="modalNivel"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
+                                                   <li id="admon" class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
+                                                   <li id="admon" class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
+                                                   <li id="oper" class="list-group-item list-group-item-info">Costo Hotel : <span id="modalCostoHotel"></span></li>
+                                               </ul>
+                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+                                               <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
+                                        	   <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                                               <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                               
+                                               <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
+                                               <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" />
+                                               <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
+                                       			<br>
+<!--                                       			<div><div id="btnOperacion"></div><div id="btnArchivoParticipantes"></div></div> -->
+                                       			<br>
+                                       			<div id="btnSubmit"></div>
+                                       			<button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
+                                       			<div id="edicionVentas"></div>
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       <div class="modal" id="modalFiltro" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Instructores</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosInstructores" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;">Todos</span>
+											</div>
+			                            </li>
+			                            <hr>
+									    <li th:each= "instructor : ${model.jsonResponseObject.instructores}" style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxFiltro" th:id="${instructor.idInstructor}" >
+											    </div>
+											  </div>
+											  <span th:text="${instructor.nombreInstructor}" style="padding-left: 10px;"></span>
+<!-- 											  <input type="text" class="form-control" value='th:text="${instructor.nombreInstructor}"' disabled> -->
+											</div>
+			                            </li>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="submit"  class="btn btn-info pull-left" id="btnFiltro" data-dismiss="modal">Actualizar Calendario</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+
+  						
+                       
+ 	<script th:inline="javascript">
+ 		 var asignacionesHistorico = [[${model.jsonResponseObject.asignacionesHistorico}]];
+ 		var instructores = [[${model.jsonResponseObject.instructores}]];
+ 		 var idUsuario =  [[${model.jsonResponse.user.id}]];
+ 		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+	</script>
+	
+	 
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script th:src="@{js/fc/core/main.js}"></script>
+	<script th:src="@{js/fc/interaction/main.js}"></script>
+	<script th:src="@{js/fc/daygrid/main.js}"></script>
+	<script th:src="@{js/fc/timegrid/main.js}"></script>
+	<script th:src="@{js/fc/list/main.js}"></script>
+										 
+	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+	<script th:src="@{js/calendarioHistorico.js}"></script>
+    
+     
+     									
+                                    	
+    
+    
+</body>
+
+</html>
