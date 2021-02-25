@@ -13,7 +13,7 @@
 	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
 	        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 <!--     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> -->
-	    
+
 </head>
 
 <body background="images/fondo1.png">
@@ -258,8 +258,10 @@
 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='idCliente'  data-sortable='true'>Id Cliente</th>
 												<th data-width="70" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreCortoCliente'  data-sortable='true'>Nombre Corto</th>
 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate1" data-formatter="operateFormatterExpediente" data-events="window.operateEventsExpediente">Expediente Cliente</th>
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate2" data-formatter="operateFormatterAsignaciones" data-events="window.operateEventsAsignaciones">Asignaciones</th>
+												<span th:if='${model.jsonResponse.user.perfil != "Instructor" && model.jsonResponse.user.perfil != "Vendedor"} '>
+													<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate2" data-formatter="operateFormatterAsignaciones" data-events="window.operateEventsAsignaciones">Asignaciones</th>
 <!-- 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
+												</span>
 											</tr>
 										</thead>					
 									</table>
@@ -311,12 +313,7 @@
 
 <!--  -->
 
-
-	
-    <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    
-    <script th:inline="javascript">
+<script th:inline="javascript">
 		 var $data = [[${model.jsonResponseObject.clientes}]];
 		 var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
 		 var $asignaciones = [[${model.jsonResponseObject.asignaciones}]];
@@ -325,10 +322,12 @@
 	 	 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
-	</script>
-											    
+	</script>	    
+	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    										    
     <script type="text/javascript" th:src="@{js/consultaClientes.js}"></script>
-    
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
@@ -413,14 +412,14 @@
 						    <div class="modal-content">
 						      <div class="modal-header">
 								<img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
-								<hr><br>
-						        <h5 class="modal-title" id='nombreCliente'></h5>
-						        
+								<hr><br>				        
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
 						        </button>
 						      </div>
 						      <div class="modal-body">
+						      <h3 id='nombreCliente'></h3>
+						      <h5>Mostrando <span id="numAsignaciones"></span> eventos</h5>
 						        <table id="asignacionesTable" class="mb-0 table table-striped table-sm"
 						          data-locale="es-MX" 
 										data-toggle='tableA' 
@@ -438,6 +437,7 @@
 						              <th data-field="fechaAsignacion">Fecha</th>
 						              <th data-field="cursoAsignacion">Nombre Curso</th>
 						              <th data-field="instructorAsignacion">Instructor</th>
+						              <th data-field="statusAsignacion">Estatus</th>
 						              <th data-field="expedienteAsignacion">Expediente Asignacion</th>
 						            </tr>
 						          </thead>

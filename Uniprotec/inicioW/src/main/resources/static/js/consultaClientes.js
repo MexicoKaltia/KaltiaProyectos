@@ -49,6 +49,51 @@ $(document).ready(function(){
 	$.statusCurso="";
 	$.listFechas="";
 	
+	console.log(perfilUsuario + ":1");
+	arrayClientesInstructor = new Array();
+	if(perfilUsuario === "Instructor"){
+		var idInstructor = operacionId;
+		for(a in $asignaciones){
+			var asignacion = $asignaciones[a];
+    		for(var i in asignacion){
+	    		if(idInstructor === asignacion[i].idInstructorAsignacion){
+	    			arrayClientesInstructor.push(asignacion[i].idClienteAsignacion);
+	    		}
+    		}
+		}
+//		console.log(arrayClientesInstructor);
+		var arrayClientes = new Array();
+		for(e in $data){
+			var cliente = $data[e];
+			for(i in arrayClientesInstructor){
+				if(cliente.idCliente === arrayClientesInstructor[i]){
+					arrayClientes.push(cliente);
+				}
+			}
+		}
+		var clientes = new Array();
+		var idClientes = new Array();
+		for(a in arrayClientes){
+			if(!idClientes.includes(arrayClientes[a].idCliente)){
+				clientes.push(arrayClientes[a]);
+				idClientes.push(arrayClientes[a].idCliente)
+			}
+		}
+		$data.length = 0;
+		$data = clientes;
+//		console.log($data);
+	}else if(perfilUsuario === "Vendedor"){
+		var arrayClientes = new Array();
+		var idVendedor = operacionId;
+		for(e in $data){
+			var cliente = $data[e];
+			if(cliente.vendedorCliente.idVendedor === idVendedor){
+					arrayClientes.push(cliente);
+			}
+		}
+		$data.length = 0;
+		$data = arrayClientes;
+	}
 	
 	window.operateEventsExpediente = {
 		    'click .like': function (e, value, row, index) {
@@ -108,7 +153,7 @@ $(document).ready(function(){
 	window.operateEventsAsignaciones = {
 		    'click .like': function (e, value, row, index) {
 		    	var idCliente = row.idCliente;
-		    	console.log("A:"+idCliente);
+//		    	console.log("A:"+idCliente);
 		    	$('#regsitroAsignacion').empty();
 		    	for(var a in asignaciones){
 		    		asignacion = asignaciones[a];
@@ -123,14 +168,16 @@ $(document).ready(function(){
 							    			"</td><td>"+transformaDia(asignacion[i].fechaAsignacion.toString())+
 							    			"</td><td>"+asignacion[i].cursoAsignacion+
 							    			"</td><td>"+asignacion[i].instructorAsignacion+
+							    			"</td><td>"+asignacion[i].statusAsignacion+
 							    			"</td><td><a class='like' id='"+asignacion[i].idAsignacion+"' href='javascript:function(0)' onclick='expedienteAsignacion("+asignacion[i].idAsignacion+")' title='Consultar'  data-toggle='modal' data-target='#modalAsignacion'><i class='fa fa-2x fa-indent'></i></a></td></tr>";
 			    			
 			    			$('#regsitroAsignacion').append(registro);
-			    			console.log(asignacion[i]);
+//			    			console.log(asignacion[i]);
 			    			var clienteAsignacion = asignacion[i].clienteAsignacion;
 			    		}
 		    		}
 		    		$('#nombreCliente').html(clienteAsignacion);
+		    		$('#numAsignaciones').html($.asignacionesArray.length)
 		    	}
 		    	$.asignacionesArray =JSON.stringify($.asignacionesArray);
 		    	$.asignacionesArray =JSON.parse($.asignacionesArray);
@@ -195,7 +242,7 @@ function getDia(dia){
 }
 
 function expedienteAsignacion(idAsignacion) {
-	console.log(idAsignacion);
+//	console.log(idAsignacion);
 	for(i in $.asignacionesArray){
 		var asignacion = $.asignacionesArray[i];
 		if((idAsignacion*1) === (asignacion.idAsignacion*1)){
