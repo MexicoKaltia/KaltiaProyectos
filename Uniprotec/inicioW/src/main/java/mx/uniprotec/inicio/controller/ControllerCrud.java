@@ -26,6 +26,7 @@ import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
 
 import mx.uniprotec.inicio.service.IAplicacionService;
+import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IInstructorService;
@@ -59,6 +60,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	IUsuarioService usuarioService;
 	@Autowired
 	IAplicacionService aplicacionService;
+	@Autowired
+	IAsignacionService asignacionService;
 	
 	
 //	@Autowired
@@ -216,6 +219,71 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			mav.addObject("error", true);
 		}
 		return mav;
+	}
+	
+	@GetMapping("/CCliente")
+	public ModelAndView ccliente(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+		log.info("CCliente model Activo");
+		
+		JSONObject jsonResponse = new JSONObject();
+		ResultVO rs2 = new ResultVO();
+		ResultVO rs3 = new ResultVO();
+		ResultVO rs4 = new ResultVO();
+		model.addAttribute("clienteForm", new ClienteModelo());
+		
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		
+		ResultVO rs = clienteService.consultaClientes(resultVO.getAccesToken());
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			jsonResponse = resultVO.getJsonResponseObject();
+
+			 rs2 = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			if(rs2.getCodigo() != 500) {
+				 rs3 = vendedorService.consultaVendedores(resultVO.getAccesToken());
+				if(rs3.getCodigo() != 500) {
+					rs4 = asignacionService.consultaAsignacionCliente(resultVO.getAccesToken());
+					if(rs4.getCodigo()!= 500) {
+						jsonResponse.put("regiones", rs2.getJsonResponseObject());
+						jsonResponse.put("vendedores", rs3.getJsonResponseObject());
+						jsonResponse.put("asignaciones", rs4.getJsonResponseObject());
+						
+						resultVO.setJsonResponseObject(jsonResponse);
+						
+						ModelAndView mav = new ModelAndView("CCliente", model);
+						mav.addObject("error", error);
+						mav.addObject("ejecucion", ejecucion);
+						
+						return mav;
+					}else {
+						ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
+						mav.addObject("consulta", true);
+						return mav;
+					}
+					
+				}else {
+//					model.addAttribute("model", rs3);
+					ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
+					mav.addObject("consulta", true);
+					return mav;
+				}
+				
+			}else {
+//				model.addAttribute("model", rs2);
+				ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
+				mav.addObject("consulta", true);
+				return mav;
+			}
+			
+		}else {
+//			model.addAttribute("model", rs);
+			ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
+			mav.addObject("consulta", true);
+			return mav;
+		}
 	}
 				
 		

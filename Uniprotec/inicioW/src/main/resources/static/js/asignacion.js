@@ -22,6 +22,9 @@ $(document).ready(function(){
 	 $.asignaTipoCurso="";
 	 $.asignaUserCreateAsignacion=nombreUsuario;
 	 
+	
+	 
+	 
 	$('#procesoFecha').click(function(){	
 	})
 	$('#procesoCliente').click(function(){
@@ -399,7 +402,8 @@ var alerta, proceso;
 	}
 	
 	
-	
+	var asignacionAsignaciones = new Array();
+	 var asignacion;
 	function validaCurso(){
 		/*
 		 * Validacion ValorCampo
@@ -427,6 +431,16 @@ var alerta, proceso;
 			$('#asignaInstructor').append('<option value="" selected  >Selecciona Instructor</option>');
    		}
 		
+		 
+		 for(a in asignacionAsignacionesTotal){
+			 asignacion = asignacionAsignacionesTotal[a];
+//			 console.log(asignacion);
+			 if(asignacion.statusAsignacion !== "Evento Cancelado"){
+				 asignacionAsignaciones.push(asignacion);
+			 }
+		 }
+		 
+		 
 		/* 
 		 * No VALIDAR Esquemas de movilidad para Perfil Operacion y Direccion
 		 */
@@ -682,7 +696,10 @@ var alerta, proceso;
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 			if(asignacionFecha === dayerTexto && (asignacionInstructor === idInstructor)){
-				return true;
+				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
+					return true;
+				}
+				
 			}
 		}
 		return false;
@@ -712,7 +729,9 @@ var alerta, proceso;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 //			console.log(dManTexto+":"+asignacionFecha);
 			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
-				return true;
+				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
+					return true;
+				}
 			}
 		}
 		return false;
@@ -730,6 +749,7 @@ var alerta, proceso;
 			asigna = asignacion.fechaAsignacion.toString().split("/");
 			dia = asigna[1]+"/"+asigna[0]+"/"+asigna[2];
 			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
+				console.log(asignacion);
 				fechaDisponible = false;
 				break;
 			}

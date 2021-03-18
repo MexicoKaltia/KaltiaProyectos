@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.IAsignacionDao;
+import mx.uniprotec.application.dao.IAsignacionHistoricoDao;
 import mx.uniprotec.application.entity.Asignacion;
+import mx.uniprotec.application.entity.AsignacionHistorico;
 
 @Service
 public class AsignacionServiceImpl implements IAsignacionService {
@@ -18,6 +20,9 @@ public class AsignacionServiceImpl implements IAsignacionService {
 	
 	@Autowired
 	IAsignacionDao asignacionDao;
+	@Autowired
+	IAsignacionHistoricoDao asignacionHistoricoDao;
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -42,6 +47,12 @@ public class AsignacionServiceImpl implements IAsignacionService {
 	public void delete(Long id) {
 		asignacionDao.deleteById(id);
 
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<AsignacionHistorico> findAllHistorico() {
+		return (List<AsignacionHistorico>) asignacionHistoricoDao.findAll();
 	}
 
 }

@@ -54,20 +54,20 @@ $(document).ready(function(){
 		      $('#domicilioCliente').val(row.domicilioCliente);      
 		      $('#nombreContactoRecibeCliente').val(row.nombreContactoRecibeCliente);
 		      $('#googleMapsCliente').val(row.googleMapsCliente);
-		      $('#pautaOperativaCliente').val(row.pautaOperativaCliente);
+		      
+		      $('#seccionPautaOperativa').html(row.pautaOperativaCliente);
+		      $('#seccionPautaEntregable').html(row.pautaEntregableCliente);
+		      
 		      $('#reglasAccesoCliente').val(row.reglasAccesoCliente);
 		      $('#documentosAccesoCliente').val(row.documentosAccesoCliente);
 		      $('#materialDidacticoCliente').val(row.materialDidacticoCliente);
 		      $('#pautaGeneralCliente').val(row.pautaGeneralCliente);
-		      $('#pautaEntregableCliente').val(row.pautaEntregableCliente);
 		      $('#representanteEmpresaCliente').val(row.representanteEmpresaCliente);
 		      $('#representanteTrabajadorCliente').val(row.representanteTrabajadorCliente);
 		      $('#informacionPaqueteriaCliente').val(row.informacionPaqueteriaCliente);
-		      
 		      $('#imagenLogoClienteH').val(row.imagenLogoCliente);
 		      $('#imagenLogoClientePrev').attr('src', "/uploads/img/"+row.rfcCliente+"/"+row.imagenLogoCliente);
 		      $('#imagenLogoClientePrev').attr('alt', row.imagenLogoCliente);
-		      
 		      $('#archivosClienteH').val(row.archivosCliente);
 		      $('#archivosClientePrev').attr('src', "/uploads/file/"+row.rfcCliente+"/"+row.archivosCliente);
 		      $('#archivosClientePrev').attr('alt', row.archivosCliente);

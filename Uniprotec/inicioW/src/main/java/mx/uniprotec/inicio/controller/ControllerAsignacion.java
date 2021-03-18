@@ -459,6 +459,32 @@ public class ControllerAsignacion {
 		}
 		return mav;			
 	}
+	
+	@GetMapping("/CHistorico")
+	public ModelAndView consultaHistorico(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
+			@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("Calendario Asignacion Historico model Activo");
+			model.addAttribute("asignacionItem", new AsignacionModelo());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = asignacionService.consultaAsignacionHistorico(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			ModelAndView mav = new ModelAndView("CHistorico", model);
+			if(rs.getCodigo() != 500) {
+				mav.addObject("ejecucion", ejecucion);
+				mav.addObject("ejecucion2", ejecucion2);
+				mav.addObject("error", error);
+				return mav;
+			}else {
+				mav.addObject("consulta", true);
+				log.info("NOK ConsultaAsignacionHistorico");
+				return mav;
+			}
+		}
 
 
 }

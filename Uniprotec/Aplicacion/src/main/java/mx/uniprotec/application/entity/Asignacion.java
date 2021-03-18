@@ -86,6 +86,8 @@ public class Asignacion implements Serializable{
 	private String numeroFactura;
 	@Column
 	private String archivoParticipantes;
+	@Column
+	private String costoHotel;
 
 	@Override
 	public String toString() {
@@ -331,6 +333,14 @@ public class Asignacion implements Serializable{
 
 	public void setArchivoParticipantes(String archivoParticipantes) {
 		this.archivoParticipantes = archivoParticipantes;
+	}
+
+	public String getCostoHotel() {
+		return costoHotel;
+	}
+
+	public void setCostoHotel(String costoHotel) {
+		this.costoHotel = costoHotel;
 	}
 	
 	

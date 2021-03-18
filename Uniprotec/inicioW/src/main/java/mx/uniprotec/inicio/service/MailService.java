@@ -53,8 +53,8 @@ public class MailService implements IMailService{
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
 //		STAFF_PRE.add("kaltiaservicios@gmail.com");
-		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
-//		STAFF_PRE.add("olivier.sanchez201184@gmail.com");
+//		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
+		STAFF_PRE.add("operacion@uniprotec.net");
 //		STAFF_PRE.add("gasparinho@hotmail.fr");
 
 		
@@ -115,7 +115,7 @@ public class MailService implements IMailService{
 				nombreBoton = " Revisar expediente cliente";
 				subTitulo = "El presente correo tiene la finalidad de notificar la nueva asignaci&oacute;n";
 				
-				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica());
+				mailVO.setAsuntoMail("Resumen de Asignacion : "+asignacion.getIdAsignacionLogica()+" staff");
 				
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
 				
@@ -391,12 +391,12 @@ public class MailService implements IMailService{
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
 	  final String correoEnvia = "notificacion@control-uniprotec.com";
-	  final String claveCorreo = "Uniprotec2020#1";
+	  final String claveCorreo = "Uniprotec1311#";
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();
 //	  properties.put("mail.smtp.host", "smtp.gmail.com");
-	  properties.put("mail.smtp.host", "smtp.hostinger.com");
+	  properties.put("mail.smtp.host", "smtp.hostinger.mx");
 	  properties.put("mail.smtp.starttls.enable", "true");
 	  properties.put("mail.smtp.port", "587");
 	  properties.put("mail.smtp.auth", "true");

@@ -13,5 +13,5 @@ public interface INotificacionDao extends CrudRepository<Notificacion, Long>{
 	public List<Notificacion> findByIdInstructorNotificacion(Long idInstructor);
 	
 	@Query("select u from Notificacion u where u.idAsignacionNotificacion =?1 and statusNotificacion = 'nueva'")
-	public Notificacion findByIdAsignacionNotificacion(Long idAsignacion);
+	public List<Notificacion> findByIdAsignacionNotificacion(Long idAsignacion);
 }

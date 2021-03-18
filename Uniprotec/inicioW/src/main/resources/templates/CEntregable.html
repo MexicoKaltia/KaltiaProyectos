@@ -5,10 +5,10 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC V 1.0</title>
+    <title>UNIPROTEC V 1.4</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-        <link rel="icon" type="image/png" href="images/logo.png"/>
+        <link rel="icon" type="image/png" th:src="@{images/logo.png}"/>
 
     <link th:href="@{main.css}" rel="stylesheet">
     <link th:href="@{css/fc/core/main.css}" rel='stylesheet' />
@@ -341,7 +341,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>V1.0</small>
+                                                                    <small>V 1.4</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2020
                                                             </a>
@@ -371,7 +371,7 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
-                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
                                            <form role="form" th:action="@{/BAsignacionI}" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
                                                <h5 class="card-title">Resumen de Asignación</h5>
@@ -387,9 +387,10 @@
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
 												   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
-												    <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
+		      									   <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
                                                    <li class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
                                                    <li class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
+												   <li id="oper" class="list-group-item list-group-item-info">Costo Hotel : <span id="modalCostoHotel"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
@@ -417,6 +418,7 @@
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
                                                <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
                                                <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

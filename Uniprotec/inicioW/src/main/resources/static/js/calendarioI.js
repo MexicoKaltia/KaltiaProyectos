@@ -22,6 +22,10 @@ $(document).ready(function() {
 	
 	function abrirModal(item){
 		item = item.split('-');	
+		if(item.length == 1){
+			console.log("instructor dia de ausencia");
+			return null;
+		}
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
 //			idCliente = asignaciones[i].idClienteAsignacion;
@@ -118,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function asignaCamposSubmit(asignacionSub){
-		console.log(asignacionSub)
+//		console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
 		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
@@ -152,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
 //		$('#numeroFactura').val(asignacionSub.numeroFactura);
 		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
+		$('#costoHotel').val(asignacionSub.costoHotel);
 	}
 
 	
@@ -179,36 +184,67 @@ document.addEventListener('DOMContentLoaded', function() {
 		var fin;
 		var color;
 		var items = new Array();
-		console.log(operacionId)
+		var listaFechasAusencia = new Array();
+		var instructor;
+//		console.log(operacionId)
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-			if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
-//				console.log(asignacion);
-//				console.log(asignacion.idInstructorAsignacion);
-				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				color = getColor(asignacion.idRegionAsignacion);
-				if(color === "blue" || color ==="fuchsia" || color ==="chocolate" || color ==="purple"){
-					item = {
-							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-							'start' : inicio,
-							'end' : fin,
-							'constraint' : 'businessHours',
-							'color' : color,
-							'textColor': 'white'
+			if(asignacion.statusAsignacion !== "Evento Cancelado"){
+				if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
+//					console.log(asignacion);
+//					console.log(asignacion.idInstructorAsignacion);
+					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					color = getColor(asignacion.idRegionAsignacion);
+					if(color === "blue" || color ==="fuchsia" || color ==="chocolate" || color ==="purple"){
+						item = {
+								'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+								'start' : inicio,
+								'end' : fin,
+								'constraint' : 'businessHours',
+								'color' : color,
+								'textColor': 'white'
+						}
+					}else{
+						item = {
+								'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+								'start' : inicio,
+								'end' : fin,
+								'constraint' : 'businessHours',
+								'color' : color
+						}
 					}
-				}else{
-					item = {
-							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-							'start' : inicio,
-							'end' : fin,
-							'constraint' : 'businessHours',
-							'color' : color
-					}
+					items.push(item);
 				}
-				items.push(item);
 			}
 		}
+		
+		for(e in instructores){
+			instructor = instructores[e];
+//			console.log(instructor.idInstructor * 1)
+			 if((instructor.idInstructor * 1) === ( operacionId * 1)){
+//				 console.log(instructor)
+				 if(instructor.listFechas){
+					 listaFechasAusencia = instructor.listFechas.split(";");
+					 for(a in listaFechasAusencia){
+						 fechaAusencia = getFecha(listaFechasAusencia[a]);
+//						 console.log(fechaAusencia);
+						 item = {
+									'title' : instructor.nombreInstructor ,
+									'start' : fechaAusencia+'03:00',
+									'end' : fechaAusencia+'03:00',
+//									'constraint' : 'businessHours',
+									'color' : 'red',
+									'textColor': 'white'
+							}
+						 items.push(item);
+					 }
+				 } 
+			 }
+		}
+		
+		
+		
 		return items;
 	}
 	

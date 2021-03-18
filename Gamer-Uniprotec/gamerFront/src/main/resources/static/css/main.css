@@ -1,0 +1,107 @@
+body {
+	background: rgb(254,254,255);
+background: linear-gradient(90deg, rgba(254,254,255,1) 0%, rgba(219,219,219,1) 67%, rgba(224,224,224,1) 100%);
+}
+
+#body{
+	margin: 3rem;
+	padding: 1rem;
+	
+}
+
+.elemento {
+	margin:.5rem;
+	border-radius: 20px;
+}
+
+.seccionOperacion{
+	margin: 1rem 5rem 5rem 3rem;
+	border-radius: 20px;
+}
+
+.boxShadow {
+	-webkit-box-shadow: 5px 5px 15px 5px #000000; 
+box-shadow: 5px 5px 15px 5px #000000;
+border-radius: 20px;
+}
+.elemento:hover {
+	-webkit-box-shadow: 5px 5px 15px 5px #000000; 
+box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.menu2:hover {
+	box-shadow: 5px 5px 15px 5px #000000;
+	cursor: pointer;
+	padding:.5rem;
+	border-radius:20px;
+	background:#E6E8F9;
+}
+.activeItem {
+	box-shadow: 5px 5px 15px 5px #000000;
+	cursor: pointer;
+	padding:.5rem;
+	border-radius:20px;
+	background:#E6E8F9;
+}
+
+.container-fluid {
+/*     justify-content: center;     */
+}
+
+.v-center{
+  display: flex;
+  align-items: center;
+}
+
+
+
+.grupo{
+	 display: flex;
+	 flex-direction: row;
+	justify-content: space-between;
+}
+
+
+#footer {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-align-content: flex-end;
+    -ms-flex-line-pack: end;
+    align-content: flex-end;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    position:fix;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+   background:#C6C4C3;
+    }
+
+.footer{
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    }
+
+.fijo {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}

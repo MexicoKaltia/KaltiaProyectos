@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>0.0510</version>
+	<version>1.5-vistaClientes</version>
 	<name>inicio</name>
 	<description>control-uniprotec</description>
 
@@ -85,11 +85,11 @@
      </dependency>
      
          	<!-- 	Tomcat -->
-     <dependency>
-	    <groupId>org.apache.tomcat.embed</groupId>
-	    <artifactId>tomcat-embed-core</artifactId>
-	    <version>8.5.57</version>
-	</dependency>
+<!--      <dependency> -->
+<!-- 	    <groupId>org.apache.tomcat.embed</groupId> -->
+<!-- 	    <artifactId>tomcat-embed-core</artifactId> -->
+<!-- 	    <version>8.5.57</version> -->
+<!-- 	</dependency> -->
 	
 	
 	</dependencies>

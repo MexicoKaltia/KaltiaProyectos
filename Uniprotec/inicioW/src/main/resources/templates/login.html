@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="icon" type="image/png" href="images/logo.png" />
+<link rel="icon" type="image/png" th:href="@{images/logo.png}" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="#" th:href="@{vendor/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" href="#" th:href="@{css/utilLogin.css}" />
@@ -24,9 +24,9 @@
 	<div class="limiter" style="background: #f2f2f2;">
 		<div class="container-login100" style="background: #f2f2f2;">
 			<div class="wrap-login100">
-<!-- 					<div class="login100-more" style="background-image: url('images/logo.png'); background-size: 10% 10%;" ></div> -->
+<!-- 					<div class="login100-more" style="background-image: url('images/login.png'); background-size: 100% 100%;" ></div> -->
 					<form id="userKaltiaControlFront" class="login100-form validate-form" action="/loginInit" method="post">
-					
+					<div  style="background-image: url('images/logo_removed.png'); background-size: 40% 40%;" ></div>
 					<span class="login100-form-title p-b-43" >
 							Bienvenido Sistema Control Uniprotec
 					</span>
@@ -59,23 +59,23 @@
 
 				</form>
 			
-				<div class="login100-more right centro" >
-					   	<!-- Start EasyHtml5Video.com BODY section -->
-					<style type="text/css">.easyhtml5video .eh5v_script{display:none}</style>
-					<div class="easyhtml5video" style="position:relative;max-width:1920px;"><video  autoplay="autoplay" poster="eh5v.files/html5video/movieUniprotec.jpg" style="width:100%" title="movieUniprotec" loop="loop" onended="var v=this;setTimeout(function(){v.play()},300)">
-					<source src="eh5v.files/html5video/movieUniprotec.m4v" type="video/mp4" />
-					<source src="eh5v.files/html5video/movieUniprotec.webm" type="video/webm" />
-					<source src="eh5v.files/html5video/movieUniprotec.mp4" />
-					<object type="application/x-shockwave-flash" data="eh5v.files/html5video/flashfox.swf" width="1920" height="1080" style="position:relative;">
-					<param name="movie" value="eh5v.files/html5video/flashfox.swf" />
-					<param name="allowFullScreen" value="true" />
-					<param name="flashVars" value="autoplay=true&controls=false&fullScreenEnabled=false&posterOnEnd=true&loop=true&poster=eh5v.files/html5video/movieUniprotec.jpg&src=movieUniprotec.m4v" />
-					 <embed src="eh5v.files/html5video/flashfox.swf" width="1920" height="1080" style="position:relative;"  flashVars="autoplay=true&controls=false&fullScreenEnabled=false&posterOnEnd=true&loop=true&poster=eh5v.files/html5video/movieUniprotec.jpg&src=movieUniprotec.m4v"	allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" />
-					<img alt="movieUniprotec" src="eh5v.files/html5video/movieUniprotec.jpg" style="position:absolute;left:0;" width="100%" title="Video playback is not supported by your browser" />
-					</object>
-					</video></div>
-					<script src="eh5v.files/html5video/html5ext.js" type="text/javascript"></script>
-					<!-- End EasyHtml5Video.com BODY section -->
+				<div class="login100-more right" style="background-image: url('images/login.png'); background-size: 100% 100%;">
+<!-- 					   	Start EasyHtml5Video.com BODY section -->
+<!-- 					<style type="text/css">.easyhtml5video .eh5v_script{display:none}</style> -->
+<!-- 					<div class="easyhtml5video" style="position:relative;max-width:1920px;"><video  autoplay="autoplay" poster="eh5v.files/html5video/movieUniprotec.jpg" style="width:100%" title="movieUniprotec" loop="loop" onended="var v=this;setTimeout(function(){v.play()},300)"> -->
+<!-- 					<source src="eh5v.files/html5video/movieUniprotec.m4v" type="video/mp4" /> -->
+<!-- 					<source src="eh5v.files/html5video/movieUniprotec.webm" type="video/webm" /> -->
+<!-- 					<source src="eh5v.files/html5video/movieUniprotec.mp4" /> -->
+<!-- 					<object type="application/x-shockwave-flash" data="eh5v.files/html5video/flashfox.swf" width="1920" height="1080" style="position:relative;"> -->
+<!-- 					<param name="movie" value="eh5v.files/html5video/flashfox.swf" /> -->
+<!-- 					<param name="allowFullScreen" value="true" /> -->
+<!-- 					<param name="flashVars" value="autoplay=true&controls=false&fullScreenEnabled=false&posterOnEnd=true&loop=true&poster=eh5v.files/html5video/movieUniprotec.jpg&src=movieUniprotec.m4v" /> -->
+<!-- 					 <embed src="eh5v.files/html5video/flashfox.swf" width="1920" height="1080" style="position:relative;"  flashVars="autoplay=true&controls=false&fullScreenEnabled=false&posterOnEnd=true&loop=true&poster=eh5v.files/html5video/movieUniprotec.jpg&src=movieUniprotec.m4v"	allowFullScreen="true" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_en" /> -->
+<!-- 					<img alt="movieUniprotec" src="eh5v.files/html5video/movieUniprotec.jpg" style="position:absolute;left:0;" width="100%" title="Video playback is not supported by your browser" /> -->
+<!-- 					</object> -->
+<!-- 					</video></div> -->
+<!-- 					<script src="eh5v.files/html5video/html5ext.js" type="text/javascript"></script> -->
+<!-- 					End EasyHtml5Video.com BODY section -->
 					
 					
 				</div>

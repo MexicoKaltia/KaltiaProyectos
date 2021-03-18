@@ -16,6 +16,7 @@ $(document).ready(function() {
 	var asignaObservaciones ;
 	var asignaArchivos ;
 	var asignaStatus;
+	var asignaCostoHotel
 	var zonaCliente ;
 	var item;
 	
@@ -43,6 +44,7 @@ $(document).ready(function() {
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
 				asignaArchivoParticipantes = asignacion.archivoParticipantes;
+				asignaCostoHotel = asignacion.costoHotel;
 				console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
@@ -74,7 +76,7 @@ $(document).ready(function() {
 				$('#asignaConfirmar').attr("disabled", false);
 			}
 			else if(asignaStatus ==="Evento Cancelado") {
-				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, ya no se realiza Edicion. </u></div>');
+				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, no se realiza Edición. </u></div>');
 			}
 //			else if(asignaStatus ==="Entregable Enviado") {
 //				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
@@ -82,10 +84,16 @@ $(document).ready(function() {
 		}else{
 			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
 		}
+		
+		
 		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
+		$('#modalCostoHotel').html('<b>'+asignacion.costoHotel+'</b>');
+		if(perfilUsuario === "Instructor" || perfilUsuario === "Ventas" ){
+			$('#oper').hide();
+		}
 		$('#myModal').modal();
 		
 		
@@ -164,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
 		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
+		$('#costoHotel').val(asignacionSub.costoHotel);
 	}
 
 	
@@ -194,19 +203,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		var items = new Array();
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-			if(validaHoy(asignacion.fechaAsignacion.toString())){
-				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-				color = getColor(asignacion.statusAsignacion);
-				item = {
-						'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-						'start' : inicio,
-						'end' : fin,
-						'constraint' : 'businessHours',
-						'color' : color
+//			if(asignacion.statusAsignacion !== "Evento Cancelado"){
+				if(validaHoy(asignacion.fechaAsignacion.toString())){
+					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+					color = getColor(asignacion.statusAsignacion);
+					item = {
+							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color
+					}
+					items.push(item);
 				}
-				items.push(item);
-			}
+//			}
 		}
 		return items;
 	}
@@ -271,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		case "Curso Completado":
 			zonaCliente = 'maroon';
 			break;
-		case "Curso Cancelado":
+		case "Evento Cancelado":
 			zonaCliente = 'red';
 			break;
 		case "Entregables Validado":

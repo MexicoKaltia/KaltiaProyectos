@@ -5,16 +5,17 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC V 1.0</title>
+    <title>UNIPROTEC V 1.4</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="../../../images/logo.png"/>
 
     <link href="../../../main.css" rel="stylesheet">
-    <link href="../../../css/fc/core/main.css" rel='stylesheet' />
-	<link href="../../../css/fc/daygrid/main.css" rel='stylesheet' />
-	<link href="../../../css/fc/timegrid/main.css" rel='stylesheet' />
-	<link href="../../../css/fc/list/main.css" rel='stylesheet' />
+<!--     <link href="../../../css/fc/core/main.css" rel='stylesheet' /> -->
+<!-- 	<link href="../../../css/fc/daygrid/main.css" rel='stylesheet' /> -->
+<!-- 	<link href="../../../css/fc/timegrid/main.css" rel='stylesheet' /> -->
+<!-- 	<link href="../../../css/fc/list/main.css" rel='stylesheet' /> -->
+	<link href="../../../css/cards.css" rel='stylesheet' />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 		#calendar {
@@ -240,7 +241,8 @@
 									          <div class="wrimagecard-topimage_header" style="background-color:  rgba(51, 105, 232, 0.1)">
 									             <center><i class="fa fa-calendar-check-o fa-5x" style="color:#3369e8"> </i></center>
 									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Fecha Asignación</h6><div class="pull-right badge" id="fechaAsignacion"></div></div>
+									          <div class="wrimagecard-topimage_title"><h6>Fecha Asignación</h6>
+												<span id="fechaAsignacion"></span></div>
 <!-- 											</a> -->
 									      </div>
                                         </div>
@@ -250,8 +252,8 @@
 									          <div class="wrimagecard-topimage_header" style="background-color:  rgba(250, 188, 9, 0.1)">
 									             <center><i class="fa fa-info-circle fa-5x" style="color:#fabc09"> </i></center>
 									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Informacion Cliente</h6><div class="pull-right badge" id="">
-									          <button type='button' class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal'><h4><b><span id="clienteAsignacion"></span></b></h4></button></div>
+									          <div class="wrimagecard-topimage_title"><h6>Informacion Cliente</h6>
+									          <button type='button' class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal'><h4><b><span id="clienteAsignacion"></span></b></h4></button>
 									          </div>
 <!-- 									        </a> -->
 									        </div>
@@ -301,7 +303,7 @@
 									            <div class="wrimagecard-topimage_header" style="background-color: rgba(121, 90, 71, 0.1)">
 									           <center><i class="fa fa-users fa-5x" style="color:#795a47"> </i></center> 
 									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Cantidad de Participantes</h6><div class="pull-right badge" id="participantesAsignacion"></div>
+									          <div class="wrimagecard-topimage_title"><h6>Cantidad de Participantes</h6><span id="participantesAsignacion"></span>
 									          </div>
 <!-- 									        </a> -->
 									      </div>
@@ -315,7 +317,7 @@
 									            <div class="wrimagecard-topimage_header" style="background-color: rgba(121, 95, 71, 0.1)">
 									           <center><i class="fa fa-bars fa-5x" style="color:#795a47"> </i></center> 
 									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Nivel de Curso</h6><div class="pull-right badge" id="nivelAsignacion"></div>
+									          <div class="wrimagecard-topimage_title"><h6>Nivel de Curso</h6><span id="nivelAsignacion"></span>
 									          </div>
 <!-- 									        </a> -->
 									      </div>
@@ -351,8 +353,8 @@
 									            <div class="wrimagecard-topimage_header" style="background-color: rgba(22, 160, 133, 0.1)">
 									           <center><i class="fa fa-cog fa-5x" style="color:#16A085"> </i></center> 
 									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Status Curso</h6><div class="pull-right badge" id="">
-									          <button type='button' id="btnStatus" class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal2'><h4><b><span id="statusAsignacion1"></span></b></h4></button></div>
+									          <div class="wrimagecard-topimage_title"><h6>Status Curso</h6>
+									          <button type='button' id="btnStatus" class='btn btn-default btn-lg' data-toggle='modal' data-target='#myModal2'><h4><b><span id="statusAsignacion1"></span></b></h4></button>
 									          </div>
 									          </div>
 									          
@@ -386,7 +388,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>V1.0</small>
+                                                                    <small>v 1.4</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2020
                                                             </a>

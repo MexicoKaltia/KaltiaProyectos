@@ -5,10 +5,10 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC V 1.0</title>
+    <title>UNIPROTEC V 1.4</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-        <link rel="icon" type="image/png" href="images/logo.png"/>
+        <link rel="icon" type="image/png" th:href="@{images/logo.png}"/>
 
     <link th:href="@{main.css}" rel="stylesheet">
     <link th:href="@{css/fc/core/main.css}" rel='stylesheet' />
@@ -247,20 +247,11 @@
                         </div>
                         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
                             <li class="nav-item">
-                                <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-                                    <span>Vista Calendario</span>
+                                <a  class="nav-link active" id="btnFiltroInstructores" data-toggle="modal" data-target="#modalFiltro">
+                                    <span>Filtro Instructores</span>
                                 </a>
                             </li>
-<!--                             <li class="nav-item"> -->
-<!--                                 <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"> -->
-<!--                                     <span>Lista de Asignaciones</span> -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                             <li class="nav-item"> -->
-<!--                                 <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2"> -->
-<!--                                     <span>Proximos Entregables</span> -->
-<!--                                 </a> -->
-<!--                             </li> -->
+                            
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
@@ -300,7 +291,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>V1.0</small>
+                                                                    <small>v 1.4</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2020
                                                             </a>
@@ -331,7 +322,7 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
-                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
+                                           <img class="card-img-top" src="../../../assets/images/logo.png" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
                                            <form role="form" id="edicionAsignacion" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
                                                <h5 class="card-title">Resumen de Asignación</h5>
@@ -348,8 +339,9 @@
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
-                                                   <li id="admon" class="list-group-item list-group-item-info">Fecha de Pago A: <span id="modalFechaPago"></span></li>
+                                                   <li id="admon" class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
                                                    <li id="admon" class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
+                                                   <li id="oper" class="list-group-item list-group-item-info">Costo Hotel : <span id="modalCostoHotel"></span></li>
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
@@ -378,6 +370,7 @@
                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" />
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
                                                <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+                                               <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
                                        			<br>
                                       			<div><div id="btnOperacion"></div><div id="btnArchivoParticipantes"></div></div>
                                        			<br>
@@ -399,11 +392,61 @@
                            </div>
                        </div>
                        <!-- Modal Fin-->
+                       <div class="modal" id="modalFiltro" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Instructores</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosInstructores" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;">Todos</span>
+											</div>
+			                            </li>
+			                            <hr>
+									    <li th:each= "instructor : ${model.jsonResponseObject.instructores}" style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxFiltro" th:id="${instructor.idInstructor}" >
+											    </div>
+											  </div>
+											  <span th:text="${instructor.nombreInstructor}" style="padding-left: 10px;"></span>
+<!-- 											  <input type="text" class="form-control" value='th:text="${instructor.nombreInstructor}"' disabled> -->
+											</div>
+			                            </li>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="submit"  class="btn btn-info pull-left" id="btnFiltro" data-dismiss="modal">Actualizar Calendario</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
 
   						
                        
  	<script th:inline="javascript">
- 		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
+ 		 var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
+ 		var instructores = [[${model.jsonResponseObject.instructores}]];
  		 var idUsuario =  [[${model.jsonResponse.user.id}]];
  		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];

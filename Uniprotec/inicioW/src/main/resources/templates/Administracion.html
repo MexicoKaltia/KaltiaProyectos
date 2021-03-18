@@ -5,10 +5,10 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC V 1.0</title>
+    <title>UNIPROTEC V 1.4</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-        <link rel="icon" type="image/png" href="images/logo.png"/>
+        <link rel="icon" type="image/png" th:href="@{images/logo.png}"/>
     	<link th:href="@{main.css}" rel="stylesheet">
         <link th:href="@{css/control.css}" rel="stylesheet">
 </head>
@@ -256,7 +256,7 @@
 		                                </div>
 		                              </div>		                              
                                       <div class="form-row">
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-6 mb-3">
                                         <a href="/CAsignacion">
                                           <div class="wrap2">
 							                    <div class="ico-wrap">
@@ -268,8 +268,20 @@
 							                    </div>
 							                </div></a>
                                         </div>
-                                        
+                                        <div class="col-md-6 mb-3">
+                                        <a href="/CEntregable">
+                                           <div class="wrap2">
+						                    <div class="ico-wrap">
+						                        <span class="mbr-iconfont  fa-list-alt fa"></span>
+						                    </div>
+						                    <div class="text-wrap vcenter">
+						                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">Entregables<span></span></h2>
+						                        <p class="mbr-fonts-style text1 mbr-text display-6">Listado de los Eventos realizados, marcando Status y edicion de Entregables.</p>
+						                    </div>
+						                </div></a>
+                                        </div>
                                       </div>    
+                                      
                                 </form>
                             </div>
                         </div>
@@ -287,7 +299,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>V1.0</small>
+                                                                    <small>v 1.4</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2020
                                                             </a>

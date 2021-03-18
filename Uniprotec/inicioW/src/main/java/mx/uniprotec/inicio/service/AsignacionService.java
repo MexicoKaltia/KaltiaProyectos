@@ -30,6 +30,8 @@ public class AsignacionService implements IAsignacionService{
 	BaseClientRest baseClientRest ;
 	@Autowired
 	IAplicacionService aplicacionService;
+	@Autowired
+	IInstructorService instructorService;
 	
 	public AsignacionService() {
 		// TODO Auto-generated constructor stub
@@ -54,9 +56,12 @@ public class AsignacionService implements IAsignacionService{
 			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 			JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
 			asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
-			aplicacionService.enviaMail(asignacion, token);
+			aplicacionService.enviaMail(asignacion, token);	
 			
+			//Envio correo Test
+//			MailServiceTest.mailServicePreCorreo(asignacion, token);
 		}
+		
 		return resultVO;
 	}
 
@@ -104,20 +109,24 @@ public class AsignacionService implements IAsignacionService{
 //				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
 				log.info("Listo proceso envia correo");
 				aplicacionService.enviaMail(asignacion, token);
+				
+				//Envio correo Test
+//				MailServiceTest.mailServicePreCorreo(asignacion, token);
 			}
 		}
 		//
 		
-		// Envia Notifiacion SUSTITUCION
+		// Envia Notifiacion SUSTITUCION 0 CANCELACION
 		log.info("idInstructorAnterior : "+idInstructorAnterior.toString());
 		log.info("asignacion : "+asignacion.getIdInstructorAsignacion().toString());
 		if(idInstructorAnterior != Long.valueOf(asignacion.getIdInstructorAsignacion().toString())  || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 			log.info("--------------EVENTO CAMBIO DE INSTRUCTOR O CANCELACION.....");
-			if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
-				aplicacionService.enviaMailSustitucion(asignacion, token, asignacion.getIdInstructorAsignacion());
-			}else {
+//			if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 				aplicacionService.enviaMailSustitucion(asignacion, token, idInstructorAnterior);
-			}
+//			}
+//			else {
+//				aplicacionService.enviaMailSustitucion(asignacion, token, asignacion.getIdInstructorAsignacion() );
+//			}
 			
 		}
 
@@ -182,7 +191,35 @@ public class AsignacionService implements IAsignacionService{
 	public ResultVO consultaAsignacion(String token) {
 		
 		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
-		if(rs.getCodigo() == 202) {
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+//			log.info(rs.getJsonResponse().toJSONString());
+			JSONObject jsonAsignaciones = new JSONObject();
+			jsonAsignaciones.put("asignaciones", jsonGeneral.get("asignaciones"));
+			
+			ResultVO rsInstructores = instructorService.consultaInstructores(token);
+			if(rsInstructores.getCodigo() != 500) {
+				JSONObject jsonInstructores = rsInstructores.getJsonResponseObject();
+				jsonAsignaciones.put("instructores", jsonInstructores.get("instructores"));
+				
+			}else {
+				return rsInstructores;
+			}
+			
+			rs.setJsonResponseObject(jsonAsignaciones);
+//			log.info(jsonGeneral.toString());
+//			log.info(rs.toString());
+			return rs;
+		}else {
+			return rs;
+		}
+	}
+	
+	@Override
+	public ResultVO consultaAsignacionCliente(String token) {
+		
+		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
+		if(rs.getCodigo() != 500) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
 //			log.info(rs.getJsonResponse().toJSONString());
 			JSONObject jsonAsignaciones = new JSONObject();
@@ -213,6 +250,32 @@ public class AsignacionService implements IAsignacionService{
 		}else {
 			return rs;
 		}
+	}
+
+	@Override
+	public ResultVO consultaAsignacionHistorico(String token) {
+		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES_HISTORICO);
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+//			log.info(rs.getJsonResponse().toJSONString());
+			JSONObject jsonAsignaciones = new JSONObject();
+			jsonAsignaciones.put("asignacionesHistorico", jsonGeneral.get("asignacionesHistorico"));
+			
+			ResultVO rsInstructores = instructorService.consultaInstructores(token);
+			if(rsInstructores.getCodigo() != 500) {
+				JSONObject jsonInstructores = rsInstructores.getJsonResponseObject();
+				jsonAsignaciones.put("instructores", jsonInstructores.get("instructores"));
+				
+			}else {
+				return rsInstructores;
+			}
+			
+			rs.setJsonResponseObject(jsonAsignaciones);
+			return rs;
+		}else {
+			return rs;
+		}
+
 	}
 
 

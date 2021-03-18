@@ -42,6 +42,7 @@ public class AsignacionModelo implements Serializable{
 	private String statusAsignacion;
 	private String archivoParticipantes;
 	private String archivoParticipantesTexto;
+	private String costoHotel;
 	
 	
 	
@@ -269,6 +270,12 @@ public class AsignacionModelo implements Serializable{
 				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
 				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", archivoParticipantes="
 				+ archivoParticipantes + ", archivoParticipantesTexto=" + archivoParticipantesTexto + "]";
+	}
+	public String getCostoHotel() {
+		return costoHotel;
+	}
+	public void setCostoHotel(String costoHotel) {
+		this.costoHotel = costoHotel;
 	}
 	
 	

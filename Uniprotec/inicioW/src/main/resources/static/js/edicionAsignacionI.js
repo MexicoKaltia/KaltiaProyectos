@@ -28,6 +28,7 @@ $(document).ready(function(){
 	 $.asignaGuia=asignacionItem.guiaEntregable
 	 $.asignaArchivoParticipantes=asignacionItem.archivoParticipantes;
 	 $.asignaArchivoParticipantesTexto=asignacionItem.archivoParticipantes;
+	 $.asignaCostoHotel=asignacionItem.costoHotel;
 	 
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
@@ -139,6 +140,19 @@ $(document).ready(function(){
    	/*
    	 * ASIGNAR MODAL CLIENTE asignacionCliente
    	 */
+	
+	while(asignacionCliente.pautaEntregableCliente.includes('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>') ){
+		asignacionCliente.pautaEntregableCliente = asignacionCliente.pautaEntregableCliente.replace('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>', '')	
+	}
+	
+	while(asignacionCliente.pautaOperativaCliente.includes('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>') ){
+		asignacionCliente.pautaOperativaCliente = asignacionCliente.pautaOperativaCliente.replace('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>', '')	
+	}
+	
+	
+	
+	
+	
 	console.log(asignacionCliente);
 	$('#nombreCortoCliente').html('<b>'+asignacionCliente.nombreCortoCliente+'</b>');
 	$('#regionCliente').html('<b>'+asignacionCliente.regionCliente.nombreRegion+'</b>');
@@ -153,9 +167,9 @@ $(document).ready(function(){
 	$('#representanteEmpresaCliente').html('<b>'+asignacionCliente.representanteEmpresaCliente+'</b>');
 	$('#representanteTrabajadorCliente').html('<b>'+asignacionCliente.representanteTrabajadorCliente+'</b>');
 	$('#nombreContactoRecibeCliente').html('<b>'+asignacionCliente.nombreContactoRecibeCliente+'</b>');
-	$('#pautaEntregableCliente').html('<b>'+asignacionCliente.pautaEntregableCliente+'</b>');
+	$('#pautaEntregableCliente').html(asignacionCliente.pautaEntregableCliente);
 	$('#pautaGeneralCliente').html('<b>'+asignacionCliente.pautaGeneralCliente+'</b>');
-	$('#pautaOperativaCliente').html('<b>'+asignacionCliente.pautaOperativaCliente+'</b>');
+	$('#pautaOperativaCliente').html(asignacionCliente.pautaOperativaCliente);
 	$('#materialDidacticoCliente').html('<b>'+asignacionCliente.materialDidacticoCliente+'</b>');
 	$('#informacionPaqueteriaCliente').html('<b>'+asignacionCliente.informacionPaqueteriaCliente+'</b>');
 	$('#notaCliente').html('<b>'+asignacionCliente.notaCliente+'</b>');
@@ -233,11 +247,15 @@ $(document).ready(function(){
 //	$('#numeroFactura0').val(asignacionItem.numeroFactura);
 	
 	if(perfilUsuario !== "Administracion"){
-		$('#edicionAsignacion0').hide();
+		$('#formAdministracion').hide();
 	}else{
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFechaCalendario = $('#fechaPago').val();
+	}
+	
+	if(perfilUsuario !== "Operacion"){
+		$('#formOperacion').hide();
 	}
 	
 	
