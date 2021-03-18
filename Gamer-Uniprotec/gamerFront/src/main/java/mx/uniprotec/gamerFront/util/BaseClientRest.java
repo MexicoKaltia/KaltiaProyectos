@@ -41,8 +41,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8019/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8019/crud/";
 	
 //	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
 //	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
@@ -131,13 +131,14 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		    try {
 		    	response  = restTemplate.exchange(URL_POST_LOGIN, HttpMethod.POST, entity, JSONObject.class);
 		    	resultVO= asignaResponse(response);
-//		    	log.info(resultVO.toString());
+//		    	log.info(response.getBody().toJSONString());
 			} catch (Exception e) {
 				JSONObject jsonResponse = (JSONObject) response.getBody();
 			    ResultVO rs = new ResultVO();
 			    rs.setJsonResponse(jsonResponse);
-			    rs.setMensaje(e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			    rs.setMensaje(e.getMessage().concat(" .=. ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			    log.info(rs.getMensaje());
 			    e.printStackTrace();
 				return rs;
 			}
@@ -171,8 +172,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 			JSONObject jsonResponse = new JSONObject();
 		    ResultVO rs = new ResultVO();
 		    rs.setJsonResponse(jsonResponse);
-		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+		    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		    log.info(rs.getMensaje());
 		        e.printStackTrace();
 		   
 		    
@@ -199,8 +201,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 			JSONObject jsonResponse = new JSONObject();
 		    ResultVO rs = new ResultVO();
 		    rs.setJsonResponse(jsonResponse);
-		    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+		    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 		    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		    log.info(rs.getMensaje());
 		        e.printStackTrace();
 		   return rs;
 		}
@@ -228,10 +231,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 				JSONObject jsonResponse = new JSONObject();
 			    ResultVO rs = new ResultVO();
 			    rs.setJsonResponse(jsonResponse);
-			    e.printStackTrace();
-			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat("-----"));
 			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-			        
+			    log.info(rs.getMensaje());
+			    e.printStackTrace();    
 				return rs;
 		}
 	    
@@ -259,10 +262,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 				JSONObject jsonResponse = new JSONObject();
 			    ResultVO rs = new ResultVO();
 			    rs.setJsonResponse(jsonResponse);
-			    e.printStackTrace();
-			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat("-----"));
 			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-			        
+			    log.info(rs.getMensaje());
+			    e.printStackTrace();    
 				return rs;
 		}
 	    
@@ -290,10 +293,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 				JSONObject jsonResponse = new JSONObject();
 			    ResultVO rs = new ResultVO();
 			    rs.setJsonResponse(jsonResponse);
-			    e.printStackTrace();
-			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat("-----"));
 			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-			        
+			    log.info(rs.getMensaje());
+			    e.printStackTrace();
+			    
 				return rs;
 		}
 	}
@@ -319,9 +323,10 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 				JSONObject jsonResponse = new JSONObject();
 			    ResultVO rs = new ResultVO();
 			    rs.setJsonResponse(jsonResponse);
-			    e.printStackTrace();
-			    rs.setMensaje("Error:"+e.getMessage().concat(": ").concat("-----"));
+			    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat("-----"));
 			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			    log.info(rs.getMensaje());
+			    e.printStackTrace();
 			        
 				return rs;
 		}
@@ -359,14 +364,13 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	 *  Auxiliares
 	 */
 
-	@SuppressWarnings("unchecked")
 	private ResultVO asignaResponse(ResponseEntity<JSONObject> response) {
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();
 	   
 	    resultVO.setAccesToken(jsonResponse.get("access_token").toString());
-	    resultVO.setCodigo(Long.valueOf(jsonResponse.get("code").toString()));
-	    resultVO.setMensaje(jsonResponse.get("message").toString());   
+	    resultVO.setCodigo(Long.valueOf(200));
+	    resultVO.setMensaje("exito en login usuario");   
 	    resultVO.setJsonResponse(jsonResponse);
 //	    log.info(resultVO.toString());
 	    

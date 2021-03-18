@@ -1,10 +1,16 @@
 package mx.uniprotec.gamerFront.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.gamerFront.service.ILoginService;
@@ -29,7 +35,21 @@ public class LoginService implements ILoginService{
 			log.info("Nuevo Usuario");
 			ResultVO resultVO = new ResultVO();
 			try {
-				resultVO = baseClientRest.login(user);				
+				resultVO = baseClientRest.login(user);
+				JSONObject jsonObject = new JSONObject(resultVO.getJsonResponse());
+				JSONObject roleUsuario = new JSONObject((Map) jsonObject.get("perfil"));
+				
+				switch (roleUsuario.get("nombre").toString()) {
+				case "ROLE_ADMIN":
+					resultVO.setResponse("inicio");
+					break;
+				case "ROLE_INSTR":
+					resultVO.setResponse("inicioInstructor");
+					break;
+				case "ROLE_USER":
+					resultVO.setResponse("inicioAudiencia");
+					break;
+			}
 //				ResultVO resultUsuario = baseClientRest.objetoGetId(
 //						resultVO.getAccesToken(),
 //						BaseClientRest.URL_CRUD_USUARIO,
