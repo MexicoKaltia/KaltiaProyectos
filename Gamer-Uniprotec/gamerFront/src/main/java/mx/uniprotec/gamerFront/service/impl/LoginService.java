@@ -15,6 +15,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.gamerFront.service.ILoginService;
 import mx.uniprotec.gamerFront.util.BaseClientRest;
+import mx.uniprotec.gamerFront.util.BaseClientRestCU;
 import mx.uniprotec.gamerFront.vo.UserForm;
 
 
@@ -25,6 +26,8 @@ public class LoginService implements ILoginService{
 	
 	@Autowired
 	BaseClientRest baseClientRest;
+	@Autowired
+	BaseClientRestCU baseClientRestCU;
 //	UserMap um = UserMap.getSingletonInstance();
 //	HashMap<String, Object> valoresResponse = new HashMap<String, Object>();
 ////	ResultVO resultVO;// = new ResultVO();
@@ -41,6 +44,10 @@ public class LoginService implements ILoginService{
 				
 				switch (roleUsuario.get("nombre").toString()) {
 				case "ROLE_ADMIN":
+					//Obtener token de aplicacion-controluniprotec
+					UserForm userCU = new UserForm("d.hrivas", "12345");
+					ResultVO resultVOCU = baseClientRestCU.login(userCU);
+					resultVO.setObject(resultVOCU.getAccesToken());
 					resultVO.setResponse("inicio");
 					break;
 				case "ROLE_INSTR":

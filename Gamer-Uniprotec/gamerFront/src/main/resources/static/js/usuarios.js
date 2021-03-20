@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	
 	$('#usuarioAudienciaForm').hide();
 	$('#usuarioConfigurarInstructorForm').hide();
 	
@@ -27,14 +27,7 @@ $(document).ready(function() {
 				$('#usuarioAudienciaForm').show();
 				$('#selectAsignaEvento').hide();
 				$('#selectModulosCurso').hide();
-//				console.log( $.asignaFechaCalendario);
-				$('#selectAsignaEvento').show();
-				
-				$('#selectAsignaEvento').change(function(){
-					$('#selectModulosCurso').show();
-				});
-				
-				
+	 			$('#btnActivarUsuarios').attr('disabled', true);
 				break;
 			case 'instructor' :
 				
@@ -69,17 +62,46 @@ $(document).ready(function() {
     // fin de documento
 })
 
-$('#selectModulosCurso').change(function(){
-	console.log($('#selectModulosCurso').val());
+	var asignacionSelec = new Array();
+
+$('#selectAsignaEvento').change(function(){
+	$('#usuarioAudenciaNombre').attr("disabled", false);
+	idAsignacion = $('#selectAsignaEvento').val();
+	$('#selectModulosCurso').show();
+	$('#selectModulosCurso').val("");
+	$('#divNombreInstructor').empty();
 	$('#divListaUsuarios').empty();
-	var listaUsuarios = "<ul>" +
-			"<li>012015-1</li>" +
-			"<li>012015-2</li>" +
-			"<li>012015-3</li>" +
-			"<li>012015-4</li>" +
-			"<li>012015-5</li>" +
-			"<li>012015-6</li>" +
-			"<li>012015-7</li>";
+	$('#btnActivarUsuarios').attr('disabled', true);
+	var nombreInstructor ="";
+	for(a in asignacionSelec){
+		if((idAsignacion*1) === (asignacionSelec[a].idAsignacion*1)){
+			nombreInstructor = asignacionSelec[a].instructorAsignacion; 
+		} 
+	}
+//	$('#divNombreInstructor').append(nombreInstructor);
+	$('#usuarioAudenciaNombre').val("");
+	$('#usuarioAudenciaNombre').val(nombreInstructor);
+	$('#usuarioAudenciaNombre').attr("disabled", true);
+});
+
+
+$('#selectModulosCurso').change(function(){
+//	console.log($('#selectModulosCurso').val());
+	$('#divListaUsuarios').empty();
+	var listaUsuarios = "<ul>" ;
+	var idAsignacion = $('#selectAsignaEvento').val();
+//	console.log(idAsignacion);
+	for(a in asignacionSelec){
+		if((idAsignacion*1) === (asignacionSelec[a].idAsignacion*1)){
+			var cantidadUsuarios = asignacionSelec[a].participantesAsignacion;
+//			console.log(cantidadUsuarios );
+			for(var i= 0 ; i<cantidadUsuarios; i++){
+				listaUsuarios = listaUsuarios + "<li>"+idAsignacion+"−"+(i+1)+"</li>" 
+			}
+			$('#btnActivarUsuarios').attr('disabled', false);
+		} 
+	}
+	listaUsuarios = listaUsuarios + "</ul>"
 	$('#divListaUsuarios').append(listaUsuarios);
 });
 
@@ -87,19 +109,45 @@ $('#btnActivarUsuarios').click(function(){
 	alert("Usuarios en proceso de Activacion, recuerde que la vigencia es +1 dia despues de la Fecha Actividad.");
 })
 
-function validaFecha(inputAsignaFecha){
-	
-		var elementoPicker = $datepicker.pickadate('picker');	
-		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
-		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
-   	    $.asignaFechaCalendario = $('#usuarioAudenciaFecha').val();
-   	    
-   	 
-			if($.asignaFechaCalendario === null || $.asignaFechaCalendario === ""){
-//	   			alert("Debes de seleccionar Fecha para consultar los eventos disponibles");
-	   		}else{
-	   			
-	   		}
+	function validaFecha(inputAsignaFecha){
 		
+			var elementoPicker = $datepicker.pickadate('picker');	
+			$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
+			$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
+	   	    $.asignaFechaCalendario = $('#usuarioAudenciaFecha').val();
+	   	    $('#selectAsignaEvento').empty();
+	   	 
+				if($.asignaFechaCalendario === null || $.asignaFechaCalendario === ""){
+					alert("Debes de seleccionar Fecha para consultar los eventos disponibles");
+		   		}else{
 
+		   			$('#selectAsignaEvento').show();
+		   			$('#selectModulosCurso').hide();
+		   			$('#usuarioAudenciaNombre').val("");
+		   			$('#selectModulosCurso').val("");
+		   			$('#divListaUsuarios').empty();
+		   			$('#btnActivarUsuarios').attr('disabled', true);
+		   			$('#selectAsignaEvento').empty();
+		   			
+		   			var asignacionSelec = new Array();
+		   			asignacionSelec = getAsignaciones($.asignaFecha2);
+		   			var optionAsignaciones ='<option value="" selected>Seleccione Curso - Cliente</option>';
+		   			for(a in asignacionSelec){
+		   				optionAsignaciones = optionAsignaciones +  '<option value="'+asignacionSelec[a].idAsignacion+'">'+asignacionSelec[a].cursoAsignacion+' − '+asignacionSelec[a].clienteAsignacion+'</option>';
+		   			}
+		   			$('#selectAsignaEvento').append(optionAsignaciones);
+		   		}
+	}
+
+function getAsignaciones(fechaSeleccion){
+	asignacionSelec.length = 0
+	var asignacion = new Array();
+	asignacion = asignaciones.asignaciones;
+	for(var i=0; i < asignacion.length; i++){
+		var fechaAsignacion = asignacion[i].fechaAsignacion;
+		if(fechaAsignacion === fechaSeleccion){
+			asignacionSelec.push(asignacion[i]);
+		}
+	}
+	return asignacionSelec;
 }

@@ -85,29 +85,23 @@
 	<a id="seccion0"></a>
 		<div class="row seccionOperacion" id="seccionOperacion">
 		</div>	
-		
-			  <hr>
-		<div class=" seccionOperacion" id="usuarioAudienciaForm">
-			 <div class="form-group">
-				      <label for="exampleInputEmail1">Nombre Personal Responsable Audencia</label>
-				      <input type="text" class="form-control" id="usuarioAudenciaNombre" aria-describedby="usuarioAudenciaNombre" placeholder="Nombre Personal Audencia">
-				      <small id="emailHelp" class="form-text text-muted">En caso de no contar con el nombre del personal responsable de audencia, este campo se podrá editar. No obligatorio</small>
-			   </div>
+		  <hr>
+			<div class=" seccionOperacion" id="usuarioAudienciaForm">
+			 
 			   <div class="form-group">
 		              <label for="exampleFormControlSelect1">Fecha de Actividad *</label>
-		              <input id="usuarioAudenciaFecha" class="datepicker form-control" name="date" type="text"  required onfocus="validaFecha(this)"/>
+		              <input id="usuarioAudenciaFecha" class="datepicker form-control" name="date" type="text"  required onchange="validaFecha(this)"/>
 		        </div>
 		        <div class="form-group">
 			      <label for="exampleSelect2">Selecciona Asignación de Evento *</label>
 			      <select  class="form-control" id="selectAsignaEvento">
-			      	<option value="" selected>Selecciona Curso</option>
-			        <option>MontaCargas - General Motors</option>
-			        <option>Liderazgo - Mazda</option>
-			        <option>OPERADOR DE PLATAFORMA ELEVADORA - VITROMEX SLP</option>
-			        <option>COMBO SEGURIDAD - UBS CODE QRO</option>
-			        <option> NOM-033-STPS-2015 . SIGMA CELAYA</option>
 			      </select>
 			    </div>
+			 <div class="form-group">
+				      <label for="exampleInputEmail1">Nombre Personal Responsable Audencia - Instructor</label>
+				      <input type="text" class="form-control" id="usuarioAudenciaNombre" aria-describedby="usuarioAudenciaNombre" placeholder="Nombre Personal Audencia">
+				      <small id="emailHelp" class="form-text text-muted">En caso de no contar con el nombre del personal responsable de audencia, este campo se podrá editar. No obligatorio</small>
+			   </div>   
 			    <div class="form-group">
 			      <label for="exampleSelect2">Selecciona Modulo Didáctico *</label>
 			      <select multiple="" class="form-control" id="selectModulosCurso">
@@ -117,23 +111,14 @@
 			        <option>Certificados</option>
 			      </select>
 			    </div>
+			    <div class="form-group" id="divNombreInstructor"></div>
 			    <div class="form-group" id="divListaUsuarios"></div>
 					<br><br><hr>
 					<button type="button" id="btnActivarUsuarios" class="btn btn-success">Activar Usuarios</button>
 		</div>
 		<a id="seccion1"></a>
 		<div class="seccionOperacion" id="usuarioConfigurarInstructorForm">
-			<div class="form-group">
-			      <label for="exampleSelect2">Selecciona Curso*</label>
-			      <select  class="form-control" id="selectAsignaEvento">
-			      	<option value="" selected>Selecciona Curso</option>
-			        <option>MontaCargas</option>
-			        <option>Liderazgo</option>
-			        <option>OPERADOR DE PLATAFORMA ELEVADORA</option>
-			        <option>COMBO SEGURIDAD</option>
-			        <option> NOM-033-STPS-2015</option>
-			      </select>
-			    </div>
+			
 		</div>
 		
 	
@@ -149,7 +134,13 @@
 	</div>
 
 
-
+<script th:inline="javascript">
+ 		 var asignaciones = [[${model.jsonResponse.asignaciones}]];
+ 		 var instructores = [[${model.jsonResponse.instructores}]];
+ 		 var cursos = [[${model.jsonResponse.cursos}]];
+ 		
+ 		 
+	</script>
 <!--===============================================================================================-->
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>

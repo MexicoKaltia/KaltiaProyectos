@@ -1,5 +1,6 @@
 package mx.uniprotec.gamerFront.controller;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.gamerFront.service.ILoginService;
+import mx.uniprotec.gamerFront.service.impl.UsuariosService;
 import mx.uniprotec.gamerFront.vo.UserForm;
 
 @Controller
+@SessionAttributes ("model")
 public class ControllerInicio {
 	
 
 	private static Logger log = LoggerFactory.getLogger(ControllerInicio.class);
 	@Autowired
 	ILoginService loginService;
+	@Autowired
+	UsuariosService usuariosService;
 	
 
 	
@@ -67,6 +73,14 @@ public class ControllerInicio {
 		resultVO = loginService.login(user);
 		
 		if(resultVO.getCodigo() != 500) {
+			JSONObject jsonResponse = usuariosService.dataUsuarios(resultVO.getObject().toString());
+			resultVO.setJsonResponse(jsonResponse);
+			
+			model.addAttribute("model", resultVO);
+			mav.addObject("data" , jsonResponse);
+//			mav.addObject("error", error);
+//			mav.addObject("ejecucion", ejecucion);
+
 			log.info("Bienvenido");
 			mav.setViewName(resultVO.getResponse());
 			mav.addObject("model", resultVO);
@@ -79,66 +93,5 @@ public class ControllerInicio {
 		return mav;
 	}
 	
-	@GetMapping("/usuarios")
-	public ModelAndView usuarios(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
-								 @RequestParam(name="error", required=false) boolean error,
-								 ModelMap model) {
-		if(model.equals(null)) {
-			log.info("NULL");
-			return new  ModelAndView("login");
-		}else {
-			log.info("Usuarios model Activo");
-			
-			ResultVO resultVO = (ResultVO)model.get("model");
-			
-			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
-			
-			ResultVO rs = usuarioService.consultaUsuario(resultVO.getAccesToken(), jsonUsuario.get("id").toString());
-			JSONObject jsonObject2 = (JSONObject) rs.getJsonResponseObject();
-//			log.info(jsonObject2.toJSONString());
-			JSONObject jsonUsuario2 = new JSONObject((Map) jsonObject2.get("usuario"));
-			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-			
-			UsuarioModelo usuario = new UsuarioModelo(Long.valueOf(jsonUsuario2.get("idUsuario").toString()),
-					jsonUsuario2.get("usernameUsuario").toString(),
-					jsonUsuario2.get("nombreUsuario").toString(),
-					jsonUsuario2.get("emailUsuario").toString(),
-					jsonUsuario2.get("notaUsuario").toString(),
-					jsonUsuario2.get("perfilUsuario").toString());
-//			usuario.setPasswordUsuarioOld(jsonUsuario2.get("passwordUsuario").toString());
-//			log.info(usuario.toString());
-			model.addAttribute("usuarioForm", usuario);
-			
-			
-			ModelAndView mav = new  ModelAndView("CUsuario", model );
-			model.addAttribute("model", resultVO);
-			mav.addObject("error", error);
-			mav.addObject("ejecucion", ejecucion);
-			return mav;
-		}
-	}
 	
-	
-	
-	@GetMapping("/cursos")
-	public ModelAndView cursos(@RequestParam(name="login", required=false) Boolean loginIn) {
-		ModelAndView mav = new ModelAndView("cursos");
-		return mav;
-	}
-	@GetMapping("/estadisticas")
-	public ModelAndView estadistica(@RequestParam(name="login", required=false) Boolean loginIn) {
-		ModelAndView mav = new ModelAndView("estadisticas");
-		return mav;
-	}
-	@GetMapping("/instructor")
-	public ModelAndView instructor(@RequestParam(name="login", required=false) Boolean loginIn) {
-		ModelAndView mav = new ModelAndView("instructor");
-		return mav;
-	}
-	@GetMapping("/accesoModulo")
-	public ModelAndView modulo(@RequestParam(name="login", required=false) Boolean loginIn) {
-		ModelAndView mav = new ModelAndView("moduloDidactico");
-		return mav;
-	}
 }

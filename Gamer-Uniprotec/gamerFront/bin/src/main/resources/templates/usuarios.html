@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<title>Gamer -- Uniprotec</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{images/logo.png}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
+<!-- Date picker -->
+	 <link th:href="@{css/default.css}" rel="stylesheet">
+    <link th:href="@{css/default.date.css}" rel="stylesheet">
+    <link th:href="@{css/default.time.css}" rel="stylesheet">
+<!--===============================================================================================-->
+
+
+</head>
+<body>
+	<div id="head">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item ">
+		        <a class="nav-link" href="/inicio">Inicio
+		          <span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="/usuarios">Usuarios</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/cursos">Cursos</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
+		      </li>
+		      <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
+		        <div class="dropdown-menu">
+		          <a class="dropdown-item" href="#seccion0">Action</a>
+		          <a class="dropdown-item" href="#"> action1</a>
+		          <a class="dropdown-item" href="#">action2</a>
+		          <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="#">Cerrar Sesion</a>
+		        </div>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>	
+	</div>
+	<div id="menuleft">
+	</div>
+	
+	<div id="body">
+		<div class="row boxShadow container-fluid ">
+			<div class="col-6  " >
+			 <img th:src="@{images/configuracion usuario.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			 <p class="lead">TABLERO DE ASIGNACION DE USUARIOS.</p>
+			</div> 
+			<div class="col-6  " >
+				<br><br>
+				<ul class="fa-ul">
+				  <li class="" id="usuarioAlta"><a href="#seccion0"><i class="fa-li fa fa-2x fa-user-circle"></i><p>ALTA USUARIO</p></a></li>
+				  <hr class="my-4">
+				  <li class="" id="usuarioInstructor"><a href="#seccion1"><i class="fa-li fa fa-2x fa-address-book"></i><p>CONFIGURAR USUARIO INSTRUCTOR</p></a></li>
+				  <hr class="my-4">
+				  <li class="" id="usuarioAudencia"><a href="#seccion2"><i class="fa-li fa fa-2x fa-id-card"></i><p>CONFIGURAR USUARIO AUDIENCIA</p></a></li>
+				  <hr class="my-4">
+				  <li class="" id="usuarioConsulta"><a href="#seccion3"><i class="fa-li fa fa-2x fa-users"></i><p>CONSULTA USUARIOS STATUS</p></a></li>
+				</ul>
+				<br>
+			</div> 
+		</div>
+		<hr class="my-4">	
+	<a id="seccion0"></a>
+		<div class="row seccionOperacion" id="seccionOperacion">
+		</div>	
+		
+			  <hr>
+		<div class=" seccionOperacion" id="usuarioAudienciaForm">
+			 <div class="form-group">
+				      <label for="exampleInputEmail1">Nombre Personal Responsable Audencia</label>
+				      <input type="text" class="form-control" id="usuarioAudenciaNombre" aria-describedby="usuarioAudenciaNombre" placeholder="Nombre Personal Audencia">
+				      <small id="emailHelp" class="form-text text-muted">En caso de no contar con el nombre del personal responsable de audencia, este campo se podrá editar. No obligatorio</small>
+			   </div>
+			   <div class="form-group">
+		              <label for="exampleFormControlSelect1">Fecha de Actividad *</label>
+		              <input id="usuarioAudenciaFecha" class="datepicker form-control" name="date" type="text"  required onfocus="validaFecha(this)"/>
+		        </div>
+		        <div class="form-group">
+			      <label for="exampleSelect2">Selecciona Asignación de Evento *</label>
+			      <select  class="form-control" id="selectAsignaEvento">
+			      	<option value="" selected>Selecciona Curso</option>
+			        <option>MontaCargas - General Motors</option>
+			        <option>Liderazgo - Mazda</option>
+			        <option>OPERADOR DE PLATAFORMA ELEVADORA - VITROMEX SLP</option>
+			        <option>COMBO SEGURIDAD - UBS CODE QRO</option>
+			        <option> NOM-033-STPS-2015 . SIGMA CELAYA</option>
+			      </select>
+			    </div>
+			    <div class="form-group">
+			      <label for="exampleSelect2">Selecciona Modulo Didáctico *</label>
+			      <select multiple="" class="form-control" id="selectModulosCurso">
+			        <option>Memoria</option>
+			        <option>Crucigrama</option>
+			        <option>Test Aprovechamiento</option>
+			        <option>Certificados</option>
+			      </select>
+			    </div>
+			    <div class="form-group" id="divListaUsuarios"></div>
+					<br><br><hr>
+					<button type="button" id="btnActivarUsuarios" class="btn btn-success">Activar Usuarios</button>
+		</div>
+		<a id="seccion1"></a>
+		<div class="seccionOperacion" id="usuarioConfigurarInstructorForm">
+			<div class="form-group">
+			      <label for="exampleSelect2">Selecciona Curso*</label>
+			      <select  class="form-control" id="selectAsignaEvento">
+			      	<option value="" selected>Selecciona Curso</option>
+			        <option>MontaCargas</option>
+			        <option>Liderazgo</option>
+			        <option>OPERADOR DE PLATAFORMA ELEVADORA</option>
+			        <option>COMBO SEGURIDAD</option>
+			        <option> NOM-033-STPS-2015</option>
+			      </select>
+			    </div>
+		</div>
+		
+	
+	</div>
+	<div id="footer">
+	
+		<div id="footerDatos" class="footer">
+			Derechos Reservados @Uniprotec 2021
+		</div>
+		<div id="footerLogo" class="footer">
+			<img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+		</div>
+	</div>
+
+
+
+<!--===============================================================================================-->
+	<script th:src="@{js/jquery3_5_1.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{js/usuarios.js}"></script>
+	
+	<!-- Date picker -->
+	<script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+    
+    
+	<script type="text/javascript">
+    var today = new Date();
+    var $datepicker = $( '.datepicker' ).pickadate({
+     min : today
+    })
+	</script>
+	
+	
+	<!--===============================================================================================-->
+
+</body>
+</html>

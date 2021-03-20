@@ -35,6 +35,13 @@ public class UserForm implements Serializable{
 	public UserForm() {
 		
 	}
+	
+	
+	
+	public UserForm(String userName, String userPass) {
+		this.userName = userName;
+		this.userPass = userPass;
+	}
 	@Override
 	public String toString() {
 		return "UserForm [idUser=" + idUser + ", userName=" + userName + ", userPass=" + userPass + ", userPerfil="
