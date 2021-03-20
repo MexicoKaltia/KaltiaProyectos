@@ -13,7 +13,7 @@ $(document).ready(function() {
 		$('#seccionOperacion').empty();
 		console.log("usuarioAlta");
 
-		var selectUsuarioTipo = '<form><fieldset><legend>FORMULARIO ALTA USUARIO</legend><div class="form-group"><label for="exampleSelect1">SELECCIONAR TIPO DE USUARIO</label><select class="form-control" id="selUsuarioTipo"><option value="" selected>Seleciona tipo de Usuario</option><option value="audiencia">AUDIENCIA</option><option value="instructor">INSTRUCTOR</option><option value="administracion">ADMINISTRACION</option></select></div></fieldset></form>';
+		var selectUsuarioTipo = '<form><fieldset><legend>FORMULARIO ALTA USUARIO</legend><div class="form-group"><label for="exampleSelect1">SELECCIONAR TIPO DE USUARIO</label><select class="elementoInput form-control" id="selUsuarioTipo"><option value="" selected>Seleciona tipo de Usuario</option><option value="audiencia">AUDIENCIA</option><option value="instructor">INSTRUCTOR</option><option value="administracion">ADMINISTRACION</option></select></div></fieldset></form>';
 		
 		$('#seccionOperacion').append(selectUsuarioTipo);
 		
@@ -81,7 +81,7 @@ $('#selectAsignaEvento').change(function(){
 //	$('#divNombreInstructor').append(nombreInstructor);
 	$('#usuarioAudenciaNombre').val("");
 	$('#usuarioAudenciaNombre').val(nombreInstructor);
-	$('#usuarioAudenciaNombre').attr("disabled", true);
+//	$('#usuarioAudenciaNombre').attr("disabled", true);
 });
 
 
@@ -91,9 +91,10 @@ $('#selectModulosCurso').change(function(){
 	var listaUsuarios = "<ul>" ;
 	var idAsignacion = $('#selectAsignaEvento').val();
 //	console.log(idAsignacion);
+	var cantidadUsuarios=0;
 	for(a in asignacionSelec){
 		if((idAsignacion*1) === (asignacionSelec[a].idAsignacion*1)){
-			var cantidadUsuarios = asignacionSelec[a].participantesAsignacion;
+			cantidadUsuarios = asignacionSelec[a].participantesAsignacion;
 //			console.log(cantidadUsuarios );
 			for(var i= 0 ; i<cantidadUsuarios; i++){
 				listaUsuarios = listaUsuarios + "<li>"+idAsignacion+"−"+(i+1)+"</li>" 
@@ -103,6 +104,8 @@ $('#selectModulosCurso').change(function(){
 	}
 	listaUsuarios = listaUsuarios + "</ul>"
 	$('#divListaUsuarios').append(listaUsuarios);
+	$('#usuarioAudienciaParticipantes').val(cantidadUsuarios);
+	$('#usuarioAudienciaIdAsignacion').val(idAsignacion);
 });
 
 $('#btnActivarUsuarios').click(function(){

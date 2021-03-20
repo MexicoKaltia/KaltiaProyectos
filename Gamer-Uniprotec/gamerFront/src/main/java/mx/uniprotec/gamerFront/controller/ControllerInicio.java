@@ -69,7 +69,7 @@ public class ControllerInicio {
 //			mav = new ModelAndView("redirect:/login", model);
 //			mav.addObject("login", true);
 //		}
-		
+		log.info(user.toString());
 		resultVO = loginService.login(user);
 		
 		if(resultVO.getCodigo() != 500) {

@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.UsuarioAudiencia;
 import mx.uniprotec.gamerFront.service.ILoginService;
 import mx.uniprotec.gamerFront.service.impl.UsuariosService;
+import mx.uniprotec.gamerFront.vo.UserForm;
 
 @Controller
 @SessionAttributes ("model")
@@ -28,8 +32,10 @@ public class ControllerOperacion {
 	
 	@GetMapping("/usuarios")
 	public ModelAndView usuarios(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
-								 @RequestParam(name="error", required=false) boolean error,
-								 ModelMap model) {
+								 @RequestParam(name="error", required=false) boolean error, ModelMap model) {
+		
+		model.addAttribute("usuarioAudiencia", new UsuarioAudiencia());
+		
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
@@ -48,6 +54,22 @@ public class ControllerOperacion {
 //			mav.addObject("ejecucion", ejecucion);
 			return mav;
 		}
+	}
+	
+	@PostMapping("/altaAudiencia")
+	public ModelAndView altaAudiencia(@ModelAttribute("usuarioAudiencia") UsuarioAudiencia userA, ModelMap model) {
+		
+		ResultVO resultVO = (ResultVO)model.get("model");
+		log.info(userA.toString());
+		resultVO  = usuariosService.altaUsuarioAudiencia(userA, resultVO.getAccesToken());
+		ModelAndView mav = new ModelAndView("redirect:/usuarios" , model);
+		if(resultVO.getCodigo() != 500) {
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK AltaCliente");
+		}
+		return mav;
 	}
 	
 	

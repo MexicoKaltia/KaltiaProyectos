@@ -1,6 +1,30 @@
 body {
-	background: rgb(254,254,255);
-background: linear-gradient(90deg, rgba(254,254,255,1) 0%, rgba(219,219,219,1) 67%, rgba(224,224,224,1) 100%);
+/* 	background: rgb(254,254,255); */
+/* background: linear-gradient(90deg, rgba(254,254,255,1) 0%, rgba(219,219,219,1) 67%, rgba(224,224,224,1) 100%); */
+/* background: rgb(3,3,133); */
+/* background: linear-gradient(90deg, rgba(3,3,133,1) 0%, rgba(6,10,83,1) 67%, rgba(0,0,0,1) 100%); */
+/* background: rgb(3,3,111); */
+/* background: linear-gradient(90deg, rgba(3,3,111,1) 0%, rgba(69,75,177,1) 49%, rgba(0,0,0,1) 100%); */
+/* background-image: url("../images/virtual.jpg"); */
+}
+
+
+body, html {
+  height: 100%;
+}
+
+.parallax {
+  /* The image used */
+/*   background-image: url("images/virtual2.jpg"); */
+
+  /* Full height */
+  height: 100%;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #body{
@@ -19,29 +43,41 @@ background: linear-gradient(90deg, rgba(254,254,255,1) 0%, rgba(219,219,219,1) 6
 	border-radius: 20px;
 }
 
-.boxShadow {
-	-webkit-box-shadow: 5px 5px 15px 5px #000000; 
-box-shadow: 5px 5px 15px 5px #000000;
+.boxShadow, .elemento:hover {
+/* 	-webkit-box-shadow: 5px 5px 15px 5px #89F8FB ;  */
+/* box-shadow: 5px 5px 15px 5px #89F8FB ; */
+/* border-style: solid; */
+border-bottom-style: solid;
+border-width: 1px;
 border-radius: 20px;
+ border-color: cyan;
+background-color: rgba(0,0,0,0.55) !important;
 }
-.elemento:hover {
-	-webkit-box-shadow: 5px 5px 15px 5px #000000; 
-box-shadow: 5px 5px 15px 5px #000000;
+.elementoInput {
+/* 	-webkit-box-shadow: 5px 5px 15px 5px #89F8FB ;  */
+/* box-shadow: 5px 5px 15px 5px #89F8FB ; */
+border-bottom-style: solid;
+border-width: 1px;
+border-radius: 20px;
+ border-color: cyan;
 }
 
 .menu2:hover {
-	box-shadow: 5px 5px 15px 5px #000000;
+/* 	box-shadow: 5px 5px 15px 5px #89F8FB; */
 	cursor: pointer;
 	padding:.5rem;
 	border-radius:20px;
-	background:#E6E8F9;
+	background:#c0c0c0;
 }
 .activeItem {
-	box-shadow: 5px 5px 15px 5px #000000;
+	color: cyan;
+	font-weight: bold;
 	cursor: pointer;
 	padding:.5rem;
 	border-radius:20px;
-	background:#E6E8F9;
+	border-style: solid;
+	border-color: #5DBA9A;
+	background-color: rgba(0,0,0,0.75) !important;
 }
 
 .container-fluid {
@@ -104,4 +140,9 @@ box-shadow: 5px 5px 15px 5px #000000;
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.btn-outline-success2{
+	background: rgb(131,58,180);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
 }

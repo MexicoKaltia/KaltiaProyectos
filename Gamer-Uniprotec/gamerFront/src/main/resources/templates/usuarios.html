@@ -21,7 +21,7 @@
 
 
 </head>
-<body>
+<body class="parallax" background="images/virtual10.jpg" >
 	<div id="head">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
 		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
@@ -81,41 +81,46 @@
 				<br>
 			</div> 
 		</div>
-		<hr class="my-4">	
+		<hr class="">	
 	<a id="seccion0"></a>
 		<div class="row seccionOperacion" id="seccionOperacion">
 		</div>	
 		  <hr>
 			<div class=" seccionOperacion" id="usuarioAudienciaForm">
-			 
+			 <form id="formAltaUsuarioAudiencia" th:action="@{/altaAudiencia}"  th:object="${usuarioAudiencia}" method="post">
 			   <div class="form-group">
 		              <label for="exampleFormControlSelect1">Fecha de Actividad *</label>
-		              <input id="usuarioAudenciaFecha" class="datepicker form-control" name="date" type="text"  required onchange="validaFecha(this)"/>
+		              <input id="usuarioAudenciaFecha" class="elementoInput datepicker form-control" th:field="*{usuarioAudienciaFecha}" name="usuarioAudienciaFecha" type="text"  required onchange="validaFecha(this)"/>
 		        </div>
 		        <div class="form-group">
 			      <label for="exampleSelect2">Selecciona Asignación de Evento *</label>
-			      <select  class="form-control" id="selectAsignaEvento">
+			      <select  class="form-control elementoInput" id="selectAsignaEvento" th:field="*{usuarioAudienciaEvento}">
 			      </select>
 			    </div>
-			 <div class="form-group">
-				      <label for="exampleInputEmail1">Nombre Personal Responsable Audencia - Instructor</label>
-				      <input type="text" class="form-control" id="usuarioAudenciaNombre" aria-describedby="usuarioAudenciaNombre" placeholder="Nombre Personal Audencia">
+				 <div class="form-group">
+				      <label for="">Nombre Personal Responsable Audencia - Instructor</label>
+				      <input type="text" class="form-control elementoInput" id="usuarioAudenciaNombre" th:field="*{usuarioAudienciaResponsable}"  placeholder="Nombre Personal Responsable Audencia">
 				      <small id="emailHelp" class="form-text text-muted">En caso de no contar con el nombre del personal responsable de audencia, este campo se podrá editar. No obligatorio</small>
-			   </div>   
+			   	</div>   
 			    <div class="form-group">
 			      <label for="exampleSelect2">Selecciona Modulo Didáctico *</label>
-			      <select multiple="" class="form-control" id="selectModulosCurso">
-			        <option>Memoria</option>
-			        <option>Crucigrama</option>
-			        <option>Test Aprovechamiento</option>
-			        <option>Certificados</option>
+			      <select multiple="" class="form-control elementoInput" id="selectModulosCurso" th:field="*{usuarioAudienciaModulos}">
+			        <option value="memoria">Memoria</option>
+			        <option value="crucigrama">Crucigrama</option>
+			        <option value="test">Test Aprovechamiento</option>
+			        <option value="certificados">Certificados</option>
 			      </select>
 			    </div>
-			    <div class="form-group" id="divNombreInstructor"></div>
-			    <div class="form-group" id="divListaUsuarios"></div>
-					<br><br><hr>
-					<button type="button" id="btnActivarUsuarios" class="btn btn-success">Activar Usuarios</button>
+			    <input type="hidden" th:field="*{usuarioAudienciaParticipantes}" id="usuarioAudienciaParticipantes">
+			    <input type="hidden" th:field="*{usuarioAudienciaIdAsignacion}" id="usuarioAudienciaIdAsignacion">
+			    <div class="form-group" id="divListaUsuarios">
+			    	
+			    </div>
+				<br><hr>
+				<button type="submit" id="btnActivarUsuarios" class="btn btn-success">Activar Usuarios</button>
+			</form>
 		</div>
+		
 		<a id="seccion1"></a>
 		<div class="seccionOperacion" id="usuarioConfigurarInstructorForm">
 			
@@ -136,8 +141,8 @@
 
 <script th:inline="javascript">
  		 var asignaciones = [[${model.jsonResponse.asignaciones}]];
- 		 var instructores = [[${model.jsonResponse.instructores}]];
- 		 var cursos = [[${model.jsonResponse.cursos}]];
+//  		 var instructores = [[${model.jsonResponse.instructores}]];
+//  		 var cursos = [[${model.jsonResponse.cursos}]];
  		
  		 
 	</script>

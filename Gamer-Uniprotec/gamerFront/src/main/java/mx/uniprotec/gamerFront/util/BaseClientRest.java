@@ -39,8 +39,9 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 //	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
 //	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
-	public static final String URL_CRUD_CLIENTE		  =	"cliente";
-	public static final String URL_CRUD_USUARIO	 	  =	"usuario";
+//	public static final String URL_CRUD_CLIENTE		  =	"cliente";
+//	public static final String URL_CRUD_USUARIO	 	  =	"usuario";
+	public static final String URL_ALTA_USUARIOAUDIENCIA	 	  =	"altaUsuariosAudiencia";
 		
 	public static final String POST = "HttpMethod.POST";
 	public static final String GET  = "HttpMethod.GET";

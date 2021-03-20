@@ -1,6 +1,7 @@
 package mx.uniprotec.gamerBack.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,20 +24,20 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(unique = true, length = 20)
+	@Column(unique = true, length = 40)
 	private String username;
-
 	@Column(length = 60)
 	private String password;
-
+	@Column
 	private Boolean enabled;
-	
+	@Column
 	private String nombre;
-	private String apellido;
-	
-	@Column(unique = true)
-	private String email;
+	@Column
+	private LocalDateTime createAt;
+	@Column
+	private String userCreate;
+	@Column
+	private String status;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
@@ -92,21 +93,31 @@ public class Usuario implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getApellido() {
-		return apellido;
+	
+	public LocalDateTime getCreateAt() {
+		return createAt;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserCreate() {
+		return userCreate;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserCreate(String userCreate) {
+		this.userCreate = userCreate;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 
 	/**
 	 * 

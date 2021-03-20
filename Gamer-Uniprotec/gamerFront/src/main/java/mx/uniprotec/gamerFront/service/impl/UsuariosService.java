@@ -1,5 +1,6 @@
 package mx.uniprotec.gamerFront.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.UsuarioAudiencia;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
@@ -53,7 +55,31 @@ public class UsuariosService implements IUsuariosService{
 		return jsonResponse;
 	}
 
+	@Override
+	public ResultVO altaUsuarioAudiencia(UsuarioAudiencia userA, String accesToken) {
+		
+		
+		userA.setCreateAt(LocalDateTime.now());
+		userA.setUserCreate("nombreUsuario");
+		userA.setStatus("create");
+		
+		
+//		log.info(usuario.toString());
+
+		ResultVO resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken,
+				BaseClientRest.URL_ALTA_USUARIOAUDIENCIA,
+				userA);
+		
+		return resultVO;
+	}
+
 	
+	
+	
+	/*
+	 *  privates
+	 */
 
 	private JSONObject getInstructores(String tokenCU) {
 		
@@ -125,5 +151,7 @@ private JSONObject getAsignaciones(String tokenCU) {
 		
 		return jsonAsignaciones;
 	}
+
+
 	
 }
