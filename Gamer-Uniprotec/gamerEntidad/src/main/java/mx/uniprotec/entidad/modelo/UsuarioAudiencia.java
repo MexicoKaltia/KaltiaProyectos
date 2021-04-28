@@ -17,6 +17,7 @@ public class UsuarioAudiencia implements Serializable{
 	private List<String> usuarioAudienciaModulos;
 	private Integer usuarioAudienciaParticipantes;
 	private String usuarioAudienciaIdAsignacion;
+	private String usuarioAudienciaNombreEvento;
 	private LocalDateTime createAt;
 	private String userCreate;
 	private String status;
@@ -38,14 +39,17 @@ public class UsuarioAudiencia implements Serializable{
 		this.usuarioAudienciaParticipantes = usuarioAudienciaParticipantes;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "UsuarioAudiencia [idUsuarioAudiencia=" + idUsuarioAudiencia + ", usuarioAudienciaResponsable="
 				+ usuarioAudienciaResponsable + ", usuarioAudienciaFecha=" + usuarioAudienciaFecha
 				+ ", usuarioAudienciaEvento=" + usuarioAudienciaEvento + ", usuarioAudienciaModulos="
 				+ usuarioAudienciaModulos + ", usuarioAudienciaParticipantes=" + usuarioAudienciaParticipantes
-				+ ", usuarioAudienciaIdAsignacion=" + usuarioAudienciaIdAsignacion + ", createAt=" + createAt
-				+ ", userCreate=" + userCreate + ", status=" + status + "]";
+				+ ", usuarioAudienciaIdAsignacion=" + usuarioAudienciaIdAsignacion + ", usuarioAudienciaNombreEvento="
+				+ usuarioAudienciaNombreEvento + ", createAt=" + createAt + ", userCreate=" + userCreate + ", status="
+				+ status + "]";
 	}
 
 	public Long getIdUsuarioAudiencia() {
@@ -126,6 +130,14 @@ public class UsuarioAudiencia implements Serializable{
 
 	public void setUsuarioAudienciaIdAsignacion(String usuarioAudienciaIdAsignacion) {
 		this.usuarioAudienciaIdAsignacion = usuarioAudienciaIdAsignacion;
+	}
+
+	public String getUsuarioAudienciaNombreEvento() {
+		return usuarioAudienciaNombreEvento;
+	}
+
+	public void setUsuarioAudienciaNombreEvento(String usuarioAudienciaNombreEvento) {
+		this.usuarioAudienciaNombreEvento = usuarioAudienciaNombreEvento;
 	}
 
 		

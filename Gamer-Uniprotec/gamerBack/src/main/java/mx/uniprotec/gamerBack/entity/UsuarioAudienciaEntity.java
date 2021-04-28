@@ -11,9 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "usuarios_audiencia")
-public class UsuarioAudiencia implements Serializable{
+public class UsuarioAudienciaEntity implements Serializable{
 
 	/**
 	 * 
@@ -36,21 +37,25 @@ public class UsuarioAudiencia implements Serializable{
 	@Column
 	private String usuarioAudienciaIdAsignacion;
 	@Column
+	private String usuarioAudienciaNombreEvento;
+	@Column
 	private LocalDateTime createAtAsignacion;
 	@Column
 	private String userCreateAsignacion;
 	@Column
 	private String statusAsignacion;
 	
-	public UsuarioAudiencia() {
+	public UsuarioAudienciaEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UsuarioAudiencia(Long idUsuarioAudiencia, String usuarioAudienciaResponsable, String usuarioAudienciaFecha,
+	
+	
+	public UsuarioAudienciaEntity(Long idUsuarioAudiencia, String usuarioAudienciaResponsable, String usuarioAudienciaFecha,
 			String usuarioAudienciaEvento, String usuarioAudienciaModulos,
 			String usuarioAudienciaParticipantes) {
-		super();
+		
 		this.idUsuarioAudiencia = idUsuarioAudiencia;
 		this.usuarioAudienciaResponsable = usuarioAudienciaResponsable;
 		this.usuarioAudienciaFecha = usuarioAudienciaFecha;
@@ -58,14 +63,39 @@ public class UsuarioAudiencia implements Serializable{
 		this.usuarioAudienciaModulos = usuarioAudienciaModulos;
 		this.usuarioAudienciaParticipantes = usuarioAudienciaParticipantes;
 	}
+	
+	
+	public UsuarioAudienciaEntity(String usuarioAudienciaResponsable, String usuarioAudienciaFecha,
+			String usuarioAudienciaEvento, String usuarioAudienciaModulos, String usuarioAudienciaParticipantes,
+			String usuarioAudienciaIdAsignacion, LocalDateTime createAtAsignacion, String userCreateAsignacion,
+			String statusAsignacion, String usuarioAudienciaNombreEvento) {
+		this.usuarioAudienciaResponsable = usuarioAudienciaResponsable;
+		this.usuarioAudienciaFecha = usuarioAudienciaFecha;
+		this.usuarioAudienciaEvento = usuarioAudienciaEvento;
+		this.usuarioAudienciaModulos = usuarioAudienciaModulos;
+		this.usuarioAudienciaParticipantes = usuarioAudienciaParticipantes;
+		this.usuarioAudienciaIdAsignacion = usuarioAudienciaIdAsignacion;
+		this.createAtAsignacion = createAtAsignacion;
+		this.userCreateAsignacion = userCreateAsignacion;
+		this.statusAsignacion = statusAsignacion;
+		this.usuarioAudienciaNombreEvento = usuarioAudienciaNombreEvento;
+	}
+	
+	
+
 
 	@Override
 	public String toString() {
-		return "UsuarioAudiencia [idUsuarioAudiencia=" + idUsuarioAudiencia + ", usuarioAudienciaResponsable="
+		return "UsuarioAudienciaEntity [idUsuarioAudiencia=" + idUsuarioAudiencia + ", usuarioAudienciaResponsable="
 				+ usuarioAudienciaResponsable + ", usuarioAudienciaFecha=" + usuarioAudienciaFecha
 				+ ", usuarioAudienciaEvento=" + usuarioAudienciaEvento + ", usuarioAudienciaModulos="
-				+ usuarioAudienciaModulos + ", usuarioAudienciaParticipantes=" + usuarioAudienciaParticipantes + "]";
+				+ usuarioAudienciaModulos + ", usuarioAudienciaParticipantes=" + usuarioAudienciaParticipantes
+				+ ", usuarioAudienciaIdAsignacion=" + usuarioAudienciaIdAsignacion + ", usuarioAudienciaNombreEvento="
+				+ usuarioAudienciaNombreEvento + ", createAtAsignacion=" + createAtAsignacion
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion=" + statusAsignacion + "]";
 	}
+
+
 
 	public Long getIdUsuarioAudiencia() {
 		return idUsuarioAudiencia;
@@ -147,6 +177,14 @@ public class UsuarioAudiencia implements Serializable{
 		this.usuarioAudienciaIdAsignacion = usuarioAudienciaIdAsignacion;
 	}
 	
+	public String getUsuarioAudienciaNombreEvento() {
+		return usuarioAudienciaNombreEvento;
+	}
+
+	public void setUsuarioAudienciaNombreEvento(String usuarioAudienciaNombreEvento) {
+		this.usuarioAudienciaNombreEvento = usuarioAudienciaNombreEvento;
+	}
+
 	
 
 	

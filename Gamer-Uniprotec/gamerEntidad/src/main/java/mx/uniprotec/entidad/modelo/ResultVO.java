@@ -23,6 +23,9 @@ public class ResultVO implements Serializable{
 	private JSONArray jsonResponseArray;			//
 	private JSONObject jsonResponseObject;			//
 	private Object object;
+	private String perfil;
+	
+	
 	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
 			JSONObject jsonResponse, JSONArray jsonResponseArray, JSONObject jsonResponseObject, Object object) {
 		super();
@@ -96,8 +99,12 @@ public class ResultVO implements Serializable{
 	public void setObject(Object object) {
 		this.object = object;
 	}
-	
-		
+	public String getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}		
 	
 	
 }

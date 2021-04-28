@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -39,11 +40,23 @@ public class Usuario implements Serializable {
 	@Column
 	private String status;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="idUsuarioAudiencia")
+	private UsuarioAudienciaEntity usuarioAudiencia;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="idUsuarioInstructor")
+	private UsuarioInstructorEntity usuarioInstructor;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="idUsuarioAdministrador")
+	private UsuarioAdministradorEntity usuarioAdministrador;
 
 	public Long getId() {
 		return id;
@@ -117,6 +130,43 @@ public class Usuario implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public UsuarioInstructorEntity getUsuarioInstructor() {
+		return usuarioInstructor;
+	}
+
+	public void setUsuarioInstructor(UsuarioInstructorEntity usuarioInstructor) {
+		this.usuarioInstructor = usuarioInstructor;
+	}
+
+	public UsuarioAdministradorEntity getUsuarioAdministrador() {
+		return usuarioAdministrador;
+	}
+
+	public void setUsuarioAdministrador(UsuarioAdministradorEntity usuarioAdministrador) {
+		this.usuarioAdministrador = usuarioAdministrador;
+	}
+
+	public UsuarioAudienciaEntity getUsuarioAudiencia() {
+		return usuarioAudiencia;
+	}
+
+	public void setUsuarioAudiencia(UsuarioAudienciaEntity usuarioAudiencia) {
+		this.usuarioAudiencia = usuarioAudiencia;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
+				+ ", nombre=" + nombre + ", createAt=" + createAt + ", userCreate=" + userCreate + ", status=" + status
+				+ ", roles=" + roles + ", usuarioAudiencia=" + usuarioAudiencia + ", usuarioInstructor="
+				+ usuarioInstructor + ", usuarioAdministrador=" + usuarioAdministrador + "]";
+	}
+
+
 
 
 	/**

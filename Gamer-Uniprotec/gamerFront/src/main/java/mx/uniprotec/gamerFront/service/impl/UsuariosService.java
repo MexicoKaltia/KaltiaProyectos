@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.UsuarioAdministrador;
 import mx.uniprotec.entidad.modelo.UsuarioAudiencia;
+import mx.uniprotec.entidad.modelo.UsuarioInstructor;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
@@ -46,26 +48,45 @@ public class UsuariosService implements IUsuariosService{
 //		List<AsignacionModelo> asignaciones = getAsignaciones(tokenCU);
 		JSONObject asignaciones = getAsignaciones(tokenCU);
 		
+		//datos usuariosControl
+		JSONObject usuariosControl = getUsuariosControl(tokenCU);
+		
 		jsonResponse.put("asignaciones", asignaciones);
 		jsonResponse.put("cursos", cursos);
+		jsonResponse.put("usuariosControl", usuariosControl);
 		jsonResponse.put("instructores", instructores);
 		
 		rs.setJsonResponse(jsonResponse);
 		
 		return jsonResponse;
 	}
+	
+
+	@Override
+	public ResultVO getDataUsuarios(String token) {
+		ResultVO rs = new ResultVO();
+		JSONObject jsonResponse = new JSONObject();
+		//datos usuariosAudiencia
+		 rs = getUsuarios(token);
+
+		jsonResponse.put("usuarios", rs.getJsonResponse());
+		
+		rs.setJsonResponse(jsonResponse);
+		
+		return rs;
+
+	}
+	
+
+
 
 	@Override
 	public ResultVO altaUsuarioAudiencia(UsuarioAudiencia userA, String accesToken) {
 		
-		
 		userA.setCreateAt(LocalDateTime.now());
 		userA.setUserCreate("nombreUsuario");
 		userA.setStatus("create");
-		
-		
-//		log.info(usuario.toString());
-
+	
 		ResultVO resultVO = (ResultVO) baseClientRest.objetoPost(
 				accesToken,
 				BaseClientRest.URL_ALTA_USUARIOAUDIENCIA,
@@ -73,6 +94,75 @@ public class UsuariosService implements IUsuariosService{
 		
 		return resultVO;
 	}
+	
+	@Override
+	public ResultVO altaUsuarioInstructor(UsuarioInstructor userI, String accesToken) {
+		userI.setCreateAt(LocalDateTime.now());
+		userI.setUserCreate("nombreUsuario");
+		userI.setStatus("activo");
+	
+		ResultVO resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken,
+				BaseClientRest.URL_ALTA_USUARIOINSTRUCTOR,
+				userI);
+//		if(resultVO.getCodigo()!=500) {
+//			//Actualizar Usuario a Habilitado en la tabla de usuarios 
+//			
+//		}
+		
+		return resultVO;
+	}
+	
+	@Override
+	public ResultVO altaUsuarioAdministrador(UsuarioAdministrador userA, String accesToken) {
+		userA.setCreateAt(LocalDateTime.now());
+		userA.setUserCreate("nombreUsuario");
+		userA.setStatus("activo");
+	
+		log.info(userA.toString());
+		ResultVO resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken,
+				BaseClientRest.URL_ALTA_USUARIOADMINISTRADOR,
+				userA);
+//		if(resultVO.getCodigo()!=500) {
+//			//Actualizar Usuario a Habilitado en la tabla de usuarios 
+//			
+//		}
+		
+		return resultVO;
+	}
+	
+	@Override
+	public ResultVO actualizaAudiencia(UsuarioAudiencia userA, String accesToken) {
+		
+		ResultVO resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken,
+				BaseClientRest.URL_ACTUALIZA_USUARIOAUDIENCIA,
+				userA);
+//		if(resultVO.getCodigo()!=500) {
+//			//Actualizar Usuario a Habilitado en la tabla de usuarios 
+//			
+//		}
+		
+		return resultVO;
+	}
+
+
+	@Override
+	public ResultVO actualizaInstructor(UsuarioInstructor userI, String accesToken) {
+		ResultVO resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken,
+				BaseClientRest.URL_ACTUALIZA_USUARIOINSTRUCTOR,
+				userI);
+//		if(resultVO.getCodigo()!=500) {
+//			//Actualizar Usuario a Habilitado en la tabla de usuarios 
+//			
+//		}
+		
+		return resultVO;
+	}
+
+
 
 	
 	
@@ -111,9 +201,7 @@ public class UsuariosService implements IUsuariosService{
 			
 			if(rs.getCodigo() == 202) {
 				JSONObject jsonGeneral = rs.getJsonResponse();
-				
 				jsonCursos.put("cursos", jsonGeneral.get("cursos"));
-				
 				rs.setJsonResponseObject(jsonCursos);
 				
 			}else {
@@ -124,8 +212,29 @@ public class UsuariosService implements IUsuariosService{
 		}
 		return jsonCursos;
 	}
+	
+	private JSONObject getUsuariosControl(String tokenCU) {
+		
+		ResultVO rs = new ResultVO();
+		JSONObject jsonUsuariosControl = new JSONObject();
+		try {
+			rs = (ResultVO) baseClientRestCU.objetoGetAll(tokenCU, BaseClientRestCU.URL_CRUD_USUARIOS);
+			
+			if(rs.getCodigo() == 202) {
+				JSONObject jsonGeneral = rs.getJsonResponse();
+				jsonUsuariosControl.put("usuariosControl", jsonGeneral.get("usuarios"));
+				rs.setJsonResponseObject(jsonUsuariosControl);
+				
+			}else {
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return jsonUsuariosControl;
+	}
 
-private JSONObject getAsignaciones(String tokenCU) {
+	private JSONObject getAsignaciones(String tokenCU) {
 		
 		ResultVO rs = new ResultVO();
 		JSONObject jsonAsignaciones = new JSONObject();
@@ -134,13 +243,7 @@ private JSONObject getAsignaciones(String tokenCU) {
 			rs= (ResultVO) baseClientRestCU.objetoGetAll(tokenCU, BaseClientRestCU.URL_CRUD_ASIGNACIONES);
 			if(rs.getCodigo() != 500) {
 				JSONObject jsonGeneral = rs.getJsonResponse();
-//				log.info(rs.getJsonResponse().toJSONString());
-//				JSONObject jsonAsignaciones = new JSONObject();
 				jsonAsignaciones.put("asignaciones", jsonGeneral.get("asignaciones"));
-				
-//				rs.setJsonResponseObject(jsonAsignaciones);
-//				log.info(jsonGeneral.toString());
-//				log.info(rs.toString());
 			
 			}else {
 //				return rs;
@@ -151,6 +254,65 @@ private JSONObject getAsignaciones(String tokenCU) {
 		
 		return jsonAsignaciones;
 	}
+	
+	private ResultVO getUsuarios(String token) {
+		JSONObject jsonObject = new JSONObject();
+		ResultVO rs = new ResultVO();
+		rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_GET_USUARIOS);
+		if(rs.getCodigo() == 200) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			jsonObject.put("usuarios", jsonGeneral.get("usuarios"));
+			jsonObject.put("usuariosAudiencia", jsonGeneral.get("usuariosAudiencia"));
+			jsonObject.put("usuariosInstructor", jsonGeneral.get("usuariosInstructor"));
+			jsonObject.put("usuariosAdministrador", jsonGeneral.get("usuariosAdministrador"));
+		}
+		rs.setJsonResponse(jsonObject);
+		return rs;
+	}
+
+	private JSONObject getUsuariosAdministrador(String token) {
+		JSONObject jsonObject = new JSONObject();
+		ResultVO rs = new ResultVO();
+		rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_GET_USUARIOSADMINISTRADOR);
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			jsonObject.put("usuariosAdmninistrador", jsonGeneral.get("usuariosAdmninistrador"));			
+		}
+		return jsonObject;
+	}
+
+
+	private JSONObject getUsuariosInstructor(String token) {
+		JSONObject jsonObject = new JSONObject();
+		ResultVO rs = new ResultVO();
+		rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_GET_USUARIOSINSTRUCTOR);
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			jsonObject.put("usuariosInstructor", jsonGeneral.get("usuariosInstructor"));			
+		}
+		return jsonObject;
+	}
+
+
+	private JSONObject getUsuariosAudiencia(String token) {
+		JSONObject jsonObject = new JSONObject();
+		ResultVO rs = new ResultVO();
+		rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_GET_USUARIOSAUDIENCIA);
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			jsonObject.put("usuariosAudiencia", jsonGeneral.get("usuariosAudiencia"));			
+		}
+		return jsonObject;
+	}
+
+
+
+
+
+	
+
+
+
 
 
 	

@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<title>Gamer -- Uniprotec</title>
+<title>Uniprotec Games</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -17,6 +17,8 @@
 	 <link th:href="@{css/default.css}" rel="stylesheet">
     <link th:href="@{css/default.date.css}" rel="stylesheet">
     <link th:href="@{css/default.time.css}" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
 <!--===============================================================================================-->
 
 
@@ -24,7 +26,7 @@
 <body class="parallax" background="images/virtual9.jpg" >
 	<div id="head">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
-		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
+		  <a class="navbar-brand" href="#"><img th:src="@{images/logoGamer.jpg}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -39,7 +41,7 @@
 		        <a class="nav-link" href="/usuarios">Usuarios</a>
 		      </li>
 		      <li class="nav-item ">
-		        <a class="nav-link" href="/cursos">Cursos</a>
+		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
 		      </li>
 		      <li class="nav-item active">
 		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
@@ -62,21 +64,21 @@
 	</div>
 	
 	<div id="body">
-		<div class="row boxShadow container-fluid ">
-			<div class="col-6" style="">
-			 <img th:src="@{images/estadistica de accesos.png}" alt=""  style="max-width: 15.0rem; max-height: 15.0rem"/>
+		<div class="row boxShadow container-fluid">
+			<div class="col-sm-6" style="">
+			 <img th:src="@{images/MODULOEstadisticas2.png}" alt=""  class="img-fluid" style="max-width: 15.0rem; max-height: 15.0rem"/>
 			 <p class="lead">TABLERO DE ESTADISTICAS Y REPORTES.</p>
 			</div> 
-			<div class="col-6  " >
+			<div class="col-sm-6  " >
 				<br><br>
 				<ul class="fa-ul">
-				  <li class="" id="usuarioAlta"><a href="#seccion0"><i class="fa-li fa fa-2x fa-exchange"></i><p>CONSULTA USUARIOS</p></a></li>
+				  <li class="" id="usuarioAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-exchange"></i><p>CONSULTA USUARIOS</p></a></li>
 				  <hr class="my-4">
-				  <li class="" id="usuarioInstructor"><a href="#seccion1"><i class="fa-li fa fa-2x fa-cubes"></i><p>CONSULTA MODULOS ACTIVOS</p></a></li>
+				  <li class="" id="usuarioInstructor"><a class="menuA" href="#seccion1"><i class="menuAI fa-li fa fa-2x fa-cubes"></i><p>CONSULTA MODULOS ACTIVOS</p></a></li>
 				  <hr class="my-4">
-				  <li class="" id="usuarioAudencia"><a href="#seccion2"><i class="fa-li fa fa-2x fa-bar-chart"></i><p>CONSULTAR ACTIVIDADES USUARIOS</p></a></li>
+				  <li class="" id="usuarioAudencia"><a class="menuA" href="#seccion2"><i class="menuAI fa-li fa fa-2x fa-bar-chart"></i><p>CONSULTAR ACTIVIDADES USUARIOS</p></a></li>
 				  <hr class="my-4">
-				  <li class="" id="usuarioConsulta"><a href="#seccion3"><i class="fa-li fa fa-2x fa-bell"></i><p>EVENTOS E INTERACCIONES</p></a></li>
+				  <li class="" id="usuarioConsulta"><a class="menuA" href="#seccion3"><i class="menuAI fa-li fa fa-2x fa-bell"></i><p>EVENTOS E INTERACCIONES</p></a></li>
 				</ul>
 				<br>
 			</div> 

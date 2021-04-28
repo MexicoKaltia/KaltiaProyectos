@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.AsignacionHistorico;
+import mx.uniprotec.application.entity.Notificacion;
 import mx.uniprotec.application.service.IAsignacionService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 
@@ -36,6 +38,8 @@ public class AsignacionRestController {
 	
 	@Autowired
 	private IAsignacionService asignacionService;
+	@Autowired
+	private INotificacionDao notificacionDao;
 	
 	
 	
@@ -206,16 +210,25 @@ public class AsignacionRestController {
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		log.info("update Asignacion:"+asignacion.toString());
-//		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
-//			asignacionService.delete(id);
-//			response.put("asignacion", asignacionUpdated  );
-//			 response.put("mensaje", "Asignacion Eliminada con Exito");
-//			 response.put("status", HttpStatus.CREATED);
-//			 response.put("code", HttpStatus.CREATED.value());
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-//		}else {
+		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 			try {
-				
+				List<Notificacion> notificacionUpdate = notificacionDao.findByIdAsignacionNotificacion(id);
+				for(Notificacion notificacion : notificacionUpdate) {
+					notificacion.setStatusNotificacion("cancelada");
+					notificacionDao.save(notificacion);
+				}
+//				 response.put("asignacion", asignacionUpdated  );
+//				 response.put("mensaje", "Asignacion Eliminada con Exito");
+//				 response.put("status", HttpStatus.CREATED);
+//				 response.put("code", HttpStatus.CREATED.value());
+			} catch (Exception e) {
+				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}			
+		}
+		try {				
 				asignacionActual.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
 				asignacionActual.setFechaAsignacion(asignacion.getFechaAsignacion());
 				asignacionActual.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());

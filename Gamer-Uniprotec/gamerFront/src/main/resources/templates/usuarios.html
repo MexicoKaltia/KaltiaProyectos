@@ -4,32 +4,39 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<title>Gamer -- Uniprotec</title>
+<title>Uniprotec Games</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" th:href="@{images/logo.png}" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
 <!-- Date picker -->
 	 <link th:href="@{css/default.css}" rel="stylesheet">
     <link th:href="@{css/default.date.css}" rel="stylesheet">
     <link th:href="@{css/default.time.css}" rel="stylesheet">
+<!-- table -->
+	<link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
+<!-- animate -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
+	
 <!--===============================================================================================-->
 
 
 </head>
 <body class="parallax" background="images/virtual10.jpg" >
 	<div id="head">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
-		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top ">
+		  <a class="navbar-brand" href="#"><img th:src="@{images/logoGamer.jpg}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarColor01">
-		    <ul class="navbar-nav mr-auto">
+		    <ul class="navbar-nav mr-auto encabezado">
 		      <li class="nav-item ">
 		        <a class="nav-link" href="/inicio">Inicio
 		          <span class="sr-only">(current)</span>
@@ -39,7 +46,7 @@
 		        <a class="nav-link" href="/usuarios">Usuarios</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/cursos">Cursos</a>
+		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
@@ -59,75 +66,206 @@
 		</nav>	
 	</div>
 	<div id="menuleft">
+		
 	</div>
 	
 	<div id="body">
-		<div class="row boxShadow container-fluid ">
-			<div class="col-6  " >
-			 <img th:src="@{images/configuracion usuario.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+		<span th:if="${ejecucion}">
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Éxito!</strong> Se han generado correctamente los Usuarios
+				Audiencia. Verifique la activación en configuración de usuarios Audiencia.
+			</div>
+		</span>
+		<span th:if="${ejecucionI}">
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Éxito!</strong> Se ha activado correctamente Usuario Instructor.
+			</div>
+		</span>
+		<span th:if="${ejecucionA}">
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Éxito!</strong> Se ha activado correctamente Usuarios Administrador.
+			</div>
+		</span>
+		 <span th:if="${error}">
+			<div class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Descripción</strong> <a href="#" class="alert-link">Error
+					en la generación de usuarios.</a> Consulte Fecha - Evento. Si persiste
+				consulte administrador de sistema.
+			</div>
+		</span>
+		<div class="row boxShadow container-fluid animate__animated animate__backInDown">
+			<div class="col-sm-6" >
+			 <img th:src="@{images/MODULOUsuarios.png}" alt=""  class="img-fluid" style="max-width: 12.0rem; max-height: 12.0rem"/>
 			 <p class="lead">TABLERO DE ASIGNACION DE USUARIOS.</p>
 			</div> 
-			<div class="col-6  " >
+			<div class="col-sm-6" >
 				<br><br>
 				<ul class="fa-ul">
-				  <li class="" id="usuarioAlta"><a href="#seccion0"><i class="fa-li fa fa-2x fa-user-circle"></i><p>ALTA USUARIO</p></a></li>
+				  <li class="" id="usuarioAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-user-circle"></i><p>ALTA USUARIO</p></a></li>
 				  <hr class="my-4">
-				  <li class="" id="usuarioInstructor"><a href="#seccion1"><i class="fa-li fa fa-2x fa-address-book"></i><p>CONFIGURAR USUARIO INSTRUCTOR</p></a></li>
+				  <li class="" id="usuarioInstructor"><a class="menuA" href="#seccion1"><i class="menuAI fa-li fa fa-2x fa-address-book"></i><p>CONFIGURAR USUARIO INSTRUCTOR</p></a></li>
 				  <hr class="my-4">
-				  <li class="" id="usuarioAudencia"><a href="#seccion2"><i class="fa-li fa fa-2x fa-id-card"></i><p>CONFIGURAR USUARIO AUDIENCIA</p></a></li>
-				  <hr class="my-4">
-				  <li class="" id="usuarioConsulta"><a href="#seccion3"><i class="fa-li fa fa-2x fa-users"></i><p>CONSULTA USUARIOS STATUS</p></a></li>
+				  <li class="" id="usuarioAudencia"><a class="menuA" href="#seccion2"><i class="menuAI fa-li fa fa-2x fa-id-card"></i><p>CONFIGURAR USUARIO AUDIENCIA</p></a></li>
+<!-- 				  <hr class="my-4"> -->
+<!-- 				  <li class="" id="usuarioConsulta"><a href="#seccion3"><i class="fa-li fa fa-2x fa-users"></i><p>CONSULTA USUARIOS STATUS</p></a></li> -->
 				</ul>
 				<br>
 			</div> 
 		</div>
 		<hr class="">	
-	<a id="seccion0"></a>
-		<div class="row seccionOperacion" id="seccionOperacion">
-		</div>	
+		
+		<a id="seccion0"></a>
+		<div class="row seccionOperacion container animate__animated  animate__backInLeft" id="seccionOperacion"></div>
+			
 		  <hr>
-			<div class=" seccionOperacion" id="usuarioAudienciaForm">
+		  <!-- alta audiencia -->
+			<div class=" seccionOperacion container animate__animated animate__zoomInDown" id="usuarioAudienciaForm">
 			 <form id="formAltaUsuarioAudiencia" th:action="@{/altaAudiencia}"  th:object="${usuarioAudiencia}" method="post">
 			   <div class="form-group">
-		              <label for="exampleFormControlSelect1">Fecha de Actividad *</label>
+		              <label class="nombre" for="exampleFormControlSelect1">Fecha de Actividad *</label>
 		              <input id="usuarioAudenciaFecha" class="elementoInput datepicker form-control" th:field="*{usuarioAudienciaFecha}" name="usuarioAudienciaFecha" type="text"  required onchange="validaFecha(this)"/>
 		        </div>
 		        <div class="form-group">
-			      <label for="exampleSelect2">Selecciona Asignación de Evento *</label>
+			      <label class="nombre" for="exampleSelect2">Selecciona Asignación de Evento *</label>
 			      <select  class="form-control elementoInput" id="selectAsignaEvento" th:field="*{usuarioAudienciaEvento}">
 			      </select>
 			    </div>
 				 <div class="form-group">
-				      <label for="">Nombre Personal Responsable Audencia - Instructor</label>
+				      <label class="nombre" for="">Nombre Personal Responsable Audencia - Instructor</label>
 				      <input type="text" class="form-control elementoInput" id="usuarioAudenciaNombre" th:field="*{usuarioAudienciaResponsable}"  placeholder="Nombre Personal Responsable Audencia">
-				      <small id="emailHelp" class="form-text text-muted">En caso de no contar con el nombre del personal responsable de audencia, este campo se podrá editar. No obligatorio</small>
+				      <small  style="color:#ffa400" id="emailHelp" class="form-text ">En caso de no contar con el nombre del personal responsable de audencia, este campo se podrá editar. No obligatorio</small>
 			   	</div>   
 			    <div class="form-group">
-			      <label for="exampleSelect2">Selecciona Modulo Didáctico *</label>
+			      <label class="nombre" for="exampleSelect2">Selecciona Modulo Didáctico *</label>
 			      <select multiple="" class="form-control elementoInput" id="selectModulosCurso" th:field="*{usuarioAudienciaModulos}">
-			        <option value="memoria">Memoria</option>
-			        <option value="crucigrama">Crucigrama</option>
-			        <option value="test">Test Aprovechamiento</option>
-			        <option value="certificados">Certificados</option>
+<!-- 			        <option value="memoria">Memoria</option> -->
+<!-- 			        <option value="crucigrama">Crucigrama</option> -->
+<!-- 			        <option value="test">Test Aprovechamiento</option> -->
+<!-- 			        <option value="certificados">Certificados</option> -->
 			      </select>
 			    </div>
 			    <input type="hidden" th:field="*{usuarioAudienciaParticipantes}" id="usuarioAudienciaParticipantes">
 			    <input type="hidden" th:field="*{usuarioAudienciaIdAsignacion}" id="usuarioAudienciaIdAsignacion">
+			    <input type="hidden" th:field="*{usuarioAudienciaNombreEvento}" id="usuarioAudienciaNombreEvento">
 			    <div class="form-group" id="divListaUsuarios">
 			    	
 			    </div>
-				<br><hr>
-				<button type="submit" id="btnActivarUsuarios" class="btn btn-success">Activar Usuarios</button>
+				
+				<button type="submit" id="btnActivarUsuarioAudiencia" class="btn btn-success">Activar Usuarios</button>
 			</form>
+			<br><br>
 		</div>
 		
+		<!--  alta instructor -->
+		<div class="seccionOperacion container animate__animated animate__zoomInDown" id="usuarioInstructorForm">
+			<div class="alert alert-dismissible alert-light" id="instructorDescripcion">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Recuerda:</strong> El usuario y password del personal de Instructores, es el mismo que en la aplicación Control-Uniprotec.<p>En esta sección activas usuario para el acceso</p>
+			</div>
+			<div id="divSelInstructor"></div>
+			<div class="alert alert-dismissible alert-primary" id="instructorNoActivo">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				
+				<form id="formAltaUsuarioInstructor" th:action="@{/altaInstructor}"  th:object="${usuarioInstructor}" method="post">
+				<strong>Usuario:</strong> <a class="alert-link usernameInstructor"></a>. <p>Dar click en el enlace para activarlo.</p>
+					<input type="hidden" th:field="*{usuarioInstructorNombre}" id="usuarioInstructorNombre">
+					<input type="hidden" th:field="*{usuarioInstructorIdAsignacion}" id="usuarioInstructorIdAsignacion">
+					<input type="hidden" th:field="*{usuarioInstructorUserName}" id="usuarioInstructorUserName">
+					<input type="hidden" th:field="*{usuarioInstructorPassword}" id="usuarioInstructorPassword">
+					<button type="submit" id="btnActivarUsuarioInstructor" class="btn btn-success">Activar Usuario Instructor</button>
+				</form>
+			</div>
+			<div class="alert alert-dismissible alert-success" id="instructorActivo">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Usuario:</strong> <a href="#" class="alert-link usernameInstructor"></a>.<p> Actualmente se encuentra activo.</p>
+			</div>
+		</div>
+		
+		<!-- alta administrador -->
+		<div class="seccionOperacion container animate__animated animate__zoomInDown" id="usuarioAdministradorForm">
+			<div class="alert alert-dismissible alert-light" id="administradorDescripcion">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Recuerda:</strong> El usuario y password del personal de Administrador, es el mismo que en la aplicación Control-Uniprotec.<p>En esta sección activas usuario para el acceso</p>
+			</div>
+			<div id="divSelAdministrador"></div>
+			<div class="alert alert-dismissible alert-primary" id="administradorNoActivo">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				
+				<form id="formAltaUsuarioAdministrador" th:action="@{/altaAdministrador}"  th:object="${usuarioAdministrador}" method="post">
+				<strong>Usuario:</strong> <a class="alert-link usernameAdministrador"></a>. <p>Dar click en el enlace para activarlo.</p>
+					<input type="hidden" th:field="*{usuarioAdministradorNombre}" id="usuarioAdministradorNombre">
+					<input type="hidden" th:field="*{usuarioAdministradorIdAsignacion}" id="usuarioAdministradorIdAsignacion">
+					<input type="hidden" th:field="*{usuarioAdministradorUserName}" id="usuarioAdministradorUserName">
+					<input type="hidden" th:field="*{usuarioAdministradorPassword}" id="usuarioAdministradorPassword">
+					<button type="submit" id="btnActivarUsuarioAdministrador" class="btn btn-success">Activar Usuario Administrador</button>
+				</form>
+			</div>
+			<div class="alert alert-dismissible alert-success" id="administradorActivo">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Usuario:</strong> <a href="#" class="alert-link usernameAdministrador"></a>.<p> Actualmente se encuentra activo.</p>
+			</div>
+		</div>
+		
+		<!--  configurar instructor -->
 		<a id="seccion1"></a>
-		<div class="seccionOperacion" id="usuarioConfigurarInstructorForm">
+		<div class="seccionOperacion container animate__animated animate__fadeInDown" id="configuracionInstructor" >
+			<h5  class="nombre card-title">USUARIOS INSTRUCTORES UNIPROTEC - GAMER</h5>
+			<br>
+			<table id='instructoresTable' class="table table-hover  table-striped table-dark table-borderless container"
+				data-locale="es-MX" 
+				data-toggle='table' 
+				data-sort-name='username'
+				data-search='true' 
+				data-sort-order='asc'
+				data-pagination='true'
+				data-class="bienvenido"
+				data-page-list='[10, 25, 50, 100, 200, Todos]'>
+			<thead class='thead-light'>
+			<tr>
+				<th style="color:#ffa400" data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='username' data-sortable='true'>Usuario</th>
+				<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombre' data-sortable='true'>Nombre Instructor</th>
+				<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='status' data-sortable='true'>Estatus</th>
+				<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdateInstructor" data-events="window.operateEventsUpdateInstructor">Editar</th>
+	<!--		<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
+			</tr>
+			</thead>					
+			</table>
+		</div>
+		
+			
+			<!--  configurar audiencia -->
+		<a id="seccion2"></a>
+		<div class="seccionOperacion container animate__animated animate__fadeInDown" id="configuracionAudiencia" >
+			<h5 class="card-title nombre">USUARIOS AUDIENCIA UNIPROTEC - GAMER</h5>
+			<br>
+			<table id='audienciaTable' class="table table-hover  table-striped table-dark table-borderless container-fluid"
+				data-locale="es-MX" 
+				data-toggle='table' 
+				data-sort-name='username'
+				data-search='true' 
+				data-sort-order='asc'
+				data-pagination='true'
+				data-page-list='[10, 25, 50, 100, 200, Todos]'>
+			<thead class='thead-light'>
+			<tr>
+				<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='username' data-sortable='true'>Usuario</th>
+				<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field='usuarioAudiencia.usuarioAudienciaFecha' data-sortable='true'>Fecha</th>
+				<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='nombre' data-sortable='true'>Nombre Instructor</th>
+				<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='usuarioAudiencia.usuarioAudienciaNombreEvento' data-sortable='true'>Nombre Curso</th>
+				<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='status' data-sortable='true'>Estatus</th>
+				<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdateAudiencia" data-events="window.operateEventsUpdateAudiencia">Editar</th>
+	<!--		<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
+			</tr>
+			</thead>					
+			</table>
 			
 		</div>
-		
 	
-	</div>
+	</div><!-- fin body -->
 	<div id="footer">
 	
 		<div id="footerDatos" class="footer">
@@ -137,20 +275,22 @@
 			<img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 		</div>
 	</div>
-
+	
 
 <script th:inline="javascript">
- 		 var asignaciones = [[${model.jsonResponse.asignaciones}]];
-//  		 var instructores = [[${model.jsonResponse.instructores}]];
-//  		 var cursos = [[${model.jsonResponse.cursos}]];
- 		
- 		 
+ 		 var asignaciones = 		[[${model.jsonResponse.asignaciones}]];
+ 		 var instructores = 		[[${model.jsonResponse.instructores}]];
+ 		 var cursos	= 				[[${model.jsonResponse.cursos}]];
+ 		 var usuariosControl	= 	[[${model.jsonResponse.usuariosControl}]];
+ 		 var modulos =				 [[${modulosDidacticos.modulos}]];
+ 		 var usuarios = 			[[${dataUsuarios.usuarios}]];
 	</script>
 <!--===============================================================================================-->
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
 	<script th:src="@{js/usuarios.js}"></script>
+	<script th:src="@{js/table.js}"></script>
 	
 	<!-- Date picker -->
 	<script th:src="@{js/picker.js}"></script>   
@@ -166,8 +306,122 @@
     })
 	</script>
 	
-	
+	 <script th:src="@{js/bootstrap-table.min.js}"></script>
+     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    
 	<!--===============================================================================================-->
 
 </body>
 </html>
+
+  <div class="modal fade" id="modalInstructor" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid" style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0">
+          <form id="actualizaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaInstructor}"  th:object="${usuarioInstructor}" method="post">
+          <input type="hidden" id="idUsuarioInstructor" th:field="*{idUsuarioInstructor}" th:value="*{idUsuarioInstructor}"/>
+          <input type="hidden" id="statusInstructor" th:field="*{status}" />
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01" style="color:#ffa400">Nombre Instructor</label><br>
+                                            <span class="nombre" style="color:white" id="nombreInstructor" ></span>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01" style="color:#ffa400">Username Instructor</label><br>
+                                            <span  class="nombre" style="color:white"  id="usernameInstructor" ></span>
+                                        </div>
+                                     </div>
+                                     
+                                     <div class="form-row">
+                                         <label for="validationCustom02" style="color:#ffa400">Cursos Instructor</label>
+                           				     <ul id="cursosInstructor" class="nombre" ></ul>
+                                      </div>
+                                      
+							         <div class="form-row">
+								          <label for="validationCustom01" style="color:#ffa400">Status Instructor :</label><br>
+								     	  <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                                  		<button type="button" id="btnStatusInstructor" class="btn btn-success" onclick="checkStatusInstructor()"></button>
+		                                  </div>
+		                              </div> 
+		                              
+		                                  <div class="form-row">
+		                                   <small class="form-text bienvenido">Dar click en el boton para cambiar el estatus a NO ACTIVO.</small>
+	                                      </div>
+                         </form>			 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+          <button  class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+  <div class="modal fade" id="modalAudiencia" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}"class="img-fluid"  alt="" style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0">
+          <form id="actualizaAudiencia" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" method="post">
+          <input type="hidden" id="idUsuarioAudiencia" th:field="*{idUsuarioAudiencia}" th:value="*{idUsuarioAudiencia}"/>
+		  <input type="hidden" id="statusAudiencia" th:field="*{status}" />
+ 			<div class="form-row">
+                                     <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01" style="color:#ffa400">Username Instructor</label><br>
+                                            <span  class="nombre" style="color:white"  id="usernameAudiencia" ></span>
+                                        </div>
+                                     </div>
+                                      
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom01" style="color:#ffa400">Fecha Asignacion</label><br>
+                                            <span  class="nombre" style="color:white"  id="fechaAudiencia" ></span>
+                                        </div>
+                                     </div>
+                                     <div class="form-row">
+                                         <label for="validationCustom02" style="color:#ffa400">Curso Asignacion</label>
+                           				     <span  class="nombre" style="color:white"  id="cursosAudiencia" ></span>
+                                      </div>
+                                      <div class="form-row">
+                                         <label for="validationCustom02" style="color:#ffa400">Modulos Didacticos</label>
+                           				     <ul id="modulosInstructor" class="nombre" ></ul>
+                                      </div>
+                                     
+							         <div class="form-row">
+								          <label for="validationCustom01" style="color:#ffa400">Status Instructor :</label><br>
+								     	  <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                                  		<button type="button" id="btnStatusAudiencia" class="btn btn-warning" onclick="checkStatusAudiencia()"></button>
+		                                  </div>
+		                              </div>    
+		                                  <div class="form-row">
+		                                   <small class="form-text bienvenido">Dar click en el boton para cambiar el estatus a ACTIVO.</small>
+	                                      </div>
+                         </form>			 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+          <button  class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  

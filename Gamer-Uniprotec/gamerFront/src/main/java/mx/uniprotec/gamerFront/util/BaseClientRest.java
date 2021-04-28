@@ -3,6 +3,8 @@ package mx.uniprotec.gamerFront.util;
 import java.util.Base64;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedRuntimeException;
@@ -39,9 +41,19 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 //	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
 //	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 	
-//	public static final String URL_CRUD_CLIENTE		  =	"cliente";
-//	public static final String URL_CRUD_USUARIO	 	  =	"usuario";
-	public static final String URL_ALTA_USUARIOAUDIENCIA	 	  =	"altaUsuariosAudiencia";
+	public static final String URL_ALTA_USUARIOADMINISTRADOR	= "altaUsuariosAdministrador";
+	public static final String URL_ALTA_USUARIOINSTRUCTOR	 	= "altaUsuariosInstructor";
+	public static final String URL_ALTA_USUARIOAUDIENCIA	 	= "altaUsuariosAudiencia";
+	public static final String URL_ALTA_MODULO					= "altaModulo";
+	public static final String URL_ACTUALIZA_USUARIOINSTRUCTOR	 	= "actualizaUsuariosInstructor";
+	public static final String URL_ACTUALIZA_USUARIOAUDIENCIA	 	= "actualizaUsuariosAudiencia";
+	public static final String URL_ACTUALIZA_MODULO	 	= "actualizaModulo";
+	public static final String URL_GET_USUARIOSADMINISTRADOR 	= "getUsuariosAdministrador";
+	public static final String URL_GET_USUARIOSINSTRUCTOR 		= "getUsuariosInstructor";
+	public static final String URL_GET_USUARIOSAUDIENCIA 		= "getUsuariosAudiencia";
+	public static final String URL_GET_USUARIOS 				= "getUsuarios";
+	public static final String URL_GET_MODULOS 				= "getModulos";
+	public static final String URL_GET_MODULO 				= "getModulo";
 		
 	public static final String POST = "HttpMethod.POST";
 	public static final String GET  = "HttpMethod.GET";
@@ -49,7 +61,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String GRANT_TYPE ="password";
 	public static final String APP_ID = "UNIPROTEC:GAMER2021";
 	
-	public static final Long MAX_TIME_TOKEN = (long) 3600000; 
+	public static final Long MAX_TIME_TOKEN = (long) 3600000;
+	 
 	
 	ResultVO resultVO = new ResultVO();
 	
@@ -76,7 +89,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return resultVO;
 	}
 	
-
+	@Override
 	public ResultVO objetoGetAll(String token, String urlCrud) {
 		return getTemplateObjetoGetAll(token, urlCrud);//resultVO;
 	}
@@ -204,7 +217,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 
 
-	private ResultVO getTemplateObjetoGetAll(String token, String urlCrud) {
+	private ResultVO getTemplateObjetoGetAll(String token, String urlCrud)  {
 		
 		HttpHeaders headers = new HttpHeaders();
 		 headers.setContentType(MediaType.APPLICATION_JSON);//.APPLICATION_JSON);		 
@@ -224,8 +237,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 				JSONObject jsonResponse = new JSONObject();
 			    ResultVO rs = new ResultVO();
 			    rs.setJsonResponse(jsonResponse);
-			    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat("-----"));
-			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+			    log.info(e.getMessage());
+//			    rs.setMensaje("Error:"+e.getMessage().concat(".=. ").concat("-----"));
+			    rs.setMensaje(getMensajeError(e.getMessage()));
+//			    rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+				rs.setCodigo(Long.valueOf(getNumeroError(e.getMessage())));
+				
 			    log.info(rs.getMensaje());
 			    e.printStackTrace();    
 				return rs;
@@ -233,6 +250,28 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	    
 	}
 	
+	private String getNumeroError(String message) {
+		String tmp = message.substring(0, message.indexOf(":"));
+		tmp = tmp.replace(" ", "");
+//		log.info(tmp);
+		return tmp;
+	}
+
+
+
+	private String getMensajeError(String message) {
+
+//		JSONParser parser = new JSONParser();
+//		JSONObject jsonObject = (JSONObject) parser.parse(message);
+//		message = jsonObject.values().toString();
+		String tmp = message.substring(message.indexOf(":"),message.length());
+		tmp = tmp.replace(" ", "");
+//		log.info(tmp);
+		return tmp ;
+	}
+
+
+
 	private ResultVO getTemplateObjetoGetId(String token, String urlCrud, Object object, String idObject) {
 		
 		String urlGetId = URL_CRUD+urlCrud + "/" +idObject.toString();

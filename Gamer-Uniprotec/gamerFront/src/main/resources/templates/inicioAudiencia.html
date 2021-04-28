@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<title>Gamer -- Uniprotec</title>
+<title>Uniprotec Games</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -13,14 +13,17 @@
 <link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
+<!-- animate -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
 <!--===============================================================================================-->
 
 
 </head>
-<body>
+<body class="" background="images/fondo.png">
 	<div id="head">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light bg-primary">
+		  <a class="navbar-brand" href="#"><img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -31,74 +34,74 @@
 		          <span class="sr-only">(current)</span>
 		        </a>
 		      </li>
-		      <li class="nav-item ">
-		        <a class="nav-link" href="/accesoModulo">Acceso Modulo</a>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
 		      </li>
+<!-- 		      <li class="nav-item dropdown"> -->
+<!-- 		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a> -->
+<!-- 		        <div class="dropdown-menu"> -->
+<!-- 		          <a class="dropdown-item" href="#seccion0">Action</a> -->
+<!-- 		          <a class="dropdown-item" href="#"> action1</a> -->
+<!-- 		          <a class="dropdown-item" href="#">action2</a> -->
+<!-- 		          <div class="dropdown-divider"></div> -->
+<!-- 		          <a class="dropdown-item" href="#">Cerrar Sesion</a> -->
+<!-- 		        </div> -->
+<!-- 		      </li> -->
 		      
-		      <li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
-		        <div class="dropdown-menu">
-		          <a class="dropdown-item" href="#seccion0">Action</a>
-		          <a class="dropdown-item" href="#"> action1</a>
-		          <a class="dropdown-item" href="#">action2</a>
-		          <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="#">Cerrar Sesion</a>
-		        </div>
-		      </li>
 		    </ul>
-		
 		  </div>
 		</nav>	
 	</div>
 	<div id="menuleft">
 	</div>
 	<div id="body">
-		<div class="row">
-			<div class=" boxShadow container-fluid" >
-			  <h1 class="display-3">Bienvenido _Nombre Audiencia_</h1>
-			  <p class="lead">Pagina de inicio Gamer Uniprotec, a continuacion tienes los accesos directos a modulos didacticos.</p>
-			  <hr class="my-4">
-			  <p>Si tienes algun problema contacta Administrador</p>
-			  <p class="lead">
+		<div class="row interior  fondoAdmin">
+      <div class="imagenIzq animate__animated  animate__backInLeft"></div>
+			<div class="imagenDer animate__animated  animate__backInRight" >
+			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre"><span th:text="${user.userNombre}"></span></h1>
+			  <p class="lead">Página de inicio UniprotecGames, tablero de control Administrador.</p>
+			  <hr class="my-4" style="background-color: rgb(230, 158, 25);">
+			  <p style="color: whitesmoke;">Si tienes algun problema contacta Administrador General</p>
+			  
 			    <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
-			  </p>
+			  
 			</div>
 		</div>
 		<hr class="my-4">
 		
-		<div class="row container-fluid grupo" id="accesosDirectos">
-			<div class="  elemento col-sm align-items-center">
-			<img th:src="@{images/modulo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center">
-			    <h4 class="card-title">Modulo Memorama</h4>
-			    <h6 class="card-subtitle mb-2 text-muted">Curso Montacargas</h6>
+		<div class="row container-fluid grupo animate__animated animate__fadeInUp" id="accesosDirectos">
+			<div class="col-sm align-items-center elemento">
+			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			  <div class="card-body align-items-center elemento">
+			    <h4 class="nombre2">Modulo Memorama</h4>
+			    <h6 class="nombre3">Curso Montacargas</h6>
 			    <div class="align-items-center">
 				    <a href="/accesoModulo">
-				    	<button type="button" class="btn btn-outline-info">Acceso Modulo</button>
+				    	<button type="button" class="btn btn-success">Acceso Modulo</button>
 				    </a>
 			    </div>
 			  </div>
 			</div>
-			<div class="  elemento col-sm align-items-center">
-			<img th:src="@{images/modulo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center">
-			    <h4 class="card-title">Modulo Test</h4>
-			    <h6 class="card-subtitle mb-2 text-muted">Curso Montacargas</h6>
+			<div class="col-sm align-items-center elemento">
+			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			  <div class="card-body elemento">
+			    <h4 class="nombre2">Modulo Encuesta</h4>
+			    <h6 class="nombre3">Curso Montacargas</h6>
 			    <div class="align-items-center">
 				    <a href="/accesoModulo">
-				    	<button type="button" class="btn btn-outline-info">Acceso Modulo</button>
+				    	<button type="button" class="btn btn-success">Acceso Modulo</button>
 				    </a>
 			    </div>
 			  </div>
 			</div>
-			<div class="  elemento col-sm align-items-center">
-			<img th:src="@{images/modulo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center">
-			    <h4 class="card-title">Modulo Crucigrama</h4>
-			    <h6 class="card-subtitle mb-2 text-muted">Curso Seguridad</h6>
+			<div class="col-sm align-items-center elemento">
+			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			  <div class="card-body elemento">
+			    <h4 class="nombre2">Modulo Crucigrama</h4>
+			    <h6 class="nombre3">Curso Montacargas</h6>
 			    <div class="align-items-center">
 				    <a href="/accesoModulo">
-				    	<button type="button" class="btn btn-outline-info">Acceso Modulo</button>
+				    	<button type="button" class="btn btn-success">Acceso Modulo</button>
 				    </a>
 			    </div>
 			  </div>
@@ -110,7 +113,7 @@
 			Derechos Reservados @Uniprotec 2021
 		</div>
 		<div id="footerLogo" class="footer">
-			<img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			<img th:src="@{images/UNIPROTEC-GAMES-Logotipo-2020-negativo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 		</div>
 	</div>
 

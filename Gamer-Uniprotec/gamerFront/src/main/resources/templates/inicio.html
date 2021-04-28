@@ -4,23 +4,29 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<title>Gamer -- Uniprotec</title>
+<title>Uniprotec Games</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" th:href="@{images/logo.png}" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  
+
 <link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
+<!-- animate -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
 <!--===============================================================================================-->
 
 
 </head>
-<body class="parallax" background="images/virtual2.jpg">
+<body class="" background="images/fondo.png">
 	<div id="head">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light bg-primary navbar-fixed-top">
+		  <a class="navbar-brand" href="#"><img th:src="@{images/logo.png}" alt="" class="img-fluid" style="max-width: 12.0rem; max-height: 12.0rem"/></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -35,7 +41,7 @@
 		        <a class="nav-link" href="/usuarios">Usuarios</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/cursos">Cursos</a>
+		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
@@ -50,68 +56,67 @@
 		          <a class="dropdown-item" href="#">Cerrar Sesion</a>
 		        </div>
 		      </li>
+		      
 		    </ul>
-		<!--     <form class="form-inline my-2 my-lg-0"> -->
-		<!--       <input class="form-control mr-sm-2" type="text" placeholder="Search"> -->
-		<!--       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> -->
-		<!--     </form> -->
 		  </div>
 		</nav>	
 	</div>
 	<div id="menuleft">
 	</div>
 	<div id="body">
-		<div class="row">
-			<div class=" boxShadow container-fluid" >
-			  <h1 class="display-3">Bienvenido _Nombre Administrador_</h1>
-			  <p class="lead">Pagina de inicio Gamer Uniprotec, a continuacion tienes los accesos directos a modulos didacticos.</p>
-			  <hr class="my-4">
-			  <p>Si tienes algun problema contacta Administrador</p>
-			  <p class="lead">
-			    <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
-			  </p>
+<!-- 	interior fondoAdmin img-fluid -->
+		<div class="row container-fluid fondoAdmin">
+      		<div class="animate__animated  animate__backInLeft col-sm-6">
+      			<img alt="" th:src="@{images/IMAGEN_PROVISIONAL.png}" class="img-fluid">
+      		</div>
+			<div class="imagenDer animate__animated  animate__backInRight col-sm-6" >
+			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre"><span th:text="${user.userNombre}"></span></h1>
+			  <p class="lead">Página de inicio UniprotecGames, tablero de control Administrador.</p>
+			  <hr class="my-4" style="background-color: rgb(230, 158, 25);">
+			  <p style="color: whitesmoke;">Si tienes algun problema contacta Administrador General</p>
+			  <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
 			</div>
 		</div>
 		<hr class="my-4">
 		
-		<div class="row container-fluid grupo" id="accesosDirectos">
-			<div class="  elemento col-sm align-items-center">
-			<img th:src="@{images/control usuarios.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center">
-			    <h4 class="card-title">Modulo Usuarios</h4>
-			    <h6 class="card-subtitle mb-2 text-muted">Administracion Usuarios</h6>
-			    <p class="card-text">Generación de Usuarios</p>
-			     <p class="card-text">Asignación actividades didácticas y vigencia.</p>
+		<div class="row container-fluid  animate__animated animate__fadeInUp" id="accesosDirectos">
+			<div class="col-sm align-items-center elemento">
+			<img th:src="@{images/moduloUsuario.png}" alt=""  class="img-fluid" style="max-width: 12.0rem; max-height: 12.0rem"/>
+			  <div class="card-body align-items-center elemento">
+			    <h4 class="nombre2">Modulo Usuarios</h4>
+			    <h6 class="nombre3">Administracion Usuarios</h6>
+			    <p class="nombre4">Generación de Usuarios</p>
+			     <p class="nombre4">Asignación actividades didácticas y vigencia.</p>
 			    <div class="align-items-center">
 				    <a href="/usuarios">
-				    	<button type="button" class="btn btn-outline-info">Usuarios</button>
+				    	<button type="button" class="btn btn-info">Usuarios</button>
 				    </a>
 			    </div>
 			  </div>
 			</div>
-			<div class="  elemento col-sm align-items-center">
-			<img th:src="@{images/acceso modulo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center">
-			    <h4 class="card-title">Modulo Cursos</h4>
-			    <h6 class="card-subtitle mb-2 text-muted">Administración Cursos - Didáctico</h6>
-			    <p class="card-text">Asignacián de modulos didáctictos con relación de cursos.</p>
-			    <p class="card-text">Configuración de atributos de Modulo Didáctico.</p>
+			<div class="col-sm align-items-center elemento">
+			<img th:src="@{images/moduloCursos.png}" alt=""  class="img-fluid" />
+			  <div class="card-body elemento">
+			    <h4 class="nombre2">Modulo Cursos</h4>
+			    <h6 class="nombre3">Administración Cursos - Didáctico</h6>
+			    <p class="nombre4">Asignación de modulos didáctictos con relación de cursos.</p>
+			    <p class="nombre4">Configuración de atributos de Modulo Didáctico.</p>
 			    <div class="align-items-center">
-				    <a href="/cursos">
-				    	<button type="button" class="btn btn-outline-primary">Cursos</button>
+				    <a href="/modulos">
+				    	<button type="button" class="btn btn-info">Modulos Didácticos</button>
 				    </a>
 			    </div>
 			  </div>
 			</div>
-			<div class="  elemento col-sm align-items-center">
-			<img th:src="@{images/estadistica de accesos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center">
-			    <h4 class="card-title">Modulo Estadísticas</h4>
-			    <h6 class="card-subtitle mb-2 text-muted">Reportes y monitoreo</h6>
-			    <p class="card-text">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
+			<div class="col-sm align-items-center elemento">
+			<img th:src="@{images/moduloEstadisticas.png}" alt=""  class="img-fluid"/>
+			  <div class="card-body elemento">
+			    <h4 class="nombre2">Modulo Estadísticas</h4>
+			    <h6 class="nombre3">Reportes y monitoreo</h6>
+			    <p class="nombre4">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
 			    <div class="align-items-center">
 				    <a href="/estadisticas">
-				    	<button type="button" class="btn btn-outline-success2">Estadísticas</button>
+				    	<button type="button" class="btn btn-info">Estadísticas</button>
 				    </a>
 			    </div>
 			  </div>
@@ -123,7 +128,7 @@
 			Derechos Reservados @Uniprotec 2021
 		</div>
 		<div id="footerLogo" class="footer">
-			<img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			<img th:src="@{images/UNIPROTEC-GAMES-Logotipo-2020-negativo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 		</div>
 	</div>
 
@@ -131,6 +136,8 @@
 <!--===============================================================================================-->
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 	
 	<script h:src="@{js/main.js}"></script>
 	<!--===============================================================================================-->

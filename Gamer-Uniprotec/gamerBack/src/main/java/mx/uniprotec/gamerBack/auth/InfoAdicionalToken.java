@@ -28,6 +28,8 @@ public class InfoAdicionalToken implements TokenEnhancer{
 		for(Role role : usuario.getRoles()) {
 			info.put("perfil", role);
 		}
+		info.put("nombre", usuario.getNombre());
+		info.put("status", usuario.getStatus());
 
 		
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);

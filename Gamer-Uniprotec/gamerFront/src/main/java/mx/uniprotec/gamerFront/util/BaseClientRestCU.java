@@ -40,8 +40,8 @@ public class BaseClientRestCU extends WebMvcConfigurerAdapter implements IBaseCl
 //		public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
 //		public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 
-	public static final String URL_POST_LOGIN = "http://45.80.153.253:8016/oauth/token";
-	public static final String URL_CRUD =   	 "http://45.80.153.253:8016/crud/";
+	public static final String URL_POST_LOGIN = "http://151.106.108.196:8016/oauth/token";
+	public static final String URL_CRUD =   	 "http://151.106.108.196:8016/crud/";
 
 //	public static final String URL_CRUD_CLIENTE = "cliente";
 //	public static final String URL_CRUD_INSTRUCTOR = "instructor";
@@ -50,6 +50,7 @@ public class BaseClientRestCU extends WebMvcConfigurerAdapter implements IBaseCl
 //	public static final String URL_CRUD_USUARIO = "usuario";
 //	public static final String URL_CRUD_CLIENTES = "clientes";
 	public static final String URL_CRUD_INSTRUCTORES = "instructores";
+//	public static final String URL_CRUD_USUARIOSCONTROL
 //	public static final String URL_CRUD_VENDEDORES = "vendedores";
 	public static final String URL_CRUD_CURSOS = "cursos";
 	public static final String URL_CRUD_USUARIOS = "usuarios";

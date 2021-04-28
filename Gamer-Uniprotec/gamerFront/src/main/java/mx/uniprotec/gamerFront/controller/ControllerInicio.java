@@ -31,13 +31,13 @@ public class ControllerInicio {
 	
 
 	
-	@GetMapping("/")
+	@GetMapping("/intro")
 	public ModelAndView uno() {
 		ModelAndView mav = new ModelAndView("intro");
 		return mav;
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/")
 	public ModelAndView login(@RequestParam(name="login", required=false) Boolean loginIn) {
 		ModelAndView mav = new ModelAndView("login");
 		mav.addObject("userLogin", new UserForm());
@@ -51,47 +51,59 @@ public class ControllerInicio {
 		ModelAndView mav = new ModelAndView();
 		ModelMap model = new ModelMap();
 		ResultVO resultVO = new ResultVO();
-//		String nombreUsuario = user.getUserName();
-//		log.info(user.toString());
-//		if(user.getUserPass().equals("12345")) {
-//			switch (nombreUsuario) {
-//				case "administrador":
-//					mav.setViewName("inicio");
-//					break;
-//				case "instructor":
-//					mav.setViewName("inicioInstructor");
-//					break;
-//				case "audiencia":
-//					mav.setViewName("inicioAudiencia");
-//					break;
-//			}
-//		}else {
-//			mav = new ModelAndView("redirect:/login", model);
-//			mav.addObject("login", true);
-//		}
 		log.info(user.toString());
 		resultVO = loginService.login(user);
 		
 		if(resultVO.getCodigo() != 500) {
-			JSONObject jsonResponse = usuariosService.dataUsuarios(resultVO.getObject().toString());
-			resultVO.setJsonResponse(jsonResponse);
+			JSONObject jsonUser = resultVO.getJsonResponse();
+			resultVO.setJsonResponseObject(jsonUser);
+			model.addAttribute("userNombre", jsonUser.get("nombre"));
+			model.addAttribute("userStatus", jsonUser.get("status"));
 			
-			model.addAttribute("model", resultVO);
-			mav.addObject("data" , jsonResponse);
+			if(resultVO.getPerfil().equals("ROLE_ADMIN")) {
+				JSONObject jsonResponse = usuariosService.dataUsuarios(resultVO.getObject().toString());
+				resultVO.setJsonResponse(jsonResponse);
+				mav.addObject("data" , jsonResponse);
+			}
+			
 //			mav.addObject("error", error);
 //			mav.addObject("ejecucion", ejecucion);
 
 			log.info("Bienvenido");
+
 			mav.setViewName(resultVO.getResponse());
+			mav.addObject("user", model);
 			mav.addObject("model", resultVO);
 		}else {
 			log.info("Credenciales inválidas");
-			mav = new ModelAndView("redirect:/login", model);
+			mav = new ModelAndView("redirect:/", model);
 			mav.addObject("login", true);
 		}
 		
 		return mav;
 	}
 	
+	@GetMapping("/inicio")
+//	@Scope("prototype")
+	public ModelAndView inicio(ModelMap model) {
+
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("Inicio model Activo");
+			ResultVO resultVO = (ResultVO)model.get("model");
+			JSONObject jsonUser = resultVO.getJsonResponseObject();
+			model.addAttribute("userNombre", jsonUser.get("nombre"));
+			model.addAttribute("userStatus", jsonUser.get("status"));
+			ModelAndView mav = new  ModelAndView(resultVO.getResponse(),  model);
+			mav.addObject("user", model);
+			mav.addObject("model", resultVO);
+					return 	mav;
+		}		
+
+	}
+	
+		
 	
 }

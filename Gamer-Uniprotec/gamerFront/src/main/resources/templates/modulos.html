@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<title>Uniprotec Games</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{images/logo.png}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
+<!-- Date picker -->
+	 <link th:href="@{css/default.css}" rel="stylesheet">
+    <link th:href="@{css/default.date.css}" rel="stylesheet">
+    <link th:href="@{css/default.time.css}" rel="stylesheet">
+ <!-- fileinput -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+   <!-- table -->
+	<link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
+<!-- animate -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
+   
+<!--===============================================================================================-->
+
+
+</head>
+<body class="parallax" background="images/virtual8.jpg" >
+	<div id="head">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed">
+		  <a class="navbar-brand" href="#"><img th:src="@{images/logoGamer.jpg}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item ">
+		        <a class="nav-link" href="/inicio">Inicio
+		          <span class="sr-only">(current)</span>
+		        </a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/usuarios">Usuarios</a>
+		      </li>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
+		      </li>
+		      <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
+		        <div class="dropdown-menu">
+		          <a class="dropdown-item" href="#seccion0">Action</a>
+		          <a class="dropdown-item" href="#"> action1</a>
+		          <a class="dropdown-item" href="#">action2</a>
+		          <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="#">Cerrar Sesion</a>
+		        </div>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>	
+	</div>
+	<div id="menuleft">
+	</div>
+	
+	<div id="body">
+	<span th:if="${ejecucion}">
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Éxito!</strong> Se han generado correctamente el Modulo Didáctico. Verifique la activación en configuración de MODULOS.
+			</div>
+		</span>
+		<span th:if="${ejecucionI}">
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Exito!</strong> Se ha configurado correctamente Modulo Didactico.
+			</div>
+		</span>
+		<span th:if="${ejecucionA}">
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Exito!</strong> Se ha activado correctamente Usuarios Administrador.
+			</div>
+		</span>
+		 <span th:if="${error}">
+			<div class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Descripcion</strong> <a href="#" class="alert-link">Error en la configuracion de Modulo Didactico.</a>Consulte Cursos Relacionados. 
+				<p>Si persiste consulte administrador de sistema.</p>
+			</div>
+		</span>
+		<div class="row boxShadow container-fluid animate__animated animate__backInDown">
+			<div class="col-sm-6" style="padding:2rem;">
+			 <img th:src="@{images/MODULOCursos 2.png}" alt=""  class="img-fluid" style="max-width: 12.0rem; max-height: 12.0rem"/>
+			 <p class="lead">TABLERO DE CONFIGURACION DE CURSOS.</p>
+			</div> 
+			<div class="col-sm-6  " >
+				<br><br>
+				<ul class="fa-ul">
+				  <li class="" id="moduloAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-microchip"></i><p>ALTA MODULO DIDACTICO</p></a></li>
+				  <hr class="my-4">
+				  <li class="" id="moduloConfiguracion"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-book"></i><p>CONFIGURAR MODULO DIDACTICO - CURSO</p></a></li>
+<!-- 				  <hr class="my-4"> -->
+<!-- 				  <li class="" id="usuarioAudencia"><a href="#seccion2"><i class="fa-li fa fa-2x fa-id-card"></i><p></p></a></li> -->
+				  <hr class="my-4">
+				  <li class="" id="moduloConsulta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-bars"></i><p>CONSULTA MODULOS DIDACTICOS</p></a></li>
+				</ul>
+				<br>
+			</div> 
+		</div>
+		<hr class="my-4">	
+		<a id="seccion0"></a>
+		<div class="row seccionOperacion animate__animated animate__backInDown" id="seccionOperacion">
+		</div>	
+		<hr>
+		<a id="seccion1"></a>
+		<div class=" seccionOperacion container" id="moduloAltaForm">
+		<form id="altaModulo" class="login100-form validate-form needs-validation animate__animated animate__zoomInDown "  action="#" th:action="@{/altaModulo}"  th:object="${moduloDidactico}" method="post"> 
+			 <div class="form-group">
+				      <label for="exampleInputEmail1" class="nombre">Nombre del nuevo Modulo Didáctico</label>
+				      <input type="text" class="form-control elementoInput" id="moduloDidacticoNombre" aria-describedby="moduloNombre" placeholder="Nombre Nuevo Modulo" th:field="*{moduloDidacticoNombre}" required>
+				      <small id="emailHelp" class="bienvenido">Este campo es requerido</small>
+			   </div>
+			   <div class="form-group">
+				      <label for="exampleInputEmail1" class="nombre">Descripcion general del Modulo Didáctico</label>
+				      <input type="text" class="form-control elementoInput" id="moduloDidacticoDescripcion" aria-describedby="moduloDescripcion" placeholder="Breve Descripcion de nuevo Modulo" th:field="*{moduloDidacticoDescripcion}"  required>
+				      <small id="emailHelp" class="bienvenido">Este campo es requerido</small>
+			   </div>
+			   <div class="form-group">
+				      <label for="exampleInputEmail1" class="nombre">Instrucciones de actividades </label>
+				      <textarea class="form-control elementoInput"  id="moduloDidacticoInstrucciones" rows="5" cols="150" th:field="*{moduloDidacticoInstrucciones}" required></textarea>
+				      <small id="emailHelp" class="bienvenido">Este campo es requerido</small>
+			   </div>
+			   <div class="form-group">
+                        <label for="validationCustom02" class="nombre">Adjuntar Imagen Logo Modulo Didáctico</label>
+
+						<div class="alerta">
+							<hiden class="alerta_in"></hiden>
+						</div>
+                        <div class="col-sm-10"><!--  -->
+                        	<input type="file" name="moduloDidacticoImagen" id="moduloDidacticoImagen"  th:field="*{moduloDidacticoImagen}" class="form-control-file elementoInput" accept="image/*"  data-browse-on-zone-click="true" onchange="imagenCliente(this,  document.getElementById('rfcCliente'))"/>
+							 <br/>
+                             <small class="form-text bienvenido">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
+                         </div>
+		        </div>
+		        <input type="hidden" th:field="*{moduloDidacticoIdImagen}" id="moduloDidacticoIdImagen">
+				<button type="submit" id="btnModuloActivar" class="btn btn-success">Activar Modulo</button>
+				<br>
+			</form>
+		</div>
+		<a id="seccion2"></a>
+		
+		<div class="seccionOperacion container animate__animated animate__zoomInDown" id="moduloConfiguracionForm">
+			<div id="cursosAsignados">
+				<label class="bienvenido" >Lista de Cursos Asignados*</label>
+			</div>
+			<div class="form-group">
+			      <label class="nombre" for="exampleSelect2">Selecciona Curso*</label>
+			      <select  class="form-control elementoInput" id="selectCursosNoAsignados">
+			      	
+			      </select>
+			    </div>
+			    
+			    <button type="button" id="btnConfiguraModulo" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalConfiguraModulo" >Agregar Curso</button>
+		</div>
+		<a id="seccion3"></a>
+		<div class="seccionOperacion container container-fluid animate__animated animate__fadeInDown" id="moduloConsultaForm" >
+			<h5  class="nombre card-title">MODULOS DIDACTICOS UNIPROTEC - GAMER</h5>
+			<br>
+			<table id='modulosTable' class="table table-hover  table-striped table-dark table-borderless container-fluid"
+				data-locale="es-MX" 
+				data-toggle='table' 
+				data-sort-name='username'
+				data-search='true' 
+				data-sort-order='asc'
+				data-pagination='true'
+				data-class="bienvenido"
+				data-page-list='[10, 25, 50, 100, 200, Todos]'>
+			<thead class='thead-light'>
+			<tr>
+				<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='idModuloDidactico' data-sortable='true'>Id Modulo</th>
+				<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='moduloDidacticoNombre' data-sortable='true'>Nombre Modulo</th>
+				<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='status' data-sortable='true'>Estatus</th>
+				<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdateModulo" data-events="window.operateEventsUpdateModulo">Editar</th>
+				</tr>
+			</thead>					
+			</table>
+		</div>
+		
+	
+	</div>
+	<div id="footer">
+	
+		<div id="footerDatos" class="footer">
+			Derechos Reservados @Uniprotec 2021
+		</div>
+		<div id="footerLogo" class="footer">
+			<img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+		</div>
+	</div>
+	
+	<script th:inline="javascript">
+ 		 var modulos = 		[[${modulosDidacticos.modulos}]];
+ 		var cursos	= 				[[${model.jsonResponse.cursos.cursos}]];
+	</script>
+
+
+<!--===============================================================================================-->
+	<script th:src="@{js/jquery3_5_1.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{js/modulos.js}"></script>
+	<script th:src="@{js/tableModulo.js}"></script>
+	
+	<!-- Date picker -->
+	<script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+    
+    <!-- File Input -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+  
+  	<script th:src="@{js/bootstrap-table.min.js}"></script>
+    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+     
+      
+    
+	<script type="text/javascript">
+    var today = new Date();
+    var $datepicker = $( '.datepicker' ).pickadate({
+     min : today
+    })
+	</script>
+	<script>
+	$("#moduloDidacticoImagen").fileinput({
+		browseClass: "btn btn-info",
+		browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+		browseLabel: "Seleccionar Imagen",
+		removeClass: "btn btn-warning",
+		removeLabel: "Remover",
+		showCaption: false, 
+		dropZoneEnabled: false
+	});
+	</script>
+	
+	
+	<!--===============================================================================================-->
+
+</body>
+</html>
+
+  <div class="modal fade" id="modalConfiguraModulo" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0">
+        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
+          <form id="actualizaModulo" class="login100-form validate-form needs-validation" th:action="@{/actualizaModulo}" th:object="${moduloDidactico}" method="post" >
+          <input type="hidden" id="idModuloDidactico" th:field="*{idModuloDidactico}" th:value="*{idModuloDidactico}"/>
+          <input type="hidden" id="moduloDidacticoCursos" th:field="*{moduloDidacticoCursos}" th:value="*{moduloDidacticoCursos}"/>
+          
+          <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="nombreModulo"></span></h3><br>
+          <h3 class="bienvenido">Configuración Curso : <span class="nombre" id="nombreCurso"></span></h3><br>
+          <p><small ><span class="bienvenido">Descripcion : </span><span class="nombre" id="descripcionModulo"></span></small></p>
+          <hr class="my-4">
+          	   <div class="form-group">
+				      <label for="exampleInputEmail1" class="nombre">Defina Pregunta  y Respuesta </label>
+				      <input type="text" class="form-control elementoInput" id="elementoA" aria-describedby="moduloDescripcion" placeholder="Breve Descripcion de nuevo Modulo"   required>
+				      <small  class="bienvenido">Pregunta </small>
+				      <input type="text" class="form-control elementoInput" id="elementoB" aria-describedby="moduloDescripcion" placeholder="Breve Descripcion de nuevo Modulo"   required>
+				      <small  class="bienvenido">Respuesta </small><br>
+				      <button  id="btnAgregarElemento" class="btn btn-primary" > Agregar Elemento</button>
+			   </div>
+			   <div class="form-group" id="listaNuevosAsignacion"></div>
+          
+          </form>			 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        <button  id="btnAgregarConfiguracion" class="btn btn-success btn-default pull-left" > Agregar Configuracion</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  
