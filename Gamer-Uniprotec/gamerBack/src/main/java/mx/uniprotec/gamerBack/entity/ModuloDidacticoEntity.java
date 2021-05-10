@@ -34,6 +34,8 @@ private String moduloDidacticoIdImagen;
 @Column
 	private String moduloDidacticoCursos;
 @Column
+	private String moduloDidacticoElemento;
+@Column
 	private String createAt;
 @Column
 	private String status;
@@ -106,6 +108,12 @@ public String getModuloDidacticoIdImagen() {
 }
 public void setModuloDidacticoIdImagen(String moduloDidacticoIdImagen) {
 	this.moduloDidacticoIdImagen = moduloDidacticoIdImagen;
+}
+public String getModuloDidacticoElemento() {
+	return moduloDidacticoElemento;
+}
+public void setModuloDidacticoElemento(String moduloDidacticoElemento) {
+	this.moduloDidacticoElemento = moduloDidacticoElemento;
 }
 
 

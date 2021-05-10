@@ -18,6 +18,8 @@ public class ModuloDidactico implements Serializable{
 	private String moduloDidacticoImagen;
 	private String moduloDidacticoIdImagen;
 	private List<Integer> moduloDidacticoCursos;
+	private String moduloDidacticoElemento;
+//	private String moduloDidacticoElementos;
 	private String createAt;
 	private String status;
 	private String createUser;
@@ -34,6 +36,20 @@ public class ModuloDidactico implements Serializable{
 				+ ", moduloDidacticoInstrucciones=" + moduloDidacticoInstrucciones + ", moduloDidacticoImagen="
 				+ moduloDidacticoImagen + ", moduloDidacticoCursos=" + moduloDidacticoCursos + ", createAt=" + createAt
 				+ ", status=" + status + ", createUser=" + createUser + "]";
+	}
+
+
+
+
+	public String getModuloDidacticoElemento() {
+		return moduloDidacticoElemento;
+	}
+
+
+
+
+	public void setModuloDidacticoElemento(String moduloDidacticoElemento) {
+		this.moduloDidacticoElemento = moduloDidacticoElemento;
 	}
 
 

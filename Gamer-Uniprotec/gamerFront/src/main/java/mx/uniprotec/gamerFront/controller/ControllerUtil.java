@@ -76,5 +76,59 @@ public class ControllerUtil {
 		  }
 	      //new ResultVO(1, "ExitoFileUpload");
 		}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, path = "/imageUploadElemento/{idModulo}",  consumes = "multipart/form-data", produces = "application/json")
+//	@PostMapping("/fileUpload/{idEmpresa}")
+	public ResultVO imageUploadElemento(@PathVariable String idModulo, @RequestParam("imagenObjetoQRD") MultipartFile imagenObjetoQRD){
+		
+		ResultVO resultVO = new ResultVO();
+	   try {
+		   log.info(idModulo);
+		    // Get the filename and build the local file path (be sure that the 
+		    // application have write permissions on such directory)
+		   
+		    String filename = imagenObjetoQRD.getOriginalFilename();
+
+		    String directory = "/uniprotec/"+idModulo+"/image/";
+	        File directorio = new File(directory);
+	        if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	                log.info("Nuevo Directorio creado");
+	    		    String filepath = Paths.get(directory, filename).toString();
+	    		    
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(imagenObjetoQRD.getBytes());
+	    		    stream.close();
+	            } else {
+	            	log.info("Error al crear directorio");
+	            }
+	        }else {
+	        	log.info("Directorio Ya existe");
+	        	String filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(imagenObjetoQRD.getBytes());
+    		    stream.close();
+	        }
+		    
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito Imagen Upload");
+		    return resultVO;
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO; 
+		  }
+	      //new ResultVO(1, "ExitoFileUpload");
+		}
+
 
 }

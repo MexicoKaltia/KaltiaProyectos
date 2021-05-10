@@ -3,6 +3,9 @@ $(document).ready(function() {
 	console.log(modulos);
 //	console.log(cursos);
 
+	var moduloSel ;
+	$moduloSel="";
+	$idCurso="";
 	console.log("modulos ready");
 	$('#seccionOperacion').hide();
 	$('#moduloAltaForm').hide();
@@ -47,7 +50,7 @@ $(document).ready(function() {
 			$('#selModulo').append(option);
 		}
 		var idModuloSel ;
-		var moduloSel ;
+		
 		var arrayCursosFinal = new Array();
 		$('#selModulo').change(function(){
 			arrayCursosFinal.length = 0;
@@ -59,6 +62,7 @@ $(document).ready(function() {
 				var modulo = modulos[i];
 				if((idModuloSel * 1) === (modulo.idModuloDidactico * 1)){
 					moduloSel = modulo; 
+					$moduloSel = modulo;
 				}
 			}
 			$('#selectCursosNoAsignados').append('<option value="" selected>Selecciona Curso</option>');
@@ -94,6 +98,7 @@ $(document).ready(function() {
 			$('#nombreCurso').html($('#selectCursosNoAsignados option:selected').text());
 			$('#descripcionModulo').html(moduloSel.moduloDidacticoDescripcion);
 			var tmp = $('#selectCursosNoAsignados').val();
+			$idCurso = tmp
 			arrayCursosFinal.push(tmp);
 		})
 		var arrayElementos = new Array();
@@ -213,7 +218,6 @@ function enviaImagen(idImagenForm, rfcCliente){
 		  	console.log("envio error");
 		    }
 		  });
-
 }
 
 function limpiaAlerta(){
@@ -222,11 +226,14 @@ function limpiaAlerta(){
 
 function stringToArray(str){
 	var array = new Array();
-	var tmp = str.split(","); 
-	for(i in tmp){
-		array.push(tmp[i]);
+	if(str){
+		var tmp = str.split(","); 
+		for(i in tmp){
+			array.push(tmp[i]);
+		}
+		array = array.sort(function(a, b){return a-b});
+		console.log(array);
 	}
-	array = array.sort(function(a, b){return a-b});
-	console.log(array);
 	return array;
+	
 }

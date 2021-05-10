@@ -62,7 +62,7 @@ public class ControllerModulo {
 			mav.addObject("ejecucion", ejecucion);
 			mav.addObject("ejecucionI", ejecucionI);
 			mav.addObject("ejecucionA", ejecucionA);
-			if(resultVO.getCodigo() > 210) {
+			if(resultVO.getCodigo() != 200) {
 				mav.setViewName(resultVO.getCodigo().toString());
 			}
 			return mav;
@@ -76,7 +76,7 @@ public class ControllerModulo {
 		log.info(moduloDidactico.toString());
 		resultVO  = moduloService.altaModulo(resultVO.getAccesToken(), moduloDidactico);
 		ModelAndView mav = new ModelAndView("redirect:/modulos" , model);
-		if(resultVO.getCodigo() != 500) {
+		if(resultVO.getCodigo() == 200) {
 			mav.addObject("ejecucion", true);
 //			mav.addObject("ejecucionI", true);
 //			mav.addObject("ejecucionA", true);
@@ -94,7 +94,7 @@ public class ControllerModulo {
 		log.info(moduloDidactico.toString());
 		resultVO  = moduloService.actualizaModulo(resultVO.getAccesToken(), moduloDidactico);
 		ModelAndView mav = new ModelAndView("redirect:/modulos" , model);
-		if(resultVO.getCodigo() != 500) {
+		if(resultVO.getCodigo() == 200) {
 			mav.addObject("ejecucionI", true);
 		}else {
 			mav.addObject("error", true);

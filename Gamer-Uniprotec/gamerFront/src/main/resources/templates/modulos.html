@@ -167,7 +167,7 @@
 			      </select>
 			    </div>
 			    
-			    <button type="button" id="btnConfiguraModulo" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalConfiguraModulo" >Agregar Curso</button>
+			    <button type="button" id="btnConfiguraModulo" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalConfiguraModulo" >Configurar Modulo - Curso</button>
 		</div>
 		<a id="seccion3"></a>
 		<div class="seccionOperacion container container-fluid animate__animated animate__fadeInDown" id="moduloConsultaForm" >
@@ -216,6 +216,7 @@
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
 	<script th:src="@{js/modulos.js}"></script>
+	<script th:src="@{js/moduloMemoria.js}"></script>
 	<script th:src="@{js/tableModulo.js}"></script>
 	
 	<!-- Date picker -->
@@ -258,6 +259,7 @@
 </body>
 </html>
 
+<!--=================================MODAL ELEMENTOS GENERAL ==============================================================-->
   <div class="modal fade" id="modalConfiguraModulo" role="dialog">
     <div class="modal-dialog modal-lg">
     
@@ -267,29 +269,46 @@
           <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
           <h4 style="padding:35px 50px; position: center"></h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+         
         </div>
-        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0">
-        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
-          <form id="actualizaModulo" class="login100-form validate-form needs-validation" th:action="@{/actualizaModulo}" th:object="${moduloDidactico}" method="post" >
-          <input type="hidden" id="idModuloDidactico" th:field="*{idModuloDidactico}" th:value="*{idModuloDidactico}"/>
-          <input type="hidden" id="moduloDidacticoCursos" th:field="*{moduloDidacticoCursos}" th:value="*{moduloDidacticoCursos}"/>
-          
-          <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="nombreModulo"></span></h3><br>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamico">
+         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="nombreModulo"></span></h3><br>
           <h3 class="bienvenido">Configuración Curso : <span class="nombre" id="nombreCurso"></span></h3><br>
           <p><small ><span class="bienvenido">Descripcion : </span><span class="nombre" id="descripcionModulo"></span></small></p>
-          <hr class="my-4">
-          	   <div class="form-group">
-				      <label for="exampleInputEmail1" class="nombre">Defina Pregunta  y Respuesta </label>
-				      <input type="text" class="form-control elementoInput" id="elementoA" aria-describedby="moduloDescripcion" placeholder="Breve Descripcion de nuevo Modulo"   required>
-				      <small  class="bienvenido">Pregunta </small>
-				      <input type="text" class="form-control elementoInput" id="elementoB" aria-describedby="moduloDescripcion" placeholder="Breve Descripcion de nuevo Modulo"   required>
-				      <small  class="bienvenido">Respuesta </small><br>
-				      <button  id="btnAgregarElemento" class="btn btn-primary" > Agregar Elemento</button>
-			   </div>
-			   <div class="form-group" id="listaNuevosAsignacion"></div>
-          
-          </form>			 
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
+			<div id="divEdicionElementoCategoria"></div>
+			<div id="divNuevaCategoria"></div>
+        	<div id="divCarrusel"></div> 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        <button  id="btnAgregarConfiguracion" class="btn btn-success btn-default pull-left" > Agregar Configuracion</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!--=========================================================================================================================-->
+  <!--===============================MODAL ELEMENTOS INDIVIDUAL================================================================-->
+  <div class="modal fade" id="modalConfiguraElemento" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamicoElemento">
+         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="nombreModulo"></span></h3><br>
+          <h3 class="bienvenido">Configuración Curso : <span class="nombre" id="nombreCurso"></span></h3><br>
+          <p><small ><span class="bienvenido">Descripcion : </span><span class="nombre" id="descripcionModulo"></span></small></p>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
+      	    
+			 
         </div>
         <div class="modal-footer" style=" background-color: #0455b0">
         <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
@@ -299,4 +318,4 @@
       
     </div>
   </div> 
-  
+  <!--=========================================================================================================================-->
