@@ -17,7 +17,7 @@ $(document).ready(function() {
 					    <h4 class="text-center nombre2">'+modulo.moduloDidacticoDescripcion+'</h4>\
 					    <h6 class="text-center nombre3">'+reformatNombreCurso(usuarioAudiencia.usuarioAudienciaNombreEvento)+'</h6>\
 					    <div class="align-items-center">\
-						    <a href="/accesoModulo/'+getModuloCurso(modulo.idModuloDidactico, usuarioAudiencia.usuarioAudienciaidCurso)+'">\
+					    <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, usuarioAudiencia.usuarioAudienciaidCurso)+'">\
 						    	<button type="button" class="btn btn-success">Acceso Modulo</button>\
 						    </a>\
 					    </div>\
@@ -27,7 +27,7 @@ $(document).ready(function() {
 			}
 		}
 	}
-	
+//	
 //	'+getImage(modulo.moduloDidacticoIdImagen, modulo.moduloDidacticoImagen)+'
     // fin de documento
 })
@@ -45,7 +45,6 @@ function stringToArrayAudiencia(str){
 //		console.log(array);
 	}
 	return array;
-	
 }
 
 function reformatNombreCurso(nombreEvento){

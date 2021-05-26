@@ -70,6 +70,7 @@
 	</div>
 <script th:inline="javascript">
 		var idModuloCurso	= 		[[${idModuloCurso}]];
+		var modulosDidacticos = 		[[${modulosDidacticos}]];
 	</script>
 
 
@@ -79,7 +80,7 @@
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
-	<script h:src="@{js/modulo.js}"></script>
+	<script th:src="@{js/moduloDidactico.js}"></script>
 	<!--===============================================================================================-->
 
 </body>

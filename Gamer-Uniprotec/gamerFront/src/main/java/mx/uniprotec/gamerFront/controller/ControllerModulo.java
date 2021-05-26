@@ -99,22 +99,15 @@ public class ControllerModulo {
 		return mav;
 	}
 	
-	@GetMapping("/accesoModulo/{idModuloCurso}")
-	public ModelAndView modulo(@PathVariable int idModuloCurso, ModelMap model ) {
-		
+	@GetMapping("/accesoModulo")
+	public ModelAndView modulo(@RequestParam(name="idModuloCurso") int idModuloCurso, ModelMap model) {
+//	public ModelAndView modulo(@PathVariable int idModuloCurso, ModelMap model ) {
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
-		ModelAndView mav = new  ModelAndView("estadisticas", model );
-		mav.addObject("idModuloCurso", idModuloCurso);
-		
+		ModelAndView mav = new  ModelAndView("moduloDidactico", model );
+		mav.addObject("idModuloCurso" , idModuloCurso);
+		mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
 		String token = resultVO.getAccesToken();
-//		resultVO = (ResultVO) moduloService.getModulos(token);
-//		mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
-//		mav.addObject("val" , token);
-
-		//			model.addAttribute("model", resultVO);
-//		mav.addObject("data" , jsonResponse);
-		
 		return mav;
 	}
 
