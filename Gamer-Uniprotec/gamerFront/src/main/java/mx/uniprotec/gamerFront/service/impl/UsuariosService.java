@@ -61,6 +61,20 @@ public class UsuariosService implements IUsuariosService{
 		return jsonResponse;
 	}
 	
+	@Override
+	public JSONObject dataInstructor(String idInstructorControl, String tokenCU) {
+		ResultVO rs = new ResultVO();
+		JSONObject jsonResponse = new JSONObject();
+		//datos cursos
+//		List<CursoModelo> cursos = getCursos(tokenCU);
+		JSONObject instructor = getInstructor(tokenCU, "8");
+		
+		jsonResponse.put("instructor", instructor);
+		rs.setJsonResponse(jsonResponse);
+		
+		return jsonResponse;
+	}
+	
 
 	@Override
 	public ResultVO getDataUsuarios(String token) {
@@ -162,6 +176,11 @@ public class UsuariosService implements IUsuariosService{
 		return resultVO;
 	}
 
+	@Override
+	public JSONObject getCursosControl(String tokenCU) {
+		return getCursos(tokenCU);
+	}
+	
 
 
 	
@@ -190,6 +209,27 @@ public class UsuariosService implements IUsuariosService{
 		}
 		
 		return jsonInstructores;
+	}
+	
+private JSONObject getInstructor(String tokenCU, String idInstructor) {
+		
+		ResultVO rs = new ResultVO();
+		JSONObject jsonInstructor = new JSONObject();
+		try {
+			rs = (ResultVO) baseClientRestCU.objetoGetId(tokenCU, BaseClientRestCU.URL_CRUD_INSTRUCTOR, null, idInstructor);
+			if(rs.getCodigo() == 202) {
+				JSONObject jsonGeneral = rs.getJsonResponse();
+				jsonInstructor.put("instructor", jsonGeneral.get("instructor"));
+				rs.setJsonResponseObject(jsonInstructor);
+				
+			}else {
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return jsonInstructor;
 	}
 
 	private JSONObject getCursos(String tokenCU) {
@@ -285,7 +325,7 @@ public class UsuariosService implements IUsuariosService{
 	private JSONObject getUsuariosInstructor(String token) {
 		JSONObject jsonObject = new JSONObject();
 		ResultVO rs = new ResultVO();
-		rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_GET_USUARIOSINSTRUCTOR);
+		rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_GET_USUARIOSINSTRUCTORES);
 		if(rs.getCodigo() != 500) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
 			jsonObject.put("usuariosInstructor", jsonGeneral.get("usuariosInstructor"));			
@@ -304,6 +344,10 @@ public class UsuariosService implements IUsuariosService{
 		}
 		return jsonObject;
 	}
+
+
+
+	
 
 
 

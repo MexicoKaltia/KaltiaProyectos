@@ -48,9 +48,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_ACTUALIZA_USUARIOINSTRUCTOR	 	= "actualizaUsuariosInstructor";
 	public static final String URL_ACTUALIZA_USUARIOAUDIENCIA	 	= "actualizaUsuariosAudiencia";
 	public static final String URL_ACTUALIZA_MODULO	 	= "actualizaModulo";
+	public static final String URL_UPDATE_MODULO	 	= "updateModulo";
 	public static final String URL_GET_USUARIOSADMINISTRADOR 	= "getUsuariosAdministrador";
-	public static final String URL_GET_USUARIOSINSTRUCTOR 		= "getUsuariosInstructor";
+	public static final String URL_GET_USUARIOSINSTRUCTORES 		= "getUsuariosInstructores";
+	public static final String URL_GET_USUARIOINSTRUCTOR 		= "getUsuarioInstructor";
 	public static final String URL_GET_USUARIOSAUDIENCIA 		= "getUsuariosAudiencia";
+	public static final String URL_GET_USUARIOAUDIENCIA 		= "getUsuarioAudiencia";
 	public static final String URL_GET_USUARIOS 				= "getUsuarios";
 	public static final String URL_GET_MODULOS 				= "getModulos";
 	public static final String URL_GET_MODULO 				= "getModulo";

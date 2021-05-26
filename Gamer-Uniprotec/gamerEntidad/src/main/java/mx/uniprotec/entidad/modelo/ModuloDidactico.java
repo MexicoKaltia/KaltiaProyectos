@@ -19,7 +19,8 @@ public class ModuloDidactico implements Serializable{
 	private String moduloDidacticoIdImagen;
 	private List<Integer> moduloDidacticoCursos;
 	private String moduloDidacticoElemento;
-//	private String moduloDidacticoElementos;
+	private String moduloDidacticoNombreModulo;
+	private String moduloDidacticoNombreCurso;
 	private String createAt;
 	private String status;
 	private String createUser;
@@ -34,8 +35,11 @@ public class ModuloDidactico implements Serializable{
 		return "ModuloDidactico [idModuloDidactico=" + idModuloDidactico + ", moduloDidacticoNombre="
 				+ moduloDidacticoNombre + ", moduloDidacticoDescripcion=" + moduloDidacticoDescripcion
 				+ ", moduloDidacticoInstrucciones=" + moduloDidacticoInstrucciones + ", moduloDidacticoImagen="
-				+ moduloDidacticoImagen + ", moduloDidacticoCursos=" + moduloDidacticoCursos + ", createAt=" + createAt
-				+ ", status=" + status + ", createUser=" + createUser + "]";
+				+ moduloDidacticoImagen + ", moduloDidacticoIdImagen=" + moduloDidacticoIdImagen
+				+ ", moduloDidacticoCursos=" + moduloDidacticoCursos + ", moduloDidacticoElemento="
+				+ moduloDidacticoElemento + ", moduloDidacticoNombreModulo=" + moduloDidacticoNombreModulo
+				+ ", moduloDidacticoNombreCurso=" + moduloDidacticoNombreCurso + ", createAt=" + createAt + ", status="
+				+ status + ", createUser=" + createUser + "]";
 	}
 
 
@@ -185,6 +189,45 @@ public class ModuloDidactico implements Serializable{
 	public void setModuloDidacticoIdImagen(String moduloDidacticoIdImagen) {
 		this.moduloDidacticoIdImagen = moduloDidacticoIdImagen;
 	}
+
+
+	public String getModuloDidacticoNombreModulo() {
+		return moduloDidacticoNombreModulo;
+	}
+
+
+
+
+	public void setModuloDidacticoNombreModulo(String moduloDidacticoNombreModulo) {
+		this.moduloDidacticoNombreModulo = moduloDidacticoNombreModulo;
+	}
+
+
+
+
+	public String getModuloDidacticoNombreCurso() {
+		return moduloDidacticoNombreCurso;
+	}
+
+
+
+
+	public void setModuloDidacticoNombreCurso(String moduloDidacticoNombreCurso) {
+		this.moduloDidacticoNombreCurso = moduloDidacticoNombreCurso;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

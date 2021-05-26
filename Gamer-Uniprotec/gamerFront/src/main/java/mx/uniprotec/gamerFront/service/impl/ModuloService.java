@@ -2,11 +2,14 @@ package mx.uniprotec.gamerFront.service.impl;
 
 import java.time.LocalDateTime;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.ModuloDidactico;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.ValoresJsonVO;
 import mx.uniprotec.gamerFront.service.IModuloService;
 import mx.uniprotec.gamerFront.util.BaseClientRest;
 
@@ -15,6 +18,9 @@ public class ModuloService implements IModuloService{
 	
 	@Autowired
 	BaseClientRest baseClientRest;
+	
+	protected final Log log = LogFactory.getLog(getClass());
+
 
 
 	public ModuloService() {
@@ -57,6 +63,14 @@ public class ModuloService implements IModuloService{
 	public ResultVO eliminarModulo(String token, ModuloDidactico moduloDidactico) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ResultVO edicionServiceUpdate(String token, ValoresJsonVO valoresJsonVO) {
+		ResultVO rs = new ResultVO();
+		log.info(valoresJsonVO.toString());
+		rs= (ResultVO) baseClientRest.objetoPut(token, BaseClientRest.URL_UPDATE_MODULO,  valoresJsonVO, Long.valueOf(valoresJsonVO.getModulo().toString()));
+		return rs;
 	}
 
 	

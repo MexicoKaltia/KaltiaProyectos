@@ -37,4 +37,7 @@ public interface IUsuarioService {
 	
 	public Usuario actualizaUsuarioInstructor(@Valid UsuarioInstructor usuario);
 	public Usuario actualizaUsuarioAudiencia(@Valid UsuarioAudiencia usuario);
+
+	public UsuarioAudienciaEntity findByAudienciaUsername(String userName);
+
 }

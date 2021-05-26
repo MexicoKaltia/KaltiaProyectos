@@ -44,7 +44,12 @@ public class UsuarioAudienciaEntity implements Serializable{
 	private String userCreateAsignacion;
 	@Column
 	private String statusAsignacion;
+	@Column
+	private String usuarioAudienciaidCurso;
 	
+	
+
+
 	public UsuarioAudienciaEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -52,36 +57,43 @@ public class UsuarioAudienciaEntity implements Serializable{
 
 	
 	
-	public UsuarioAudienciaEntity(Long idUsuarioAudiencia, String usuarioAudienciaResponsable, String usuarioAudienciaFecha,
-			String usuarioAudienciaEvento, String usuarioAudienciaModulos,
-			String usuarioAudienciaParticipantes) {
+	
+	
+	
+
+
+	public UsuarioAudienciaEntity( String usuarioAudienciaResponsable,
+			String usuarioAudienciaFecha, String usuarioAudienciaEvento, String usuarioAudienciaModulos,
+			String usuarioAudienciaParticipantes, String usuarioAudienciaIdAsignacion,
+			String usuarioAudienciaNombreEvento, LocalDateTime createAtAsignacion, String userCreateAsignacion,
+			String statusAsignacion, String usuarioAudienciaidCurso) {
+		super();
 		
-		this.idUsuarioAudiencia = idUsuarioAudiencia;
-		this.usuarioAudienciaResponsable = usuarioAudienciaResponsable;
-		this.usuarioAudienciaFecha = usuarioAudienciaFecha;
-		this.usuarioAudienciaEvento = usuarioAudienciaEvento;
-		this.usuarioAudienciaModulos = usuarioAudienciaModulos;
-		this.usuarioAudienciaParticipantes = usuarioAudienciaParticipantes;
-	}
-	
-	
-	public UsuarioAudienciaEntity(String usuarioAudienciaResponsable, String usuarioAudienciaFecha,
-			String usuarioAudienciaEvento, String usuarioAudienciaModulos, String usuarioAudienciaParticipantes,
-			String usuarioAudienciaIdAsignacion, LocalDateTime createAtAsignacion, String userCreateAsignacion,
-			String statusAsignacion, String usuarioAudienciaNombreEvento) {
 		this.usuarioAudienciaResponsable = usuarioAudienciaResponsable;
 		this.usuarioAudienciaFecha = usuarioAudienciaFecha;
 		this.usuarioAudienciaEvento = usuarioAudienciaEvento;
 		this.usuarioAudienciaModulos = usuarioAudienciaModulos;
 		this.usuarioAudienciaParticipantes = usuarioAudienciaParticipantes;
 		this.usuarioAudienciaIdAsignacion = usuarioAudienciaIdAsignacion;
+		this.usuarioAudienciaNombreEvento = usuarioAudienciaNombreEvento;
 		this.createAtAsignacion = createAtAsignacion;
 		this.userCreateAsignacion = userCreateAsignacion;
 		this.statusAsignacion = statusAsignacion;
-		this.usuarioAudienciaNombreEvento = usuarioAudienciaNombreEvento;
+		this.usuarioAudienciaidCurso = usuarioAudienciaidCurso;
 	}
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	@Override
@@ -184,6 +196,13 @@ public class UsuarioAudienciaEntity implements Serializable{
 	public void setUsuarioAudienciaNombreEvento(String usuarioAudienciaNombreEvento) {
 		this.usuarioAudienciaNombreEvento = usuarioAudienciaNombreEvento;
 	}
+	public String getUsuarioAudienciaidCurso() {
+		return usuarioAudienciaidCurso;
+	}
+	public void setUsuarioAudienciaidCurso(String usuarioAudienciaidCurso) {
+		this.usuarioAudienciaidCurso = usuarioAudienciaidCurso;
+	}
+
 
 	
 

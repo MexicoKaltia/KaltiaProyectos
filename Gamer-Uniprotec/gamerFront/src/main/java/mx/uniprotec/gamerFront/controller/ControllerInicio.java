@@ -1,5 +1,7 @@
 package mx.uniprotec.gamerFront.controller;
 
+import java.util.Map;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.gamerFront.service.ILoginService;
+import mx.uniprotec.gamerFront.service.IModuloService;
+import mx.uniprotec.gamerFront.service.IUsuariosService;
 import mx.uniprotec.gamerFront.service.impl.UsuariosService;
+import mx.uniprotec.gamerFront.util.BaseClientRest;
 import mx.uniprotec.gamerFront.vo.UserForm;
 
 @Controller
@@ -27,7 +32,11 @@ public class ControllerInicio {
 	@Autowired
 	ILoginService loginService;
 	@Autowired
-	UsuariosService usuariosService;
+	IUsuariosService usuariosService;
+	@Autowired
+	BaseClientRest baseClientRest;
+	@Autowired
+	IModuloService moduloService;
 	
 
 	
@@ -54,21 +63,64 @@ public class ControllerInicio {
 		log.info(user.toString());
 		resultVO = loginService.login(user);
 		
+		
 		if(resultVO.getCodigo() != 500) {
 			JSONObject jsonUser = resultVO.getJsonResponse();
 			resultVO.setJsonResponseObject(jsonUser);
 			model.addAttribute("userNombre", jsonUser.get("nombre"));
 			model.addAttribute("userStatus", jsonUser.get("status"));
+			String accesToken = resultVO.getAccesToken();
+			String tokenCU = resultVO.getObject().toString();
 			
 			if(resultVO.getPerfil().equals("ROLE_ADMIN")) {
 				JSONObject jsonResponse = usuariosService.dataUsuarios(resultVO.getObject().toString());
 				resultVO.setJsonResponse(jsonResponse);
+				resultVO.setResponse("inicio");
 				mav.addObject("data" , jsonResponse);
+			}else if(resultVO.getPerfil().equals("ROLE_INSTR")){
+				/*
+				 * obtener el idUsuario, para obtener el idUsuarioInstructor, y obtener el usuario control uniprotec.
+				 */
+				
+				ResultVO rs = (ResultVO) baseClientRest.objetoGetId( accesToken, BaseClientRest.URL_GET_USUARIOINSTRUCTOR, null, user.getUserName());
+				JSONObject jsonInstructor = rs.getJsonResponse();
+				JSONObject jsonUsuario = new JSONObject((Map) jsonInstructor.get("usuario"));//(JSONObject) jsonInstructor.get("usuario");
+				JSONObject jsonUsuarioInstructor = new JSONObject((Map) jsonUsuario.get("usuarioInstructor"));//(JSONObject) jsonUsuario .get("usuarioInstructor");
+				String idUsuarioInstructorControl = jsonUsuarioInstructor.get("usuarioInstructorIdAsignacion").toString();
+				
+				JSONObject jsonResponse = usuariosService.dataInstructor(idUsuarioInstructorControl, tokenCU);
+				resultVO.setJsonResponse(jsonResponse);
+				mav.addObject("data" , jsonResponse);
+				
+				resultVO = (ResultVO) moduloService.getModulos(accesToken);
+				mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
+				
+				JSONObject cursosControl =  usuariosService.getCursosControl(tokenCU);
+				mav.addObject("cursosControl" , cursosControl);
+				
+				resultVO.setResponse("inicioInstructor");
+				
+			}else if(resultVO.getPerfil().equals("ROLE_USER")){
+				/*
+				 * Conseguir los modulos didacticos de usuario
+				 */
+				ResultVO rs = (ResultVO) baseClientRest.objetoGetId( accesToken, BaseClientRest.URL_GET_USUARIOAUDIENCIA, null, user.getUserName());
+				mav.addObject("usuarioAudiencia" , rs.getJsonResponse());
+				JSONObject jsonAudiencia = new JSONObject();
+				jsonAudiencia.put("usuarioAudiencia", rs.getJsonResponse());
+				model.addAttribute("usuarioAudiencia", rs.getJsonResponse());
+				
+				rs = (ResultVO) moduloService.getModulos(accesToken);
+				mav.addObject("modulosDidacticos" , rs.getJsonResponse());
+				jsonAudiencia.put("modulosDidacticos", rs.getJsonResponse());
+				model.addAttribute("modulosDidacticos", rs.getJsonResponse());
+				
+				resultVO.setJsonResponse(jsonAudiencia);
+				
+				resultVO.setResponse("inicioAudiencia");
+				
 			}
 			
-//			mav.addObject("error", error);
-//			mav.addObject("ejecucion", ejecucion);
-
 			log.info("Bienvenido");
 
 			mav.setViewName(resultVO.getResponse());

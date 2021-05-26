@@ -7,6 +7,8 @@ import mx.uniprotec.gamerBack.entity.Usuario;
 import mx.uniprotec.gamerBack.entity.UsuarioAudienciaEntity;
 
 public interface IUsuarioAudienciaDao extends CrudRepository<UsuarioAudienciaEntity, Long>{
+
+	UsuarioAudienciaEntity findByUsuarioAudienciaIdAsignacion(String userName);
 	
 	
 }

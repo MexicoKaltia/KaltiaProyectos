@@ -30,7 +30,7 @@ import mx.uniprotec.gamerFront.vo.UserForm;
 @Service
 public class BaseClientRestCU extends WebMvcConfigurerAdapter implements IBaseClientRestCU {
 
-	private static Logger log = LoggerFactory.getLogger(BaseClientRest.class);
+	private static Logger log = LoggerFactory.getLogger(BaseClientRestCU.class);
 
 	public BaseClientRestCU() {
 		// TODO Auto-generated constructor stub
@@ -44,7 +44,7 @@ public class BaseClientRestCU extends WebMvcConfigurerAdapter implements IBaseCl
 	public static final String URL_CRUD =   	 "http://151.106.108.196:8016/crud/";
 
 //	public static final String URL_CRUD_CLIENTE = "cliente";
-//	public static final String URL_CRUD_INSTRUCTOR = "instructor";
+	public static final String URL_CRUD_INSTRUCTOR = "instructor";
 //	public static final String URL_CRUD_VENDEDOR = "vendedor";
 //	public static final String URL_CRUD_CURSO = "curso";
 //	public static final String URL_CRUD_USUARIO = "usuario";
@@ -213,7 +213,8 @@ public class BaseClientRestCU extends WebMvcConfigurerAdapter implements IBaseCl
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);// .APPLICATION_JSON);
 		headers.add("Authorization", "Bearer " + token);
-
+		log.info(URL_CRUD + urlCrud);
+		
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 		RestTemplate restTemplate = new RestTemplate();
 		try {

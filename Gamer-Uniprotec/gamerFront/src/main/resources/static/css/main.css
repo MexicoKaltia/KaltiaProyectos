@@ -69,6 +69,10 @@ body, html {
   border-radius: 20px;
   padding: .5rem;
 }
+.nombre5{
+  color:whitesmoke;
+}
+
 
 .menuA{
   color: whitesmoke;
@@ -99,6 +103,11 @@ body, html {
   background-size: cover;
 }
 
+.img-responsive{
+    margin: 0 auto;
+}
+
+
 .interior{
 	margin: 3rem;
 	padding: 1rem;
@@ -108,6 +117,16 @@ body, html {
 	margin:.5rem;
 	border-radius: 20px;
   align-self: center;
+}
+
+.modulo{
+	padding : 0.5rem;
+	margin : 0.5rem;
+	border-style : solid;
+	border-width: 0.5px;
+	border-radius: 20px;
+	border-color: cyan;
+	
 }
 
 .seccionOperacion{

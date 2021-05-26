@@ -38,39 +38,10 @@ public class LoginService implements ILoginService{
 				JSONObject jsonObject = new JSONObject(resultVO.getJsonResponse());
 				JSONObject roleUsuario = new JSONObject((Map) jsonObject.get("perfil"));
 				resultVO.setPerfil(roleUsuario.get("nombre").toString());
-				switch (resultVO.getPerfil()) {
-				case "ROLE_ADMIN":
-					//Obtener token de aplicacion-controluniprotec
-					UserForm userCU = new UserForm("d.hrivas", "12345");
-					ResultVO resultVOCU = baseClientRestCU.login(userCU);
-					resultVO.setObject(resultVOCU.getAccesToken());
-					resultVO.setResponse("inicio");
-					break;
-				case "ROLE_INSTR":
-					resultVO.setResponse("inicioInstructor");
-					break;
-				case "ROLE_USER":
-					resultVO.setResponse("inicioAudiencia");
-					break;
-			}
-				
-//				ResultVO resultUsuario = baseClientRest.objetoGetId(
-//						resultVO.getAccesToken(),
-//						BaseClientRest.URL_CRUD_USUARIO,
-//						new UserForm(),null);
-//
-//					JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-//					JSONObject jsonUsuario = new JSONObject();
-//					
-//					
-//					JSONObject jsonObjectPerfil = (JSONObject) resultUsuario.getJsonResponse();
-////					log.info(jsonObjectPerfil.toJSONString());
-//					JSONObject jsonPerfil= new JSONObject();
-//					JSONObject jsonFields =new JSONObject();
-//					jsonUsuario.put("modules", jsonPerfil);
-//					jsonFields.put("fields", jsonUsuario);
-//					jsonObject.putAll(jsonUsuario);
-//					resultVO.setJsonResponse(jsonObject);
+				String accesToken = resultVO.getAccesToken();
+
+				resultVO.setObject(getTokenControlUniprotec());
+
 			}catch (Exception e) {
 				e.printStackTrace();
 				resultVO.setCodigo((long) 500);
@@ -78,5 +49,12 @@ public class LoginService implements ILoginService{
 //		}
 		return resultVO;
 	}
+private String getTokenControlUniprotec() {
+	//Obtener token de aplicacion-controluniprotec
+	UserForm userCU = new UserForm("d.hrivas", "12345");
+	ResultVO resultVOCU = baseClientRestCU.login(userCU);
+//	resultVO.setObject(resultVOCU.getAccesToken());
+	return resultVOCU.getAccesToken();
+}
 	
 }

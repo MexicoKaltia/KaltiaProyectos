@@ -13,9 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.ModuloDidactico;
+import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioAudiencia;
+import mx.uniprotec.entidad.modelo.ValoresJsonVO;
+import mx.uniprotec.gamerBack.dao.IModuloCursoDao;
 import mx.uniprotec.gamerBack.dao.IModuloDao;
 import mx.uniprotec.gamerBack.dao.IUsuarioDao;
+import mx.uniprotec.gamerBack.entity.ModuloCurso;
 import mx.uniprotec.gamerBack.entity.ModuloDidacticoEntity;
 
 @Service
@@ -23,6 +27,8 @@ public class ModuloService implements IModuloService {
 
 	@Autowired
 	private IModuloDao moduloDao;
+	@Autowired
+	private IModuloCursoDao moduloCursoDao;
 	
 	private Logger logger = LoggerFactory.getLogger(ModuloService.class);
 	public ModuloService() {
@@ -85,6 +91,12 @@ public class ModuloService implements IModuloService {
 		List<ModuloDidacticoEntity> modulos = (List<ModuloDidacticoEntity>) moduloDao.findAll(); 
 		return modulos;
 	}
+	
+	@Override
+	public List<ModuloCurso> findAllModuloCurso() {
+		List<ModuloCurso> moduloCurso = (List<ModuloCurso>) moduloCursoDao.findAll(); 
+		return moduloCurso;
+	}
 
 	@Override
 	public ModuloDidacticoEntity findById(Long id) {
@@ -109,5 +121,53 @@ public class ModuloService implements IModuloService {
 		string = string.substring(0, (string.length()-1));
 		logger.info(string);
 		return string ;
+	}
+
+	@SuppressWarnings("null")
+	@Override
+	public ResultVO updateModulo(@Valid ValoresJsonVO valoresJson) {
+		/* ValoresJsonVO
+		 *
+		 * finalJson = {
+					elementos : $elementosFinal,
+					modulo : $moduloSel,
+					idCurso : $idCurso,
+					val : $val,
+					arrayCursos : arrayCursos
+			}
+		 */
+		ResultVO rs = new ResultVO();
+		 ModuloDidacticoEntity mde = moduloDao.findById(Long.valueOf(valoresJson.getModulo())).orElse(null);
+		 mde.setModuloDidacticoCursos(valoresJson.getArrayCursos());
+		 try {
+			moduloDao.save(mde);
+		} catch (Exception e) {
+			rs.setCodigo(99l);
+			rs.setMensaje("Error actualizar ArrayCursos en Modulo");
+			return rs;
+		}
+		 ModuloCurso moduloCurso = null;
+		 try {
+			moduloCurso = moduloCursoDao.findByIdModuloDidacticoAndIdCurso(Long.valueOf(valoresJson.getModulo()), Long.valueOf(valoresJson.getIdCurso()));
+			if(moduloCurso == null) {
+				moduloCurso = new ModuloCurso();
+//				moduloCurso.setElementos(valoresJson.getElementos());
+				moduloCurso.setIdCurso(Long.valueOf(valoresJson.getIdCurso()));
+				moduloCurso.setIdModuloDidactico(Long.valueOf(valoresJson.getModulo()));
+//				moduloCursoDao.save(moduloCurso);
+			}
+			moduloCurso.setCursoNombre(valoresJson.getCursoNombre());
+			moduloCurso.setModuloNombre(valoresJson.getModuloNombre());
+			moduloCurso.setElementos(valoresJson.getElementos());
+			moduloCursoDao.save(moduloCurso);
+		} catch (Exception e) {
+			rs.setCodigo(99l);
+			rs.setMensaje("Error actualizar ModuloCurso ");
+			return rs;
+		}
+		
+		 rs.setCodigo(0l);
+			rs.setMensaje("Exito en actualizar Modulo Didactico");
+			return rs;
 	}
 }

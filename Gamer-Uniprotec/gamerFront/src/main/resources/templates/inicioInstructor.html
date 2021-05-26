@@ -35,12 +35,11 @@
 		        </a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
+		        <a class="nav-link" href="" data-toggle="modal" data-target="#modalInstructorModulos">Modulos Didácticos</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
+		        <a class="nav-link" href="/estadisticasInstructor">Estadísticas</a>
 		      </li>
-		      
 		    </ul>
 		  </div>
 		</nav>	
@@ -48,16 +47,16 @@
 	<div id="menuleft">
 	</div>
 	<div id="body">
-		<div class="row interior  fondoAdmin">
-      <div class="imagenIzq animate__animated  animate__backInLeft"></div>
-			<div class="imagenDer animate__animated  animate__backInRight" >
+		<div class="row container-fluid fondoAdmin">
+      		<div class="animate__animated  animate__backInLeft col-sm-6">
+      			<img alt="" th:src="@{images/IMAGEN_PROVISIONAL.png}" class="img-fluid">
+      		</div>
+			<div class="imagenDer animate__animated  animate__backInRight col-sm-6" >
 			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre"><span th:text="${user.userNombre}"></span></h1>
-			  <p class="lead">Página de inicio UniprotecGames, tablero de control Instructor.</p>
+			  <p class="lead">Página de inicio Uniprotec Games, tablero de control Instructor.</p>
 			  <hr class="my-4" style="background-color: rgb(230, 158, 25);">
 			  <p style="color: whitesmoke;">Si tienes algun problema contacta Administrador General</p>
-			  
-			    <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
-			  
+			  <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
 			</div>
 		</div>
 		<hr class="my-4">
@@ -66,25 +65,23 @@
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 			  <div class="card-body elemento">
-			    <h4 class="nombre2">Modulo Didácticos</h4>
-			    <h6 class="nombre3">Acceso a Modulos y Actividades</h6>
-			    <p class="nombre4">Verificar Modulo Activo - Curso.</p>
+			    <h4 class="text-center nombre2">Modulo Didácticos</h4>
+			    <h6 class="text-center nombre3">Acceso a Modulos y Actividades</h6>
+			    <p class=" text-center nombre4">Verificar Modulo Activo - Curso.</p>
 			    
 			    <div class="align-items-center">
-				    <a href="/modulos">
-				    	<button type="button" class="btn btn-info">Modulos Didácticos</button>
-				    </a>
+				    	<button type="button" data-toggle="modal" data-target="#modalInstructorModulos" class="btn btn-info">Modulos Didácticos</button> 
 			    </div>
 			  </div>
 			</div>
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloEstadisticas.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 			  <div class="card-body elemento">
-			    <h4 class="nombre2">Modulo Estadísticas</h4>
-			    <h6 class="nombre3">Reportes y monitoreo</h6>
-			    <p class="nombre4">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
+			    <h4 class="text-center nombre2">Modulo Estadísticas</h4>
+			    <h6 class="text-center nombre3">Reportes y monitoreo</h6>
+			    <p class="text-center nombre4">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
 			    <div class="align-items-center">
-				    <a href="/estadisticas">
+				    <a href="/estadisticasInstructor">
 				    	<button type="button" class="btn btn-info">Estadísticas</button>
 				    </a>
 			    </div>
@@ -101,13 +98,45 @@
 		</div>
 	</div>
 
+<script th:inline="javascript">
+	var cursos  	= 		[[${data.instructor.instructor.cursosInstructor}]];
+	var modulos 	= 		[[${modulosDidacticos.modulos}]];
+	var moduloCurso = 		[[${modulosDidacticos.moduloCurso}]];
+	var cursosControl = [[${cursosControl.cursos}]];
+	</script>
 
 <!--===============================================================================================-->
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
-	<script h:src="@{js/main.js}"></script>
+	<script th:src="@{js/mainInstructor.js}"></script>
 	<!--===============================================================================================-->
 
 </body>
 </html>
+
+<!--================================= MODAL ELEMENTOS GENERAL ==============================================================-->
+  <div class="modal fade" id="modalInstructorModulos" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamico">
+         <h3 class="bienvenido">Modulos Didácticos Activos: </h3><br>
+        	<div class=".container row" id="divModulosActivos">
+        	</div> 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!--===========================================================================================================================-->

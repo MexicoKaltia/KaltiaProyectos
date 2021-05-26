@@ -1,5 +1,6 @@
 package mx.uniprotec.gamerBack.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "modulo_didactico")
-public class ModuloDidacticoEntity {
+public class ModuloDidacticoEntity implements Serializable{
 
 	public ModuloDidacticoEntity() {
 		// TODO Auto-generated constructor stub

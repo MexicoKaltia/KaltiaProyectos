@@ -35,7 +35,7 @@
 		        </a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
+		        <a class="nav-link" href="#seccion0">Modulos Didácticos</a>
 		      </li>
 <!-- 		      <li class="nav-item dropdown"> -->
 <!-- 		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a> -->
@@ -55,57 +55,22 @@
 	<div id="menuleft">
 	</div>
 	<div id="body">
-		<div class="row interior  fondoAdmin">
-      <div class="imagenIzq animate__animated  animate__backInLeft"></div>
-			<div class="imagenDer animate__animated  animate__backInRight" >
-			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre"><span th:text="${user.userNombre}"></span></h1>
-			  <p class="lead">Página de inicio UniprotecGames, tablero de control Administrador.</p>
+		<div class="row container-fluid fondoAdmin">
+      		<div class="animate__animated  animate__backInLeft col-sm-6">
+      			<img alt="" th:src="@{images/IMAGEN_PROVISIONAL.png}" class="img-fluid">
+      		</div>
+			<div class="imagenDer animate__animated  animate__backInRight col-sm-6" >
+			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre">Personal de Audiencia</span></h1>
+			  <p class="lead">Página de inicio UniprotecGames, Acceso a los modulos Didácticos.</p>
 			  <hr class="my-4" style="background-color: rgb(230, 158, 25);">
 			  <p style="color: whitesmoke;">Si tienes algun problema contacta Administrador General</p>
-			  
-			    <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
-			  
+			  <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
 			</div>
 		</div>
 		<hr class="my-4">
-		
+		<a id="seccion0"></a>
 		<div class="row container-fluid grupo animate__animated animate__fadeInUp" id="accesosDirectos">
-			<div class="col-sm align-items-center elemento">
-			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body align-items-center elemento">
-			    <h4 class="nombre2">Modulo Memorama</h4>
-			    <h6 class="nombre3">Curso Montacargas</h6>
-			    <div class="align-items-center">
-				    <a href="/accesoModulo">
-				    	<button type="button" class="btn btn-success">Acceso Modulo</button>
-				    </a>
-			    </div>
-			  </div>
-			</div>
-			<div class="col-sm align-items-center elemento">
-			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body elemento">
-			    <h4 class="nombre2">Modulo Encuesta</h4>
-			    <h6 class="nombre3">Curso Montacargas</h6>
-			    <div class="align-items-center">
-				    <a href="/accesoModulo">
-				    	<button type="button" class="btn btn-success">Acceso Modulo</button>
-				    </a>
-			    </div>
-			  </div>
-			</div>
-			<div class="col-sm align-items-center elemento">
-			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			  <div class="card-body elemento">
-			    <h4 class="nombre2">Modulo Crucigrama</h4>
-			    <h6 class="nombre3">Curso Montacargas</h6>
-			    <div class="align-items-center">
-				    <a href="/accesoModulo">
-				    	<button type="button" class="btn btn-success">Acceso Modulo</button>
-				    </a>
-			    </div>
-			  </div>
-			</div>
+			
 		</div>
 	</div>
 	<div id="footer">
@@ -116,14 +81,20 @@
 			<img th:src="@{images/UNIPROTEC-GAMES-Logotipo-2020-negativo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 		</div>
 	</div>
+	
+	<script th:inline="javascript">
+		var usuarioAudiencia	= 		[[${usuarioAudiencia.usuarioAudiencia}]];
+		var modulos 	= 		[[${modulosDidacticos.modulos}]];
+		var moduloCurso = 		[[${modulosDidacticos.moduloCurso}]];
+	</script>
 
 
 <!--===============================================================================================-->
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
-	<script h:src="@{js/main.js}"></script>
-	<!--===============================================================================================-->
+	<script th:src="@{js/mainAudiencia.js}"></script>
+<!--===============================================================================================-->
 
 </body>
 </html>

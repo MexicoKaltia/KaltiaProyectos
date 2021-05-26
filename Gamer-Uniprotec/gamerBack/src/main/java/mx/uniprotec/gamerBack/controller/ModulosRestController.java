@@ -32,7 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.entidad.modelo.ModuloDidactico;
+import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.entidad.modelo.ValoresJsonVO;
 import mx.uniprotec.gamerBack.dao.IModuloDao;
+import mx.uniprotec.gamerBack.entity.ModuloCurso;
 import mx.uniprotec.gamerBack.entity.ModuloDidacticoEntity;
 import mx.uniprotec.gamerBack.service.IModuloService;
 import mx.uniprotec.gamerBack.service.ModuloService;
@@ -52,19 +55,27 @@ public class ModulosRestController {
 	private Logger logger = LoggerFactory.getLogger(ModulosRestController.class);
 
 	
-	@Secured({"ROLE_ADMIN"})
+	@Secured({"ROLE_ADMIN" ,"ROLE_INSTR" ,"ROLE_USER"})
 	@GetMapping("/getModulos")
 	public ResponseEntity<?> index() {
 		
 		Map<String, Object> response = new HashMap<>();
 		List<ModuloDidacticoEntity> modulos = new ArrayList<ModuloDidacticoEntity>();
+		List<ModuloCurso> moduloCurso = new ArrayList<ModuloCurso>();
 		
 		try {
 			modulos = moduloService.findAll();
-			
-			
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("mensaje", "Error al consultar los modulos didacticos en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			e.printStackTrace();
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
+		try {
+			moduloCurso = moduloService.findAllModuloCurso();
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al consultar los modulos-cursos en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -73,6 +84,7 @@ public class ModulosRestController {
 		
 		response.put("mensaje", "Los Modulos han sido consultado con éxito!");
 		response.put("modulos", modulos);
+		response.put("moduloCurso", moduloCurso);
 		response.put("code", 200);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	}
@@ -115,7 +127,7 @@ public class ModulosRestController {
 	
 	@Secured("ROLE_ADMIN")
 	@PutMapping("/actualizaModulo/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody ModuloDidactico modulo, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> actualizaModulo(@Valid @RequestBody ModuloDidactico modulo, BindingResult result, @PathVariable Long id) {
 
 		
 		ModuloDidacticoEntity moduloUpdated = new ModuloDidacticoEntity (); 
@@ -147,6 +159,54 @@ public class ModulosRestController {
 
 		response.put("mensaje", "El Modulo ha sido actualizado con éxito!");
 		response.put("modulo", moduloUpdated);
+		response.put("code", 200);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@PutMapping("/updateModulo/{id}")
+	public ResponseEntity<?> updateModulo(@Valid @RequestBody ValoresJsonVO valoresJson, BindingResult result, @PathVariable Long id) {
+
+		/* ValoresJsonVO
+		 *
+		 * finalJson = {
+					elementos : $elementosFinal,
+					modulo : $moduloSel,
+					idCurso : $idCurso,
+					val : $val,
+					arrayCursos : arrayCursos
+			}
+		 */
+		
+		ModuloDidacticoEntity moduloUpdated = new ModuloDidacticoEntity (); 
+		Map<String, Object> response = new HashMap<>();
+		logger.info(valoresJson.toString());
+		ResultVO rs = new ResultVO();
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		try {
+			rs = moduloService.updateModulo(valoresJson);
+			if (rs.getCodigo() == 99l) {
+				response.put("mensaje", rs.getMensaje() +" Error: no se pudo editar, el Modulos ID: "
+						.concat(id.toString().concat(" no existe en la base de datos!")));
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el Modulos en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("mensaje", "El Modulo ha sido actualizado con éxito!");
+		response.put("modulo", rs);
 		response.put("code", 200);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}

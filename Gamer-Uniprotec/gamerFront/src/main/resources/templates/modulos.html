@@ -70,6 +70,9 @@
 	</div>
 	
 	<div id="body">
+						<div class="alertaEdicion">
+							<hiden class="alerta_Edicion"></hiden>
+						</div>
 	<span th:if="${ejecucion}">
 			<div class="alert alert-dismissible alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -103,9 +106,9 @@
 			<div class="col-sm-6  " >
 				<br><br>
 				<ul class="fa-ul">
-				  <li class="" id="moduloAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-microchip"></i><p>ALTA MODULO DIDACTICO</p></a></li>
+				  <li class="" id="moduloAlta"><a class="menuA" href="#seccion1"><i class="menuAI fa-li fa fa-2x fa-microchip"></i><p>ALTA MODULO DIDACTICO</p></a></li>
 				  <hr class="my-4">
-				  <li class="" id="moduloConfiguracion"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-book"></i><p>CONFIGURAR MODULO DIDACTICO - CURSO</p></a></li>
+				  <li class="" id="moduloConfiguracion"><a class="menuA" href="#seccion2"><i class="menuAI fa-li fa fa-2x fa-book"></i><p>CONFIGURAR MODULO DIDACTICO - CURSO</p></a></li>
 <!-- 				  <hr class="my-4"> -->
 <!-- 				  <li class="" id="usuarioAudencia"><a href="#seccion2"><i class="fa-li fa fa-2x fa-id-card"></i><p></p></a></li> -->
 				  <hr class="my-4">
@@ -163,7 +166,6 @@
 			<div class="form-group">
 			      <label class="nombre" for="exampleSelect2">Selecciona Curso*</label>
 			      <select  class="form-control elementoInput" id="selectCursosNoAsignados">
-			      	
 			      </select>
 			    </div>
 			    
@@ -206,8 +208,10 @@
 	</div>
 	
 	<script th:inline="javascript">
- 		 var modulos = 		[[${modulosDidacticos.modulos}]];
- 		var cursos	= 				[[${model.jsonResponse.cursos.cursos}]];
+ 		var modulos 	= 		[[${modulosDidacticos.modulos}]];
+ 		var moduloCurso = 		[[${modulosDidacticos.moduloCurso}]];
+ 		var val 		= 		[[${val}]];
+ 		var cursos		= 		[[${model.jsonResponse.cursos.cursos}]];
 	</script>
 
 
@@ -259,7 +263,7 @@
 </body>
 </html>
 
-<!--=================================MODAL ELEMENTOS GENERAL ==============================================================-->
+<!--================================= MODAL ELEMENTOS GENERAL ==============================================================-->
   <div class="modal fade" id="modalConfiguraModulo" role="dialog">
     <div class="modal-dialog modal-lg">
     
@@ -289,8 +293,8 @@
       
     </div>
   </div>
-  <!--=========================================================================================================================-->
-  <!--===============================MODAL ELEMENTOS INDIVIDUAL================================================================-->
+  <!--===========================================================================================================================-->
+  <!--=============================== MODAL ELEMENTOS INDIVIDUAL ================================================================-->
   <div class="modal fade" id="modalConfiguraElemento" role="dialog">
     <div class="modal-dialog modal-lg">
     

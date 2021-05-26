@@ -1,6 +1,5 @@
 package mx.uniprotec.gamerFront.controller;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import mx.uniprotec.entidad.modelo.UsuarioInstructor;
 import mx.uniprotec.gamerFront.service.ILoginService;
 import mx.uniprotec.gamerFront.service.impl.ModuloService;
 import mx.uniprotec.gamerFront.service.impl.UsuariosService;
-import mx.uniprotec.gamerFront.vo.UserForm;
 
 @Controller
 @SessionAttributes ("model")
@@ -178,9 +176,5 @@ public class ControllerUsuario {
 		ModelAndView mav = new ModelAndView("instructor");
 		return mav;
 	}
-	@GetMapping("/accesoModulo")
-	public ModelAndView modulo(@RequestParam(name="login", required=false) Boolean loginIn) {
-		ModelAndView mav = new ModelAndView("moduloDidactico");
-		return mav;
-	}
+	
 }

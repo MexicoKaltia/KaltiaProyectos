@@ -153,10 +153,16 @@ function operateFormatterUpdateModulo(value, row, index) {
 		      $('#fechaAudiencia').addClass("nombre");
 		      $('#usernameAudiencia').addClass("nombre");
 		      
-		      var modulos = new Array()
-		      modulos = row.usuarioAudiencia.usuarioAudienciaModulos.split(",");
-		      for(i in modulos){
-		    	  $('#modulosInstructor').append("<li>"+modulos[i]+"</li>");
+		      var modulosAsignados = new Array()
+		      modulosAsignados = row.usuarioAudiencia.usuarioAudienciaModulos.split(",");
+		      console.log(modulos);
+		      for(i in modulosAsignados){
+		    	  for(e in modulos){
+		    		  if((modulosAsignados[i]*1) === (modulos[e].idModuloDidactico*1)){
+		    			  $('#modulosInstructor').append("<li>"+modulosAsignados[i]+" - "+modulos[e].moduloDidacticoNombre+"</li>");
+		    		  }
+		    	  }
+		    	  
 		      }
 		      
 //		      console.log(nombreCursosInstructor);

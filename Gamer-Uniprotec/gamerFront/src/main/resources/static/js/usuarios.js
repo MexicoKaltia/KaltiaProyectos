@@ -7,10 +7,10 @@ $(document).ready(function() {
 	
 //	console.log(instructores.instructores);
 //	console.log(usuarios.usuarios);
-	console.log(modulos);
+//	console.log(asignaciones);
 //	console.log(usuarios.usuariosInstructor);
 //	console.log(usuariosControl);
-	
+	var idCurosAsignacion="";	
 	$('#usuarioAudienciaForm').hide();
 	$('#usuarioInstructorForm').hide();
 	$('#usuarioAdministradorForm').hide();
@@ -121,6 +121,7 @@ $(document).ready(function() {
 $('#selectAsignaEvento').change(function(){
 	$('#usuarioAudenciaNombre').attr("disabled", false);
 	idAsignacion = $('#selectAsignaEvento').val();
+	
 	$('#selectModulosCurso').show();
 	$('#selectModulosCurso').empty();
 	$('#selectModulosCurso').val("");
@@ -128,6 +129,7 @@ $('#selectAsignaEvento').change(function(){
 	$('#divListaUsuarios').empty();
 	$('#btnActivarUsuarios').attr('disabled', true);
 	nombreCurso = $("#selectAsignaEvento option:selected").text();
+	idCurosAsignacion=getIdCurso(nombreCurso);
 	var nombreInstructor ="";
 	for(a in asignacionSelec){
 		if((idAsignacion*1) === (asignacionSelec[a].idAsignacion*1)){
@@ -166,6 +168,8 @@ $('#selectModulosCurso').change(function(){
 	$('#usuarioAudienciaParticipantes').val(cantidadUsuarios);
 	$('#usuarioAudienciaIdAsignacion').val(idAsignacion);
 	$('#usuarioAudienciaNombreEvento').val(nombreCurso);
+	$("#usuarioAudienciaidCurso").val(idCurosAsignacion);
+	$('#btnActivarUsuarioAudiencia').attr('disabled', false);
 });
 
 $('#btnActivarUsuarios').click(function(){
@@ -196,7 +200,7 @@ $('#btnActivarUsuarios').click(function(){
 		   			asignacionSelec = getAsignaciones($.asignaFecha2);
 		   			var optionAsignaciones ='<option value="" selected>Seleccione Curso - Cliente</option>';
 		   			for(a in asignacionSelec){
-		   				optionAsignaciones = optionAsignaciones +  '<option value="'+asignacionSelec[a].idAsignacion+'">'+asignacionSelec[a].cursoAsignacion+' − '+asignacionSelec[a].clienteAsignacion+'</option>';
+		   				optionAsignaciones = optionAsignaciones +  '<option value="'+asignacionSelec[a].idAsignacion+'">'+asignacionSelec[a].idCursoAsignacion+' − '+asignacionSelec[a].cursoAsignacion+' − '+asignacionSelec[a].clienteAsignacion+'</option>';
 		   			}
 		   			$('#selectAsignaEvento').append(optionAsignaciones);
 		   		}
@@ -256,7 +260,7 @@ function formInstructor(){
 		
 		//Valida si esta activo en Gamer Uniprotec
 		var activo = false;
-//		console.log(usuarios);
+//		console.log(instructorBase);
 		var usuariosGamer = usuarios.usuarios; 
 		
 		for(i in usuariosGamer){
@@ -279,10 +283,10 @@ function formInstructor(){
 			
 		$(".usernameInstructor").html("<strong>"+ instructorBase.usuarioInstructor.usernameUsuario +"</strong>")
 		$("#usuarioInstructorNombre").val(instructorBase.nombreInstructor);
-		$("#usuarioInstructorIdAsignacion").val(instructorBase.usuarioInstructor.idUsuario);
-		$("#usuarioInstructorUserName").val(instructorBase.usuarioInstructor.usernameUsuario)
-		$("#usuarioInstructorPassword").val(instructorBase.usuarioInstructor.passwordUsuario)
-					
+		$("#usuarioInstructorIdAsignacion").val(instructorBase.idInstructor);//$("#usuarioInstructorIdAsignacion").val(instructorBase.usuarioInstructor.idUsuario);
+		$("#usuarioInstructorUserName").val(instructorBase.usuarioInstructor.usernameUsuario);
+		$("#usuarioInstructorPassword").val(instructorBase.usuarioInstructor.passwordUsuario);
+		
 		$('#selInstructor').attr('disabled', true);
 		
 		
@@ -421,3 +425,11 @@ function getAdministrador(usuarios){
 		$('#idUsuarioAudiencia').val($idUsuarioAudiencia);
 		$('#actualizaAudiencia').submit();
 	}
+  
+  function getIdCurso(cadena){
+	  var tmp = cadena.split(" − ");
+	  var tmp1 = tmp[0];
+	  tmp1 = tmp1.replace(" ","");
+	  tmp1 = tmp1*1;
+	  return tmp1;
+  }

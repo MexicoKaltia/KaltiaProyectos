@@ -18,33 +18,19 @@
 
 
 </head>
-<body>
+<body class="parallax" background="images/virtual1.jpg" >
 	<div id="head">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		  <a class="navbar-brand" href="#">GAMER UNIPROTEC</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+		  <a class="navbar-brand" href="#"><img th:src="@{images/logoGamer.jpg}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarColor01">
-		     <ul class="navbar-nav mr-auto">
+		    <ul class="navbar-nav mr-auto">
 		      <li class="nav-item ">
-		        <a class="nav-link " href="#">Inicio
+		        <a class="nav-link" href="/inicio">Inicio
 		          <span class="sr-only">(current)</span>
 		        </a>
-		      </li>
-		      <li class="nav-item active ">
-		        <a class="nav-link" href="/accesoModulo">Acceso Modulo</a>
-		      </li>
-		      
-		      <li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
-		        <div class="dropdown-menu">
-		          <a class="dropdown-item" href="#seccion0">Action</a>
-		          <a class="dropdown-item" href="#"> action1</a>
-		          <a class="dropdown-item" href="#">action2</a>
-		          <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="#">Cerrar Sesion</a>
-		        </div>
 		      </li>
 		    </ul>
 		  </div>
@@ -52,26 +38,29 @@
 	</div>
 	<div id="menuleft">
 	</div>
+	
 	<div id="body">
-		<div class="row boxShadow container-fluid ">
-			<div class="col-6" style="padding:2rem;">
-			 <img th:src="@{images/cursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
-			 <p class="lead">Modulo Didactico _Nombre_.</p>
+		<div class="row boxShadow container-fluid">
+			<div class="col-sm-6" style="">
+			 <img th:src="@{images/IMAGEN_PROVISIONAL.png}" alt=""  class="img-fluid" style="max-width: 15.0rem; max-height: 15.0rem"/>
+			 <p class="lead">Modulo Didáctico .</p>
 			</div> 
-			<div class="col-6  " >
+			<div class="col-sm-6  " >
 				<br><br>
 				<ul class="fa-ul">
-				  <li class="" id="usuarioAlta"><a href="#seccion0"><i class="fa-li fa fa-2x fa-microchip"></i><p>MODULO DIDACTICO</p></a></li>
-				  <hr class="my-4">
+				  <li class="" id="usuarioAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-microchip"></i><p>NOMBRE MODULO <span>nombreCurso</span><span>nombreEmpresa</span></p></a></li>
 				</ul>
 				<br>
 			</div> 
 		</div>
-		<div class="row seccionOperacion" id="seccionOperacion" >
-			 <img th:src="@{images/crucigrama.jpg}" alt=""  style="max-width: auto; max-height: auto"/>
-		</div>	
+		<hr class="my-4">	
+		<a id="seccion0"></a>
+		<a id="seccion1"></a>
+		
+	
 	</div>
 	<div id="footer">
+	
 		<div id="footerDatos" class="footer">
 			Derechos Reservados @Uniprotec 2021
 		</div>
@@ -79,6 +68,11 @@
 			<img th:src="@{images/logo.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 		</div>
 	</div>
+<script th:inline="javascript">
+		var idModuloCurso	= 		[[${idModuloCurso}]];
+	</script>
+
+
 
 
 <!--===============================================================================================-->

@@ -151,11 +151,12 @@
 			    <input type="hidden" th:field="*{usuarioAudienciaParticipantes}" id="usuarioAudienciaParticipantes">
 			    <input type="hidden" th:field="*{usuarioAudienciaIdAsignacion}" id="usuarioAudienciaIdAsignacion">
 			    <input type="hidden" th:field="*{usuarioAudienciaNombreEvento}" id="usuarioAudienciaNombreEvento">
+			    <input type="hidden" th:field="*{usuarioAudienciaidCurso}" id="usuarioAudienciaidCurso">
 			    <div class="form-group" id="divListaUsuarios">
 			    	
 			    </div>
 				
-				<button type="submit" id="btnActivarUsuarioAudiencia" class="btn btn-success">Activar Usuarios</button>
+				<button type="submit" id="btnActivarUsuarios" class="btn btn-success" >Activar Usuarios</button>
 			</form>
 			<br><br>
 		</div>
@@ -407,7 +408,7 @@
                                       </div>
                                      
 							         <div class="form-row">
-								          <label for="validationCustom01" style="color:#ffa400">Status Instructor :</label><br>
+								          <label for="validationCustom01" style="color:#ffa400">Status Usuario Audiencia :</label><br>
 								     	  <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
 		                                  		<button type="button" id="btnStatusAudiencia" class="btn btn-warning" onclick="checkStatusAudiencia()"></button>
 		                                  </div>

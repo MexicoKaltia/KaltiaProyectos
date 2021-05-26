@@ -138,10 +138,11 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 					modulos,
 					usuarioAudiencia.getUsuarioAudienciaParticipantes().toString(),
 					(usuarioAudiencia.getUsuarioAudienciaIdAsignacion()+"-"+(i+1)),
+					usuarioAudiencia.getUsuarioAudienciaNombreEvento(),
 					usuarioAudiencia.getCreateAt(),
 					usuarioAudiencia.getUserCreate(),
 					usuarioAudiencia.getStatus(),
-					usuarioAudiencia.getUsuarioAudienciaNombreEvento()
+					usuarioAudiencia.getUsuarioAudienciaidCurso()
 					);
 			
 			usuario.setUsuarioAudiencia(usuarioAudienciaEntity);
@@ -272,6 +273,17 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 	}
 
 
+	@Override
+	public UsuarioAudienciaEntity findByAudienciaUsername(String userName) {
+		UsuarioAudienciaEntity usuarioAudiencia = new UsuarioAudienciaEntity();
+		try {
+			usuarioAudiencia = usuarioAudienciaDao.findByUsuarioAudienciaIdAsignacion(userName); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usuarioAudiencia;
+	}
+
 
 
 	
@@ -296,5 +308,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 		 
 	}
 
+
+	
 	
 }

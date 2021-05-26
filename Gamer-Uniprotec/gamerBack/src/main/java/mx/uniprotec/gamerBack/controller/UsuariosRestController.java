@@ -85,28 +85,31 @@ public class UsuariosRestController {
 	
 	
 	
-//	@Secured({"ROLE_ADMIN", "ROLE_USER"})
-//	@GetMapping("/usuarioss/{id}")
-//	public ResponseEntity<?> show(@PathVariable Long id) {
-//		
-//		Usuario usuario = null;
-//		Map<String, Object> response = new HashMap<>();
-//		
-//		try {
-//			usuario = usuarioService.findById(id);
-//		} catch(DataAccessException e) {
-//			response.put("mensaje", "Error al realizar la consulta en la base de datos");
-//			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//		
-//		if(usuario == null) {
-//			response.put("mensaje", "El usuarios ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-//		}
-//		
-//		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
-//	}
+	@Secured({"ROLE_ADMIN", "ROLE_INSTR"})
+	@GetMapping("/getUsuarioInstructor/{userName}")
+	public ResponseEntity<?> show(@PathVariable String userName) {
+		
+		Usuario usuario = null;
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			usuario = usuarioService.findByUsername(userName);
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if(usuario == null) {
+			response.put("mensaje", "El usuarios ID: ".concat(userName.toString().concat(" no existe en la base de datos!")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		response.put("mensaje", "El usuario ha sido consultado con éxito!");
+		response.put("usuario", usuario);
+		response.put("code", 200);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+	}
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/altaUsuariosAudiencia")
@@ -140,6 +143,32 @@ public class UsuariosRestController {
 		response.put("usuarios", usuarioNew);
 		response.put("code", 200);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
+	@GetMapping("/getUsuarioAudiencia/{userName}")
+	public ResponseEntity<?> getUsuarioAudiencia(@PathVariable String userName) {
+		
+		UsuarioAudienciaEntity usuarioAudiencia = new UsuarioAudienciaEntity();
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			usuarioAudiencia = usuarioService.findByAudienciaUsername(userName);
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if(usuarioAudiencia  == null) {
+			response.put("mensaje", "El usuarios ID: ".concat(userName.toString().concat(" no existe en la base de datos!")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		response.put("mensaje", "El usuario ha sido consultado con éxito!");
+		response.put("usuarioAudiencia", usuarioAudiencia);
+		response.put("code", 200);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	}
 	
 	@Secured("ROLE_ADMIN")

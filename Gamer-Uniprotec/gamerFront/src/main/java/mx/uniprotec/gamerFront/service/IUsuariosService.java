@@ -16,5 +16,7 @@ public interface IUsuariosService {
 	public ResultVO actualizaAudiencia(UsuarioAudiencia userA, String accesToken);
 	public ResultVO actualizaInstructor(UsuarioInstructor userI, String accesToken);
 	public ResultVO altaUsuarioAdministrador(UsuarioAdministrador userA, String accesToken);
+	public JSONObject dataInstructor(String token, String tokenCU);
+	public JSONObject getCursosControl(String tokenCU);
 
 }
