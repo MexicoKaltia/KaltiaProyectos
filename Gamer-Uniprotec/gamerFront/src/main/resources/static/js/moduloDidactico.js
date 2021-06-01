@@ -13,11 +13,10 @@ $(document).ready(function() {
 	 /*
 	  * sonido inicial
 	  */
-	 sonidoEfecto = '<audio id="audioInicial" controls><source type="audio/mp3" src="audio/intro.mp3"></audio>';
-	 $('#soundInicial').append(sonidoEfecto);
-
-	 var audioInicial = document.getElementById("audioInicial");
-	 audioInicial.play();
+//	 sonidoEfecto = '<audio id="audioInicial" controls><source type="audio/mp3" src="audio/intro.mp3"></audio>';
+//	 $('#soundInicial').append(sonidoEfecto);
+//	 var audioInicial = document.getElementById("audioInicial");
+//	 audioInicial.play();
 	 
 	 console.log($moduloCurso);
 	 var elementos = new Array();
@@ -95,8 +94,7 @@ $(document).ready(function() {
 			 contador = 0;
 			 conteoEvento++;
 			 seleccion1 = "dos";
-			 $('#modalCoincidir').modal();
-			 setTimeout(cerrarModal, 3000);
+			 
 			 $('#seleccion2').html(idSel);	 
 			 $('#seleccion2Titulo').html(titulo);
 			 $('#seleccion2Descripcion').html(descripcion);
@@ -111,6 +109,8 @@ $(document).ready(function() {
 				 $('#idSel1').removeClass('hover');
 				 $('#idSel').removeClass('hover');
 				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="audio/sonido_correcto.mp3"></audio>';
+				 $('#modalCoincidir').modal();
+//				 setTimeout(cerrarModal, 18000);
 				 
 			 }else{
 				 console.log("NO coincidir valores");
@@ -121,7 +121,7 @@ $(document).ready(function() {
 			 $("#btnPuntuaje").html("Movimientos : "+conteoEvento);
 			 var audio = document.getElementById("audio");
 			 audio.play();
-			 $('#modalCoincidir').modal('hide');
+//			 $('#modalCoincidir').modal('hide');
 		}
 	 });
 }); // fin de documento
@@ -196,25 +196,26 @@ function getGrid(array){
 
 function getFilasColumnas(eles){
 	var tmp= new Array();
-//	console.log(eles);
+	console.log(eles);
+	eles = eles * 2
 
 	if(eles < 7){
 		tmp = [3,3];
-	}else if(7 <= eles < 13){
+	}else if(7 <= eles && eles < 13){
 		tmp = [4,3];
-	}else if(13 <= eles < 17){
+	}else if(13 <= eles && eles < 17){
 		tmp = [4,4];
-	}else if(17 <= eles < 21){
+	}else if(17 <= eles && eles < 21){
 		tmp = [5,4];
-	}else if(21 <= eles < 26){
+	}else if(21 <= eles && eles < 26){
 		tmp = [5,5];
-	}else if(26 <= eles < 31){
+	}else if(26 <= eles && eles < 31){
 		tmp = [6,5];
-	}else if(31 <= eles < 37){
+	}else if(31 <= eles && eles < 37){
 		tmp = [6,6];
-	}else if(37 <= eles < 43){
+	}else if(37 <= eles && eles < 43){
 		tmp = [7,6];
-	}else if(43 <= eles < 50){
+	}else if(43 <= eles && eles < 50){
 		tmp = [7,7];
 	}
 	console.log(tmp);
