@@ -41,7 +41,7 @@ $(document).ready(function() {
 		             <div class="card fondo ">\
 		                 <div class="front" onclick="rotateCard(this)">\
 		                    <div class="logoGamer"></div>\
-		                     <div class="tamano1 text-center fondo"><i class="fa fa-mail-forward"></i> click para rotar</div>\
+		                     <div class="tamano1 text-center fondo">'+(e+1)+'-'+(a+1)+'</div>\
 		                 </div> <!-- end front panel -->\
 		                 <div class="back" onclick="rotateCard(this)">\
 		                     <div class="imagenBack">\
@@ -55,6 +55,7 @@ $(document).ready(function() {
 		             </div> <!-- end card -->\
 		         </div> <!-- end card-container -->\
 		     </td>'; 
+//				 <i class="fa fa-mail-forward"></i>
 		//		 $('#').append(elemento);
 				 var elementoContat = elementoContat + elemento;
 				 o++; 
@@ -98,8 +99,10 @@ $(document).ready(function() {
 			 $('#seleccion2').html(idSel);	 
 			 $('#seleccion2Titulo').html(titulo);
 			 $('#seleccion2Descripcion').html(descripcion);
-			 $('#seleccion2Imagen').attr('src',imagen);;
+			 $('#seleccion2Imagen').attr('src',imagen);
+			 cerrarModal();
 		 }
+		 
 		 function cerrarModal(){
 			 console.log(titulo1+'-'+titulo);
 			 if(titulo1.toString() === titulo.toString()){
@@ -108,14 +111,14 @@ $(document).ready(function() {
 				 $('#idSel').removeClass('manual-flip');
 				 $('#idSel1').removeClass('hover');
 				 $('#idSel').removeClass('hover');
-				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="audio/sonido_correcto.mp3"></audio>';
+				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="sonido/sonido_correcto.mp3"></audio>';
 				 $('#modalCoincidir').modal();
 //				 setTimeout(cerrarModal, 18000);
 				 
 			 }else{
 				 console.log("NO coincidir valores");
 				 rotateCard(this);
-				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="audio/sonido_error.mp3"></audio>';
+				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="sonido/sonido_error.mp3"></audio>';
 			 }
 			 $('#soundModal').append(sonidoEfecto);
 			 $("#btnPuntuaje").html("Movimientos : "+conteoEvento);
@@ -197,7 +200,7 @@ function getGrid(array){
 function getFilasColumnas(eles){
 	var tmp= new Array();
 	console.log(eles);
-	eles = eles * 2
+	
 
 	if(eles < 7){
 		tmp = [3,3];
