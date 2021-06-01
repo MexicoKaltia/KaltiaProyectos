@@ -11,6 +11,8 @@ $(document).ready(function() {
 		for(e in modulos){
 			if((idModulo*1) === (modulos[e].idModuloDidactico)){
 				var modulo = modulos[e];
+				var idModuloDidactico = modulo.idModuloDidactico;
+				var usuarioAudienciaidCurso=  usuarioAudiencia.usuarioAudienciaidCurso;
 				var elemento = '<div class="col-sm align-items-center elemento">\
 				<img src="\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen+'" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>\
 					  <div class="card-body elemento">\
@@ -18,8 +20,8 @@ $(document).ready(function() {
 					    <h6 class="text-center nombre3">'+reformatNombreCurso(usuarioAudiencia.usuarioAudienciaNombreEvento)+'</h6>\
 					    <div class="align-items-center">\
 					    <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, usuarioAudiencia.usuarioAudienciaidCurso)+'">\
-						    	<button type="button" class="btn btn-success">Acceso Modulo</button>\
-						    </a>\
+					    	<button type="button" class="btn btn-success" id="btnAccesoModulo'+idModulo+'" >Acceso Modulo</button>\
+					    </a>\
 					    </div>\
 					  </div>\
 					</div>';
@@ -29,8 +31,21 @@ $(document).ready(function() {
 	}
 //	
 //	'+getImage(modulo.moduloDidacticoIdImagen, modulo.moduloDidacticoImagen)+'
+//	<form id="formAccesoModulo'+idModulo+'" th:action="@{/accesoModulo}"  th:field="*{idModulocurso}"  method="post">\
+//	<input type="hidden" name="idModuloCurso" th:field="*{idModulocurso}" value="'+getModuloCurso(modulo.idModuloDidactico, usuarioAudiencia.usuarioAudienciaidCurso)+'">\
+//    	<button type="button" class="btn btn-success" id="btnAccesoModulo'+idModulo+'" onclick="btnSubmit(this)">Acceso Modulo</button>\
+//    </form>\
+	
     // fin de documento
+	
 })
+
+//function btnSubmit(elemento){
+//	var idElemento = $(elemento).attr("id");
+//	idElemento = idElemento.replace("btnAccesoModulo","");
+//	console.log(idElemento);
+//	$('#formAccesoModulo'+idElemento).submit();
+//}
 
 function stringToArrayAudiencia(str){
 	var array = new Array();
@@ -68,8 +83,30 @@ function getModuloCurso(idModulo, idCurso){
 //	console.log(array1);
 	for(e in array1){
 		if((array1[e].idCurso*1) === (idCurso*1)){
+//			$('#formAccesoModulo').submit();
+			
 //			console.log(array1[e].idModuloCurso)
 			return array1[e].idModuloCurso;
+//			$.ajax({
+//			   	  url: "/accesoModulo?idModuloCurso="+array1[e].idModuloCurso,//+ context,//+finalJson.action+"/"+finalJson[1],
+//			      dataType: 'json',
+//				  type: 'POST',
+//				  contentType: "application/json",
+////				  data: JSON.stringify(finalJson),
+//				  headers: {   'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'X-PINGOTHER' },
+//				  crossDomain: true,
+//				  success: 	function(data){
+////					  window.location = '/modulos?ejecucionI=true'; //			  window.location.reload();
+////					  avisaAlerta(data)
+//					},
+//				  error: function(){
+//					  data = {
+//							  codigo : "99",
+//							  mensaje : "Error al actualizar Modulo"
+//					  }
+////					  avisaAlerta(data);
+//				  }
+//				});
 		}
 	}
 	return null;

@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/rotate.css}" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
 <!--===============================================================================================-->
 
@@ -48,14 +49,41 @@
 			<div class="col-sm-6  " >
 				<br><br>
 				<ul class="fa-ul">
-				  <li class="" id="usuarioAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-microchip"></i><p>NOMBRE MODULO <span>nombreCurso</span><span>nombreEmpresa</span></p></a></li>
+				  <li class="" id="usuarioAlta"><a class="menuA" href="#seccion0"><i class="menuAI fa-li fa fa-2x fa-microchip"></i><p><span class="bienvenido" id="nombreModulo"></span></p>
+				  	<p><span class="nombre1" id="nombreCurso"></span></p>
+				  	<p><span class="bienvenido" id="nombreEmpresa"></span></p>
+				  	</a></li>
 				</ul>
 				<br>
 			</div> 
 		</div>
+		<a id="seccion0"></a>
 		<hr class="my-4">	
 		<a id="seccion0"></a>
 		<a id="seccion1"></a>
+		<div id="seccionConfiguracion" class="container row" style="padding-left:20%;">
+			<div class="col-md-4">
+				  <button type="button" id="btnInstrucciones" class="btn btn-success" data-toggle="modal" data-target="#modalInstrucciones" >Instrucciones</button>
+			</div>
+			<div class="col-md-4">
+				   <button type="button" id="btnConfiguracion" class="btn btn-info" data-toggle="modal" data-target="#modalConfiguracion" >Configuracion</button>
+			</div>
+			<div class="col-md-4">
+				   <button type="button" id="btnPuntuaje" class="btn btn-warning" data-toggle="modal" data-target="#modalPuntuaje" >Puntuaje</button>
+			</div>
+			<div id="soundInicio"></div>
+       	</div>
+       	<div id="seccionOperacion" class="container">
+       		<div class="table container">
+			   <table class="table table-borderless" id="tablaElementos">
+			    <tbody>
+			    
+			     <!--  elementos de juego -->
+			      
+			    </tbody>
+			  </table>
+       		</div>
+       	</div>
 		
 	
 	</div>
@@ -78,10 +106,133 @@
 
 <!--===============================================================================================-->
 	<script th:src="@{js/jquery3_5_1.min.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
 	<script th:src="@{js/moduloDidactico.js}"></script>
+	<script th:src="@{js/rotate.js}"></script>
 	<!--===============================================================================================-->
 
 </body>
 </html>
+  <!--=============================== MODAL Instrucciones ================================================================-->
+  <div class="modal fade" id="modalInstrucciones" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamicoElemento">
+        <div class="" ><img th:src="@{images/IMAGEN_PROVISIONAL.png}" alt=""  class="img-fluid" style="max-width: 15.0rem; max-height: 15.0rem"/></div>
+         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="moduloNombre"></span></h3><br>
+          <h3 class="bienvenido">Instrucciones : <span class="nombre" id="moduloInstrucciones"></span></h3><br> 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  <!--=========================================================================================================================-->
+  <!--=============================== MODAL CONFIGURACION ================================================================-->
+  <div class="modal fade" id="modalConfiguracion" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamicoElemento">
+         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="moduloNombreConfiguracion"></span></h3><br>
+          <h3 class="bienvenido">Configuracion : <span class="nombre" id=""></span></h3><br>
+          <h3 class="bienvenido">Cantidad de movimientos permitidos : <span class="nombre" id="moduloCantidadMovimientos"></span></h3><br>
+          <h3 class="bienvenido">Tiempo limite : <span class="nombre" id="moduloTiempoLimite"></span></h3><br>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
+      	    
+			 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+<!--         <button  id="btnAgregarConfiguracion" class="btn btn-success btn-default pull-left" > Agregar Configuracion</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  <!--=========================================================================================================================-->
+  <!--=============================== MODAL PUNTUAJE ================================================================-->
+  <div class="modal fade" id="modalPuntuaje" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamicoElemento">
+         <h3 class="bienvenido">Intentos logrados : <span class="nombre" id="nombreModulo"></span></h3><br>
+          <h3 class="bienvenido">Tiempo Record : <span class="nombre" id="nombreCurso"></span></h3><br>
+          
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
+      	    
+			 
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        <button  id="btnAgregarPuntuaje" class="btn btn-success btn-default pull-left" > Agregar Configuracion</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  <!--=========================================================================================================================-->
+  <!--=============================== MODAL Seleccion ================================================================-->
+  <div class="modal fade" id="modalCoincidir" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0455b0">
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <h4 style="padding:35px 50px; position: center"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="background-color: #0455b0" id="">
+        	<div class="container-fluid">
+        		<div class="row">
+	        		<div class="bienvenido col-sm-5">
+	        			<h2 >Casilla : <span class="nombre6" id="seleccion1"></span></h2>
+	        			<h2 >Titulo : <span class="nombre6" id="seleccion1Titulo"></span></h2>
+	        			<h2 >Descripcion : <span class="nombre6" id="seleccion1Descripcion"></span></h2>
+	        			<img src="" id="seleccion1Imagen" class="imgModal img-fluid"/>
+	        		</div>
+	        		<div class="bienvenido col-sm-5">
+	        			<h2>Casilla : <span class="nombre6" id="seleccion2"></span></h2>
+	        			<h2>Titulo : <span class="nombre6" id="seleccion2Titulo"></span></h2>
+	        			<h2>Descripcion : <span class="nombre6" id="seleccion2Descripcion"></span></h2>
+	        			<img src="" id="seleccion2Imagen" class="imgModal img-fluid"/>
+	        		</div>
+        		</div>
+        		<div id="soundModal"></div>
+        	</div>
+        </div>
+        <div class="modal-footer" style=" background-color: #0455b0">
+        <hr>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  <!--=========================================================================================================================-->

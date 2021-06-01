@@ -137,7 +137,7 @@ public class ControllerInicio {
 	
 	@GetMapping("/inicio")
 //	@Scope("prototype")
-	public ModelAndView inicio(ModelMap model) {
+	public ModelAndView inicio2(ModelMap model) {
 
 		if(model.equals(null)) {
 			log.info("NULL");

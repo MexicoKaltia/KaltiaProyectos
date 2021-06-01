@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css?family=Arima+Madurai:100,200,300,400,500,700,800,900');
+
+.btn:hover,
+.btn:focus,
+.btn:active{
+    outline: 0 !important;
+}
+/* entire container, keeps perspective */
+.card-container {
+	  -webkit-perspective: 400px;
+   -moz-perspective: 400px;
+     -o-perspective: 400px;
+        perspective: 400px;
+        margin-bottom: 0px;
+}
+/* flip the pane when hovered */
+.card-container:not(.manual-flip):hover .card,
+.card-container.hover.manual-flip .card{
+	-webkit-transform: rotateY( 180deg );
+-moz-transform: rotateY( 180deg );
+ -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+
+
+/*.card-container.static:hover .card,
+.card-container.static.hover .card {
+	-webkit-transform: none;
+-moz-transform: none;
+ -o-transform: none;
+    transform: none;
+}*/
+/* flip speed goes here */
+.card {
+	 -webkit-transition: -webkit-transform .5s;
+   -moz-transition: -moz-transform .5s;
+     -o-transition: -o-transform .5s;
+        transition: transform .5s;
+-webkit-transform-style: preserve-3d;
+   -moz-transform-style: preserve-3d;
+     -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	-webkit-backface-visibility: hidden;
+   -moz-backface-visibility: hidden;
+     -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+    background-color: rgba(0,0,0,0.55) !important;
+}
+
+.logo{
+    background-image:url(../images/logo.png);
+    background-size: 100%;
+    background-position: center;
+    background-repeat:no-repeat;
+}
+.logoGamer{
+    background-image:url(../images/logoGamer.jpg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat:no-repeat;
+    height: 85%;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+}
+
+.fondo{
+    background-color: black;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+}
+
+/* back, initially hidden pane */
+.back {
+		-webkit-transform: rotateY( 180deg );
+   -moz-transform: rotateY( 180deg );
+     -o-transform: rotateY( 180deg );
+        transform: rotateY( 180deg );
+        z-index: 3;
+}
+
+.back .btn-simple{
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+}
+/*        Style       */
+
+
+.card{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 20px;
+    border-style: solid;
+    color: cyan;
+}
+.card-container, .front, .back {
+	width: 100%;
+	height: 10rem;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);
+-moz-box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);
+box-shadow: 0px 0px 19px 0px rgba(0,0,0,0.16);
+}
+.card .cover{
+    
+}
+.card img{
+    width: 100%;
+}
+
+ 
+ 
+.card  h4{
+	font-family: 'Arima Madurai', cursive;
+}
+.card  p{
+	color: #777777;
+}
+
+.tamano1{
+    font-size: 2vw;
+}
+
+.tamano05{
+    font-size: 1vw;
+}
+
+.conteo{
+	
+}
+
+/*      presentacion        */
+
+
+
+/*       Fix bug for IE      */
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .front, .back{
+        -ms-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+
+    .back {
+        visibility: hidden;
+        -ms-transition: all 0.2s cubic-bezier(.92,.01,.83,.67);
+    }
+    .front{
+        z-index: 4;
+    }
+    .card-container:not(.manual-flip):hover .back,
+    .card-container.manual-flip.hover .back{
+        z-index: 5;
+        visibility: visible;
+    }
+}
