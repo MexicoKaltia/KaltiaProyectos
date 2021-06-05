@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	
-//	console.log(usuarioAudiencia);
-//	console.log(modulos);
-//	console.log(moduloCurso);
+	console.log(usuarioAudiencia);
+	console.log(modulos);
+	console.log(moduloCurso);
 
 	var arrayUsuarioModulos = new Array();
 	arrayUsuarioModulos = stringToArrayAudiencia(usuarioAudiencia.usuarioAudienciaModulos);
@@ -16,7 +16,7 @@ $(document).ready(function() {
 				var elemento = '<div class="col-sm align-items-center elemento">\
 				<img src="\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen+'" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>\
 					  <div class="card-body elemento">\
-					    <h4 class="text-center nombre2">'+modulo.moduloDidacticoDescripcion+'</h4>\
+					    <h4 class="text-center nombre2">'+modulo.moduloDidacticoNombre+'</h4>\
 					    <h6 class="text-center nombre3">'+reformatNombreCurso(usuarioAudiencia.usuarioAudienciaNombreEvento)+'</h6>\
 					    <div class="align-items-center">\
 					    <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, usuarioAudiencia.usuarioAudienciaidCurso)+'">\
@@ -73,40 +73,19 @@ function getNombreEmpresa(cadena){
 }
 
 function getModuloCurso(idModulo, idCurso){
-//	console.log(idModulo+"-"+ idCurso);
+	console.log(idModulo+"-"+idCurso)
 	var array1 = new Array();
 	for(a in moduloCurso){
-		if((moduloCurso[a].idModuloDidactico*1) === (idModulo*1)){
-			array1.push(moduloCurso[a]);
+		var mc = moduloCurso[a];
+		if((mc.idModuloDidactico*1) === (idModulo*1)){
+			array1.push(mc);
 		}
 	}
-//	console.log(array1);
+	console.log(array1)
 	for(e in array1){
-		if((array1[e].idCurso*1) === (idCurso*1)){
-//			$('#formAccesoModulo').submit();
-			
-//			console.log(array1[e].idModuloCurso)
-			return array1[e].idModuloCurso;
-//			$.ajax({
-//			   	  url: "/accesoModulo?idModuloCurso="+array1[e].idModuloCurso,//+ context,//+finalJson.action+"/"+finalJson[1],
-//			      dataType: 'json',
-//				  type: 'POST',
-//				  contentType: "application/json",
-////				  data: JSON.stringify(finalJson),
-//				  headers: {   'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'X-PINGOTHER' },
-//				  crossDomain: true,
-//				  success: 	function(data){
-////					  window.location = '/modulos?ejecucionI=true'; //			  window.location.reload();
-////					  avisaAlerta(data)
-//					},
-//				  error: function(){
-//					  data = {
-//							  codigo : "99",
-//							  mensaje : "Error al actualizar Modulo"
-//					  }
-////					  avisaAlerta(data);
-//				  }
-//				});
+		var array = array1[e];
+		if((array.idCurso*1) === (idCurso*1)){
+			return array.idModuloCurso;
 		}
 	}
 	return null;

@@ -29,7 +29,7 @@ $(document).ready(function() {
 	 
 	 
 	 $("#tablaElementos").empty();
-	 var fila = '<tr></tr>';
+	 var fila = '';
 	 /*
 	  * procesa grid
 	  */
@@ -42,7 +42,7 @@ $(document).ready(function() {
 			 if(o < elementos.length){
 //				 console.log(elementos[o]);
 //				 var imagen = '\\uploads\\img\\'+$moduloCurso.idModuloDidactico+'-'+$moduloCurso.idCurso+'\\'+elementos[i-1].imagen;
-				 var elemento = '<td><div class="card-container manual-flip conteo" id="'+(e+1)+'-'+(a+1)+'">\
+				 var elemento = '<div class="card-container manual-flip conteo" id="'+(e+1)+'-'+(a+1)+'">\
 		             <div class="card fondo ">\
 		                 <div class="front" onclick="rotateCard(this)">\
 		                    <div class="logoGamer"></div>\
@@ -58,7 +58,7 @@ $(document).ready(function() {
 		                 </div> <!-- end back panel -->\
 		             </div> <!-- end card -->\
 		         </div> <!-- end card-container -->\
-		     </td>'; 
+		     '; 
 //		         <p class="text-center tamano05" id="descripcion'+(e+1)+'-'+(a+1)+'">'+elementos[o].descripcion+'</p>\
 //				 <i class="fa fa-mail-forward"></i>
 		//		 $('#').append(elemento);
@@ -66,7 +66,7 @@ $(document).ready(function() {
 				 o++; 
 			 }
 		 }
-		 elementoContat =  '<tr>'+elementoContat+'</tr>';
+		 elementoContat =  elementoContat;
 	 }
 	 $("#tablaElementos").append(elementoContat);
 	 

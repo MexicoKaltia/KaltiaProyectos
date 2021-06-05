@@ -7,9 +7,10 @@ $(document).ready(function() {
 	
 //	console.log(instructores.instructores);
 //	console.log(usuarios.usuarios);
-//	console.log(asignaciones);
+	console.log(asignaciones);
 //	console.log(usuarios.usuariosInstructor);
 //	console.log(usuariosControl);
+	console.log(modulos);
 	var idCurosAsignacion="";	
 	$('#usuarioAudienciaForm').hide();
 	$('#usuarioInstructorForm').hide();
@@ -113,7 +114,7 @@ $(document).ready(function() {
 }) // fin de documento jquery
 
 /*
- *  Funciones para dar de alta Usuario Instructor
+ *  Funciones para dar de alta Usuario Audiencia
  */
 	var asignacionSelec = new Array();
 	var nombreCurso ="";
@@ -141,8 +142,11 @@ $('#selectAsignaEvento').change(function(){
 	$('#usuarioAudenciaNombre').val(nombreInstructor);
 //	$('#usuarioAudenciaNombre').attr("disabled", true);
 	for(a in modulos){
-		var option = "<option value='"+modulos[a].idModuloDidactico+"'>"+modulos[a].moduloDidacticoNombre+"</option>";
-		$('#selectModulosCurso').append(option);
+		var modulo = modulos[a];
+		if(getCursoContein(modulo, idCurosAsignacion)){
+			var option = "<option value='"+modulo.idModuloDidactico+"'>"+modulo.moduloDidacticoNombre+"</option>";
+			$('#selectModulosCurso').append(option);
+		}
 	}
 });
 
@@ -200,7 +204,12 @@ $('#btnActivarUsuarios').click(function(){
 		   			asignacionSelec = getAsignaciones($.asignaFecha2);
 		   			var optionAsignaciones ='<option value="" selected>Seleccione Curso - Cliente</option>';
 		   			for(a in asignacionSelec){
-		   				optionAsignaciones = optionAsignaciones +  '<option value="'+asignacionSelec[a].idAsignacion+'">'+asignacionSelec[a].idCursoAsignacion+' − '+asignacionSelec[a].cursoAsignacion+' − '+asignacionSelec[a].clienteAsignacion+'</option>';
+		   				var asignacion =asignacionSelec[a];
+//		   				console.log(asignacion.cursoAsignacion);
+		   				if(getCursosModulo(asignacion.idCursoAsignacion)){
+		   					optionAsignaciones = optionAsignaciones +  '<option value="'+asignacion.idAsignacion+'">'+asignacion.idCursoAsignacion+' − '+asignacion.cursoAsignacion+' − '+asignacion.clienteAsignacion+'</option>';
+//		   					console.log(optionAsignaciones);
+		   				}
 		   			}
 		   			$('#selectAsignaEvento').append(optionAsignaciones);
 		   		}
@@ -219,7 +228,44 @@ function getAsignaciones(fechaSeleccion){
 	return asignacionSelec;
 }
 
+function getCursosModulo(idCursoAsignacion){
+	var flag = false;
+//	console.log(idCursoAsignacion);
+	for(a in modulos){
+		var arrayCursos = getArrayModulos(modulos[a].moduloDidacticoCursos);
+//		console.log(arrayCursos);
+		for(e in arrayCursos){
+			if((arrayCursos[e]*1) === (idCursoAsignacion*1)){
+//				console.log(idCursoAsignacion);
+				flag = true;
+			}
+		}
+	}
+	return flag;
+}
 
+function getArrayModulos(cursos){
+	var tmp = new Array();
+//	console.log(cursos);
+	if(cursos.includes(",")){
+		tmp = cursos.split(",");
+	}else{
+		tmp.push(cursos);
+	}
+	 return tmp;
+}
+
+function getCursoContein(modulo, idCurso){
+	var arrayCursos = getArrayModulos(modulo.moduloDidacticoCursos);
+	for(a in arrayCursos){
+		var arrayCurso = arrayCursos[a];
+		if((arrayCurso*1) === (idCurso*1)){
+			console.log(idCurso);
+			return true;
+		}
+	}
+	return false;
+}
 
 /*
  *  Funciones para dar de alta Usuario Instructor

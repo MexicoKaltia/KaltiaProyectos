@@ -100,11 +100,18 @@ public class ControllerModulo {
 	}
 	
 	@GetMapping("/accesoModulo")
-	public ModelAndView modulo(@RequestParam(name="idModuloCurso") int idModuloCurso, ModelMap model) {
+	public ModelAndView accesoModulo(@RequestParam(name="idModuloCurso") int idModuloCurso, ModelMap model) {
 //	public ModelAndView modulo(@PathVariable int idModuloCurso, ModelMap model ) {
 		log.info(String.valueOf(idModuloCurso));
 		ResultVO resultVO = (ResultVO)model.get("model");
+//		if(resultVO.getResponse().equals("inicioInstructor")) {
+//			ModelAndView mav = new  ModelAndView("moduloDidacticoInstructor", model );
+//			
+//		}else {
+//			ModelAndView mav = new  ModelAndView("moduloDidactico", model );
+//		}
 		ModelAndView mav = new  ModelAndView("moduloDidactico", model );
+		mav.addObject("perfil" , resultVO.getResponse());
 		mav.addObject("idModuloCurso" , idModuloCurso);
 		mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
 		String token = resultVO.getAccesToken();

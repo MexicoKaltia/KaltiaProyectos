@@ -29,7 +29,7 @@ $(document).ready(function() {
 		$('#moduloConsultaForm').hide();
 		
 		// dar de alta el encabezado en #seccionOperacion
-		var seccionOperacion = '<fieldset><legend class="bienvenido">FORMULARIO ALTA MODULO DIDÁCTICO</legend><div class="form-group"><label for="exampleSelect1" class="nombre">CAPTURAR LOS CAMPOS REQUERIDOS PARA SU MEJOR APROVECHAMIENTO</label></div></fieldset>';
+		var seccionOperacion = '<fieldset><legend class="bienvenido">FORMULARIO ALTA MÓDULO DIDÁCTICO</legend><div class="form-group"><label for="exampleSelect1" class="nombre">CAPTURAR LOS CAMPOS REQUERIDOS PARA SU MEJOR APROVECHAMIENTO</label></div></fieldset>';
 		$('#seccionOperacion').append(seccionOperacion);
 		$('#seccionOperacion').show();
 		
@@ -353,14 +353,15 @@ function clickConfigurarModulo(elemento){
 		}
 	}
 	
-	switch($moduloSel.idModuloDidactico*1){
-	case 6:
-		transformaElementosMemoria(elementos);
-		break;
-	case 7:
-		transformaElementosMemoria(elementos);
-		break;
-	
-	}
+//	switch($moduloSel.idModuloDidactico*1){
+//	case 6:
+//		transformaElementosMemoria(elementos);
+//		break;
+//	case 7:
+//		transformaElementosMemoria(elementos);
+//		break;
+//	
+//	}
+	transformaElementosMemoria(elementos);
 console.log(elementos);
 }

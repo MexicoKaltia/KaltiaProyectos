@@ -55,7 +55,7 @@
 			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre"><span th:text="${user.userNombre}"></span></h1>
 			  <p class="lead">Página de inicio Uniprotec Games, tablero de control Instructor.</p>
 			  <hr class="my-4" style="background-color: rgb(230, 158, 25);">
-			  <p style="color: whitesmoke;">Si tienes algun problema contacta Administrador General</p>
+			  <p style="color: whitesmoke;">Si tienes algún problema contacta Administrador General</p>
 			  <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
 			</div>
 		</div>
@@ -65,9 +65,9 @@
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 			  <div class="card-body elemento">
-			    <h4 class="text-center nombre2">Modulo Didácticos</h4>
-			    <h6 class="text-center nombre3">Acceso a Modulos y Actividades</h6>
-			    <p class=" text-center nombre4">Verificar Modulo Activo - Curso.</p>
+			    <h4 class="text-center nombre2">Módulo Didácticos</h4>
+			    <h6 class="text-center nombre3">Acceso a Módulos y Actividades</h6>
+			    <p class=" text-center nombre4">Verificar Módulo Activo - Curso.</p>
 			    
 			    <div class="align-items-center">
 				    	<button type="button" data-toggle="modal" data-target="#modalInstructorModulos" class="btn btn-info">Modulos Didácticos</button> 
@@ -77,7 +77,7 @@
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloEstadisticas.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
 			  <div class="card-body elemento">
-			    <h4 class="text-center nombre2">Modulo Estadísticas</h4>
+			    <h4 class="text-center nombre2">Módulo Estadísticas</h4>
 			    <h6 class="text-center nombre3">Reportes y monitoreo</h6>
 			    <p class="text-center nombre4">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
 			    <div class="align-items-center">
@@ -102,7 +102,7 @@
 	var cursos  	= 		[[${data.instructor.instructor.cursosInstructor}]];
 	var modulos 	= 		[[${modulosDidacticos.modulos}]];
 	var moduloCurso = 		[[${modulosDidacticos.moduloCurso}]];
-	var cursosControl = [[${cursosControl.cursos}]];
+	var cursosControl =     [[${cursosControl.cursos}]];
 	</script>
 
 <!--===============================================================================================-->
@@ -128,7 +128,7 @@
          
         </div>
         <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamico">
-         <h3 class="bienvenido">Modulos Didácticos Activos: </h3><br>
+         <h3 class="bienvenido">Módulos Didácticos Activos: </h3><br>
         	<div class=".container row" id="divModulosActivos">
         	</div> 
         </div>

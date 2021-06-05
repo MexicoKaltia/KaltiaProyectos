@@ -11,14 +11,16 @@ $(document).ready(function() {
 	cursos = stringToArray(cursos);
 	
 	for(a in cursos){
-		var curso = cursos[a]; //console.log(curso);
+		var curso = cursos[a]; 
 		for(e in moduloCurso){
-			var idCurso = (moduloCurso[e].idCurso*1); //console.log(idCurso); 
+			var moduloCurs = moduloCurso[e];
+			var idCurso = (moduloCurs.idCurso*1); //console.log(idCurso); 
 			if(idCurso === (curso*1)){
-				for(i in modulos){ //console.log(modulos[i].idModuloDidactico*1);
-					if((modulos[i].idModuloDidactico*1)===(moduloCurso[e].idModuloDidactico*1)){
-						var moduloImagen = '\\uploads\\img\\'+modulos[i].moduloDidacticoIdImagen+'\\'+modulos[i].moduloDidacticoImagen;
-						var moduloNombre = modulos[i].moduloDidacticoNombre;
+				for(i in modulos){ 
+					var modulo = modulos[i];
+					if((modulo.idModuloDidactico*1)===(moduloCurs.idModuloDidactico*1)){
+						var moduloImagen = '\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen;
+						var moduloNombre = modulo.moduloDidacticoNombre;
 //						console.log(moduloNombre);
 						var cursoNombre = findCursoNombre(idCurso);
 						var elemento = '<div class="col-sm-5 modulo "><div class="card-body center-block ">\
@@ -26,8 +28,10 @@ $(document).ready(function() {
 						      <h4 class="text-center nombre5">'+moduloNombre+'</h4>\
 						      <h6 class="text-center nombre3">'+cursoNombre+'</h6>\
 						      <div class="align-items-center">\
-							     <button type="button" class="btn btn-info">Acceso </button>\
-							  </div>\
+							      <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, idCurso)+'">\
+							    	<button type="button" class="btn btn-success" id="btnAccesoModulo" >Acceso Modulo</button>\
+	  						     </a>\
+							 </div>\
 							</div></div>';
 						modulosActivos.push(elemento);
 						$('#divModulosActivos').append(elemento);
@@ -42,6 +46,21 @@ $(document).ready(function() {
     // fin de documento
 })
 
+function getModuloCurso(idModulo, idCurso){
+	var array1 = new Array();
+	for(a in moduloCurso){
+		if((moduloCurso[a].idModuloDidactico*1) === (idModulo*1)){
+			array1.push(moduloCurso[a]);
+		}
+	}
+	for(e in array1){
+		if((array1[e].idCurso*1) === (idCurso*1)){
+			return array1[e].idModuloCurso;
+		}
+	}
+	return null;
+}
+	
 function stringToArray(cadena){
 	var arrayA = cadena.split(",");
 	var arrayCursos = new Array();

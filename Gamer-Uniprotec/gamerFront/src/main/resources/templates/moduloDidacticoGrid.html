@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/rotate.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/grid.css}" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
 <!--===============================================================================================-->
 
@@ -72,14 +73,9 @@
        	</div>
        	<a id="seccion1"></a>
        	<div id="seccionOperacion" class="container">
-       		<div class="table container">
-			   <table class="table table-borderless" id="tablaElementos">
-			    <tbody>
-			    
-			     <!--  elementos de juego -->
-			      
-			    </tbody>
-			  </table>
+       		<div class="grid" id="tablaElementos">
+       			<!-- elementos -->
+			   
        		</div>
        	</div>
 		
@@ -108,7 +104,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
-	<script th:src="@{js/moduloDidactico.js}"></script>
+	
+	<script th:src="@{js/moduloDidacticoGrid.js}"></script>
 	<script th:src="@{js/rotate.js}"></script>
 	<!--===============================================================================================-->
 

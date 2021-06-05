@@ -41,19 +41,17 @@
 		        <a class="nav-link" href="/usuarios">Usuarios</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/modulos">Modulos Didácticos</a>
+		        <a class="nav-link" href="/modulos">Módulos Didácticos</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="/estadisticas">Estadísticas</a>
 		      </li>
 		      <li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
+		        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Extras</a>
 		        <div class="dropdown-menu">
-		          <a class="dropdown-item" href="#seccion0">Action</a>
-		          <a class="dropdown-item" href="#"> action1</a>
-		          <a class="dropdown-item" href="#">action2</a>
+		          <a class="dropdown-item" href="#">Manuales</a>
 		          <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="#">Cerrar Sesion</a>
+		          <a class="dropdown-item" href="/">Cerrar Sesion</a>
 		        </div>
 		      </li>
 		      
@@ -73,7 +71,7 @@
 			  <h3 class="bienvenido">BIENVENIDO</h3> <h1 class="nombre"><span th:text="${user.userNombre}"></span></h1>
 			  <p class="lead">Página de inicio UniprotecGames, tablero de control Administrador.</p>
 			  <hr class="my-4" style="background-color: rgb(230, 158, 25);">
-			  <p style="color: whitesmoke;">Si tienes algun problema contacta Administrador General</p>
+			  <p style="color: whitesmoke;">Si tienes algún problema contacta Administrador General</p>
 			  <a class="btn btn-primary btn-lg" href="#" role="button">Contacto Administrador</a>
 			</div>
 		</div>
@@ -83,8 +81,8 @@
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloUsuario.png}" alt=""  class="img-fluid" style="max-width: 12.0rem; max-height: 12.0rem"/>
 			  <div class="card-body align-items-center elemento">
-			    <h4 class="text-center nombre2">Modulo Usuarios</h4>
-			    <h6 class="text-center nombre3">Administracion Usuarios</h6>
+			    <h4 class="text-center nombre2">Módulo Usuarios</h4>
+			    <h6 class="text-center nombre3">Administración Usuarios</h6>
 			    <p class="text-center nombre4">Generación de Usuarios</p>
 			     <p class="text-center nombre4">Asignación actividades didácticas y vigencia.</p>
 			    <div class="align-items-center">
@@ -97,13 +95,13 @@
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloCursos.png}" alt=""  class="img-fluid" />
 			  <div class="card-body elemento">
-			    <h4 class="text-center nombre2">Modulo Cursos</h4>
+			    <h4 class="text-center nombre2">Módulo Cursos</h4>
 			    <h6 class="text-center nombre3">Administración Cursos - Didáctico</h6>
-			    <p class="text-center nombre4">Asignación de modulos didáctictos con relación de cursos.</p>
-			    <p class="text-center nombre4">Configuración de atributos de Modulo Didáctico.</p>
+			    <p class="text-center nombre4">Asignación de módulos didáctictos con relación de cursos.</p>
+			    <p class="text-center nombre4">Configuración de atributos de Módulo Didáctico.</p>
 			    <div class="align-items-center">
 				    <a href="/modulos">
-				    	<button type="button" class="btn btn-info">Modulos Didácticos</button>
+				    	<button type="button" class="btn btn-info">Módulos Didácticos</button>
 				    </a>
 			    </div>
 			  </div>
@@ -111,7 +109,7 @@
 			<div class="col-sm align-items-center elemento">
 			<img th:src="@{images/moduloEstadisticas.png}" alt=""  class="img-fluid"/>
 			  <div class="card-body elemento">
-			    <h4 class="text-center nombre2">Modulo Estadísticas</h4>
+			    <h4 class="text-center nombre2">Módulo Estadísticas</h4>
 			    <h6 class="text-center nombre3">Reportes y monitoreo</h6>
 			    <p class="text-center nombre4">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
 			    <div class="align-items-center">

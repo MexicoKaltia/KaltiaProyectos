@@ -92,8 +92,18 @@ public class ControllerInicio {
 				resultVO.setJsonResponse(jsonResponse);
 				mav.addObject("data" , jsonResponse);
 				
+				JSONObject jsonInstructor2 = new JSONObject();
 				resultVO = (ResultVO) moduloService.getModulos(accesToken);
 				mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
+				jsonInstructor2.put("modulosDidacticos", resultVO.getJsonResponse());
+				model.addAttribute("modulosDidacticos", resultVO.getJsonResponse());
+				
+//				ResultVO rs2 = (ResultVO) baseClientRest.objetoGetId( accesToken, BaseClientRest.URL_GET_USUARIOAUDIENCIA, null, user.getUserName());
+//				mav.addObject("usuarioAudiencia" , rs2.getJsonResponse());
+//				jsonInstructor2.put("usuarioAudiencia", rs2.getJsonResponse());
+//				model.addAttribute("usuarioAudiencia", rs2.getJsonResponse());
+				
+				resultVO.setJsonResponse(jsonInstructor2);
 				
 				JSONObject cursosControl =  usuariosService.getCursosControl(tokenCU);
 				mav.addObject("cursosControl" , cursosControl);
