@@ -62,29 +62,28 @@
 		<hr class="my-4">
 		
 		<div class="row container-fluid grupo animate__animated animate__fadeInUp" id="accesosDirectos">
-			<div class="col-sm align-items-center elemento">
-			<img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			<div class="col-sm align-items-center elemento flex-containerE">
+			  <div><img th:src="@{images/moduloCursos.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></div>
 			  <div class="card-body elemento">
 			    <h4 class="text-center nombre2">Módulo Didácticos</h4>
 			    <h6 class="text-center nombre3">Acceso a Módulos y Actividades</h6>
-			    <p class=" text-center nombre4">Verificar Módulo Activo - Curso.</p>
-			    
-			    <div class="align-items-center">
-				    	<button type="button" data-toggle="modal" data-target="#modalInstructorModulos" class="btn btn-info">Modulos Didácticos</button> 
-			    </div>
+			    <p class=" text-center nombre4">Desplegar actividad didáctica con respecto a los cursos asignados</p>
+			  </div>  
+			  <div class="align-items-center">
+				 	<button type="button" data-toggle="modal" data-target="#modalInstructorModulos" class="btn btn-info">Modulos Didácticos</button> 
 			  </div>
 			</div>
-			<div class="col-sm align-items-center elemento">
-			<img th:src="@{images/moduloEstadisticas.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>
+			<div class="col-sm  elemento flex-containerE">
+			  <div><img th:src="@{images/moduloEstadisticas.png}" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/></div>
 			  <div class="card-body elemento">
 			    <h4 class="text-center nombre2">Módulo Estadísticas</h4>
 			    <h6 class="text-center nombre3">Reportes y monitoreo</h6>
 			    <p class="text-center nombre4">Obtención de Estadísticas con respecto a usuarios y actividades realizadas.</p>
-			    <div class="align-items-center">
+			  </div>
+			  <div class="align-items-center">
 				    <a href="/estadisticasInstructor">
 				    	<button type="button" class="btn btn-info">Estadísticas</button>
 				    </a>
-			    </div>
 			  </div>
 			</div>
 		</div>
@@ -110,7 +109,8 @@
 	<script th:src="@{js/bootstrap.min.js}"></script>
 	
 	<script th:src="@{js/mainInstructor.js}"></script>
-	<!--===============================================================================================-->
+	
+<!--===============================================================================================-->
 
 </body>
 </html>
@@ -129,7 +129,7 @@
         </div>
         <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamico">
          <h3 class="bienvenido">Módulos Didácticos Activos: </h3><br>
-        	<div class=".container row" id="divModulosActivos">
+        	<div class="container row" id="divModulosActivos">
         	</div> 
         </div>
         <div class="modal-footer" style=" background-color: #0455b0">

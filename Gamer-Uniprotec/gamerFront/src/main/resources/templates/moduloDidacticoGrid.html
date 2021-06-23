@@ -13,8 +13,11 @@
 <link rel="stylesheet" type="text/css"  th:href="@{css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/font-awesome.min.css}" />
 <link rel="stylesheet" type="text/css"  th:href="@{css/main.css}" />
-<link rel="stylesheet" type="text/css"  th:href="@{css/rotate.css}" />
-<link rel="stylesheet" type="text/css"  th:href="@{css/grid.css}" />
+
+<link rel="stylesheet" type="text/css"  th:href="@{css/grid/grid.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/grid/main.css}" />
+<link rel="stylesheet" type="text/css"  th:href="@{css/grid/contenedor.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,600&display=swap" rel="stylesheet"> 
 <!--===============================================================================================-->
 
@@ -73,9 +76,10 @@
        	</div>
        	<a id="seccion1"></a>
        	<div id="seccionOperacion" class="container">
-       		<div class="grid" id="tablaElementos">
+       		<div class="contenedor">
+		        <div class="grid" id="tablaElementos">
        			<!-- elementos -->
-			   
+				</div>			   
        		</div>
        	</div>
 		
@@ -106,7 +110,7 @@
 	
 	
 	<script th:src="@{js/moduloDidacticoGrid.js}"></script>
-	<script th:src="@{js/rotate.js}"></script>
+	<script th:src="@{js/grid/main.js}"></script>
 	<!--===============================================================================================-->
 
 </body>
@@ -118,14 +122,21 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background-color: #0455b0">
-          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center; max-width: 15.0rem; max-height: 15.0rem"></div>
           <h4 style="padding:35px 50px; position: center"></h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamicoElemento">
-        <div class="" ><img th:src="@{images/IMAGEN_PROVISIONAL.png}" alt=""  class="img-fluid" style="max-width: 15.0rem; max-height: 15.0rem"/></div>
-         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="moduloNombre"></span></h3><br>
-          <h3 class="bienvenido">Instrucciones : <span class="nombre" id="moduloInstrucciones"></span></h3><br> 
+	        <div class= " container row ">
+			        <div class="animate__animated  animate__backInLeft col-sm-6">
+			        	<div class="" ><img th:src="@{images/IMAGEN_PROVISIONAL.png}" alt=""  class="img-fluid" style="max-width: 15.0rem; max-height: 15.0rem"/></div>
+			        </div>
+			      
+		        	<div class="animate__animated  animate__backInRight col-sm-6">	
+			         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="moduloNombre"></span></h3><br>
+			          <h3 class="bienvenido">Instrucciones : <span class="nombre" id="moduloInstrucciones"></span></h3><br>
+			      </div>
+		      </div>     
         </div>
         <div class="modal-footer" style=" background-color: #0455b0">
         <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
@@ -136,29 +147,30 @@
     </div>
   </div> 
   <!--=========================================================================================================================-->
-  <!--=============================== MODAL CONFIGURACION ================================================================-->
-  <div class="modal fade" id="modalConfiguracion" role="dialog">
-    <div class="modal-dialog modal-lg">
+  <!--=============================== MODAL FINALIZAR ================================================================-->
+  <div class="modal fade" id="modalFinalizar" role="dialog">
+    <div class="modal-dialog modal-xl">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background-color: #0455b0">
-          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center;"></div>
-          <h4 style="padding:35px 50px; position: center"></h4>
+          <div class="" ><img width="auto"  th:src="@{images/logoGamer.jpg}" alt="" class="img-fluid"  style="background-position: center center; max-width: 15.0rem; max-height: 15.0rem"></div>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body" style="padding:40px 50px; background-color: #0455b0" id="modalDidacticoDinamicoElemento">
-         <h3 class="bienvenido">Modulo Didactico : <span class="nombre" id="moduloNombreConfiguracion"></span></h3><br>
-          <h3 class="bienvenido">Configuracion : <span class="nombre" id=""></span></h3><br>
-          <h3 class="bienvenido">Cantidad de movimientos permitidos : <span class="nombre" id="moduloCantidadMovimientos"></span></h3><br>
-          <h3 class="bienvenido">Tiempo limite : <span class="nombre" id="moduloTiempoLimite"></span></h3><br>
-          <h4><span class="glyphicon glyphicon-lock"></span></h4>
-        <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
-      	    
-			 
+	        <div class= " container row ">
+		        <div class="animate__animated  animate__backInLeft col-lg-6 rotateImg">
+		        	<img width="auto" th:src="@{images/Protecman_02.png}" alt="" class="img-fluid rotateImg"  style="background-position: center center;">
+		        </div>
+		        <div class="animate__animated  animate__backInRight col-lg-6">
+			         <h4 class="bienvenido">Modulo Didactico : <span class="nombre" id="moduloNombreConfiguracion"></span></h4><br>
+			         <h4 class="nombre">Felicidades has cumplido con éxito el modulo de memoria!! </h4><br>
+			         <h4 class="bienvenido">Cantidad de movimientos  : <span class="nombre" id="moduloCantidadMovimientos"></span></h4><br>
+				</div>
+			</div>
         </div>
         <div class="modal-footer" style=" background-color: #0455b0">
-        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal" onclick="javascript:location.reload()"> Reiniciar</button>
 <!--         <button  id="btnAgregarConfiguracion" class="btn btn-success btn-default pull-left" > Agregar Configuracion</button> -->
         </div>
       </div>
@@ -185,8 +197,7 @@
         <!-- th:action="@{/actualizaAudiencia}"  th:object="${usuarioAudiencia}" -->
         </div>
         <div class="modal-footer" style=" background-color: #0455b0">
-        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
-        <button  id="btnAgregarPuntuaje" class="btn btn-success btn-default pull-left" > Agregar Configuracion</button>
+        <button  class="btn btn-warning btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
         </div>
       </div>
       

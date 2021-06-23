@@ -52,7 +52,9 @@ body, html {
 .nombre{
   color:whitesmoke;
   font-weight: 1000;
-  text-transform: uppercase;}
+  text-transform: uppercase;
+  }
+  
 .nombre2{
   color:#0455b0;
   font-weight: 1000;
@@ -135,12 +137,13 @@ h2{
 
 .modulo{
 	padding : 0.5rem;
-	margin : 0.5rem;
-	border-style : solid;
-	border-width: 0.5px;
-	border-radius: 20px;
-	border-color: cyan;
-	
+	margin : 1.0rem;
+}
+
+.flex-containerE{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .seccionOperacion{

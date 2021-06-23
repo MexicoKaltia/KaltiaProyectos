@@ -13,18 +13,18 @@ $(document).ready(function() {
 				var modulo = modulos[e];
 				var idModuloDidactico = modulo.idModuloDidactico;
 				var usuarioAudienciaidCurso=  usuarioAudiencia.usuarioAudienciaidCurso;
-				var elemento = '<div class="col-sm align-items-center elemento">\
-				<img src="\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen+'" alt=""  style="max-width: 12.0rem; max-height: 12.0rem"/>\
+				var elemento = '<div class="col-sm-6  elemento flex-containerE">\
+					  <div><img src="\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen+'" alt=""  class="responsive" style="max-width: 12.0rem; max-height: 12.0rem"/></div>\
 					  <div class="card-body elemento">\
 					    <h4 class="text-center nombre2">'+modulo.moduloDidacticoNombre+'</h4>\
 					    <h6 class="text-center nombre3">'+reformatNombreCurso(usuarioAudiencia.usuarioAudienciaNombreEvento)+'</h6>\
-					    <div class="align-items-center">\
+					  </div>\
+					  <div class="">\
 					    <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, usuarioAudiencia.usuarioAudienciaidCurso)+'">\
 					    	<button type="button" class="btn btn-success" id="btnAccesoModulo'+idModulo+'" >Acceso Modulo</button>\
 					    </a>\
-					    </div>\
 					  </div>\
-					</div>';
+				 </div>';
 				$('#accesosDirectos').append(elemento);
 			}
 		}

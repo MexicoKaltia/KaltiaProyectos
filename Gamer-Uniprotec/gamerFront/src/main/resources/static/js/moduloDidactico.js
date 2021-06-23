@@ -5,6 +5,7 @@ $(document).ready(function() {
 //	console.log(perfil);
 		 
 	
+	
 	 $('#nombreModulo').html(getModuloNombre(idModuloCurso));
 	if(perfil !== 'inicioInstructor'){
 		 $('#nombreEmpresa').html(getEmpresaNombre(modulosDidacticos.usuarioAudiencia.usuarioAudiencia.usuarioAudienciaNombreEvento));
@@ -23,7 +24,7 @@ $(document).ready(function() {
 //	 var audioInicial = document.getElementById("audioInicial");
 //	 audioInicial.play();
 	 
-	 console.log($moduloCurso);
+//	 console.log($moduloCurso);
 	 var elementos = new Array();
 	 elementos = getElementos($moduloCurso.elementos);
 	 

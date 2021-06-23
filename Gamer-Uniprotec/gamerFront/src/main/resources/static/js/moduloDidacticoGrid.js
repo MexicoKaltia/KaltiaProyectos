@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-	console.log(idModuloCurso);
-	console.log(modulosDidacticos);
+//	console.log(idModuloCurso);
+//	console.log(modulosDidacticos);
 //	console.log(perfil);
 		 
 	
@@ -12,7 +12,7 @@ $(document).ready(function() {
 	 }else{
 		 $('#nombreCurso').html($moduloCurso.cursoNombre); 
 	 }
-	 
+	$('#moduloNombre').html(getModuloNombre(idModuloCurso));
 	 $('#moduloInstrucciones').html(getModuloInstrucciones(idModuloCurso));
 	 
 	 /*
@@ -23,7 +23,7 @@ $(document).ready(function() {
 //	 var audioInicial = document.getElementById("audioInicial");
 //	 audioInicial.play();
 	 
-	 console.log($moduloCurso);
+//	 console.log($moduloCurso);
 	 var elementos = new Array();
 	 elementos = getElementos($moduloCurso.elementos);
 	 
@@ -35,6 +35,7 @@ $(document).ready(function() {
 	  */
 
 	 var filasColumnas = getFilasColumnas(elementos.length);
+	 var totalTarjetas = elementos.length;
 	 var elementoContat="";
 	 var o = 0;
 	 for(var e=0; e<filasColumnas[0]; e++){
@@ -42,48 +43,87 @@ $(document).ready(function() {
 			 if(o < elementos.length){
 //				 console.log(elementos[o]);
 //				 var imagen = '\\uploads\\img\\'+$moduloCurso.idModuloDidactico+'-'+$moduloCurso.idCurso+'\\'+elementos[i-1].imagen;
-				 var elemento = '<div class="card-container manual-flip conteo" id="'+(e+1)+'-'+(a+1)+'">\
-		             <div class="card fondo ">\
-		                 <div class="front" onclick="rotateCard(this)">\
-		                    <div class="logoGamer"></div>\
-		                     <div class="tamano1 text-center fondo">'+(e+1)+'-'+(a+1)+'</div>\
-		                 </div> <!-- end front panel -->\
-		                 <div class="back" onclick="rotateCard(this)">\
-		                     <div class="imagenBack">\
-		                         <img src="\\uploads\\img\\'+$moduloCurso.idModuloDidactico+'-'+$moduloCurso.idCurso+'\\'+elementos[o].imagen+'" id="imagen'+(e+1)+'-'+(a+1)+'" class="img-fluid" style="background-position: center center; max-width: 9rem; max-height: 9rem" alt="">\
-		                     </div>\
-		                     <div class="fondo">\
-		                             <h4 class="text-center tamano1" id="titulo'+(e+1)+'-'+(a+1)+'">'+elementos[o].titulo+'</h4>\
-		                     </div>\
-		                 </div> <!-- end back panel -->\
-		             </div> <!-- end card -->\
-		         </div> <!-- end card-container -->\
-		     '; 
+//				 var elemento = '<div class="card-container manual-flip conteo" id="'+(e+1)+'-'+(a+1)+'">\
+//		             <div class="card fondo ">\
+//		                 <div class="front" onclick="rotateCard(this)">\
+//		                    <div class="logoGamer"></div>\
+//		                     <div class="tamano1 text-center fondo">'+(e+1)+'-'+(a+1)+'</div>\
+//		                 </div> <!-- end front panel -->\
+//		                 <div class="back" onclick="rotateCard(this)">\
+//		                     <div class="imagenBack">\
+//		                         <img src="\\uploads\\img\\'+$moduloCurso.idModuloDidactico+'-'+$moduloCurso.idCurso+'\\'+elementos[o].imagen+'" id="imagen'+(e+1)+'-'+(a+1)+'" class="img-fluid" style="background-position: center center; max-width: 9rem; max-height: 9rem" alt="">\
+//		                     </div>\
+//		                     <div class="fondo">\
+//		                             <h4 class="text-center tamano1" id="titulo'+(e+1)+'-'+(a+1)+'">'+elementos[o].titulo+'</h4>\
+//		                     </div>\
+//		                 </div> <!-- end back panel -->\
+//		             </div> <!-- end card -->\
+//		         </div> <!-- end card-container -->\';
+		                             
 //		         <p class="text-center tamano05" id="descripcion'+(e+1)+'-'+(a+1)+'">'+elementos[o].descripcion+'</p>\
 //				 <i class="fa fa-mail-forward"></i>
-		//		 $('#').append(elemento);
+				
+				 var elemento = '<div class="contenido conteo" id="'+(e+1)+'-'+(a+1)+'">\
+		            <div class="flip-box">\
+		              <div class="flip-box-inner" id="fbi'+(e+1)+'-'+(a+1)+'">\
+		                <div class="flip-box-front" id="ff'+(e+1)+'-'+(a+1)+'" onclick="rotate(this)">\
+		                  <img src="images/cover.png" alt="UniprotecGames" class="responsive">\
+		                  <div class="centrado">'+(o+1)+'</div>\
+		                </div>\
+		                <div class="flip-box-back" id="fb'+(e+1)+'-'+(a+1)+'" onclick="rotate(this)">\
+		                  <img src="\\uploads\\img\\'+$moduloCurso.idModuloDidactico+'-'+$moduloCurso.idCurso+'\\'+elementos[o].imagen+'" alt="UniprotecGames" id="imagen'+(e+1)+'-'+(a+1)+'" class="responsive">\
+		                  <input type="hidden" id="titulo'+(e+1)+'-'+(a+1)+'" value="'+elementos[o].titulo+'">\
+		                  <input type="hidden" id="descripcion'+(e+1)+'-'+(a+1)+'" value="'+elementos[o].descripcion+'">\
+		                </div>\
+		              </div>\
+		            </div>\
+		          </div>';
 				 var elementoContat = elementoContat + elemento;
-				 o++; 
+				 o++;
 			 }
 		 }
 		 elementoContat =  elementoContat;
 	 }
 	 $("#tablaElementos").append(elementoContat);
 	 
+	 /*
+	  * calcula grid
+	  */
+	 if($(window).width() > 920){
+		 	console.log("window).width > 920");
+		 	$(".contenido").width("130px");
+			$(".contenido").height("170px");
+//			alert("pantalla ancho:"+$(window).width()+"-alto:"+$(window).height());
+//			alert("tarjeta:"+anchoContenido +"-"+altoContenido);
+//			var anchoContenedor = $(".contenedor").width();
+//			var altoContenedor =  $(".contenedor").height();
+//			var coeficiente = 4;
+//			var altoSugerido = altoContenido/coeficiente; //((alto*1)/(totalTarjetas*1));
+//			var anchoSugerido = anchoContenido/coeficiente;
+//			 $(".contenido").width(altoSugerido);
+			 $(".contenedor").height($(window).height()-50);
+			 $(".grid").css("grid-template-columns","repeat(5, 1fr)");
+	 }
+	 console.log($(".contenido").width());
+	 console.log($(".contenido").height());
+		/*
+		 * fin calcula grid
+		 */
+		
+	 
 	 var contador = 0;
 	 
 	 var titulo1 = "";
 	 var idSel1="";
 	 var conteoEvento=0;
+	 var aciertos =0;
 	 $('.conteo').click(function(){
-		 
 		 var sel = $(this).html();
 		 var idSel = $(this).attr("id");
 		 var imagen = $('#imagen'+idSel).attr('src');
-		 var titulo = $('#titulo'+idSel).html();
-		 var descripcion = $('#descripcion'+idSel).html();
+		 var titulo = $('#titulo'+idSel).val();
+		 var descripcion = $('#descripcion'+idSel).val();
 		 $('#soundModal').empty();
-		 console.log("3");
 		 
 		 if(contador === 0){
 			 contador = 1;		
@@ -103,35 +143,28 @@ $(document).ready(function() {
 		 }
 		 
 		 function cerrarModal(){
-			 console.log(titulo1+'-'+titulo);
-			 
+//			 console.log(titulo1+'-'+titulo);
 			 if(titulo1.toString() === titulo.toString()){
-				 
-//				 $('#'+idSel).removeClass('card-container');
-//				 $('#'+idSel1).removeClass('card-container');
-//				 $('#'+idSel).removeClass('manual-flip');
-//				 $('#'+idSel1).removeClass('manual-flip');
-				 $('#'+idSel).addClass('bloqueo');
-				 $('#'+idSel1).addClass('bloqueo');
-				 console.log($('#'+idSel).html());
+				 $('#ff'+idSel).addClass('bloqueo');
+				 $('#fb'+idSel1).addClass('bloqueo');
 				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="sonido/sonido_correcto.mp3"></audio>';
+				 aciertos++;
 				 $('#modalCoincidir').modal();
-//				 setTimeout(cerrarModal, 18000);
-				 
+				 if((aciertos*1) === (totalTarjetas/2)){
+					 $('#moduloCantidadMovimientos').html(conteoEvento);
+					 $('#moduloNombreConfiguracion').html($moduloCurso.cursoNombre)
+					 $('#modalFinalizar').modal();
+				 }
 			 }else{
 				 console.log("NO coincidir valores1");
-//				 setTimeout(enviaAlerta(), 8000);
-				 $('#'+idSel).removeClass('hover');
-				 $('#'+idSel1).removeClass('hover');
-//				 rotateCard(this);
+				 $('#fbi'+idSel).removeClass('rotate');
+				 $('#fbi'+idSel1).removeClass('rotate');
 				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="sonido/sonido_error.mp3"></audio>';
 			 }
 			 $('#soundModal').append(sonidoEfecto);
 			 $("#btnPuntuaje").html("Movimientos : "+conteoEvento);
 			 var audio = document.getElementById("audio");
 			 audio.play();
-//			 $('.conteo').click(true);
-//			 $('#modalCoincidir').modal('hide');
 		}
 	 });
 }); // fin de documento
@@ -196,19 +229,17 @@ function getElementos(cadena){
 }
 
 function getGrid(array){
-//	console.log(array);
-//	console.log(array.length);
 	/*
 	 * aqui hay q poner el orden de los elementos
 	 */
 	var arrayA = array.concat(array);
-//	console.log(arrayA);
+	arrayA.sort(function(a, b){return 0.5 - Math.random()});
 	return arrayA;
 }
 
 function getFilasColumnas(eles){
 	var tmp= new Array();
-	console.log(eles);
+	console.log("tarjetas:"+eles);
 	if(eles < 7){
 		tmp = [3,3];
 	}else if(7 <= eles && eles < 13){
@@ -230,4 +261,8 @@ function getFilasColumnas(eles){
 	}
 	console.log(tmp);
 	return tmp
+}
+
+function reinicia(){
+	
 }

@@ -23,16 +23,18 @@ $(document).ready(function() {
 						var moduloNombre = modulo.moduloDidacticoNombre;
 //						console.log(moduloNombre);
 						var cursoNombre = findCursoNombre(idCurso);
-						var elemento = '<div class="col-sm-5 modulo "><div class="card-body center-block ">\
-							<img src="'+moduloImagen+'" alt="" class="img-responsive" style="max-width: 12.0rem; max-height: 12.0rem"/>\
+						var elemento = '<div class="col-5 modulo flex-containerE">\
+							<div class=""><img src="'+moduloImagen+'" alt="" class="img-responsive" style="max-width: 12.0rem; max-height: 12.0rem"/></div>\
+							<div class="">\
 						      <h4 class="text-center nombre5">'+moduloNombre+'</h4>\
 						      <h6 class="text-center nombre3">'+cursoNombre+'</h6>\
-						      <div class="align-items-center">\
-							      <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, idCurso)+'">\
-							    	<button type="button" class="btn btn-success" id="btnAccesoModulo" >Acceso Modulo</button>\
-	  						     </a>\
-							 </div>\
-							</div></div>';
+						    </div>\
+						    <div class="align-items-center">\
+							   <a href="/accesoModulo?idModuloCurso='+getModuloCurso(modulo.idModuloDidactico, idCurso)+'">\
+							     <button type="button" class="btn btn-success" id="btnAccesoModulo" >Acceso Modulo</button>\
+	  						   </a>\
+							</div>\
+						</div>';
 						modulosActivos.push(elemento);
 						$('#divModulosActivos').append(elemento);
 //						console.log(elemento);

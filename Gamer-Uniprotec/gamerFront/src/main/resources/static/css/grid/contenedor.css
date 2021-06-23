@@ -1,0 +1,17 @@
+/* html, body { */
+/*     height: 100%; */
+/*     margin-top: 10%; */
+/*   } */
+  
+
+.contenedor{
+    margin: auto;
+    padding: 1em;
+    width: 100%;
+    height: 1000px;
+/*     border: 1px solid blue; */
+}
+
+.borderA{
+    border: 1px solid blue;
+}

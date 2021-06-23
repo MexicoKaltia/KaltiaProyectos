@@ -110,7 +110,7 @@ public class ControllerModulo {
 //		}else {
 //			ModelAndView mav = new  ModelAndView("moduloDidactico", model );
 //		}
-		ModelAndView mav = new  ModelAndView("moduloDidactico", model );
+		ModelAndView mav = new  ModelAndView("moduloDidacticoGrid", model );
 		mav.addObject("perfil" , resultVO.getResponse());
 		mav.addObject("idModuloCurso" , idModuloCurso);
 		mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
