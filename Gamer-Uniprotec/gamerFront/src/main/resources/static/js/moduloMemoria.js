@@ -13,15 +13,16 @@ $(document).ready(function() {
 		  if(confirm("Confirmar Eliminar Elemento: Los elementos no se presentarán.")){
 			  var e = 0;
 			  $child = $('#contenedorCarrusel').children("div.active");
-//			  console.log($child);
+			  console.log($child);
+			  console.log($arrayElementosTotal);
 			  $tmp = $child.children(".activo");
 			  $tmp = $tmp.children("div");
 			  $tmp = $tmp.children("input");
 			  var arrayTmp = new Array();
-			  for(a in jsonQRD){
-				  if(jsonQRD[a].titulo !== $tmp.val()){
+			  for(a in $arrayElementosTotal){
+				  if($arrayElementosTotal[a].titulo !== $tmp.val()){
 //					  delete jsonQRD[a];
-					  arrayTmp.push(jsonQRD[a]);
+					  arrayTmp.push($arrayElementosTotal[a]);
 				  }
 			  }
 			  showCarrusel(arrayTmp);
@@ -149,7 +150,7 @@ function showCarrusel(arrayElementosTotal){
 		});
 		
 	$elementosFinal = arrayElementosTotal;
-		
+	$arrayElementosTotal = arrayElementosTotal;	
 }
 
 function imagenElemento(archivosCampo){

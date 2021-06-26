@@ -93,10 +93,13 @@ $(document).ready(function() {
 				if(!arrayCursosFinal.includes(cursos[e].idCurso)){
 					var option = "<option value='"+ cursos[e].idCurso +"'>"+ cursos[e].nombreCurso +"</option>";
 					$('#selectCursosNoAsignados').append(option);
+					$('#selectCursosNoAsignados').selectpicker('refresh');
 				}
 			}
+//			
 			$('#moduloConfiguracionForm').show();
 		});
+		
 		
 		$('#btnConfiguraModulo').click(function(){
 			console.log("clickConfigurarModulo2");
@@ -170,7 +173,9 @@ $(document).ready(function() {
 		$('#moduloConsultaForm').show();
 		
 	});
-	
+//	console.log("b");
+	$('#selectCursosNoAsignados').selectpicker();
+	$('#selectCursosNoAsignados').selectpicker('refresh');
     // fin de documento
 })
 

@@ -91,8 +91,8 @@ $(document).ready(function() {
 	  */
 	 if($(window).width() > 920){
 		 	console.log("window).width > 920");
-		 	$(".contenido").width("130px");
-			$(".contenido").height("170px");
+		 	$(".contenido").width("120px");
+			$(".contenido").height("155px");
 //			alert("pantalla ancho:"+$(window).width()+"-alto:"+$(window).height());
 //			alert("tarjeta:"+anchoContenido +"-"+altoContenido);
 //			var anchoContenedor = $(".contenedor").width();

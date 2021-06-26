@@ -13,7 +13,7 @@ $(document).ready(function() {
 				var modulo = modulos[e];
 				var idModuloDidactico = modulo.idModuloDidactico;
 				var usuarioAudienciaidCurso=  usuarioAudiencia.usuarioAudienciaidCurso;
-				var elemento = '<div class="col-sm-6  elemento flex-containerE">\
+				var elemento = '<div class="col-sm-5  elemento flex-containerE">\
 					  <div><img src="\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen+'" alt=""  class="responsive" style="max-width: 12.0rem; max-height: 12.0rem"/></div>\
 					  <div class="card-body elemento">\
 					    <h4 class="text-center nombre2">'+modulo.moduloDidacticoNombre+'</h4>\
