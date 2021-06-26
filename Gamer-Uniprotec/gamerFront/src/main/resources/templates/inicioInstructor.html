@@ -98,10 +98,10 @@
 	</div>
 
 <script th:inline="javascript">
-	var cursos  	= 		[[${data.instructor.instructor.cursosInstructor}]];
-	var modulos 	= 		[[${modulosDidacticos.modulos}]];
-	var moduloCurso = 		[[${modulosDidacticos.moduloCurso}]];
-	var cursosControl =     [[${cursosControl.cursos}]];
+	var cursos  	= 		[[${sesion.data.instructor.instructor.cursosInstructor}]];
+	var modulos 	= 		[[${sesion.modulosDidacticos.modulos}]];
+	var moduloCurso = 		[[${sesion.modulosDidacticos.moduloCurso}]];
+	var cursosControl =     [[${sesion.cursosControl.cursos}]];
 	</script>
 
 <!--===============================================================================================-->

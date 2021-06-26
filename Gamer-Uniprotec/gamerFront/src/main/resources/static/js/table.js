@@ -41,7 +41,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 	  for(i in usuarios){
 		  var usuario = usuarios[i];
 		  if(usuario.usuarioInstructor){
-//			  console.log(usuario)
+//			  // -  console.log(usuario)
 			  usuariosInstructores.push(usuario);
 		  }
 	  }
@@ -52,9 +52,9 @@ function operateFormatterUpdateModulo(value, row, index) {
 	  var usuariosAudencia = new Array();
 	  for(i in usuarios){
 		  var usuario = usuarios[i];
-//		  console.log(usuario)
+//		  // -  console.log(usuario)
 		  if(usuario.usuarioAudiencia){
-//			  console.log(usuario)
+//			  // -  console.log(usuario)
 			  usuariosAudencia.push(usuario);
 		  }
 	  }
@@ -96,7 +96,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 		
 		window.operateEventsUpdateInstructor = {
 			    'click .like': function (e, value, row, index) {
-//			      console.log(JSON.stringify(row));
+//			      // -  console.log(JSON.stringify(row));
 			    	$('#nombreInstructor').empty();
 			    	$('#usernameInstructor').empty();
      		      $('#nombreInstructor').append("<h3 class='nombre'>"+row.nombre+"</h3");
@@ -111,35 +111,35 @@ function operateFormatterUpdateModulo(value, row, index) {
 			    		  idCursosInstructor = getArraytoString(instructor.cursosInstructor);
 			    	  }
 			      }
-//	    		  console.log(idCursosInstructor);
+//	    		  // -  console.log(idCursosInstructor);
 			      var nombreCursosInstructor = new Array();
 			      var cursosA = cursos.cursos;
 			      $('#cursosInstructor').empty();
 			      for(i in cursosA){
 			    	  var curso = cursosA[i];
-//			    	  console.log(curso.idCurso+":"+curso.nombreCurso);
-//			    	  console.log(curso.instructores);
+//			    	  // -  console.log(curso.idCurso+":"+curso.nombreCurso);
+//			    	  // -  console.log(curso.instructores);
 			    	  for(e in idCursosInstructor){
 			    		  var idCursoA = idCursosInstructor[e]; 
-//			    		  console.log("idInstructor:"+idCursoA.idInstructor);
+//			    		  // -  console.log("idInstructor:"+idCursoA.idInstructor);
 			    		  if((curso.idCurso*1) === (idCursoA*1)){
-//			    			  console.log(curso.idCurso+":"+curso.nombreCurso);
+//			    			  // -  console.log(curso.idCurso+":"+curso.nombreCurso);
 			    			  nombreCursosInstructor.push(curso.nombreCurso);
 			    			  $('#cursosInstructor').append("<li>"+curso.nombreCurso+"</li>");
 			    		  }
 			    	  }
 			      }
-//			      console.log(row.status);
+//			      // -  console.log(row.status);
 			      $('#btnStatusInstructor').html(row.status);
 			      $idUsuarioInstructor = row.id;
-//			      console.log(row);
-//		      console.log($idUsuarioInstructor);
+//			      // -  console.log(row);
+//		      // -  console.log($idUsuarioInstructor);
 			    }
 			   }
 		
 		window.operateEventsUpdateAudiencia = {
 			    'click .like': function (e, value, row, index) {
-//			      console.log('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
+//			      // -  console.log('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
 		    	$('#usernameAudiencia').empty();
 		    	$('#cursosAudiencia').empty();
 		    	$('#fechaAudiencia').empty();
@@ -155,7 +155,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 		      
 		      var modulosAsignados = new Array()
 		      modulosAsignados = row.usuarioAudiencia.usuarioAudienciaModulos.split(",");
-		      console.log(modulos);
+		      // -  console.log(modulos);
 		      for(i in modulosAsignados){
 		    	  for(e in modulos){
 		    		  if((modulosAsignados[i]*1) === (modulos[e].idModuloDidactico*1)){
@@ -165,7 +165,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 		    	  
 		      }
 		      
-//		      console.log(nombreCursosInstructor);
+//		      // -  console.log(nombreCursosInstructor);
 		      $('#btnStatusAudiencia').html(row.status);
 		      $idUsuarioAudiencia = row.id;
 			    }
@@ -173,7 +173,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 		
 		window.operateEventsUpdateModulo = {
 			    'click .like': function (e, value, row, index) {
-			      console.log('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
+			      // -  console.log('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
 		    	
 			    }
 			   }
@@ -185,7 +185,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 		        field: 'idCliente',
 		        values: [row.idCliente]
 		      });
-		      console.log(row);
+		      // -  console.log(row);
 		      deleteUserEmpresa(row.idUserEmpresa);
 		    }
 		  }
@@ -197,7 +197,7 @@ function operateFormatterUpdateModulo(value, row, index) {
 
 		 
 		  function getArraytoString(cadena){
-//			  console.log(cadena)
+//			  // -  console.log(cadena)
 			  var replace1 = cadena.replace('"','').replace('"','').replace(' ','');
 			  replace1 = replace1.replace('[','');
 			  replace1 = replace1.replace(']','');

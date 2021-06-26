@@ -1,5 +1,6 @@
 package mx.uniprotec.gamerFront.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -24,7 +25,7 @@ import mx.uniprotec.gamerFront.util.BaseClientRest;
 import mx.uniprotec.gamerFront.vo.UserForm;
 
 @Controller
-@SessionAttributes ("model")
+@SessionAttributes ({"model","sesion","user"})
 public class ControllerInicio {
 	
 
@@ -69,6 +70,9 @@ public class ControllerInicio {
 			resultVO.setJsonResponseObject(jsonUser);
 			model.addAttribute("userNombre", jsonUser.get("nombre"));
 			model.addAttribute("userStatus", jsonUser.get("status"));
+			mav.addObject("userNombre", jsonUser.get("nombre"));
+			mav.addObject("userStatus", jsonUser.get("status"));
+			
 			String accesToken = resultVO.getAccesToken();
 			String tokenCU = resultVO.getObject().toString();
 			
@@ -89,24 +93,25 @@ public class ControllerInicio {
 				String idUsuarioInstructorControl = jsonUsuarioInstructor.get("usuarioInstructorIdAsignacion").toString();
 				
 				JSONObject jsonResponse = usuariosService.dataInstructor(idUsuarioInstructorControl, tokenCU);
-				resultVO.setJsonResponse(jsonResponse);
-				mav.addObject("data" , jsonResponse);
+//				resultVO.setJsonResponse(jsonResponse);
+//				mav.addObject("data" , jsonResponse); ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 				JSONObject jsonInstructor2 = new JSONObject();
-				resultVO = (ResultVO) moduloService.getModulos(accesToken);
-				mav.addObject("modulosDidacticos" , resultVO.getJsonResponse());
-				jsonInstructor2.put("modulosDidacticos", resultVO.getJsonResponse());
-				model.addAttribute("modulosDidacticos", resultVO.getJsonResponse());
-				
-//				ResultVO rs2 = (ResultVO) baseClientRest.objetoGetId( accesToken, BaseClientRest.URL_GET_USUARIOAUDIENCIA, null, user.getUserName());
-//				mav.addObject("usuarioAudiencia" , rs2.getJsonResponse());
-//				jsonInstructor2.put("usuarioAudiencia", rs2.getJsonResponse());
-//				model.addAttribute("usuarioAudiencia", rs2.getJsonResponse());
+				rs = (ResultVO) moduloService.getModulos(accesToken);
+//				mav.addObject("modulosDidacticos" , rs.getJsonResponse());////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				jsonInstructor2.put("modulosDidacticos", rs.getJsonResponse());
+//				model.addAttribute("modulosDidacticos", rs.getJsonResponse());
 				
 				resultVO.setJsonResponse(jsonInstructor2);
 				
 				JSONObject cursosControl =  usuariosService.getCursosControl(tokenCU);
-				mav.addObject("cursosControl" , cursosControl);
+//				mav.addObject("cursosControl" , cursosControl);////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				Map map = new HashMap();
+				map.put("data" , jsonResponse); ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				map.put("modulosDidacticos" , rs.getJsonResponse());////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				map.put("cursosControl" , cursosControl);////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				mav.addObject("sesion", map);
 				
 				resultVO.setResponse("inicioInstructor");
 				
@@ -115,15 +120,23 @@ public class ControllerInicio {
 				 * Conseguir los modulos didacticos de usuario
 				 */
 				ResultVO rs = (ResultVO) baseClientRest.objetoGetId( accesToken, BaseClientRest.URL_GET_USUARIOAUDIENCIA, null, user.getUserName());
-				mav.addObject("usuarioAudiencia" , rs.getJsonResponse());
+
 				JSONObject jsonAudiencia = new JSONObject();
 				jsonAudiencia.put("usuarioAudiencia", rs.getJsonResponse());
-				model.addAttribute("usuarioAudiencia", rs.getJsonResponse());
+//				mav.addObject("usuarioAudiencia" , rs.getJsonResponse());
+//				model.addAttribute("usuarioAudiencia", rs.getJsonResponse());
 				
-				rs = (ResultVO) moduloService.getModulos(accesToken);
-				mav.addObject("modulosDidacticos" , rs.getJsonResponse());
-				jsonAudiencia.put("modulosDidacticos", rs.getJsonResponse());
-				model.addAttribute("modulosDidacticos", rs.getJsonResponse());
+				ResultVO rs1 = (ResultVO) moduloService.getModulos(accesToken);
+				jsonAudiencia.put("modulosDidacticos", rs1.getJsonResponse());
+//				mav.addObject("modulosDidacticos" , rs.getJsonResponse());
+//				model.addAttribute("modulosDidacticos", rs.getJsonResponse());
+				
+				Map map = new HashMap();
+				map.put("usuarioAudiencia", rs.getJsonResponse());
+				map.put("modulosDidacticos", rs1.getJsonResponse());
+				
+				mav.addObject("sesion", map);
+				
 				
 				resultVO.setJsonResponse(jsonAudiencia);
 				
@@ -153,11 +166,18 @@ public class ControllerInicio {
 			log.info("NULL");
 			return new  ModelAndView("login");
 		}else {
-			log.info("Inicio model Activo");
+			log.info("Inicio2 model Activo");
 			ResultVO resultVO = (ResultVO)model.get("model");
 			JSONObject jsonUser = resultVO.getJsonResponseObject();
-			model.addAttribute("userNombre", jsonUser.get("nombre"));
-			model.addAttribute("userStatus", jsonUser.get("status"));
+			if(resultVO.getPerfil() != null) {
+				model.addAttribute("userNombre", jsonUser.get("nombre"));
+				model.addAttribute("userStatus", jsonUser.get("status"));
+			}else {
+				JSONObject jsonUserI = new JSONObject((Map) model.get("user"));
+				model.addAttribute("userNombre", jsonUserI.get("nombre"));
+				model.addAttribute("userStatus", jsonUserI.get("status"));
+			}
+			
 			ModelAndView mav = new  ModelAndView(resultVO.getResponse(),  model);
 			mav.addObject("user", model);
 			mav.addObject("model", resultVO);

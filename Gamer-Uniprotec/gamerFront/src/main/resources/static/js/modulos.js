@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
-	console.log(modulos);
-	console.log(moduloCurso);
+	// -  console.log(modulos);
+	// -  console.log(moduloCurso);
 
 	var moduloSel ;
 	$moduloSel="";
@@ -11,14 +11,14 @@ $(document).ready(function() {
 	$cursoNombre="";
 	var arrayCursosFinal = new Array();
 	$val = val;
-	console.log("modulos ready");
+	// -  console.log("modulos ready");
 	$('#seccionOperacion').hide();
 	$('#moduloAltaForm').hide();
 	$('#moduloConfiguracionForm').hide();
 	$('#moduloConsultaForm').hide();
 	
 	$('#moduloAlta').click(function(){
-		console.log("moduloAlta");
+		// -  console.log("moduloAlta");
 		$(this).addClass("activeItem");
 		$('#moduloConfiguracion').removeClass("activeItem");
 		$('#moduloConsulta').removeClass("activeItem");
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	
 	
 	$('#moduloConfiguracion').click(function(){
-		console.log("moduloConfiguracion");
+		// -  console.log("moduloConfiguracion");
 		$(this).addClass("activeItem");
 		$('#moduloAlta').removeClass("activeItem");
 		$('#moduloConsulta').removeClass("activeItem");
@@ -78,7 +78,7 @@ $(document).ready(function() {
 			for(i in arrayCursos){
 				for(e in cursos){
 					if((arrayCursos[i] * 1) === (cursos[e].idCurso * 1)){
-//						console.log("cursoAsignado");
+//						// -  console.log("cursoAsignado");
 						arrayCursosFinal.push(arrayCursos[i]*1);
 						var alertCursosAsignados = '<div class="alert alert-dismissible alert-success">\
 							  <button type="button" class="close" data-dismiss="alert">&times;</button>\
@@ -102,7 +102,7 @@ $(document).ready(function() {
 		
 		
 		$('#btnConfiguraModulo').click(function(){
-			console.log("clickConfigurarModulo2");
+			// -  console.log("clickConfigurarModulo2");
 			$('#listaNuevosAsignacion').empty();
 			$('#divCarrusel').empty();
 			$('#nombreModulo').html(moduloSel.moduloDidacticoNombre);
@@ -136,9 +136,9 @@ $(document).ready(function() {
 //		});
 		
 		$('#btnAgregarConfiguracion').click(function(){
-			console.log($moduloNombre);
-			console.log($cursoNombre);
-//			console.log($idCurso);
+			// -  console.log($moduloNombre);
+			// -  console.log($cursoNombre);
+//			// -  console.log($idCurso);
 			var finalJson ="";
 			finalJson = {
 					elementos : arrayToString($elementosFinal),
@@ -156,7 +156,7 @@ $(document).ready(function() {
 	
 	
 	$('#moduloConsulta').click(function(){
-		console.log("moduloConsulta1");
+		// -  console.log("moduloConsulta1");
 		$(this).addClass("activeItem");
 		$('#moduloConfiguracion').removeClass("activeItem");
 		$('#moduloAlta').removeClass("activeItem");
@@ -173,7 +173,7 @@ $(document).ready(function() {
 		$('#moduloConsultaForm').show();
 		
 	});
-//	console.log("b");
+//	// -  console.log("b");
 	$('#selectCursosNoAsignados').selectpicker();
 	$('#selectCursosNoAsignados').selectpicker('refresh');
     // fin de documento
@@ -193,27 +193,27 @@ function imagenCliente(archivosCampo, rfcCliente){
 			idImagen = idImagen +"0";
 		}
 	}
-//	console.log(idImagen)
+//	// -  console.log(idImagen)
 	idImagen = idImagen + date.getHours() + date.getMinutes() + date.getSeconds();
-//	console.log(idImagen)
+//	// -  console.log(idImagen)
 	$('#moduloDidacticoIdImagen').val(idImagen);
 	        var files = archivosCampo.files;
 	        for (var i = 0; i < files.length; i++) {           
 	            var file = files[i];
 	            enviaImagen(archivosCampo, idImagen);
 	            }
-//	        console.log(archivosCampo.file.name);
-//	        console.log($(archivosCampo).val());
+//	        // -  console.log(archivosCampo.file.name);
+//	        // -  console.log($(archivosCampo).val());
 	 }
 
 function enviaImagen(idImagenForm, rfcCliente){
 	
 	limpiaAlerta(),
-		console.log("Comineza envio idCliente:"+rfcCliente);
+		// -  console.log("Comineza envio idCliente:"+rfcCliente);
 		var alerta="";
 		 var form = $('#altaModulo')[0]; //$('#formImagenLogoCliente').attr('files'),
         var data = new FormData(form);
-        console.log(data);
+        // -  console.log(data);
 		  $.ajax({
 			url: "imageUpload/"+rfcCliente,
 		    type: "POST",
@@ -227,25 +227,25 @@ function enviaImagen(idImagenForm, rfcCliente){
 		    		if(data.codigo===0){
 		  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
 		  			  $(alerta).insertAfter($('.alerta'));
-		  			  console.log("envio ok");
+		  			  // -  console.log("envio ok");
 		  	    	}else{
 		  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
 		  				  $(alerta).insertAfter($('.alerta'));
-		  	    		console.log("envio Nok");
+		  	    		// -  console.log("envio Nok");
 		  	    	}
 		    	  } 
 		    	},
 		    error: function () {
 		    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
 				  $(alerta).insertAfter($('.alerta'));
-		  	console.log("envio error");
+		  	// -  console.log("envio error");
 		    }
 		  });
 }
 
 function enviaDataEdicion(finalJson){
 	limpiaAlerta();
-	console.log(finalJson);
+	// -  console.log(finalJson);
 	$.ajax({
 	   	  url: "edicionSeccion/",//+ context,//+finalJson.action+"/"+finalJson[1],
 	      dataType: 'json',
@@ -274,7 +274,7 @@ function limpiaAlerta(){
 
 function avisaAlerta(data){
 	limpiaAlerta();
-	console.log(data)
+	// -  console.log(data)
 	 if(data.codigo===200){
 		 modalClose();
 //		 $("#alerta").click();
@@ -312,7 +312,7 @@ function stringToArray(str){
 			array.push(tmp[i]);
 		}
 		array = array.sort(function(a, b){return a-b});
-		console.log(array);
+		// -  console.log(array);
 	}
 	return array;
 	
@@ -329,7 +329,7 @@ function arrayToStringCursos(arrayData){
 
 function clickConfigurarModulo(elemento){
 //	$('#btnConfiguraModulo').trigger("click");
-//	console.log("clickConfigurarModuloEdicion");
+//	// -  console.log("clickConfigurarModuloEdicion");
 	var cursoNombre = $(elemento).text();
 	$('#listaNuevosAsignacion').empty();
 	$('#nombreModulo').html($moduloSel.moduloDidacticoNombre);
@@ -368,5 +368,5 @@ function clickConfigurarModulo(elemento){
 //	
 //	}
 	transformaElementosMemoria(elementos);
-console.log(elementos);
+// -  console.log(elementos);
 }

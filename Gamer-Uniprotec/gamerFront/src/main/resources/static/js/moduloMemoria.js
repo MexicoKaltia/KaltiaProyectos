@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	console.log("Modulo Memoria");
+	// -  console.log("Modulo Memoria");
 	
 	$('#divCarrusel').empty();
 	var jsonQRD = new Array();// JSON.parse($('#jsonQRDHidden').val());
@@ -13,8 +13,8 @@ $(document).ready(function() {
 		  if(confirm("Confirmar Eliminar Elemento: Los elementos no se presentarán.")){
 			  var e = 0;
 			  $child = $('#contenedorCarrusel').children("div.active");
-			  console.log($child);
-			  console.log($arrayElementosTotal);
+			  // -  console.log($child);
+			  // -  console.log($arrayElementosTotal);
 			  $tmp = $child.children(".activo");
 			  $tmp = $tmp.children("div");
 			  $tmp = $tmp.children("input");
@@ -30,11 +30,11 @@ $(document).ready(function() {
 	  });
 //	 Sumar elemento
 	 $('#modalEdicionBodyQRD_btnSumarElemento').click(function(){
-		 	console.log("btnSumarElemento");
-//		 	console.log($idCurso);
-//		 	console.log($moduloSel);
-//		 	console.log($arrayElementosTotal);
-//		 	console.log(jsonQRD);
+		 	// -  console.log("btnSumarElemento");
+//		 	// -  console.log($idCurso);
+//		 	// -  console.log($moduloSel);
+//		 	// -  console.log($arrayElementosTotal);
+//		 	// -  console.log(jsonQRD);
 //		 $('#divCarrusel').empty();
 		 	$('#divEdicionElementoCategoria').hide();
 		 	$('#modalEdicionBodyQRD_btnEliminarCategoria').hide();
@@ -73,21 +73,21 @@ $(document).ready(function() {
 					$('#modalEdicionBodyQRD_btnSaveElemento').show();
 			});
 			$("#modalEdicionBodyQRD_btnSaveElemento").click(function(){
-//				console.log(jsonQRD)
+//				// -  console.log(jsonQRD)
 //				var nuevoCategoria = $('#tituloCtegoria').val();
 				var nuevoObjeto={
 					imagen:formatoImagen($('#imagenObjetoQRD').val()),
 					titulo:$('#tituloObjetoQRD').val(),
 					descripcion:$('#descripcionObjetoQRD').val()
 				}
-//				console.log(nuevoObjeto);
+//				// -  console.log(nuevoObjeto);
 				var nuevoArrayObjetos = new Array();
 				jsonQRD = $arrayElementosTotal; 
 				if(jsonQRD){
 					for(i in jsonQRD){
 						var elemento = jsonQRD[i];
 						nuevoArrayObjetos.push(elemento);
-//						console.log(elemento);
+//						// -  console.log(elemento);
 					}
 				}
 				nuevoArrayObjetos.push(nuevoObjeto);
@@ -103,7 +103,7 @@ $(document).ready(function() {
 
 
 function showCarrusel(arrayElementosTotal){
-	console.log(arrayElementosTotal);
+	// -  console.log(arrayElementosTotal);
 	$('#modalEdicionBodyQRD_btnSumarElemento').show();
 	$('#divEdicionElementoCategoria').show();
 	$('#divNuevaCategoria').hide();
@@ -113,7 +113,7 @@ function showCarrusel(arrayElementosTotal){
 	var carrusel = '<div id="carouselEdicionBodyQRD" class="carousel slide" data-interval="false"> <div class="carousel-inner container" id="contenedorCarrusel"><div class="carousel-item col-12 text-center" id="elementoCarrusel"></div> </div><a class="carousel-control-prev" href="#carouselEdicionBodyQRD" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carouselEdicionBodyQRD" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a><ol class="carousel-indicators"><li data-target="#carouselEdicionBodyQRD" data-slide-to="0" class="active"></li><li data-target="#carouselEdicionBodyQRD" data-slide-to="1"></li><li data-target="#carouselEdicionBodyQRD" data-slide-to="2"></li></ol></div>'
 		$('#divCarrusel').append(carrusel);
 		
-//		console.log(jsonQRD.hasOwnProperty(categoria));
+//		// -  console.log(jsonQRD.hasOwnProperty(categoria));
 		var i = 0;
 		var objetoArray = arrayElementosTotal; 
 		var a = 0;
@@ -125,7 +125,7 @@ function showCarrusel(arrayElementosTotal){
 			if(a===0){$('#elementoCarrusel'+a).addClass('active');}
 //			var imagen = "http://kaltiaservicios.com/store/kaltia/empresa/"+$.action+"/images/"+objetoArray[a].imagen+"?v=1";
 			var imagen = '\\uploads\\img\\'+$moduloSel.idModuloDidactico+'-'+$idCurso+'\\'+objetoArray[a].imagen;
-//			console.log(imagen);
+//			// -  console.log(imagen);
 			var titulo = objetoArray[a].titulo;
 			var descripcion = objetoArray[a].descripcion;
 			var objetoCarrusel = '<div class="form-group row"><span class="col-3 col-form-label text-right colorLabel nombre">\
@@ -144,8 +144,8 @@ function showCarrusel(arrayElementosTotal){
 		$(".imagenArrayForm").click(function(){
 			var imgArrayForm = $(this).attr('id'); 
 			var imgArrayInput =$(this).children("input").attr('id');
-//			console.log(imgArrayForm);
-//			console.log(imgArrayInput);
+//			// -  console.log(imgArrayForm);
+//			// -  console.log(imgArrayInput);
 			$('#'+imgArrayInput).on('change', function(){ enviaImagen(imgArrayForm); });
 		});
 		
@@ -160,8 +160,8 @@ function imagenElemento(archivosCampo){
 	            var file = files[i];
 	            enviaImagenElemento(archivosCampo, $moduloSel.idModuloDidactico+"-"+$idCurso);
 	            }
-//	        console.log(archivosCampo.file.name);
-//	        console.log($(archivosCampo).val());
+//	        // -  console.log(archivosCampo.file.name);
+//	        // -  console.log($(archivosCampo).val());
 	 }
 
 function formatoImagen(imagenTexto){
@@ -177,14 +177,14 @@ function formatoImagen(imagenTexto){
 function enviaImagenElemento(idImagenForm, idElemento){
 	
 	limpiaAlerta(),
-//		console.log("Comineza envio imagenBody:"+idImagenForm);
-		console.log("Comineza envio idElemento:"+idElemento);
+//		// -  console.log("Comineza envio imagenBody:"+idImagenForm);
+		// -  console.log("Comineza envio idElemento:"+idElemento);
 //		rfcCliente ="nuevo";
-//		console.log("Comineza envio rfcCliente:"+rfcCliente);
+//		// -  console.log("Comineza envio rfcCliente:"+rfcCliente);
 		var alerta="";
 		 var form = $('#imagenObjetoQRDForm')[0]; //$('#formImagenLogoCliente').attr('files'),
         var data = new FormData(form);
-        console.log(data);
+        // -  console.log(data);
 		  $.ajax({
 			url: "imageUploadElemento/"+idElemento,
 		    type: "POST",
@@ -200,18 +200,18 @@ function enviaImagenElemento(idImagenForm, idElemento){
 		    		if(data.codigo===0){
 		  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
 		  			  $(alerta).insertAfter($('.alerta'));
-		  			  console.log("envio ok");
+		  			  // -  console.log("envio ok");
 		  	    	}else{
 		  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
 		  				  $(alerta).insertAfter($('.alerta'));
-		  	    		console.log("envio Nok");
+		  	    		// -  console.log("envio Nok");
 		  	    	}
 		    	  } 
 		    	},
 		    error: function () {
 		    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
 				  $(alerta).insertAfter($('.alerta'));
-		  	console.log("envio error");
+		  	// -  console.log("envio error");
 		    }
 		  });
 }
@@ -224,7 +224,7 @@ function arrayToString(arrayData){
 		cadena = cadena + elemento.imagen + "--" + elemento.titulo + "--" + elemento.descripcion + "++";
 	}
 	cadena = cadena.slice(0, (cadena.length-2));
-//	console.log(cadena)
+//	// -  console.log(cadena)
 	
 	return cadena;
 }

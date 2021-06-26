@@ -5,12 +5,12 @@ $(document).ready(function() {
 	
 	
 	
-//	console.log(instructores.instructores);
-//	console.log(usuarios.usuarios);
-	console.log(asignaciones);
-//	console.log(usuarios.usuariosInstructor);
-//	console.log(usuariosControl);
-	console.log(modulos);
+//	// -  console.log(instructores.instructores);
+//	// -  console.log(usuarios.usuarios);
+	// -  console.log(asignaciones);
+//	// -  console.log(usuarios.usuariosInstructor);
+//	// -  console.log(usuariosControl);
+	// -  console.log(modulos);
 	var idCurosAsignacion="";	
 	$('#usuarioAudienciaForm').hide();
 	$('#usuarioInstructorForm').hide();
@@ -67,7 +67,7 @@ $(document).ready(function() {
 				$('#usuarioInstructorForm').hide();
 				$('#administradorActivo').hide()
 				$('#administradorNoActivo').hide()
-				console.log("tipo de Alta Administrador");
+				// -  console.log("tipo de Alta Administrador");
 				formAdministrador();
 				break;
 			}
@@ -77,7 +77,7 @@ $(document).ready(function() {
 	
 	
 	$('#usuarioInstructor').click(function(){
-		console.log("configurar Instructor");
+		// -  console.log("configurar Instructor");
 		$('#usuarioAlta').removeClass("activeItem");
 		$('#usuarioAudencia').removeClass("activeItem");
 		$('#usuarioConsulta').removeClass("activeItem");
@@ -93,7 +93,7 @@ $(document).ready(function() {
 	});
 	
 	$('#usuarioAudencia').click(function(){
-		console.log("configurar Audiencia");
+		// -  console.log("configurar Audiencia");
 		$('#usuarioAlta').removeClass("activeItem");
 		$('#usuarioInstructor').removeClass("activeItem");
 		$('#usuarioConsulta').removeClass("activeItem");
@@ -152,7 +152,7 @@ $('#selectAsignaEvento').change(function(){
 
 
 $('#selectModulosCurso').change(function(){
-//	console.log($('#selectModulosCurso').val());
+//	// -  console.log($('#selectModulosCurso').val());
 	$('#divListaUsuarios').empty();
 	var listaUsuarios = "<ul>" ;
 	var idAsignacion = $('#selectAsignaEvento').val();
@@ -160,7 +160,7 @@ $('#selectModulosCurso').change(function(){
 	for(a in asignacionSelec){
 		if((idAsignacion*1) === (asignacionSelec[a].idAsignacion*1)){
 			cantidadUsuarios = asignacionSelec[a].participantesAsignacion;
-//			console.log(cantidadUsuarios );
+//			// -  console.log(cantidadUsuarios );
 			for(var i= 0 ; i<cantidadUsuarios; i++){
 				listaUsuarios = listaUsuarios + "<li style='color:#ffa400'>"+idAsignacion+"−"+(i+1)+"</li>" 
 			}
@@ -205,10 +205,10 @@ $('#btnActivarUsuarios').click(function(){
 		   			var optionAsignaciones ='<option value="" selected>Seleccione Curso - Cliente</option>';
 		   			for(a in asignacionSelec){
 		   				var asignacion =asignacionSelec[a];
-//		   				console.log(asignacion.cursoAsignacion);
+//		   				// -  console.log(asignacion.cursoAsignacion);
 		   				if(getCursosModulo(asignacion.idCursoAsignacion)){
 		   					optionAsignaciones = optionAsignaciones +  '<option value="'+asignacion.idAsignacion+'">'+asignacion.idCursoAsignacion+' − '+asignacion.cursoAsignacion+' − '+asignacion.clienteAsignacion+'</option>';
-//		   					console.log(optionAsignaciones);
+//		   					// -  console.log(optionAsignaciones);
 		   				}
 		   			}
 		   			$('#selectAsignaEvento').append(optionAsignaciones);
@@ -230,13 +230,13 @@ function getAsignaciones(fechaSeleccion){
 
 function getCursosModulo(idCursoAsignacion){
 	var flag = false;
-//	console.log(idCursoAsignacion);
+//	// -  console.log(idCursoAsignacion);
 	for(a in modulos){
 		var arrayCursos = getArrayModulos(modulos[a].moduloDidacticoCursos);
-//		console.log(arrayCursos);
+//		// -  console.log(arrayCursos);
 		for(e in arrayCursos){
 			if((arrayCursos[e]*1) === (idCursoAsignacion*1)){
-//				console.log(idCursoAsignacion);
+//				// -  console.log(idCursoAsignacion);
 				flag = true;
 			}
 		}
@@ -246,7 +246,7 @@ function getCursosModulo(idCursoAsignacion){
 
 function getArrayModulos(cursos){
 	var tmp = new Array();
-//	console.log(cursos);
+//	// -  console.log(cursos);
 	if(cursos.includes(",")){
 		tmp = cursos.split(",");
 	}else{
@@ -260,7 +260,7 @@ function getCursoContein(modulo, idCurso){
 	for(a in arrayCursos){
 		var arrayCurso = arrayCursos[a];
 		if((arrayCurso*1) === (idCurso*1)){
-			console.log(idCurso);
+			// -  console.log(idCurso);
 			return true;
 		}
 	}
@@ -295,35 +295,35 @@ function formInstructor(){
 	var instructorBase="";
 	$('#selInstructor').change(function(){
 		instructorSel = $('#selInstructor').val();
-//		console.log(instructorSel);
+//		// -  console.log(instructorSel);
 		for(e in instructoresSel){
 			var instructor = instructoresSel[e];
 			if((instructor.idInstructor*1) === (instructorSel*1)){
-//				console.log(instructor);
+//				// -  console.log(instructor);
 				instructorBase = instructor;
 			}
 		}
 		
 		//Valida si esta activo en Gamer Uniprotec
 		var activo = false;
-//		console.log(instructorBase);
+//		// -  console.log(instructorBase);
 		var usuariosGamer = usuarios.usuarios; 
 		
 		for(i in usuariosGamer){
 			var username = usuariosGamer[i].username;
-//			console.log(username);
+//			// -  console.log(username);
 			if(username === instructorBase.usuarioInstructor.usernameUsuario){
-//				 console.log(instructorBase.usuarioInstructor.usernameUsuario);
+//				 // -  console.log(instructorBase.usuarioInstructor.usernameUsuario);
 				activo = true;
 			}
 		}
 		//pinta si esta activo
 //		if(instructorBase.idUsuarioInstructor === instructorSel){
 		if(activo){
-//			console.log("usuarioInstructor Activo:"+instructorBase.usuarioInstructor.usernameUsuario);
+//			// -  console.log("usuarioInstructor Activo:"+instructorBase.usuarioInstructor.usernameUsuario);
 			$('#instructorActivo').show();
 		}else{
-//			console.log("usuarioInstructor NO Activo:"+instructorBase.usuarioInstructor.usernameUsuario);
+//			// -  console.log("usuarioInstructor NO Activo:"+instructorBase.usuarioInstructor.usernameUsuario);
 			$('#instructorNoActivo').show();
 		}
 			
@@ -363,35 +363,35 @@ function formAdministrador(){
 		var administradorBase="";
 		$('#selAdministrador').change(function(){
 			administradorSel = $('#selAdministrador').val();
-	//		console.log(instructorSel);
+	//		// -  console.log(instructorSel);
 			for(e in administradoresSel){
 				var administrador = administradoresSel[e];
 				if((administrador.idUsuario*1) === (administradorSel*1)){
-	//				console.log(instructor);
+	//				// -  console.log(instructor);
 					administradorBase = administrador;
 				}
 			}
 	
 		//Valida si esta activo en Gamer Uniprotec
 		var activo = false;
-	//	console.log(usuarios);
+	//	// -  console.log(usuarios);
 		var usuariosGamer = usuarios.usuarios; 
 		
 		for(i in usuariosGamer){
 			var username = usuariosGamer[i].username;
-	//		console.log(username);
+	//		// -  console.log(username);
 			if(username === administradorBase.usernameUsuario){
-	//			 console.log(instructorBase.usuarioInstructor.usernameUsuario);
+	//			 // -  console.log(instructorBase.usuarioInstructor.usernameUsuario);
 				activo = true;
 			}
 		}
 		//pinta si esta activo
 	//	if(instructorBase.idUsuarioInstructor === instructorSel){
 		if(activo){
-//			console.log("usuario administrador Activo:"+administradorBase.usernameUsuario);
+//			// -  console.log("usuario administrador Activo:"+administradorBase.usernameUsuario);
 			$('#administradorActivo').show();
 		}else{
-//			console.log("usuario administrador NO Activo:"+administradorBase.usernameUsuario);
+//			// -  console.log("usuario administrador NO Activo:"+administradorBase.usernameUsuario);
 			$('#administradorNoActivo').show();
 		}
 
@@ -415,7 +415,7 @@ function getAdministrador(usuarios){
 			usuariosControl.push(usuarios[i]);
 		}
 	}
-//	console.log(usuariosControl);
+//	// -  console.log(usuariosControl);
 	return usuariosControl;
 }
 
@@ -430,7 +430,7 @@ function getAdministrador(usuarios){
   function checkStatusInstructor(){
 		var status = $("#btnStatusInstructor").html();
 		
-//		console.log(status);
+//		// -  console.log(status);
 		if(status === "activo" || status === "ACTIVO"){
 			$("#btnStatusInstructor").html("NO ACTIVO");
 			$("#btnStatusInstructor").removeClass("btn-success");
@@ -452,7 +452,7 @@ function getAdministrador(usuarios){
   function checkStatusAudiencia(){
 		var status = $("#btnStatusAudiencia").html();
 		
-//		console.log(status);
+//		// -  console.log(status);
 		if(status === "activo" || status === "ACTIVO"){
 			$("#btnStatusAudiencia").html("NO ACTIVO");
 			$("#btnStatusAudiencia").removeClass("btn-success");
@@ -466,7 +466,7 @@ function getAdministrador(usuarios){
 			status = "ACTIVO";
 			alert("Cambio de Status : ACTIVO");
 		}
-		console.log($idUsuarioAudiencia);
+		// -  console.log($idUsuarioAudiencia);
 		$('#statusAudiencia').val(status);
 		$('#idUsuarioAudiencia').val($idUsuarioAudiencia);
 		$('#actualizaAudiencia').submit();

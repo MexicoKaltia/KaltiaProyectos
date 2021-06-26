@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	
-	console.log(1);
-//	console.log(cursos);
-//	console.log(modulos);
-//	console.log(moduloCurso);
-//	console.log(cursosControl);
+	// -  console.log(1);
+//	// -  console.log(cursos);
+//	// -  console.log(modulos);
+//	// -  console.log(moduloCurso);
+//	// -  console.log(cursosControl);
 	
 	$('#divModulosActivos').empty();
 	var modulosActivos = new Array();
@@ -14,14 +14,14 @@ $(document).ready(function() {
 		var curso = cursos[a]; 
 		for(e in moduloCurso){
 			var moduloCurs = moduloCurso[e];
-			var idCurso = (moduloCurs.idCurso*1); //console.log(idCurso); 
+			var idCurso = (moduloCurs.idCurso*1); //// -  console.log(idCurso); 
 			if(idCurso === (curso*1)){
 				for(i in modulos){ 
 					var modulo = modulos[i];
 					if((modulo.idModuloDidactico*1)===(moduloCurs.idModuloDidactico*1)){
 						var moduloImagen = '\\uploads\\img\\'+modulo.moduloDidacticoIdImagen+'\\'+modulo.moduloDidacticoImagen;
 						var moduloNombre = modulo.moduloDidacticoNombre;
-//						console.log(moduloNombre);
+//						// -  console.log(moduloNombre);
 						var cursoNombre = findCursoNombre(idCurso);
 						var elemento = '<div class="col-5 modulo flex-containerE">\
 							<div class=""><img src="'+moduloImagen+'" alt="" class="img-responsive" style="max-width: 12.0rem; max-height: 12.0rem"/></div>\
@@ -37,7 +37,7 @@ $(document).ready(function() {
 						</div>';
 						modulosActivos.push(elemento);
 						$('#divModulosActivos').append(elemento);
-//						console.log(elemento);
+//						// -  console.log(elemento);
 					}
 				}
 			}
@@ -79,7 +79,7 @@ function stringToArray(cadena){
 function findCursoNombre(idCurso){
 	for (a in cursosControl){
 		if((idCurso*1) === (cursosControl[a].idCurso*1)){
-//			console.log(cursosControl[a].nombreCurso)
+//			// -  console.log(cursosControl[a].nombreCurso)
 			return cursosControl[a].nombreCurso;
 		}
 	}

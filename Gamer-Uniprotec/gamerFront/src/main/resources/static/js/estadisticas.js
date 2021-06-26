@@ -11,7 +11,7 @@ $(document).ready(function() {
 		
 		$('#usuarioConfigurarInstructorForm').hide();
 		$('#seccionOperacion').empty();
-		console.log("usuarioAlta");
+		// -  console.log("usuarioAlta");
 
 		var selectUsuarioTipo = '<form><fieldset><legend>FORMULARIO ALTA USUARIO</legend><div class="form-group"><label for="exampleSelect1">SELECCIONAR TIPO DE USUARIO</label><select class="form-control" id="selUsuarioTipo"><option value="" selected>Seleciona tipo de Usuario</option><option value="audiencia">AUDIENCIA</option><option value="instructor">INSTRUCTOR</option><option value="administracion">ADMINISTRACION</option></select></div></fieldset></form>';
 		
@@ -27,7 +27,7 @@ $(document).ready(function() {
 				$('#usuarioAudienciaForm').show();
 				$('#selectAsignaEvento').hide();
 				$('#selectModulosCurso').hide();
-//				console.log( $.asignaFechaCalendario);
+//				// -  console.log( $.asignaFechaCalendario);
 				$('#selectAsignaEvento').show();
 				
 				$('#selectAsignaEvento').change(function(){
@@ -47,7 +47,7 @@ $(document).ready(function() {
 	});
 	
 	$('#usuarioInstructor').click(function(){
-		console.log("configurar Instructor");
+		// -  console.log("configurar Instructor");
 		$('#seccionOperacion').empty();
 		
 		$('#usuarioAlta').removeClass("activeItem");
@@ -70,7 +70,7 @@ $(document).ready(function() {
 })
 
 $('#selectModulosCurso').change(function(){
-	console.log($('#selectModulosCurso').val());
+	// -  console.log($('#selectModulosCurso').val());
 	$('#divListaUsuarios').empty();
 	var listaUsuarios = "<ul>" +
 			"<li>012015-1</li>" +

@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
-	console.log(idModuloCurso);
-	console.log(modulosDidacticos);
-//	console.log(perfil);
+	// -  console.log(idModuloCurso);
+	// -  console.log(modulosDidacticos);
+//	// -  console.log(perfil);
 		 
 	
 	
@@ -24,7 +24,7 @@ $(document).ready(function() {
 //	 var audioInicial = document.getElementById("audioInicial");
 //	 audioInicial.play();
 	 
-//	 console.log($moduloCurso);
+//	 // -  console.log($moduloCurso);
 	 var elementos = new Array();
 	 elementos = getElementos($moduloCurso.elementos);
 	 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	 for(var e=0; e<filasColumnas[0]; e++){
 		 for(var a=0; a<filasColumnas[1]; a++){
 			 if(o < elementos.length){
-//				 console.log(elementos[o]);
+//				 // -  console.log(elementos[o]);
 //				 var imagen = '\\uploads\\img\\'+$moduloCurso.idModuloDidactico+'-'+$moduloCurso.idCurso+'\\'+elementos[i-1].imagen;
 				 var elemento = '<td><div class="card-container manual-flip conteo" id="'+(e+1)+'-'+(a+1)+'">\
 		             <div class="card fondo ">\
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		 var titulo = $('#titulo'+idSel).html();
 		 var descripcion = $('#descripcion'+idSel).html();
 		 $('#soundModal').empty();
-		 console.log("3");
+		 // -  console.log("3");
 		 
 		 if(contador === 0){
 			 contador = 1;		
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		 }
 		 
 		 function cerrarModal(){
-			 console.log(titulo1+'-'+titulo);
+			 // -  console.log(titulo1+'-'+titulo);
 			 
 			 if(titulo1.toString() === titulo.toString()){
 				 
@@ -114,13 +114,13 @@ $(document).ready(function() {
 //				 $('#'+idSel1).removeClass('manual-flip');
 				 $('#'+idSel).addClass('bloqueo');
 				 $('#'+idSel1).addClass('bloqueo');
-				 console.log($('#'+idSel).html());
+				 // -  console.log($('#'+idSel).html());
 				 sonidoEfecto = '<audio id="audio" controls><source type="audio/mp3" src="sonido/sonido_correcto.mp3"></audio>';
 				 $('#modalCoincidir').modal();
 //				 setTimeout(cerrarModal, 18000);
 				 
 			 }else{
-				 console.log("NO coincidir valores1");
+				 // -  console.log("NO coincidir valores1");
 //				 setTimeout(enviaAlerta(), 8000);
 				 $('#'+idSel).removeClass('hover');
 				 $('#'+idSel1).removeClass('hover');
@@ -138,27 +138,27 @@ $(document).ready(function() {
 }); // fin de documento
 
 function enviaAlerta(){
-	console.log("hola");
+	// -  console.log("hola");
 }
 
 function getCursoNombre(cadena){
 	var arrayTmp = new Array();
 	arrayTmp = cadena.split("?");
-//	console.log(arrayTmp[1]);
+//	// -  console.log(arrayTmp[1]);
 	return arrayTmp[1]; 
 }
 
 function getEmpresaNombre(cadena){
 	var arrayTmp = new Array();
 	arrayTmp = cadena.split("?");
-//	console.log(arrayTmp[1]);
+//	// -  console.log(arrayTmp[1]);
 	return arrayTmp[2]; 
 }
 
 function getModuloNombre(id){
 	for(a in modulosDidacticos.modulosDidacticos.moduloCurso){
 		if((modulosDidacticos.modulosDidacticos.moduloCurso[a].idModuloCurso+0) === (id+0)){
-//			console.log(modulosDidacticos.modulosDidacticos.moduloCurso[a].moduloNombre);
+//			// -  console.log(modulosDidacticos.modulosDidacticos.moduloCurso[a].moduloNombre);
 			$moduloCurso = modulosDidacticos.modulosDidacticos.moduloCurso[a];
 			return modulosDidacticos.modulosDidacticos.moduloCurso[a].moduloNombre; 
 		}
@@ -197,19 +197,19 @@ function getElementos(cadena){
 }
 
 function getGrid(array){
-//	console.log(array);
-//	console.log(array.length);
+//	// -  console.log(array);
+//	// -  console.log(array.length);
 	/*
 	 * aqui hay q poner el orden de los elementos
 	 */
 	var arrayA = array.concat(array);
-//	console.log(arrayA);
+//	// -  console.log(arrayA);
 	return arrayA;
 }
 
 function getFilasColumnas(eles){
 	var tmp= new Array();
-	console.log(eles);
+	// -  console.log(eles);
 	if(eles < 7){
 		tmp = [3,3];
 	}else if(7 <= eles && eles < 13){
@@ -229,6 +229,6 @@ function getFilasColumnas(eles){
 	}else if(43 <= eles && eles < 50){
 		tmp = [7,7];
 	}
-	console.log(tmp);
+	// -  console.log(tmp);
 	return tmp
 }

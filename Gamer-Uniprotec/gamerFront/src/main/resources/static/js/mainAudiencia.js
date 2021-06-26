@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	
-	console.log(usuarioAudiencia);
-	console.log(modulos);
-	console.log(moduloCurso);
+	// -  console.log(usuarioAudiencia);
+	// -  console.log(modulos);
+	// -  console.log(moduloCurso);
 
 	var arrayUsuarioModulos = new Array();
 	arrayUsuarioModulos = stringToArrayAudiencia(usuarioAudiencia.usuarioAudienciaModulos);
@@ -43,7 +43,7 @@ $(document).ready(function() {
 //function btnSubmit(elemento){
 //	var idElemento = $(elemento).attr("id");
 //	idElemento = idElemento.replace("btnAccesoModulo","");
-//	console.log(idElemento);
+//	// -  console.log(idElemento);
 //	$('#formAccesoModulo'+idElemento).submit();
 //}
 
@@ -57,7 +57,7 @@ function stringToArrayAudiencia(str){
 			}
 		}
 		array = array.sort(function(a, b){return a-b});
-//		console.log(array);
+//		// -  console.log(array);
 	}
 	return array;
 }
@@ -73,7 +73,7 @@ function getNombreEmpresa(cadena){
 }
 
 function getModuloCurso(idModulo, idCurso){
-	console.log(idModulo+"-"+idCurso)
+	// -  console.log(idModulo+"-"+idCurso)
 	var array1 = new Array();
 	for(a in moduloCurso){
 		var mc = moduloCurso[a];
@@ -81,7 +81,7 @@ function getModuloCurso(idModulo, idCurso){
 			array1.push(mc);
 		}
 	}
-	console.log(array1)
+	// -  console.log(array1)
 	for(e in array1){
 		var array = array1[e];
 		if((array.idCurso*1) === (idCurso*1)){
@@ -97,7 +97,7 @@ function getImage(moduloDidacticoIdImagen, moduloDidacticoImagen){
 	    url: '/uploads/img/'+moduloDidacticoIdImagen+'/'+moduloDidacticoImagen,
 	    datatype: "image",
 	    success: function(data) {
-	    	console.log("exito")
+	    	// -  console.log("exito")
 //	        debugger
 //	        $('#CaptchaImg').attr('src', data);
 	        return data;
@@ -107,7 +107,7 @@ function getImage(moduloDidacticoIdImagen, moduloDidacticoImagen){
 				  codigo : "99",
 				  mensaje : "Error al actualizar Modulo"
 		  }
-		  console.log("error")
+		  // -  console.log("error")
 	  }
 	});
 }

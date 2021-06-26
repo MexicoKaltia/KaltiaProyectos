@@ -20,7 +20,7 @@ import mx.uniprotec.gamerFront.service.IModuloService;
 import mx.uniprotec.gamerFront.service.impl.ModuloService;
 
 @Controller
-@SessionAttributes ("model")
+@SessionAttributes ({"model","sesion"})
 public class ControllerModulo {
 	
 
