@@ -208,7 +208,7 @@ function imagenCliente(archivosCampo, rfcCliente){
 
 function enviaImagen(idImagenForm, rfcCliente){
 	
-	limpiaAlerta(),
+	limpiaAlerta();
 		// -  console.log("Comineza envio idCliente:"+rfcCliente);
 		var alerta="";
 		 var form = $('#altaModulo')[0]; //$('#formImagenLogoCliente').attr('files'),

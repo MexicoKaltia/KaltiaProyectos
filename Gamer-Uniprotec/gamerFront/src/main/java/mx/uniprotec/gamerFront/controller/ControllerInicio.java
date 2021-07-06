@@ -93,8 +93,9 @@ public class ControllerInicio {
 				String idUsuarioInstructorControl = jsonUsuarioInstructor.get("usuarioInstructorIdAsignacion").toString();
 				
 				JSONObject jsonResponse = usuariosService.dataInstructor(idUsuarioInstructorControl, tokenCU);
-//				resultVO.setJsonResponse(jsonResponse);
-//				mav.addObject("data" , jsonResponse); ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				resultVO.setJsonResponse(jsonResponse);
+				mav.addObject("data" , jsonResponse);
+				model.addAttribute("data", jsonResponse);
 				
 				JSONObject jsonInstructor2 = new JSONObject();
 				rs = (ResultVO) moduloService.getModulos(accesToken);
@@ -105,7 +106,8 @@ public class ControllerInicio {
 				resultVO.setJsonResponse(jsonInstructor2);
 				
 				JSONObject cursosControl =  usuariosService.getCursosControl(tokenCU);
-//				mav.addObject("cursosControl" , cursosControl);////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				mav.addObject("cursosControl" , cursosControl);
+				model.addAttribute("cursosControl", cursosControl);
 				
 				Map map = new HashMap();
 				map.put("data" , jsonResponse); ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,7 +143,6 @@ public class ControllerInicio {
 				resultVO.setJsonResponse(jsonAudiencia);
 				
 				resultVO.setResponse("inicioAudiencia");
-				
 			}
 			
 			log.info("Bienvenido");
@@ -166,7 +167,7 @@ public class ControllerInicio {
 			log.info("NULL");
 			return new  ModelAndView("login");
 		}else {
-			log.info("Inicio2 model Activo");
+			log.info("Inicio Sesion model Activo");
 			ResultVO resultVO = (ResultVO)model.get("model");
 			JSONObject jsonUser = resultVO.getJsonResponseObject();
 			if(resultVO.getPerfil() != null) {
@@ -183,7 +184,6 @@ public class ControllerInicio {
 			mav.addObject("model", resultVO);
 					return 	mav;
 		}		
-
 	}
 	
 		

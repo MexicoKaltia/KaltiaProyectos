@@ -176,7 +176,7 @@ function formatoImagen(imagenTexto){
 
 function enviaImagenElemento(idImagenForm, idElemento){
 	
-	limpiaAlerta(),
+	limpiaAlerta();
 //		// -  console.log("Comineza envio imagenBody:"+idImagenForm);
 		// -  console.log("Comineza envio idElemento:"+idElemento);
 //		rfcCliente ="nuevo";
