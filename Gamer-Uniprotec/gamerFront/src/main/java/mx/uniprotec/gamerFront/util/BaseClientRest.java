@@ -35,11 +35,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-	public static final String URL_POST_LOGIN 	      =	"http://localhost:8019/oauth/token";
-	public static final String URL_CRUD				  = "http://localhost:8019/crud/";
+//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8019/oauth/token";
+//	public static final String URL_CRUD				  = "http://localhost:8019/crud/";
 	
-//	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
+	public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8019/oauth/token";
+	public static final String URL_CRUD				  = "http://45.80.153.253:8019/crud/";
 	
 	public static final String URL_ALTA_USUARIOADMINISTRADOR	= "altaUsuariosAdministrador";
 	public static final String URL_ALTA_USUARIOINSTRUCTOR	 	= "altaUsuariosInstructor";

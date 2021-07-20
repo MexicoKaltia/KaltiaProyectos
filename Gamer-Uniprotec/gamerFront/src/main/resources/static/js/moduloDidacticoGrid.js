@@ -13,7 +13,7 @@ $(document).ready(function() {
 		 $('#nombreCurso').html($moduloCurso.cursoNombre); 
 	 }
 	$('#moduloNombre').html(getModuloNombre(idModuloCurso));
-	 $('#moduloInstrucciones').html(getModuloInstrucciones(idModuloCurso));
+	$('#moduloInstrucciones').html(getModuloInstrucciones(idModuloCurso));
 	 
 	 /*
 	  * sonido inicial
@@ -26,7 +26,6 @@ $(document).ready(function() {
 //	 // -  console.log($moduloCurso);
 	 var elementos = new Array();
 	 elementos = getElementos($moduloCurso.elementos);
-	 
 	 
 	 $("#tablaElementos").empty();
 	 var fila = '';
@@ -117,6 +116,7 @@ $(document).ready(function() {
 	 var idSel1="";
 	 var conteoEvento=0;
 	 var aciertos =0;
+	 var timeOut=2000;
 	 $('.conteo').click(function(){
 		 var sel = $(this).html();
 		 var idSel = $(this).attr("id");
@@ -126,7 +126,7 @@ $(document).ready(function() {
 		 $('#soundModal').empty();
 		 
 		 if(contador === 0){
-			 contador = 1;		
+			 timeOut = 2000;
 			 titulo1 = titulo;
 			 idSel1 = idSel;
 			 $('#seleccion1').html(idSel);
@@ -135,13 +135,18 @@ $(document).ready(function() {
 			 $('#seleccion1Imagen').attr('src',imagen);
 			 
 		 }else{
-			 contador = 0;
+			 if(contador === 2){
+				 timeOut = 10;
+				 setTimeout(cerrarModal, timeOut);
+				 return false;
+			 }
+			 console.log(contador);
 			 conteoEvento++;
 			 $('.conteo').click(function(){return false;});
-			 setTimeout(cerrarModal, 3000);
+			 setTimeout(cerrarModal, timeOut);
 //			 cerrarModal();
 		 }
-		 
+		 contador ++;
 		 function cerrarModal(){
 //			 // -  console.log(titulo1+'-'+titulo);
 			 if(titulo1.toString() === titulo.toString()){
@@ -165,8 +170,10 @@ $(document).ready(function() {
 			 $("#btnPuntuaje").html("Movimientos : "+conteoEvento);
 			 var audio = document.getElementById("audio");
 			 audio.play();
+			 contador = 0;
 		}
 	 });
+	 
 }); // fin de documento
 
 function enviaAlerta(){

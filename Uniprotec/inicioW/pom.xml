@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>1.5-vistaClientes</version>
+	<version>1.6-errorproceso</version>
 	<name>inicio</name>
 	<description>control-uniprotec</description>
 

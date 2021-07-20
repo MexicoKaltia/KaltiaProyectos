@@ -155,22 +155,20 @@ $(document).ready(function(){
 		      });
 			  $('#listCursoInstructor').multiSelect('select', $cursosAsignados);
 			  
-			  $('#Fechas').empty();
+			  $('#fechas').empty();
 			  $('#listaFechas').empty();
 				if(row.listFechas ){
-//					$('#Fechas').empty();
 					$('#listFechasAct').remove();
-//					$('#listaFechas').empty();
 					var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'>Fechas de Ausencia Actuales:<ul id='listaFechasAct'></ul></div>";
 					$(fechas).insertAfter($('#fechas'));
 					$(stringToList(row.listFechas)).each(function(index, element){
-						var elementDate = new Date(element);
+					  var elementDate = new Date(element);
 					  $('#listaFechasAct').append("<li>Ausencia Fecha : <b>"+ transformaDia(elementDate) +"</b></li>");
 				    });
 					$('#listFechas').val(row.listFechas);
 				}
 				
-				$('#statusInstructor').val("Actualizado");
+			  $('#statusInstructor').val("Actualizado");
 		      $('#notaInstructor').val(row.notaInstructor);
 		      $('#statusInstructorbtn').html(row.statusInstructor);
 		      
