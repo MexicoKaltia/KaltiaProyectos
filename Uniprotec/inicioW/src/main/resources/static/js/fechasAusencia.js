@@ -18,10 +18,9 @@ function fechasAusencia() {
 	} else {
 		$('#btnFechasAusencia').attr("disabled", false);
 		var strList = $('#listFechas').val().toString();
-		console.log(strList);
+		
 		if(isEmpty(strList) ){
-			console.log("historico de Lista de Fechas");
-			arrayFechas = stringToList($('#listFechas').val().toString());
+			arrayFechas = stringToList(strList);
 		}
 	}
 }
@@ -48,7 +47,7 @@ function sumaFechas() {
 	
 	if(inicioAusenciaMasUno.toString() === finAusenciaDate.toString()){
 		ausencia = transformaDia(inicioAusenciaMasUno);
-		$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
+		$('#listaFechas').append("<li>Ausencia Fecha : style='font-family: Lucida Console, monospace; '><b>"+ ausencia +"</b>"+ sumaEspacio(ausencia.toString())+"</span><a onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'>Eliminar</a></li>");
 		arrayFechas.push(inicioAusenciaMasUno.toString());
 		arrayFechas2.push(ausencia);
 	}else{
@@ -58,23 +57,25 @@ function sumaFechas() {
 		}else{
 			if(i===0){
 				ausencia = transformaDia(inicioAusenciaMasUno);
-				$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
-				arrayFechas.push(inicioAusenciaMasUno.toString());
-				arrayFechas2.push(ausencia);
 			}else{
 				inicioAusenciaMasUno = sumarDias(inicioAusenciaMasUno, 1);
-				ausencia = transformaDia(inicioAusenciaMasUno);
-				$('#listaFechas').append("<li>Ausencia Fecha : <b>"+ ausencia +"</b></li>");
-				arrayFechas.push(inicioAusenciaMasUno.toString());
-				arrayFechas2.push(ausencia);
+				ausencia = transformaDia(inicioAusenciaMasUno);				
 			  }
+			arrayFechas.push(inicioAusenciaMasUno.toString());
+			arrayFechas2.push(ausencia);
+			var espacio = sumaEspacio(ausencia.toString());
+			$('#listaFechas').append("<li id='li"+i+"'>Ausencia Fecha : <span style='font-family: Lucida Console, monospace; '><b> "+ ausencia.toString() +".</b>"+espacio.toString()+"</span><a id='"+inicioAusenciaMasUno+"' idCount='"+i+"'  onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'> Eliminar</a></li>");
 			}
 		}
 	}
-	//	console.log(arrayFechas);
+		console.log(arrayFechas);
 	//	console.log(arrayFechas2);
-		agregaFechas(arrayFechas);
-	}
+//		agregaFechas(arrayFechas);
+		$.listFechas = arrayFechas;
+	$('#listFechas').val($.listFechas);
+}
+
+
 function agregaFechas(arrayFechas){
 	$('#listFechas').val(arrayFechas);
 	console.log(arrayFechas)
@@ -83,13 +84,18 @@ function agregaFechas(arrayFechas){
 
 
 function transformaDia(fechaSelect){
-	dia = fechaSelect.getDate();
-	mes = fechaSelect.getMonth() + 1;
-	anio = fechaSelect.getFullYear();
-	sem = getDia(fechaSelect.getDay());
-	
-	return (sem + ", " + dia + "/"+ mes + "/" + anio);
+	if(validaHoy(fechaSelect)){
+		dia = fechaSelect.getDate();
+		mes = fechaSelect.getMonth() + 1;
+		anio = fechaSelect.getFullYear();
+		sem = getDia(fechaSelect.getDay());
+		
+		return (sem + ", " + dia + "/"+ mes + "/" + anio);
+	}else{
+		return "";
+	}
 }
+
 function getDia(dia){
 	var semana= ["Domingo", "Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
 	return semana[dia];
@@ -106,3 +112,45 @@ function stringToList(cadena){
 	return cadena.split(";");
 }
 
+function eliminarFecha(ele){
+	 var id = $(ele).attr('id');
+	 var idCount = $(ele).attr('idCount');
+	 var newArray = new Array();
+//	 console.log(idCount);
+//	 console.log(id);
+	    $('#li'+idCount).remove();
+	    for(i in $.listFechas){
+	    	var fecha = $.listFechas[i];
+	    	if(fecha.toString() !== id.toString()){
+	    		newArray.push(fecha);
+	    	}
+	    }
+	    $.listFechas = newArray; 
+//	    console.log($.listFechas);
+	    $('#listFechas').val($.listFechas);
+}
+
+function sumaEspacio(str){
+	var largo = str.length;
+	var dif = 21 - largo;
+	var espacio = "";
+	for(i=0;i<dif;i++){
+		espacio = espacio + "_";
+	}
+	return espacio;
+}
+
+function validaHoy(fechaAsignacion){
+	var hoy = new Date();
+	var asignacion = new Date(fechaAsignacion)
+	if(asignacion > hoy){
+//		console.log(asignacion)
+		return true;
+	}else
+		return false;
+}
+
+function orderFecha(array){
+	var arrayOrdenada = new Array();
+    arrayOrdenada = array.sort(function(a, b){return new Date(a) - new Date(b)});
+}

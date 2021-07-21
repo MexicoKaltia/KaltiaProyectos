@@ -37,7 +37,7 @@ $(document).ready(function(){
 	
 	$.statusInstructor="";
 	$.statusCurso="";
-	$.listFechas="";
+	$.listFechas= new Array();
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
@@ -121,7 +121,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateInstructor = {
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' +JSON.stringify(row));
-		    	console.log(row);
+//		    	console.log(row);
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
 		      $('#regionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
@@ -161,11 +161,22 @@ $(document).ready(function(){
 					$('#listFechasAct').remove();
 					var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'>Fechas de Ausencia Actuales:<ul id='listaFechasAct'></ul></div>";
 					$(fechas).insertAfter($('#fechas'));
-					$(stringToList(row.listFechas)).each(function(index, element){
+					var arreglo = stringToList(row.listFechas);
+					var arregloOrdenado = new Array();
+					arregloOrdenado = arreglo.sort(function(a, b){return new Date(a) - new Date(b)});//orderFecha(arreglo);
+    				  var a = 0;
+					$(arregloOrdenado).each(function(index, element){
 					  var elementDate = new Date(element);
-					  $('#listaFechasAct').append("<li>Ausencia Fecha : <b>"+ transformaDia(elementDate) +"</b></li>");
+					  var ausencia = transformaDia(elementDate);
+					  if(ausencia.toString() !== ""){
+						  var espacio = sumaEspacio(ausencia.toString());
+						  $('#listaFechasAct').append("<li id='li"+a+"'>Ausencia Fecha : <span style='font-family: Lucida Console, monospace; '><b> "+ ausencia.toString() +".</b>"+espacio.toString()+"</span><a id='"+element+"' idCount='"+a+"'  onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'> Eliminar</a></li>");
+						  a++;
+						  $.listFechas.push(element);
+					  }
 				    });
-					$('#listFechas').val(row.listFechas);
+//					$('#listFechas').val(row.listFechas);
+					$('#listFechas').val($.listFechas);
 				}
 				
 			  $('#statusInstructor').val("Actualizado");
