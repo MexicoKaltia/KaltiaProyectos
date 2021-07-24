@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC V 1.4</title>
+    <title>UNIPROTEC v 1.7</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" th:href="@{images/logo.png}"/>
@@ -331,7 +331,7 @@
                                       <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Reglas de Acceso</label>
-                                            <input type="text" class="form-control" th:field="*{reglasAccesoCliente}" id="reglasAccesoCliente" placeholder="Capture Reglas de Acceso" value="" maxlength="300" required>
+                                            <input type="text" class="form-control" th:field="*{reglasAccesoCliente}" id="reglasAccesoCliente" placeholder="Capture Reglas de Acceso" value="" maxlength="3000" required>
                                             <div class="invalid-feedback">
                                                 Capturar Reglas de Acceso
                                             </div>
@@ -340,7 +340,7 @@
                                      <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Documentos de Acceso</label>
-                                            <input type="text" class="form-control" th:field="*{documentosAccesoCliente}" id="documentosAccesoCliente" placeholder="Capture Documentos de Acceso" value="" maxlength="300" required>
+                                            <input type="text" class="form-control" th:field="*{documentosAccesoCliente}" id="documentosAccesoCliente" placeholder="Capture Documentos de Acceso" value="" maxlength="3000" required>
                                             <div class="invalid-feedback">
                                                 Capture Documentos de Acceso
                                             </div>
@@ -349,7 +349,7 @@
                                        <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom02">Material Didactico</label>
-                                            <input type="text" class="form-control" th:field="*{materialDidacticoCliente}" id="materialDidacticoCliente" placeholder="Capture Material Didactico" value="" maxlength="300" required>
+                                            <input type="text" class="form-control" th:field="*{materialDidacticoCliente}" id="materialDidacticoCliente" placeholder="Capture Material Didactico" value="" maxlength="3000" required>
                                             <div class="invalid-feedback">
                                                 Capturar Material Didactico
                                             </div>
@@ -404,15 +404,9 @@
             							</div>
                                      </div>
                                      <div class="form-row">      
-                                     <input type="hidden" id="pautaEntregableCliente" th:field="*{pautaEntregableCliente}" />                              	
-<!--                                             <label for="validationCustom02">Pauta Operativa</label> -->
-<!--                                              <textarea class="form-control" th:field="*{pautaOperativaCliente}" id="pautaOperativaCliente" rows="5" cols="150" required></textarea> -->
-<!--                                             <div class="invalid-feedback"> -->
-<!--                                                 Capturar Pauta Operativa -->
-<!--                                             </div> -->
+                                    	<input type="hidden" id="pautaEntregableCliente" th:field="*{pautaEntregableCliente}" />                              	
 
 							            <div class="form-group purple-border col-md-12">
-							               
 							
 							                <div class="input-group mb-2 input-group-lg">
 							                    <input type="text" class="form-control" id="txtPrimerNivel1" placeholder="Primer Nivel">
@@ -516,7 +510,7 @@
                                 <script>
                                 
                                 function showMyImage(fileInput) {
-                                	console.log(fileInput);
+                                	//console.log(fileInput);
                         	        var files = fileInput.files;
                         	        for (var i = 0; i < files.length; i++) {           
                         	            var file = files[i];
@@ -572,9 +566,9 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>v 1.4</small>
+                                                                    <small>v 1.7</small>
                                                                 </div>
-                                                                Derechos Reservados © Uniprotec 2020
+                                                                Derechos Reservados © Uniprotec 2021
                                                             </a>
                                                         </li>
                                                     </ul>

@@ -43,6 +43,7 @@ public class AsignacionModelo implements Serializable{
 	private String archivoParticipantes;
 	private String archivoParticipantesTexto;
 	private String costoHotel;
+	private String errorProceso;
 	
 	
 	
@@ -269,13 +270,20 @@ public class AsignacionModelo implements Serializable{
 				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
 				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
 				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", archivoParticipantes="
-				+ archivoParticipantes + ", archivoParticipantesTexto=" + archivoParticipantesTexto + "]";
+				+ archivoParticipantes + ", archivoParticipantesTexto=" + archivoParticipantesTexto + ", costoHotel="
+				+ costoHotel + ", errorProceso=" + errorProceso + "]";
 	}
 	public String getCostoHotel() {
 		return costoHotel;
 	}
 	public void setCostoHotel(String costoHotel) {
 		this.costoHotel = costoHotel;
+	}
+	public String getErrorProceso() {
+		return errorProceso;
+	}
+	public void setErrorProceso(String errorProceso) {
+		this.errorProceso = errorProceso;
 	}
 	
 	

@@ -9,7 +9,7 @@ var arrayFechas = new Array();
 function fechasAusencia() {
 	
 	var inicioAusencia = elementoPicker.get('select', 'mm/dd/yyyy');
-	//		  console.log(inicioAusencia);
+	//		  //console.log(inicioAusencia);
 	elementoPicker2.set('select', new Date(inicioAusencia));
 	elementoPicker2.set('min', new Date(inicioAusencia));
 
@@ -38,9 +38,9 @@ function sumaFechas() {
 	var sem, dia, mes , anio, ausencia;
 	var arrayFechas2 = new Array();
 
-//	console.log(inicioAusenciaMasUno);
-//	console.log(finAusenciaDate);
-//	console.log("______________________________");
+//	//console.log(inicioAusenciaMasUno);
+//	//console.log(finAusenciaDate);
+//	//console.log("______________________________");
 //	$('#listFechasAct').remove();
 //	$('#listaFechas').empty();
 	$(fechas).insertAfter($('#fechas'));
@@ -68,8 +68,8 @@ function sumaFechas() {
 			}
 		}
 	}
-		console.log(arrayFechas);
-	//	console.log(arrayFechas2);
+		//console.log(arrayFechas);
+	//	//console.log(arrayFechas2);
 //		agregaFechas(arrayFechas);
 		$.listFechas = arrayFechas;
 	$('#listFechas').val($.listFechas);
@@ -78,7 +78,7 @@ function sumaFechas() {
 
 function agregaFechas(arrayFechas){
 	$('#listFechas').val(arrayFechas);
-	console.log(arrayFechas)
+	//console.log(arrayFechas)
 	return arrayFechas;
 }
 
@@ -104,7 +104,7 @@ function getDia(dia){
 
 function sumarDias(fecha, dias){
 	  fecha.setDate(fecha.getDate() + dias);
-//	  console.log(fecha);
+//	  //console.log(fecha);
 	  return fecha;
 	}
 
@@ -116,8 +116,8 @@ function eliminarFecha(ele){
 	 var id = $(ele).attr('id');
 	 var idCount = $(ele).attr('idCount');
 	 var newArray = new Array();
-//	 console.log(idCount);
-//	 console.log(id);
+//	 //console.log(idCount);
+//	 //console.log(id);
 	    $('#li'+idCount).remove();
 	    for(i in $.listFechas){
 	    	var fecha = $.listFechas[i];
@@ -126,7 +126,7 @@ function eliminarFecha(ele){
 	    	}
 	    }
 	    $.listFechas = newArray; 
-//	    console.log($.listFechas);
+//	    //console.log($.listFechas);
 	    $('#listFechas').val($.listFechas);
 }
 
@@ -144,7 +144,7 @@ function validaHoy(fechaAsignacion){
 	var hoy = new Date();
 	var asignacion = new Date(fechaAsignacion)
 	if(asignacion > hoy){
-//		console.log(asignacion)
+//		//console.log(asignacion)
 		return true;
 	}else
 		return false;

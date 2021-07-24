@@ -40,7 +40,7 @@ $(document).ready(function() {
 				asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
 				asignaStatus = asignacion.statusAsignacion;
 				asignaArchivoParticipantes = asignacion.archivoParticipantes;
-				console.log(asignacion);	
+				//console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
 			}
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function asignaCamposSubmit(asignacionSub){
-//		console.log(asignacionSub)
+//		//console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
 		$('#idClienteAsignacion').val(asignacionSub.idClienteAsignacion);
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var today = anio + '-' + mes + '-' + dia;
-//		console.log(today);
+//		//console.log(today);
 		return today;
 	}
 
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var fecha = anio + '-' + mes + '-' + dia+ 'T';
-//		console.log(fecha);
+//		//console.log(fecha);
 		return fecha;
 	}
 	
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[0].slice(0, 2);
 		parse = parse + ":00:00";// + horario[0].slice(2, 2) + ":00" ;
-//		console.log(parse);
+//		//console.log(parse);
 		return parse;
 	}
 	
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[1].slice(0, 2);
 		parse = parse + ":00:00";// + horario[1].slice(2, 2) + ":00" ;
-//		console.log(parse);
+//		//console.log(parse);
 		return parse;
 	}
 	
@@ -327,7 +327,7 @@ case 1:
 		var hoy = new Date();
 		var asignacion = new Date(fechaAsignacion)
 		if(asignacion < hoy){
-//			console.log(asignacion)
+//			//console.log(asignacion)
 			return true;
 		}else
 			return false;

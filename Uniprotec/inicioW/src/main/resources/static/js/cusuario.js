@@ -28,7 +28,7 @@ $('#submitPass').click(function(){
 		$('#perfilUsuario').attr("disabled", false);
 		return true;
 	}else{
-		console.log("no coinciden");
+		//console.log("no coinciden");
 		$('#alertPass').append("<div class='alert alert-danger'  role='alert'>Confirmar Password  no coincide con Password Nuevo</div>");
 		$('#passAnterior').val("");
 		$('#passNuevo').val("");

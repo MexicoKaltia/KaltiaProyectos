@@ -88,18 +88,25 @@ public class Asignacion implements Serializable{
 	private String archivoParticipantes;
 	@Column
 	private String costoHotel;
+	@Column
+	private String errorProceso;
 
 	@Override
 	public String toString() {
-		return "Asignacion [idAsignacion=" + idAsignacion + ", fechaAsignacion=" + fechaAsignacion
-				+ ", idClienteAsignacion=" + idClienteAsignacion + ", clienteAsignacion=" + clienteAsignacion
-				+ ", idCursoAsignacion=" + idCursoAsignacion + ", cursoAsignacion=" + cursoAsignacion
-				+ ", idInstructorAsignacion=" + idInstructorAsignacion + ", instructorAsignacion="
-				+ instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion + ", participantesAsignacion="
-				+ participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion + ", archivosAsignacion="
-				+ archivosAsignacion + ", observacionesAsignacion=" + observacionesAsignacion + ", createAtAsignacion="
-				+ createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion="
-				+ statusAsignacion + "]";
+		return "Asignacion [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
+				+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
+				+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
+				+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
+				+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
+				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
+				+ ", archivosAsignacion=" + archivosAsignacion + ", observacionesAsignacion=" + observacionesAsignacion
+				+ ", idRegionAsignacion=" + idRegionAsignacion + ", nombreRegionAsignacion=" + nombreRegionAsignacion
+				+ ", tipoCursoAsignacion=" + tipoCursoAsignacion + ", createAtAsignacion=" + createAtAsignacion
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
+				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", verificarEntregable="
+				+ verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago=" + fechaPago
+				+ ", numeroFactura=" + numeroFactura + ", archivoParticipantes=" + archivoParticipantes
+				+ ", costoHotel=" + costoHotel + ", errorProceso=" + errorProceso + "]";
 	}
 
 	public Asignacion(Long idAsignacion, String fechaAsignacion, Long idClienteAsignacion,
@@ -341,6 +348,14 @@ public class Asignacion implements Serializable{
 
 	public void setCostoHotel(String costoHotel) {
 		this.costoHotel = costoHotel;
+	}
+
+	public String getErrorProceso() {
+		return errorProceso;
+	}
+
+	public void setErrorProceso(String errorProceso) {
+		this.errorProceso = errorProceso;
 	}
 	
 	

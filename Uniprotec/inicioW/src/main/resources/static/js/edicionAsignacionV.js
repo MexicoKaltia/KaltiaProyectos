@@ -2,7 +2,7 @@
    	
 $(document).ready(function(){
 	
-	console.log(asignacionItem);
+	//console.log(asignacionItem);
 
 	 $.asignaFecha = ordenaFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
@@ -161,9 +161,9 @@ $(document).ready(function(){
    	function validaArchivos(archivosCampo){
    	  
    		if($('#archivoParticipantes').val() === null || $('#archivoParticipantes').val() === ""){
-			console.log($('#archivoParticipantes').val());
+			//console.log($('#archivoParticipantes').val());
 		}else{
-//			console.log($('#archivoParticipantes').val());
+//			//console.log($('#archivoParticipantes').val());
 			$.asignaArchivoParticipantes = $('#archivoParticipantes').val();
 			var asignaArchivoParticipantes = $.asignaArchivoParticipantes;
 			while(asignaArchivoParticipantes.includes("C:\\fakepath\\") ){
@@ -175,7 +175,7 @@ $(document).ready(function(){
 	        var files = archivosCampo.files;
 	        for (var i = 0; i < files.length; i++) {           
 	            var file = files[i];
-//	            console.log(file);          
+//	            //console.log(file);          
 	            }
 		}
     }
@@ -184,11 +184,11 @@ $(document).ready(function(){
   	function enviaFile(rfcCliente){
 		limpiaAlerta(),
 
-		console.log("envio idAsignacion:"+rfcCliente);
+		//console.log("envio idAsignacion:"+rfcCliente);
 		var alerta="";
 		 var form = $('#actualizaAsignacion')[0]; //$('#formImagenLogoCliente').attr('files'),
         var data = new FormData(form);
-        console.log(data);
+        //console.log(data);
 		  $.ajax({
 			url: "fileAsignacionV/"+rfcCliente,
 		    type: "POST",
@@ -203,18 +203,18 @@ $(document).ready(function(){
 		  			  alerta="<div class='alert alert-success alert-dismissible fade show' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>Éxito carga</div>";
 		  			  $(alerta).insertAfter($('.alertaFile'));
 		  			  asignaCamposSubmit();
-		  			  console.log("envio ok");
+		  			  //console.log("envio ok");
 		  	    	}else{
 		  	    		alerta="<div class='alert alert-warning alert-dismissible fade show' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>archivo : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
 		  				  $(alerta).insertAfter($('.alertaFile'));
-		  	    		console.log("envio Nok");
+		  	    		//console.log("envio Nok");
 		  	    	}
 		    	  } 
 		    	},
 		    error: function () {
 		    	alerta="<div class='alert alert-danger alert-dismissible fade show' role='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button>Error en carga de Archivo</div>";
 				  $(alerta).insertAfter($('.alertaFile'));
-		  	console.log("envio error");
+		  	//console.log("envio error");
 		    }
 		  });
 

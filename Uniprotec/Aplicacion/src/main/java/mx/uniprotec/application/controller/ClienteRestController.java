@@ -79,6 +79,7 @@ public class ClienteRestController {
 	  */
 	@GetMapping("/clientes")
 	public ResponseEntity<?> index() {
+		log.info("clientes");
 		List<Cliente> clientes = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -87,15 +88,15 @@ public class ClienteRestController {
 			 response.put("mensaje", "Exito en la busqueda de clientes");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("clientes fin");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("clientes fin");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-//		return UtilController.responseGeneric(clienteService.findAll(), "clientes", HttpStatus.ACCEPTED);
-		
 	}
 	
 	
@@ -114,7 +115,7 @@ public class ClienteRestController {
 	  */
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		
+		log.info("cliente_"+id);		
 		Map<String, Object> response = new HashMap<>();
 		Cliente cliente = null;
 		try {
@@ -125,17 +126,20 @@ public class ClienteRestController {
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				 response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 log.info("cliente_fin "+id);
 				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
    			response.put("clientes", cliente);
 			 response.put("mensaje", "Exito en la busqueda de cliente");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("cliente_fin "+id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("cliente_fin "+id);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -150,7 +154,7 @@ public class ClienteRestController {
 	@PostMapping("/cliente")
 	public ResponseEntity<?> create(@Valid @RequestBody ClienteModelo cliente, BindingResult result) {
 		
-		log.info("PostCliente:"+cliente.getNombreCortoCliente());
+		log.info("cliente create:"+cliente.getNombreCortoCliente());
 		
 		HttpStatus status ;
 		
@@ -206,12 +210,14 @@ public class ClienteRestController {
 			response.put("mensaje", "El Cliente ha sido creado con éxito!");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("cliente create fin:"+cliente.getNombreCortoCliente());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 			
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			log.info(response.get("error").toString());
+			log.info("cliente create fin:"+cliente.getNombreCortoCliente());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -225,7 +231,7 @@ public class ClienteRestController {
 	 */
 	@PutMapping("/cliente/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody ClienteModelo cliente, BindingResult result, @PathVariable Long id) {
-
+		log.info("cliente update :"+cliente.getNombreCortoCliente());
 		HttpStatus status ;
 		Cliente clienteActual = clienteService.findById(id);
 		Cliente clienteUpdated = new Cliente();
@@ -243,6 +249,7 @@ public class ClienteRestController {
 			response.put("mensaje", errors);
 			 response.put("status", HttpStatus.BAD_REQUEST);
 			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("cliente update fin:"+cliente.getNombreCortoCliente());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 			
 		}
@@ -252,6 +259,7 @@ public class ClienteRestController {
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			 response.put("status", HttpStatus.NOT_FOUND);
 			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 log.info("cliente update fin:"+cliente.getNombreCortoCliente());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
@@ -297,11 +305,13 @@ public class ClienteRestController {
 			response.put("mensaje", "El cliente ha sido creado con éxito!");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("cliente update fin:"+cliente.getNombreCortoCliente());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 			
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			log.info("cliente update fin:"+cliente.getNombreCortoCliente());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -312,7 +322,7 @@ public class ClienteRestController {
 	 */
 	@DeleteMapping("/cliente/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
+		log.info("cliente delete :"+id);
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
@@ -335,6 +345,7 @@ public class ClienteRestController {
 		
 //		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		status =  HttpStatus.OK;
+		log.info("cliente delete fin:"+id);
 		return UtilController.responseGeneric(cliente, "cliente", status);
 	}
 		

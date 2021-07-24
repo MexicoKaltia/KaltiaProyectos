@@ -49,7 +49,7 @@ $(document).ready(function(){
 	$.statusCurso="";
 	$.listFechas="";
 	
-	console.log(perfilUsuario + ":1");
+	//console.log(perfilUsuario + ":1");
 	arrayClientesInstructor = new Array();
 	if(perfilUsuario === "Instructor"){
 		var idInstructor = operacionId;
@@ -61,7 +61,7 @@ $(document).ready(function(){
 	    		}
     		}
 		}
-//		console.log(arrayClientesInstructor);
+//		//console.log(arrayClientesInstructor);
 		var arrayClientes = new Array();
 		for(e in $data){
 			var cliente = $data[e];
@@ -81,7 +81,7 @@ $(document).ready(function(){
 		}
 		$data.length = 0;
 		$data = clientes;
-//		console.log($data);
+//		//console.log($data);
 	}else if(perfilUsuario === "Vendedor"){
 		var arrayClientes = new Array();
 		var idVendedor = operacionId;
@@ -97,8 +97,8 @@ $(document).ready(function(){
 	
 	window.operateEventsExpediente = {
 		    'click .like': function (e, value, row, index) {
-//		    	console.log(row);
-//		    	console.log(row.nombreCortoCliente);
+//		    	//console.log(row);
+//		    	//console.log(row.nombreCortoCliente);
 		    	while(row.pautaEntregableCliente.includes('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>') ){
 		    		row.pautaEntregableCliente = row.pautaEntregableCliente.replace('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>', '')	
 		    	}
@@ -107,7 +107,7 @@ $(document).ready(function(){
 		    		row.pautaOperativaCliente = row.pautaOperativaCliente.replace('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>', '')	
 		    	}
 		    	
-//		    	console.log(row);
+//		    	//console.log(row);
 		    	$('#nombreCortoCliente').html('<b>'+row.nombreCortoCliente+'</b>');
 		    	$('#regionCliente').html('<b>'+row.regionCliente.nombreRegion+'</b>');
 		    	$('#nombreCompletoCliente').html('<b>'+row.nombreCompletoCliente+'</b>');
@@ -143,7 +143,7 @@ $(document).ready(function(){
 //	for(var a in asignaciones){
 //		asignacion = asignaciones[a];
 //		for(var i in asignacion){
-////    			console.log(asignacion[i].idAsignacion);
+////    			//console.log(asignacion[i].idAsignacion);
 ////    			asignacion[i] = JSON.stringify(asignacion[i]);
 ////    			asignacion[i] = JSON.parse(asignacion[i]);
 //    			$.asignacionesArray.push(asignacion[i]);
@@ -153,7 +153,7 @@ $(document).ready(function(){
 	window.operateEventsAsignaciones = {
 		    'click .like': function (e, value, row, index) {
 		    	var idCliente = row.idCliente;
-//		    	console.log("A:"+idCliente);
+//		    	//console.log("A:"+idCliente);
 		    	$('#regsitroAsignacion').empty();
 		    	for(var a in asignaciones){
 		    		asignacion = asignaciones[a];
@@ -172,7 +172,7 @@ $(document).ready(function(){
 							    			"</td><td><a class='like' id='"+asignacion[i].idAsignacion+"' href='javascript:function(0)' onclick='expedienteAsignacion("+asignacion[i].idAsignacion+")' title='Consultar'  data-toggle='modal' data-target='#modalAsignacion'><i class='fa fa-2x fa-indent'></i></a></td></tr>";
 			    			
 			    			$('#regsitroAsignacion').append(registro);
-//			    			console.log(asignacion[i]);
+//			    			//console.log(asignacion[i]);
 			    			var clienteAsignacion = asignacion[i].clienteAsignacion;
 			    		}
 		    		}
@@ -193,15 +193,15 @@ $(document).ready(function(){
 	        field: 'idCliente',
 	        values: [row.idCliente]
 	      });
-	      console.log(row);
+	      //console.log(row);
 	      deleteUserEmpresa(row.idUserEmpresa);
 	    }
 	  }
 	
 	$('#clientesTable').bootstrapTable({data : $data})
 //	$('#asignacionesTable').bootstrapTable({data : $.asignacionesArray})
-//	console.log(typeof $data);
-//	console.log(typeof $asignaciones);
+//	//console.log(typeof $data);
+//	//console.log(typeof $asignaciones);
 	
 /*
  * 
@@ -242,7 +242,7 @@ function getDia(dia){
 }
 
 function expedienteAsignacion(idAsignacion) {
-//	console.log(idAsignacion);
+//	//console.log(idAsignacion);
 	for(i in $.asignacionesArray){
 		var asignacion = $.asignacionesArray[i];
 		if((idAsignacion*1) === (asignacion.idAsignacion*1)){

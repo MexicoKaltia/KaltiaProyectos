@@ -122,7 +122,7 @@ $(document).ready(function(){
 		if($.asignaNivel === "" || $.asignaNivel === null){
 			alertaEmpty = alertaEmpty + "<li>Campo: <b> Nivel Inválido </b></li>";
 		}else{
-//			console.log($.asignaNivel)
+//			//console.log($.asignaNivel)
 			$('#modalNivel').html('<b>'+$.asignaNivel+'</b>'); 
 		}
 		
@@ -137,7 +137,7 @@ $(document).ready(function(){
 		asignaCamposSubmit();
 		
 		if(alertaEmpty === "" || alertaEmpty === null){
-//			console.log("Avanza al modal");
+//			//console.log("Avanza al modal");
 			$("#procesoVacio").remove();
 			return true;
 		}else{
@@ -151,7 +151,7 @@ $(document).ready(function(){
 	})
 
 	var clientesVendedor = new Array();
-//	console.log(idVendedor+":"+perfilVendedor+":"+operacionId);
+//	//console.log(idVendedor+":"+perfilVendedor+":"+operacionId);
 	if(perfilUsuario ==="Vendedor"){
 		$('#asignaCliente').empty();
 		clientesVendedor = vendedorCliente(operacionId);
@@ -253,9 +253,9 @@ var alerta, proceso;
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
-   	    console.log($.asignaFecha);
+   	    //console.log($.asignaFecha);
    	    $.asignaFechaCalendario = $('#asignaFecha').val();
-		console.log("asignaFecha:"+ $.asignaFechaCalendario);
+		//console.log("asignaFecha:"+ $.asignaFechaCalendario);
 		
 		limpiaCurso();
 		
@@ -277,7 +277,7 @@ var alerta, proceso;
 		
 		$.asignaCliente = $('#asignaCliente').val()
 		$.asignaClienteTexto = $("#asignaCliente option:selected").text();
-//		console.log("asignaCliente:"+ $.asignaCliente);
+//		//console.log("asignaCliente:"+ $.asignaCliente);
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		
@@ -295,12 +295,12 @@ var alerta, proceso;
 	}
 	
 	function vendedorCliente(idV){
-//		console.log("idVendedorFirmado:"+idV);
+//		//console.log("idVendedorFirmado:"+idV);
 		var idVendedorCliente;
 		var clientes= new Array();
 		for(i in asignacionClientes){
 			idVendedorCliente = asignacionClientes[i].vendedorCliente.idVendedor;
-//			console.log(idVendedorCliente+":"+asignacionClientes[i].nombreCortoCliente);
+//			//console.log(idVendedorCliente+":"+asignacionClientes[i].nombreCortoCliente);
 			if((idVendedorCliente *1) === (idV*1))
 				clientes.push(asignacionClientes[i]);
 		}
@@ -317,7 +317,7 @@ var alerta, proceso;
 		
 		var idCliente
 		for(i in asignacionClientes){
-//			console.log(asignacionClientes[i]);
+//			//console.log(asignacionClientes[i]);
 			idCliente = (asignacionClientes[i].idCliente * 1);
 			if(idCliente === cliente){
 				idRegion = (asignacionClientes[i].regionCliente.idRegion *1 );
@@ -325,7 +325,7 @@ var alerta, proceso;
 			}
 		}
 			
-//		console.log(idRegion+":"+nombreRegion);
+//		//console.log(idRegion+":"+nombreRegion);
 		
 		switch (idRegion){
 		case 1:
@@ -415,7 +415,7 @@ var alerta, proceso;
 		 instructoresDiaAyer.length = 0;
 		 instructoresDiaMan.length = 0;
 		$.asignaCurso = $('#asignaCurso').val();
-		console.log("asignaCurso:"+ $.asignaCurso);
+		//console.log("asignaCurso:"+ $.asignaCurso);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -434,7 +434,7 @@ var alerta, proceso;
 		 
 		 for(a in asignacionAsignacionesTotal){
 			 asignacion = asignacionAsignacionesTotal[a];
-//			 console.log(asignacion);
+//			 //console.log(asignacion);
 			 if(asignacion.statusAsignacion !== "Evento Cancelado"){
 				 asignacionAsignaciones.push(asignacion);
 			 }
@@ -461,13 +461,13 @@ var alerta, proceso;
 						}
 					}
 				}
-			console.log(arrayInstructores);
+			//console.log(arrayInstructores);
 		}else{
 			/*
 			 * Filtra Instructores por Curso
 			 */
 			var valorCurso = $.asignaCurso * 1;
-//			console.log(asignacionCurso);
+//			//console.log(asignacionCurso);
 //			for(a in asignacionCurso){
 //				curso = asignacionCurso[a];
 //				if($.asignaCurso.toString() === curso.idCurso.toString()){
@@ -475,7 +475,7 @@ var alerta, proceso;
 ////					for(e in curso.instructores){
 ////						for(i in asignacionInstructores){
 ////							if(curso.instructores[e].idInstructor === asignacionInstructores[i].idInstructor){
-////								console.log(asignacionInstructores[i]);
+////								//console.log(asignacionInstructores[i]);
 ////								arrayInstructores.push(asignacionInstructores[i]);
 ////							}
 ////						}
@@ -493,7 +493,7 @@ var alerta, proceso;
 					}
 				}
 			}
-			console.log(arrayInstructores);
+			//console.log(arrayInstructores);
 			/*
 			 * Valida dias de Ausencia
 			 */
@@ -506,8 +506,8 @@ var alerta, proceso;
 				}
 			}
 			arrayInstructores = instructoresDiaAusencia ;
-			console.log(instructoresDiaAusencia);
-//			console.log(arrayInstructores);
+			//console.log(instructoresDiaAusencia);
+//			//console.log(arrayInstructores);
 			
 			var regionInstructor;
 			var regionCliente;
@@ -532,7 +532,7 @@ var alerta, proceso;
 						}
 					}
 					regionCliente = jsonCliente.regionCliente.idRegion;
-					console.log(jsonCliente);
+					//console.log(jsonCliente);
 				}
 
 				/*
@@ -550,7 +550,7 @@ var alerta, proceso;
 						instructoresDiaSelect.push(instructor);
 					}
 				}
-					 console.log(instructoresDiaSelect);
+					 //console.log(instructoresDiaSelect);
 				/*
 				 * libre ayer
 				 */
@@ -571,7 +571,7 @@ var alerta, proceso;
 						}
 					}
 				}
-				console.log(instructoresDiaAyer);
+				//console.log(instructoresDiaAyer);
 				/*
 				 * libre mañana 
 				 */
@@ -591,7 +591,7 @@ var alerta, proceso;
 						}
 					}
 				}
-				console.log(instructoresDiaMan);
+				//console.log(instructoresDiaMan);
 				for(ai in instructoresDiaMan){
 					instructor = instructoresDiaMan[ai];
 					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
@@ -645,16 +645,16 @@ var alerta, proceso;
 		var fechaAusente;
 		var fechaSelect = new Date($.asignaFecha2);
 		var fechasAusente = new Array();
-//		console.log(instructor);
+//		//console.log(instructor);
 		if(instructor.listFechas){
 			fechasAusente = instructor.listFechas.toString().split(";");
 //			fechasAusente = stringToList(instructor.listFechas);
-//			console.log(fechasAusente)
+//			//console.log(fechasAusente)
 			for(e in fechasAusente){
-//				console.log(fechasAusente[e]);
+//				//console.log(fechasAusente[e]);
 				fechaAusente = new Date(fechasAusente[e]);
-//				console.log(fechaAusente);
-//				console.log(fechaSelect);
+//				//console.log(fechaAusente);
+//				//console.log(fechaSelect);
 				if(fechaAusente.toString() === fechaSelect.toString()){
 					fechaDisponible = false;
 					break;
@@ -727,7 +727,7 @@ var alerta, proceso;
 			asignacion = asignacionAsignaciones[i];
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
-//			console.log(dManTexto+":"+asignacionFecha);
+//			//console.log(dManTexto+":"+asignacionFecha);
 			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
 				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
 					return true;
@@ -749,7 +749,7 @@ var alerta, proceso;
 			asigna = asignacion.fechaAsignacion.toString().split("/");
 			dia = asigna[1]+"/"+asigna[0]+"/"+asigna[2];
 			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
-				console.log(asignacion);
+				//console.log(asignacion);
 				fechaDisponible = false;
 				break;
 			}
@@ -775,16 +775,16 @@ var alerta, proceso;
 		if(mes<10)
 			mes = "0"+mes.toString();
 		var dmin1Texto = mes +"/"+ dia +"/"+ anio ;
-//		console.log(dmin1Texto);
-//		console.log(asignacionAsignaciones);
+//		//console.log(dmin1Texto);
+//		//console.log(asignacionAsignaciones);
 		for(i in asignacionAsignaciones){
 			asignacion = asignacionAsignaciones[i];
-//			console.log(asignacion.idAsignacion);
+//			//console.log(asignacion.idAsignacion);
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 			if(asignacionFecha === dmin1Texto && (asignacionInstructor === idInstructor)){
 				idRegionAsignado = getRegionAsignado(asignacion.idClienteAsignacion);
-//				console.log(idRegionAsignado);
+//				//console.log(idRegionAsignado);
 				return validaZonaBase(regionCliente, idRegionAsignado);
 			}
 		}
@@ -792,8 +792,8 @@ var alerta, proceso;
 	}
 	
 	function validaDmas1(regionCliente, idInstructor){
-//		console.log("regionCliente:"+regionCliente);
-//		console.log("idInstructor:"+idInstructor);
+//		//console.log("regionCliente:"+regionCliente);
+//		//console.log("idInstructor:"+idInstructor);
 //		var flagDiaAnterior;
 		var asignacion;
 		var asignacionFecha;
@@ -811,16 +811,16 @@ var alerta, proceso;
 		if(mes<10)
 			mes = "0"+mes.toString();
 		var dmas1Texto = mes +"/"+ dia +"/"+ anio ;
-//		console.log("dmas1Texto:"+dmas1Texto);
-//		console.log(asignacionAsignaciones);
+//		//console.log("dmas1Texto:"+dmas1Texto);
+//		//console.log(asignacionAsignaciones);
 		for(i in asignacionAsignaciones){
 			asignacion = asignacionAsignaciones[i];
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
-//			console.log(asignacionFecha);
+//			//console.log(asignacionFecha);
 			if((asignacionFecha === dmas1Texto) && (asignacionInstructor === idInstructor)){
 				idRegionAsignado = getRegionAsignado(asignacion.idClienteAsignacion);
-//				console.log(idRegionAsignado);
+//				//console.log(idRegionAsignado);
 				return validaZonaBase(regionCliente, idRegionAsignado);
 			}
 		}
@@ -829,8 +829,8 @@ var alerta, proceso;
 	
 	function validaZonaBase(regionCliente, regionInstructor){
 		var claveZB = regionCliente.toString() + regionInstructor.toString();
-//		console.log(claveZB);
-//		console.log(zonabase[claveZB]);
+//		//console.log(claveZB);
+//		//console.log(zonabase[claveZB]);
 		return zonabase[claveZB];
 	}
 	
@@ -860,7 +860,7 @@ var alerta, proceso;
 	function validaInstructor(){
 		
 		$.asignaInstructor = $('#asignaInstructor').val()
-//		console.log("asignaInstructor:"+ $.asignaInstructor);
+//		//console.log("asignaInstructor:"+ $.asignaInstructor);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -905,7 +905,7 @@ var alerta, proceso;
    			alerta="<div class='alert alert-danger' id='alertaHorarioInicio' role='alert'>Seleccione Horario</div>";
 			alertaFade(alerta);
 			$('#btnAsignaHorario').attr("disabled", true);
-			console.log("Horario INVALIDO");
+			//console.log("Horario INVALIDO");
    		}else{
    			reinicioHorario();
    			
@@ -935,7 +935,7 @@ var alerta, proceso;
 	   		}
    			$('#asignaHorarioFinal').attr("disabled", false);
 		}
-//		console.log("Horario Inicio:"+$.asignaHorarioInicio);
+//		//console.log("Horario Inicio:"+$.asignaHorarioInicio);
 	}
 	
 	
@@ -949,7 +949,7 @@ var alerta, proceso;
 			horasEfectivas(sumaHorasReceso());
 //			$.asignaHorarioInicioTexto = $("#asignaHorarioInicio option:selected").text();
 //			procesoHorarioInicio="<li>Prospecto HorarioInicio : <b>"+ $.asignaHorarioInicioTexto +"</b></li>";
-//			console.log("Horario Final:"+$.asignaHorarioFinal)
+//			//console.log("Horario Final:"+$.asignaHorarioFinal)
 		}else{
 			reinicioHorario()
 		}
@@ -1000,7 +1000,7 @@ var alerta, proceso;
 			}else{
 				for(var i = inicioEfe; i <((hrEf[0]*1)+ 0) ; i++){
 					o = i - 0.3;
-//					console.log(o);
+//					//console.log(o);
 					$("#horasEfectivas").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
 					$("#horasEfectivas").append('<option value="'+(i+1)+'30">'+(i+1)+':30</option>');
 				}
@@ -1009,7 +1009,7 @@ var alerta, proceso;
 	
 	$("#horasEfectivas").change(function(){
 		var horasE = $("#horasEfectivas").val(); 
-//		console.log(horasE);
+//		//console.log(horasE);
 		if( horasE > 0){
 			$('#confirmarHorario').attr('disabled', false);
 		}else{
@@ -1048,7 +1048,7 @@ var alerta, proceso;
 	function validaParticipantes(){
 		
 		$.asignaParticipantes = $('#asignaParticipantes').val();
-//		console.log("asignaParticipantes:"+ $.asignaParticipantes);
+//		//console.log("asignaParticipantes:"+ $.asignaParticipantes);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -1069,7 +1069,7 @@ var alerta, proceso;
 	}
 	function validaNivel(){
 		$.asignaNivel = $('#asignaNivel').val();
-//		console.log("asignaNivel:"+ $.asignaNivel);
+//		//console.log("asignaNivel:"+ $.asignaNivel);
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		$('#alertaCurso').remove();
@@ -1156,7 +1156,7 @@ var alerta, proceso;
         var files = archivosCampo.files;
         for (var i = 0; i < files.length; i++) {           
             var file = files[i];
-            console.log(file);          
+            //console.log(file);          
             }        
         }
    	
@@ -1173,11 +1173,11 @@ var alerta, proceso;
 		
   		limpiaAlerta(),
 
-		console.log("envio idAsignacion:"+rfcCliente);
+		//console.log("envio idAsignacion:"+rfcCliente);
 		var alerta="";
 		 var form = $('#asignaForm')[0]; //$('#formImagenLogoCliente').attr('files'),
         var data = new FormData(form);
-        console.log(data);
+        //console.log(data);
 		  $.ajax({
 			url: "fileAsignacion/"+rfcCliente,
 		    type: "POST",
@@ -1191,18 +1191,18 @@ var alerta, proceso;
 		    		if(data.codigo===0){
 		  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
 		  			  $(alerta).insertAfter($('.alertaFile'));
-		  			  console.log("envio ok");
+		  			  //console.log("envio ok");
 		  	    	}else{
 		  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
 		  				  $(alerta).insertAfter($('.alertaFile'));
-		  	    		console.log("envio Nok");
+		  	    		//console.log("envio Nok");
 		  	    	}
 		    	  } 
 		    	},
 		    error: function () {
 		    	alerta="<div class='alert alert-danger' role='alert'>Error en carga de Archivo</div>";
 				  $(alerta).insertAfter($('.alertaFile'));
-		  	console.log("envio error");
+		  	//console.log("envio error");
 		    }
 		  });
 

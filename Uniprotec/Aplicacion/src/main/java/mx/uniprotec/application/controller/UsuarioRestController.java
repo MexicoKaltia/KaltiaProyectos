@@ -74,6 +74,7 @@ public class UsuarioRestController {
 	  */
 	@GetMapping("/usuarios")
 	public ResponseEntity<?> index() {
+		log.info("usuarios");
 		List<Usuario> usuarios = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -82,11 +83,13 @@ public class UsuarioRestController {
 			 response.put("mensaje", "Exito en la busqueda de usuarios");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("usuarios fin"); 
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("usuarios fin");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 //		return UtilController.responseGeneric(usuarioService.findAll(), "usuarios", HttpStatus.ACCEPTED);
@@ -109,8 +112,7 @@ public class UsuarioRestController {
 	  */
 	@GetMapping("/usuario/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		
-		HttpStatus status ;
+		log.info("usuario:"+id);
 		Usuario usuario = null;
 		Map<String, Object> response = new HashMap<>();
 		
@@ -121,17 +123,20 @@ public class UsuarioRestController {
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 log.info("usuario fin:"+id);
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
 			response.put("usuario", usuario);
 			 response.put("mensaje", "Exito en la busqueda de usuario");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("usuario fin:"+id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("usuario fin:"+id);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -144,7 +149,7 @@ public class UsuarioRestController {
 	  */
 	@PostMapping("/usuario")
 	public ResponseEntity<?> create(@Valid @RequestBody UsuarioModelo usuario, BindingResult result) {
-		
+		log.info("usuario create:"+usuario.getNombreUsuario());
 		HttpStatus status ;
 		Usuario usuarioNew = new Usuario();
 		Map<String, Object> response = new HashMap<>();
@@ -180,12 +185,14 @@ public class UsuarioRestController {
 			 response.put("mensaje", "Usuario creado con exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("usuario create fin:"+usuario.getNombreUsuario());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			 e.printStackTrace();
+			 log.info("usuario create fin:"+usuario.getNombreUsuario());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -196,8 +203,7 @@ public class UsuarioRestController {
 	 */
 	@PutMapping("/usuario/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody UsuarioModelo usuario, BindingResult result, @PathVariable Long id) {
-
-		HttpStatus status ;
+		log.info("usuario update :"+usuario.getNombreUsuario());		
 		Usuario usuarioActual = usuarioService.findById(id);
 		Usuario usuarioUpdated = null;
 		Map<String, Object> response = new HashMap<>();
@@ -211,6 +217,7 @@ log.info(usuario.toString());
 			response.put("mensaje", errors);
 			 response.put("status", HttpStatus.BAD_REQUEST);
 			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("usuario update fin:"+usuario.getNombreUsuario());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -219,6 +226,7 @@ log.info(usuario.toString());
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 //						 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 log.info("usuario update fin:"+usuario.getNombreUsuario());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		
@@ -233,6 +241,7 @@ log.info(usuario.toString());
 				response.put("mensaje", "Password no Coinciden");
 				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 				 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				 log.info("usuario update fin:"+usuario.getNombreUsuario());
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
@@ -255,6 +264,7 @@ log.info(usuario.toString());
 			 response.put("mensaje", "Usuario actualizado con exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("usuario update fin:"+usuario.getNombreUsuario());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 
@@ -262,6 +272,7 @@ log.info(usuario.toString());
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("usuario update fin:"+usuario.getNombreUsuario());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -277,7 +288,7 @@ log.info(usuario.toString());
 	 */
 	@DeleteMapping("/usuario/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
+		log.info("usuario delete:"+id);
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
@@ -300,6 +311,7 @@ log.info(usuario.toString());
 		
 //		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		status =  HttpStatus.OK;
+		log.info("usuario delete fin:"+id);
 		return UtilController.responseGeneric(usuario, "usuario", status);
 	}
 

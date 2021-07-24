@@ -68,6 +68,7 @@ public class CursoRestController {
 	  */
 	@GetMapping("/cursos")
 	public ResponseEntity<?> index() {
+		log.info("cursos:");
 		List<Curso> cursos = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -76,14 +77,15 @@ public class CursoRestController {
 			 response.put("mensaje", "Exito en la busqueda de cursos");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("cursos fin:");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("cursos fin:");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-//		return UtilController.responseGeneric(cursoService.findAll(), "cursos", HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -103,7 +105,7 @@ public class CursoRestController {
 	  */
 	@GetMapping("/curso/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		
+		log.info("curso :"+id);		
 		HttpStatus status ;
 		Curso curso = null;
 		Map<String, Object> response = new HashMap<>();
@@ -115,17 +117,20 @@ public class CursoRestController {
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				response.put("status", HttpStatus.NOT_FOUND);
 				response.put("code", HttpStatus.NOT_FOUND.value());
+				log.info("curso fin:"+id);
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
 			response.put("curso", curso);
 			 response.put("mensaje", "Exito en la busqueda de curso");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("curso fin:"+id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("curso fin:"+id);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -140,7 +145,7 @@ public class CursoRestController {
 	  */
 	@PostMapping("/curso")
 	public ResponseEntity<?> create(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result) {
-		log.info(cursoModelo.toString());
+		log.info("curso create"+cursoModelo.toString());
 		Curso cursoNew = new Curso();
 		Map<String, Object> response = new HashMap<>();
 		
@@ -151,6 +156,7 @@ public class CursoRestController {
 					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
 					.collect(Collectors.toList());		
 			response.put("errors", errors);
+			log.info("curso create fin:"+cursoModelo.toString());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -161,6 +167,7 @@ public class CursoRestController {
 			 response.put("mensaje", "El curso se ha creado con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("curso create fin:"+cursoModelo.toString());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 		} catch(DataAccessException e) {
@@ -168,6 +175,7 @@ public class CursoRestController {
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			 e.printStackTrace();
+			 log.info("curso create fin:"+cursoModelo.toString());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -179,7 +187,7 @@ public class CursoRestController {
 	 */
 	@PutMapping("/curso/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody CursoModelo cursoModelo, BindingResult result, @PathVariable Long id) {
-
+		log.info("curso update :"+cursoModelo.toString());
 		
 		Curso cursoActual = cursoService.findById(id);
 		Curso cursoUpdated = null;
@@ -195,6 +203,7 @@ public class CursoRestController {
 			response.put("mensaje", errors);
 			 response.put("status", HttpStatus.BAD_REQUEST);
 			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("curso update fin:"+cursoModelo.toString());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -204,6 +213,7 @@ public class CursoRestController {
 			
 			response.put("status", HttpStatus.NOT_FOUND);
 			response.put("code", HttpStatus.NOT_FOUND.value());
+			log.info("curso update fin:"+cursoModelo.toString());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
@@ -231,6 +241,7 @@ public class CursoRestController {
 			 response.put("mensaje", "El curso se ha creado con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("curso update fin:"+cursoModelo.toString());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 
@@ -238,6 +249,7 @@ public class CursoRestController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("curso update fin:"+cursoModelo.toString());
 			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

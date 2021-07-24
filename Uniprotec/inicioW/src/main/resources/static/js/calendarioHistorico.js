@@ -22,7 +22,7 @@ $(document).ready(function() {
 	var costoHotel;
 	var item = new Array();
 	const identificadorUsuario = idUsuario;
-//	console.log("id usuario sesion:"+idUsuario)
+//	//console.log("id usuario sesion:"+idUsuario)
 	var filtroInstructores = new Array();
 	var asignacionesFiltro = new Array();
 	var instructorFiltro;
@@ -57,7 +57,7 @@ $(document).ready(function() {
 				filtroInstructores.push(idInstructor);
 			}
 		});
-//		console.log(filtroInstructores);
+//		//console.log(filtroInstructores);
 		var asignacionA ;
 		for(e in asignacionesHistorico){
 			asignacionA = asignacionesHistorico[e];
@@ -114,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function abrirModal(item, identificadorUsuario){
 		item = item.split('-');
-//		console.log(item.length);
+//		//console.log(item.length);
 		if(item.length == 1){
-			console.log("instructor dia de ausencia");
+			//console.log("instructor dia de ausencia");
 			return null;
 		}
 		for(i in asignacionesHistorico){
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				asignaFactura = asignacion0.numeroFactura;
 				archivoParticipantes=asignacion0.archivoParticipantes;
 				costoHotel=asignacion0.costoHotel;
-//				console.log(asignacion0);	
+//				//console.log(asignacion0);	
 //				asignaCamposSubmit(asignacion0);
 				break;
 			}
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var today = anio + '-' + mes + '-' + dia;
-//		console.log(today);
+//		//console.log(today);
 		return today;
 	}
 
@@ -211,10 +211,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		var listaFechasAusencia = new Array();
 		var instructor ;
 		var fechaAusencia ;
-//		console.log(instructores);
+//		//console.log(instructores);
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-//			console.log(asignacion);
+//			//console.log(asignacion);
 //			if(asignacion.statusAsignacion !== "Evento Cancelado"){
 				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
@@ -250,13 +250,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			banderaInstructores = 1;
 		}
 		
-//		console.log(banderaInstructores);
+//		//console.log(banderaInstructores);
 		if(banderaInstructores == 0){
 			for(e in instructores){
 				 listaFechasAusencia = new Array();
 				 instructor = instructores[e];
 				if(instructor.listFechas){
-//					console.log(instructor.nombreInstructor)
+//					//console.log(instructor.nombreInstructor)
 					 listaFechasAusencia = instructor.listFechas.split(";");
 					 for(a in listaFechasAusencia){
 						 fechaAusencia = getFecha(listaFechasAusencia[a]);
@@ -278,11 +278,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				 for(o in instructoresFiltro){
 						if(instructor.idInstructor == instructoresFiltro[o]){
 							if(instructor.listFechas){
-//								 console.log(instructor.nombreInstructor)
+//								 //console.log(instructor.nombreInstructor)
 								 listaFechasAusencia = instructor.listFechas.split(";");
 								 for(a in listaFechasAusencia){
 									 fechaAusencia = getFecha(listaFechasAusencia[a]);
-//									 console.log(fechaAusencia);
+//									 //console.log(fechaAusencia);
 									 item = {
 												'title' : instructor.nombreInstructor ,
 												'start' : fechaAusencia+'00:00',
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var fecha = anio + '-' + mes + '-' + dia+ 'T';
-//		console.log(fecha);
+//		//console.log(fecha);
 		return fecha;
 	}
 	
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[0].substring(0, 2) +":"+ horario[0].substring(2);
 //		parse = parse + ":00";// + horario[0].slice(2, 2) + ":00" ;
-//		console.log(parse);
+//		//console.log(parse);
 		return parse;
 	}
 	

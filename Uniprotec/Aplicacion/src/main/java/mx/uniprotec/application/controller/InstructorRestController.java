@@ -65,6 +65,7 @@ public class InstructorRestController {
 	  */
 	@GetMapping("/instructores")
 	public ResponseEntity<?> index() {
+		log.info("instructores:");
 		List<Instructor> instructores = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -74,11 +75,13 @@ public class InstructorRestController {
 			 response.put("mensaje", "Exito en la busqueda de instructores");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("instructores fin:");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("instructores fin:");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 //		return UtilController.responseGeneric(instructorService.findAll(), "instructores", HttpStatus.ACCEPTED);
@@ -101,7 +104,7 @@ public class InstructorRestController {
 	  */
 	@GetMapping("/instructor/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		
+		log.info("instructor :"+id);
 		Instructor instructor = null;
 		Map<String, Object> response = new HashMap<>();
 		
@@ -112,18 +115,21 @@ public class InstructorRestController {
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 log.info("instructor fin:"+id);
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
 			 response.put("instructor", instructor);
 			 response.put("mensaje", "Exito en la busqueda de instructor");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("instructor fin:"+id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("instructor fin:"+id);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -135,7 +141,7 @@ public class InstructorRestController {
 	  */
 	@PostMapping("/instructor")
 	public ResponseEntity<?> create(@Valid @RequestBody InstructorModelo instructor, BindingResult result) {
-		
+		log.info("instructor create:"+instructor.getNombreInstructor());
 		HttpStatus status ;
 		Instructor instructorNew = new Instructor();
 		Map<String, Object> response = new HashMap<>();
@@ -178,11 +184,13 @@ public class InstructorRestController {
 			 response.put("mensaje", "Se ha generado con Exito el Instructor");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("instructor create fin:"+instructor.getNombreInstructor());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("instructor create fin:"+instructor.getNombreInstructor());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -194,12 +202,12 @@ public class InstructorRestController {
 	 */
 	@PutMapping("/instructor/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody InstructorModelo instructor, BindingResult result, @PathVariable Long id) {
-
+		log.info("instructor update :"+instructor.getNombreInstructor());
 		HttpStatus status ;
 		Instructor instructorActual = instructorService.findById(id);
 		Instructor instructorUpdated = null;
 		Map<String, Object> response = new HashMap<>();
-		log.info("Actualizar Instructor");
+		
 
 		if(result.hasErrors()) {
 
@@ -211,6 +219,7 @@ public class InstructorRestController {
 			response.put("mensaje", errors);
 			 response.put("status", HttpStatus.BAD_REQUEST);
 			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("instructor update fin:"+instructor.getNombreInstructor());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -220,6 +229,7 @@ public class InstructorRestController {
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			response.put("status", HttpStatus.NOT_FOUND);
 			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 log.info("instructor update fin:"+instructor.getNombreInstructor());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		if(instructor.getStatusInstructor().equals("Baja")) {
@@ -261,11 +271,13 @@ public class InstructorRestController {
 			 response.put("mensaje", "Se ha actualizado con Exito el Instructor");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("instructor update fin:"+instructor.getNombreInstructor());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {	
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("instructor update fin:"+instructor.getNombreInstructor());
 			 e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
@@ -277,7 +289,7 @@ public class InstructorRestController {
 	 */
 	@DeleteMapping("/instructor/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
+		log.info("instructor delete:"+id);
 		HttpStatus status ;
 		
 		Map<String, Object> response = new HashMap<>();
@@ -300,6 +312,7 @@ public class InstructorRestController {
 		
 //		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		status =  HttpStatus.OK;
+		log.info("instructor delete fin:"+id);
 		return UtilController.responseGeneric(instructor, "instructor", status);
 	}
 	

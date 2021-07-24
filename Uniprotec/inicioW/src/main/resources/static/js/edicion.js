@@ -55,10 +55,10 @@ $(document).ready(function(){
         
         var tercerNivel = $('#txtTercerNivel').val();
         if(tercerNivel.length > 0){
-//            console.log(tercerNivel);
-//            console.log(contarSegundoNivel);
+//            //console.log(tercerNivel);
+//            //console.log(contarSegundoNivel);
             contarTercerNivel = contarSegundoNivel - 1 ;
-            console.log($("#itemSegundoNivel"+contarTercerNivel).val());
+            //console.log($("#itemSegundoNivel"+contarTercerNivel).val());
         
             $("#itemSegundoNivel"+contarTercerNivel+"").append('<li style="list-style-type: square;">'+tercerNivel+' </li>');
             //$('#txtSegundoNivel').attr('disabled', true);
@@ -68,7 +68,7 @@ $(document).ready(function(){
     })
     
     $('#agregarPautaOperativa').click(function(){
-//        console.log("agregarInstruccion");
+//        //console.log("agregarInstruccion");
         $('#btnPrimerNivel').attr('disabled', false);
         $('#txtPrimerNivel').attr('disabled', false);
         $('#btnSegundoNivel').attr('disabled', true);
@@ -127,10 +127,10 @@ $(document).ready(function(){
         
         var tercerNivel = $('#txtTercerNivel1').val();
         if(tercerNivel.length > 0){
-//            console.log(tercerNivel);
-//            console.log(contarSegundoNivel1);
+//            //console.log(tercerNivel);
+//            //console.log(contarSegundoNivel1);
             contarTercerNivel1 = contarSegundoNivel1 - 1 ;
-            console.log($("#itemSegundoNivel1"+contarTercerNivel1).val());
+            //console.log($("#itemSegundoNivel1"+contarTercerNivel1).val());
         
             $("#itemSegundoNivel1"+contarTercerNivel1+"").append('<li style="list-style-type: square;" >'+tercerNivel+' </li>');
             //$('#txtSegundoNivel1').attr('disabled', true);
@@ -140,7 +140,7 @@ $(document).ready(function(){
     })
     
     $('#agregarPautaEntregable').click(function(){
-//        console.log("agregarInstruccion");
+//        //console.log("agregarInstruccion");
         $('#btnPrimerNivel1').attr('disabled', false);
         $('#txtPrimerNivel1').attr('disabled', false);
         $('#btnSegundoNivel1').attr('disabled', true);
@@ -175,8 +175,8 @@ $(document).ready(function(){
 	            var file = files[i];
 	            enviaImagen(archivosCampo, $idCliente);
 	            }
-//	        console.log(archivosCampo.file.name);
-//	        console.log($(archivosCampo).val());
+//	        //console.log(archivosCampo.file.name);
+//	        //console.log($(archivosCampo).val());
 	        }
   
   function archivoCliente(archivosCampo, rfcCliente){
@@ -186,7 +186,7 @@ $(document).ready(function(){
       var files = archivosCampo.files;
       for (var i = 0; i < files.length; i++) {           
           var file = files[i];
-          console.log(file);
+          //console.log(file);
           
           }        
       }
@@ -201,14 +201,14 @@ $(document).ready(function(){
 	    	function enviaImagen(idImagenForm, rfcCliente){
 	    		
 	    		limpiaAlerta(),
-//	    			console.log("Comineza envio imagenBody:"+idImagenForm);
-	    			console.log("Comineza envio idCliente:"+rfcCliente);
+//	    			//console.log("Comineza envio imagenBody:"+idImagenForm);
+	    			//console.log("Comineza envio idCliente:"+rfcCliente);
 //	    			rfcCliente ="nuevo";
-//	    			console.log("Comineza envio rfcCliente:"+rfcCliente);
+//	    			//console.log("Comineza envio rfcCliente:"+rfcCliente);
 	    			var alerta="";
         			 var form = $('#altaCliente')[0]; //$('#formImagenLogoCliente').attr('files'),
     		        var data = new FormData(form);
-    		        console.log(data);
+    		        //console.log(data);
 	    			  $.ajax({
 	    				url: "imageUpload/"+rfcCliente,
 	    			    type: "POST",
@@ -224,18 +224,18 @@ $(document).ready(function(){
 	    			    		if(data.codigo===0){
 	    			  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
 	    			  			  $(alerta).insertAfter($('.alerta'));
-	    			  			  console.log("envio ok");
+	    			  			  //console.log("envio ok");
 	    			  	    	}else{
 	    			  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
 	    			  				  $(alerta).insertAfter($('.alerta'));
-	    			  	    		console.log("envio Nok");
+	    			  	    		//console.log("envio Nok");
 	    			  	    	}
 	    			    	  } 
 	    			    	},
 	    			    error: function () {
 	    			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
 	    					  $(alerta).insertAfter($('.alerta'));
-	    			  	console.log("envio error");
+	    			  	//console.log("envio error");
 	    			    }
 	    			  });
 
@@ -246,11 +246,11 @@ $(document).ready(function(){
     		
     		limpiaAlerta(),
 
-    			console.log("Comineza envio idCliente:"+rfcCliente);
+    			//console.log("Comineza envio idCliente:"+rfcCliente);
     			var alerta="";
     			 var form = $('#altaCliente')[0]; //$('#formImagenLogoCliente').attr('files'),
 		        var data = new FormData(form);
-		        console.log(data);
+		        //console.log(data);
     			  $.ajax({
     				url: "fileUpload/"+rfcCliente,
     			    type: "POST",
@@ -264,18 +264,18 @@ $(document).ready(function(){
     			    		if(data.codigo===0){
     			  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
     			  			  $(alerta).insertAfter($('.alertaFile'));
-    			  			  console.log("envio ok");
+    			  			  //console.log("envio ok");
     			  	    	}else{
     			  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
     			  				  $(alerta).insertAfter($('.alertaFile'));
-    			  	    		console.log("envio Nok");
+    			  	    		//console.log("envio Nok");
     			  	    	}
     			    	  } 
     			    	},
     			    error: function () {
     			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
     					  $(alerta).insertAfter($('.alertaFile'));
-    			  	console.log("envio error");
+    			  	//console.log("envio error");
     			    }
     			  });
 

@@ -2,7 +2,7 @@
    	
 $(document).ready(function(){
 	
-	console.log(asignacionItem);
+	//console.log(asignacionItem);
 
 	 $.asignaFecha = valoresFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
@@ -135,7 +135,7 @@ $(document).ready(function(){
    	/*
    	 * ASIGNAR MODAL CLIENTE asignacionCliente
    	 */
-//	console.log(asignacionCliente);
+//	//console.log(asignacionCliente);
 	$('#nombreCortoCliente').html('<b>'+asignacionCliente.nombreCortoCliente+'</b>');
 	$('#regionCliente').html('<b>'+regionCliente+'</b>');
 	$('#nombreCompletoCliente').html('<b>'+asignacionCliente.nombreCompletoCliente+'</b>');
@@ -188,7 +188,7 @@ $(document).ready(function(){
 		}
 	}
 	
-	console.log(staff);
+	//console.log(staff);
 	if(staff){
 		$('#btnStatus').attr("disabled", true);
 	}
@@ -197,7 +197,7 @@ $(document).ready(function(){
 		var hoy = new Date();
 		var asignacion = new Date(fechaAsignacion)
 		if(asignacion < hoy){
-//			console.log(asignacion)
+//			//console.log(asignacion)
 			return true;
 		}else
 			return false;

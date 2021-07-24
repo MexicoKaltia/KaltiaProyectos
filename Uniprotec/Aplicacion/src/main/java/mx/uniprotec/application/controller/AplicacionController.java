@@ -58,6 +58,7 @@ public class AplicacionController {
 	  */
 	@GetMapping("/regiones")
 	public ResponseEntity<?> regiones() {
+		log.info("regiones");
 		List<Region> regiones = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -78,6 +79,7 @@ public class AplicacionController {
 	
 	@GetMapping("/perfiles")
 	public ResponseEntity<?> perfiles() {
+		log.info("perfiles");
 		List<Perfil> perfiles= null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -101,7 +103,7 @@ public class AplicacionController {
 	  */
 	@GetMapping("/perfil/{nombrePerfil}")
 	public ResponseEntity<?> show(@PathVariable String nombrePerfil) {
-		
+		log.info("perfil:"+nombrePerfil);
 		Map<String, Object> response = new HashMap<>();
 		Perfil perfil = new Perfil();
 		try {
@@ -131,7 +133,7 @@ public class AplicacionController {
 	
 	@PostMapping("/correos")
 	public ResponseEntity<?> correos(@Valid @RequestBody List<UserCorreo> usersCorreo, BindingResult result) {
-		
+		log.info("correos");
 		HttpStatus status ;
 		Map<String, Object> response = new HashMap<>();
 //		log.info("Correos : " + usersCorreo.toString());
@@ -166,7 +168,7 @@ public class AplicacionController {
 	
 	@PostMapping("/mensaje")
 	public ResponseEntity<?> mensaje(@Valid @RequestBody MensajeModelo mensaje, BindingResult result) {
-		
+		log.info("mensaje");
 		HttpStatus status ;
 		Map<String, Object> response = new HashMap<>();
 //		log.info("Correos : " + usersCorreo.toString());
@@ -200,7 +202,7 @@ public class AplicacionController {
 	
 	@GetMapping("/notificaciones/{idUsuario}")
 	public ResponseEntity<?> getNotificaciones(@PathVariable Long idUsuario) {
-		
+		log.info("notificacion:"+idUsuario);
 		Map<String, Object> response = new HashMap<>();
 		List<Notificacion> notificaciones = new ArrayList<Notificacion>();
 		try {
@@ -230,7 +232,7 @@ public class AplicacionController {
 	
 	@PostMapping("/notificacion")
 	public ResponseEntity<?> notificacionCreate(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result) {
-		
+		log.info("notificiacion create");
 		HttpStatus status ;
 		Map<String, Object> response = new HashMap<>();
 //		log.info("Correos : " + usersCorreo.toString());
@@ -282,7 +284,7 @@ public class AplicacionController {
 	
 	@PutMapping("/notificacion/{id}")
 	public ResponseEntity<?> notificacionUpdate(@PathVariable Long id) {
-		
+		log.info("notificacion update:"+id);
 		HttpStatus status ;
 		Map<String, Object> response = new HashMap<>();
 		

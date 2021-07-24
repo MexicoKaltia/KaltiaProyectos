@@ -2,12 +2,12 @@
 (function ($) {
     "use strict";
 
-//    console.log(credenciales);
+//    //console.log(credenciales);
 //    if(credenciales === 500){
-//    	console.log("credencialesInvalidas");
+//    	//console.log("credencialesInvalidas");
 //    	$('#credencialesInvalidas').show();	
 //    }else{
-//    	console.log("inicio");
+//    	//console.log("inicio");
 //    	$('#credencialesInvalidas').hide();
 //    }
 //    

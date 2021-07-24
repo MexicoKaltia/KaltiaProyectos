@@ -4,7 +4,6 @@
 
 $(document).ready(function() {
 
-	var asignacion0;
 	var asignaFechaCalendario ;
 	var asignaClienteTexto ;
 	var asignaCursoTexto ;
@@ -20,13 +19,13 @@ $(document).ready(function() {
 	var zonaCliente ;
 	var asignaUserCreateAsignacion;
 	var costoHotel;
-	var item = new Array();
+	
 	const identificadorUsuario = idUsuario;
-//	console.log("id usuario sesion:"+idUsuario)
+//	//console.log("id usuario sesion:"+idUsuario)
 	var filtroInstructores = new Array();
 	var asignacionesFiltro = new Array();
-	var instructorFiltro;
-	var asignacionA;
+	
+	
 	
 	
 	if($('#todosInstructores').prop('checked')){
@@ -57,12 +56,12 @@ $(document).ready(function() {
 				filtroInstructores.push(idInstructor);
 			}
 		});
-//		console.log(filtroInstructores);
-		var asignacionA ;
+//		//console.log(filtroInstructores);
+		
 		for(e in asignaciones){
-			asignacionA = asignaciones[e];
+			var asignacionA  = asignaciones[e];
 			for(a in filtroInstructores){
-				instructorFiltro = filtroInstructores[a];
+				var instructorFiltro = filtroInstructores[a];
 				if((asignacionA.idInstructorAsignacion * 1) === (instructorFiltro * 1)){
 					asignacionesFiltro.push(asignacionA);
 				}
@@ -76,11 +75,6 @@ $(document).ready(function() {
 	
 	
 		
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-	
 });
 
 
@@ -99,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 			
 			eventClick : function(info){
-//				console.log(info.event.title);
-				abrirModal(info.event.title, identificadorUsuario)
+//				//console.log(info.event.title);
+				abrirModal(info.event.title, identificadorUsuario);
 			},
 			
 			defaultDate : today,
@@ -115,56 +109,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function abrirModal(item, identificadorUsuario){
 		item = item.split('-');
-//		console.log(item.length);
 		if(item.length == 1){
-			console.log("instructor dia de ausencia");
+			//console.log("instructor dia de ausencia");
 			return null;
 		}
+		
+		var asignacion0="";
 		for(i in asignaciones){
-			asignacion0 = asignaciones[i]; 
-			idCliente = asignaciones[i].idClienteAsignacion;
-			$("#btnOperacion").empty();
-			$("#edicionVentas").empty();
-			$("#btnArchivoParticipantes").empty();
+			var asignacion01= asignaciones[i];
+			asignacion0 = asignacion01;
+			if((asignacion01.idAsignacion*1) === (item[0]*1)){
+//				//console.log(asignacion01);
+				break;
+			}
+		}
+			$("#divOperacion").empty();
+			$("#divEdicionVentas").empty();
+			$("#divArchivoParticipantes").empty();
+			$("#divErrorProceso").empty();
+			$('#seccionErrorProceso').html("");
 			if(perfilUsuario === "Vendedor"){
 				if(identificadorUsuario === asignacion0.userCreateAsignacion){
-					$("#btnOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-info pull-left"  >Revision Expediente Asignación / Cliente</button>')
-					$("#btnArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-warning pull-right"  value="">Adjuntar Archivo Participantes</button>')
-					$("#edicionVentas").append('<button type="submit" id="asignaConfirmar1" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
-					$("#btnOperacion").click(function(){
+					$("#divOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-primary pull-left"  >Revision Expediente Asignación / Cliente</button>')
+					$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>')
+					$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar1" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+					$("#divOperacion").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionI");
 					})
-					$("#btnArchivoParticipantes").click(function(){
+					$("#divArchivoParticipantes").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionV");
 					})
 				}
 			}
 			
 			if(perfilUsuario === "Administracion"){
-				$("#edicionAsignacion").attr("action", "/BAsignacionI");
+				$("#divEdicionAsignacion").attr("action", "/BAsignacionI");
 				$("#btnSubmit").empty();
 				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edición Fecha de Pago y Numero de Factura</button>')
 				$("#asignaConfirmar").hide();
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-				$("#btnOperacion").empty();
-				$("#btnOperacion").append('<button type="submit" id="asignaConfirmarO" class="btn btn-info pull-center"  >Revision Expediente Asignación / Cliente</button>')
-				$("#btnArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-warning pull-right"  value="">Adjuntar Archivo Participantes</button>')
-				$("#edicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
-				$("#btnOperacion").click(function(){
+				$("#divOperacion").empty();
+				$("#divOperacion").append('<button type="submit" id="asignaConfirmarO" class="btn btn-primary pull-center"  >Revision Expediente Asignación / Cliente</button>')
+				$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>')
+				$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+				$("#divOperacion").click(function(){
 					$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				})
-				$("#btnArchivoParticipantes").click(function(){
+				$("#divArchivoParticipantes").click(function(){
 					$("#edicionAsignacion").attr("action", "/BAsignacionV");
 				})
+				/*
+				 * btn errorProceso
+				 */
+				if(asignacion0.statusAsignacion !== "Curso Asignado" && asignacion0.statusAsignacion !== "Confirmado Instructor" && asignacion0.statusAsignacion !== "Curso Editado"){
+					$("#divErrorProceso").empty();	
+					$("#divErrorProceso").append('<button class="btn btn-focus" id="btnErrorProceso" type="button" data-toggle="modal" data-target="#modalFormErrorProceso" >Error Proceso</button>');
+					$('#seccionErrorProceso').html("");
+			        $('#seccionErrorProceso').html(asignacion0.errorProceso);
+				}
+				
 			}else{
 				$("#btnSubmit").empty();
 				$("#asignaConfirmar").hide();
 				$("#oper").hide();
-				
 			}
 			
-//			$("#btnSubmit").empty();
-//			$("#btnSubmit").append('')
+			$("#btnSubmit").append('');
 			
 			if(asignacion0.idAsignacion.toString() === item[0].toString()){
 				asignaFechaCalendario = cambiaFormatoFecha(asignacion0.fechaAsignacion);
@@ -187,11 +197,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				asignaFactura = asignacion0.numeroFactura;
 				archivoParticipantes=asignacion0.archivoParticipantes;
 				costoHotel=asignacion0.costoHotel;
-//				console.log(asignacion0);	
+				errorProceso=asignacion0.errorProceso;
+//				//console.log(asignacion0);	
 				asignaCamposSubmit(asignacion0);
-				break;
+				valErrorProceso(asignacion0);
+				
+//				break;
 			}
-		}
+
 		$('#modalFecha').html('<b>'+asignaFechaCalendario+'</b>'); 
 		$('#modalCliente').html('<b>'+asignaClienteTexto+'</b>'+zonaCliente);
 		$('#modalCurso').html('<b>'+asignaCursoTexto+'</b>'+" : <i><u><b>"+asignacionTipoCurso+"</b></u></i>");
@@ -216,8 +229,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#modalFactura').html('<b>'+asignaFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
 		$('#modalCostoHotel').html('<b>'+costoHotel+'</b>');
+		if(errorProceso !== "" && errorProceso){
+//			//console.log(errorProceso);
+			$('#liErrorProceso').remove();
+			liErrorProceso = '<li id="liErrorProceso" class="list-group-item list-group-item-info">Error Proceso : <span id="modalErrorProceso"></span></li>'
+			$('#resumenAsignacionModal').append(liErrorProceso);	
+			$('#modalErrorProceso').html('<b>'+errorProceso+'</b>');
+		}else{
+			$('#liErrorProceso').remove();
+		}
 		if(perfilUsuario !== "Administracion"){
-//			$('#resumenAsignacionModal').
 			$('#admon').hide();
 		}
 		$('#myModal').modal();
@@ -227,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	
 	function asignaCamposSubmit(asignacionSub){
-//		console.log(asignacionSub)
+//		//console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
 		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
@@ -249,23 +270,59 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
 		$('#fechaPago').val(asignacionSub.fechaPago);
 		$('#numeroFactura').val(asignacionSub.numeroFactura);
-//			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
-//			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
 		
 		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
 		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
 		
-//		$('#fechaPago').val(asignacionSub.fechaPago);
-//		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
-//		$('#numeroFactura').val(asignacionSub.numeroFactura);
 		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
 		$('#costoHotel').val(asignacionSub.costoHotel);
 		
+		$('#errorProceso').val(asignacionSub.errorProceso);
+		
 	}
-
 	
+	/*
+	 * Submit Error de Proceso
+	 */
+	function valErrorProceso(asignacionSub){		
+//		 //console.log(asignacionSub);
+//		 //console.log($('#seccionErrorProceso').html());
+//		 
+		$('#idAsignacion1').val(asignacionSub.idAsignacion);
+		$('#idAsignacionLogica1').val(asignacionSub.idAsignacionLogica);
+		$('#fechaAsignacion1').val(asignacionSub.fechaAsignacion);
+		$('#idClienteAsignacion1').val(asignacionSub.idClienteAsignacion);
+		$('#clienteAsignacion1').val(asignacionSub.clienteAsignacion);
+		$('#idCursoAsignacion1').val(asignacionSub.idCursoAsignacion);
+		$('#cursoAsignacion1').val(asignacionSub.cursoAsignacion);
+		$('#idInstructorAsignacion1').val(asignacionSub.idInstructorAsignacion);
+		$('#instructorAsignacion1').val(asignacionSub.instructorAsignacion);
+		$('#horarioAsignacion1').val(asignacionSub.horarioAsignacion);
+		$('#participantesAsignacion1').val(asignacionSub.participantesAsignacion);
+		$('#nivelAsignacion1').val(asignacionSub.nivelAsignacion);
+		$('#archivosAsignacion1').val(asignacionSub.archivosAsignacion);
+		$('#observacionesAsignacion1').val(asignacionSub.observacionesAsignacion);
+		$('#idRegionAsignacion1').val(asignacionSub.idRegionAsignacion);
+		$('#nombreRegionAsignacion1').val(asignacionSub.nombreRegionAsignacion);
+		$('#tipoCursoAsignacion1').val(asignacionSub.tipoCursoAsignacion);
+		$('#statusAsignacion1').val(asignacionSub.statusAsignacion);
+		$('#guiaEntregable1').val(asignacionSub.guiaEntregable);
+		$('#fechaPago1').val(asignacionSub.fechaPago);
+		$('#numeroFactura1').val(asignacionSub.numeroFactura);
+		$('#userCreateAsignacion1').val(asignacionSub.userCreateAsignacion);
+		$('#userCreateAsignacionTexto1').val(asignacionSub.userCreateAsignacionTexto);
+		
+		$('#archivoParticipantes1').val(asignacionSub.archivoParticipantes);
+		$('#archivoParticipantesTexto1').val(asignacionSub.archivoParticipantes);
+		
+		$('#verificarEntregable1').val(asignacionSub.verificarEntregable);
+		$('#costoHotel1').val(asignacionSub.costoHotel);
+		
+	}
+	
+		
 
 	
 
@@ -279,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var today = anio + '-' + mes + '-' + dia;
-//		console.log(today);
+//		//console.log(today);
 		return today;
 	}
 
@@ -293,10 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		var listaFechasAusencia = new Array();
 		var instructor ;
 		var fechaAusencia ;
-//		console.log(instructores);
+//		//console.log(instructores);
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
-//			console.log(asignacion);
+//			//console.log(asignacion);
 			if(asignacion.statusAsignacion !== "Evento Cancelado"){
 				inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 				fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
@@ -332,13 +389,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			banderaInstructores = 1;
 		}
 		
-//		console.log(banderaInstructores);
+//		//console.log(banderaInstructores);
 		if(banderaInstructores == 0){
 			for(e in instructores){
 				 listaFechasAusencia = new Array();
 				 instructor = instructores[e];
 				if(instructor.listFechas){
-//					console.log(instructor.nombreInstructor)
+//					//console.log(instructor.nombreInstructor)
 					 listaFechasAusencia = instructor.listFechas.split(";");
 					 for(a in listaFechasAusencia){
 						 fechaAusencia = getFecha(listaFechasAusencia[a]);
@@ -360,11 +417,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				 for(o in instructoresFiltro){
 						if(instructor.idInstructor == instructoresFiltro[o]){
 							if(instructor.listFechas){
-//								 console.log(instructor.nombreInstructor)
+//								 //console.log(instructor.nombreInstructor)
 								 listaFechasAusencia = instructor.listFechas.split(";");
 								 for(a in listaFechasAusencia){
 									 fechaAusencia = getFecha(listaFechasAusencia[a]);
-//									 console.log(fechaAusencia);
+//									 //console.log(fechaAusencia);
 									 item = {
 												'title' : instructor.nombreInstructor ,
 												'start' : fechaAusencia+'00:00',
@@ -406,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var fecha = anio + '-' + mes + '-' + dia+ 'T';
-//		console.log(fecha);
+//		//console.log(fecha);
 		return fecha;
 	}
 	
@@ -416,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[0].substring(0, 2) +":"+ horario[0].substring(2);
 //		parse = parse + ":00";// + horario[0].slice(2, 2) + ":00" ;
-//		console.log(parse);
+//		//console.log(parse);
 		return parse;
 	}
 	

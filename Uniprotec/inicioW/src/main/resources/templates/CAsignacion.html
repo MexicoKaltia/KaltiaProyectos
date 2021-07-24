@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC V 1.4</title>
+    <title>UNIPROTEC v 1.7</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" th:href="@{images/logo.png}"/>
@@ -15,6 +15,7 @@
 	<link th:href="@{css/fc/daygrid/main.css}" rel='stylesheet' />
 	<link th:href="@{css/fc/timegrid/main.css}" rel='stylesheet' />
 	<link th:href="@{css/fc/list/main.css}" rel='stylesheet' />
+
 	<style>
 		#calendar {
 		    max-width: 900px;
@@ -291,9 +292,9 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>v 1.4</small>
+                                                                    <small>v 1.7</small>
                                                                 </div>
-                                                                Derechos Reservados © Uniprotec 2020
+                                                                Derechos Reservados © Uniprotec 2021
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -342,6 +343,7 @@
                                                    <li id="admon" class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
                                                    <li id="admon" class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
                                                    <li id="oper" class="list-group-item list-group-item-info">Costo Hotel : <span id="modalCostoHotel"></span></li>
+                                                   
                                                </ul>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
@@ -371,12 +373,18 @@
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
                                                <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
+                                               <input type="hidden" id="errorProces" th:field="*{errorProceso}" />
                                        			<br>
-                                      			<div><div id="btnOperacion"></div><div id="btnArchivoParticipantes"></div></div>
-                                       			<br>
-                                       			<div id="btnSubmit"></div>
-                                       			<button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
-                                       			<div id="edicionVentas"></div>
+                                      			<div class="row container">
+                                      				<div class="col-4" id="divOperacion"></div>
+                                      				<div class="col-4" id="divArchivoParticipantes"></div>
+                                      				<div class="col-4" id="divEdicionVentas"></div>
+                                      			</div>
+                                      			<br>
+                                      			<div class="row container">
+                                      				<div class="col-4" id="divErrorProceso"></div>
+                                      				<div class="col-4" id="btnSubmit"></div>
+                                       			</div>
 											</form>
                                            </div>
                                        </div>
@@ -384,14 +392,15 @@
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-                                   		
-                                       
+                                   		<button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
                                    </div>
 
                                </div>
                            </div>
                        </div>
                        <!-- Modal Fin-->
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
                        <div class="modal" id="modalFiltro" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 					    <div class="modal-dialog " role="document">
 					        <div class="modal-content">
@@ -441,6 +450,109 @@
                                </div>
                            </div>
                        </div>
+                       <!-- Modal Fin-->
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       <div class="modal" id="modalFormErrorProceso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Error Proceso</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" src="../../../assets/images/logo.png" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+                                           <div class="card-body">
+                                           <form role="form" id="edicionAsignacion1" th:action="@{/actualizaAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
+                                               <h5 class="card-title">Documentacion de Proceso a Mejorar</h5>
+                                               <div class="form-row">
+			                                      <label>Mejoras:</label>
+			                                     	<div id="seccionErrorProceso"></div>
+			                                   </div>
+                                               <div class="form-row">      
+			                                   		<div class="form-group purple-border col-md-12">
+										                <div class="input-group mb-2 input-group-lg">
+										                    <input type="text" class="form-control" id="txtPrimerNivel" placeholder="Titulo">
+										                    <div class="input-group-append">
+										                        <button class="btn btn-outline-info" id="btnPrimerNivel" type="button">Titulo</button>
+										                    </div>
+										                </div>
+										
+										                <div class="input-group mb-2">
+										                    <textarea class="form-control" id="txtSegundoNivel" rows="5" cols="150" placeholder="Descripcion" disabled></textarea>
+										                    <div class="input-group-append">
+										                        <button class="btn btn-outline-info" id="btnSegundoNivel" type="button" disabled>Descripcion</button>
+										                    </div>
+										                </div>
+										                
+										                <small class="form-text text-muted">Captura Titulo y Descripcion de mejora de proceso. Para enlistar dar click en boton Agregar </small>
+										            </div>
+										        </div>
+										         <div class="clearfix">
+										            <span class="float-right">
+										                <button type="button" id="agregarErrorProceso" class="btn btn-info" disabled>Agregar Error Proceso</button>
+										            </span>
+			                                     </div>
+                                               
+                                               <input type="hidden" id="idAsignacion1" th:field="*{idAsignacion}" />
+                                               <input type="hidden" id="idAsignacionLogica1" th:field="*{idAsignacionLogica}" />
+                                        	   <input type="hidden" id="fechaAsignacion1" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion1"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion1"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion1" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion1" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion1" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion1" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion1" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion1" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion1" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacion1" th:field="*{archivosAsignacion}" />
+                                               <input type="hidden" id="observacionesAsignacion1" th:field="*{observacionesAsignacion}" />
+                                               <input type="hidden" id="idRegionAsignacion1" th:field="*{idRegionAsignacion}" />
+                                               <input type="hidden" id="nombreRegionAsignacion1" th:field="*{nombreRegionAsignacion}" />
+                                               <input type="hidden" id="tipoCursoAsignacion1" th:field="*{tipoCursoAsignacion}" />
+                                               <input type="hidden" id="statusAsignacion1" th:field="*{statusAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacion1" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto1" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="archivoParticipantes1" th:field="*{archivoParticipantes}" />
+                                               <input type="hidden" id="archivoParticipantesTexto1" th:field="*{archivoParticipantesTexto}" />
+                                               
+                                               <input type="hidden" id="fechaPago1" th:field="*{fechaPago}" />
+                                               <input type="hidden" id="guiaEntregable1" th:field="*{guiaEntregable}" />
+                                               <input type="hidden" id="numeroFactura1" th:field="*{numeroFactura}" />
+                                               <input type="hidden" id="verificarEntregable1" th:field="*{verificarEntregable}" />
+                                               <input type="hidden" id="costoHotel1" th:field="*{costoHotel}" />
+                                               
+                                               <input type="hidden" id="errorProceso1" th:field="*{errorProceso}" />
+                                       			<br>
+                                       		<span class="float-left">
+                                       			<button type="submit" class="btn btn-success pull-left" id="agregarErrorProcesoFinal"   disabled>Actualizar Error Proceso</button>
+                                       		</span>
+
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       	<span class="float-right">
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       	</span>                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
 
   						
                        
@@ -464,6 +576,7 @@
 	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
 	<script th:src="@{js/calendario.js}"></script>
+	<script th:src="@{js/errorProceso.js}"></script>
     
      
      									

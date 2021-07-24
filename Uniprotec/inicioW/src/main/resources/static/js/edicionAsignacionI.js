@@ -2,7 +2,7 @@
    	
 $(document).ready(function(){
 	
-	console.log(asignacionItem);
+	//console.log(asignacionItem);
 
 	 $.asignaFecha = valoresFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
@@ -224,7 +224,7 @@ $(document).ready(function(){
 		var hoy = new Date();
 		var asignacion = new Date(fechaAsignacion)
 		if(asignacion < hoy){
-//			console.log(asignacion)
+//			//console.log(asignacion)
 			return true;
 		}else
 			return false;
@@ -232,7 +232,7 @@ $(document).ready(function(){
 	
 	
 	
-	console.log($.sigStatus);
+	//console.log($.sigStatus);
 	$('#statusAsignacion').val($.sigStatus);
 	$('#archivosAsignacionTexto').val(asignacionItem.archivosAsignacion);
 	$('#archivosAsignacionTexto0').val(asignacionItem.archivosAsignacion);

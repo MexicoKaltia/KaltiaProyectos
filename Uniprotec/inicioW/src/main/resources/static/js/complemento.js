@@ -41,7 +41,7 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
-//		    	console.log(JSON.stringify(row));
+//		    	//console.log(JSON.stringify(row));
 //		      alert('You click like action, row: ' + JSON.stringify(row.regionCliente.nombreRegion) + ' ' + JSON.stringify(row.regionCliente.idRegion));
 		      $('#idCliente').val(row.idCliente);
 		      $('#nombreCortoCliente').val(row.nombreCortoCliente);
@@ -121,7 +121,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateInstructor = {
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' +JSON.stringify(row));
-//		    	console.log(row);
+//		    	//console.log(row);
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
 		      $('#regionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
@@ -135,7 +135,7 @@ $(document).ready(function(){
 		      const $cursos = $cursosTotal;
 		      var $instructorCursos = row.cursosInstructor.replace('[','').replace(']','').replace(' ','').split(',');
 //		      $instructorCursos = $instructorCursos.split(',');
-//		      console.log($instructorCursos);
+//		      //console.log($instructorCursos);
 		      var $cursosAsignados =[];
 		      
 		      $($instructorCursos).each(function(index, element){
@@ -189,7 +189,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateVendedor = {
 			
 		    'click .like': function (e, value, row, index) {
-		    	console.log(row);
+		    	//console.log(row);
 		      $('#idVendedor').val(row.idVendedor);
 		      $('#nombreVendedor').val(row.nombreVendedor);
 		      $('#emailVendedor').val(row.emailVendedor);
@@ -221,7 +221,7 @@ $(document).ready(function(){
 	        field: 'idCliente',
 	        values: [row.idCliente]
 	      });
-	      console.log(row);
+	      //console.log(row);
 	      deleteUserEmpresa(row.idUserEmpresa);
 	    }
 	  }
@@ -244,16 +244,16 @@ $(document).ready(function(){
 	
 	$('#btnSaveRegistro').click(function(){
 		limpiaAlerta();
-		console.log($('#idUserEmpresa').val());
+		//console.log($('#idUserEmpresa').val());
 
 	});
 	
 	$('#btnBorrarAusencia').click(function(){
 		arrayFechas = [];
-		console.log("fechas Asusentes");
-		console.log($('#listFechas').val());
+		//console.log("fechas Asusentes");
+		//console.log($('#listFechas').val());
 		$('#listFechas').val("");
-		console.log($('#listFechas').val());
+		//console.log($('#listFechas').val());
 		$('#Fechas').empty();
 		$('#listaFechas').empty();
 	    $('#listFechasAct').empty();
@@ -277,8 +277,8 @@ $(document).ready(function(){
 	}
 		
 	$('#btnEliminaListaAusencia').click(function(){
-		console.log("HelloW");
-		console.log(this.val());
+		//console.log("HelloW");
+		//console.log(this.val());
 	})
 }); // Fin documento
 

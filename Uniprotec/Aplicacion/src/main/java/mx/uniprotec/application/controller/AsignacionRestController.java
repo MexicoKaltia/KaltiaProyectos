@@ -50,6 +50,7 @@ public class AsignacionRestController {
 	
 	@GetMapping("/asignaciones")
 	public ResponseEntity<?> index() {
+		log.info("asignaciones");
 		List<Asignacion> asignaciones = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -59,12 +60,14 @@ public class AsignacionRestController {
 			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("asignaciones fin");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			e.printStackTrace();
+			log.info("asignaciones fin");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -75,7 +78,7 @@ public class AsignacionRestController {
 	  */
 	@GetMapping("/asignacion/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		
+		log.info("asignacion:"+id);
 		HttpStatus status ;
 		Asignacion asignacion = null;
 		Map<String, Object> response = new HashMap<>();
@@ -87,6 +90,7 @@ public class AsignacionRestController {
 						.concat(id.toString().concat(" no existe en la base de datos!")));
 				 response.put("status", HttpStatus.NOT_FOUND);
 				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 log.info("asignacion fin :"+id);
 				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 			}
 			
@@ -94,14 +98,15 @@ public class AsignacionRestController {
 			 response.put("mensaje", "Exito en la busqueda de asignacion ");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("asignacion fin :"+id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			log.info("asignacion fin :"+id);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		
 	}
 	
@@ -113,7 +118,7 @@ public class AsignacionRestController {
 	@SuppressWarnings("null")
 	@PostMapping("/asignacion")
 	public ResponseEntity<?> create(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result) {
-		
+		log.info("asignacion create");
 		HttpStatus status ;
 		Asignacion asignacionNew = new Asignacion();
 		Map<String, Object> response = new HashMap<>();
@@ -159,17 +164,20 @@ public class AsignacionRestController {
 			asignacionNew.setNumeroFactura("");
 			asignacionNew.setArchivoParticipantes("");
 			asignacionNew.setCostoHotel("");
+			asignacionNew.setErrorProceso("");
 			
 			asignacionNew = asignacionService.save(asignacionNew);
 			 response.put("asignacion", asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("asignacion create fin");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch(DataAccessException e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			log.info("asignacion create fin");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -180,7 +188,7 @@ public class AsignacionRestController {
 	 */
 	@PutMapping("/asignacion/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result, @PathVariable Long id) {
-
+		log.info("asignacion update:"+ id);
 		
 		Asignacion asignacionActual = asignacionService.findById(id);
 		
@@ -199,6 +207,7 @@ public class AsignacionRestController {
 			 response.put("mensaje", errors);
 			 response.put("status", HttpStatus.BAD_REQUEST);
 			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("asignacion update fin:"+ id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -207,6 +216,7 @@ public class AsignacionRestController {
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			 response.put("status", HttpStatus.NOT_FOUND);
 			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 log.info("asignacion update fin:"+ id);
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		log.info("update Asignacion:"+asignacion.toString());
@@ -217,10 +227,6 @@ public class AsignacionRestController {
 					notificacion.setStatusNotificacion("cancelada");
 					notificacionDao.save(notificacion);
 				}
-//				 response.put("asignacion", asignacionUpdated  );
-//				 response.put("mensaje", "Asignacion Eliminada con Exito");
-//				 response.put("status", HttpStatus.CREATED);
-//				 response.put("code", HttpStatus.CREATED.value());
 			} catch (Exception e) {
 				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -255,18 +261,21 @@ public class AsignacionRestController {
 				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
 				asignacionActual.setArchivoParticipantes(asignacion.getArchivoParticipantesTexto());
 				asignacionActual.setCostoHotel(asignacion.getCostoHotel());
+				asignacionActual.setErrorProceso(asignacion.getErrorProceso());
 				
 				asignacionUpdated = asignacionService.save(asignacionActual);
 				response.put("asignacion", asignacionUpdated  );
 				 response.put("mensaje", "Asignacion actualizada con Exito");
 				 response.put("status", HttpStatus.CREATED);
 				 response.put("code", HttpStatus.CREATED.value());
+				 log.info("asignacion update fin:"+ id);
 				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 			} catch (DataAccessException e) {
 				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				log.info("asignacion update fin:"+ id);
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 //		}
@@ -276,6 +285,7 @@ public class AsignacionRestController {
 	
 	@GetMapping("/asignacionesHistorico")
 	public ResponseEntity<?> asignacionesHistorico() {
+		log.info("asignacion historico");
 		List<AsignacionHistorico> asignaciones = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -286,11 +296,13 @@ public class AsignacionRestController {
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
 			 log.info("asignacionesHistorico:"+asignaciones.size());
+			 log.info("asignacion historico fin");
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			log.info("asignacion historico fin");
 			e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

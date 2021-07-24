@@ -23,7 +23,7 @@ $(document).ready(function() {
 	function abrirModal(item){
 		item = item.split('-');	
 		if(item.length == 1){
-			console.log("instructor dia de ausencia");
+			//console.log("instructor dia de ausencia");
 			return null;
 		}
 		for(i in asignaciones){
@@ -55,7 +55,8 @@ $(document).ready(function() {
 				asignaStatus = asignacion.statusAsignacion;
 				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
 				archivoParticipantes=asignacion.archivoParticipantes;
-				console.log(asignacion);	
+				errorProceso=asignacion.errorProceso;
+//				//console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
 				break;
 			}
@@ -82,7 +83,15 @@ $(document).ready(function() {
 		
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
-		
+		if(errorProceso !== "" && errorProceso){
+			//console.log(errorProceso);
+			$('#liErrorProceso').remove();
+			liErrorProceso = '<li id="liErrorProceso" class="list-group-item list-group-item-info">Error Proceso : <span id="modalErrorProceso"></span></li>'
+			$('#resumenAsignacionModal').append(liErrorProceso);	
+			$('#modalErrorProceso').html('<b>'+errorProceso+'</b>');
+		}else{
+			$('#liErrorProceso').remove();
+		}
 		$('#myModal').modal();
 		
 		
@@ -122,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function asignaCamposSubmit(asignacionSub){
-//		console.log(asignacionSub)
+//		//console.log(asignacionSub)
 		$('#idAsignacion').val(asignacionSub.idAsignacion);
 		$('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
 		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
@@ -173,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var today = anio + '-' + mes + '-' + dia;
-//		console.log(today);
+//		//console.log(today);
 		return today;
 	}
 
@@ -186,13 +195,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		var items = new Array();
 		var listaFechasAusencia = new Array();
 		var instructor;
-//		console.log(operacionId)
+//		//console.log(operacionId)
 		for(i in asignaciones){
 			asignacion = asignaciones[i];
 			if(asignacion.statusAsignacion !== "Evento Cancelado"){
 				if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
-//					console.log(asignacion);
-//					console.log(asignacion.idInstructorAsignacion);
+//					//console.log(asignacion);
+//					//console.log(asignacion.idInstructorAsignacion);
 					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
 					color = getColor(asignacion.idRegionAsignacion);
@@ -221,14 +230,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		for(e in instructores){
 			instructor = instructores[e];
-//			console.log(instructor.idInstructor * 1)
+//			//console.log(instructor.idInstructor * 1)
 			 if((instructor.idInstructor * 1) === ( operacionId * 1)){
-//				 console.log(instructor)
+//				 //console.log(instructor)
 				 if(instructor.listFechas){
 					 listaFechasAusencia = instructor.listFechas.split(";");
 					 for(a in listaFechasAusencia){
 						 fechaAusencia = getFecha(listaFechasAusencia[a]);
-//						 console.log(fechaAusencia);
+//						 //console.log(fechaAusencia);
 						 item = {
 									'title' : instructor.nombreInstructor ,
 									'start' : fechaAusencia+'03:00',
@@ -270,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var fecha = anio + '-' + mes + '-' + dia+ 'T';
-//		console.log(fecha);
+//		//console.log(fecha);
 		return fecha;
 	}
 	
@@ -280,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[0].substring(0, 2) +":"+ horario[0].substring(2);
 //		parse = parse + ":00";// + horario[0].slice(2, 2) + ":00" ;
-//		console.log(parse);
+//		//console.log(parse);
 		return parse;
 	}
 	
@@ -290,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		horario = horario.split(';');
 		var parse =horario[1].substring(0, 2) +":"+ horario[1].substring(2);
 //		parse = parse + ":00";// + horario[0].slice(2, 2) + ":00" ;
-//		console.log(parse);
+//		//console.log(parse);
 		return parse;
 	}
 	

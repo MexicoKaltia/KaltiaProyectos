@@ -2,7 +2,7 @@
    	
 $(document).ready(function(){
 	
-	console.log(asignacionItem);
+//	//console.log(asignacionItem);
 
 	 $.asignaFecha = ordenaFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
@@ -214,7 +214,7 @@ $(document).ready(function(){
 		if($.asignaNivel === "" || $.asignaNivel === null){
 			alertaEmpty = alertaEmpty + "<li>Campo: <b> Nivel Inválido </b></li>";
 		}else{
-//			console.log($.asignaNivel)
+//			//console.log($.asignaNivel)
 			$('#modalNivel').html('<b>'+$.asignaNivel+'</b>'); 
 		}
 		
@@ -237,7 +237,7 @@ $(document).ready(function(){
 		asignaCamposSubmit();
 		
 		if(alertaEmpty === "" || alertaEmpty === null){
-//			console.log("Avanza al modal");
+//			//console.log("Avanza al modal");
 			$("#procesoVacio").remove();
 			return true;
 		}else{
@@ -315,7 +315,7 @@ $(document).ready(function(){
 	}
 	
 	var clientesVendedor = new Array();
-//	console.log(idVendedor+":"+perfilVendedor+":"+operacionId);
+//	//console.log(idVendedor+":"+perfilVendedor+":"+operacionId);
 	if(perfilUsuario ==="Vendedor"){
 		$('#asignaCliente').empty();
 		clientesVendedor = vendedorCliente(operacionId);
@@ -402,9 +402,9 @@ $(document).ready(function(){
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
-   	    console.log($.asignaFecha);
+//   	    //console.log($.asignaFecha);
    	    $.asignaFechaCalendario = $('#asignaFecha').val();
-		console.log("asignaFecha:"+ $.asignaFechaCalendario);
+//		//console.log("asignaFecha:"+ $.asignaFechaCalendario);
    		$('#alertaFecha').remove();
    		
    		limpiaCurso()
@@ -426,7 +426,7 @@ $(document).ready(function(){
 		limpiaCurso()
 		$.asignaCliente = $('#asignaCliente').val()
 		$.asignaClienteTexto = $("#asignaCliente option:selected").text();
-		console.log("asignaCliente:"+ $.asignaCliente);
+//		//console.log("asignaCliente:"+ $.asignaCliente);
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		
@@ -444,16 +444,16 @@ $(document).ready(function(){
 	}
 	
 	function vendedorCliente(idV){
-//		console.log("idVendedorFirmado:"+idV);
+//		//console.log("idVendedorFirmado:"+idV);
 		var idVendedorCliente;
 		var clientes= new Array();
 		for(i in asignacionClientes){
 			idVendedorCliente = asignacionClientes[i].vendedorCliente.idVendedor;
-//			console.log(idVendedorCliente+":"+asignacionClientes[i].nombreCortoCliente);
+//			//console.log(idVendedorCliente+":"+asignacionClientes[i].nombreCortoCliente);
 			if((idVendedorCliente *1) === (idV*1))
 				clientes.push(asignacionClientes[i]);
 		}
-//		console.log(clientes);
+//		//console.log(clientes);
 		return clientes;
 	}
 	
@@ -467,7 +467,7 @@ $(document).ready(function(){
 		
 		var idCliente
 		for(i in asignacionClientes){
-//			console.log(asignacionClientes[i]);
+//			//console.log(asignacionClientes[i]);
 			idCliente = (asignacionClientes[i].idCliente * 1);
 			if(idCliente === cliente){
 				idRegion = (asignacionClientes[i].regionCliente.idRegion *1 );
@@ -475,7 +475,7 @@ $(document).ready(function(){
 			}
 		}
 			
-//		console.log(idRegion+":"+nombreRegion);
+//		//console.log(idRegion+":"+nombreRegion);
 		
 		switch (idRegion){
 		case 1:
@@ -610,7 +610,7 @@ $(document).ready(function(){
 					}
 				}
 			}
-			console.log(arrayInstructores);
+//			//console.log(arrayInstructores);
 			/*
 			 * Valida dias de Ausencia
 			 */
@@ -623,7 +623,7 @@ $(document).ready(function(){
 				}
 			}
 			arrayInstructores = instructoresDiaAusencia ;
-			console.log(arrayInstructores);
+//			//console.log(arrayInstructores);
 			
 			var regionInstructor;
 			var regionCliente;
@@ -649,7 +649,7 @@ $(document).ready(function(){
 						}
 					}
 					regionCliente = jsonCliente.regionCliente.idRegion;
-					console.log(jsonCliente);
+//					//console.log(jsonCliente);
 				}
 
 				/*
@@ -667,7 +667,7 @@ $(document).ready(function(){
 						instructoresDiaSelect.push(instructor);
 					}
 				}
-					 console.log(instructoresDiaSelect);
+//					 //console.log(instructoresDiaSelect);
 				/*
 				 * libre ayer
 				 */
@@ -688,7 +688,7 @@ $(document).ready(function(){
 						}
 					}
 				}
-				console.log(instructoresDiaAyer);
+//				//console.log(instructoresDiaAyer);
 				/*
 				 * libre mañana 
 				 */
@@ -704,7 +704,7 @@ $(document).ready(function(){
 						}
 					}
 				}
-				console.log(instructoresDiaMan);
+//				//console.log(instructoresDiaMan);
 				for(i in instructoresDiaMan){
 					instructor = instructoresDiaMan[i];
 					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
@@ -730,13 +730,13 @@ $(document).ready(function(){
 	}  // fin metodo validaCurso
 	
 	function validaAtributosPrimarios(){
-//		console.log(asignacionItem.instructorAsignacion);
-//		console.log($.asignaFecha);
-//		console.log($.asignaCliente);
-//		console.log($.asignaCurso);
+//		//console.log(asignacionItem.instructorAsignacion);
+//		//console.log($.asignaFecha);
+//		//console.log($.asignaCliente);
+//		//console.log($.asignaCurso);
 		
 		var fechaAsignada = ordenaFecha(asignacionItem.fechaAsignacion);
-//		console.log(fechaAsignada);
+//		//console.log(fechaAsignada);
 		
 		if(fechaAsignada.toString() === $.asignaFecha.toString() && 
 				asignacionItem.idClienteAsignacion.toString() === $.asignaCliente.toString() && 
@@ -761,16 +761,16 @@ $(document).ready(function(){
 		var fechaAusente;
 		var fechaSelect = new Date($.asignaFecha2);
 		var fechasAusente = new Array();
-//		console.log(instructor);
+//		//console.log(instructor);
 		if(instructor.listFechas){
 			fechasAusente = instructor.listFechas.toString().split(";");
 //			fechasAusente = stringToList(instructor.listFechas);
-//			console.log(fechasAusente)
+//			//console.log(fechasAusente)
 			for(e in fechasAusente){
-//				console.log(fechasAusente[e]);
+//				//console.log(fechasAusente[e]);
 				fechaAusente = new Date(fechasAusente[e]);
-//				console.log(fechaAusente);
-//				console.log(fechaSelect);
+//				//console.log(fechaAusente);
+//				//console.log(fechaSelect);
 				if(fechaAusente.toString() === fechaSelect.toString()){
 					fechaDisponible = false;
 					break;
@@ -842,7 +842,7 @@ $(document).ready(function(){
 			asignacion = asignacionAsignaciones[i];
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
-//			console.log(dManTexto+":"+asignacionFecha);
+//			//console.log(dManTexto+":"+asignacionFecha);
 			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
 				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
 					return true;
@@ -889,16 +889,16 @@ $(document).ready(function(){
 		if(mes<10)
 			mes = "0"+mes.toString();
 		var dmin1Texto = mes +"/"+ dia +"/"+ anio ;
-//		console.log(dmin1Texto);
-//		console.log(asignacionAsignaciones);
+//		//console.log(dmin1Texto);
+//		//console.log(asignacionAsignaciones);
 		for(i in asignacionAsignaciones){
 			asignacion = asignacionAsignaciones[i];
-//			console.log(asignacion.idAsignacion);
+//			//console.log(asignacion.idAsignacion);
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
 			if(asignacionFecha === dmin1Texto && (asignacionInstructor === idInstructor)){
 				idRegionAsignado = getRegionAsignado(asignacion.idClienteAsignacion);
-//				console.log(idRegionAsignado);
+//				//console.log(idRegionAsignado);
 				return validaZonaBase(regionCliente, idRegionAsignado);
 			}
 		}
@@ -906,8 +906,8 @@ $(document).ready(function(){
 	}
 	
 	function validaDmas1(regionCliente, idInstructor){
-//		console.log("regionCliente:"+regionCliente);
-//		console.log("idInstructor:"+idInstructor);
+//		//console.log("regionCliente:"+regionCliente);
+//		//console.log("idInstructor:"+idInstructor);
 //		var flagDiaAnterior;
 		var asignacion;
 		var asignacionFecha;
@@ -925,16 +925,16 @@ $(document).ready(function(){
 		if(mes<10)
 			mes = "0"+mes.toString();
 		var dmas1Texto = mes +"/"+ dia +"/"+ anio ;
-//		console.log("dmas1Texto:"+dmas1Texto);
-//		console.log(asignacionAsignaciones);
+//		//console.log("dmas1Texto:"+dmas1Texto);
+//		//console.log(asignacionAsignaciones);
 		for(i in asignacionAsignaciones){
 			asignacion = asignacionAsignaciones[i];
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
-//			console.log(asignacionFecha);
+//			//console.log(asignacionFecha);
 			if((asignacionFecha === dmas1Texto) && (asignacionInstructor === idInstructor)){
 				idRegionAsignado = getRegionAsignado(asignacion.idClienteAsignacion);
-//				console.log(idRegionAsignado);
+//				//console.log(idRegionAsignado);
 				return validaZonaBase(regionCliente, idRegionAsignado);
 			}
 		}
@@ -943,8 +943,8 @@ $(document).ready(function(){
 	
 	function validaZonaBase(regionCliente, regionInstructor){
 		var claveZB = regionCliente.toString() + regionInstructor.toString();
-//		console.log(claveZB);
-//		console.log(zonabase[claveZB]);
+//		//console.log(claveZB);
+//		//console.log(zonabase[claveZB]);
 		return zonabase[claveZB];
 	}
 	
@@ -974,7 +974,7 @@ $(document).ready(function(){
 		
 		
 		$.asignaInstructor = $('#asignaInstructor').val()
-//		console.log("asignaInstructor:"+ $.asignaInstructor);
+//		//console.log("asignaInstructor:"+ $.asignaInstructor);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -1022,7 +1022,7 @@ $(document).ready(function(){
    			alerta="<div class='alert alert-danger' id='alertaHorarioInicio' role='alert'>Seleccione Horario</div>";
 			alertaFade(alerta);
 			$('#btnAsignaHorario').attr("disabled", true);
-			console.log("Horario INVALIDO");
+//			//console.log("Horario INVALIDO");
    		}else{
 //   			$("#asignaHorarioFinal").empty();
 //   			$("#asignaRecesoInicio").empty();
@@ -1054,7 +1054,7 @@ $(document).ready(function(){
 	   		}
    			$('#asignaHorarioFinal').attr("disabled", false);
 		}
-		console.log("Horario Inicio:"+$.asignaHorarioInicio);
+//		//console.log("Horario Inicio:"+$.asignaHorarioInicio);
 	}
 	
 	
@@ -1070,7 +1070,7 @@ $(document).ready(function(){
 			horasEfectivas(sumaHorasReceso());
 //			$.asignaHorarioInicioTexto = $("#asignaHorarioInicio option:selected").text();
 //			procesoHorarioInicio="<li>Prospecto HorarioInicio : <b>"+ $.asignaHorarioInicioTexto +"</b></li>";
-//			console.log("Horario Final:"+$.asignaHorarioFinal)
+//			//console.log("Horario Final:"+$.asignaHorarioFinal)
 		}else{
 			reinicioHorario()
 		}
@@ -1121,7 +1121,7 @@ $(document).ready(function(){
 			}else{
 				for(var i = inicioEfe; i <((hrEf[0]*1)+ 0) ; i++){
 					o = i - 0.3;
-//					console.log(o);
+//					//console.log(o);
 					$("#horasEfectivas").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
 					$("#horasEfectivas").append('<option value="'+(i+1)+'30">'+(i+1)+':30</option>');
 				}
@@ -1131,7 +1131,7 @@ $(document).ready(function(){
 	
 	$("#horasEfectivas").change(function(){
 		var horasE = $("#horasEfectivas").val(); 
-//		console.log(horasE);
+//		//console.log(horasE);
 		if( horasE > 0){
 			$('#confirmarHorario').attr('disabled', false);
 		}else{
@@ -1174,7 +1174,7 @@ function reinicioHorario(){
 	function validaParticipantes(){
 		
 		$.asignaParticipantes = $('#asignaParticipantes').val();
-		console.log("asignaParticipantes:"+ $.asignaParticipantes);
+//		//console.log("asignaParticipantes:"+ $.asignaParticipantes);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -1195,7 +1195,7 @@ function reinicioHorario(){
 	}
 	function validaNivel(){
 		$.asignaNivel = $('#asignaNivel').val();
-		console.log("asignaNivel:"+ $.asignaNivel);
+//		//console.log("asignaNivel:"+ $.asignaNivel);
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
 		$('#alertaCurso').remove();
@@ -1224,7 +1224,7 @@ function reinicioHorario(){
 	 * ValidaObservaciones
 	 */
 	function checkStatusAsignacion(){
-		console.log($.asignaStatusAsignacion);
+//		//console.log($.asignaStatusAsignacion);
 		if($.asignaStatusAsignacion === "Curso Asignado" || $.asignaStatusAsignacion === "Confirmado Instructor" || $.asignaStatusAsignacion ==="Curso Editado"){
 			var r = confirm("Seguro de Cancelar el Evento, esta operacion no se puede reversar, tendría que crear un Evento nuevo.")
 			if(r){
@@ -1247,7 +1247,7 @@ function reinicioHorario(){
 		
 		$.asignaObservaciones = $('#asignaObservaciones').val();
 		if($('#asignaArchivos').val() === null || $('#asignaArchivos').val() === ""){
-			console.log($('#asignaArchivos').val());
+//			//console.log($('#asignaArchivos').val());
 		}else{
 			$.asignaArchivos = $('#asignaArchivos').val();
 			while($.asignaArchivos.includes("C:\\fakepath\\") ){
@@ -1301,7 +1301,7 @@ function reinicioHorario(){
         var files = archivosCampo.files;
         for (var i = 0; i < files.length; i++) {           
             var file = files[i];
-            console.log(file);          
+//            //console.log(file);          
             }        
         }
    	
@@ -1318,11 +1318,11 @@ function reinicioHorario(){
 
   		limpiaAlerta(),
 
-		console.log("envio idAsignacion:"+rfcCliente);
+//		//console.log("envio idAsignacion:"+rfcCliente);
 		var alerta="";
 		 var form = $('#actualizaAsignacion')[0]; //$('#formImagenLogoCliente').attr('files'),
         var data = new FormData(form);
-        console.log(data);
+//        //console.log(data);
 		  $.ajax({
 			url: "fileAsignacion/"+rfcCliente,
 		    type: "POST",
@@ -1336,18 +1336,18 @@ function reinicioHorario(){
 		    		if(data.codigo===0){
 		  			  alerta="<div class='alert alert-success' role='alert'>Éxito carga</div>";
 		  			  $(alerta).insertAfter($('.alertaFile'));
-		  			  console.log("envio ok");
+//		  			  //console.log("envio ok");
 		  	    	}else{
 		  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
 		  				  $(alerta).insertAfter($('.alertaFile'));
-		  	    		console.log("envio Nok");
+//		  	    		//console.log("envio Nok");
 		  	    	}
 		    	  } 
 		    	},
 		    error: function () {
 		    	alerta="<div class='alert alert-danger' role='alert'>Error en carga de Archivo</div>";
 				  $(alerta).insertAfter($('.alertaFile'));
-		  	console.log("envio error");
+//		  	//console.log("envio error");
 		    }
 		  });
 
