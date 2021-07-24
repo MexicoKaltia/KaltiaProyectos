@@ -153,7 +153,7 @@ $(document).ready(function(){
 	
 	
 	
-	console.log(asignacionCliente);
+	//console.log(asignacionCliente);
 	$('#nombreCortoCliente').html('<b>'+asignacionCliente.nombreCortoCliente+'</b>');
 	$('#regionCliente').html('<b>'+asignacionCliente.regionCliente.nombreRegion+'</b>');
 	$('#nombreCompletoCliente').html('<b>'+asignacionCliente.nombreCompletoCliente+'</b>');
