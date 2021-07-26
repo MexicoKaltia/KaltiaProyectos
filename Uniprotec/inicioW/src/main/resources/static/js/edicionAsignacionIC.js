@@ -25,6 +25,8 @@ $(document).ready(function(){
 	 $.asignaNombreRegion=asignacionItem.nombreRegionAsignacion;
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
 	 $.asignaStatus=asignacionItem.statusAsignacion;
+	 $.asignaErrorProceso=asignacionItem.errorProceso;
+	 
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
 	 
@@ -51,6 +53,8 @@ $(document).ready(function(){
 		//--------------------------------------------------
 		$('#statusAsignacion1').html($.asignaStatus);
 		$('#statusAsignacion0').val($.asignaStatus);
+		console.log($.asignaErrorProceso);
+		$('#errorProceso0').val($.asignaErrorProceso);
 		
 //		$('#statusAsignacion').append("<a id='link'><h4><b>"+$.asignaStatus+"</b></h4></a>");
 		

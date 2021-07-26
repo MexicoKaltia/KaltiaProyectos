@@ -261,7 +261,12 @@ public class AsignacionRestController {
 				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
 				asignacionActual.setArchivoParticipantes(asignacion.getArchivoParticipantesTexto());
 				asignacionActual.setCostoHotel(asignacion.getCostoHotel());
-				asignacionActual.setErrorProceso(asignacion.getErrorProceso());
+				if(asignacion.getErrorProceso() == null || asignacion.getErrorProceso().length() == 0) {
+					asignacionActual.setErrorProceso("");
+				}else {
+					asignacionActual.setErrorProceso(asignacion.getErrorProceso());
+				}
+				
 				
 				asignacionUpdated = asignacionService.save(asignacionActual);
 				response.put("asignacion", asignacionUpdated  );

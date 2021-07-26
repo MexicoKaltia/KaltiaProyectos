@@ -200,7 +200,7 @@ $(document).ready(function(){
 	    
 	    	function enviaImagen(idImagenForm, rfcCliente){
 	    		
-	    		limpiaAlerta(),
+	    		limpiaAlerta();
 //	    			//console.log("Comineza envio imagenBody:"+idImagenForm);
 	    			//console.log("Comineza envio idCliente:"+rfcCliente);
 //	    			rfcCliente ="nuevo";
@@ -244,7 +244,7 @@ $(document).ready(function(){
 	    
 		function enviaFile(idImagenForm, rfcCliente){
     		
-    		limpiaAlerta(),
+    		limpiaAlerta();
 
     			//console.log("Comineza envio idCliente:"+rfcCliente);
     			var alerta="";

@@ -1171,7 +1171,7 @@ var alerta, proceso;
 
   	function enviaFile(rfcCliente){
 		
-  		limpiaAlerta(),
+  		limpiaAlerta();
 
 		//console.log("envio idAsignacion:"+rfcCliente);
 		var alerta="";

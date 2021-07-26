@@ -143,7 +143,7 @@ $(document).ready(function() {
 			}
 			
 			if(perfilUsuario === "Administracion"){
-				$("#divEdicionAsignacion").attr("action", "/BAsignacionI");
+				$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				$("#btnSubmit").empty();
 				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edición Fecha de Pago y Numero de Factura</button>')
 				$("#asignaConfirmar").hide();
@@ -198,7 +198,7 @@ $(document).ready(function() {
 				archivoParticipantes=asignacion0.archivoParticipantes;
 				costoHotel=asignacion0.costoHotel;
 				errorProceso=asignacion0.errorProceso;
-//				//console.log(asignacion0);	
+//				console.log(asignacion0);	
 				asignaCamposSubmit(asignacion0);
 				valErrorProceso(asignacion0);
 				

@@ -2,7 +2,7 @@
    	
 $(document).ready(function(){
 	
-	//console.log(asignacionItem);
+	console.log(asignacionItem);
 
 	 $.asignaFecha = ordenaFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
@@ -34,6 +34,7 @@ $(document).ready(function(){
 	 $.asignaStatusAsignacion=asignacionItem.statusAsignacion;
 	 $.asignaArchivoParticipantes="";
 	 $.asignaArchivoParticipantesTexto="";
+	 $.asignaErrorProceso=asignacionItem.errorProceso;
 	 
 	 
 	 
@@ -141,6 +142,7 @@ $(document).ready(function(){
 		$('#numeroFactura').val(asignacionItem.numeroFactura);
 		$('#verificarEntregable').val(asignacionItem.verificarEntregable);
 		$('#costoHotel').val(asignacionItem.costoHotel);
+		$('#errorProceso').val(asignacionItem.errorProceso);
 		
 		
 		
@@ -182,7 +184,7 @@ $(document).ready(function(){
    	
    	
   	function enviaFile(rfcCliente){
-		limpiaAlerta(),
+		limpiaAlerta();
 
 		//console.log("envio idAsignacion:"+rfcCliente);
 		var alerta="";

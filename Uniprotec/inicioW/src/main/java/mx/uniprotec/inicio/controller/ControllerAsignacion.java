@@ -193,7 +193,7 @@ public class ControllerAsignacion {
 	@PostMapping("/actualizaAsignacionV")
 	public ModelAndView actualizaAsignacionV(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Actualiza Asignacion model Activo");
-//		log.info(asignacion.toString());
+		log.info(asignacion.toString());
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 

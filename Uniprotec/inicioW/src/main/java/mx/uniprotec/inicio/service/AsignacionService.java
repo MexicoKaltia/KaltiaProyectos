@@ -82,39 +82,35 @@ public class AsignacionService implements IAsignacionService{
 			asignacion.setErrorProceso("");
 		}
 		
-		
-		// Actualiza Asignacion
-		resultVO = (ResultVO) baseClientRest.objetoPut(
+		//Obtener idInstructor anterior
+		Long idInstructorAnterior = null;
+		JSONObject jsonAsignacionAnterior = null;
+		resultVO = (ResultVO) baseClientRest.objetoGetId(
 				token,
-				BaseClientRest.URL_CRUD_ASIGNACION,
-				asignacion,
-				asignacion.getIdAsignacion());
-		//
+				BaseClientRest.URL_CRUD_ASIGNACION, null,
+				asignacion.getIdAsignacion().toString());
+		if(resultVO.getCodigo() != 500) {
+			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
+			jsonAsignacionAnterior = new JSONObject((Map) jsonObject.get("asignacion"));
+			idInstructorAnterior = Long.valueOf(jsonAsignacionAnterior.get("idInstructorAsignacion").toString());
+			log.info("IdInstructor Anterior:"+idInstructorAnterior);
+		}
+		// Actualiza Asignacion
+			resultVO = (ResultVO) baseClientRest.objetoPut(
+					token,
+					BaseClientRest.URL_CRUD_ASIGNACION,
+					asignacion,
+					asignacion.getIdAsignacion());
+			//
 		
 		//Envio de correo
 		if(resultVO.getCodigo() != 500) {
 			if(asignacion.getStatusAsignacion().equals("Curso Editado") ) {
 				JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-//				JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
-//				asignacion.setIdAsignacion(Long.valueOf(jsonAsignacion.get("idAsignacion").toString()));
 				log.info("Listo proceso envia correo");
 				aplicacionService.enviaMail(asignacion, token);
 			}
-			
 			if(asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
-				//Obtener idInstructor anterior
-				Long idInstructorAnterior = null;
-				JSONObject jsonAsignacionAnterior = null;
-				resultVO = (ResultVO) baseClientRest.objetoGetId(
-						token,
-						BaseClientRest.URL_CRUD_ASIGNACION, null,
-						asignacion.getIdAsignacion().toString());
-				if(resultVO.getCodigo() != 500) {
-					JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
-					jsonAsignacionAnterior = new JSONObject((Map) jsonObject.get("asignacion"));
-					idInstructorAnterior = Long.valueOf(jsonAsignacionAnterior.get("idInstructorAsignacion").toString());
-					log.info("IdInstructor Anterior:"+idInstructorAnterior);
-				}
 			// Envia Notifiacion SUSTITUCION 0 CANCELACION
 				log.info("idInstructorAnterior : "+idInstructorAnterior.toString());
 				log.info("asignacion : "+asignacion.getIdInstructorAsignacion().toString());
@@ -126,6 +122,7 @@ public class AsignacionService implements IAsignacionService{
 //			MailServiceTest.mailServicePreCorreo(asignacion, token);
 			}
 		}
+		
 		return resultVO;
 	}
 	
