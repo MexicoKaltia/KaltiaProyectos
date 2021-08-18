@@ -154,6 +154,7 @@ $(document).ready(function(){
 		    'click .like': function (e, value, row, index) {
 		    	var idCliente = row.idCliente;
 //		    	//console.log("A:"+idCliente);
+		    	$.asignacionesArray = new Array();
 		    	$('#regsitroAsignacion').empty();
 		    	for(var a in asignaciones){
 		    		asignacion = asignaciones[a];
