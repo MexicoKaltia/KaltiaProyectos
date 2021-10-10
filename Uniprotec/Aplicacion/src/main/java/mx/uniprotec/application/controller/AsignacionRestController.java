@@ -115,7 +115,6 @@ public class AsignacionRestController {
 	 /*
 	  * 
 	  */
-	@SuppressWarnings("null")
 	@PostMapping("/asignacion")
 	public ResponseEntity<?> create(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result) {
 		log.info("asignacion create");

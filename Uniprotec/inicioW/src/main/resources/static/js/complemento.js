@@ -35,6 +35,8 @@ $(document).ready(function(){
 	 * Carga la Tabla inicial
 	 */
 	
+	console.log($data);
+	
 	$.statusInstructor="";
 	$.statusCurso="";
 	$.listFechas= new Array();

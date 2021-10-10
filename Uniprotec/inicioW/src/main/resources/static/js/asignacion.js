@@ -22,7 +22,7 @@ $(document).ready(function(){
 	 $.asignaTipoCurso="";
 	 $.asignaUserCreateAsignacion=nombreUsuario;
 	 
-	
+console.log("hoy");	
 	 
 	 
 	$('#procesoFecha').click(function(){	
@@ -415,7 +415,7 @@ var alerta, proceso;
 		 instructoresDiaAyer.length = 0;
 		 instructoresDiaMan.length = 0;
 		$.asignaCurso = $('#asignaCurso').val();
-		//console.log("asignaCurso:"+ $.asignaCurso);
+		console.log("asignaCurso:"+ $.asignaCurso);
 		
 		$('#alertaFecha').remove();
 		$('#alertaCliente').remove();
@@ -467,7 +467,7 @@ var alerta, proceso;
 			 * Filtra Instructores por Curso
 			 */
 			var valorCurso = $.asignaCurso * 1;
-//			//console.log(asignacionCurso);
+//			console.log(asignacionCurso);
 //			for(a in asignacionCurso){
 //				curso = asignacionCurso[a];
 //				if($.asignaCurso.toString() === curso.idCurso.toString()){
@@ -497,10 +497,12 @@ var alerta, proceso;
 			/*
 			 * Valida dias de Ausencia
 			 */
-			var instructorDiaAusencia;
+//			var instructorDiaAusencia;
 			var instructoresDiaAusencia = new Array();;
+//			console.log(arrayInstructores);
 			for(a in arrayInstructores){
-				instructorDiaAusencia = arrayInstructores[a]; 
+				var instructorDiaAusencia = arrayInstructores[a]; 
+//				console.log(instructorDiaAusencia);
 				if(validaDiaAusencia(instructorDiaAusencia)){
 					instructoresDiaAusencia.push(instructorDiaAusencia);
 				}
@@ -642,19 +644,15 @@ var alerta, proceso;
 	function validaDiaAusencia(instructor){
 		
 		var fechaDisponible = true;
-		var fechaAusente;
+//		var fechaAusente;
 		var fechaSelect = new Date($.asignaFecha2);
 		var fechasAusente = new Array();
-//		//console.log(instructor);
+//		console.log(instructor);
 		if(instructor.listFechas){
 			fechasAusente = instructor.listFechas.toString().split(";");
 //			fechasAusente = stringToList(instructor.listFechas);
-//			//console.log(fechasAusente)
 			for(e in fechasAusente){
-//				//console.log(fechasAusente[e]);
-				fechaAusente = new Date(fechasAusente[e]);
-//				//console.log(fechaAusente);
-//				//console.log(fechaSelect);
+				var fechaAusente = new Date(fechasAusente[e]);
 				if(fechaAusente.toString() === fechaSelect.toString()){
 					fechaDisponible = false;
 					break;

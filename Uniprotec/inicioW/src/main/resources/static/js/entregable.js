@@ -22,6 +22,8 @@ $(document).ready(function() {
 	
 	function abrirModal(item){
 		$('#asignaConfirmar').attr("disabled", true);
+		$('#edicionEntregable').attr("disabled", true);
+		
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
@@ -74,6 +76,11 @@ $(document).ready(function() {
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Entregables Validado"){ 
 				$('#asignaConfirmar').attr("disabled", false);
+				$('#edicionEntregable').attr("disabled", false);
+				$('#edicionEntregable').click(function(){
+					$("#formEntregables").attr("action", "AEntregable");
+				})
+				
 			}
 			else if(asignaStatus ==="Evento Cancelado") {
 				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, no se realiza Edición. </u></div>');

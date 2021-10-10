@@ -5,6 +5,8 @@ mx\uniprotec\entidad\modelo\Modulo.class
 mx\uniprotec\entidad\modelo\ResultVO.class
 mx\uniprotec\entidad\modelo\UserMap.class
 mx\uniprotec\entidad\modelo\User.class
+mx\uniprotec\entidad\modelo\EntregableModelo.class
+mx\uniprotec\entidad\modelo\ParticipantesModelo.class
 mx\uniprotec\entidad\modelo\MensajeModelo.class
 mx\uniprotec\entidad\modelo\AsignacionModelo.class
 mx\uniprotec\entidad\modelo\Region.class

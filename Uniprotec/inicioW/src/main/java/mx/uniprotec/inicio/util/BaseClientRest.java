@@ -42,11 +42,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
-	
-	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+
+//	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
 //	
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -68,6 +68,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_MENSAJE 	  =	"mensaje";
 	public static final String URL_CRUD_NOTIFICACION 	  =	"notificacion";
 	public static final String URL_CRUD_NOTIFICACIONES 	  =	"notificaciones";
+	public static final String URL_CRUD_ENTREGABLE    = "entregable";
 	
 	
 	
@@ -77,7 +78,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String GRANT_TYPE ="password";
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 	
-	public static final Long MAX_TIME_TOKEN = (long) 3600000; 
+	public static final Long MAX_TIME_TOKEN = (long) 3600000;
+	 
 	
 	ResultVO resultVO = new ResultVO();
 	

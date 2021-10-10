@@ -2,13 +2,17 @@ package mx.uniprotec.inicio.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -197,6 +201,8 @@ public class ControllerUtil {
 		}
 	
 	
+		
+	
 	@RequestMapping(method = RequestMethod.POST, path = "/fileUpload/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
 	public ResultVO fileUpload(@PathVariable String idEmpresa, @RequestParam("archivosCliente") MultipartFile archivosCliente){
 	   try {
@@ -365,6 +371,264 @@ public class ControllerUtil {
 	    return resultVO;//new ResultVO(99, "fallo");
 	  }
       return resultVO;//new ResultVO(1, "ExitoFileUpload");
+	}
+	
+	
+	/*
+	 * Documentos Imagenes Entregables.
+	 */
+	@RequestMapping(method = RequestMethod.POST, path = "/imageUploadEntregable/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
+	public ResultVO imageUploadEntregable(@PathVariable String idEmpresa, @RequestParam("formALogo") MultipartFile formALogo){
+	   try {
+		   log.info(idEmpresa);
+		    // Get the filename and build the local file path (be sure that the 
+		    // application have write permissions on such directory)
+		    String filename = formALogo.getOriginalFilename();
+
+		    String directory = "/uniprotec/entregables/"+idEmpresa+"/imageLogo/";
+	        File directorio = new File(directory);
+	        if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	                log.info("Nuevo Directorio creado");
+	    		    String filepath = Paths.get(directory, filename).toString();
+	    		    
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(formALogo.getBytes());
+	    		    stream.close();
+	            } else {
+	            	log.info("Error al crear directorio");
+	            }
+	        }else {
+	        	log.info("Directorio Ya existe");
+	        	String filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(formALogo.getBytes());
+    		    stream.close();
+	        }
+		    
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito Imagen Upload");
+		    
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO;//new ResultVO(99, "fallo");
+		  }
+	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "/imageUploadParticipante/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
+	public ResultVO imageUploadParticipante(@PathVariable String idEmpresa, @RequestParam("formBFotoParticipante") MultipartFile formBFotoParticipante){
+	   try {
+		   log.info(idEmpresa);
+		    // Get the filename and build the local file path (be sure that the 
+		    // application have write permissions on such directory)
+		    String filename = formBFotoParticipante.getOriginalFilename();
+
+		    String directory = "/uniprotec/entregables/"+idEmpresa+"/imagenesParticipantes/";
+	        File directorio = new File(directory);
+	        if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	                log.info("Nuevo Directorio creado");
+	    		    String filepath = Paths.get(directory, filename).toString();
+	    		    
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(formBFotoParticipante.getBytes());
+	    		    stream.close();
+	            } else {
+	            	log.info("Error al crear directorio");
+	            }
+	        }else {
+	        	log.info("Directorio Ya existe");
+	        	String filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(formBFotoParticipante.getBytes());
+    		    stream.close();
+	        }
+		    
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito Imagen Upload");
+		    
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO;//new ResultVO(99, "fallo");
+		  }
+	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+	}
+	
+	 
+
+	@RequestMapping(method = RequestMethod.POST, path = "/imageUploadEvidencia/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
+	public ResultVO imageUploadEvidencia(@PathVariable String idEmpresa, @RequestParam("entregableEdicion[]") MultipartFile[] formCEvidenciasFotograficas){
+		   log.info(idEmpresa);
+		   String message = "";
+		    try {
+//		      List<String> fileNames = new ArrayList<>();
+		      String directory = "/uniprotec/entregables/"+idEmpresa+"/imagenesEvidencias/";
+
+		      Arrays.asList(formCEvidenciasFotograficas).stream().forEach(file -> {
+		    	  File directorio = new File(directory);
+			        if (!directorio.exists()) {
+			            if (directorio.mkdirs()) {
+			                log.info("Nuevo Directorio creado");
+			                String filename = file.getOriginalFilename();
+			    		    String filepath = Paths.get(directory, filename).toString();
+			    		    
+			    		    // Save the file locally
+			    		    BufferedOutputStream stream = null;
+							try {
+								stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			    		    try {
+								stream.write(file.getBytes());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			    		    try {
+								stream.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            } else {
+			            	log.info("Error al crear directorio");
+			            }
+			        }else {
+			        	log.info("Directorio Ya existe");
+			        	String filename = file.getOriginalFilename();
+			        	String filepath = Paths.get(directory, filename).toString();
+		    		    
+		    		    // Save the file locally
+		    		    BufferedOutputStream stream = null;
+						try {
+							stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		    		    try {
+							stream.write(file.getBytes());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		    		    try {
+							stream.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			        }
+		      });
+		    
+	        
+		    
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito Imagen Upload");
+		    
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO;//new ResultVO(99, "fallo");
+		  }
+	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+	}
+
+	
+	@RequestMapping(method = RequestMethod.POST, path = "/fileUploadEntregables/{idEmpresa}",  consumes = "multipart/form-data", produces = "application/json")
+	public ResultVO fileUploadEntregables(@PathVariable String idEmpresa, @RequestParam("formCEvidenciaDocto") MultipartFile formCEvidenciaDocto){
+	   try {
+		   log.info(idEmpresa);
+		    // Get the filename and build the local file path (be sure that the 
+		    // application have write permissions on such directory)
+		    String filename = formCEvidenciaDocto.getOriginalFilename();
+
+		    String directory = "/uniprotec/entregables/"+idEmpresa+"/file/";
+	        File directorio = new File(directory);
+	        if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	                log.info("Directorio creado");
+	    		    String filepath = Paths.get(directory, filename).toString();
+	    		    
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(formCEvidenciaDocto.getBytes());
+	    		    stream.close();
+	            } else {
+	            	log.info("Error al crear directorio");
+	            }
+	        }else {
+	        	log.info("Directorio Ya existe");
+	        	String filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(formCEvidenciaDocto.getBytes());
+    		    stream.close();
+	        }
+		    
+		    
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito File Upload");
+		    
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO;//new ResultVO(99, "fallo");
+		  }
+	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+		}
+
+	@GetMapping("/uploadsEntregables/{idEmpresa}/{tipoCarpeta}/{nombreFile:.+}")
+	public ResponseEntity<Resource> verImagenEntregables(@PathVariable String idEmpresa, @PathVariable String tipoCarpeta, @PathVariable String nombreFile){
+		
+		Path rutaArchivo = Paths.get("/uniprotec/entregables/"+idEmpresa+"/"+tipoCarpeta+"/").resolve(nombreFile).toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la Archivo: " + nombreFile);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
 
 

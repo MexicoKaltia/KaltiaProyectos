@@ -242,6 +242,30 @@
 									<b>Consulta : </b><u>No se realizó la consulta de la lista de Asignaciones, Notifique Administrador. </u>
 								</div>
 							</span>
+							<span th:if='${ejecucionEntregable}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado Correctamente el Nuevo Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
+							<span th:if='${ejecucionEntregableError}'>
+								<div class="alert alert-danger" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se generó el Nuevo Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
+							<span th:if='${ejecucionEntregableActualizado}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado Actualizado Correctamente el Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
+							<span th:if='${ejecucionEntregableActualizadoError}'>
+								<div class="alert alert-danger" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se actualizó el Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
 					 </div>
                         </div>
                         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
@@ -373,7 +397,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/BAsignacionI}" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
+                                           <form role="form" th:action="@{/BAsignacionI}" id="formEntregables" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
                                                <h5 class="card-title">Resumen de Asignación</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
@@ -421,8 +445,12 @@
                                                 <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
                                        			<br>
                                        			<br>
-                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" disabled>Edicion Entregables</button>        
+                                       			 <div class="modal-footer">
+	                                   				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" disabled>Avance Fase</button>
+	                                       			<button  id="edicionEntregable" class="btn btn-info pull-right btn-lg" disabled>Edicion Entregables</button>
+                                   				</div>
+                                       	        
 											</form>
                                            </div>
                                        </div>

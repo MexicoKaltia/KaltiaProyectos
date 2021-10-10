@@ -200,12 +200,9 @@ public class AsignacionService implements IAsignacionService{
 			}
 			
 			rs.setJsonResponseObject(jsonAsignaciones);
-//			log.info(jsonGeneral.toString());
-//			log.info(rs.toString());
-			return rs;
-		}else {
-			return rs;
 		}
+			return rs;
+		
 	}
 	
 	@Override

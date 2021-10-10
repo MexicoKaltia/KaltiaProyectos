@@ -40,6 +40,55 @@ $(document).ready(function(){
 	 	   showCaption: false, 
 	 	   dropZoneEnabled: false
 	 	  });
+	 
+	 /*
+	  * entregables
+	  */
+	 $("#formALogo").fileinput({
+			browseClass: "btn btn-success",
+			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+			browseLabel: "Seleccionar Imagen",
+			removeClass: "btn btn-warning",
+			removeLabel: "Remover",
+			maxFileSize: 1024,
+			showCaption: false, 
+			dropZoneEnabled: false
+		});
+	 
+	 $("#formBFotoParticipante").fileinput({
+			browseClass: "btn btn-success",
+			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+			browseLabel: "Seleccionar Imagen",
+			removeClass: "btn btn-warning",
+			removeLabel: "Remover",
+			maxFileSize: 1024,
+			showCaption: false, 
+			dropZoneEnabled: false
+		});
+	
+	 $("#formCEvidenciasFotograficas").fileinput({
+			browseClass: "btn btn-success",
+			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+			browseLabel: "Seleccionar Imagenes",
+		    maxFileCount: 9,
+		    validateInitialCount: true,
+			removeClass: "btn btn-warning",
+			removeLabel: "Remover",
+			maxFileSize: 1024,
+			showCaption: false, 
+			dropZoneEnabled: false
+		});
+	
+	 
+	 $("#formCEvidenciaDocto").fileinput({
+			browseClass: "btn btn-success",
+			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+			browseLabel: "Seleccionar Archivo",
+			removeClass: "btn btn-warning",
+			removeLabel: "Remover",
+			showCaption: false, 
+			dropZoneEnabled: false
+		});
 })
 
     
