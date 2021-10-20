@@ -239,6 +239,7 @@ public class ControllerInicio extends HttpServlet{
 				JSONObject asignacionJson = new JSONObject((Map) jsonObject.get("asignacion"));
 
 				AsignacionModelo asignacion = new AsignacionModelo();
+				asignacion.setIdAsignacion(Long.valueOf(asignacionJson.get("idAsignacion").toString()));
 				asignacion.setIdAsignacionLogica((String) asignacionJson.get("idAsignacionLogica"));
 				asignacion.setFechaAsignacion((String) asignacionJson.get("fechaAsignacion"));
 				asignacion.setIdClienteAsignacion(Long.valueOf(asignacionJson.get("idClienteAsignacion").toString()));

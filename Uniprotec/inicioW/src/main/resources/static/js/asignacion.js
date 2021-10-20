@@ -529,8 +529,10 @@ var alerta, proceso;
 				}else{
 					var jsonCliente;
 					for (o in asignacionClientes){
-						if(asignacionClientes[o].idCliente === ($('#asignaCliente').val() * 1)){
-							jsonCliente = asignacionClientes[o];
+						var idCliente = asignacionClientes[o].idCliente;
+						var cliente = asignacionClientes[o];
+						if((idCliente * 1) === ($('#asignaCliente').val() * 1)){
+							jsonCliente = cliente;
 						}
 					}
 					regionCliente = jsonCliente.regionCliente.idRegion;
@@ -559,7 +561,7 @@ var alerta, proceso;
 				for(aa in instructoresDiaSelect){
 					instructor = instructoresDiaSelect[aa];
 					idInstructor = instructor.idInstructor;
-					 nombreInstructor = instructor.nombreInstructor
+					nombreInstructor = instructor.nombreInstructor;
 					if(!validaDiaAyer(idInstructor)){
 						idRegionOrigen = getRegionOrigen(idInstructor);
 						if(validaZonaBase(idRegionOrigen, regionCliente)){

@@ -16,17 +16,34 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="#" th:href="@{fonts/font-awesome-4.7.0/css/font-awesome.min.css}" />
 <!--===============================================================================================-->
+<link rel=stylesheet media=all th:href="@{css/circle.css}" data-turbolinks-track=reload />
+<script th:src="@{js/circle.js}" data-turbolinks-track=reload></script> 
+
 
 </style>
 </head>
 <body style="background: #f2f2f2;">
 	
+	<div class=points>
+               <div class="point point-floating-1"></div>
+               <div class="point point-floating-2"></div>
+               <div class="point point-floating-3"></div>
+               <div class="point point-floating-4"></div>
+               <div class="point point-floating-5"></div>
+               <div class="point point-floating-6"></div>
+               <div class="point point-floating-7"></div>
+               <div class="point point-floating-8"></div>
+               <div class="point point-floating-9"></div>
+            </div>
+            
 	<div class="limiter" style="background: #f2f2f2;">
 		<div class="container-login100" style="background: #f2f2f2;">
 			<div class="wrap-login100">
-<!-- 					<div class="login100-more" style="background-image: url('images/login.png'); background-size: 100% 100%;" ></div> -->
+					
 					<form id="userKaltiaControlFront" class="login100-form validate-form" action="/loginInit" method="post">
-					<div  style="background-image: url('images/logo_removed.png'); background-size: 40% 40%;" ></div>
+					<div class="wrap-input10 ">
+						<img src="images/login.png" alt="" style="max-width: 25.0em; max-height: 20.0em">
+					</div>
 					<span class="login100-form-title p-b-43" >
 							Bienvenido Sistema Control Uniprotec
 					</span>
@@ -59,7 +76,7 @@
 
 				</form>
 			
-				<div class="login100-more right" style="background-image: url('images/login.png'); background-size: 100% 100%;">
+				<div class="login100-more right" style="background-image: url('images/illustration1.png'); background-size: 100% 100%;">
 <!-- 					   	Start EasyHtml5Video.com BODY section -->
 <!-- 					<style type="text/css">.easyhtml5video .eh5v_script{display:none}</style> -->
 <!-- 					<div class="easyhtml5video" style="position:relative;max-width:1920px;"><video  autoplay="autoplay" poster="eh5v.files/html5video/movieUniprotec.jpg" style="width:100%" title="movieUniprotec" loop="loop" onended="var v=this;setTimeout(function(){v.play()},300)"> -->

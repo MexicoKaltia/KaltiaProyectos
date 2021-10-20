@@ -2,7 +2,7 @@
    	
 $(document).ready(function(){
 	
-	//console.log(asignacionItem);
+	console.log(asignacionItem);
 
 	 $.asignaFecha = valoresFecha(asignacionItem.fechaAsignacion);
 	 $.asignaFecha2 ="";
@@ -103,7 +103,8 @@ $(document).ready(function(){
 			$.asignaNombreRegion = nombreRegion;
 			return zonaCliente;
 		}
-	
+		
+	$('#idAsignacion').val(asignacionItem.idAsignacion);
 	//--------------------------------------------------
 	$('#fechaAsignacion').append("<h4><b>"+$.asignaFecha+"</b></h4><br>");
 	//--------------------------------------------------

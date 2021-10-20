@@ -383,63 +383,63 @@
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
                                         <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post" id="edicionAsignacion0">
                                         <div class="form-row">                                        
-                                        <div class="col-md-6 mb-3">
-                                            <div class="wrimagecard wrimagecard-topimage">
-									          <div class="wrimagecard-topimage_header" style="background-color: rgba(213, 15, 37, 0.1)">
-									            <center><i class="fa fa-calendar-check fa-5x" style="color:#d50f25"></i></center>
-									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Fecha de Pago</h6>
-									          
-									          	<input type="text" class="datepicker form-control"  id="fechaPago0" name="fechaPago0" placeholder="Asigna Fecha de Pago" value=""  maxlength="100" th:field="*{fechaPago}" required>
-									          </div>
-									      </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class="wrimagecard wrimagecard-topimage">
-									            <div class="wrimagecard-topimage_header" style="background-color: rgba(51, 105, 232, 0.1)">
-									           <center><i class="fa fa-file fa-5x" style="color:#3369e8"> </i></center> 
-									          </div>
-									          <div class="wrimagecard-topimage_title"><h6>Numero de Factura</h6>
-									          	<input type="text" class="form-control"  id="numeroFactura0" name="numeroFactura0" placeholder="Capture Numero de Factura" value=""  maxlength="100" th:field="*{numeroFactura}" required>
-									          </div>
-									          </div>
-									      </div>
-                                        </div>
-                                         <div class="form-row">    
 	                                        <div class="col-md-6 mb-3">
-	                                        	<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >Agregar Administracion</button>
+	                                            <div class="wrimagecard wrimagecard-topimage">
+										          <div class="wrimagecard-topimage_header" style="background-color: rgba(213, 15, 37, 0.1)">
+										            <center><i class="fa fa-calendar-check fa-5x" style="color:#d50f25"></i></center>
+										          </div>
+										          <div class="wrimagecard-topimage_title"><h6>Fecha de Pago</h6>
+										          
+										          	<input type="text" class=" form-control"  id="fechaPago0" name="fechaPago0" placeholder="Asigna Fecha de Pago" value=""  maxlength="100" th:field="*{fechaPago}" required>
+										          </div>
+										      </div>
 	                                        </div>
-                                        </div>
-                                         		<input type="hidden" id="idAsignacion0" th:field="*{idAsignacion}" />
-                                               <input type="hidden" id="idAsignacionLogica0" th:field="*{idAsignacionLogica}" />
-                                               <input type="hidden" id="fechaAsignacion0" th:field="*{fechaAsignacion}" />
-                                               <input type="hidden" id="idClienteAsignacion0"   th:field="*{idClienteAsignacion}"    />
-                                               <input type="hidden" id="clienteAsignacion0"   th:field="*{clienteAsignacion}"    />
-                                               <input type="hidden" id="idCursoAsignacion0" th:field="*{idCursoAsignacion}" />
-                                               <input type="hidden" id="cursoAsignacion0" th:field="*{cursoAsignacion}" />
-                                               <input type="hidden" id="idInstructorAsignacion0" th:field="*{idInstructorAsignacion}" />
-                                               <input type="hidden" id="instructorAsignacion0" th:field="*{instructorAsignacion}" />
-                                               <input type="hidden" id="horarioAsignacion0" th:field="*{horarioAsignacion}" />
-                                               <input type="hidden" id="participantesAsignacion0" th:field="*{participantesAsignacion}" />
-                                               <input type="hidden" id="nivelAsignacion0" th:field="*{nivelAsignacion}" />
-                                               <input type="hidden" id="archivosAsignacion0" th:field="*{archivosAsignacion}" />
-                                               <input type="hidden" id="archivosAsignacionTexto0" th:field="*{archivosAsignacionTexto}" />
-                                               <input type="hidden" id="observacionesAsignacion0" th:field="*{observacionesAsignacion}" />
-                                               <input type="hidden" id="idRegionAsignacion0" th:field="*{idRegionAsignacion}" />
-                                               <input type="hidden" id="nombreRegionAsignacion0" th:field="*{nombreRegionAsignacion}" />
-                                               <input type="hidden" id="tipoCursoAsignacion0" th:field="*{tipoCursoAsignacion}" />
-                                               <input type="hidden" id="statusAsignacion0" th:field="*{statusAsignacion}" />
-                                               <input type="hidden" id="verificarEntregable0" th:field="*{verificarEntregable}" />
-                                               <input type="hidden" id="userCreateAsignacion0" th:field="*{userCreateAsignacion}" />
-                                               <input type="hidden" id="userCreateAsignacionTexto0" th:field="*{userCreateAsignacionTexto}" />
-                                               <input type="hidden" id="guiaEntregable0" th:field="*{guiaEntregable}" />
-                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
-                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
-                                               
-<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
-<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
-                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
-                                               
+	                                        <div class="col-md-6 mb-3">
+	                                            <div class="wrimagecard wrimagecard-topimage">
+										            <div class="wrimagecard-topimage_header" style="background-color: rgba(51, 105, 232, 0.1)">
+										           <center><i class="fa fa-file fa-5x" style="color:#3369e8"> </i></center> 
+										          </div>
+										          <div class="wrimagecard-topimage_title"><h6>Numero de Factura</h6>
+										          	<input type="text" class="form-control"  id="numeroFactura0" name="numeroFactura0" placeholder="Capture Numero de Factura" value=""  maxlength="100" th:field="*{numeroFactura}" required>
+										          </div>
+										          </div>
+										      </div>
+	                                   </div>
+	                                   <div class="form-row">    
+		                                        <div class="col-md-6 mb-3">
+		                                        	<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >Agregar Administracion</button>
+		                                        </div>
+	                                   </div>
+	                                         		<input type="hidden" id="idAsignacion0" th:field="*{idAsignacion}" />
+	                                               <input type="hidden" id="idAsignacionLogica0" th:field="*{idAsignacionLogica}" />
+	                                               <input type="hidden" id="fechaAsignacion0" th:field="*{fechaAsignacion}" />
+	                                               <input type="hidden" id="idClienteAsignacion0"   th:field="*{idClienteAsignacion}"    />
+	                                               <input type="hidden" id="clienteAsignacion0"   th:field="*{clienteAsignacion}"    />
+	                                               <input type="hidden" id="idCursoAsignacion0" th:field="*{idCursoAsignacion}" />
+	                                               <input type="hidden" id="cursoAsignacion0" th:field="*{cursoAsignacion}" />
+	                                               <input type="hidden" id="idInstructorAsignacion0" th:field="*{idInstructorAsignacion}" />
+	                                               <input type="hidden" id="instructorAsignacion0" th:field="*{instructorAsignacion}" />
+	                                               <input type="hidden" id="horarioAsignacion0" th:field="*{horarioAsignacion}" />
+	                                               <input type="hidden" id="participantesAsignacion0" th:field="*{participantesAsignacion}" />
+	                                               <input type="hidden" id="nivelAsignacion0" th:field="*{nivelAsignacion}" />
+	                                               <input type="hidden" id="archivosAsignacion0" th:field="*{archivosAsignacion}" />
+	                                               <input type="hidden" id="archivosAsignacionTexto0" th:field="*{archivosAsignacionTexto}" />
+	                                               <input type="hidden" id="observacionesAsignacion0" th:field="*{observacionesAsignacion}" />
+	                                               <input type="hidden" id="idRegionAsignacion0" th:field="*{idRegionAsignacion}" />
+	                                               <input type="hidden" id="nombreRegionAsignacion0" th:field="*{nombreRegionAsignacion}" />
+	                                               <input type="hidden" id="tipoCursoAsignacion0" th:field="*{tipoCursoAsignacion}" />
+	                                               <input type="hidden" id="statusAsignacion0" th:field="*{statusAsignacion}" />
+	                                               <input type="hidden" id="verificarEntregable0" th:field="*{verificarEntregable}" />
+	                                               <input type="hidden" id="userCreateAsignacion0" th:field="*{userCreateAsignacion}" />
+	                                               <input type="hidden" id="userCreateAsignacionTexto0" th:field="*{userCreateAsignacionTexto}" />
+	                                               <input type="hidden" id="guiaEntregable0" th:field="*{guiaEntregable}" />
+	                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
+	                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+	                                               
+	<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
+	<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
+	                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+	                                               
                                         </form>
                                        
 									 </div>
@@ -586,7 +586,7 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
-                                           <img class="card-img-top" src="../../../images/logo.png" alt="Card image cap">
+                                           <img class="card-img-top" src="../../../images/logo.png" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
                                            <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
                                                <h5 class="card-title">Avanzar Etapa de proceso de Evento</h5>
