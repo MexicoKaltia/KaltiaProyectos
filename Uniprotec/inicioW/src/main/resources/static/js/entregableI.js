@@ -20,6 +20,9 @@ $(document).ready(function() {
 	var item;
 	
 	function abrirModal(item){
+		$('#asignaConfirmar').attr("disabled", true);
+		$('#edicionEntregable').attr("disabled", true);
+		
 		item = item.split('-');	
 		for(i in asignaciones){
 			asignacion = asignaciones[i]; 
@@ -69,6 +72,14 @@ $(document).ready(function() {
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
+		
+		if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable"){ 
+			$('#asignaConfirmar').attr("disabled", false);
+			$('#edicionEntregable').attr("disabled", false);
+			$('#edicionEntregable').click(function(){
+				$("#formEntregables").attr("action", "AEntregable");
+			})
+		}
 
 		
 		$('#myModal').modal();

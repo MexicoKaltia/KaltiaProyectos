@@ -74,7 +74,7 @@ $(document).ready(function() {
 		}
 
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Entregables Validado"){ 
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable"){ 
 				$('#asignaConfirmar').attr("disabled", false);
 				$('#edicionEntregable').attr("disabled", false);
 				$('#edicionEntregable').click(function(){

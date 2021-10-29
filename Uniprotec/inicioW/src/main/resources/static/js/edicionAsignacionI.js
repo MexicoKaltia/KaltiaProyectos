@@ -188,38 +188,44 @@ $(document).ready(function(){
    	 */
 	$.sigStatus="";
 	$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+
 	if(perfilUsuario === "Instructor"){
 		if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
 			$.sigStatus = "Confirmado Instructor";
-//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
 		}else if($.asignaStatus === "Confirmado Instructor"){
 			if(validaHoy(asignacionItem.fechaAsignacion)){
 				$.sigStatus = "Curso Completado";
-//				$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 				$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
 			}else{
-//				$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 				$('#consirmarStatus').html('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  Debe de cumplir la fecha de evento: '+$.asignaFecha+' </u></div>');
 			}	
 		}
 	}
 	
-	
-	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
+	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion" || perfilUsuario === "Instructor"){
 		if($.asignaStatus === "Curso Completado"){
-			$.sigStatus = "Entregables Validado";
-//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+			$.sigStatus = "Elaborar Entregable";
 			$('#verificarEntregable').val(true);
-			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-		}else if($.asignaStatus === "Entregables Validado"){
-			$.sigStatus = "Entregable Enviado";
-//			$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
-			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
-			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
-			
+			$('#consirmarStatus').html('<button type="submit" id="elaborarEntregable" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+			$('#elaborarEntregable').click(function(){
+				$("#formEntregables").attr("action", "AEntregable");
+			})
 		}
 	}
+	
+	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion" ){
+		 if($.asignaStatus === "Elaborar Entregable"){
+			$.sigStatus = "Entregable Enviado";
+			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
+			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+		}
+	}
+	
+	
+	
+
+	
 	
 	function validaHoy(fechaAsignacion){
 		var hoy = new Date();

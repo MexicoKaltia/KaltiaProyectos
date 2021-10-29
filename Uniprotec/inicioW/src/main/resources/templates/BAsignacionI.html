@@ -670,8 +670,8 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/actualizaAsignacionI}" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
-                                               <h5 class="card-title">Avanzar Etapa de proceso de Evento</h5>
+                                           <form role="form" th:action="@{/actualizaAsignacionI}" id="formEntregables" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
+                                               <h5 class="card-title">Avanzar Etapa del proceso de Evento</h5>
                                                <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
                                                <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
                                                <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
@@ -699,9 +699,7 @@
                                                <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
                                                
                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
-<!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
-                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
                                                <input type="hidden" id="errorProceso" th:field="*{errorProceso}" />
                                                
@@ -713,7 +711,7 @@
                                               
                                        			<br>
                                        			<br>
-                                       			<button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                        			
                                        			        
 											</form>

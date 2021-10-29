@@ -373,7 +373,7 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
-                                           <form role="form" th:action="@{/BAsignacion}" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
+                                           <form role="form" th:action="@{/BAsignacionI}" id="formEntregables" class="login100-form validate-form needs-validation" th:object="${entregableItem}" method="post">
                                                <h5 class="card-title">Resumen de Asignación</h5>
                                                <ul class="list-group">
                                                    <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
@@ -415,8 +415,11 @@
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
                                        			<br>
                                        			<br>
-                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-<!--                                        			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Edicion</button>         -->
+                                       			<div class="modal-footer">
+	                                   				<button type="button" class="btn btn-secondary pull-left btn-lg" data-dismiss="modal">Cerrar</button>
+	                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" disabled>Expediente Asignación - Avance Fase</button>
+	                                       			<button   id="edicionEntregable" class="btn btn-info pull-right btn-lg" disabled>Edicion Entregables</button>
+                                   				</div>
 											</form>
                                            </div>
                                        </div>

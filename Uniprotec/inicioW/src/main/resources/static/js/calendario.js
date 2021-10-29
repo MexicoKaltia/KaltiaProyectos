@@ -132,7 +132,11 @@ $(document).ready(function() {
 				if(identificadorUsuario === asignacion0.userCreateAsignacion){
 					$("#divOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-primary pull-left"  >Revision Expediente Asignación / Cliente</button>')
 					$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>')
-					$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar1" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+					
+					if(status === "Curso Asignado" || status === "Confirmado Instructor" || status === "Curso Editado"){
+						$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+					}
+					
 					$("#divOperacion").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionI");
 					})
@@ -151,7 +155,11 @@ $(document).ready(function() {
 				$("#divOperacion").empty();
 				$("#divOperacion").append('<button type="submit" id="asignaConfirmarO" class="btn btn-primary pull-center"  >Revision Expediente Asignación / Cliente</button>')
 				$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>')
-				$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+				
+				if(status === "Curso Asignado" || status === "Confirmado Instructor" || status === "Curso Editado"){
+					$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+				}
+				
 				$("#divOperacion").click(function(){
 					$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				})

@@ -9,7 +9,7 @@ function operateFormatterUpdate(value, row, index) {
 
 $(document).ready(function() {
 	
-//	console.log(asignacionItem);
+	console.log(asignacionItem);
 //	console.log(asignacionCliente);
 //	console.log(entregables);
 //	console.log(entregables.length);
@@ -30,6 +30,41 @@ $(document).ready(function() {
 	$("#encabezadoCliente").text(asignacionItem.clienteAsignacion);
 	$("#encabezadoCurso").html(asignacionItem.cursoAsignacion);
 	$("#encabezadoInstructor").html(asignacionItem.instructorAsignacion);
+	
+	$('#btnOmitir').click(function(){
+		console.log("btnOmitir")
+		$('#statusAsignacion').val("Omitir Entregable");
+		
+		$('#idAsignacion').val(asignacionItem.idAsignacion);
+		$('#idAsignacionLogica').val(asignacionItem.idAsignacionLogica);
+		$('#fechaAsignacion').val(asignacionItem.fechaAsignacion);
+		$('#idClienteAsignacion').val(asignacionItem.idClienteAsignacion);
+		$('#clienteAsignacion').val(asignacionItem.clienteAsignacion);
+		$('#idCursoAsignacion').val(asignacionItem.idCursoAsignacion);
+		$('#cursoAsignacion').val(asignacionItem.cursoAsignacion);
+		$('#idInstructorAsignacion').val(asignacionItem.idInstructorAsignacion);
+		$('#instructorAsignacion').val(asignacionItem.instructorAsignacion);
+		$('#horarioAsignacion').val(asignacionItem.horarioAsignacion);
+		$('#participantesAsignacion').val(asignacionItem.participantesAsignacion);
+		$('#nivelAsignacion').val(asignacionItem.nivelAsignacion);
+		$('#archivosAsignacion').val(asignacionItem.archivosAsignacion);
+		$('#archivosAsignacionTexto').val(asignacionItem.archivosAsignacionTexto);
+		$('#observacionesAsignacion').val(asignacionItem.observacionesAsignacion);
+		$('#idRegionAsignacion').val(asignacionItem.idRegionAsignacion);
+		$('#nombreRegionAsignacion').val(asignacionItem.nombreRegionAsignacion);
+		$('#tipoCursoAsignacion').val(asignacionItem.tipoCursoAsignacion);
+		$('#verificarEntregable').val(asignacionItem.verificarEntregable);
+		$('#userCreateAsignacion').val(asignacionItem.userCreateAsignacion);
+		$('#userCreateAsignacionTexto').val(asignacionItem.userCreateAsignacionTexto);
+//		$('#archivoParticipantes').val(asignacionItem.archivoParticipantes);
+		$('#archivoParticipantesTexto').val(asignacionItem.archivoParticipantesTexto);
+		$('#fechaPago').val(asignacionItem.fechaPago);
+		$('#numeroFactura').val(asignacionItem.numeroFactura);
+		$('#costoHotel').val(asignacionItem.costoHotel);
+		$('#errorProceso').val(asignacionItem.errorProceso);
+		
+		$('#formEntregables').submit();
+	})
 	
 	if(e > 0){
 		console.log("entregable existente");

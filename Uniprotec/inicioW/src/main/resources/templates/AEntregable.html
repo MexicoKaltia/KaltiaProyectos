@@ -1081,10 +1081,11 @@
                        </div>
                        <!-- Modal Fin-->
                        
+                       <!-- ------------------- ------------------------------------------------------------------------------------------------------------------------------------------------>
 					   <!-- Modal Entregables Inicio-->
                        <div class="modal" id="modalEntregables"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 					    <div class="modal-dialog modal-lg" role="document">
-					        <div class="modal-content">
+					    	    <div class="modal-content">
 
                                    <!-- Modal Header -->
                                    <div class="modal-header">
@@ -1096,10 +1097,8 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
-                                           
                                            <div class="card-body">
                                                <h5 class="card-title" id="tituloModalEntregables">Actualmente el Evento Id Asignacion: <span style="text:bold; color:blue;" id="idAsignacionEncabezado"></span></h5>
-                       
                                                <!-- ------------------- -->
                                                	<div class="form-row">
 				                                        <div class="col-md-12 mb-3">
@@ -1110,31 +1109,64 @@
 			                                     <!-- ------------------- -->
 											</div>
 				    						<!-- ------------------- -->    		                                     
-                                           </div>
-                                       </div><!-- ------------------- fin modal body-->
-                                   </div>
+                                       </div>
+                                  </div><!-- ------------------- fin modal body-->
+                            </div>
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-                                       			<button type="button" class="btn btn-info" id="btnAgregarNuevo" data-dismiss="modal" >Agregar Nuevo Expediente Documentacion Entregable</button>
-                                       
+                                       			<button type="button" class="btn btn-info" id="btnAgregarNuevo" data-dismiss="modal" >Agregar Nuevo Expediente Documentación Entregable</button>
+                                       			
+                                       			
+                                       				<form role="form" th:action="@{/actualizaAsignacionI}" id="formEntregables" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
+		                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+		                                               <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
+		                                               <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+		                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+		                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+		                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+		                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+		                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+		                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+		                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+		                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+		                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+		                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+		                                               <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+		                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+		                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+		                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+		                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+		                                               <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+		                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+		                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+		                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />                                              
+<!-- 		                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" /> -->
+		                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+		                                               <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
+		                                               <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+		                                               <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
+		                                               <input type="hidden" id="errorProceso" th:field="*{errorProceso}" />
+		                                               
+		                                               <button type="submit" class="btn btn-warning" id="btnOmitir" >Omitir Documentación Entregable</button>
+                                                  </form>
+                            
+                                       			
                                    </div>
-
                                </div>
                            </div>
                        <!-- Modal Entregables Fin-->
                        
-                                               <!-- Modal Proceso de Confirmacion Inicio-->
+                       <!-- ------------------- ------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Proceso de Confirmacion Inicio-->
                        <div class="modal" id="myModalProcess" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 					    <div class="modal-dialog modal-sm" role="document">
 					        <div class="modal-content">
-
                                    <!-- Modal Header -->
                                    <div class="modal-header">
                                        <h4 class="modal-title">Proceso de Confirmacion</h4>
 <!--                                        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                                    </div>
-
                                    <!-- Modal body -->
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
@@ -1144,13 +1176,6 @@
                                            </div>
                                        </div>
                                    </div>
-
-                                   <!-- Modal footer -->
-                                   <div class="modal-footer">
-                                   		
-                                       
-                                   </div>
-
                                </div>
                            </div>
                        </div>
