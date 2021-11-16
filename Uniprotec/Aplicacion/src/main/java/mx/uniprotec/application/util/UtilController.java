@@ -1,15 +1,11 @@
 package mx.uniprotec.application.util;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import mx.uniprotec.application.entity.Instructor;
 
 public class UtilController {
 

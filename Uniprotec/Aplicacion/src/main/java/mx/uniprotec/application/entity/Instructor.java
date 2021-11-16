@@ -76,6 +76,8 @@ public class Instructor implements Serializable {
 	@Size(max=3000)
 	@Column
 	private String listFechas;
+	@Column
+	private String firmaInstructor;
 	
 
 	public Instructor() {		}
@@ -250,6 +252,16 @@ public class Instructor implements Serializable {
 				+ regionInstructor + ", notaInstructor=" + notaInstructor + ", userCreateInstructor="
 				+ userCreateInstructor + ", createAtInstructor=" + createAtInstructor + ", statusInstructor="
 				+ statusInstructor + "]";
+	}
+
+
+	public String getFirmaInstructor() {
+		return firmaInstructor;
+	}
+
+
+	public void setFirmaInstructor(String firmaInstructor) {
+		this.firmaInstructor = firmaInstructor;
 	}
 
 

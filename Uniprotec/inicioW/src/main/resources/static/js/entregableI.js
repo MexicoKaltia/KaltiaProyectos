@@ -132,34 +132,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function asignaCamposSubmit(asignacionSub){
 //		//console.log(asignacionSub)
-		$('#idAsignacion').val(asignacionSub.idAsignacion);
-		$('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
-		$('#idClienteAsignacion').val(asignacionSub.idClienteAsignacion);
-		$('#clienteAsignacion').val(asignacionSub.clienteAsignacion);
-		$('#idCursoAsignacion').val(asignacionSub.idCursoAsignacion);
-		$('#cursoAsignacion').val(asignacionSub.cursoAsignacion);
-		$('#idInstructorAsignacion').val(asignacionSub.idInstructorAsignacion);
-		$('#instructorAsignacion').val(asignacionSub.instructorAsignacion);
-		$('#horarioAsignacion').val(asignacionSub.horarioAsignacion);
-		$('#participantesAsignacion').val(asignacionSub.participantesAsignacion);
-		$('#nivelAsignacion').val(asignacionSub.nivelAsignacion);
-		$('#archivosAsignacion').val(asignacionSub.archivosAsignacion);
-		$('#observacionesAsignacion').val(asignacionSub.observacionesAsignacion);
-		$('#idRegionAsignacion').val(asignacionSub.idRegionAsignacion);
-		$('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
-		$('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
-		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
-		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
-		$('#fechaPago').val(asignacionSub.fechaPago);
-		$('#numeroFactura').val(asignacionSub.numeroFactura);
-//			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
-//			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
-		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
-		$('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
+		 $('#idAsignacion').val(asignacionSub.idAsignacion);
+		 $('#idAsignacionLogica').val(asignacionSub.idAsignacionLogica);
+		 $('#fechaAsignacion').val(asignacionSub.fechaAsignacion);
+		 $('#idClienteAsignacion').val(asignacionSub.idClienteAsignacion);
+		 $('#clienteAsignacion').val(asignacionSub.clienteAsignacion);
+		 $('#idCursoAsignacion').val(asignacionSub.idCursoAsignacion);
+		 $('#cursoAsignacion').val(asignacionSub.cursoAsignacion);
+		 $('#idInstructorAsignacion').val(asignacionSub.idInstructorAsignacion);
+		 $('#instructorAsignacion').val(asignacionSub.instructorAsignacion);
+		 $('#horarioAsignacion').val(asignacionSub.horarioAsignacion);
+		 $('#participantesAsignacion').val(asignacionSub.participantesAsignacion);
+		 $('#nivelAsignacion').val(asignacionSub.nivelAsignacion);
+		 $('#archivosAsignacion').val(asignacionSub.archivosAsignacion);
+		 $('#archivosAsignacionTexto').val(asignacionSub.archivosAsignacionTexto);
+		 $('#observacionesAsignacion').val(asignacionSub.observacionesAsignacion);
+		 $('#idRegionAsignacion').val(asignacionSub.idRegionAsignacion);
+		 $('#nombreRegionAsignacion').val(asignacionSub.nombreRegionAsignacion);
+		 $('#tipoCursoAsignacion').val(asignacionSub.tipoCursoAsignacion);
+		 $('#statusAsignacion').val(asignacionSub.statusAsignacion);
+		 $('#guiaEntregable').val(asignacionSub.guiaEntregable);
+		 $('#fechaPago').val(asignacionSub.fechaPago);
+		 $('#numeroFactura').val(asignacionSub.numeroFactura);
+		 $('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
+		 $('#userCreateAsignacionTexto').val(asignacionSub.userCreateAsignacionTexto);
+		 $('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
+		 $('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
+		 $('#costoHotel').val(asignacionSub.costoHotel);
+		 $('#errorProceso').val(asignacionSub.errorProceso);
+		 $('#nombreFirmaInstructor').val(getNombreFirmaInstructor(asignacionSub.idInstructorAsignacion));
 	}
 
 	
-
+	function getNombreFirmaInstructor(idInstructorAsignacion){
+		for(var a in instructores){
+			var instructor = instructores[a];
+			if((instructor.idInstructor*1) === (idInstructorAsignacion*1)){
+				return instructor.firmaInstructor;
+			}
+		}
+	}
 	
 
 	function hoy() {
@@ -270,7 +282,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		case "Evento Cancelado":
 			zonaCliente = 'red';
 			break;
-		case "Entregables Validado":
+		case "Elaborar Entregable":
+			zonaCliente = 'blue';
+			break;
+		case "Omitir Entregable":
 			zonaCliente = 'orange';
 			break;
 		case "Entregable Enviado":

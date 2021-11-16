@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.AsignacionHistorico;
+import mx.uniprotec.application.entity.EntregableEntity;
 import mx.uniprotec.application.entity.Notificacion;
 import mx.uniprotec.application.service.IAsignacionService;
+import mx.uniprotec.application.service.IEntregableService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 
 @CrossOrigin(origins = { "*" })
@@ -40,6 +42,9 @@ public class AsignacionRestController {
 	private IAsignacionService asignacionService;
 	@Autowired
 	private INotificacionDao notificacionDao;
+	@Autowired
+	private IEntregableService entregableService;
+
 	
 	
 	
@@ -266,8 +271,9 @@ public class AsignacionRestController {
 					asignacionActual.setErrorProceso(asignacion.getErrorProceso());
 				}
 				
-				
 				asignacionUpdated = asignacionService.save(asignacionActual);
+				EntregableEntity ee = (EntregableEntity) entregableService.consultaEntregable(asignacion.getIdAsignacion());
+				
 				response.put("asignacion", asignacionUpdated  );
 				 response.put("mensaje", "Asignacion actualizada con Exito");
 				 response.put("status", HttpStatus.CREATED);

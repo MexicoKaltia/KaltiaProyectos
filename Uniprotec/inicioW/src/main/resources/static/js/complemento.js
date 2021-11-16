@@ -183,6 +183,9 @@ $(document).ready(function(){
 				
 			  $('#statusInstructor').val("Actualizado");
 		      $('#notaInstructor').val(row.notaInstructor);
+		      $('#firmaInstructorH').val(row.firmaInstructorH);
+		      $('#firmaInstructorPrev').attr('src', "/firmainstructor/"+row.idInstructor+"/"+row.firmaInstructor);
+		      $('#firmaInstructorPrev').attr('alt', row.firmaInstructorH);
 		      $('#statusInstructorbtn').html(row.statusInstructor);
 		      
 		    }

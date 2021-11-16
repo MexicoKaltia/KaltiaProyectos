@@ -49,6 +49,7 @@ public class LoginService implements ILoginService{
 					JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
 					
 					resultVO.setResponse(jsonUsuario.get("perfil").toString());	
+					resultVO.setPerfil(jsonUsuario.get("perfil").toString());	
 					LoginSingle ls = new LoginSingle(resultVO.getAccesToken(), System.currentTimeMillis(),  resultVO);
 					actualizaSesion(user.getUserName(), ls);
 								

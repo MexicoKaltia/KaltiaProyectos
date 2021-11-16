@@ -95,8 +95,6 @@ public class ControllerEntregable {
 	
 	@PostMapping("/BEntregable")
 	public ModelAndView BEntregable(@ModelAttribute("entregableModelo") EntregableModelo entregable, ModelMap model) {
-//		model.addAttribute("asignacionItem", asignacion);
-//		model.addAttribute("entregableModelo", new EntregableModelo());
 		if(model.equals(null)) {
 			log.info("NULL");
 			return new  ModelAndView("login");
@@ -109,16 +107,24 @@ public class ControllerEntregable {
 			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
 			Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
 			
-			ResultVO rs  = entregableService.createEntrgable(entregable, resultVO.getAccesToken(), idUsuario );
+			ResultVO rs  = entregableService.createEntregable(entregable, resultVO.getAccesToken(), idUsuario );
 			ModelAndView mav = new ModelAndView("redirect:/CEntregable" , model);
 			model.addAttribute("model", resultVO);
 			log.info(rs.getCodigo().toString());
 			
 			if(rs.getCodigo() != 500) {
-				mav.addObject("ejecucionEntregable", true);
+				if(entregable.isAltaDocto()) {
+					mav.addObject("documentacionEntregable", true);
+					mav.addObject("idEntregable", entregable.getRfcOriginalAsignacion()+"-"+entregable.getIdEntregableLogico());
+					
+				}else {
+					mav.addObject("ejecucionEntregable", true);
+				}
+				
 				return mav;
 			}else {
 				mav.addObject("ejecucionEntregableError", true);
+				mav.addObject("causa", rs.getMensaje());
 				log.info("NOK AltaCliente");
 				return mav;
 			}
@@ -130,9 +136,12 @@ public class ControllerEntregable {
 			@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
 			@RequestParam(name="error", required=false) boolean error,
 			@RequestParam(name="ejecucionEntregable", required=false) boolean ejecucionEntregable,
+			@RequestParam(name="documentacionEntregable", required=false) boolean documentacionEntregable,
+			@RequestParam(name="idEntregable", required=false) String idEntregable,
 			@RequestParam(name="ejecucionEntregableActualizado", required=false) boolean ejecucionEntregableActualizado,
 			@RequestParam(name="ejecucionEntregableError", required=false) boolean ejecucionEntregableError,
 			@RequestParam(name="ejecucionEntregableActualizadoError", required=false) boolean ejecucionEntregableActualizadoError,
+			@RequestParam(name="causa", required=false) String causa,
 			ModelMap model) {
 			log.info("Entregable model Activo");
 			model.addAttribute("entregableItem", new AsignacionModelo());
@@ -147,10 +156,13 @@ public class ControllerEntregable {
 				mav.addObject("ejecucion", ejecucion);
 				mav.addObject("ejecucion2", ejecucion2);
 				mav.addObject("ejecucionEntregable", ejecucionEntregable);
+				mav.addObject("documentacionEntregable", documentacionEntregable);
+				mav.addObject("idEntregable", "/verEntregable/"+idEntregable);
 				mav.addObject("ejecucionEntregableActualizado", ejecucionEntregableActualizado);
 				mav.addObject("ejecucionEntregableError", ejecucionEntregableError);
 				mav.addObject("ejecucionEntregableActualizadoError", ejecucionEntregableActualizadoError);
 				mav.addObject("error", error);
+				mav.addObject("causa", causa);
 				return mav;
 			}else {
 				mav.addObject("consulta", true);

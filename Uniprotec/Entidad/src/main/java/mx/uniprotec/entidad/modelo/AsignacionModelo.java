@@ -44,6 +44,7 @@ public class AsignacionModelo implements Serializable{
 	private String archivoParticipantesTexto;
 	private String costoHotel;
 	private String errorProceso;
+	private String nombreFirmaInstructor;
 	
 	
 	
@@ -284,6 +285,12 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setErrorProceso(String errorProceso) {
 		this.errorProceso = errorProceso;
+	}
+	public String getNombreFirmaInstructor() {
+		return nombreFirmaInstructor;
+	}
+	public void setNombreFirmaInstructor(String nombreFirmaInstructor) {
+		this.nombreFirmaInstructor = nombreFirmaInstructor;
 	}
 	
 	

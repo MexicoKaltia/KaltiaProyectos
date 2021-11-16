@@ -39,6 +39,8 @@ public class ParticipanteEntity {
 	@Column
 	private String participantePuesto;
 	@Column
+	private String participanteOcupacion;
+	@Column
 	private String participanteFoto;
 	@Column
 	private double participanteExamenTeoricoInicial;
@@ -48,6 +50,8 @@ public class ParticipanteEntity {
 	private double participanteExamenPractico;
 	@Column
 	private double participantePromedio;
+	@Column
+	private String participanteAprovechamiento;
 	@Column
 	private String participanteObservaciones;
 	@Column
@@ -60,15 +64,16 @@ public class ParticipanteEntity {
 	
 	@Override
 	public String toString() {
-		return "ParticipanteEntity [idParticipante=" + idParticipante + ", idEntregable=" + idEntregable
-				+ ", participanteNombre=" + participanteNombre + ", participanteCURP=" + participanteCURP
-				+ ", participantePuesto=" + participantePuesto + ", participanteFoto=" + participanteFoto
+		return "ParticipanteEntity [idParticipanteBD=" + idParticipanteBD + ", idParticipante=" + idParticipante
+				+ ", idEntregable=" + idEntregable + ", participanteNombre=" + participanteNombre
+				+ ", participanteCURP=" + participanteCURP + ", participantePuesto=" + participantePuesto
+				+ ", participanteOcupacion=" + participanteOcupacion + ", participanteFoto=" + participanteFoto
 				+ ", participanteExamenTeoricoInicial=" + participanteExamenTeoricoInicial
 				+ ", participanteExamenTeoricoFinal=" + participanteExamenTeoricoFinal + ", participanteExamenPractico="
 				+ participanteExamenPractico + ", participantePromedio=" + participantePromedio
-				+ ", participanteObservaciones=" + participanteObservaciones + ", statusParticipante="
-				+ statusParticipante + ", userCreateParticipante=" + userCreateParticipante + ", createAtParticipante="
-				+ createAtParticipante + "]";
+				+ ", participanteAprovechamiento=" + participanteAprovechamiento + ", participanteObservaciones="
+				+ participanteObservaciones + ", statusParticipante=" + statusParticipante + ", userCreateParticipante="
+				+ userCreateParticipante + ", createAtParticipante=" + createAtParticipante + "]";
 	}
 
 	
@@ -165,6 +170,26 @@ public class ParticipanteEntity {
 
 	public void setIdParticipanteBD(Long idParticipanteBD) {
 		this.idParticipanteBD = idParticipanteBD;
+	}
+
+
+	public String getParticipanteOcupacion() {
+		return participanteOcupacion;
+	}
+
+
+	public void setParticipanteOcupacion(String participanteOcupacion) {
+		this.participanteOcupacion = participanteOcupacion;
+	}
+
+
+	public String getParticipanteAprovechamiento() {
+		return participanteAprovechamiento;
+	}
+
+
+	public void setParticipanteAprovechamiento(String participanteAprovechamiento) {
+		this.participanteAprovechamiento = participanteAprovechamiento;
 	}
 	
 	

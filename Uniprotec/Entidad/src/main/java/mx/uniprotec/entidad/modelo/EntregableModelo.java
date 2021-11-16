@@ -31,7 +31,7 @@ public class EntregableModelo implements Serializable{
 	private String formAInstructor;
 	private String formARepresentanteEmpresa;
 	private String formARepresentanteTrabajador;
-	private String formALogo;
+	private String formALogoEmpresa;
 	
 	private List<ParticipantesModelo> formBParticipantes;
 	private String formBParticipantesStr;
@@ -57,10 +57,19 @@ public class EntregableModelo implements Serializable{
 	private String formCAvancesLogrados;
 	private String formCObservaciones;
 	private String formCEvidenciaDocto;
+	private String formCEvidenciaDoctoB;
 	
 	private String status;
 	private Long userCreate;
 	private LocalDateTime createAt;
+	
+	private boolean altaDocto;
+	private String estatusEntregable;
+	private String rfcOriginalAsignacion;
+	private String idEntregableLogico;
+	private int idInstructorAsignacion;
+	private String nombreFirmaInstructorAsignacion;
+	
 	
 	
 	
@@ -145,12 +154,7 @@ public class EntregableModelo implements Serializable{
 	public void setFormARepresentanteTrabajador(String formARepresentanteTrabajador) {
 		this.formARepresentanteTrabajador = formARepresentanteTrabajador;
 	}
-	public String getFormALogo() {
-		return formALogo;
-	}
-	public void setFormALogo(String formALogo) {
-		this.formALogo = formALogo;
-	}
+	
 	public List<ParticipantesModelo> getFormBParticipantes() {
 		return formBParticipantes;
 	}
@@ -307,31 +311,7 @@ public class EntregableModelo implements Serializable{
 	public void setFormBParticipantesJson(JSONObject formBParticipantesJson) {
 		this.formBParticipantesJson = formBParticipantesJson;
 	}
-	@Override
-	public String toString() {
-		return "EntregableModelo [idEntregable=" + idEntregable + ", idAsignacion=" + idAsignacion
-				+ ", formARazonSocial=" + formARazonSocial + ", formARFC=" + formARFC + ", formACurso=" + formACurso
-				+ ", formADuracion=" + formADuracion + ", formAFechaInicioDC3=" + formAFechaInicioDC3
-				+ ", formAFechaFinDC3=" + formAFechaFinDC3 + ", formAFechaDiploma=" + formAFechaDiploma
-				+ ", formAEquipoCredencial=" + formAEquipoCredencial + ", formAFechaInicioCredenciales="
-				+ formAFechaInicioCredenciales + ", formAFechaFinalCredenciales=" + formAFechaFinalCredenciales
-				+ ", formAInstructor=" + formAInstructor + ", formARepresentanteEmpresa=" + formARepresentanteEmpresa
-				+ ", formARepresentanteTrabajador=" + formARepresentanteTrabajador + ", formALogo=" + formALogo
-				+ ", formBParticipantes=" + formBParticipantes + ", formBParticipantesStr=" + formBParticipantesStr
-				+ ", formBParticipantesListJson=" + formBParticipantesListJson + ", formBParticipantesJson="
-				+ formBParticipantesJson + ", formCRazonSocial=" + formCRazonSocial + ", formCCurso=" + formCCurso
-				+ ", formCDuracion=" + formCDuracion + ", formCInstructor=" + formCInstructor + ", formCFechaInicio="
-				+ formCFechaInicio + ", formCFechaFinal=" + formCFechaFinal + ", formCSede=" + formCSede
-				+ ", formCComentariosGrupo=" + formCComentariosGrupo + ", formCProcesoAprendizaje="
-				+ formCProcesoAprendizaje + ", formCTeoria=" + formCTeoria + ", formCPractica=" + formCPractica
-				+ ", formCEvidenciasFotograficas=" + formCEvidenciasFotograficas + ", formCEvidenciasFotograficasB="
-				+ formCEvidenciasFotograficasB + ", formCRecomendaciones=" + formCRecomendaciones
-				+ ", formCNivelCumplimiento=" + formCNivelCumplimiento + ", formCContingencias=" + formCContingencias
-				+ ", formCAvancesLogrados=" + formCAvancesLogrados + ", formCObservaciones=" + formCObservaciones
-				+ ", formCEvidenciaDocto=" + formCEvidenciaDocto + ", status=" + status + ", userCreate=" + userCreate
-				+ ", createAt=" + createAt + "]";
-	}
-	
+		
 	public String getStatus() {
 		return status;
 	}
@@ -361,7 +341,82 @@ public class EntregableModelo implements Serializable{
 	public void setFormCEvidenciasFotograficasB(List<String> formCEvidenciasFotograficasB) {
 		this.formCEvidenciasFotograficasB = formCEvidenciasFotograficasB;
 	}
-
+	public boolean isAltaDocto() {
+		return altaDocto;
+	}
+	public void setAltaDocto(boolean altaDocto) {
+		this.altaDocto = altaDocto;
+	}
+	public String getFormCEvidenciaDoctoB() {
+		return formCEvidenciaDoctoB;
+	}
+	public void setFormCEvidenciaDoctoB(String formCEvidenciaDoctoB) {
+		this.formCEvidenciaDoctoB = formCEvidenciaDoctoB;
+	}
+	public String getFormALogoEmpresa() {
+		return formALogoEmpresa;
+	}
+	public void setFormALogoEmpresa(String formALogoEmpresa) {
+		this.formALogoEmpresa = formALogoEmpresa;
+	}
+	public String getEstatusEntregable() {
+		return estatusEntregable;
+	}
+	public void setEstatusEntregable(String estatusEntregable) {
+		this.estatusEntregable = estatusEntregable;
+	}
+	public String getRfcOriginalAsignacion() {
+		return rfcOriginalAsignacion;
+	}
+	public void setRfcOriginalAsignacion(String rfcOriginalAsignacion) {
+		this.rfcOriginalAsignacion = rfcOriginalAsignacion;
+	}
+	public String getIdEntregableLogico() {
+		return idEntregableLogico;
+	}
+	public void setIdEntregableLogico(String idEntregableLogico) {
+		this.idEntregableLogico = idEntregableLogico;
+	}
+	@Override
+	public String toString() {
+		return "EntregableModelo [idEntregable=" + idEntregable + ", idAsignacion=" + idAsignacion
+				+ ", formARazonSocial=" + formARazonSocial + ", formARFC=" + formARFC + ", formACurso=" + formACurso
+				+ ", formADuracion=" + formADuracion + ", formAFechaInicioDC3=" + formAFechaInicioDC3
+				+ ", formAFechaFinDC3=" + formAFechaFinDC3 + ", formAFechaDiploma=" + formAFechaDiploma
+				+ ", formAEquipoCredencial=" + formAEquipoCredencial + ", formAFechaInicioCredenciales="
+				+ formAFechaInicioCredenciales + ", formAFechaFinalCredenciales=" + formAFechaFinalCredenciales
+				+ ", formAInstructor=" + formAInstructor + ", formARepresentanteEmpresa=" + formARepresentanteEmpresa
+				+ ", formARepresentanteTrabajador=" + formARepresentanteTrabajador + ", formALogoEmpresa="
+				+ formALogoEmpresa + ", formBParticipantes=" + formBParticipantes + ", formBParticipantesStr="
+				+ formBParticipantesStr + ", formBParticipantesListJson=" + formBParticipantesListJson
+				+ ", formBParticipantesJson=" + formBParticipantesJson + ", formCRazonSocial=" + formCRazonSocial
+				+ ", formCCurso=" + formCCurso + ", formCDuracion=" + formCDuracion + ", formCInstructor="
+				+ formCInstructor + ", formCFechaInicio=" + formCFechaInicio + ", formCFechaFinal=" + formCFechaFinal
+				+ ", formCSede=" + formCSede + ", formCComentariosGrupo=" + formCComentariosGrupo
+				+ ", formCProcesoAprendizaje=" + formCProcesoAprendizaje + ", formCTeoria=" + formCTeoria
+				+ ", formCPractica=" + formCPractica + ", formCEvidenciasFotograficas=" + formCEvidenciasFotograficas
+				+ ", formCEvidenciasFotograficasB=" + formCEvidenciasFotograficasB + ", formCRecomendaciones="
+				+ formCRecomendaciones + ", formCNivelCumplimiento=" + formCNivelCumplimiento + ", formCContingencias="
+				+ formCContingencias + ", formCAvancesLogrados=" + formCAvancesLogrados + ", formCObservaciones="
+				+ formCObservaciones + ", formCEvidenciaDocto=" + formCEvidenciaDocto + ", formCEvidenciaDoctoB="
+				+ formCEvidenciaDoctoB + ", status=" + status + ", userCreate=" + userCreate + ", createAt=" + createAt
+				+ ", altaDocto=" + altaDocto + ", estatusEntregable=" + estatusEntregable + ", rfcOriginalAsignacion="
+				+ rfcOriginalAsignacion + ", idEntregableLogico=" + idEntregableLogico + ", idInstructorAsignacion="
+				+ idInstructorAsignacion + ", nombreFirmaInstructorAsignacion=" + nombreFirmaInstructorAsignacion + "]";
+	}
+	public int getIdInstructorAsignacion() {
+		return idInstructorAsignacion;
+	}
+	public void setIdInstructorAsignacion(int idInstructorAsignacion) {
+		this.idInstructorAsignacion = idInstructorAsignacion;
+	}
+	public String getNombreFirmaInstructorAsignacion() {
+		return nombreFirmaInstructorAsignacion;
+	}
+	public void setNombreFirmaInstructorAsignacion(String nombreFirmaInstructorAsignacion) {
+		this.nombreFirmaInstructorAsignacion = nombreFirmaInstructorAsignacion;
+	}
+	
 	
 	
 	

@@ -264,6 +264,7 @@ public class InstructorRestController {
 			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
 			instructorActual.setUserCreateInstructor(instructor.getUserCreateInstructor());
 			instructorActual.setStatusInstructor(instructor.getStatusInstructor());
+			instructorActual.setFirmaInstructor(instructor.getFirmaInstructorH());
 
 			instructorUpdated = instructorService.save(instructorActual);
 				

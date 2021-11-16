@@ -6,7 +6,8 @@ function operateFormatterUpdate(value, row, index) {
     ].join('')
   }
 
-
+var $idEntregable ;
+var $idEntregableLogico ;
 $(document).ready(function() {
 	
 	console.log(asignacionItem);
@@ -19,6 +20,9 @@ $(document).ready(function() {
 	var $participantes;
 	var $entregable;
 	var $participantesLength = 0;
+	var $estatusEntregable ="";
+//	var $idEntregable ;
+	
 	for(var a in entregables){
 		e++;
 	}
@@ -56,7 +60,7 @@ $(document).ready(function() {
 		$('#verificarEntregable').val(asignacionItem.verificarEntregable);
 		$('#userCreateAsignacion').val(asignacionItem.userCreateAsignacion);
 		$('#userCreateAsignacionTexto').val(asignacionItem.userCreateAsignacionTexto);
-//		$('#archivoParticipantes').val(asignacionItem.archivoParticipantes);
+		$('#guiaEntregable').val(asignacionItem.guiaEntregable);
 		$('#archivoParticipantesTexto').val(asignacionItem.archivoParticipantesTexto);
 		$('#fechaPago').val(asignacionItem.fechaPago);
 		$('#numeroFactura').val(asignacionItem.numeroFactura);
@@ -64,7 +68,7 @@ $(document).ready(function() {
 		$('#errorProceso').val(asignacionItem.errorProceso);
 		
 		$('#formEntregables').submit();
-	})
+	});
 	
 	if(e > 0){
 		console.log("entregable existente");
@@ -78,10 +82,10 @@ $(document).ready(function() {
 			var entregable = entregables[a]; 
 			var entregableItem = '<a id="'+entregable.idEntregable+'" href="" data-dismiss="modal" class="entregable list-group-item">'+entregable.idEntregable+'-'+entregable.formACurso+'</a>';
 			$('#listEntregables').append(entregableItem);
-			e++
+			e++;
 		}
 		
-		console.log("entregable generar nuevo");
+		console.log("entregable edicion");
 		$("#formARazonSocial").val(asignacionCliente.nombreCompletoCliente);
 		$("#formARFC").val(asignacionCliente.rfcCliente);
 		$("#formACurso").val(asignacionItem.cursoAsignacion);
@@ -98,17 +102,45 @@ $(document).ready(function() {
 		
 		$('.entregable').click(function(){
 			var valorEntregable = $(this).attr("id");
+			var i=0;
 			for(var a in entregables){
 				var entregable = entregables[a];
 				if((entregable.idEntregable*1) === (valorEntregable*1) ){
 					$entregable = entregable;
+					$estatusEntregable = "edicion";
+					$idEntregable = i;
+					$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
+					
+					console.log($entregable);
+					console.log($idEntregableLogico);
 					$("#formARazonSocial").val(entregable.formARazonSocial);
 					$("#formARFC").val(entregable.formARFC);
 					$("#formACurso").val(entregable.formACurso);
 					$("#formADuracion").val(entregable.formADuracion);
+					
+					$("#checkFormAFechaInicioDC3").attr('checked', true);
+					$("#checkFormAFechaDiploma").attr('checked', true);
+					$("#checkFormAEquipoCredencial").attr('checked', true);
+					$('#formAFechaInicioDC3').val(entregable.formAFechaInicioDC3);
+					$('#formAFechaFinDC3').val(entregable.formAFechaFinDC3);
+					$('#formAFechaDiploma').val(entregable.formAFechaDiploma);
+					$('#formAEquipoCredencial').val(entregable.formAEquipoCredencial);
+					$('#formAFechaInicioCredenciales').val(entregable.formAFechaInicioCredenciales);
+					$('#formAFechaFinalCredenciales').val(entregable.formAFechaFinalCredenciales);
+					
+					$('#formAFechaInicioDC3').attr("disabled", true);
+					$('#formAFechaFinDC3').attr("disabled", true);
+					$('#formAFechaDiploma').attr("disabled", true);
+					$('#formAEquipoCredencial').attr("disabled", true);
+					$('#formAFechaInicioCredenciales').attr("disabled", true);
+					$('#formAFechaFinalCredenciales').attr("disabled", true);
+					
 					$("#formAInstructor").val(entregable.formAInstructor);
 					$("#formARepresentanteEmpresa").val(entregable.formARepresentanteEmpresa);
 					$("#formARepresentanteTrabajador").val(entregable.formARepresentanteTrabajador);
+					
+					$('#imagenLogoClienteEdicion').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imageLogo/"+entregable.formALogo);
+				    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
 					
 					var arrayParticipantes = new Array();
 					for(var e in participantes){
@@ -131,6 +163,14 @@ $(document).ready(function() {
 					$('#formCCurso').val(entregable.formCCurso);
 					$('#formCDuracion').val(entregable.formCDuracion);
 					$('#formCInstructor').val(entregable.formCInstructor);
+					
+					$("#checkFormCFechas").attr('checked', true);
+					$('#formCFechaInicio').val(entregable.formCFechaInicio);
+					$('#formCFechaFinal').val(entregable.formCFechaFinal);
+					$('#formCFechaInicio').attr("disabled", true);
+					$('#formCFechaFinal').attr("disabled", true);
+					
+					
 					$('#formCSede').val(entregable.formCSede);
 					$('#formCComentariosGrupo').val(entregable.formCComentariosGrupo);
 					$('#formCProcesoAprendizaje').val(entregable.formCProcesoAprendizaje);
@@ -142,8 +182,8 @@ $(document).ready(function() {
 						$('#evidenciasFotograficas').empty();
 						var arrayImgEvidencias = entregable.formCEvidenciasFotograficas.split(","); 
 						for(var a in arrayImgEvidencias){
-							var urlImgEvidencia = "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/imagenesEvidencias/"+arrayImgEvidencias[a];
-							var imgEvidencia =  '<img id="imagenParticipantePrev" src="'+urlImgEvidencia+'" class="img-fluid rounded float-left" alt="">';
+							var urlImgEvidencia = "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imagenesEvidencias/"+arrayImgEvidencias[a];
+							var imgEvidencia =  '<img id="imgEvidencia" src="'+urlImgEvidencia+'" class="img-fluid rounded float-left" alt="">';
 							$('#evidenciasFotograficas').append(imgEvidencia);
 						}
 						console.log(entregable.formCEvidenciasFotograficas);
@@ -159,14 +199,16 @@ $(document).ready(function() {
 //					$('#formCEvidenciaDocto').val(entregable.formCEvidenciaDocto);
 					
 				}				
+			i++;
 			}
 		});
-		$("#btnAgregarNuevo").click(function(){
-			
-		});	
 		
 	}else{
 		console.log("entregable nuevo");
+		$estatusEntregable = "nuevo";
+		$idEntregable = 0;
+		$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
+		
 		$('#tituloModalEntregables').after('<h5 class="card-title">no cuenta con expediente de Documentacion</h5>');
 		
 		$("#formARazonSocial").val(asignacionCliente.nombreCompletoCliente);
@@ -177,21 +219,44 @@ $(document).ready(function() {
 		$("#formARepresentanteEmpresa").val(asignacionCliente.representanteEmpresaCliente);
 		$("#formARepresentanteTrabajador").val(asignacionCliente.representanteTrabajadorCliente);
 		
+		$('#imagenLogoClienteEdicion').attr('src', "/uploads/img/"+asignacionCliente.rfcCliente+"/"+asignacionCliente.imagenLogoCliente);
+	    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
+		
 		$('#formCRazonSocial').val($("#formARazonSocial").val());
 		$('#formCCurso').val($("#formACurso").val());
 		$('#formCDuracion').val($("#formADuracion").val());
 		$('#formCInstructor').val($("#formAInstructor").val());
 		$('#formCSede').val(asignacionCliente.domicilioCliente);
 	}
-	console.log($entregable);
+	
+	$('#btnAgregarNuevo').click(function(){
+		console.log("entregable nuevo expediente");
+		$estatusEntregable = "nuevo";
+		$idEntregable = e++;
+		$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
+		$('#tituloModalEntregables').after('<h5 class="card-title">no cuenta con expediente de Documentacion</h5>');
+		
+		$("#formARazonSocial").val(asignacionCliente.nombreCompletoCliente);
+		$("#formARFC").val(asignacionCliente.rfcCliente);
+		$("#formACurso").val(asignacionItem.cursoAsignacion);
+		$("#formADuracion").val(duracion(asignacionItem.horarioAsignacion));
+		$("#formAInstructor").val(asignacionItem.instructorAsignacion);
+		$("#formARepresentanteEmpresa").val(asignacionCliente.representanteEmpresaCliente);
+		$("#formARepresentanteTrabajador").val(asignacionCliente.representanteTrabajadorCliente);
+		
+		$('#imagenLogoClienteEdicion').attr('src', "/uploads/img/"+asignacionCliente.rfcCliente+"/"+asignacionCliente.imagenLogoCliente);
+	    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
+		
+		$('#formCRazonSocial').val($("#formARazonSocial").val());
+		$('#formCCurso').val($("#formACurso").val());
+		$('#formCDuracion').val($("#formADuracion").val());
+		$('#formCInstructor').val($("#formAInstructor").val());
+		$('#formCSede').val(asignacionCliente.domicilioCliente);
+	})
 	
 	$('#imagenLogoClientePrev').attr('src', "/uploads/img/"+asignacionCliente.rfcCliente+"/"+asignacionCliente.imagenLogoCliente);
     $('#imagenLogoClientePrev').attr('alt', asignacionCliente.imagenLogoCliente);
-    $('#imagenLogoClienteEdicion').attr('src', "/uploads/img/"+asignacionCliente.rfcCliente+"/"+asignacionCliente.imagenLogoCliente);
-    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
-	$("#linkLogo").attr('href', '/uploads/img/'+asignacionCliente.rfcCliente+'/'+asignacionCliente.imagenLogoCliente)
-    $("#linkLogo").html('<b>'+asignacionCliente.imagenLogoCliente+'</b>');
-	
+    
 	$("#checkFormARazonSocial").attr('checked', true);
 	$("#checkFormARFC").attr('checked', true);
 	$("#checkFormACurso").attr('checked', true);
@@ -222,8 +287,11 @@ $(document).ready(function() {
 	$('#formCDuracion').attr("disabled", true);
 	$('#formCInstructor').attr("disabled", true);
 	$('#formCSede').attr("disabled", true);
-
 	
+	// RFC Original Asignacion
+	$('#rfcOriginalAsignacion').val(asignacionCliente.rfcCliente);
+
+	$('#btnGeneraDocto').hide();
 
 	$(".check").click(function(){
 		var idInput = $(this).attr("id");
@@ -283,6 +351,43 @@ $(document).ready(function() {
 			}
 		}
 		
+		// VALIDAR TODOS LOS CHECKBOX
+		var arrayFlags = new Array();
+		if($("#checkFormAFechaInicioDC3").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormARazonSocial").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormACurso").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormARFC").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormADuracion").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormAFechaInicioDC3").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormAFechaDiploma").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormAEquipoCredencial").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormAInstructor").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormARepresentanteEmpresa").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormARepresentanteTrabajador").is(':checked')){arrayFlags.push(true)};
+		
+		$participantes = $('#participantesTable').bootstrapTable('getData');
+		
+		if($("#checkFormCRazonSocial").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormCCurso").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormCDuracion").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormCInstructor").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormCFechas").is(':checked')){arrayFlags.push(true)};
+		if($("#checkFormCSede").is(':checked')){arrayFlags.push(true)};
+		
+		var e = 0;
+		for(a in arrayFlags){if(a){e++;}}
+		
+		$('#btnAltaEntregable').attr('disabled', true);
+		$('#divGeneraDocto').empty();
+		$('#btnGeneraDocto').hide();
+		if(e === 17 ){
+			$('#btnAltaEntregable').attr('disabled', false);
+			if($participantes.length > 0){
+				$('#btnGeneraDocto').show();
+//				$('#divGeneraDocto').append('<button type="button" id="btnGeneraDocto" class="mb-2 mr-2 btn btn-success btn-lg btn-block">Generar Documentación</button>');
+			}
+		}
+		
 	});
 	
 	$(".prom").focusout(function(){
@@ -334,12 +439,15 @@ $(document).ready(function() {
 		    	$('#participanteNombre').val(row.participanteNombre);
 				$('#participanteCURP').val(row.participanteCURP);
 				$('#participantePuesto').val(row.participantePuesto);
+				$('#participanteOcupacion').val(row.participanteOcupacion);
 				$('#formBFotoParticipante').val("");
-				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/imagenesParticipantes/"+row.participanteFoto);
+				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imagenesParticipantes/"+row.participanteFoto);
 				$('#participanteETI').val(row.participanteExamenTeoricoInicial);
 				$('#participanteETF').val(row.participanteExamenTeoricoFinal);
 				$('#participanteEP').val(row.participanteExamenPractico);
 				$('#participanteP').val(row.participantePromedio);
+				$('#participanteAprovechamiento').val(row.participanteAprovechamiento);
+				
 				
 				$('#btnAgregarParticipante').hide();
 				$('#btnEditarParticipante').show();
@@ -357,11 +465,13 @@ $(document).ready(function() {
 		$('#participanteNombre').val("");
 		$('#participanteCURP').val("");
 		$('#participantePuesto').val("");
+		$('#participanteOcupacion').val("");
 		$('#formBFotoParticipante').val("");
 		$('#participanteETI').val("");
 		$('#participanteETF').val("");
 		$('#participanteEP').val("");
 		$('#participanteP').val("");
+		$('#participanteAprovechamiento').val("");
 		console.log($participantesLength);
 		if($participantesLength > 0){
 			$participantesLength = $participantesLength + 1;
@@ -378,16 +488,16 @@ $(document).ready(function() {
 				participanteNombre: $('#participanteNombre').val(),
 				participanteCURP: $('#participanteCURP').val(),
 				participantePuesto: $('#participantePuesto').val(),
+				participanteOcupacion: $('#participanteOcupacion').val(),
 				participanteFoto: editaNombreImagen($('#formBFotoParticipante').val()),
 				participanteExamenTeoricoInicial: $('#participanteETI').val(),
 				participanteExamenTeoricoFinal: $('#participanteETF').val(),
 				participanteExamenPractico: $('#participanteEP').val(),
-				participantePromedio: $('#participanteP').val()
+				participantePromedio: $('#participanteP').val(),
+				participanteAprovechamiento: $('#participanteAprovechamiento').val()
 		};
-//		jsonParticipante = JSON.stringify(jsonParticipante);
 		$('#participantesTable').bootstrapTable('append', jsonParticipante)
 		$participantes = $('#participantesTable').bootstrapTable('getData');
-//		arrayParticipantes = Array.from($participantes)
 	});
 	
 	$('#btnEditarParticipante').click(function(){
@@ -397,20 +507,18 @@ $(document).ready(function() {
 				participanteNombre: $('#participanteNombre').val(),
 				participanteCURP: $('#participanteCURP').val(),
 				participantePuesto: $('#participantePuesto').val(),
+				participanteOcupacion: $('#participanteOcupacion').val(),
 				participanteFoto: editaNombreImagen($('#formBFotoParticipante').val()),
 				participanteExamenTeoricoInicial: $('#participanteETI').val(),
 				participanteExamenTeoricoFinal: $('#participanteETF').val(),
 				participanteExamenPractico: $('#participanteEP').val(),
-				participantePromedio: $('#participanteP').val()
+				participantePromedio: $('#participanteP').val(),
+				participanteAprovechamiento: $('#participanteAprovechamiento').val()
 		};
 		
-//		jsonParticipante = JSON.stringify(jsonParticipante);
-//		console.log(jsonParticipante);
 		var tmp = new Array();
 		for(var a in $participantes){
 			var participante = $participantes[a];
-//			console.log(participante.idParticipante);
-//			console.log($idParticipante);
 			if(participante.idParticipante !== $idParticipante){
 				tmp.push(participante);
 			}
@@ -419,25 +527,96 @@ $(document).ready(function() {
 		$('#participantesTable').bootstrapTable('load', $participantes);
 		$('#participantesTable').bootstrapTable('append', jsonParticipante);
 		$participantes = $('#participantesTable').bootstrapTable('getData');
-//		console.log($participantes);
 		
 	});
-	
+
 	$('#btnAltaEntregable').click(function(){
 		console.log("Alta Formulario Entregable");
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 		var arrayParticipantes = new Array();
+		var flagParticipantes = false;
+		var flagDiploma = false;
+		var flagCredencial = false;
+		var flagDC3 = false;
+		
 		for(var a in $participantes){
 			arrayParticipantes.push(JSON.stringify($participantes[a]));
+			flagParticipantes = true;
+		}
+		
+		if(!flagParticipantes){
+			alert("Parece que no has registrado Participantes para DC3, Diploma o Credenciales.");
 		}
 		
 		$("#idAsignacion").val(asignacionItem.idAsignacion);
+		$("#idInstructorAsignacion").val(asignacionItem.idInstructorAsignacion);
+		$("#nombreFirmaInstructorAsignacion").val(asignacionItem.nombreFirmaInstructor);
+		
 		if($entregable){
 			$("#idEntregable").val($entregable.idEntregable);
 			console.log($entregable.idEntregable);
 		}
 			
+		$("#formARazonSocialA").val($("#formARazonSocial").val());
+		$("#formACursoA").val($("#formACurso").val());
+		$("#formARFCA").val($("#formARFC").val());
+		$("#formADuracionA").val($("#formADuracion").val());
+		$("#formAFechaInicioDC3A").val($("#formAFechaInicioDC3").val());
+		$("#formAFechaFinDC3A").val($("#formAFechaFinDC3").val());
+		$("#formAFechaDiplomaA").val($("#formAFechaDiploma").val());
+		$("#formAEquipoCredencialA").val($("#formAEquipoCredencial").val());
+		$("#formAFechaInicioCredencialesA").val($("#formAFechaInicioCredenciales").val());
+		$("#formAFechaFinalCredencialesA").val($("#formAFechaFinalCredenciales").val());
+		$("#formAInstructorA").val($("#formAInstructor").val());
+		$("#formARepresentanteEmpresaA").val($("#formARepresentanteEmpresa").val());
+		$("#formARepresentanteTrabajadorA").val($("#formARepresentanteTrabajador").val());	
 		
+		var formALogo = $("#formALogo").val();
+		if(formALogo.toString() === "" && $estatusEntregable ==="nuevo"){
+			$("#estatusEntregable").val($estatusEntregable);
+			$("#formALogoA").val(asignacionCliente.imagenLogoCliente);
+		}
+		if(formALogo.toString() === "" && $estatusEntregable ==="edicion"){
+			$("#estatusEntregable").val($estatusEntregable);
+			$("#formALogoA").val($entregable.formALogo);
+		}
+
+
+		$("#formBParticipantesA").val(arrayParticipantes);
+
+		$("#formCRazonSocialA").val($("#formCRazonSocial").val());
+		$("#formCCursoA").val($("#formCCurso").val());
+		$("#formCDuracionA").val($("#formCDuracion").val());
+		$("#formCInstructorA").val($("#formCInstructor").val());
+		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
+		$("#formCFechaFinalA").val($("#formCFechaFinal").val());
+		$("#formCSedeA").val($("#formCSede").val());
+				
+		$("#idEntregableLogico").val($idEntregableLogico);
+		
+		if($("#entregableEdicion").valid()){
+			$('#myModalProcess').modal();
+		}
+	});
+	
+	$('#btnGeneraDocto').click(function(){
+		console.log("Alta Documentacion Entregable");
+		console.log("boton alta documentacion");
+		$participantes = $('#participantesTable').bootstrapTable('getData');
+		var arrayParticipantes = new Array();
+		
+		
+		$("#idAsignacion").val(asignacionItem.idAsignacion);
+		$("#idInstructorAsignacion").val(asignacionItem.idInstructorAsignacion);
+		$("#nombreFirmaInstructorAsignacion").val(asignacionItem.nombreFirmaInstructor);
+		
+		if($entregable){
+			$("#idEntregable").val($entregable.idEntregable);
+		}
+		for(var a in $participantes){
+			arrayParticipantes.push(JSON.stringify($participantes[a]));
+		}
+			
 		$("#formARazonSocialA").val($("#formARazonSocial").val());
 		$("#formACursoA").val($("#formACurso").val());
 		$("#formARFCA").val($("#formARFC").val());
@@ -451,6 +630,16 @@ $(document).ready(function() {
 		$("#formAInstructorA").val($("#formAInstructor").val());
 		$("#formARepresentanteEmpresaA").val($("#formARepresentanteEmpresa").val());
 		$("#formARepresentanteTrabajadorA").val($("#formARepresentanteTrabajador").val());
+		
+		var formALogo = $("#formALogo").val();
+		if(formALogo.toString() === "" && $estatusEntregable ==="nuevo"){
+			$("#estatusEntregable").val($estatusEntregable);
+			$("#formALogoA").val(asignacionCliente.imagenLogoCliente);
+		}
+		if(formALogo.toString() === "" && $estatusEntregable ==="edicion"){
+			$("#estatusEntregable").val($estatusEntregable);
+			$("#formALogoA").val($entregable.formALogo);
+		}
 
 		$("#formBParticipantesA").val(arrayParticipantes);
 
@@ -461,9 +650,18 @@ $(document).ready(function() {
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
 		$("#formCFechaFinalA").val($("#formCFechaFinal").val());
 		$("#formCSedeA").val($("#formCSede").val());
+		$("#altaDocto").val(true);
+		$("#idEntregableLogico").val($idEntregableLogico);
+				
+		if($("#entregableEdicion").valid()){
+			$('#myModalProcess').modal();
+		}
+		$('#entregableEdicion').submit();
 	});
-	
-	
+
+
+		
+			
 });  // Fin JQRY
 
 
@@ -508,40 +706,35 @@ function duracion(str){
 }
 	
 
-	function archivoCliente(archivosCampo, rfcCliente){
-	  var $idCliente = rfcCliente
-	  $idCliente = $(rfcCliente).val();
-    enviaFile(archivosCampo, $idCliente);
-    var files = archivosCampo.files;
-    for (var i = 0; i < files.length; i++) {           
-        var file = files[i];
-        }        
-    }
+	
 
 	
 
-	function imagenCliente(archivosCampo, rfcCliente){
-	  var $idCliente = rfcCliente
-	  $idCliente = $(rfcCliente).val();                
+	function imagenCliente(archivosCampo){
+	  var $idCliente = asignacionCliente.rfcCliente
+//	  $idCliente = $(rfcCliente).val();                
 	  var files = archivosCampo.files[0];
-	  console.log(files.size);
+//	  console.log(files.size);
 	  if((files.size /1024) < 1024){
+		  var formALogo = $("#formALogo").val();
+		  $("#formALogoA").val("");
+		  $("#formALogoA").val(editaNombreImagen(formALogo));
 		  enviaImagen(archivosCampo, $idCliente);
 	  }
 	}
 	
-	function imagenParticipante(archivosCampo, rfcCliente){
-		  var $idCliente = rfcCliente
-		  $idCliente = $(rfcCliente).val();                
+	function imagenParticipante(archivosCampo){
+		var $idCliente = asignacionCliente.rfcCliente
+//		  $idCliente = $(rfcCliente).val();                
 		  var files = archivosCampo.files[0];
 		  if((files.size /1024) < 1024){
 			  enviaImagenParticipante(archivosCampo, $idCliente);
 		  }
 		}
 	
-	function imagenEvidencias(archivosCampo, rfcCliente){
-		  var $idCliente = rfcCliente
-		  $idCliente = $(rfcCliente).val();                
+	function imagenEvidencias(archivosCampo){
+		var $idCliente = asignacionCliente.rfcCliente
+//		  $idCliente = $(rfcCliente).val();                
 		  var files = archivosCampo.files;
 		  enviaImagenEvidencia(files, $idCliente);
 			
@@ -553,12 +746,23 @@ function duracion(str){
 		  }
 		}
 	
-	function archivoCliente(archivosCampo, rfcCliente){
-		  var $idCliente = rfcCliente
-		  $idCliente = $(rfcCliente).val();
+	function archivoCliente(archivosCampo){
+		var $idCliente = asignacionCliente.rfcCliente
+//		  $idCliente = $(rfcCliente).val();
 	      enviaFile(archivosCampo, $idCliente);
 	      }
 
+	
+//	function archivoCliente(archivosCampo){
+//		  var $idCliente = asignacionCliente.rfcCliente
+//	    enviaFile(archivosCampo, $idCliente);
+//	    var files = archivosCampo.files;
+//	    for (var i = 0; i < files.length; i++) {           
+//	        var file = files[i];
+//	        }        
+//	    }
+	
+	
 	function sleep(milliseconds) {
 		  const date = Date.now();
 		  let currentDate = null;
@@ -602,7 +806,7 @@ function duracion(str){
   		        var data = new FormData(form);
   		        //console.log(data);
 	    			  $.ajax({
-	    				url: "imageUploadEntregable/"+rfcCliente,
+	    				url: "imageUploadEntregable/"+rfcCliente+"/"+$idEntregableLogico,
 	    			    type: "POST",
 	    			    data: new FormData($("#entregableEdicion")[0]),
 	    			    enctype: 'multipart/form-data',
@@ -642,7 +846,7 @@ function duracion(str){
   		        var data = new FormData(form);
   		        //console.log(data);
 	    			  $.ajax({
-	    				url: "imageUploadParticipante/"+rfcCliente,
+	    				url: "imageUploadParticipante/"+rfcCliente+"/"+$idEntregableLogico,
 	    			    type: "POST",
 	    			    data: new FormData($("#formBParticipante")[0]),
 	    			    enctype: 'multipart/form-data',
@@ -675,24 +879,16 @@ function duracion(str){
 	    		
 	    		limpiaAlerta();
 	    			console.log("Comienza envio imagenEvidencia:");
-//	    			console.log(idImagenForm);
-
 	    			 var form_data = new FormData();
 
 	    			   // Read selected files
 	    			   var totalfiles = document.getElementById('formCEvidenciasFotograficas').files.length;
 	    			   for (var index = 0; index < totalfiles; index++) {
 	    			      form_data.append("entregableEdicion[]", document.getElementById('formCEvidenciasFotograficas').files[index]);
-//	    			      console.log(form_data);
 	    			   }
-//	    		var alerta="";
-//      			var form = $('#entregableEdicion')[0];
-//  		        var data = new FormData(form);
-//  		        console.log(data);
-//	    			 data = new FormData();
-//	    			 data.append('file', $('#entregableEdicion')[0].files);
+
 	    			  $.ajax({
-	    				url: "imageUploadEvidencia/"+rfcCliente,
+	    				url: "imageUploadEvidencia/"+rfcCliente+"/"+$idEntregableLogico,
 	    			    type: "POST",
 	    			    data: form_data, //new FormData($("#entregableEdicion")[0]),
 	    			    enctype: 'multipart/form-data',
@@ -732,7 +928,7 @@ function duracion(str){
 			        var data = new FormData(form);
 			        //console.log(data);
 	    			  $.ajax({
-	    				url: "fileUploadEntregables/"+rfcCliente,
+	    				url: "fileUploadEntregables/"+rfcCliente+"/"+$idEntregableLogico,
 	    			    type: "POST",
 	    			    data: data,
 	    			    enctype: 'multipart/form-data',

@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC v 1.7</title>
+    <title>UNIPROTEC v 2.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
@@ -43,7 +43,10 @@
     border-left: none;
     border-top: none;
 }
-	
+	.error {
+      color: red;
+      background-color: #acf;
+   }
 
 </style>
     
@@ -295,576 +298,586 @@
 									                  </div>
 									                </nav>
 									                <form id="entregableEdicion" name="entregableEdicion" class="" th:action="@{/BEntregable}"  th:object="${entregableModelo}" method="post">
-									                <div class="tab-content" id="nav-tabContent">
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                
-									                  <div class="tab-pane fade show active" id="pop1" role="tabpanel" aria-labelledby="pop1-tab">
-									                        <div class="pt-3"></div>
-									                        <!------------------------------------------------------------------------------>
-					                                        <div class="form-row">
-					                                            <div class="col-md-12 mb-3">
-					                                                <label for="nombreCompletoCliente">Razon Social</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormARazonSocial" name="checkFormARazonSocial">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formARazonSocial" name="formARazonSocial" placeholder="Razon Social " value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Capturar Razon Social
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="form-row">
-					                                            <div class="col-md-12 mb-3">
-					                                                <label for="nombreCompletoCliente">Nombre del Curso</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormACurso" name="checkFormACurso">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formACurso" name="formACurso" placeholder="Nombre del Curso" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Nombre del Curso
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="form-row">
-					                                            <div class="col-md-6 mb-3">
-					                                                <label for="nombreCompletoCliente">RFC</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormARFC" name="checkFormARFC">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formARFC" name="formARFC" placeholder="RFC" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar RFC
-					                                                </div>
-					                                            </div>
-					                                            <!------------------------------------------------------------------------------>
-					                                            <div class="col-md-6 mb-3">
-					                                                <label for="nombreCompletoCliente">Duracion</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormADuracion" name="checkFormADuracion">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formADuracion" name="formADuracion" placeholder="Duracion" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Duracion
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="form-row">
-					                                            <div class="col-md-6 mb-3">
-					                                                 <label for="validationCustom02">Inicio Fechas DC3.</label>
-					                                                 <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check"  name="checkFormAFechaInicioDC3" id="checkFormAFechaInicioDC3">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input id="formAFechaInicioDC3" class="datepicker form-control" name="formAFechaInicioDC3"  type="text"  />
-					                                                  </div>
-					                                            </div>
-					                                            <div class="col-md-6 mb-3">
-					                                                 <label for="validationCustom02">Fin Fechas DC3.</label>
-					                                                 <input id="formAFechaFinDC3" class="datepicker form-control" name="formAFechaFinDC3"  type="text"  />
-					                                            </div> 
-					                                            <div id="fechasDC3"></div>
-					                                            
-					                                        </div>
-					                                        <!------------------------------------------------------------------------------>
-					                                        <div class="form-row">
-					                                            <div class="col-md-6 mb-3">
-					                                                <label for="nombreCompletoCliente">Fechas Diploma</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormAFechaDiploma" name="checkFormAFechaDiploma">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formAFechaDiploma" name="formAFechaDiploma" placeholder="Fechas Diploma" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Fechas Diploma
-					                                                </div>
-					                                            </div>
-					                                            <!------------------------------------------------------------------------------>
-					                                            <div class="col-md-6 mb-3">
-					                                                <label for="nombreCompletoCliente">Equipo Credencial</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormAEquipoCredencial" name="checkFormAEquipoCredencial" >
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formAEquipoCredencial" name="formAEquipoCredencial" placeholder="Equipo Credencial" value="" maxlength="100"   required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Equipo Credencial
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="form-row">
-					                                            <div class="col-md-6 mb-3">
-					                                                 <label for="validationCustom02">Inicio Fechas Credenciales.</label>
-					                                                 <input id="formAFechaInicioCredenciales" class="datepicker form-control"  name="date" type="text"  />		                                                 											
-					                                            </div>
-					                                            <div class="col-md-6 mb-3">
-					                                                 <label for="validationCustom02">Fin Fechas Credenciales.</label>
-					                                                 <input id="formAFechaFinalCredenciales" class="datepicker form-control"  name="date" type="text"  />
-					                                            </div> 
-					                                            <div id="fechas"></div>
-					                                            
-					                                        </div>
-					                                        <!------------------------------------------------------------------------------>
-					                                        <div class="form-row">
-					                                            <div class="col-md-12 mb-3">
-					                                                <label for="nombreCompletoCliente">Nombre Instructor</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormAInstructor" name="checkFormAInstructor">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formAInstructor" name="formAInstructor" placeholder="Nombre Instructor" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Nombre Instructor
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="form-row">
-					                                            <div class="col-md-12 mb-3">
-					                                                <label for="nombreCompletoCliente">Representante Empresa</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check" id="checkFormARepresentanteEmpresa" name="checkFormARepresentanteEmpresa">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formARepresentanteEmpresa" name="formARepresentanteEmpresa" placeholder="Representante Empresa" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Representante Empresa
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="form-row">
-					                                            <div class="col-md-12 mb-3">
-					                                                <label for="nombreCompletoCliente">Representante Trabajador</label>
-					                                                <div class="input-group mb-3">
-					                                                    <div class="input-group-prepend">
-					                                                      <div class="input-group-text">
-					                                                        <input type="checkbox" class="check"  id="checkFormARepresentanteTrabajador" name="checkFormARepresentanteTrabajador">
-					                                                      </div>
-					                                                    </div>
-					                                                    <input type="text" class="form-control"  id="formARepresentanteTrabajador" name="formARepresentanteTrabajador" placeholder="Representante Trabajador" value="" maxlength="100" required>
-					                                                  </div>
-					                                                <div class="invalid-feedback">
-					                                                    Validar Representante Trabajador
-					                                                </div>
-					                                            </div>
-					                                         </div>
-					                                         <!------------------------------------------------------------------------------>
-					                                         <div class="col-md-6 mb-3">
-					                                        		<label for="validationCustom02">Edicion Logo Cliente</label>
-					                                        		<div class="col-sm-10">
-					                                        			<img id="imagenLogoClienteEdicion" src="" class="img-fluid rounded float-left" alt="">
-						                                                <div class="alertaL"></div>
-						                                                <div class="file-loading">
-					        												<input id="formALogo" name="formALogo" type="file" class="form-control-file" accept="image/*" th:field="*{formALogo}"  data-show-upload="false"  onchange="imagenCliente(this,  document.getElementById('formARFC'))"/>
-					    												</div>
-																			 <br/>
-						                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
-						                                           </div>			    										    
-									                         </div>
-									                         <!------------------------------------------------------------------------------>
-									                     </div>
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                								                      
-										                  <div class="tab-pane fade" id="pop2" role="tabpanel" aria-labelledby="pop2-tab">
-										                       <div class="pt-3"></div>
-											                       <div class="form-row">
-																	<div class="col-md-12 mb-3">
-																		<div class="main-card mb-3 card">
-																			<div class="card-body">
-																				<h5 class="card-title">Lista Participantes</h5>
-											
-																				<table id='participantesTable' class="mb-0 table table-striped table-sm"
-																					data-locale="es-MX" 
-																					data-toggle='table' 
-																					data-sort-name='participanteId'
-																					data-sort-order='asc'
-																					data-pagination='true'
-																					data-page-list='[10, 25, 50, 100, 200, Todos]'>
-																					<thead class='thead-dark'>
-																						<tr>
-																							<th data-width="2" data-width-unit="%" data-halign="center" data-align="center" data-field='idParticipante' data-sortable='true'>Id</th>
-																							<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='participanteNombre' data-sortable='true'>Nombre Completo</th>
-																							<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='participanteCURP' data-sortable='true'>CURP</th>
-																							<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='participantePuesto'>Puesto</th>
-																							<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='participanteFoto' >Foto</th>
-																							<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='participanteExamenTeoricoInicial' data-sortable='true'>Exámen Teórico Inicial</th>
-																							<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='participanteExamenTeoricoFinal' data-sortable='true'>Exámen Teórico Final</th>
-																							<th data-width="4" data-width-unit="%" data-halign="center" data-align="center" data-field='participanteExamenPractico' data-sortable='true'>Exámen Práctico</th>
-																							<th data-width="4" data-width-unit="%" data-halign="center" data-align="center" data-field='participantePromedio' data-sortable='true'>Promedio</th>
-																							<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
-																						</tr>
-																					</thead>					
-																				</table>
-																				<div class="reporte-footer">
-																					<span>
-																						<a id="addUser" data-toggle="modal" data-target="#modalParticipantes"class="btn btn-primary"><i style="color: white" class="fa fa-3x fa-user-plus" aria-hidden="true"></i></a>
-																					</span>
-<!-- 																					 -->
-																				</div>	
+										                <div class="tab-content" id="nav-tabContent">
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                
+										                  <div class="tab-pane fade show active" id="pop1" role="tabpanel" aria-labelledby="pop1-tab">
+										                        <div class="pt-3"></div>
+										                        <!------------------------------------------------------------------------------>
+						                                        <div class="form-row">
+						                                            <div class="col-md-12 mb-3">
+						                                                <label for="nombreCompletoCliente">Razon Social</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormARazonSocial" name="checkFormARazonSocial">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formARazonSocial" name="formARazonSocial" placeholder="Razon Social " value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Capturar Razon Social
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="form-row">
+						                                            <div class="col-md-12 mb-3">
+						                                                <label for="nombreCompletoCliente">Nombre del Curso</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormACurso" name="checkFormACurso">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formACurso" name="formACurso" placeholder="Nombre del Curso" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Nombre del Curso
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="form-row">
+						                                            <div class="col-md-6 mb-3">
+						                                                <label for="nombreCompletoCliente">RFC</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormARFC" name="checkFormARFC">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formARFC" name="formARFC" placeholder="RFC" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar RFC
+						                                                </div>
+						                                            </div>
+						                                            <!------------------------------------------------------------------------------>
+						                                            <div class="col-md-6 mb-3">
+						                                                <label for="nombreCompletoCliente">Duracion</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormADuracion" name="checkFormADuracion">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formADuracion" name="formADuracion" placeholder="Duracion" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Duracion
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="form-row">
+						                                            <div class="col-md-6 mb-3">
+						                                                 <label for="validationCustom02">Inicio Fechas DC3.</label>
+						                                                 <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check"  name="checkFormAFechaInicioDC3" id="checkFormAFechaInicioDC3">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input id="formAFechaInicioDC3" class="datepicker form-control" name="formAFechaInicioDC3"  type="text"  />
+						                                                  </div>
+						                                            </div>
+						                                            <div class="col-md-6 mb-3">
+						                                                 <label for="validationCustom02">Fin Fechas DC3.</label>
+						                                                 <input id="formAFechaFinDC3" class="datepicker form-control" name="formAFechaFinDC3"  type="text"  />
+						                                            </div> 
+						                                            <div id="fechasDC3"></div>
+						                                            
+						                                        </div>
+						                                        <!------------------------------------------------------------------------------>
+						                                        <div class="form-row">
+						                                            <div class="col-md-6 mb-3">
+						                                                <label for="nombreCompletoCliente">Fechas Diploma</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormAFechaDiploma" name="checkFormAFechaDiploma">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formAFechaDiploma" name="formAFechaDiploma" placeholder="Fechas Diploma" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Fechas Diploma
+						                                                </div>
+						                                            </div>
+						                                            <!------------------------------------------------------------------------------>
+						                                            <div class="col-md-6 mb-3">
+						                                                <label for="nombreCompletoCliente">Equipo Credencial</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormAEquipoCredencial" name="checkFormAEquipoCredencial" >
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formAEquipoCredencial" name="formAEquipoCredencial" placeholder="Equipo Credencial" value="" maxlength="100"   required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Equipo Credencial
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="form-row">
+						                                            <div class="col-md-6 mb-3">
+						                                                 <label for="validationCustom02">Inicio Fechas Credenciales.</label>
+						                                                 <input id="formAFechaInicioCredenciales" class="datepicker form-control"  name="date" type="text"  />		                                                 											
+						                                            </div>
+						                                            <div class="col-md-6 mb-3">
+						                                                 <label for="validationCustom02">Fin Fechas Credenciales.</label>
+						                                                 <input id="formAFechaFinalCredenciales" class="datepicker form-control"  name="date" type="text"  />
+						                                            </div> 
+						                                            <div id="fechas"></div>
+						                                            
+						                                        </div>
+						                                        <!------------------------------------------------------------------------------>
+						                                        <div class="form-row">
+						                                            <div class="col-md-12 mb-3">
+						                                                <label for="nombreCompletoCliente">Nombre Instructor</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormAInstructor" name="checkFormAInstructor">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formAInstructor" name="formAInstructor" placeholder="Nombre Instructor" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Nombre Instructor
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="form-row">
+						                                            <div class="col-md-12 mb-3">
+						                                                <label for="nombreCompletoCliente">Representante Empresa</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check" id="checkFormARepresentanteEmpresa" name="checkFormARepresentanteEmpresa">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formARepresentanteEmpresa" name="formARepresentanteEmpresa" placeholder="Representante Empresa" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Representante Empresa
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="form-row">
+						                                            <div class="col-md-12 mb-3">
+						                                                <label for="nombreCompletoCliente">Representante Trabajador</label>
+						                                                <div class="input-group mb-3">
+						                                                    <div class="input-group-prepend">
+						                                                      <div class="input-group-text">
+						                                                        <input type="checkbox" class="check"  id="checkFormARepresentanteTrabajador" name="checkFormARepresentanteTrabajador">
+						                                                      </div>
+						                                                    </div>
+						                                                    <input type="text" class="form-control"  id="formARepresentanteTrabajador" name="formARepresentanteTrabajador" placeholder="Representante Trabajador" value="" maxlength="100" required>
+						                                                  </div>
+						                                                <div class="invalid-feedback">
+						                                                    Validar Representante Trabajador
+						                                                </div>
+						                                            </div>
+						                                         </div>
+						                                         <!------------------------------------------------------------------------------>
+						                                         <div class="col-md-6 mb-3">
+						                                        		<label for="validationCustom02">Edicion Logo Cliente</label>
+						                                        		<div class="col-sm-10">
+						                                        			<img id="imagenLogoClienteEdicion" src="" class="img-fluid rounded float-left" alt="">
+							                                                <div class="alertaL"></div>
+							                                                <div class="file-loading">
+						        												<input id="formALogo" name="formALogo" type="file" class="form-control-file" accept="image/*"   data-show-upload="false"  onchange="imagenCliente(this)"/>
+						    												</div>
+																				 <br/>
+							                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
+							                                           </div>			    										    
+										                         </div>
+										                         <!------------------------------------------------------------------------------>
+										                     </div>
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                								                      
+											                  <div class="tab-pane fade" id="pop2" role="tabpanel" aria-labelledby="pop2-tab">
+											                       <div class="pt-3"></div>
+												                       <div class="form-row">
+																		<div class="col-md-12 mb-3">
+																			<div class="main-card mb-3 card">
+																				<div class="card-body">
+																					<h5 class="card-title">Lista Participantes</h5>
+												
+																					<table id='participantesTable' class="mb-0 table table-striped table-sm"
+																						data-locale="es-MX" 
+																						data-toggle='table' 
+																						data-sort-name='participanteId'
+																						data-sort-order='asc'
+																						data-pagination='true'
+																						data-page-list='[10, 25, 50, 100, 200, Todos]'>
+																						<thead class='thead-dark'>
+																							<tr>
+																								<th data-width="5" data-width-unit="%" data-halign="left" data-align="center" data-field='idParticipante' data-sortable='true'>Id</th>
+																								<th data-width="30" data-width-unit="%" data-halign="left" data-align="center" data-field='participanteNombre' data-sortable='true'>Nombre Completo</th>
+																								<th data-width="10" data-width-unit="%" data-halign="left" data-align="center" data-field='participanteCURP' data-sortable='true'>CURP</th>
+																								<th data-width="15" data-width-unit="%" data-halign="left" data-align="center" data-field='participantePuesto'>Puesto</th>
+																								<th data-width="2" data-width-unit="%" data-halign="left" data-align="center" data-field='participanteFoto' >Foto</th>
+																								<th data-width="2" data-width-unit="%" data-halign="left" data-align="center" data-field='participanteExamenTeoricoInicial' data-sortable='true'>Exámen Teórico Inicial</th>
+																								<th data-width="2" data-width-unit="%" data-halign="left" data-align="center" data-field='participanteExamenTeoricoFinal' data-sortable='true'>Exámen Teórico Final</th>
+																								<th data-width="2" data-width-unit="%" data-halign="left" data-align="center" data-field='participanteExamenPractico' data-sortable='true'>Exámen Práctico</th>
+																								<th data-width="2" data-width-unit="%" data-halign="left" data-align="center" data-field='participantePromedio' data-sortable='true'>Promedio</th>
+																								<th data-width="10" data-width-unit="%" data-halign="left" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
+																							</tr>
+																						</thead>					
+																					</table>
+																					<div class="reporte-footer">
+																						<span>
+																							<a id="addUser" data-toggle="modal" data-target="#modalParticipantes"class="btn btn-primary"><i style="color: white" class="fa fa-3x fa-user-plus" aria-hidden="true"></i></a>
+																						</span>
+	<!-- 																					 -->
+																					</div>	
+																				</div>
+																				
+																				<!-- FIN DE SECCION TABLA                  			-->
 																			</div>
-																			
-																			<!-- FIN DE SECCION TABLA                  			-->
 																		</div>
 																	</div>
-																</div>
-										
-										                  </div>
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                
-										                  
-										                  <div class="tab-pane fade" id="pop3" role="tabpanel" aria-labelledby="pop3-tab">
-										                       <div class="pt-3"></div>
-						                                        <!------------------------------------------------------------------------------>
-						                                         <div class="col-md-12">
-								                                    <div id="accordion" class="accordion-wrapper mb-3">
-								                                        <div class="card">
-								                                            <div id="headingOne" class="card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                    <h6 class="m-0 p-0">1. Generales</h6>
-								                                                </button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse show">
-								                                                <div class="card-body">
-									                                                <div class="form-row">
-											                                            <div class="col-md-12 mb-3">
-											                                                <label for="nombreCompletoCliente">Razon Social</label>
-											                                                <div class="input-group mb-3">
-											                                                    <div class="input-group-prepend">
-											                                                      <div class="input-group-text">
-											                                                        <input type="checkbox" class="check" id="checkFormCRazonSocial" name="checkFormCRazonSocial">
-											                                                      </div>
-											                                                    </div>
-											                                                    <input type="text" class="form-control"  id="formCRazonSocial" name="formCRazonSocial" placeholder="Razon Social " value="" maxlength="100" required>
-											                                                  </div>
-											                                                <div class="invalid-feedback">
-											                                                    Capturar Razon Social
+											
+											                  </div>
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                										                  
+											                  <div class="tab-pane fade" id="pop3" role="tabpanel" aria-labelledby="pop3-tab">
+											                       <div class="pt-3"></div>
+							                                        <!------------------------------------------------------------------------------>
+							                                         <div class="col-md-12">
+									                                    <div id="accordion" class="accordion-wrapper mb-3">
+									                                        <div class="card">
+									                                            <div id="headingOne" class="card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                    <h6 class="m-0 p-0">1. Generales</h6>
+									                                                </button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse show">
+									                                                <div class="card-body">
+										                                                <div class="form-row">
+												                                            <div class="col-md-12 mb-3">
+												                                                <label for="nombreCompletoCliente">Razon Social</label>
+												                                                <div class="input-group mb-3">
+												                                                    <div class="input-group-prepend">
+												                                                      <div class="input-group-text">
+												                                                        <input type="checkbox" class="check" id="checkFormCRazonSocial" name="checkFormCRazonSocial">
+												                                                      </div>
+												                                                    </div>
+												                                                    <input type="text" class="form-control"  id="formCRazonSocial" name="formCRazonSocial" placeholder="Razon Social " value="" maxlength="100" required>
+												                                                  </div>
+												                                                <div class="invalid-feedback">
+												                                                    Capturar Razon Social
+												                                                </div>
+												                                            </div>
+												                                         </div>
+												                                         <!------------------------------------------------------------------------------>
+												                                         <div class="form-row">
+												                                            <div class="col-md-12 mb-3">
+												                                                <label for="nombreCompletoCliente">Nombre del Curso</label>
+												                                                <div class="input-group mb-3">
+												                                                    <div class="input-group-prepend">
+												                                                      <div class="input-group-text">
+												                                                        <input type="checkbox" class="check" id="checkFormCCurso" name="checkFormCCurso">
+												                                                      </div>
+												                                                    </div>
+												                                                    <input type="text" class="form-control"  id="formCCurso" name="formCCurso" placeholder="Nombre del Curso" value="" maxlength="100" required>
+												                                                  </div>
+												                                                <div class="invalid-feedback">
+												                                                    Validar Nombre del Curso
+												                                                </div>
+												                                            </div>
+												                                         </div>
+												                                         <!------------------------------------------------------------------------------>
+												                                         <div class="form-row">
+												                                            <div class="col-md-6 mb-3">
+												                                                <label for="nombreCompletoCliente">Duracion</label>
+												                                                <div class="input-group mb-3">
+												                                                    <div class="input-group-prepend">
+												                                                      <div class="input-group-text">
+												                                                        <input type="checkbox" class="check" id="checkFormCDuracion" name="checkFormCDuracion">
+												                                                      </div>
+												                                                    </div>
+												                                                    <input type="text" class="form-control"  id="formCDuracion" name="formCDuracion" placeholder="Duracion" value="" maxlength="100" required>
+												                                                  </div>
+												                                                <div class="invalid-feedback">
+												                                                    Validar Duracion
+												                                                </div>
+												                                            </div>
+												                                            <div class="col-md-6 mb-3">
+												                                                <label for="nombreCompletoCliente">Nombre Instructor</label>
+												                                                <div class="input-group mb-3">
+												                                                    <div class="input-group-prepend">
+												                                                      <div class="input-group-text">
+												                                                        <input type="checkbox" class="check" id="checkFormCInstructor" name="checkFormCInstructor">
+												                                                      </div>
+												                                                    </div>
+												                                                    <input type="text" class="form-control"  id="formCInstructor" name="formCInstructor" placeholder="Nombre Instructor" value="" maxlength="100" required>
+												                                                  </div>
+												                                                <div class="invalid-feedback">
+												                                                    Validar Nombre Instructor
+												                                                </div>
+												                                            </div>
+												                                         </div>
+												                                         <!------------------------------------------------------------------------------>
+												                                         <div class="form-row">
+												                                            <div class="col-md-6 mb-3">
+												                                                 <label for="validationCustom02">Inicio Fechas.</label>
+												                                                 <div class="input-group mb-3">
+												                                                    <div class="input-group-prepend">
+												                                                      <div class="input-group-text">
+												                                                        <input type="checkbox" class="check" id="checkFormCFechas" name="checkFormCFechas">
+												                                                      </div>
+												                                                    </div>
+												                                                    <input id="formCFechaInicio" class="datepicker form-control" name="formCFechaInicio"  type="text"  />
+												                                                  </div>
+												                                            </div>
+												                                            <div class="col-md-6 mb-3">
+												                                                 <label for="validationCustom02">Fin Fechas.</label>
+												                                                 <input id="formCFechaFinal" class="datepicker form-control" name="formCFechaFinal"  type="text"  />
+												                                            </div> 
+												                                            <div id="fechasDC3"></div>
+												                                         <!------------------------------------------------------------------------------>
+												                                        </div>
+												                                        	<div class="card-body">				
+												                                        		<label for="validationCustom02">Dirección.</label>
+												                                        		<input type="checkbox" class="check" id="checkFormCSede" name="checkFormCSede">
+											                                                	<textarea  class="form-control" name="formCSede" id="formCSede"  rows="5" cols="150" placeholder="Dirección"></textarea>
 											                                                </div>
-											                                            </div>
-											                                         </div>
-											                                         <!------------------------------------------------------------------------------>
-											                                         <div class="form-row">
-											                                            <div class="col-md-12 mb-3">
-											                                                <label for="nombreCompletoCliente">Nombre del Curso</label>
-											                                                <div class="input-group mb-3">
-											                                                    <div class="input-group-prepend">
-											                                                      <div class="input-group-text">
-											                                                        <input type="checkbox" class="check" id="checkFormCCurso" name="checkFormCCurso">
-											                                                      </div>
-											                                                    </div>
-											                                                    <input type="text" class="form-control"  id="formCCurso" name="formCCurso" placeholder="Nombre del Curso" value="" maxlength="100" required>
-											                                                  </div>
-											                                                <div class="invalid-feedback">
-											                                                    Validar Nombre del Curso
-											                                                </div>
-											                                            </div>
-											                                         </div>
-											                                         <!------------------------------------------------------------------------------>
-											                                         <div class="form-row">
-											                                            <div class="col-md-6 mb-3">
-											                                                <label for="nombreCompletoCliente">Duracion</label>
-											                                                <div class="input-group mb-3">
-											                                                    <div class="input-group-prepend">
-											                                                      <div class="input-group-text">
-											                                                        <input type="checkbox" class="check" id="checkFormCDuracion" name="checkFormCDuracion">
-											                                                      </div>
-											                                                    </div>
-											                                                    <input type="text" class="form-control"  id="formCDuracion" name="formCDuracion" placeholder="Duracion" value="" maxlength="100" required>
-											                                                  </div>
-											                                                <div class="invalid-feedback">
-											                                                    Validar Duracion
-											                                                </div>
-											                                            </div>
-											                                            <div class="col-md-6 mb-3">
-											                                                <label for="nombreCompletoCliente">Nombre Instructor</label>
-											                                                <div class="input-group mb-3">
-											                                                    <div class="input-group-prepend">
-											                                                      <div class="input-group-text">
-											                                                        <input type="checkbox" class="check" id="checkFormCInstructor" name="checkFormCInstructor">
-											                                                      </div>
-											                                                    </div>
-											                                                    <input type="text" class="form-control"  id="formCInstructor" name="formCInstructor" placeholder="Nombre Instructor" value="" maxlength="100" required>
-											                                                  </div>
-											                                                <div class="invalid-feedback">
-											                                                    Validar Nombre Instructor
-											                                                </div>
-											                                            </div>
-											                                         </div>
-											                                         <!------------------------------------------------------------------------------>
-											                                         <div class="form-row">
-											                                            <div class="col-md-6 mb-3">
-											                                                 <label for="validationCustom02">Inicio Fechas.</label>
-											                                                 <div class="input-group mb-3">
-											                                                    <div class="input-group-prepend">
-											                                                      <div class="input-group-text">
-											                                                        <input type="checkbox" class="check" id="checkFormCFechas" name="checkFormCFechas">
-											                                                      </div>
-											                                                    </div>
-											                                                    <input id="formCFechaInicio" class="datepicker form-control" name="formCFechaInicio"  type="text"  />
-											                                                  </div>
-											                                            </div>
-											                                            <div class="col-md-6 mb-3">
-											                                                 <label for="validationCustom02">Fin Fechas.</label>
-											                                                 <input id="formCFechaFinal" class="datepicker form-control" name="formCFechaFinal"  type="text"  />
-											                                            </div> 
-											                                            <div id="fechasDC3"></div>
-											                                         <!------------------------------------------------------------------------------>
-											                                        </div>
-											                                        	<div class="card-body">				
-											                                        		<label for="validationCustom02">Dirección.</label>
-											                                        		<input type="checkbox" class="check" id="checkFormCSede" name="checkFormCSede">
-										                                                	<textarea  class="form-control" name="formCSede" id="formCSede"  rows="5" cols="150" placeholder="Dirección"></textarea>
-										                                                </div>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					2. Comentarios sobre el grupo 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne2" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCComentariosGrupo" th:field="*{formCComentariosGrupo}" class="form-control" name="formCProcesoAprendizaje" rows="5" cols="150" placeholder="comentarios sobre el grupo"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					3. Proceso de aprendizaje 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne3" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCProcesoAprendizaje" th:field="*{formCProcesoAprendizaje}" class="form-control" name="formCProcesoAprendizaje" rows="4" cols="90" placeholder="PROCESO DE APRENDIZAJE"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					4. Teoría
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne4" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCTeoria" th:field="*{formCTeoria}" name="formCTeoria" class="form-control" rows="4" cols="90" placeholder="TEORIA"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					5. Práctica
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne5" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCPractica" th:field="*{formCPractica}" name="formCPractica" class="form-control" rows="4" cols="90" placeholder="PRÁCTICA"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					6. Evidencias fotográficas 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne6" class="collapse">
-								                                                <div class="card-body">	
-								                                                	<div class="col-md-12 mb-6">
-								                                                	<div id="evidenciasFotograficas"></div>
-								                                                	<input id="formCEvidenciasFotograficasB" th:field="*{formCEvidenciasFotograficasB}" type="hidden" />
-										                                        		<label for="validationCustom02" >Evidencias Fotográficas</label>
-										                                        		<div class="col-sm-10">
-											                                                <div class="alertaE"></div>
-											                                                <div class="file-loading">
-										        												<input id="formCEvidenciasFotograficas" name="formCEvidenciasFotograficas[]"  th:field="*{formCEvidenciasFotograficas}" type="file" class="form-control-file" accept="image/*"   data-show-upload="false" multiple onchange="imagenEvidencias(this,  document.getElementById('formARFC'))"/>
-										    												</div>
-																								 <br/>
-											                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
-											                                           </div>			    										    
-														                         </div>			
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne7" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					7. Recomendaciones
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne7" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCRecomendaciones" th:field="*{formCRecomendaciones}" name="formCRecomendaciones" rows="4" cols="90" class="form-control" placeholder="RECOMENDACIONES"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne8" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					8. Nivel de cumplimiento de los objetivos y expectativas 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne8" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCNivelCumplimiento" th:field="*{formCNivelCumplimiento}" name="formCNivelCumplimiento" rows="4" cols="90" class="form-control" placeholder="NIVEL DE CUMPLIMIENTO DE LOS OBJETIVOS Y EXPECTATIVAS"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne9" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					9. Contingencias 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne9" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCContingencias" th:field="*{formCContingencias}" name="formCContingencias" rows="4" cols="90" class="form-control" placeholder="CONTINGENCIAS"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne10" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					10. Avances logrados en relación a los resultados de aprendizaje planeados 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne10" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCAvancesLogrados" th:field="*{formCAvancesLogrados}" name="formCAvancesLogrados" rows="4" cols="90" class="form-control" placeholder="AVANCES LOGRADOS EN RELACIÓN A LOS RESULTADOS DE APRENDIZAJE PLANEADOS "></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne11" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					11. Observaciones
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne11" class="collapse">
-								                                                <div class="card-body">				
-								                                                	<textarea id="formCObservaciones" th:field="*{formCObservaciones}" name="formCObservaciones" rows="4" cols="90" class="form-control" placeholder="OBSERVACIONES"></textarea>
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <div class="card">
-								                                            <div id="headingTwo" class="b-radius-0 card-header">
-								                                                <button type="button" data-toggle="collapse" data-target="#collapseOne12" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-								                                                <h6 class="m-0 p-0">
-																					12. Evidencia Documentacional 
-																				</h6></button>
-								                                            </div>
-								                                            <div data-parent="#accordion" id="collapseOne12" class="collapse">
-								                                                <div class="card-body">
-								                                                	<div class="col-md-12 mb-6">
-											                                        	<label for="validationCustom02">Adjuntar Evidencia Documentacional</label>
-											                                        	  <div class="col-sm-10">
-											                                        		<div class="alertaD"></div>
-											        											<input id="formCEvidenciaDocto" name="formCEvidenciaDocto[]" type="file" class="file"  th:field="*{formCEvidenciaDocto}"  data-show-upload="false" multiple onchange="archivoCliente(this,  document.getElementById('formARFC'))"/>
-																							<br/>
-											    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
-											    										</div>    
-											                                        </div>				
-								                                                </div>
-								                                            </div>
-								                                        </div>
-								                                        <!------------------------------------------------------------------------------>
-								                                        <input type="hidden"  th:field="*{idEntregable}" id="idEntregable" />
-								                                        <input type="hidden"  th:field="*{idAsignacion}" id="idAsignacion" />
-								                                        <input type="hidden"  th:field="*{formARazonSocial}" id="formARazonSocialA" />
-																		<input type="hidden"  th:field="*{formACurso}" id="formACursoA" />
-																		<input type="hidden"  th:field="*{formARFC}" id="formARFCA" />
-																		<input type="hidden"  th:field="*{formADuracion}" id="formADuracionA" />
-																		<input type="hidden"  th:field="*{formAFechaInicioDC3}"  id="formAFechaInicioDC3A" />
-																		<input type="hidden"  th:field="*{formAFechaFinDC3}"  id="formAFechaFinDC3A" />
-																		<input type="hidden"  th:field="*{formAFechaDiploma}" id="formAFechaDiplomaA" />
-																		<input type="hidden"  th:field="*{formAEquipoCredencial}" id="formAEquipoCredencialA" />
-																		<input type="hidden"  th:field="*{formAFechaInicioCredenciales}" id="formAFechaInicioCredencialesA"/>
-																		<input type="hidden"  th:field="*{formAFechaFinalCredenciales}" id="formAFechaFinalCredencialesA" />
-																		<input type="hidden"  th:field="*{formAInstructor}" id="formAInstructorA" />
-																		<input type="hidden"  th:field="*{formARepresentanteEmpresa}" id="formARepresentanteEmpresaA" />
-																		<input type="hidden"  th:field="*{formARepresentanteTrabajador}" id="formARepresentanteTrabajadorA" />
-																		
-																		<input type="hidden" th:field="*{formBParticipantesStr}" id="formBParticipantesA"  />
-<!-- 																		<input type="hidden" th:field="*{formBParticipantesStr}" id="formBParticipantesA"  /> -->
-																		
-																		<input type="hidden"  th:field="*{formCRazonSocial}" id="formCRazonSocialA" />
-																		<input type="hidden"  th:field="*{formCCurso}" id="formCCursoA" />
-																		<input type="hidden"  th:field="*{formCDuracion}" id="formCDuracionA" />
-																		<input type="hidden"  th:field="*{formCInstructor}" id="formCInstructorA" />
-																		<input type="hidden"  th:field="*{formCFechaInicio}"  id="formCFechaInicioA" />
-																		<input type="hidden"  th:field="*{formCFechaFinal}" id="formCFechaFinalA" />
-																		<input type="hidden"  th:field="*{formCSede}" id="formCSedeA" />
-																		
-								                                        <!------------------------------------------------------------------------------>
-								                                        <!------------------------------------------------------------------------------>
-								                                    </div>
-								                                </div>
-								                                <!------------------------------------------------------------------------------>
-<!-- 								                                 <button type="submit" id="btnAltaEntregable" class="mb-2 mr-2 btn btn-info btn-lg btn-block">Guardar Expediente</button> -->
-							                                <!------------------------------------------------------------------------------>           
-										                  </div>
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->
-<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                
-									                </div>
-									                <button type="submit" id="btnAltaEntregable" class="mb-2 mr-2 btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModalProcess">Guardar Expediente</button>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						2. Comentarios sobre el grupo 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne2" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCComentariosGrupo" th:field="*{formCComentariosGrupo}" class="form-control" name="formCProcesoAprendizaje" rows="5" cols="150" placeholder="comentarios sobre el grupo"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						3. Proceso de aprendizaje 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne3" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCProcesoAprendizaje" th:field="*{formCProcesoAprendizaje}" class="form-control" name="formCProcesoAprendizaje" rows="4" cols="90" placeholder="PROCESO DE APRENDIZAJE"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						4. Teoría
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne4" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCTeoria" th:field="*{formCTeoria}" name="formCTeoria" class="form-control" rows="4" cols="90" placeholder="TEORIA"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						5. Práctica
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne5" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCPractica" th:field="*{formCPractica}" name="formCPractica" class="form-control" rows="4" cols="90" placeholder="PRÁCTICA"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						6. Evidencias fotográficas 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne6" class="collapse">
+									                                                <div class="card-body">	
+									                                                	<div class="col-md-12 mb-6">
+									                                                	<div id="evidenciasFotograficas"></div>
+									                                                	<input id="formCEvidenciasFotograficasB" th:field="*{formCEvidenciasFotograficasB}" type="hidden" />
+											                                        		<label for="validationCustom02" >Evidencias Fotográficas</label>
+											                                        		<div class="col-sm-10">
+												                                                <div class="alertaE"></div>
+												                                                <div class="file-loading">
+											        												<input id="formCEvidenciasFotograficas" name="formCEvidenciasFotograficas[]"  th:field="*{formCEvidenciasFotograficas}" type="file" class="form-control-file" accept="image/*"   data-show-upload="false" multiple onchange="imagenEvidencias(this)"/>
+											    												</div>
+																									 <br/>
+												                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
+												                                           </div>			    										    
+															                         </div>			
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne7" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						7. Recomendaciones
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne7" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCRecomendaciones" th:field="*{formCRecomendaciones}" name="formCRecomendaciones" rows="4" cols="90" class="form-control" placeholder="RECOMENDACIONES"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne8" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						8. Nivel de cumplimiento de los objetivos y expectativas 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne8" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCNivelCumplimiento" th:field="*{formCNivelCumplimiento}" name="formCNivelCumplimiento" rows="4" cols="90" class="form-control" placeholder="NIVEL DE CUMPLIMIENTO DE LOS OBJETIVOS Y EXPECTATIVAS"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne9" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						9. Contingencias 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne9" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCContingencias" th:field="*{formCContingencias}" name="formCContingencias" rows="4" cols="90" class="form-control" placeholder="CONTINGENCIAS"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne10" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						10. Avances logrados en relación a los resultados de aprendizaje planeados 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne10" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCAvancesLogrados" th:field="*{formCAvancesLogrados}" name="formCAvancesLogrados" rows="4" cols="90" class="form-control" placeholder="AVANCES LOGRADOS EN RELACIÓN A LOS RESULTADOS DE APRENDIZAJE PLANEADOS "></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne11" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						11. Observaciones
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne11" class="collapse">
+									                                                <div class="card-body">				
+									                                                	<textarea id="formCObservaciones" th:field="*{formCObservaciones}" name="formCObservaciones" rows="4" cols="90" class="form-control" placeholder="OBSERVACIONES"></textarea>
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne12" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+									                                                <h6 class="m-0 p-0">
+																						12. Evidencia Documentacional 
+																					</h6></button>
+									                                            </div>
+									                                            <div data-parent="#accordion" id="collapseOne12" class="collapse">
+									                                                <div class="card-body">
+									                                                	<div class="col-md-12 mb-6">
+												                                        	<label for="validationCustom02">Adjuntar Evidencia Documentacional</label>
+												                                        	  <div class="col-sm-10">
+												                                        		<div class="alertaD"></div>
+												        											<input id="formCEvidenciaDocto" name="formCEvidenciaDocto[]" type="file" class="file"  th:field="*{formCEvidenciaDocto}"  data-show-upload="false" multiple onchange="archivoCliente(this)"/>
+																								<br/>
+												    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
+												    										</div>    
+												                                        </div>				
+									                                                </div>
+									                                            </div>
+									                                        </div>
+									                                        <!------------------------------------------------------------------------------>
+									                                        <input type="hidden"  th:field="*{idEntregable}" id="idEntregable" />
+									                                        <input type="hidden"  th:field="*{idAsignacion}" id="idAsignacion" />
+									                                        <input type="hidden"  th:field="*{formARazonSocial}" id="formARazonSocialA" />
+																			<input type="hidden"  th:field="*{formACurso}" id="formACursoA" />
+																			<input type="hidden"  th:field="*{formARFC}" id="formARFCA" />
+																			<input type="hidden"  th:field="*{formADuracion}" id="formADuracionA" />
+																			<input type="hidden"  th:field="*{formAFechaInicioDC3}"  id="formAFechaInicioDC3A" />
+																			<input type="hidden"  th:field="*{formAFechaFinDC3}"  id="formAFechaFinDC3A" />
+																			<input type="hidden"  th:field="*{formAFechaDiploma}" id="formAFechaDiplomaA" />
+																			<input type="hidden"  th:field="*{formAEquipoCredencial}" id="formAEquipoCredencialA" />
+																			<input type="hidden"  th:field="*{formAFechaInicioCredenciales}" id="formAFechaInicioCredencialesA"/>
+																			<input type="hidden"  th:field="*{formAFechaFinalCredenciales}" id="formAFechaFinalCredencialesA" />
+																			<input type="hidden"  th:field="*{formAInstructor}" id="formAInstructorA" />
+																			<input type="hidden"  th:field="*{formARepresentanteEmpresa}" id="formARepresentanteEmpresaA" />
+																			<input type="hidden"  th:field="*{formARepresentanteTrabajador}" id="formARepresentanteTrabajadorA" />
+																			<input type="hidden"  th:field="*{formALogoEmpresa}" id="formALogoA" />
+																			
+																			<input type="hidden" th:field="*{formBParticipantesStr}" id="formBParticipantesA"  />
+																			
+																			<input type="hidden"  th:field="*{formCRazonSocial}" id="formCRazonSocialA" />
+																			<input type="hidden"  th:field="*{formCCurso}" id="formCCursoA" />
+																			<input type="hidden"  th:field="*{formCDuracion}" id="formCDuracionA" />
+																			<input type="hidden"  th:field="*{formCInstructor}" id="formCInstructorA" />
+																			<input type="hidden"  th:field="*{formCFechaInicio}"  id="formCFechaInicioA" />
+																			<input type="hidden"  th:field="*{formCFechaFinal}" id="formCFechaFinalA" />
+																			<input type="hidden"  th:field="*{formCSede}" id="formCSedeA" />
+																			<input type="hidden"  th:field="*{altaDocto}" id="altaDocto" />
+																			<input type="hidden"  th:field="*{estatusEntregable}" id="estatusEntregable" />
+																			<input type="hidden"  th:field="*{rfcOriginalAsignacion}" id="rfcOriginalAsignacion" />
+																			<input type="hidden"  th:field="*{idEntregableLogico}" id="idEntregableLogico" />
+																			<input type="hidden"  th:field="*{idInstructorAsignacion}" id="idInstructorAsignacion" />
+																			<input type="hidden"  th:field="*{nombreFirmaInstructorAsignacion}" id="nombreFirmaInstructorAsignacion" />
+																			
+																			
+																			
+																			
+																			
+									                                        <!------------------------------------------------------------------------------>
+									                                        <!------------------------------------------------------------------------------>
+									                                    </div>
+									                                </div>
+									                                <!------------------------------------------------------------------------------>
+								                                <!------------------------------------------------------------------------------>           
+											                  </div>
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+										                </div>
+										                <button type="submit" id="btnAltaEntregable" class="mb-2 mr-2 btn btn-info btn-lg btn-block" disabled>Guardar Expediente</button>
+										                <button type="button" id="btnGeneraDocto" class="mb-2 mr-2 btn btn-success btn-lg btn-block">Generar Documentación</button>
+										                <div id="divGeneraDocto"></div>
 									                </form>
 									            </div>
 									        </div>
@@ -893,7 +906,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>v 1.7</small>
+                                                                    <small>v 2.0</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2021
                                                             </a>
@@ -996,18 +1009,25 @@
 			                                     </div>
 			                                     <!-- ------------------- -->
 			                                     <div class="form-row">
-				                                        <div class="col-md-6 mb-3">
+				                                        <div class="col-md-3 mb-3">
 				                                            <label for="validationCustom02">CURP</label>
 				                                            <input type="text" class="form-control"  id="participanteCURP" placeholder="Capture CURP" value="" maxlength="18" required>
 				                                            <div class="invalid-feedback">
-				                                                Capturar Nombre Completo
+				                                                Capturar CURP
 				                                            </div>
 				                                        </div>
-				                                        <div class="col-md-6 mb-3">
+				                                        <div class="col-md-4 mb-3">
 				                                            <label for="validationCustom02">Puesto</label>
-				                                            <input type="text" class="form-control"  id="participantePuesto" placeholder="Capture Puesto" value="" maxlength="50" required>
+				                                            <input type="text" class="form-control"  id="participantePuesto" placeholder="Capture Puesto" value="" maxlength="500" required>
 				                                            <div class="invalid-feedback">
-				                                                Capturar Nombre Completo
+				                                                Capturar Puesto
+				                                            </div>
+				                                        </div>
+				                                        <div class="col-md-5 mb-3">
+				                                            <label for="validationCustom02">Catalogo Nacional de Ocupaciones</label>
+				                                            <input type="text" class="form-control"  id="participanteOcupacion" placeholder="Capture el Catalogo Nacional de Ocupaciones" value="" maxlength="500" required>
+				                                            <div class="invalid-feedback">
+				                                                Capturar Puesto
 				                                            </div>
 				                                        </div>
 			                                     </div>
@@ -1018,7 +1038,7 @@
 						                                                <div class="alertaP"></div>
 						                                                <img id="imagenParticipantePrev" src="" class="img-fluid rounded float-left" alt="">
 						                                                <div class="file-loading">
-					        												<input id="formBFotoParticipante" name="formBFotoParticipante" type="file" class="form-control-file" accept="image/*"   data-show-upload="false"  onchange="imagenParticipante(this,  document.getElementById('formARFC'))"/>
+					        												<input id="formBFotoParticipante" name="formBFotoParticipante" type="file" class="form-control-file" accept="image/*"   data-show-upload="false"  onchange="imagenParticipante(this)"/>
 					    												</div>
 																			 <br/>
 						                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
@@ -1058,7 +1078,16 @@
 					                                            </div>
 					                                        </div>
 				                                     </div>
-						    						<!-- ------------------- -->    
+						    						<!-- ------------------- -->
+						    						<div class="form-row">
+				                                        <div class="col-md-12 mb-3">
+				                                            <label for="validationCustom02">Aprovechamiento Participante</label>
+				                                            <input type="text" class="form-control"  id="participanteAprovechamiento" placeholder="Capture Aprobado o Aprovechamiento Participante" value="" maxlength="70" required>
+				                                            <div class="invalid-feedback">
+				                                                Capturar Nombre Completo
+				                                            </div>
+				                                        </div>
+			                                     </div>    
 			                                     
 												<br>
                                        			<br>
@@ -1091,7 +1120,6 @@
                                    <div class="modal-header">
                                        <h4 class="modal-title">Entregables</h4>
                                        <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
-                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                                    </div>
 
                                    <!-- Modal body -->
@@ -1105,6 +1133,40 @@
 				                                            <div class="" id="listEntregables">
 				                                            </div>
 				                                        </div>
+				                                        <button type="button" class="btn btn-info" id="btnAgregarNuevo" data-dismiss="modal" >Agregar Nuevo Expediente Documentación Entregable</button>
+                                       					<span>  </span>
+                                           				<form role="form" th:action="@{/actualizaAsignacionI}" id="formEntregables" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
+			                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+			                                               <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
+			                                               <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+			                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+			                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+			                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+			                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+			                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+			                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+			                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+			                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+			                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+			                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
+			                                               <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+			                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+			                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+			                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+			                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+			                                               <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+			                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
+			                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+			                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+			                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
+			                                               <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
+			                                               <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
+			                                               <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
+			                                               <input type="hidden" id="errorProceso" th:field="*{errorProceso}" />
+			                                               
+			                                               <button type="submit" id="btnOmitir" class="btn btn-warning pull-right"  >Omitir Documentación Entregable</button>
+	                                                  </form>
+	                            
 			                                     </div>
 			                                     <!-- ------------------- -->
 											</div>
@@ -1115,43 +1177,6 @@
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-                                       			<button type="button" class="btn btn-info" id="btnAgregarNuevo" data-dismiss="modal" >Agregar Nuevo Expediente Documentación Entregable</button>
-                                       			
-                                       			
-                                       				<form role="form" th:action="@{/actualizaAsignacionI}" id="formEntregables" class="login100-form validate-form needs-validation" th:object="${asignacionItem}" method="post">
-		                                               <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
-		                                               <input type="hidden" id="idAsignacionLogica" th:field="*{idAsignacionLogica}" />
-		                                               <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
-		                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
-		                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
-		                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
-		                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
-		                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
-		                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
-		                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
-		                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
-		                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
-		                                               <input type="hidden" id="archivosAsignacion" th:field="*{archivosAsignacion}" />
-		                                               <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
-		                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
-		                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
-		                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
-		                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
-		                                               <input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
-		                                               <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" />
-		                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
-		                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />                                              
-<!-- 		                                               <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" /> -->
-		                                               <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
-		                                               <input type="hidden" id="fechaPago" th:field="*{fechaPago}" />
-		                                               <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
-		                                               <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
-		                                               <input type="hidden" id="errorProceso" th:field="*{errorProceso}" />
-		                                               
-		                                               <button type="submit" class="btn btn-warning" id="btnOmitir" >Omitir Documentación Entregable</button>
-                                                  </form>
-                            
-                                       			
                                    </div>
                                </div>
                            </div>
@@ -1164,7 +1189,7 @@
 					        <div class="modal-content">
                                    <!-- Modal Header -->
                                    <div class="modal-header">
-                                       <h4 class="modal-title">Proceso de Confirmacion</h4>
+                                       <h4 class="modal-title">Proceso de Confirmación</h4>
 <!--                                        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                                    </div>
                                    <!-- Modal body -->

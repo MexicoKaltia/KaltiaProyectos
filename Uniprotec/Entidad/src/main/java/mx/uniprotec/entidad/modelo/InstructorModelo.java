@@ -19,6 +19,7 @@ public class InstructorModelo implements Serializable {
 	private Long regionInstructor;
 	private List<Long> listCursoInstructor;
 	private String notaInstructor;
+	private String firmaInstructorH;
 	private Long usuarioInstructor;
 	private Long userCreateInstructor;
 	private LocalDateTime createAtInstructor;
@@ -187,6 +188,20 @@ public class InstructorModelo implements Serializable {
 
 	public void setListFechas(List<String> listFechas) {
 		this.listFechas = listFechas;
+	}
+
+
+
+
+
+	public String getFirmaInstructorH() {
+		return firmaInstructorH;
+	}
+
+
+
+	public void setFirmaInstructorH(String firmaInstructorH) {
+		this.firmaInstructorH = firmaInstructorH;
 	}
 
 

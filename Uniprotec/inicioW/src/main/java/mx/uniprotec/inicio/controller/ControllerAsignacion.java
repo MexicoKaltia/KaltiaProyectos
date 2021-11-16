@@ -310,9 +310,15 @@ public class ControllerAsignacion {
 			mav = new ModelAndView("redirect:/CEntregableI", model);
 		}
 		
-		if(asignacion.getStatusAsignacion().equals("Entregables Validado") || asignacion.getStatusAsignacion().equals("Entregable Enviado") ) {
-			mav = new ModelAndView("redirect:/CEntregable", model);
+		if(resultVO.getPerfil().equals("Direccion") || resultVO.getPerfil().equals("Operacion") || resultVO.getPerfil().equals("Administracion")) {
+			if(asignacion.getStatusAsignacion().equals("Omitir Entregable") || asignacion.getStatusAsignacion().equals("Entregable Enviado") ) {
+				mav = new ModelAndView("redirect:/CEntregable", model);
+			}
+		}else {
+			mav = new ModelAndView("redirect:/CEntregableI", model);
 		}
+			
+		
 		
 		
 		if(rs.getCodigo() != 500) {

@@ -88,16 +88,8 @@ public class InstructorService implements IInstructorService {
 	@Override
 	public ResultVO edicionInstructor(InstructorModelo instructor, String token) {
 		me = ComponenteComun.monitorCampos();
-		
-//		instructor.setEmailInstructor(email);
-//		instructor.getEmailInstructorGmail()
-		
 		instructor.setCreateAtInstructor(me.getNowEntidad());
 		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());
-//		instructor.setStatusInstructor("Actualizado");
-		
-//		log.info(instructor.toString());
-		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,
 				BaseClientRest.URL_CRUD_INSTRUCTOR,

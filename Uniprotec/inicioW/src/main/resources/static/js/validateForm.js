@@ -37,39 +37,38 @@ $(document).ready(function(){
 			checkFormCInstructor : { required: true },
 			checkFormCFechas : { required: true },
 			checkFormCSede : { required: true }
-		
 		},
 		messages: {
-			formARazonSocial : "Favor capturar RazonSocial ",
+			formARazonSocial : "Favor capturar Razon Social ",
 			formARFC: "Favor capturar RFC",
 			formACurso: "Favor capturar Curso",
 			formADuracion: "Favor capturar Duracion",
 			formAInstructor: "Favor capturar Instructor",
-			formARepresentanteEmpresa: "Favor capturar RepresentanteEmpresa",
-			formARepresentanteTrabajador: "Favor capturar RepresentanteTrabajador",
-			formCRazonSocial : "Favor capturar RazonSocial ",
+			formARepresentanteEmpresa: "Favor capturar Representante Empresa",
+			formARepresentanteTrabajador: "Favor capturar Representante Trabajador",
+			formCRazonSocial : "Favor capturar Razon Social ",
 			formCCurso: "Favor capturar Curso",
 			formCDuracion: "Favor capturar Duracion",
 			formCInstructor: "Favor capturar Instructor",
 			formCSede: "Favor capturar Sede",
-			checkFormARazonSocial : { required:"Favor Validar RazonSocial"},
+			checkFormARazonSocial : { required:"Favor Validar Razon Social"},
 			checkFormARFC : { required:"Favor Validar RFC"},
 			checkFormACurso : { required:"Favor Validar Curso"},
 			checkFormADuracion : { required:"Favor Validar Duracion"},
-			checkFormAFechaInicioDC3 : { required:"Favor Validar FechaInicioDC3"},
-			checkFormAFechaDiploma : { required:"Favor Validar FechaDiploma"},
-			checkFormAEquipoCredencial : { required:"Favor Validar EquipoCredencial"},
+			checkFormAFechaInicioDC3 : { required:"Favor Validar Fecha Inicio DC3"},
+			checkFormAFechaDiploma : { required:"Favor Validar Fecha Diploma"},
+			checkFormAEquipoCredencial : { required:"Favor Validar Equipo Credencial"},
 			checkFormAInstructor : { required:"Favor Validar Instructor"},
-			checkFormARepresentanteEmpresa : { required:"Favor Validar RepresentanteEmpresa"},
-			checkFormARepresentanteTrabajador : { required:"Favor Validar RepresentanteTrabajador"},
-			checkFormCRazonSocial : { required:"Favor Validar RazonSocial"},
+			checkFormARepresentanteEmpresa : { required:"Favor Validar Representante Empresa"},
+			checkFormARepresentanteTrabajador : { required:"Favor Validar Representante Trabajador"},
+			checkFormCRazonSocial : { required:"Favor Validar Razon Social"},
 			checkFormCCurso : { required:"Favor Validar Curso"},
 			checkFormCDuracion : { required:"Favor Validar Duracion"},
 			checkFormCInstructor : { required:"Favor Validar Instructor"},
 			checkFormCFechas : { required:"Favor Validar Fechas"},
 			checkFormCSede : { required:"Favor Validar Sede"}
-			
 		}
+		
 	});
 	/*
 	 * fin entregableEdicion

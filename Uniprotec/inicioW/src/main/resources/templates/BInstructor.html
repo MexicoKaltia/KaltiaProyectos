@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC v 1.7</title>
+    <title>UNIPROTEC v 2.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
@@ -16,7 +16,7 @@
  		<link th:href="@{css/default.css}" rel="stylesheet">
     	<link th:href="@{css/default.date.css}" rel="stylesheet">
     	<link th:href="@{css/default.time.css}" rel="stylesheet">    
-	    
+	    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />	    
 </head>
 
 <body background="images/fondo3.png">
@@ -280,7 +280,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>v 1.7</small>
+                                                                    <small>v 2.0</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2021
                                                             </a>
@@ -320,6 +320,10 @@
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+    <script type="text/javascript" th:src="@{js/edicion.js}"></script>
 	
 	
 
@@ -341,7 +345,7 @@
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
         <div class="modal-body" style="padding:40px 50px; ">
-          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaInstructor}"  th:object="${instructorForm}" method="post">
+          <form id="actualizaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaInstructor}"  th:object="${instructorForm}" method="post">
           <input type="hidden" id="idInstructor" th:field="*{idInstructor}" th:value="*{idInstructor}"/>
           <input type="hidden" id="listFechas" th:field="*{listFechas}" th:value="*{listFechas}"/> 
           <input type="hidden" id="statusInstructor" th:field="*{statusInstructor}" />
@@ -408,6 +412,30 @@
 							      <input id="btnFechasAusencia" name="btnFechasAusencia" type="button"  value="Agregar Fechas" class="btn btn-info" onclick="sumaFechas()" disabled/>
 <!-- 							      <input id="btnBorrarAusencia" name="btnBorrarAusencia" type="button"  value="Borrar Fechas Ausencia" class="btn btn-danger" /> -->
 							         <br>
+							         <hr>
+							         <div class="form-row">
+							          <div class="col-md-8 mb-3">
+                                        <input type="hidden" id="firmaInstructorH" th:field="*{firmaInstructorH}" th:value="*{firmaInstructorH}"/>
+                                            <label for="validationCustom02">Adjuntar Imagen Firma Instructor</label>
+												<div class="alert alert-success alert-dismissible fade show" role="alert">
+ 												  <a href="" id="linkImg"></a>
+												  <img id="firmaInstructorPrev" src="" class="img-fluid rounded float-left" alt="">
+												  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												    <span aria-hidden="true">&times;</span>
+												  </button>
+												</div>
+												<div class="alerta">
+														<hiden class="alerta_in"></hiden>
+												</div>
+                                                <div class="inputImage">
+                                                	<input type="file" name="firmaInstructor" id="firmaInstructor" class="form-control-file" accept="image/*" data-show-upload="false" onchange="firmaInstructorF(this)"/>
+													 <br/>
+<!-- 													<img id="thumbnil" style="width:60%; margin-top:10px;"  src="" alt="image"/> -->
+                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  no mayor a un 1MB.</small>
+                                                </div>
+                                          </div>
+                                        </div>
+							         <hr>
                                   <div class="form-row">
                                       <label class=" control-label" for="textarea">Nota Instructor</label>
 								            <div class="">                     
@@ -425,8 +453,19 @@
  
                                 <br>
                                     
-                                    <button class="btn btn-primary" type="submit">Edicion Instructor</button>
+                                    <button class="btn btn-success" type="submit">Edicion Instructor</button>
                                 </form>
+                                <script>
+							    $("#firmaInstructor").fileinput({
+							    	 browseClass: "btn btn-info",
+								     browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+								     browseLabel: "Seleccionar Archivos",
+								     removeClass: "btn btn-warning",
+								     removeLabel: "Remover",
+								 	 showCaption: false, 
+								 	 dropZoneEnabled: false
+							 	  });							
+							    </script>
 						        <script>
 								 	var today = new Date();
 								    var $datepicker = $( '#inicioAusencia' ).pickadate({
@@ -458,6 +497,7 @@
                                         }, false);
                                     })();
                                 </script>
+                                 
         </div>
         <div class="modal-footer" style=" background-color: #F1FFFE">
           <button  class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>

@@ -108,6 +108,10 @@ $(document).ready(function() {
 	}
 
 	function abrirModal(item, identificadorUsuario){
+		
+		
+		
+		
 		item = item.split('-');
 		if(item.length == 1){
 			//console.log("instructor dia de ausencia");
@@ -123,6 +127,11 @@ $(document).ready(function() {
 				break;
 			}
 		}
+		
+		var status = asignacion0.statusAsignacion;
+//		alert(status);
+//		alert(perfilUsuario);
+		
 			$("#divOperacion").empty();
 			$("#divEdicionVentas").empty();
 			$("#divArchivoParticipantes").empty();
@@ -130,11 +139,12 @@ $(document).ready(function() {
 			$('#seccionErrorProceso').html("");
 			if(perfilUsuario === "Vendedor"){
 				if(identificadorUsuario === asignacion0.userCreateAsignacion){
-					$("#divOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-primary pull-left"  >Revision Expediente Asignación / Cliente</button>')
-					$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>')
+					console.log(identificadorUsuario);
+					$("#divOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-primary pull-left"  >Revision Expediente Asignación / Cliente</button>');
+					$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>');
 					
 					if(status === "Curso Asignado" || status === "Confirmado Instructor" || status === "Curso Editado"){
-						$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+						$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>');
 					}
 					
 					$("#divOperacion").click(function(){
@@ -149,15 +159,15 @@ $(document).ready(function() {
 			if(perfilUsuario === "Administracion"){
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				$("#btnSubmit").empty();
-				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edición Fecha de Pago y Numero de Factura</button>')
+				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edición Fecha de Pago y Numero de Factura</button>');
 				$("#asignaConfirmar").hide();
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 				$("#divOperacion").empty();
-				$("#divOperacion").append('<button type="submit" id="asignaConfirmarO" class="btn btn-primary pull-center"  >Revision Expediente Asignación / Cliente</button>')
-				$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>')
+				$("#divOperacion").append('<button type="submit" id="asignaConfirmarO" class="btn btn-primary pull-center"  >Revision Expediente Asignación / Cliente</button>');
+				$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>');
 				
 				if(status === "Curso Asignado" || status === "Confirmado Instructor" || status === "Curso Editado"){
-					$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>')
+					$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>');
 				}
 				
 				$("#divOperacion").click(function(){
@@ -178,7 +188,7 @@ $(document).ready(function() {
 				
 			}else{
 				$("#btnSubmit").empty();
-				$("#asignaConfirmar").hide();
+//				$("#asignaConfirmar").hide();
 				$("#oper").hide();
 			}
 			

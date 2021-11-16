@@ -18,12 +18,14 @@ public class ParticipantesModelo implements Serializable{
 	private String participanteNombre;
 	private String participanteCURP;
 	private String participantePuesto;
+	private String participanteOcupacion;
 	private String participanteFoto;
 	private double participanteExamenTeoricoInicial;
 	private double participanteExamenTeoricoFinal;
 	private double participanteExamenPractico;
 	private double participantePromedio;
 	private String participanteObservaciones;
+	private String participanteAprovechamiento;
 	private String status;
 	private Long userCreate;
 	private LocalDateTime createAt;
@@ -33,11 +35,13 @@ public class ParticipantesModelo implements Serializable{
 	public String toString() {
 		return "ParticipantesModelo [idParticipante=" + idParticipante + ", participanteNombre=" + participanteNombre
 				+ ", participanteCURP=" + participanteCURP + ", participantePuesto=" + participantePuesto
-				+ ", participanteFoto=" + participanteFoto + ", participanteExamenTeoricoInicial="
-				+ participanteExamenTeoricoInicial + ", participanteExamenTeoricoFinal="
-				+ participanteExamenTeoricoFinal + ", participanteExamenPractico=" + participanteExamenPractico
-				+ ", participantePromedio=" + participantePromedio + ", participanteObservaciones="
-				+ participanteObservaciones + "]";
+				+ ", participanteOcupacion=" + participanteOcupacion + ", participanteFoto=" + participanteFoto
+				+ ", participanteExamenTeoricoInicial=" + participanteExamenTeoricoInicial
+				+ ", participanteExamenTeoricoFinal=" + participanteExamenTeoricoFinal + ", participanteExamenPractico="
+				+ participanteExamenPractico + ", participantePromedio=" + participantePromedio
+				+ ", participanteObservaciones=" + participanteObservaciones + ", participanteAprovechamiento="
+				+ participanteAprovechamiento + ", status=" + status + ", userCreate=" + userCreate + ", createAt="
+				+ createAt + "]";
 	}
 
 	public ParticipantesModelo(String idParticipante, String participanteNombre, String participanteCURP,
@@ -159,6 +163,22 @@ public class ParticipantesModelo implements Serializable{
 
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
+	}
+
+	public String getParticipanteOcupacion() {
+		return participanteOcupacion;
+	}
+
+	public void setParticipanteOcupacion(String participanteOcupacion) {
+		this.participanteOcupacion = participanteOcupacion;
+	}
+
+	public String getParticipanteAprovechamiento() {
+		return participanteAprovechamiento;
+	}
+
+	public void setParticipanteAprovechamiento(String participanteAprovechamiento) {
+		this.participanteAprovechamiento = participanteAprovechamiento;
 	}
 
 	

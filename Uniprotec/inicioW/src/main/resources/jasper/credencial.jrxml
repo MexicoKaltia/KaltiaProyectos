@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credencial" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c00c116-de1d-4cc2-9660-33676198f7b7">
+	<property name="background.image.path" value="C:\Users\hugo\JaspersoftWorkspace\MyReports\formatos\imagenes\UNIPROTEC-Credenciales.jpg"/>
+	<property name="background.image.x" value="11"/>
+	<property name="background.image.y" value="30"/>
+	<property name="background.image.widht" value="842"/>
+	<property name="background.image.height" value="521"/>
+	<property name="background.image.alpha" value="1.0"/>
+	<subDataset name="CredencialDataset" uuid="07d1a2ef-735e-4b21-893d-8db887c35ca4">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="nombreParticipante" class="java.lang.String"/>
+		<field name="nombreCurso" class="java.lang.String"/>
+		<field name="fechaInicio" class="java.lang.String"/>
+		<field name="fechaFinal" class="java.lang.String"/>
+		<field name="instructor" class="java.lang.String"/>
+		<field name="logoEmpresa" class="java.io.InputStream"/>
+		<field name="fotoParticipante" class="java.io.InputStream"/>
+		<field name="firmaInstructor" class="java.io.InputStream"/>
+	</subDataset>
+	<parameter name="Parameter1" class="java.lang.String"/>
+	<parameter name="credenciales" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="credencialParticipante" class="java.lang.String"/>
+	<field name="credencialCurso" class="java.lang.String"/>
+	<field name="credencialFechaInicio" class="java.lang.String"/>
+	<field name="credencialFechaFinal" class="java.lang.String"/>
+	<field name="credencialInstructor" class="java.lang.String"/>
+	<field name="credencialLogoEmpresa" class="java.lang.String"/>
+	<field name="credencialFotoParticipante" class="java.lang.String"/>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="499" splitType="Stretch">
+			<componentElement>
+				<reportElement x="20" y="10" width="760" height="470" uuid="1cd7a7c8-04f3-4c59-b072-cbf0ff20492f"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="CredencialDataset" uuid="afcaa779-7fab-4edc-8ce7-3d6fd9398e09">
+						<dataSourceExpression><![CDATA[$P{credenciales}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="470" width="760">
+						<image>
+							<reportElement x="10" y="10" width="750" height="460" uuid="6361799a-7abc-461c-afbf-1389c7969af0"/>
+							<imageExpression><![CDATA["jasper/imagenes/Credenciales.jpg"]]></imageExpression>
+						</image>
+						<textField>
+							<reportElement x="310" y="130" width="380" height="30" forecolor="#2859A8" uuid="bff96313-61d2-4715-9e40-b87cef8530eb"/>
+							<textElement>
+								<font fontName="Montserrat" size="24" isBold="true" pdfFontName=""/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{nombreParticipante}.toUpperCase()]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="310" y="190" width="380" height="30" forecolor="#2859A8" uuid="8f442387-055d-4837-9ac1-b149bfb807b4"/>
+							<textElement>
+								<font fontName="Montserrat" size="24" isBold="true" pdfFontName=""/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{nombreCurso}.toUpperCase()]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="310" y="260" width="171" height="30" forecolor="#2859A8" uuid="47868d6c-082a-4711-b82e-57c8052151d7"/>
+							<textElement>
+								<font fontName="Montserrat" size="12" isBold="true" pdfFontName=""/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{fechaInicio}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="490" y="260" width="169" height="30" forecolor="#2859A8" uuid="9f8d3525-76f3-46cb-bad3-656648dfa2da"/>
+							<textElement>
+								<font fontName="Montserrat" size="12" isBold="true" pdfFontName=""/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{fechaFinal}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="310" y="320" width="378" height="30" forecolor="#2859A8" uuid="1596d395-8e56-40fd-97fb-6e4d3289ebe5"/>
+							<textElement>
+								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{instructor}]]></textFieldExpression>
+						</textField>
+						<image>
+							<reportElement x="89" y="110" width="210" height="210" uuid="023af781-9aac-480f-8d3f-f1e27694076f">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<imageExpression><![CDATA[$F{fotoParticipante}]]></imageExpression>
+						</image>
+						<image>
+							<reportElement x="508" y="30" width="180" height="91" uuid="6c3659a9-1e75-43b6-8e92-2721de5fc587"/>
+							<imageExpression><![CDATA[$F{logoEmpresa}]]></imageExpression>
+						</image>
+						<image>
+							<reportElement x="400" y="340" width="150" height="54" uuid="8ffcf50f-808d-4bc6-bba2-674836f8ba80"/>
+							<imageExpression><![CDATA[$F{firmaInstructor}]]></imageExpression>
+						</image>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

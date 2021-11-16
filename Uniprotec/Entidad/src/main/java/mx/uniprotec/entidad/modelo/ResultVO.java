@@ -24,6 +24,8 @@ public class ResultVO implements Serializable{
 	private JSONObject jsonResponseObject;			//
 	private Object object;
 	
+	private String  perfil;
+	
 	private List<Region> regiones;
 	private List<ClienteModelo> clientes;
 	private List<InstructorModelo> instructores;
@@ -36,12 +38,20 @@ public class ResultVO implements Serializable{
 	public String toString() {
 		return "ResultVO [accesToken=" + accesToken + ", codigo=" + codigo + ", mensaje=" + mensaje + ", mensajeArray="
 				+ mensajeArray + ", response=" + response + ", jsonResponse=" + jsonResponse + ", jsonResponseArray="
-				+ jsonResponseArray + ", jsonResponseObject=" + jsonResponseObject + ", regiones=" + regiones
-				+ ", clientes=" + clientes + ", instructores=" + instructores + ", cursos=" + cursos + ", vendedores="
-				+ vendedores + ", usuarios=" + usuarios + ", asignaciones=" + asignaciones + "]";
+				+ jsonResponseArray + ", jsonResponseObject=" + jsonResponseObject + ", object=" + object + ", perfil="
+				+ perfil + ", regiones=" + regiones + ", clientes=" + clientes + ", instructores=" + instructores
+				+ ", cursos=" + cursos + ", vendedores=" + vendedores + ", usuarios=" + usuarios + ", asignaciones="
+				+ asignaciones + "]";
 	}
 	
 	
+	public ResultVO(Long codigo, String mensaje) {
+		super();
+		this.codigo = codigo;
+		this.mensaje = mensaje;
+	}
+
+
 	public ResultVO(String accesToken, Long codigo, String mensaje, ArrayList<String> mensajeArray, String response,
 			JSONObject jsonResponse, JSONArray jsonResponseArray, JSONObject jsonResponseObject, List<Region> regiones,
 			List<ClienteModelo> clientes, List<InstructorModelo> instructores, List<CursoModelo> cursos,
@@ -162,6 +172,16 @@ public class ResultVO implements Serializable{
 
 	public void setObject(Object object) {
 		this.object = object;
+	}
+
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 	
 	

@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>UNIPROTEC v 1.7</title>
+    <title>UNIPROTEC v 2.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" th:src="@{images/logo.png}"/>
@@ -245,13 +245,21 @@
 							<span th:if='${ejecucionEntregable}'>
 								<div class="alert alert-success" role="alert" id="dataExito">
 		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Éxito : </b><u>Se ha Generado Correctamente el Nuevo Expediente de Documentación Entregable.</u>
+									<b>Éxito : </b><u>Se ha Generado Correctamente el Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
+							<span th:if='${documentacionEntregable}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b>Se ha Generado Correctamente la Documentación Digital.
+									<p><a th:href='${idEntregable}'> <b>Dar Click para descargar Documentos Digitales.</b></a></p> 
 								</div>
 							</span>
 							<span th:if='${ejecucionEntregableError}'>
 								<div class="alert alert-danger" role="alert" id="dataExito">
 		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
 									<b>Revisión : </b><u>No se generó el Nuevo Expediente de Documentación Entregable.</u>
+									<p><span th:text='${causa}'></span></p>
 								</div>
 							</span>
 							<span th:if='${ejecucionEntregableActualizado}'>
@@ -347,7 +355,7 @@
 														</li>
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
-															    <span style="background:orange; color:black"><small>Entregables Validado</small></span>
+															    <span style="background:blue; color:white"><small>Elaborar Entregable</small></span>
 															</div>-->
 														</li>
 														<li class="nav-item">
@@ -355,6 +363,12 @@
 															    <span style="background:green; color:white"><small>Entregable Enviado</small></span>
 															</div>
 														</li>
+														<li class="nav-item">
+															<div class="badge mr-1 ml-0">
+															    <span style="background:orange; color:black"><small>Omitir Entregable</small></span>
+															</div>
+														</li>
+														
                                                         
                                                     </ul>
                                                 </div>
@@ -365,7 +379,7 @@
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="nav-link">
                                                                 <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>v 1.7</small>
+                                                                    <small>v 2.0</small>
                                                                 </div>
                                                                 Derechos Reservados © Uniprotec 2021
                                                             </a>
@@ -442,7 +456,9 @@
                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" />
                                                <input type="hidden" id="archivoParticipantes" th:field="*{archivoParticipantes}" />
                                                <input type="hidden" id="archivoParticipantesTexto" th:field="*{archivoParticipantesTexto}" />
-                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
+                                               <input type="hidden" id="costoHotel" th:field="*{costoHotel}" />
+                                               <input type="hidden" id="errorProceso" th:field="*{errorProceso}" />
+                                               <input type="hidden" id="nombreFirmaInstructor" th:field="*{nombreFirmaInstructor}" />
                                        			<br>
                                        			<br>
                                        			 <div class="modal-footer">
@@ -469,6 +485,7 @@
                        
  	<script th:inline="javascript">
  		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
+ 		var instructores = [[${model.jsonResponseObject.instructores}]];
  		var idUsuario =  [[${model.jsonResponse.user.id}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];

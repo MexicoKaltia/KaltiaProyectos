@@ -169,13 +169,12 @@ $(document).ready(function(){
   function imagenCliente(archivosCampo, rfcCliente){
 	  var $idCliente = rfcCliente
 	  $idCliente = $(rfcCliente).val();
-	                
 	        var files = archivosCampo.files;
 	        for (var i = 0; i < files.length; i++) {           
 	            var file = files[i];
 	            enviaImagen(archivosCampo, $idCliente);
 	            }
-//	        //console.log(archivosCampo.file.name);
+	        //console.log(archivosCampo.file.name);
 //	        //console.log($(archivosCampo).val());
 	        }
   
@@ -190,6 +189,22 @@ $(document).ready(function(){
           
           }        
       }
+  
+  function firmaInstructorF(archivosCampo){
+//	  var $idInstructor = rfcCliente
+	  var $idInstructor = $("#idInstructor").val();
+	  var firma = $("#firmaInstructor").val();
+	  while(firma.includes("C:\\fakepath\\") ){
+			firma  = firma .replace("C:\\fakepath\\", "")	
+		}
+	  $("#firmaInstructorH").val(firma);
+	  var files = archivosCampo.files;
+	  for (var i = 0; i < files.length; i++) {           
+		  var file = files[i];
+	      enviaFirmaInstructor(archivosCampo, $idInstructor);
+	      }
+	        
+  }
 
 	    
 	    
@@ -201,18 +216,52 @@ $(document).ready(function(){
 	    	function enviaImagen(idImagenForm, rfcCliente){
 	    		
 	    		limpiaAlerta();
-//	    			//console.log("Comineza envio imagenBody:"+idImagenForm);
-	    			//console.log("Comineza envio idCliente:"+rfcCliente);
-//	    			rfcCliente ="nuevo";
-//	    			//console.log("Comineza envio rfcCliente:"+rfcCliente);
 	    			var alerta="";
         			 var form = $('#altaCliente')[0]; //$('#formImagenLogoCliente').attr('files'),
     		        var data = new FormData(form);
-    		        //console.log(data);
 	    			  $.ajax({
 	    				url: "imageUpload/"+rfcCliente,
 	    			    type: "POST",
 	    			    data: new FormData($("#altaCliente")[0]),
+//	    			    data: data,
+//	    			    data: new FormData($("#formImagenLogoCliente")[0]),
+	    			    enctype: 'multipart/form-data',
+	    			    processData: false,
+	    			    contentType: false,
+	    			    cache: false,
+	    			    success: 	function(data){
+	    			    	if(data.codigo===0){
+	    			    		if(data.codigo===0){
+	    			  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
+	    			  			  $(alerta).insertAfter($('.alerta'));
+	    			  			  //console.log("envio ok");
+	    			  	    	}else{
+	    			  	    		alerta="<div class='alert alert-warning' role='alert'>imagen : "+data.codigo+"-"+data.mensaje.toString()+"</div>";
+	    			  				  $(alerta).insertAfter($('.alerta'));
+	    			  	    		//console.log("envio Nok");
+	    			  	    	}
+	    			    	  } 
+	    			    	},
+	    			    error: function () {
+	    			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
+	    					  $(alerta).insertAfter($('.alerta'));
+	    			  	//console.log("envio error");
+	    			    }
+	    			  });
+
+	    	}
+	    	
+	    	
+	    	function enviaFirmaInstructor(idImagenForm, idInstructor){
+	    		limpiaAlerta();
+	    			var alerta="";
+        			var form = $('#actualizaInstructor')[0]; //$('#formImagenLogoCliente').attr('files'),
+    		        var data = new FormData(form);
+    		        //console.log(data);
+	    			  $.ajax({
+	    				url: "enviaFirmaInstructor/"+idInstructor,
+	    			    type: "POST",
+	    			    data: new FormData($("#actualizaInstructor")[0]),
 //	    			    data: data,
 //	    			    data: new FormData($("#formImagenLogoCliente")[0]),
 	    			    enctype: 'multipart/form-data',
@@ -248,7 +297,7 @@ $(document).ready(function(){
 
     			//console.log("Comineza envio idCliente:"+rfcCliente);
     			var alerta="";
-    			 var form = $('#altaCliente')[0]; //$('#formImagenLogoCliente').attr('files'),
+    			var form = $('#altaCliente')[0]; //$('#formImagenLogoCliente').attr('files'),
 		        var data = new FormData(form);
 		        //console.log(data);
     			  $.ajax({

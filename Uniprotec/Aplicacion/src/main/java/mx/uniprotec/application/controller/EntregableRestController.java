@@ -1,5 +1,6 @@
 package mx.uniprotec.application.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.EntregableEntity;
 import mx.uniprotec.application.entity.ParticipanteEntity;
+import mx.uniprotec.application.service.IAsignacionService;
 import mx.uniprotec.application.service.IEntregableService;
 import mx.uniprotec.entidad.modelo.EntregableModelo;
 import mx.uniprotec.entidad.modelo.ParticipantesModelo;
@@ -37,8 +40,8 @@ public class EntregableRestController {
 	
 	@Autowired
 	private IEntregableService entregableService;
-//	@Autowired
-//	private IParticipanteService participanteService;
+	@Autowired
+	private IAsignacionService asignacionService;
 	
 	
 	private final Logger log = LoggerFactory.getLogger(EntregableRestController.class);
@@ -111,7 +114,7 @@ public class EntregableRestController {
 			entregableEntity.setFormAInstructor(entregable.getFormAInstructor());
 			entregableEntity.setFormARepresentanteEmpresa(entregable.getFormARepresentanteEmpresa());
 			entregableEntity.setFormARepresentanteTrabajador(entregable.getFormARepresentanteTrabajador());
-			entregableEntity.setFormALogo(entregable.getFormALogo());
+			entregableEntity.setFormALogo(entregable.getFormALogoEmpresa());
 			
 //			entregableEntity.setFormBParticipantes(getPArticipantes(entregable.getFormBParticipantes()));
 //			
@@ -147,15 +150,40 @@ public class EntregableRestController {
 				// Update
 				log.info("update Entregable");
 				entregableEntity.setIdEntregable(entregable.getIdEntregable());
+				entregableEntity.setStatusEntregable("update");
 				entregableNew = entregableService.createEntregable(entregableEntity);
 				pe = entregableService.updateParticipantes(getParticipantes(entregable.getFormBParticipantes(), entregableNew.getIdEntregable()), entregableNew.getIdEntregable());
 			}
 			
+			if(entregableNew != null ) {
+				try {
+					Asignacion asignacion = asignacionService.findById(entregable.getIdAsignacion());
+					asignacion.setStatusAsignacion("Elaborar Entregable");
+					asignacion.setCreateAtAsignacion(LocalDateTime.now()); 
+					try {
+						asignacionService.save(asignacion);
+					} catch (Exception e) {
+						response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+						response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+						response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+						log.info("entregable catch update status Asignacion fin");
+						e.printStackTrace();
+						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+					}
+				} catch (Exception e) {
+					response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+					response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+					response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+					log.info("entregable catch consulta Asignacion fin");
+					e.printStackTrace();
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+			}
 			
 			
 			if(entregableNew != null ) {
 				 response.put("entregable", entregableEntity );
-				 response.put("mensaje", "Asignacion creada con Exito");
+				 response.put("mensaje", "Entregable creado con Exito");
 				 response.put("status", HttpStatus.CREATED);
 				 response.put("code", HttpStatus.CREATED.value());
 				 log.info("entregable create fin");
@@ -195,12 +223,14 @@ public class EntregableRestController {
 			pe.setIdEntregable(IdEntregable);
 			pe.setParticipanteNombre(pm.getParticipanteNombre());
 			pe.setParticipantePuesto(pm.getParticipantePuesto());
+			pe.setParticipanteOcupacion(pm.getParticipanteOcupacion());
 			pe.setParticipanteCURP(pm.getParticipanteCURP());
 			pe.setParticipanteFoto(pm.getParticipanteFoto());
 			pe.setParticipanteExamenTeoricoInicial(pm.getParticipanteExamenTeoricoInicial());
 			pe.setParticipanteExamenTeoricoFinal(pm.getParticipanteExamenTeoricoInicial());
 			pe.setParticipanteExamenPractico(pm.getParticipanteExamenPractico());
 			pe.setParticipantePromedio(pm.getParticipantePromedio());
+			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento());
 			pe.setParticipanteObservaciones(pm.getParticipanteObservaciones());
 			pe.setStatusParticipante(pm.getStatus());
 			pe.setUserCreateParticipante(pm.getUserCreate());
