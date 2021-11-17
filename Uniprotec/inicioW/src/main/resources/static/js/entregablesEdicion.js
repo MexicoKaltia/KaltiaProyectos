@@ -381,9 +381,21 @@ $(document).ready(function() {
 		$('#divGeneraDocto').empty();
 		$('#btnGeneraDocto').hide();
 		if(e === 17 ){
+			var flagFoto = false;
 			$('#btnAltaEntregable').attr('disabled', false);
 			if($participantes.length > 0){
-				$('#btnGeneraDocto').show();
+				for(var a in $participantes){
+					var participante = $participantes[a];
+					if(participante.participanteFoto === ""){
+						flagFoto = true;
+						alert("Revisa a los participantes que contenga su Foto, parece que no está completo el expediente de participantes");
+						break;
+					}
+				}
+				if(!flagFoto){
+					$('#btnGeneraDocto').show();
+				}
+				
 //				$('#divGeneraDocto').append('<button type="button" id="btnGeneraDocto" class="mb-2 mr-2 btn btn-success btn-lg btn-block">Generar Documentación</button>');
 			}
 		}

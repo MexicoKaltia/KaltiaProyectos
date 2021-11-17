@@ -272,7 +272,7 @@ public class AsignacionRestController {
 				}
 				
 				asignacionUpdated = asignacionService.save(asignacionActual);
-				EntregableEntity ee = (EntregableEntity) entregableService.consultaEntregable(asignacion.getIdAsignacion());
+//				EntregableEntity ee = (EntregableEntity) entregableService.consultaEntregable(asignacion.getIdAsignacion());
 				
 				response.put("asignacion", asignacionUpdated  );
 				 response.put("mensaje", "Asignacion actualizada con Exito");

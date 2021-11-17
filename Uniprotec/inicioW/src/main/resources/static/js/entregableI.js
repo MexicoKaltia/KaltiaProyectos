@@ -73,7 +73,7 @@ $(document).ready(function() {
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
 		
-		if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable"){ 
+		if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado"){ 
 			$('#asignaConfirmar').attr("disabled", false);
 			$('#edicionEntregable').attr("disabled", false);
 			$('#edicionEntregable').click(function(){

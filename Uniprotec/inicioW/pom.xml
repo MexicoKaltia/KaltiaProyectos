@@ -83,6 +83,12 @@
             <artifactId>entidad</artifactId>
             <version>1.0.0</version>
      </dependency>
+     <dependency>
+            <groupId>mx.uniprotec</groupId>
+            <artifactId>montserrat</artifactId>
+            <version>1.0.0</version>
+     </dependency>
+     
      
          	<!-- 	Tomcat -->
 <!--      <dependency> -->

@@ -276,7 +276,7 @@
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">RFC Entregable</label>
-                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" minlength="12" maxlength="14" required>
+                                            <input type="text" class="form-control" th:field="*{rfcCliente}" id="rfcCliente" placeholder="RFC" value="" minlength="12" maxlength="14" required onfocusout="validaEspacio(this)">
                                             <div class="invalid-feedback">
                                                 Capturar Nombre RFC Valido
                                             </div>

@@ -470,6 +470,8 @@ public class ControllerUtil {
     		    stream.close();
 	        }
 	        
+	        crearDirectoriosDocumentacion(idEmpresa, idEntregable);
+	        
 	        try {
     			resize(filepath);
     		} catch (IOException e1) {
@@ -492,6 +494,30 @@ public class ControllerUtil {
 	}
 	
 	 
+
+	private void crearDirectoriosDocumentacion(String idEmpresa, String idEntregable) {
+		String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
+        File directorio = new File(directory);
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                log.info("Nuevo Directorio creado documentacion");
+    		
+            } else {
+            	log.info("Error al crear directorio documentacion");
+            }
+        }
+        directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/zip/";
+        directorio = new File(directory);
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                log.info("Nuevo Directorio creado zip");
+    		
+            } else {
+            	log.info("Error al crear directorio zip");
+            }
+        }
+	}
+
 
 	@RequestMapping(method = RequestMethod.POST, path = "/imageUploadEvidencia/{idEmpresa}/{idEntregable}",  consumes = "multipart/form-data", produces = "application/json")
 	public ResultVO imageUploadEvidencia(@PathVariable String idEmpresa, @PathVariable String idEntregable, @RequestParam("entregableEdicion[]") MultipartFile[] formCEvidenciasFotograficas){

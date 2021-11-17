@@ -206,6 +206,13 @@ $(document).ready(function(){
 	        
   }
 
+  function validaEspacio(element){
+	  var tmp = element.value;
+	  if(tmp.includes(" ") || tmp.includes("\t") || tmp.includes("\n")){
+		  element.value = "";
+		  alert("Verifique el RFC no contenga espacios, regularmente al final de la cadena.");
+	  }
+  }
 	    
 	    
 	    /*

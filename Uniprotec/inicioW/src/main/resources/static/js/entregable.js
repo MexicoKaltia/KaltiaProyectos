@@ -76,7 +76,7 @@ $(document).ready(function() {
 		}
 
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable"){ 
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado"){ 
 				$('#asignaConfirmar').attr("disabled", false);
 				$('#edicionEntregable').attr("disabled", false);
 				$('#edicionEntregable').click(function(){
@@ -311,6 +311,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			break;
 		case "Entregable Enviado":
 			zonaCliente = 'green';
+			break;
+		case "Entregables Validado":
+			zonaCliente = 'yellow';
 			break;
 		}
 		return zonaCliente;

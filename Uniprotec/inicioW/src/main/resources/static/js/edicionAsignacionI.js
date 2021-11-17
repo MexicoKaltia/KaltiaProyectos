@@ -187,7 +187,7 @@ $(document).ready(function(){
    	 * EDICION STATUS MODAL 
    	 */
 	$.sigStatus="";
-	$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+	
 
 	if(perfilUsuario === "Instructor"){
 		if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
@@ -205,23 +205,34 @@ $(document).ready(function(){
 	
 	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion" || perfilUsuario === "Instructor"){
 		if($.asignaStatus === "Curso Completado"){
-			$.sigStatus = "Elaborar Entregable";
+			$.sigStatus = "Entregables Validado";//$.sigStatus = "Elaborar Entregable";
 			$('#verificarEntregable').val(true);
+			
 			$('#consirmarStatus').html('<button type="submit" id="elaborarEntregable" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
 			$('#elaborarEntregable').click(function(){
-				$("#formEntregables").attr("action", "AEntregable");
+//				$("#formEntregables").attr("action", "AEntregable");
 			})
+
 		}
 	}
 	
 	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion" ){
-		 if($.asignaStatus === "Elaborar Entregable"){
+		 if($.asignaStatus === "Entregables Validado"){//if($.asignaStatus === "Elaborar Entregable"){
 			$.sigStatus = "Entregable Enviado";
+			
 			$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
 		}
+//		 if($.asignaStatus === "Entregables Validado"){
+//				$.sigStatus = "Entregable Enviado";
+//				
+//				$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : <input type="text" class="form-control"  id="guiaEntregable" name="guiaEntregable" placeholder="Capture guía entregable " value=""  maxlength="100" th:field="*{guiaEntregable}" required></li><li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
+//				$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+////				$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
+//			}
 	}
 	
+	$('#modalStatus').html('<b>'+$.asignaStatus+'</b>');
 	
 	
 
