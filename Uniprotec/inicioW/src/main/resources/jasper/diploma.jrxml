@@ -60,15 +60,15 @@
 				<textFieldExpression><![CDATA["Impartido el "+$P{diplomaFecha}+", con una duración de "+$P{diplomaDuracion}+" horas."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="68" y="390" width="184" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
-				<textElement>
+				<reportElement x="38" y="390" width="184" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
+				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreInstructor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="390" width="184" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
-				<textElement>
+				<reportElement x="250" y="390" width="184" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
+				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreDirector}]]></textFieldExpression>

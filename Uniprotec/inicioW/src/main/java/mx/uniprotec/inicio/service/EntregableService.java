@@ -172,27 +172,39 @@ public class EntregableService implements IEntregableService {
 			if(!entregable.getFormAFechaInicioDC3().equals("")) {
 				try {
 					rl = generaDC3(entregable);
+					rl.setCodigo(0);
+			        rl.setMensaje("DC3 PDF generado exitosamente");
 				} catch (JRException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					rl.setCodigo(500);
+		            rl.setMensaje(e.getCause().toString());
+		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					rl.setCodigo(500);
+		            rl.setMensaje(e.getMessage().toString());
+		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
 				}
 			}
 			
 			//Genera Reporte
-			try {
-				rl = generaReporte(entregable);
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//			try {
+//				rl = generaReporte(entregable);
+//				rl.setCodigo(0);
+//		        rl.setMensaje("Credenciales PDF generado exitosamente");
+//			} catch (JRException e) {
+//				e.printStackTrace();
+//				rl.setCodigo(500);
+//	            rl.setMensaje(e.getCause().toString());
+//	            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				rl.setCodigo(500);
+//	            rl.setMensaje(e.getMessage().toString());
+//	            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+//			}
 		
+		}
 		/*
 		 * Actualiza Entregable
 		 */
@@ -272,17 +284,49 @@ public class EntregableService implements IEntregableService {
 	}
 	
 	private ResultLocal generaReporte (EntregableModelo entregable) throws Exception, JRException  {
-		
-		
 		return null;
 	}
 
 	private ResultLocal generaDC3(EntregableModelo entregable) throws Exception, JRException{
-		// TODO Auto-generated method stub
-		return null;
+		ResultLocal rl = new ResultLocal();
+		long start = System.currentTimeMillis();
+		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/DC3.jrxml"));
+		
+		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
+			
+		List<JasperPrint> jasperPrintDC3 = new ArrayList<JasperPrint>();
+		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
+				
+			Map<String, Object> map = new HashMap<String, Object>();
+			map= convertToDC3(pm, entregable);
+				
+//			JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
+			JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
+			jasperPrintDC3.add(report);
+			
+		}
+			
+			// guardar en disco local
+//		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
+		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/DC3_"+entregable.getIdEntregableLogico()+".pdf"));
+		JRPdfExporter exporter = new JRPdfExporter();
+		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintDC3));
+		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
+		
+		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+		configuration.setCreatingBatchModeBookmarks(true);
+		exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        output.flush();
+        output.close();
+        log.info("DC3 creation time : " + (System.currentTimeMillis() - start));
+		return rl;
+
 	}
 
 	
+	
+
 	private ResultLocal generaDiplomas(EntregableModelo entregable) throws Exception, JRException{
 		ResultLocal rl = new ResultLocal();
 		long start = System.currentTimeMillis();
@@ -383,6 +427,13 @@ public class EntregableService implements IEntregableService {
 		
 		return rl;
 	}
+	
+	
+	
+	
+	/*
+	 * Private 2 generacion
+	 */
 
 
 	private List<CredencialModelo> convertToCredenciales(EntregableModelo entregable) {
@@ -405,11 +456,7 @@ public class EntregableService implements IEntregableService {
 		return  listCM;
 	}
 
-	private String recortaDia(String fecha) {
-		String tmp = fecha.substring(fecha.indexOf(" "), fecha.length());
-		return tmp;
-	}
-
+	
 	private Map<String, Object> convertToDiploma(ParticipantesModelo pm, EntregableModelo entregable) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -429,6 +476,38 @@ public class EntregableService implements IEntregableService {
 		return map;
 	}
 	
+	private Map<String, Object> convertToDC3(ParticipantesModelo pm, EntregableModelo entregable) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		EntregableService entregableService = new EntregableService();
+		map.put("dc3EmpresaLogo", new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
+		map.put("dc3ParticipanteNombre", pm.getParticipanteNombre());
+		map.put("dc3ParticipanteCURP", transformToCURP(pm.getParticipanteCURP()));
+		map.put("dc3ParticipanteOcupacion", pm.getParticipanteOcupacion());
+		map.put("dc3ParticipantePuesto", pm.getParticipantePuesto());
+		map.put("dc3EmpresaRazonSocial", entregable.getFormARazonSocial());
+		map.put("dc3EmpresaRFC", transformToRFC(entregable.getFormARFC()));
+		map.put("dc3Curso", entregable.getFormACurso());
+		map.put("dc3Duracion", entregable.getFormADuracion());
+		map.put("dc3FechaInicial", transformToFI(entregable.getFormAFechaInicioDC3()));
+		map.put("dc3FechaFinal", transformToFF(entregable.getFormAFechaFinDC3()));
+		map.put("dc3Instructor", entregable.getFormAInstructor());
+		map.put("dc3RepresentanteEmpresa", entregable.getFormARepresentanteEmpresa());
+		map.put("dc3RepresentanteTrabajador", entregable.getFormARepresentanteTrabajador());
+		map.put("dc3InstructorFirma", new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
+		
+		return map;
+	}
+	
+	
+
+	
+	
+	/*
+	 * Private 3 generacion
+	 */
+
 	public byte[] getImage(String psthImage) {
 		File fi = new File(psthImage);
 		byte[] fileContent = null;
@@ -440,6 +519,98 @@ public class EntregableService implements IEntregableService {
 		}
 		
 		return fileContent;
+	}
+	
+	private String transformToCURP(String participanteCURP) {
+		char [] palabra = participanteCURP.toCharArray();
+		String[] espacios = {"   ","   ","  ","   ","   ","   ","   ","  ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String completa="";
+		int i = 0;
+		for(char a : palabra) {
+			completa = completa+a+espacios[i];
+			i++;
+		}
+		return completa;
+	}
+
+	private String transformToRFC(String formARFC) {
+		char [] palabra = formARFC.toCharArray();
+		String[] espacios = {"   ","   ","  ","   ","   ","   ","   ","  ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String completa="";
+		int i = 0;
+		for(char a : palabra) {
+			completa = completa+a+espacios[i];
+			i++;
+		}
+		return completa;
+	}
+	
+	private String transformToFI(String formAFechaInicioDC3) {
+		String[] tmp = formAFechaInicioDC3.split(" ");
+		String dia = convertToDia(tmp[1]);
+		String mes = convertToMes(tmp[3]);
+		String anio = tmp[5];
+		String[] espacios = {"   ","    ","   ","     ","     ","     ","     ","     ","     "};
+		String fecha = anio+mes+dia;
+		
+		char [] palabra = fecha.toCharArray();
+		String completa="";
+		int i = 0;
+		for(char a : palabra) {
+			completa = completa+a+espacios[i];
+			i++;
+		}
+		return completa;
+	}
+	
+	
+	private String transformToFF(String formAFechaFinDC3) {
+		String[] tmp = formAFechaFinDC3.split(" ");
+		String dia = convertToDia(tmp[1]);
+		String mes = convertToMes(tmp[3]);
+		String anio = tmp[5];
+		String[] espacios = {"    ","     ","     ","    ","      ","     ","     ","     ","     "};
+		String fecha = anio+mes+dia;
+		
+		char [] palabra = fecha.toCharArray();
+		String completa="";
+		int i = 0;
+		for(char a : palabra) {
+			completa = completa+a+espacios[i];
+			i++;
+		}
+		return completa;
+	}
+
+	private String recortaDia(String fecha) {
+		String tmp = fecha.substring(fecha.indexOf(" "), fecha.length());
+		return tmp;
+	}
+
+	private String convertToDia(String string) {
+		int d = Integer.valueOf(string);
+		if(d < 10) {
+			return "0"+String.valueOf(d);
+		}else {
+			return String.valueOf(d);
+		}
+	}
+	
+	private String convertToMes(String string) {
+		String[] mes = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+		int i= 1;
+		String r="";
+		for( String m : mes) {
+			if(m.equals(string)) {
+				if(i < 10) {
+					r ="0"+String.valueOf(i);
+				}else {
+					r = String.valueOf(i);
+				}
+				
+			}
+		}
+		return r;
 	}
 
 }
