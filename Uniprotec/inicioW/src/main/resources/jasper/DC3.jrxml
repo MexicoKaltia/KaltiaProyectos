@@ -25,7 +25,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
 			<image>
 				<reportElement x="19" y="0" width="540" height="752" uuid="d9261251-2df5-4e95-93ef-df3c76be36f8"/>
-				<imageExpression><![CDATA["C:/Kaltia-Git/KaltiaProyectos/Uniprotec/inicioW/src/main/resources/jasper/imagenes/DC3.png"]]></imageExpression>
+				<imageExpression><![CDATA["jasper/imagenes/DC3.png"]]></imageExpression>
 			</image>
 		</band>
 	</background>
@@ -57,11 +57,11 @@
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRazonSocial}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="45" y="210" width="240" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
+				<reportElement x="31" y="210" width="259" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteCURP}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="45" y="330" width="240" height="25" uuid="c26046b0-8eb8-40dd-bd7d-e0dde3e403de"/>
+				<reportElement x="32" y="330" width="240" height="25" uuid="c26046b0-8eb8-40dd-bd7d-e0dde3e403de"/>
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRFC}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>

@@ -125,7 +125,7 @@ public class ControllerEntregable {
 			}else {
 				mav.addObject("ejecucionEntregableError", true);
 				mav.addObject("causa", rs.getMensaje());
-				log.info("NOK AltaCliente");
+				log.info("NOK Entregable");
 				return mav;
 			}
 		}		

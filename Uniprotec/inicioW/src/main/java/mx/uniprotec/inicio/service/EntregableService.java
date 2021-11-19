@@ -87,7 +87,7 @@ public class EntregableService implements IEntregableService {
 	
 	@Override
 	public ResultVO createEntregable(EntregableModelo entregable, String accesToken, Long idUsuario) {
-		log.info(entregable.toString());
+//		log.info(entregable.toString());
 		List<ParticipantesModelo> participantes = getParticipantes(entregable, idUsuario);
 		
 		
@@ -188,21 +188,24 @@ public class EntregableService implements IEntregableService {
 			}
 			
 			//Genera Reporte
-//			try {
-//				rl = generaReporte(entregable);
-//				rl.setCodigo(0);
-//		        rl.setMensaje("Credenciales PDF generado exitosamente");
-//			} catch (JRException e) {
-//				e.printStackTrace();
-//				rl.setCodigo(500);
-//	            rl.setMensaje(e.getCause().toString());
-//	            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				rl.setCodigo(500);
-//	            rl.setMensaje(e.getMessage().toString());
-//	            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-//			}
+			if(!entregable.getFormCFechaInicio().equals("")) {
+				try {
+					rl = generaReporte(entregable);
+					rl.setCodigo(0);
+			        rl.setMensaje("Credenciales PDF generado exitosamente");
+				} catch (JRException e) {
+					e.printStackTrace();
+					rl.setCodigo(500);
+		            rl.setMensaje(e.getCause().toString());
+		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+				} catch (Exception e) {
+					e.printStackTrace();
+					rl.setCodigo(500);
+		            rl.setMensaje(e.getMessage().toString());
+		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+				}
+			}
+			
 		
 		}
 		/*
@@ -284,8 +287,39 @@ public class EntregableService implements IEntregableService {
 	}
 	
 	private ResultLocal generaReporte (EntregableModelo entregable) throws Exception, JRException  {
-		return null;
+		ResultLocal rl = new ResultLocal();
+		long start = System.currentTimeMillis();
+		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/reporte.jrxml"));
+		
+		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
+			
+		List<JasperPrint> jasperPrintReporte = new ArrayList<JasperPrint>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map= convertToDReporte(entregable);
+				
+//		JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
+		JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
+		jasperPrintReporte.add(report);
+			
+			
+			// guardar en disco local
+//		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
+		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/Reporte_"+entregable.getIdEntregableLogico()+".pdf"));
+		JRPdfExporter exporter = new JRPdfExporter();
+		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintReporte));
+		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
+		
+		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+		configuration.setCreatingBatchModeBookmarks(true);
+		exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        output.flush();
+        output.close();
+        log.info("Reporte creation time : " + (System.currentTimeMillis() - start));
+		return rl;
 	}
+
+	
 
 	private ResultLocal generaDC3(EntregableModelo entregable) throws Exception, JRException{
 		ResultLocal rl = new ResultLocal();
@@ -500,6 +534,44 @@ public class EntregableService implements IEntregableService {
 		return map;
 	}
 	
+	private Map<String, Object> convertToDReporte( EntregableModelo entregable) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		EntregableService entregableService = new EntregableService();
+		map.put("reporteGeneralesInstructor", entregable.getFormCInstructor());
+		map.put("reporteGeneralesCurso", entregable.getFormCCurso());
+		map.put("reporteGeneralesFechas", entregable.getFormCFechaInicio().concat(" - ").concat(entregable.getFormCFechaFinal()));
+		map.put("reporteGeneralesHorario", entregable.getFormCDuracion());
+		map.put("reporteGeneralesCliente", entregable.getFormCRazonSocial());
+		map.put("reporteGeneralesSede", entregable.getFormCSede());
+		map.put("reporteComentarios", entregable.getFormCComentariosGrupo());
+		map.put("reporteAprendizaje", entregable.getFormCProcesoAprendizaje());
+		map.put("reporteTeoria", entregable.getFormCTeoria());
+		map.put("reportePractica", entregable.getFormCPractica());
+//		map.put("reporteEvidenciasFoto", entregable.getFormCEvidenciasFotograficasB());
+		map.put("reporteRecomendaciones", entregable.getFormCRecomendaciones());
+		map.put("reporteCumplimiento", entregable.getFormCNivelCumplimiento());
+		map.put("reporteContingencias", entregable.getFormCContingencias());
+		map.put("reporteAvances", entregable.getFormCAvancesLogrados());
+		map.put("reporteParticipantes", entregable.getFormBParticipantesStr());
+		map.put("reporteObservaciones", entregable.getFormCObservaciones());
+		map.put("reporteEvidenciasDocto", entregable.getFormCEvidenciaDoctoB());
+		
+		int i =1;
+		for(String a : entregable.getFormCEvidenciasFotograficasB()) {
+			if(!a.equals("")) {
+				map.put("reporteEFoto"+i, new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imagenesEvidencias/".concat(a))));
+			}
+			i++;
+		}
+		
+		return map;
+
+		
+		
+	}
+	
 	
 
 	
@@ -523,7 +595,7 @@ public class EntregableService implements IEntregableService {
 	
 	private String transformToCURP(String participanteCURP) {
 		char [] palabra = participanteCURP.toCharArray();
-		String[] espacios = {"   ","   ","  ","   ","   ","   ","   ","  ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String[] espacios = {"   ","  ","   ","   ","   ","   ","   ","  ","  ","   ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
@@ -535,7 +607,7 @@ public class EntregableService implements IEntregableService {
 
 	private String transformToRFC(String formARFC) {
 		char [] palabra = formARFC.toCharArray();
-		String[] espacios = {"   ","   ","  ","   ","   ","   ","   ","  ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String[] espacios = {"  ","   ","  ","   ","   ","   ","   ","  ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
