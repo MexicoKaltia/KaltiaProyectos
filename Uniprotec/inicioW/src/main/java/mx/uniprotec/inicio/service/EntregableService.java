@@ -91,11 +91,17 @@ public class EntregableService implements IEntregableService {
 		List<ParticipantesModelo> participantes = getParticipantes(entregable, idUsuario);
 		
 		
-		log.info("evidencias");
+		
 		if(entregable.getFormCEvidenciasFotograficasB() != null || !(entregable.getFormCEvidenciasFotograficasB().size() == 0)) {
 			if(entregable.getFormCEvidenciasFotograficas() == null || entregable.getFormCEvidenciasFotograficas().size() == 0) {
 				entregable.setFormCEvidenciasFotograficas(entregable.getFormCEvidenciasFotograficasB());
 				log.info(entregable.getFormCEvidenciasFotograficas());
+			}
+		}
+		if(entregable.getFormCEvidenciaDoctoB() != null || !(entregable.getFormCEvidenciaDoctoB().size() == 0)) {
+			if(entregable.getFormCEvidenciaDocto() == null || entregable.getFormCEvidenciaDocto().size() == 0) {
+				entregable.setFormCEvidenciaDocto(entregable.getFormCEvidenciaDoctoB());
+				log.info(entregable.getFormCEvidenciaDocto());
 			}
 		}
 		entregable.setFormBParticipantes(participantes);
@@ -120,8 +126,9 @@ public class EntregableService implements IEntregableService {
 		/*
 		 * Genera Documentacion
 		 */
+		entregable.setStatus("Elaborar Entregable");
 		if(entregable.isAltaDocto()) {
-			entregable.setStatus("Generar Documentacion");
+			entregable.setStatus("Entregable Generado");
 			ResultLocal rl = new ResultLocal();
 			pathLogico = "/uniprotec/entregables/";
 			pathLogico = pathLogico + entregable.getRfcOriginalAsignacion()+"/"+ entregable.getIdEntregableLogico();
@@ -192,7 +199,7 @@ public class EntregableService implements IEntregableService {
 				try {
 					rl = generaReporte(entregable);
 					rl.setCodigo(0);
-			        rl.setMensaje("Credenciales PDF generado exitosamente");
+			        rl.setMensaje("Reporte PDF generado exitosamente");
 				} catch (JRException e) {
 					e.printStackTrace();
 					rl.setCodigo(500);
@@ -367,10 +374,8 @@ public class EntregableService implements IEntregableService {
 		JasperDesign toJasperdesign = null;
 		if(entregable.getFormACurso().length() > 30) {
 			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma2.jrxml"));
-			log.info("diploma");
 		}else {
 			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma.jrxml"));
-			log.info("diploma2");
 		}
 		
 		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
@@ -400,7 +405,7 @@ public class EntregableService implements IEntregableService {
         exporter.exportReport();
         output.flush();
         output.close();
-        log.info("PDF creation time : " + (System.currentTimeMillis() - start));
+        log.info("Diplomas creation time : " + (System.currentTimeMillis() - start));
 		return rl;
 
 		// extraer en http get
@@ -422,7 +427,7 @@ public class EntregableService implements IEntregableService {
 		List<CredencialModelo> credenciales = convertToCredenciales(entregable);
 		String path ="";
 		String fileName =pathLogico + "/documentacion/credenciales_"+entregable.getIdEntregableLogico()+".pdf";
-		log.info("createCredencialPDF");
+		long start = System.currentTimeMillis();
 
 		byte[] lyContent = null;
 		
@@ -449,16 +454,14 @@ public class EntregableService implements IEntregableService {
 		pmParametros.put("credenciales", dsCredenciales);
 
 		jrJasperPr = JasperFillManager.fillReport(toJaspertRes, pmParametros, new JREmptyDataSource());
-		log.info("Start JasperFillManager.fillReport");
 		JasperExportManager.exportReportToPdfFile(jrJasperPr, pathSave);
 		JasperExportManager.exportReportToPdfStream(jrJasperPr, baosPDFSummary);
-		log.info("End JasperFillManager.fillReport");
 		lyContent = baosPDFSummary.toByteArray();
 
 		baosPDFSummary.flush();
 
 		baosPDFSummary.close();
-		
+        log.info("Credenciales creation time : " + (System.currentTimeMillis() - start));
 		return rl;
 	}
 	

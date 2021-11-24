@@ -56,8 +56,8 @@ public class EntregableModelo implements Serializable{
 	private String formCContingencias;
 	private String formCAvancesLogrados;
 	private String formCObservaciones;
-	private String formCEvidenciaDocto;
-	private String formCEvidenciaDoctoB;
+	private List<String> formCEvidenciaDocto;
+	private List<String> formCEvidenciaDoctoB;
 	
 	private String status;
 	private Long userCreate;
@@ -275,10 +275,10 @@ public class EntregableModelo implements Serializable{
 	public void setFormCFechaFinal(String formCFechaFinal) {
 		this.formCFechaFinal = formCFechaFinal;
 	}
-	public String getFormCEvidenciaDocto() {
+	public List<String> getFormCEvidenciaDocto() {
 		return formCEvidenciaDocto;
 	}
-	public void setFormCEvidenciaDocto(String formCEvidenciaDocto) {
+	public void setFormCEvidenciaDocto(List<String> formCEvidenciaDocto) {
 		this.formCEvidenciaDocto = formCEvidenciaDocto;
 	}
 	public String getFormBParticipantesStr() {
@@ -347,10 +347,10 @@ public class EntregableModelo implements Serializable{
 	public void setAltaDocto(boolean altaDocto) {
 		this.altaDocto = altaDocto;
 	}
-	public String getFormCEvidenciaDoctoB() {
+	public List<String> getFormCEvidenciaDoctoB() {
 		return formCEvidenciaDoctoB;
 	}
-	public void setFormCEvidenciaDoctoB(String formCEvidenciaDoctoB) {
+	public void setFormCEvidenciaDoctoB(List<String> formCEvidenciaDoctoB) {
 		this.formCEvidenciaDoctoB = formCEvidenciaDoctoB;
 	}
 	public String getFormALogoEmpresa() {

@@ -294,6 +294,7 @@
 									                    <a class="nav-item nav-link active" id="pop1-tab" data-toggle="tab" href="#pop1" role="tab" aria-controls="pop1" aria-selected="true">Datos Generales</a>
 									                    <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#pop2" role="tab" aria-controls="pop2" aria-selected="false">Datos Participantes</a>
 									                    <a class="nav-item nav-link" id="pop3-tab" data-toggle="tab" href="#pop3" role="tab" aria-controls="pop3" aria-selected="false">Reporte de Curso</a>
+									                    <a class="nav-item nav-link" id="pop4-tab" data-toggle="tab" href="#pop4" role="tab" aria-controls="pop4" aria-selected="false">Evidencia Documental</a>
 									                    
 									                  </div>
 									                </nav>
@@ -806,27 +807,7 @@
 									                                            </div>
 									                                        </div>
 									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne12" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						12. Evidencia Documentacional 
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne12" class="collapse">
-									                                                <div class="card-body">
-									                                                	<div class="col-md-12 mb-6">
-												                                        	<label for="validationCustom02">Adjuntar Evidencia Documentacional</label>
-												                                        	  <div class="col-sm-10">
-												                                        		<div class="alertaD"></div>
-												        											<input id="formCEvidenciaDocto" name="formCEvidenciaDocto[]" type="file" class="file"  th:field="*{formCEvidenciaDocto}"  data-show-upload="false" multiple onchange="archivoCliente(this)"/>
-																								<br/>
-												    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
-												    										</div>    
-												                                        </div>				
-									                                                </div>
-									                                            </div>
-									                                        </div>
+									                                        
 									                                        <!------------------------------------------------------------------------------>
 									                                        <input type="hidden"  th:field="*{idEntregable}" id="idEntregable" />
 									                                        <input type="hidden"  th:field="*{idAsignacion}" id="idAsignacion" />
@@ -874,6 +855,38 @@
 											                  </div>
 	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
 	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+											                  <div class="tab-pane fade" id="pop4" role="tabpanel" aria-labelledby="pop4-tab">
+											                       <div class="pt-3"></div>
+												                       <div class="form-row">
+																		<div class="col-md-12 mb-3">
+																			<div id="linkDocto"></div>
+																			<div class="card">
+									                                            <div id="headingTwo" class="b-radius-0 card-header">
+									                                                <h6 class="m-0 p-0">
+																							<label for="validationCustom02">Adjuntar Evidencia Documental</label> 
+																					</h6>
+									                                            </div>
+									                                            <input id="formCEvidenciaDoctoB" th:field="*{formCEvidenciaDoctoB}" type="hidden" />
+									                                                <div class="card-body">
+									                                                	<div class="col-md-12 mb-6">
+												                                        
+												                                        	  <div class="col-sm-10">
+												                                        		<div class="alertaD"></div>
+												        											<input id="formCEvidenciaDocto" name="formCEvidenciaDocto[]" type="file" class="file"  th:field="*{formCEvidenciaDocto}"  data-show-upload="false" multiple onchange="archivoCliente(this)"/>
+																								<br/>
+												    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
+												    										</div>    
+												                                        </div>				
+									                                                </div>
+									                                            
+									                                        </div>
+
+																		</div>
+																	</div>
+											
+											                  </div>
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+	<!--                     -----------------------------------------------------------------------------------------------------------------        -->								                								                      	
 										                </div>
 										                <button type="submit" id="btnAltaEntregable" class="mb-2 mr-2 btn btn-info btn-lg btn-block" disabled>Guardar Expediente</button>
 										                <button type="button" id="btnGeneraDocto" class="mb-2 mr-2 btn btn-success btn-lg btn-block">Generar Documentación</button>

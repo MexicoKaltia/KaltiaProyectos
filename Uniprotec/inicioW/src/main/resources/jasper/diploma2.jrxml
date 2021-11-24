@@ -35,7 +35,7 @@
 			<property name="com.jaspersoft.studio.unit.width" value="29.7"/>
 			<property name="com.jaspersoft.studio.layout"/>
 			<image>
-				<reportElement x="10" y="-10" width="802" height="555" uuid="07fec8a6-dc8e-4377-9b8f-29d4fd057cad"/>
+				<reportElement x="0" y="-10" width="802" height="555" uuid="07fec8a6-dc8e-4377-9b8f-29d4fd057cad"/>
 				<imageExpression><![CDATA["jasper/imagenes/diploma.jpg"]]></imageExpression>
 			</image>
 			<textField>
@@ -53,32 +53,32 @@
 				<textFieldExpression><![CDATA[$P{diplomaNombreParticipante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="71" y="280" width="459" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
+				<reportElement x="71" y="292" width="459" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
 				<textElement>
 					<font fontName="Montserrat Medium" size="12" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Impartido el "+$P{diplomaFecha}+", con una duración de "+$P{diplomaDuracion}+" horas."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="32" y="390" width="184" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
+				<reportElement x="50" y="391" width="184" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreInstructor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="247" y="390" width="184" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
+				<reportElement x="252" y="391" width="184" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreDirector}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="85" y="300" width="143" height="80" uuid="44ef725f-66c0-4d07-a2c9-0c7339bd9cbf"/>
+				<reportElement x="85" y="313" width="143" height="80" uuid="44ef725f-66c0-4d07-a2c9-0c7339bd9cbf"/>
 				<imageExpression><![CDATA[$P{diplomaFirmaInstructor}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="290" y="302" width="130" height="78" uuid="3e5560ec-b0ae-4bd8-89cf-081759bdcb9e"/>
+				<reportElement x="290" y="315" width="130" height="78" uuid="3e5560ec-b0ae-4bd8-89cf-081759bdcb9e"/>
 				<imageExpression><![CDATA[$P{diplomaFirmaDirector}]]></imageExpression>
 			</image>
 		</band>

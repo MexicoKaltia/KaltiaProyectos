@@ -135,7 +135,7 @@ public class EntregableRestController {
 			entregableEntity.setFormCContingencias(entregable.getFormCContingencias());
 			entregableEntity.setFormCAvancesLogrados(entregable.getFormCAvancesLogrados());
 			entregableEntity.setFormCObservaciones(entregable.getFormCObservaciones());
-			entregableEntity.setFormCEvidenciaDocto(entregable.getFormCEvidenciaDocto());
+			entregableEntity.setFormCEvidenciaDocto(getEvidenciasFoto(entregable.getFormCEvidenciaDocto()));
 			entregableEntity.setStatusEntregable(entregable.getStatus());
 			entregableEntity.setCreateAtEntregable(entregable.getCreateAt());
 			entregableEntity.setUserCreateEntregable(entregable.getUserCreate());
@@ -150,7 +150,7 @@ public class EntregableRestController {
 				// Update
 				log.info("update Entregable");
 				entregableEntity.setIdEntregable(entregable.getIdEntregable());
-				entregableEntity.setStatusEntregable("update");
+//				entregableEntity.setStatusEntregable("update");
 				entregableNew = entregableService.createEntregable(entregableEntity);
 				pe = entregableService.updateParticipantes(getParticipantes(entregable.getFormBParticipantes(), entregableNew.getIdEntregable()), entregableNew.getIdEntregable());
 			}
@@ -247,6 +247,7 @@ public class EntregableRestController {
 		for(String a : formCEvidenciasFotograficas) {
 			str = str.concat(a).concat(",");
 		}
+		str = str.substring(0,str.length()-1);
 		return str;
 	}
 

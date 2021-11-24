@@ -93,7 +93,7 @@
 				<textElement>
 					<font size="16" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Horario :]]></text>
+				<text><![CDATA[Duración :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="42" y="392" width="90" height="28" uuid="46a52010-635e-49c1-8178-c4a0d5c6d6c0"/>
@@ -110,7 +110,7 @@
 				<text><![CDATA[Sede del curso :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="ea750f60-7bb5-4381-bcca-1614feee9f31"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="ea750f60-7bb5-4381-bcca-1614feee9f31"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -169,7 +169,7 @@
 				<textFieldExpression><![CDATA[$P{reporteComentarios}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="26340a16-72e8-4388-bb73-d5e7530ad806"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="26340a16-72e8-4388-bb73-d5e7530ad806"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -186,7 +186,7 @@
 				<text><![CDATA[3.- PROCESO DE APRENDIZAJE :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="4612729b-9565-46a6-ab3f-4c4b42ebd349"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="4612729b-9565-46a6-ab3f-4c4b42ebd349"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -203,7 +203,7 @@
 				<textFieldExpression><![CDATA[$P{reporteTeoria}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="cedb4f3e-47f8-4eee-a06a-ed04d1e41b10"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="cedb4f3e-47f8-4eee-a06a-ed04d1e41b10"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -220,7 +220,7 @@
 				<text><![CDATA[5.- PRÁCTICA :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="285dd962-2f4b-414a-a1fe-0e54d059ee83"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="285dd962-2f4b-414a-a1fe-0e54d059ee83"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -233,7 +233,7 @@
 				<text><![CDATA[6. EVIDENCIAS FOTOGRÁFICAS :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="9476b048-a6aa-44ae-b0ce-1f1c32a36941"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="9476b048-a6aa-44ae-b0ce-1f1c32a36941"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<image>
@@ -286,7 +286,7 @@
 				<text><![CDATA[7.- RECOMENDACIONES :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="a031a22a-2af3-4a77-a21a-ed9f8f18115f"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="a031a22a-2af3-4a77-a21a-ed9f8f18115f"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -303,7 +303,7 @@
 				<text><![CDATA[8. NIVEL DE CUMPLIMIENTO DE LOS OBJETIVOS Y EXPECTATIVAS:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="96b6812a-e187-49ee-bec0-7897941818b3"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="96b6812a-e187-49ee-bec0-7897941818b3"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -320,7 +320,7 @@
 				<textFieldExpression><![CDATA[$P{reporteContingencias}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="ed3aca04-83b3-49d6-bedc-9c39e4aeaf0c"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="ed3aca04-83b3-49d6-bedc-9c39e4aeaf0c"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -337,7 +337,7 @@
 				<textFieldExpression><![CDATA[$P{reporteAvances}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="78e537cf-8b49-4070-922b-6f2530d42aa4"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="78e537cf-8b49-4070-922b-6f2530d42aa4"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -347,23 +347,10 @@
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[11.- PARTICIPANTES :]]></text>
+				<text><![CDATA[11.- RESULTADOS PARTICIPANTES :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="490" y="700" width="73" height="41" uuid="3f34fcdb-7cb0-4089-8fa5-38722792ac81"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
-		<band height="752">
-			<staticText>
-				<reportElement x="40" y="150" width="440" height="30" uuid="b79d7b3e-dae1-4497-aae4-435ba35688b8"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[12.- EVIDENCIAS DOCUMENTALES:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="c87d212f-9f53-4d22-9f40-59dadab4cae3"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -373,14 +360,14 @@
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[13.- OBSERVACIONES :]]></text>
+				<text><![CDATA[12.- OBSERVACIONES :]]></text>
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="5c5ab15a-8b99-4aff-9064-cb4fa46d8f89"/>
 				<textFieldExpression><![CDATA[$P{reporteObservaciones}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="700" width="73" height="41" uuid="83f9ccdc-dfca-4f34-a8e6-29e9c0d4b171"/>
+				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="83f9ccdc-dfca-4f34-a8e6-29e9c0d4b171"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>

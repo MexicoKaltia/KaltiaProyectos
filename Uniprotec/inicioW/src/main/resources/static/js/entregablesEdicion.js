@@ -12,7 +12,7 @@ $(document).ready(function() {
 	
 	console.log(asignacionItem);
 //	console.log(asignacionCliente);
-//	console.log(entregables);
+	console.log(entregables);
 //	console.log(entregables.length);
 //	console.log(participantes);
 //	console.log(participantes.length);
@@ -189,6 +189,19 @@ $(document).ready(function() {
 						console.log(entregable.formCEvidenciasFotograficas);
 						console.log(arrayImgEvidencias);
 						$('#formCEvidenciasFotograficasB').val(arrayImgEvidencias);
+					}
+					
+					if(entregable.formCEvidenciaDocto){
+						$('#linkDocto').empty();
+						var arrayEvidenciasDocto = entregable.formCEvidenciaDocto.split(","); 
+						for(var a in arrayEvidenciasDocto){
+							var urlEvidenciaDocto = "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/file/"+arrayEvidenciasDocto[a];
+							var evidenciaDocto =  "<div class='alert alert-success' role='alert'><a href='"+urlEvidenciaDocto+"'>"+arrayEvidenciasDocto[a]+"</div>";
+							$('#linkDocto').append(evidenciaDocto);
+						}
+//						console.log(entregable.formCEvidenciasFotograficas);
+//						console.log(arrayImgEvidencias);
+						$('#formCEvidenciaDoctoB').val(arrayEvidenciasDocto);
 					}
 					
 					$('#formCRecomendaciones').val(entregable.formCRecomendaciones);

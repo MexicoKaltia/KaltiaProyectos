@@ -83,7 +83,7 @@ $(document).ready(function(){
 	 $("#formCEvidenciaDocto").fileinput({
 			browseClass: "btn btn-success",
 			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-			browseLabel: "Seleccionar Archivo",
+			browseLabel: "Seleccionar Archivo(s)",
 			removeClass: "btn btn-warning",
 			removeLabel: "Remover",
 			showCaption: false, 
