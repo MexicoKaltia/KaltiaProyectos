@@ -75,14 +75,14 @@
 				<text><![CDATA[Instructor :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="181" y="210" width="339" height="40" uuid="e2a56a39-5104-4938-ab9d-aa76a32e6220"/>
+				<reportElement x="212" y="210" width="339" height="40" uuid="e2a56a39-5104-4938-ab9d-aa76a32e6220"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesInstructor}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="41" y="302" width="140" height="28" uuid="864e66aa-193b-48aa-9a78-b183cc7aa11a"/>
+				<reportElement x="41" y="302" width="164" height="28" uuid="864e66aa-193b-48aa-9a78-b183cc7aa11a"/>
 				<textElement>
 					<font size="16" isBold="true" isItalic="true"/>
 				</textElement>
@@ -114,42 +114,42 @@
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="41" y="258" width="135" height="32" uuid="1544476a-3d5e-4260-9168-6c6762c14c02"/>
+				<reportElement x="41" y="258" width="170" height="32" uuid="1544476a-3d5e-4260-9168-6c6762c14c02"/>
 				<textElement>
 					<font size="16" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Nombre del curso :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="181" y="258" width="334" height="44" uuid="976c72e4-0455-4159-a375-f5ce3c6981bf"/>
+				<reportElement x="212" y="258" width="334" height="44" uuid="976c72e4-0455-4159-a375-f5ce3c6981bf"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesCurso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="181" y="302" width="334" height="38" uuid="cee446da-cfd4-44b3-a1df-bdfa55587cce"/>
+				<reportElement x="212" y="302" width="334" height="38" uuid="cee446da-cfd4-44b3-a1df-bdfa55587cce"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesFechas}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="347" width="334" height="33" uuid="c77f55a8-36f3-40d2-ab7b-2494eb15a820"/>
+				<reportElement x="211" y="347" width="334" height="33" uuid="c77f55a8-36f3-40d2-ab7b-2494eb15a820"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesHorario}.concat(" hrs")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="392" width="334" height="38" uuid="86850510-7455-42ef-a467-730a3a8de6ce"/>
+				<reportElement x="211" y="392" width="334" height="38" uuid="86850510-7455-42ef-a467-730a3a8de6ce"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesCliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="442" width="334" height="68" uuid="4548ac2e-5ec0-46c7-b387-0d2876331169"/>
+				<reportElement x="211" y="442" width="334" height="68" uuid="4548ac2e-5ec0-46c7-b387-0d2876331169"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -166,6 +166,7 @@
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="50" y="208" width="451" height="402" uuid="f6526b2d-2623-49f8-8dbb-0c117d841454"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteComentarios}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -176,6 +177,7 @@
 		<band height="752">
 			<textField textAdjust="ScaleFont">
 				<reportElement x="50" y="208" width="451" height="402" uuid="fdad5d58-77f7-4a0f-9f09-eeb3ee5f956f"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteAprendizaje}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -200,6 +202,7 @@
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="2dc8e101-3de7-471b-9065-9ca6e664d5bb"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteTeoria}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -210,6 +213,7 @@
 		<band height="752">
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="95758d9c-6a6e-4ecb-9a51-85976366c331"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reportePractica}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -276,6 +280,7 @@
 		<band height="752">
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="c108e272-553a-48f6-8aff-b16944ce863a"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteRecomendaciones}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -293,6 +298,7 @@
 		<band height="752">
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="b9321e1a-8b9c-411a-a306-fed206bb1f74"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteCumplimiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -317,6 +323,7 @@
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="2805031f-c171-49ea-8fb2-aafd407a1e5b"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteContingencias}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -334,6 +341,7 @@
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="c8366aa1-ced3-4176-af40-353ff9507fb2"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteAvances}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -364,6 +372,7 @@
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="42" y="210" width="451" height="402" uuid="5c5ab15a-8b99-4aff-9064-cb4fa46d8f89"/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$P{reporteObservaciones}]]></textFieldExpression>
 			</textField>
 			<textField>

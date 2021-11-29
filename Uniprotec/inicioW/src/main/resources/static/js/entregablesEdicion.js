@@ -10,9 +10,9 @@ var $idEntregable ;
 var $idEntregableLogico ;
 $(document).ready(function() {
 	
-	console.log(asignacionItem);
+//	console.log(asignacionItem);
 //	console.log(asignacionCliente);
-	console.log(entregables);
+//	console.log(entregables);
 //	console.log(entregables.length);
 //	console.log(participantes);
 //	console.log(participantes.length);
@@ -172,10 +172,11 @@ $(document).ready(function() {
 					
 					
 					$('#formCSede').val(entregable.formCSede);
-					$('#formCComentariosGrupo').val(entregable.formCComentariosGrupo);
-					$('#formCProcesoAprendizaje').val(entregable.formCProcesoAprendizaje);
-					$('#formCTeoria').val(entregable.formCTeoria);
-					$('#formCPractica').val(entregable.formCPractica);
+//					$('#formCComentariosGrupo').val(entregable.formCComentariosGrupo);
+					$('#formCComentariosGrupoE').html(entregable.formCComentariosGrupo);
+					$('#formCProcesoAprendizajeE').html(entregable.formCProcesoAprendizaje);
+					$('#formCTeoriaE').html(entregable.formCTeoria);
+					$('#formCPracticaE').html(entregable.formCPractica);
 					
 					
 					if(entregable.formCEvidenciasFotograficas){
@@ -186,8 +187,8 @@ $(document).ready(function() {
 							var imgEvidencia =  '<img id="imgEvidencia" src="'+urlImgEvidencia+'" class="img-fluid rounded float-left" alt="">';
 							$('#evidenciasFotograficas').append(imgEvidencia);
 						}
-						console.log(entregable.formCEvidenciasFotograficas);
-						console.log(arrayImgEvidencias);
+//						console.log(entregable.formCEvidenciasFotograficas);
+//						console.log(arrayImgEvidencias);
 						$('#formCEvidenciasFotograficasB').val(arrayImgEvidencias);
 					}
 					
@@ -204,11 +205,11 @@ $(document).ready(function() {
 						$('#formCEvidenciaDoctoB').val(arrayEvidenciasDocto);
 					}
 					
-					$('#formCRecomendaciones').val(entregable.formCRecomendaciones);
-					$('#formCNivelCumplimiento').val(entregable.formCNivelCumplimiento);
-					$('#formCContingencias').val(entregable.formCContingencias);
-					$('#formCAvancesLogrados').val(entregable.formCAvancesLogrados);
-					$('#formCObservaciones').val(entregable.formCObservaciones);
+					$('#formCRecomendacionesE').html(entregable.formCRecomendaciones);
+					$('#formCNivelCumplimientoE').html(entregable.formCNivelCumplimiento);
+					$('#formCContingenciasE').html(entregable.formCContingencias);
+					$('#formCAvancesLogradosE').html(entregable.formCAvancesLogrados);
+					$('#formCObservacionesE').html(entregable.formCObservaciones);
 //					$('#formCEvidenciaDocto').val(entregable.formCEvidenciaDocto);
 					
 				}				
@@ -579,7 +580,7 @@ $(document).ready(function() {
 		
 		if($entregable){
 			$("#idEntregable").val($entregable.idEntregable);
-			console.log($entregable.idEntregable);
+//			console.log($entregable.idEntregable);
 		}
 			
 		$("#formARazonSocialA").val($("#formARazonSocial").val());
@@ -616,6 +617,7 @@ $(document).ready(function() {
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
 		$("#formCFechaFinalA").val($("#formCFechaFinal").val());
 		$("#formCSedeA").val($("#formCSede").val());
+		formCTextArea($entregable);
 				
 		$("#idEntregableLogico").val($idEntregableLogico);
 		
@@ -675,6 +677,8 @@ $(document).ready(function() {
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
 		$("#formCFechaFinalA").val($("#formCFechaFinal").val());
 		$("#formCSedeA").val($("#formCSede").val());
+		formCTextArea($entregable);
+		
 		$("#altaDocto").val(true);
 		$("#idEntregableLogico").val($idEntregableLogico);
 				
@@ -689,7 +693,48 @@ $(document).ready(function() {
 			
 });  // Fin JQRY
 
-
+function formCTextArea(entregable){
+	
+	if($('#formCComentariosGrupo').val() === "" || $('#formCComentariosGrupo').val() === null){
+		console.log("formCComentariosGrupo");
+		$('#formCComentariosGrupo').val(entregable.formCComentariosGrupo);
+	}
+	
+	console.log($('#formCProcesoAprendizaje').val());
+	if($('#formCProcesoAprendizaje').val() === ""){
+		$('#formCProcesoAprendizaje').val(entregable.formCProcesoAprendizaje);
+	}
+	
+	if($('#formCTeoria').val() === ""){
+		$('#formCTeoria').val(entregable.formCTeoria);
+	}
+	
+	if($('#formCPractica').val() === ""){
+		$('#formCPractica').val(entregable.formCPractica);
+	}
+	
+	if($('#formCRecomendaciones').val() === ""){
+		$('#formCRecomendaciones').val(entregable.formCRecomendaciones);
+	}
+	
+	if($('#formCNivelCumplimiento').val() === ""){
+		$('#formCNivelCumplimiento').val(entregable.formCNivelCumplimiento);
+	}
+	
+	if($('#formCContingencias').val() === ""){
+		$('#formCContingencias').val(entregable.formCContingencias);
+	}
+	
+	if($('#formCAvancesLogrados').val() === ""){
+		$('#formCAvancesLogrados').val(entregable.formCAvancesLogrados);
+	}
+	
+	if($('#formCObservaciones').val() === ""){
+		$('#formCObservaciones').val(entregable.formCObservaciones);
+	}
+	
+	
+}
 
 function entregable2(element){
 	valorEntregable = $(element).attr("id");

@@ -22,6 +22,8 @@
    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    
     <style>
 	.zona {
 	  border: none;
@@ -663,6 +665,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne2" class="collapse">
+									                                            	<div id="formCComentariosGrupoE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCComentariosGrupo" th:field="*{formCComentariosGrupo}" class="form-control" name="formCProcesoAprendizaje" rows="5" cols="150" placeholder="comentarios sobre el grupo"></textarea>
 									                                                </div>
@@ -677,6 +680,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne3" class="collapse">
+									                                            <div id="formCProcesoAprendizajeE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCProcesoAprendizaje" th:field="*{formCProcesoAprendizaje}" class="form-control" name="formCProcesoAprendizaje" rows="4" cols="90" placeholder="PROCESO DE APRENDIZAJE"></textarea>
 									                                                </div>
@@ -691,6 +695,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne4" class="collapse">
+									                                            <div id="formCTeoriaE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCTeoria" th:field="*{formCTeoria}" name="formCTeoria" class="form-control" rows="4" cols="90" placeholder="TEORIA"></textarea>
 									                                                </div>
@@ -705,6 +710,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne5" class="collapse">
+									                                            <div id="formCPracticaE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCPractica" th:field="*{formCPractica}" name="formCPractica" class="form-control" rows="4" cols="90" placeholder="PRÁCTICA"></textarea>
 									                                                </div>
@@ -745,6 +751,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne7" class="collapse">
+									                                            <div id="formCRecomendacionesE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCRecomendaciones" th:field="*{formCRecomendaciones}" name="formCRecomendaciones" rows="4" cols="90" class="form-control" placeholder="RECOMENDACIONES"></textarea>
 									                                                </div>
@@ -759,6 +766,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne8" class="collapse">
+									                                            <div id="formCNivelCumplimientoE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCNivelCumplimiento" th:field="*{formCNivelCumplimiento}" name="formCNivelCumplimiento" rows="4" cols="90" class="form-control" placeholder="NIVEL DE CUMPLIMIENTO DE LOS OBJETIVOS Y EXPECTATIVAS"></textarea>
 									                                                </div>
@@ -773,6 +781,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne9" class="collapse">
+									                                            <div id="formCContingenciasE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCContingencias" th:field="*{formCContingencias}" name="formCContingencias" rows="4" cols="90" class="form-control" placeholder="CONTINGENCIAS"></textarea>
 									                                                </div>
@@ -787,6 +796,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne10" class="collapse">
+									                                            <div id="formCAvancesLogradosE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCAvancesLogrados" th:field="*{formCAvancesLogrados}" name="formCAvancesLogrados" rows="4" cols="90" class="form-control" placeholder="AVANCES LOGRADOS EN RELACIÓN A LOS RESULTADOS DE APRENDIZAJE PLANEADOS "></textarea>
 									                                                </div>
@@ -801,6 +811,7 @@
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne11" class="collapse">
+									                                            <div id="formCObservacionesE" class="edicionTextArea"></div>
 									                                                <div class="card-body">				
 									                                                	<textarea id="formCObservaciones" th:field="*{formCObservaciones}" name="formCObservaciones" rows="4" cols="90" class="form-control" placeholder="OBSERVACIONES"></textarea>
 									                                                </div>
@@ -954,9 +965,12 @@
     <script th:src="@{js/es_ES.js}"></script>
     
     <script th:src="@{js/entregablesEdicion.js}"></script>
+    <script th:src="@{js/edicionTextArea.js}"></script>
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     
     <script type="text/javascript">
     var today = new Date();
