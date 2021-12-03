@@ -114,6 +114,8 @@ public class EntregableEntity {
 	@Column
 	private String formCEvidenciaDocto;
 	@Column
+	private String RFCOriginalAsignacion;
+	@Column
 	private String statusEntregable;
 	@Column
 	private Long userCreateEntregable;
@@ -370,6 +372,12 @@ public class EntregableEntity {
 	}
 	public void setFormCFechaFinal(String formCFechaFinal) {
 		this.formCFechaFinal = formCFechaFinal;
+	}
+	public String getRFCOriginalAsignacion() {
+		return RFCOriginalAsignacion;
+	}
+	public void setRFCOriginalAsignacion(String rFCOriginalAsignacion) {
+		RFCOriginalAsignacion = rFCOriginalAsignacion;
 	}
 	
 	

@@ -621,10 +621,6 @@ public class ControllerUtil {
     		    stream.close();
 	        }
 		    
-	         /*
-	          * Compress
-	          */
-//		    compressFile(idEmpresa, idEntregable);
 		    
 		    resultVO.setCodigo((long) 0);
 		    resultVO.setMensaje("Exito File Upload");
@@ -665,31 +661,25 @@ public class ControllerUtil {
 	@GetMapping("/verEntregable/{idEntregable}")
 	public ResponseEntity<Resource> verFileEntregable( @PathVariable String idEntregable) throws Exception{
 		
-		
+		log.info("verFileEntregable");
 		String[] tmp = idEntregable.split("-");
 		String idEmpresa =tmp[0];
 		idEntregable =tmp[1];
 		String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
 		
-//		try {
-//        	Path deletePath = FileSystems.getDefault().getPath("/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/*");
-//            Files.delete(deletePath);
-//        } catch (IOException e) {
-//            System.err.println(e);
-//        }
-		/*
-         * comprimir archivos files a documentacion/evidenciaDocto.zip 
-         */
-		 	String directory = pathLogico+"/file/";
-	        File directorio = new File(directory);
-	        if (directorio.exists()) {
-	        	compressFile(idEmpresa, idEntregable);
-	        }
-		
-        /*
-         * comprimir archivos zip 
-         */
-		compress(idEmpresa, idEntregable);
+//		/*
+//         * comprimir archivos files a documentacion/evidenciaDocto.zip 
+//         */
+//		 	String directory = pathLogico+"/file/";
+//	        File directorio = new File(directory);
+//	        if (directorio.exists()) {
+//	        	compressFile(idEmpresa, idEntregable);
+//	        }
+//		
+//        /*
+//         * comprimir archivos zip 
+//         */
+//		compress(idEmpresa, idEntregable);
 		
 		Path rutaArchivo = Paths.get(pathLogico +"/zip/").resolve(idEntregable+".zip").toAbsolutePath();
 		log.info(rutaArchivo.toString());
@@ -838,106 +828,22 @@ public class ControllerUtil {
     }
     
     
-    private void moverArchivos(String pathLogico, String idEmpresa, String idEntregable) throws Exception {
-    	
-		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/file/");
-	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/evidenciaDocto/");
-
-	    try {
-	        Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-	    } catch (IOException e) {
-	      System.err.println(e);
-	    }
-	    
-	    compressFile(idEmpresa, idEntregable);
-	}
+//    private void moverArchivos(String pathLogico, String idEmpresa, String idEntregable) throws Exception {
+//    	
+//		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/file/");
+//	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/evidenciaDocto/");
+//
+//	    try {
+//	        Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+//	    } catch (IOException e) {
+//	      System.err.println(e);
+//	    }
+//	    
+//	    compressFile(idEmpresa, idEntregable);
+//	}
     
     
-    private void compress(String idEmpresa, String idEntregable) throws Exception {
-    	byte[] buffer = new byte[20480];
-        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
-        
-//          ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File("target/file.zip"))));
-          FileOutputStream fos = new FileOutputStream(pathLogico+"/zip/"+idEntregable+".zip");
-          ZipOutputStream zos = new ZipOutputStream(fos);
-          
-          try{  
-          
-              
-              // create new file
-        	  String rutaCarpeta = pathLogico+"/documentacion/";
-            File  f = new File(rutaCarpeta);
-                                      
-              // array of files and directory
-            String[] paths = f.list();
-                 
-              // for each name in the path array
-              for(String path:paths) {
-              
-                 // prints filename and directory name
-            	  ZipEntry ze= new ZipEntry(path);
-                  zos.putNextEntry(ze);
-                  FileInputStream in = new FileInputStream(rutaCarpeta+path);
-                  
-                  int len;
-                  while ((len = in.read(buffer)) > 0) {
-                    zos.write(buffer, 0, len);
-                  }
-                  
-                  in.close();
-              }
-              
-           } catch(Exception e) {
-              // if any error occurs
-              e.printStackTrace();
-           }
-          zos.closeEntry();
-          zos.close();
-         
-      }
     
-    private void compressFile(String idEmpresa, String idEntregable) throws Exception {
-    	byte[] buffer = new byte[20480];
-        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
-        
-//          ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File("target/file.zip"))));
-          FileOutputStream fos = new FileOutputStream(pathLogico+"/documentacion/evidenciasDocto.zip");
-          ZipOutputStream zos = new ZipOutputStream(fos);
-          
-          try{  
-          
-              
-              // create new file
-        	  String rutaCarpeta = pathLogico+"/file/";
-            File  f = new File(rutaCarpeta);
-                                      
-              // array of files and directory
-            String[] paths = f.list();
-                 
-              // for each name in the path array
-              for(String path:paths) {
-              
-                 // prints filename and directory name
-            	  ZipEntry ze= new ZipEntry(path);
-                  zos.putNextEntry(ze);
-                  FileInputStream in = new FileInputStream(rutaCarpeta+path);
-                  
-                  int len;
-                  while ((len = in.read(buffer)) > 0) {
-                    zos.write(buffer, 0, len);
-                  }
-                  
-                  in.close();
-              }
-              
-           } catch(Exception e) {
-              // if any error occurs
-              e.printStackTrace();
-           }
-          zos.closeEntry();
-          zos.close();
-         
-      }
     
        
     private void crearDirectoriosDocumentacion(String idEmpresa, String idEntregable) {

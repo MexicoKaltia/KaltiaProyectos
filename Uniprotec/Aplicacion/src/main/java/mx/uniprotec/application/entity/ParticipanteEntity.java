@@ -53,6 +53,8 @@ public class ParticipanteEntity {
 	@Column
 	private String participanteAprovechamiento;
 	@Column
+	private boolean participanteAprobado;
+	@Column
 	private String participanteObservaciones;
 	@Column
 	private String statusParticipante;
@@ -190,6 +192,16 @@ public class ParticipanteEntity {
 
 	public void setParticipanteAprovechamiento(String participanteAprovechamiento) {
 		this.participanteAprovechamiento = participanteAprovechamiento;
+	}
+
+
+	public boolean isParticipanteAprobado() {
+		return participanteAprobado;
+	}
+
+
+	public void setParticipanteAprobado(boolean participanteAprobado) {
+		this.participanteAprobado = participanteAprobado;
 	}
 	
 	

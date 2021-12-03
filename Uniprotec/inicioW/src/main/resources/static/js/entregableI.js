@@ -73,13 +73,27 @@ $(document).ready(function() {
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
 		
-		if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado"){ 
-			$('#asignaConfirmar').attr("disabled", false);
-			$('#edicionEntregable').attr("disabled", false);
-			$('#edicionEntregable').click(function(){
-				$("#formEntregables").attr("action", "AEntregable");
+		if(perfilUsuario === "Instructor"){
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado"){ 
+				$('#asignaConfirmar').attr("disabled", false);
+				$('#edicionEntregable').attr("disabled", false);
+				$('#edicionEntregable').click(function(){
+					$("#formEntregables").attr("action", "AEntregable");
+				})
+			}
+		}else if(perfilUsuario === "Vendedor"){
+			$('#modal-footer').empty();
+			console.log("Vendedor Footer")
+//			$('#asignaConfirmar').hide();
+//			$('#edicionEntregable').attr("disabled", false);
+//			$('#edicionEntregable').removeClass("btn-info");
+//			$('#edicionEntregable').addClass("btn-success");
+			$('#modal-footer').append('<button type="button" class="btn btn-secondary pull-left btn-lg" data-dismiss="modal">Cerrar</button><button   id="edicionEntregableV" class="btn btn-success pull-right btn-lg" >Descarga Entregable</button>');
+			$('#edicionEntregableV').click(function(){
+				$("#formEntregables").attr("action", "AEntregableV");
 			})
 		}
+		
 
 		
 		$('#myModal').modal();
@@ -196,24 +210,54 @@ document.addEventListener('DOMContentLoaded', function() {
 		var fin;
 		var color;
 		var items = new Array();
-		for(i in asignaciones){
-			asignacion = asignaciones[i];
-			if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
-				if(validaHoy(asignacion.fechaAsignacion.toString())){
-					inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-					fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
-					color = getColor(asignacion.statusAsignacion);
-					item = {
-							'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
-							'start' : inicio,
-							'end' : fin,
-							'constraint' : 'businessHours',
-							'color' : color
+		
+		console.log(perfilUsuario);
+		console.log(idUsuario);
+		console.log(operacionId);
+		
+		if(perfilUsuario === "Instructor"){
+			for(i in asignaciones){
+				asignacion = asignaciones[i];
+				if((asignacion.idInstructorAsignacion * 1) === (operacionId * 1)){
+					if(validaHoy(asignacion.fechaAsignacion.toString())){
+						inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+						fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+						color = getColor(asignacion.statusAsignacion);
+						item = {
+								'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+								'start' : inicio,
+								'end' : fin,
+								'constraint' : 'businessHours',
+								'color' : color
+						}
+						items.push(item);
 					}
-					items.push(item);
 				}
 			}
 		}
+		if(perfilUsuario === "Vendedor"){
+			for(i in asignaciones){
+				asignacion = asignaciones[i];
+				if((asignacion.userCreateAsignacion * 1) === (operacionId * 1)){
+					if(validaHoy(asignacion.fechaAsignacion.toString())){
+						if(asignacion.statusAsignacion === "Entregable Generado"){
+							inicio = getInicio(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+							fin = getFinal(asignacion.fechaAsignacion.toString(), asignacion.horarioAsignacion.toString());
+							color = getColor(asignacion.statusAsignacion);
+							item = {
+									'title' : asignacion.idAsignacion +"-"+ asignacion.clienteAsignacion +"-"+ asignacion.instructorAsignacion +"-"+ asignacion.cursoAsignacion ,
+									'start' : inicio,
+									'end' : fin,
+									'constraint' : 'businessHours',
+									'color' : color
+							}
+							items.push(item);
+						}
+					}
+				}
+			}
+		}
+		
 		return items;
 	}
 	

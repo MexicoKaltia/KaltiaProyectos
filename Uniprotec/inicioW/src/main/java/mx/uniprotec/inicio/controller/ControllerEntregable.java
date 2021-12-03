@@ -93,6 +93,35 @@ public class ControllerEntregable {
 		}		
 	}
 	
+	@PostMapping("/AEntregableV")
+	public ModelAndView AEntregableV(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+//		model.addAttribute("asignacionItem", asignacion);
+//		model.addAttribute("entregableModelo", new EntregableModelo());
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("Get Entregable Descarga Vendedor model Activo");
+			JSONObject jsonResponse = new JSONObject();
+			ResultVO resultVO = (ResultVO)model.get("model");			
+			
+			ResultVO rs = entregableService.consultaEntregable(resultVO.getAccesToken(), asignacion.getIdAsignacion());
+			jsonResponse.put("entregables", rs.getJsonResponse());
+			
+			resultVO.setJsonResponseObject(jsonResponse);	
+			model.addAttribute("model", resultVO);
+
+			ModelAndView mav = new  ModelAndView("AEntregableV",  model);
+			if(rs.getCodigo() != 500) {					
+				return mav;
+			}else {
+				mav.addObject("consulta", true);
+				return mav;	
+			}
+		}		
+	}
+
+	
 	@PostMapping("/BEntregable")
 	public ModelAndView BEntregable(@ModelAttribute("entregableModelo") EntregableModelo entregable, ModelMap model) {
 		if(model.equals(null)) {
@@ -106,9 +135,14 @@ public class ControllerEntregable {
 			JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
 			Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
-			
+			String perfil = jsonUsuario.get("perfil").toString();
 			ResultVO rs  = entregableService.createEntregable(entregable, resultVO.getAccesToken(), idUsuario );
+			
 			ModelAndView mav = new ModelAndView("redirect:/CEntregable" , model);
+			if(perfil.equals("Instructor")) {
+				mav = new ModelAndView("redirect:/CEntregableI" , model);
+			}
+			
 			model.addAttribute("model", resultVO);
 			log.info(rs.getCodigo().toString());
 			
@@ -181,6 +215,13 @@ public class ControllerEntregable {
 	public ModelAndView consultaEntregableI(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
 			@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
 			@RequestParam(name="error", required=false) boolean error,
+			@RequestParam(name="ejecucionEntregable", required=false) boolean ejecucionEntregable,
+			@RequestParam(name="documentacionEntregable", required=false) boolean documentacionEntregable,
+			@RequestParam(name="idEntregable", required=false) String idEntregable,
+			@RequestParam(name="ejecucionEntregableActualizado", required=false) boolean ejecucionEntregableActualizado,
+			@RequestParam(name="ejecucionEntregableError", required=false) boolean ejecucionEntregableError,
+			@RequestParam(name="ejecucionEntregableActualizadoError", required=false) boolean ejecucionEntregableActualizadoError,
+			@RequestParam(name="causa", required=false) String causa,
 			ModelMap model) {
 			log.info("Entregable model Activo");
 			model.addAttribute("entregableItem", new AsignacionModelo());
@@ -194,7 +235,14 @@ public class ControllerEntregable {
 			if(rs.getCodigo() != 500) {
 				mav.addObject("ejecucion", ejecucion);
 				mav.addObject("ejecucion2", ejecucion2);
+				mav.addObject("ejecucionEntregable", ejecucionEntregable);
+				mav.addObject("documentacionEntregable", documentacionEntregable);
+				mav.addObject("idEntregable", "/verEntregable/"+idEntregable);
+				mav.addObject("ejecucionEntregableActualizado", ejecucionEntregableActualizado);
+				mav.addObject("ejecucionEntregableError", ejecucionEntregableError);
+				mav.addObject("ejecucionEntregableActualizadoError", ejecucionEntregableActualizadoError);
 				mav.addObject("error", error);
+				mav.addObject("causa", causa);
 				return mav;
 			}else {
 				mav.addObject("consulta", true);

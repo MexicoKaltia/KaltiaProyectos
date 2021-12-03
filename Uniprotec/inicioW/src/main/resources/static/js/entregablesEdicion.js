@@ -148,6 +148,7 @@ $(document).ready(function() {
 						for(var i in participantesEntregable){
 							var participante = participantesEntregable[i];
 							if((participante.idEntregable*1) === (valorEntregable*1)){
+								
 								arrayParticipantes.push(participante);
 							}
 							$participantesLength++;
@@ -479,6 +480,11 @@ $(document).ready(function() {
 				$('#btnEditarParticipante').show();
 				$idParticipante = row.idParticipante;
 //					     console.log($idParticipante); 
+				
+				$('#checkAprovechamiento').bootstrapToggle('on');
+				if(row.participantePromedio < 8){
+					$('#checkAprovechamiento').bootstrapToggle('off');
+				}
 		    }
 		   }
 	
@@ -520,7 +526,8 @@ $(document).ready(function() {
 				participanteExamenTeoricoFinal: $('#participanteETF').val(),
 				participanteExamenPractico: $('#participanteEP').val(),
 				participantePromedio: $('#participanteP').val(),
-				participanteAprovechamiento: $('#participanteAprovechamiento').val()
+				participanteAprovechamiento: $('#participanteAprovechamiento').val(),
+				participanteAprobado : $('#checkAprovechamiento').is(':checked')
 		};
 		$('#participantesTable').bootstrapTable('append', jsonParticipante)
 		$participantes = $('#participantesTable').bootstrapTable('getData');
@@ -528,6 +535,7 @@ $(document).ready(function() {
 	
 	$('#btnEditarParticipante').click(function(){
 		console.log("btnEditarParticipante");
+		var checkAprobado = $('#checkAprovechamiento').is(':checked');
 		var jsonParticipante = {
 				idParticipante: $('#idParticipante').val(),
 				participanteNombre: $('#participanteNombre').val(),
@@ -539,7 +547,8 @@ $(document).ready(function() {
 				participanteExamenTeoricoFinal: $('#participanteETF').val(),
 				participanteExamenPractico: $('#participanteEP').val(),
 				participantePromedio: $('#participanteP').val(),
-				participanteAprovechamiento: $('#participanteAprovechamiento').val()
+				participanteAprovechamiento: $('#participanteAprovechamiento').val(),
+				participanteAprobado : checkAprobado
 		};
 		
 		var tmp = new Array();
@@ -556,6 +565,9 @@ $(document).ready(function() {
 		
 	});
 
+	/**
+	 *  ALTA ENTREGABLE y ALTA DOCUMENTACION
+	 */
 	$('#btnAltaEntregable').click(function(){
 		console.log("Alta Formulario Entregable");
 		$participantes = $('#participantesTable').bootstrapTable('getData');
@@ -854,6 +866,10 @@ function duracion(str){
 
 			var promedio = ( TF*1+ EP*1 )/2 ;
 			$('#participanteP').val(promedio);
+			$('#checkAprovechamiento').bootstrapToggle('on');
+			if(promedio < 8){
+				$('#checkAprovechamiento').bootstrapToggle('off');
+			}
 		}
 
 		function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 

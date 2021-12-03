@@ -3,6 +3,7 @@ package mx.uniprotec.inicio.service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -131,7 +135,10 @@ public class EntregableService implements IEntregableService {
 			entregable.setStatus("Entregable Generado");
 			ResultLocal rl = new ResultLocal();
 			pathLogico = "/uniprotec/entregables/";
-			pathLogico = pathLogico + entregable.getRfcOriginalAsignacion()+"/"+ entregable.getIdEntregableLogico();
+			String idEmpresa = entregable.getRfcOriginalAsignacion();
+			String idEntregable = entregable.getIdEntregableLogico();
+			pathLogico = pathLogico + idEmpresa+"/"+ idEntregable;
+			
 			
 			//Genera Diploma
 			if(!entregable.getFormAFechaDiploma().equals("")) {
@@ -213,7 +220,74 @@ public class EntregableService implements IEntregableService {
 				}
 			}
 			
-		
+			/*
+			 * comprime archivos
+			 */
+			if(rl.getCodigo() == 0) {
+				
+				/*
+		         * comprimir archivos files a documentacion/evidenciaDocto.zip 
+		         */
+				 	String directory = pathLogico+"/file/";
+				 	String fileOutPut, folderInput= ""; 
+				 	
+			        File directorio = new File(directory);
+			        if (directorio.exists()) {
+			        	try {
+			        		log.info("Comprime EvidenciaDocumental");
+			        		fileOutPut = "/documentacion/evidenciasDocto.zip"; 
+			        		folderInput ="/file/";
+							compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
+							rl.setCodigo(0);
+					        rl.setMensaje("Comprime EvidenciaDocumental exitosamente");
+						} catch (Exception e) {
+							log.info("exception : "+e.getMessage());
+						    rl.setCodigo(99);
+						    rl.setMensaje(e.getMessage());
+						    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+						}
+			        }
+				
+		        /*
+		         * comprimir archivos zip idEntregable.zip
+		         */
+				try {
+					log.info("Comprime idEntregable.zip");
+					fileOutPut = "/zip/"+idEntregable+".zip"; 
+	        		folderInput ="/documentacion/";
+//					compress(idEmpresa, idEntregable);
+	        		compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
+	        		rl.setCodigo(0);
+	        		rl.setMensaje("Comprime idEntregable exitosamente");
+				} catch (Exception e) {
+					log.info("exception : "+e.getMessage());
+				    rl.setCodigo(99);
+				    rl.setMensaje(e.getMessage());
+				    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+				}
+			}
+			
+			/**
+			 * Borrar PDF's
+			 */
+			if(rl.getCodigo() == 0) {
+				String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
+			    File directorio = new File(directory);
+			    try {
+					FileUtils.deleteDirectory(directorio);
+					rl.setCodigo(0);
+					rl.setMensaje("Borrar PDF's exitosamente");
+					FileUtils.forceMkdir(directorio);
+					entregable.setStatus("Entregable Generado");
+				} catch (IOException e) {
+					log.info("exception : "+e.getMessage());
+				    rl.setCodigo(99);
+				    rl.setMensaje(e.getMessage());
+				    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+				}
+
+			}
+			 				
 		}
 		/*
 		 * Actualiza Entregable
@@ -277,6 +351,7 @@ public class EntregableService implements IEntregableService {
 							participante.setParticipantePromedio(Double.valueOf(json.get("participantePromedio").toString()));
 							participante.setParticipanteObservaciones("");
 							participante.setParticipanteAprovechamiento((String) json.get("participanteAprovechamiento"));
+							participante.setParticipanteAprobado((boolean) json.get("participanteAprobado"));
 							participante.setUserCreate(idUsuario);
 							participante.setCreateAt(me.getNowEntidad());
 							participante.setStatus("create");
@@ -293,6 +368,13 @@ public class EntregableService implements IEntregableService {
 		return participantes;
 	}
 	
+	private boolean getParticipanteAprobado(String str) {
+		if(str.endsWith("true")) {
+			return true;
+		}
+		return false;
+	}
+
 	private ResultLocal generaReporte (EntregableModelo entregable) throws Exception, JRException  {
 		ResultLocal rl = new ResultLocal();
 		long start = System.currentTimeMillis();
@@ -467,7 +549,91 @@ public class EntregableService implements IEntregableService {
 	
 	
 	
-	
+	private void compress(String idEmpresa, String idEntregable) throws Exception {
+    	byte[] buffer = new byte[20480];
+        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
+        
+//          ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File("target/file.zip"))));
+          FileOutputStream fos = new FileOutputStream(pathLogico+"/zip/"+idEntregable+".zip");
+          ZipOutputStream zos = new ZipOutputStream(fos);
+          
+          try{  
+          
+              
+              // create new file
+        	  String rutaCarpeta = pathLogico+"/documentacion/";
+            File  f = new File(rutaCarpeta);
+                                      
+              // array of files and directory
+            String[] paths = f.list();
+                 
+              // for each name in the path array
+              for(String path:paths) {
+              
+                 // prints filename and directory name
+            	  ZipEntry ze= new ZipEntry(path);
+                  zos.putNextEntry(ze);
+                  FileInputStream in = new FileInputStream(rutaCarpeta+path);
+                  
+                  int len;
+                  while ((len = in.read(buffer)) > 0) {
+                    zos.write(buffer, 0, len);
+                  }
+                  
+                  in.close();
+              }
+              
+           } catch(Exception e) {
+              // if any error occurs
+              e.printStackTrace();
+           }
+          zos.closeEntry();
+          zos.close();
+         
+      }
+    
+    private void compressFile(String idEmpresa, String idEntregable, String fileOutPut, String folderInput) throws Exception {
+    	byte[] buffer = new byte[20480];
+        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
+        
+//          ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File("target/file.zip"))));
+          FileOutputStream fos = new FileOutputStream(pathLogico+fileOutPut);
+          ZipOutputStream zos = new ZipOutputStream(fos);
+          
+          try{  
+          
+              
+              // create new file
+        	  String rutaCarpeta = pathLogico+folderInput;
+            File  f = new File(rutaCarpeta);
+                                      
+              // array of files and directory
+            String[] paths = f.list();
+                 
+              // for each name in the path array
+              for(String path:paths) {
+              
+                 // prints filename and directory name
+            	  ZipEntry ze= new ZipEntry(path);
+                  zos.putNextEntry(ze);
+                  FileInputStream in = new FileInputStream(rutaCarpeta+path);
+                  
+                  int len;
+                  while ((len = in.read(buffer)) > 0) {
+                    zos.write(buffer, 0, len);
+                  }
+                  
+                  in.close();
+              }
+              
+           } catch(Exception e) {
+              // if any error occurs
+              e.printStackTrace();
+           }
+          zos.closeEntry();
+          zos.close();
+         
+      }
 	/*
 	 * Private 2 generacion
 	 */

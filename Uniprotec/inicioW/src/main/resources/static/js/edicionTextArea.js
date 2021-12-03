@@ -1,5 +1,11 @@
 $(document).ready(function() {
 	
+//	$('#checkAprovechamiento').bootstrapToggle({
+//		on: 'Aprobado',
+//	    off: 'No Aprobado'
+//	});
+
+	
 	$('#formCComentariosGrupo').summernote({
         placeholder: 'Capturar Comentarios Grupo',
         tabsize: 2,

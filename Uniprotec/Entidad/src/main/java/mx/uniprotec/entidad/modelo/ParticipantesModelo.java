@@ -26,6 +26,7 @@ public class ParticipantesModelo implements Serializable{
 	private double participantePromedio;
 	private String participanteObservaciones;
 	private String participanteAprovechamiento;
+	private boolean participanteAprobado;
 	private String status;
 	private Long userCreate;
 	private LocalDateTime createAt;
@@ -40,8 +41,8 @@ public class ParticipantesModelo implements Serializable{
 				+ ", participanteExamenTeoricoFinal=" + participanteExamenTeoricoFinal + ", participanteExamenPractico="
 				+ participanteExamenPractico + ", participantePromedio=" + participantePromedio
 				+ ", participanteObservaciones=" + participanteObservaciones + ", participanteAprovechamiento="
-				+ participanteAprovechamiento + ", status=" + status + ", userCreate=" + userCreate + ", createAt="
-				+ createAt + "]";
+				+ participanteAprovechamiento + ", participanteAprobado=" + participanteAprobado + ", status=" + status
+				+ ", userCreate=" + userCreate + ", createAt=" + createAt + "]";
 	}
 
 	public ParticipantesModelo(String idParticipante, String participanteNombre, String participanteCURP,
@@ -179,6 +180,14 @@ public class ParticipantesModelo implements Serializable{
 
 	public void setParticipanteAprovechamiento(String participanteAprovechamiento) {
 		this.participanteAprovechamiento = participanteAprovechamiento;
+	}
+
+	public boolean isParticipanteAprobado() {
+		return participanteAprobado;
+	}
+
+	public void setParticipanteAprobado(boolean participanteAprobado) {
+		this.participanteAprobado = participanteAprobado;
 	}
 
 	

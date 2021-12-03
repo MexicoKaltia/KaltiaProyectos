@@ -242,6 +242,38 @@
 									<b>Consulta : </b><u>No se realizó la consulta de la lista de Asignaciones, Notifique Administrador. </u>
 								</div>
 							</span>
+							<span th:if='${ejecucionEntregable}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado Correctamente el Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
+							<span th:if='${documentacionEntregable}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b>Se ha Generado Correctamente la Documentación Digital.
+									<p><a th:href='${idEntregable}'> <b>Dar Click para descargar Documentos Digitales.</b></a></p> 
+								</div>
+							</span>
+							<span th:if='${ejecucionEntregableError}'>
+								<div class="alert alert-danger" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se generó el Nuevo Expediente de Documentación Entregable.</u>
+									<p><span th:text='${causa}'></span></p>
+								</div>
+							</span>
+							<span th:if='${ejecucionEntregableActualizado}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Generado Actualizado Correctamente el Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
+							<span th:if='${ejecucionEntregableActualizadoError}'>
+								<div class="alert alert-danger" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se actualizó el Expediente de Documentación Entregable.</u>
+								</div>
+							</span>
 					 </div>
                         </div>
                         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
@@ -428,7 +460,7 @@
                                                <input type="hidden" id="nombreFirmaInstructor" th:field="*{nombreFirmaInstructor}" />
                                        			<br>
                                        			<br>
-                                       			<div class="modal-footer">
+                                       			<div id="modal-footer" class="modal-footer">
 	                                   				<button type="button" class="btn btn-secondary pull-left btn-lg" data-dismiss="modal">Cerrar</button>
 	                                       			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" disabled>Expediente Asignación - Avance Fase</button>
 	                                       			<button   id="edicionEntregable" class="btn btn-info pull-right btn-lg" disabled>Edicion Entregables</button>
@@ -439,10 +471,10 @@
                                    </div>
 
                                    <!-- Modal footer -->
-                                   <div class="modal-footer">
+<!--                                    <div class="modal-footer"> -->
                                    		
                                        
-                                   </div>
+<!--                                    </div> -->
 
                                </div>
                            </div>

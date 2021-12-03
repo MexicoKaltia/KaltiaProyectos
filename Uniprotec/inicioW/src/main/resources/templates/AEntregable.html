@@ -22,7 +22,10 @@
    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <!-- edicion textArea-->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <!-- edicion toggle-->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     
     <style>
 	.zona {
@@ -969,8 +972,10 @@
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
-    
+    <!-- edicion textArea -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <!-- edicion toggle-->
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     
     <script type="text/javascript">
     var today = new Date();
@@ -1107,12 +1112,16 @@
 				                                     </div>
 						    						<!-- ------------------- -->
 						    						<div class="form-row">
-				                                        <div class="col-md-12 mb-3">
+						    							<div class="col-md-6 mb-3">
 				                                            <label for="validationCustom02">Aprovechamiento Participante</label>
 				                                            <input type="text" class="form-control"  id="participanteAprovechamiento" placeholder="Capture Aprobado o Aprovechamiento Participante" value="" maxlength="70" required>
-				                                            <div class="invalid-feedback">
-				                                                Capturar Nombre Completo
-				                                            </div>
+				                                        </div>
+				                                        <div class="col-md-5 mb-3">
+				                                            <div class="checkbox">
+															  <label>Aprobacion Participante</label>
+															    <input type="checkbox" data-toggle="toggle" id="checkAprovechamiento" data-onstyle="success" data-offstyle="warning"  data-width="120" data-on="Aprobado" data-off="No Aprobado">
+															    
+															</div>
 				                                        </div>
 			                                     </div>    
 			                                     
