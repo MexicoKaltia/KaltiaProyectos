@@ -57,7 +57,7 @@
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRazonSocial}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="69" y="141" width="259" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
+				<reportElement x="69" y="142" width="259" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteCURP}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
