@@ -129,13 +129,17 @@ public class EntregableRestController {
 			entregableEntity.setFormCProcesoAprendizaje(entregable.getFormCProcesoAprendizaje());
 			entregableEntity.setFormCTeoria(entregable.getFormCTeoria());
 			entregableEntity.setFormCPractica(entregable.getFormCPractica());
-			entregableEntity.setFormCEvidenciasFotograficas(getEvidenciasFoto(entregable.getFormCEvidenciasFotograficas()));
+			if(entregable.getFormCEvidenciasFotograficas() != null) {
+				entregableEntity.setFormCEvidenciasFotograficas(getEvidenciasFoto(entregable.getFormCEvidenciasFotograficas()));
+			}		
 			entregableEntity.setFormCRecomendaciones(entregable.getFormCRecomendaciones());
 			entregableEntity.setFormCNivelCumplimiento(entregable.getFormCNivelCumplimiento());
 			entregableEntity.setFormCContingencias(entregable.getFormCContingencias());
 			entregableEntity.setFormCAvancesLogrados(entregable.getFormCAvancesLogrados());
 			entregableEntity.setFormCObservaciones(entregable.getFormCObservaciones());
-			entregableEntity.setFormCEvidenciaDocto(getEvidenciasFoto(entregable.getFormCEvidenciaDocto()));
+			if(entregable.getFormCEvidenciaDocto() != null) {
+				entregableEntity.setFormCEvidenciaDocto(getEvidenciasFoto(entregable.getFormCEvidenciaDocto()));
+			}
 			entregableEntity.setRFCOriginalAsignacion(entregable.getRfcOriginalAsignacion());
 			entregableEntity.setStatusEntregable(entregable.getStatus());
 			entregableEntity.setCreateAtEntregable(entregable.getCreateAt());
@@ -231,10 +235,10 @@ public class EntregableRestController {
 			pe.setParticipanteOcupacion(pm.getParticipanteOcupacion());
 			pe.setParticipanteCURP(pm.getParticipanteCURP());
 			pe.setParticipanteFoto(pm.getParticipanteFoto());
-			pe.setParticipanteExamenTeoricoInicial(pm.getParticipanteExamenTeoricoInicial());
-			pe.setParticipanteExamenTeoricoFinal(pm.getParticipanteExamenTeoricoInicial());
-			pe.setParticipanteExamenPractico(pm.getParticipanteExamenPractico());
-			pe.setParticipantePromedio(pm.getParticipantePromedio());
+			pe.setParticipanteExamenTeoricoInicial(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
+			pe.setParticipanteExamenTeoricoFinal(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
+			pe.setParticipanteExamenPractico(Double.valueOf(pm.getParticipanteExamenPractico()));
+			pe.setParticipantePromedio(Double.valueOf(pm.getParticipantePromedio()));
 			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento());
 			pe.setParticipanteAprobado(pm.isParticipanteAprobado());
 			pe.setParticipanteObservaciones(pm.getParticipanteObservaciones());

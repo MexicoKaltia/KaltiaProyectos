@@ -345,10 +345,10 @@ public class EntregableService implements IEntregableService {
 							participante.setParticipantePuesto((String) json.get("participantePuesto"));
 							participante.setParticipanteOcupacion((String) json.get("participanteOcupacion"));
 							participante.setParticipanteFoto((String) json.get("participanteFoto"));
-							participante.setParticipanteExamenTeoricoInicial(Double.valueOf(json.get("participanteExamenTeoricoInicial").toString()));
-							participante.setParticipanteExamenTeoricoFinal(Double.valueOf(json.get("participanteExamenTeoricoFinal").toString()));
-							participante.setParticipanteExamenPractico(Double.valueOf(json.get("participanteExamenPractico").toString()));
-							participante.setParticipantePromedio(Double.valueOf(json.get("participantePromedio").toString()));
+							participante.setParticipanteExamenTeoricoInicial(json.get("participanteExamenTeoricoInicial").toString());
+							participante.setParticipanteExamenTeoricoFinal(json.get("participanteExamenTeoricoFinal").toString());
+							participante.setParticipanteExamenPractico(json.get("participanteExamenPractico").toString());
+							participante.setParticipantePromedio(json.get("participantePromedio").toString());
 							participante.setParticipanteObservaciones("");
 							participante.setParticipanteAprovechamiento((String) json.get("participanteAprovechamiento"));
 							participante.setParticipanteAprobado((boolean) json.get("participanteAprobado"));
@@ -368,88 +368,6 @@ public class EntregableService implements IEntregableService {
 		return participantes;
 	}
 	
-	private boolean getParticipanteAprobado(String str) {
-		if(str.endsWith("true")) {
-			return true;
-		}
-		return false;
-	}
-
-	private ResultLocal generaReporte (EntregableModelo entregable) throws Exception, JRException  {
-		ResultLocal rl = new ResultLocal();
-		long start = System.currentTimeMillis();
-		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/reporte.jrxml"));
-		
-		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
-			
-		List<JasperPrint> jasperPrintReporte = new ArrayList<JasperPrint>();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map= convertToDReporte(entregable);
-				
-//		JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
-		JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
-		jasperPrintReporte.add(report);
-			
-			
-			// guardar en disco local
-//		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
-		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/Reporte_"+entregable.getIdEntregableLogico()+".pdf"));
-		JRPdfExporter exporter = new JRPdfExporter();
-		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintReporte));
-		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
-		
-		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-		configuration.setCreatingBatchModeBookmarks(true);
-		exporter.setConfiguration(configuration);
-        exporter.exportReport();
-        output.flush();
-        output.close();
-        log.info("Reporte creation time : " + (System.currentTimeMillis() - start));
-		return rl;
-	}
-
-	
-
-	private ResultLocal generaDC3(EntregableModelo entregable) throws Exception, JRException{
-		ResultLocal rl = new ResultLocal();
-		long start = System.currentTimeMillis();
-		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/DC3.jrxml"));
-		
-		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
-			
-		List<JasperPrint> jasperPrintDC3 = new ArrayList<JasperPrint>();
-		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
-				
-			Map<String, Object> map = new HashMap<String, Object>();
-			map= convertToDC3(pm, entregable);
-				
-//			JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
-			JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
-			jasperPrintDC3.add(report);
-			
-		}
-			
-			// guardar en disco local
-//		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
-		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/DC3_"+entregable.getIdEntregableLogico()+".pdf"));
-		JRPdfExporter exporter = new JRPdfExporter();
-		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintDC3));
-		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
-		
-		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-		configuration.setCreatingBatchModeBookmarks(true);
-		exporter.setConfiguration(configuration);
-        exporter.exportReport();
-        output.flush();
-        output.close();
-        log.info("DC3 creation time : " + (System.currentTimeMillis() - start));
-		return rl;
-
-	}
-
-	
-	
-
 	private ResultLocal generaDiplomas(EntregableModelo entregable) throws Exception, JRException{
 		ResultLocal rl = new ResultLocal();
 		long start = System.currentTimeMillis();
@@ -466,11 +384,12 @@ public class EntregableService implements IEntregableService {
 		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
 				
 			Map<String, Object> map = new HashMap<String, Object>();
-			map= convertToDiploma(pm, entregable);
-				
-//			JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
-			JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
-			jasperPrintDiploma.add(report);
+			if(pm.isParticipanteAprobado()) {
+				map= convertToDiploma(pm, entregable);
+//				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
+				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
+				jasperPrintDiploma.add(report);
+			}
 			
 		}
 			
@@ -546,51 +465,103 @@ public class EntregableService implements IEntregableService {
         log.info("Credenciales creation time : " + (System.currentTimeMillis() - start));
 		return rl;
 	}
+
+
+
+	
+
+	private ResultLocal generaDC3(EntregableModelo entregable) throws Exception, JRException{
+		ResultLocal rl = new ResultLocal();
+		long start = System.currentTimeMillis();
+		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/DC3.jrxml"));
+		
+		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
+			
+		List<JasperPrint> jasperPrintDC3 = new ArrayList<JasperPrint>();
+		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
+				
+			Map<String, Object> map = new HashMap<String, Object>();
+			if(pm.isParticipanteAprobado()) {
+				map= convertToDC3(pm, entregable);			
+				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
+				jasperPrintDC3.add(report);
+			}		
+		}
+			
+			// guardar en disco local
+//		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
+		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/DC3_"+entregable.getIdEntregableLogico()+".pdf"));
+		JRPdfExporter exporter = new JRPdfExporter();
+		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintDC3));
+		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
+		
+		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+		configuration.setCreatingBatchModeBookmarks(true);
+		exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        output.flush();
+        output.close();
+        log.info("DC3 creation time : " + (System.currentTimeMillis() - start));
+		return rl;
+
+	}
+
+	
+	private ResultLocal generaReporte (EntregableModelo entregable) throws Exception, JRException  {
+		ResultLocal rl = new ResultLocal();
+		long start = System.currentTimeMillis();
+		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/reporte.jrxml"));
+		
+		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
+			
+		List<JasperPrint> jasperPrintReporte = new ArrayList<JasperPrint>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = convertToDReporte(entregable);
+//		JRProperties.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "true");
+		JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());		
+		jasperPrintReporte.add(report);
+		
+		
+		
+		//Genera Resultados Participantes
+//		JRBeanCollectionDataSource participantes = new JRBeanCollectionDataSource(entregable.getFormBParticipantes());
+		JasperPrint resultadosParticipantesJasperPrint = resultadosParticipantes(entregable.getFormBParticipantes());
+		jasperPrintReporte.add(resultadosParticipantesJasperPrint);
+		
+			// guardar en disco local
+//		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
+		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/Reporte_"+entregable.getIdEntregableLogico()+".pdf"));
+		JRPdfExporter exporter = new JRPdfExporter();
+		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintReporte));
+		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
+		
+		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+		configuration.setCreatingBatchModeBookmarks(true);
+		exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        output.flush();
+        output.close();
+        log.info("Reporte creation time : " + (System.currentTimeMillis() - start));
+		return rl;
+	}
+	
+
+		
 	
 	
+	private JasperPrint resultadosParticipantes(List<ParticipantesModelo> formBParticipantes) throws JRException {
+		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/resultadosParticipantes.jrxml"));
+		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
+		Map<String, Object> map = new HashMap<String, Object>();
+		JRBeanCollectionDataSource participantes = new JRBeanCollectionDataSource(formBParticipantes);
+		
+//		map.put("resultadosParticipantes", participantes);
+//				
+		return JasperFillManager.fillReport(compileReport, map,  participantes);
+		
+	}
+
 	
-	private void compress(String idEmpresa, String idEntregable) throws Exception {
-    	byte[] buffer = new byte[20480];
-        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
-        
-//          ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File("target/file.zip"))));
-          FileOutputStream fos = new FileOutputStream(pathLogico+"/zip/"+idEntregable+".zip");
-          ZipOutputStream zos = new ZipOutputStream(fos);
-          
-          try{  
-          
-              
-              // create new file
-        	  String rutaCarpeta = pathLogico+"/documentacion/";
-            File  f = new File(rutaCarpeta);
-                                      
-              // array of files and directory
-            String[] paths = f.list();
-                 
-              // for each name in the path array
-              for(String path:paths) {
-              
-                 // prints filename and directory name
-            	  ZipEntry ze= new ZipEntry(path);
-                  zos.putNextEntry(ze);
-                  FileInputStream in = new FileInputStream(rutaCarpeta+path);
-                  
-                  int len;
-                  while ((len = in.read(buffer)) > 0) {
-                    zos.write(buffer, 0, len);
-                  }
-                  
-                  in.close();
-              }
-              
-           } catch(Exception e) {
-              // if any error occurs
-              e.printStackTrace();
-           }
-          zos.closeEntry();
-          zos.close();
-         
-      }
     
     private void compressFile(String idEmpresa, String idEntregable, String fileOutPut, String folderInput) throws Exception {
     	byte[] buffer = new byte[20480];
@@ -644,17 +615,19 @@ public class EntregableService implements IEntregableService {
 		
 		List<CredencialModelo> listCM = new ArrayList<CredencialModelo>();
 		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
-			CredencialModelo cm = new CredencialModelo();
-			cm.setNombreParticipante(pm.getParticipanteNombre());
-			cm.setNombreCurso(entregable.getFormAEquipoCredencial());
-			cm.setFechaInicio(recortaDia(entregable.getFormAFechaInicioCredenciales()));
-			cm.setFechaFinal(recortaDia(entregable.getFormAFechaFinalCredenciales()));
-			cm.setInstructor(entregable.getFormAInstructor());
-			cm.setLogoEmpresa(new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
-			cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
-			cm.setFirmaInstructor(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
-//			cm.setFirmaDirector(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
-			 listCM.add(cm);
+			if(pm.isParticipanteAprobado()) {
+				CredencialModelo cm = new CredencialModelo();
+				cm.setNombreParticipante(pm.getParticipanteNombre());
+				cm.setNombreCurso(entregable.getFormAEquipoCredencial());
+				cm.setFechaInicio(recortaDia(entregable.getFormAFechaInicioCredenciales()));
+				cm.setFechaFinal(recortaDia(entregable.getFormAFechaFinalCredenciales()));
+				cm.setInstructor(entregable.getFormAInstructor());
+				cm.setLogoEmpresa(new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
+				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
+				cm.setFirmaInstructor(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
+//				cm.setFirmaDirector(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
+				 listCM.add(cm);
+			}
 		}
 		return  listCM;
 	}
@@ -723,7 +696,8 @@ public class EntregableService implements IEntregableService {
 		map.put("reporteCumplimiento", entregable.getFormCNivelCumplimiento());
 		map.put("reporteContingencias", entregable.getFormCContingencias());
 		map.put("reporteAvances", entregable.getFormCAvancesLogrados());
-		map.put("reporteParticipantes", entregable.getFormBParticipantesStr());
+//		map.put("reporteParticipantes", entregable.getFormBParticipantesStr());
+//		map.put("reporteResultadosParticipantes", entregable.getFormBParticipantes());
 		map.put("reporteObservaciones", entregable.getFormCObservaciones());
 		map.put("reporteEvidenciasDocto", entregable.getFormCEvidenciaDoctoB());
 		
@@ -764,7 +738,7 @@ public class EntregableService implements IEntregableService {
 	
 	private String transformToCURP(String participanteCURP) {
 		char [] palabra = participanteCURP.toCharArray();
-		String[] espacios = {"   ","  ","   ","   ","   ","   ","   ","  ","  ","   ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String[] espacios = {"    ","  ","   ","   ","   ","   ","   ","  ","   ","   ","  ","   ","   ","   ","   ","   ","   ","   ","   ","    ","     ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
@@ -776,7 +750,7 @@ public class EntregableService implements IEntregableService {
 
 	private String transformToRFC(String formARFC) {
 		char [] palabra = formARFC.toCharArray();
-		String[] espacios = {"  ","   ","  ","   ","   ","   ","   ","  ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String[] espacios = {"  ","   ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
@@ -791,7 +765,7 @@ public class EntregableService implements IEntregableService {
 		String dia = convertToDia(tmp[1]);
 		String mes = convertToMes(tmp[3]);
 		String anio = tmp[5];
-		String[] espacios = {"   ","    ","   ","     ","     ","     ","     ","     ","     "};
+		String[] espacios = {"   ","   ","   ","    ","    ","    ","    ","    "};
 		String fecha = anio+mes+dia;
 		
 		char [] palabra = fecha.toCharArray();
@@ -810,7 +784,7 @@ public class EntregableService implements IEntregableService {
 		String dia = convertToDia(tmp[1]);
 		String mes = convertToMes(tmp[3]);
 		String anio = tmp[5];
-		String[] espacios = {"    ","     ","     ","    ","      ","     ","     ","     ","     "};
+		String[] espacios = {"     ","     ","     ","    ","      ","     ","     ","     "};
 		String fecha = anio+mes+dia;
 		
 		char [] palabra = fecha.toCharArray();

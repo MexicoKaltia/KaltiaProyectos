@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resultadosParticipantes" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="868819c0-2e1e-457b-84c5-82067f527855">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="collectionBean"/>
+	<style name="Title" fontName="Montserrat Medium" fontSize="50" isBold="true" pdfFontName="Montserrat"/>
+	<style name="Column header" forecolor="#666666" fontName="Montserrat Medium" fontSize="12" isBold="true"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="tableDataset" uuid="2fdd1dbb-6c46-447f-a35c-921fe3fb1a33">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="collectionBean"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<parameter name="resultadosParticipantes" class="java.util.List"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="participanteOcupacion" class="java.lang.String"/>
+	<field name="participantePuesto" class="java.lang.String"/>
+	<field name="participanteCURP" class="java.lang.String"/>
+	<field name="participanteNombre" class="java.lang.String"/>
+	<field name="idParticipante" class="java.lang.String"/>
+	<field name="participanteExamenTeoricoInicial" class="java.lang.String"/>
+	<field name="participanteExamenTeoricoFinal" class="java.lang.String"/>
+	<field name="participanteExamenPractico" class="java.lang.String"/>
+	<field name="participantePromedio" class="java.lang.String"/>
+	<field name="participanteAprovechamiento" class="java.lang.String"/>
+	<background>
+		<band height="752">
+			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
+			<image>
+				<reportElement x="0" y="0" width="572" height="752" uuid="955e3f01-ac76-4549-a942-afdb44ae47c1"/>
+				<imageExpression><![CDATA["jasper/imagenes/reporte.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="266" y="240" width="311" height="321" uuid="b90c3a93-a3b5-4a91-b14e-196b9c42042a"/>
+				<imageExpression><![CDATA["jasper/imagenes/imported_image_3.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<columnHeader>
+		<band height="243">
+			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="213" width="28" height="21" forecolor="#030000" backcolor="#FFFFFF" uuid="5977a9f6-19d8-45e1-8a1d-958102a57fb2"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="213" width="121" height="21" uuid="a8653a09-18f8-4f90-ba55-9f99ffad2ecd"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="213" width="76" height="21" uuid="39a5720d-fad6-4b3b-895f-af915334d781"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CURP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="213" width="95" height="21" uuid="4464a12b-ba5f-4d87-96b8-b3a7d3aedaa7"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Puesto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="213" width="32" height="21" uuid="3508979e-fa46-43f5-ab1a-1f816d6d6bc6"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="213" width="32" height="21" uuid="91b4af88-41a6-4365-b9d1-1702dde0628e"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="213" width="45" height="21" uuid="6982cddd-3e33-4afe-af2a-c8af8cdfcfad"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Práctico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="213" width="59" height="21" uuid="be1f420e-4a6f-4041-a764-1ca1441a9012"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="150" width="440" height="30" uuid="7eba345f-2c4b-4ee9-8e3d-6b931ee25028">
+					<property name="com.jaspersoft.studio.unit.x" value="inch"/>
+					<property name="com.jaspersoft.studio.unit.y" value="inch"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[12.- RESULTADOS PARTICIPANTES :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="193" width="109" height="21" uuid="4ec89da6-459a-4989-9ec8-0a530217483c"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exámen Teórico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="213" width="81" height="21" uuid="c6322394-ea75-4303-9cd3-f3a33280c14e"/>
+				<box>
+					<pen lineColor="#002FFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat SemiBold" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observación]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28">
+			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
+			<textField>
+				<reportElement x="0" y="2" width="30" height="21" uuid="4328d692-5e5d-4482-88ad-05995fe29199"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineColor="#FFFFFF"/>
+					<leftPen lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idParticipante}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="30" y="2" width="121" height="21" uuid="f95c3b02-c2ae-4dcf-afb6-4e5026889713"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participanteNombre}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="151" y="2" width="89" height="21" uuid="0f96923b-8460-41d1-b34e-92a021c2fabd"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participanteCURP}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="240" y="2" width="87" height="21" uuid="1dd6b322-222c-4cc1-80b8-a4b13d6e9752"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantePuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="2" width="32" height="21" uuid="a47da84e-641e-471c-8111-85aa46c2be70"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participanteExamenTeoricoInicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="2" width="32" height="21" uuid="06a4d3fe-e912-4fb9-81f2-2e9c10f135f0"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participanteExamenTeoricoFinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="2" width="39" height="21" uuid="9be2b30c-4eee-4432-82f0-c507a6d40c0e"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participanteExamenPractico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="2" width="36" height="21" uuid="4bae667e-ea1d-4f7e-94a6-d2a6298561b6"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participantePromedio}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="467" y="2" width="95" height="21" uuid="cc695a74-b984-4493-8062-a236c972d52a"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Montserrat Light" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{participanteAprovechamiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

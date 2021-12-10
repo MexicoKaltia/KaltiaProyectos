@@ -518,7 +518,7 @@ $(document).ready(function() {
 		var jsonParticipante = {
 				idParticipante: asignacionItem.idAsignacion +"-"+ $participantesLength,
 				participanteNombre: $('#participanteNombre').val(),
-				participanteCURP: $('#participanteCURP').val(),
+				participanteCURP: $('#participanteCURP').val().toUpperCase(),
 				participantePuesto: $('#participantePuesto').val(),
 				participanteOcupacion: $('#participanteOcupacion').val(),
 				participanteFoto: editaNombreImagen($('#formBFotoParticipante').val()),
@@ -539,7 +539,7 @@ $(document).ready(function() {
 		var jsonParticipante = {
 				idParticipante: $('#idParticipante').val(),
 				participanteNombre: $('#participanteNombre').val(),
-				participanteCURP: $('#participanteCURP').val(),
+				participanteCURP: $('#participanteCURP').val().toUpperCase(),
 				participantePuesto: $('#participantePuesto').val(),
 				participanteOcupacion: $('#participanteOcupacion').val(),
 				participanteFoto: editaNombreImagen($('#formBFotoParticipante').val()),

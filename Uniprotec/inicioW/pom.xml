@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>2.0 F2</version>
+	<version>2.2.2</version>
 	<name>inicio</name>
 	<description>control-uniprotec</description>
 
@@ -81,13 +81,24 @@
      <dependency>
             <groupId>mx.uniprotec</groupId>
             <artifactId>entidad</artifactId>
-            <version>1.0.0</version>
+            <version>2.2.1</version>
      </dependency>
      <dependency>
             <groupId>mx.uniprotec</groupId>
             <artifactId>montserrat</artifactId>
             <version>1.0.0</version>
      </dependency>
+     <dependency>
+            <groupId>mx.uniprotec</groupId>
+            <artifactId>arial</artifactId>
+            <version>1.0.0</version>
+     </dependency>
+     <dependency>
+		<groupId>net.sf.jasperreports</groupId>
+		<artifactId>jasperreports-fonts</artifactId>
+		<version>6.18.1</version>
+	</dependency>
+
      
      
          	<!-- 	Tomcat -->

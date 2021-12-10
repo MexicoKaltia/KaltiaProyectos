@@ -20,10 +20,10 @@ public class ParticipantesModelo implements Serializable{
 	private String participantePuesto;
 	private String participanteOcupacion;
 	private String participanteFoto;
-	private double participanteExamenTeoricoInicial;
-	private double participanteExamenTeoricoFinal;
-	private double participanteExamenPractico;
-	private double participantePromedio;
+	private String participanteExamenTeoricoInicial;
+	private String participanteExamenTeoricoFinal;
+	private String participanteExamenPractico;
+	private String participantePromedio;
 	private String participanteObservaciones;
 	private String participanteAprovechamiento;
 	private boolean participanteAprobado;
@@ -46,8 +46,8 @@ public class ParticipantesModelo implements Serializable{
 	}
 
 	public ParticipantesModelo(String idParticipante, String participanteNombre, String participanteCURP,
-			String participantePuesto, String participanteFoto, double participanteExamenTeoricoInicial,
-			double participanteExamenTeoricoFinal, double participanteExamenPractico, double participantePromedio,
+			String participantePuesto, String participanteFoto, String participanteExamenTeoricoInicial,
+			String participanteExamenTeoricoFinal, String participanteExamenPractico, String participantePromedio,
 			String participanteObservaciones) {
 		super();
 		this.idParticipante = idParticipante;
@@ -102,35 +102,35 @@ public class ParticipantesModelo implements Serializable{
 		this.participanteFoto = participanteFoto;
 	}
 
-	public double getParticipanteExamenTeoricoInicial() {
+	public String getParticipanteExamenTeoricoInicial() {
 		return participanteExamenTeoricoInicial;
 	}
 
-	public void setParticipanteExamenTeoricoInicial(double participanteExamenTeoricoInicial) {
+	public void setParticipanteExamenTeoricoInicial(String participanteExamenTeoricoInicial) {
 		this.participanteExamenTeoricoInicial = participanteExamenTeoricoInicial;
 	}
 
-	public double getParticipanteExamenTeoricoFinal() {
+	public String getParticipanteExamenTeoricoFinal() {
 		return participanteExamenTeoricoFinal;
 	}
 
-	public void setParticipanteExamenTeoricoFinal(double participanteExamenTeoricoFinal) {
+	public void setParticipanteExamenTeoricoFinal(String participanteExamenTeoricoFinal) {
 		this.participanteExamenTeoricoFinal = participanteExamenTeoricoFinal;
 	}
 
-	public double getParticipanteExamenPractico() {
+	public String getParticipanteExamenPractico() {
 		return participanteExamenPractico;
 	}
 
-	public void setParticipanteExamenPractico(double participanteExamenPractico) {
+	public void setParticipanteExamenPractico(String participanteExamenPractico) {
 		this.participanteExamenPractico = participanteExamenPractico;
 	}
 
-	public double getParticipantePromedio() {
+	public String getParticipantePromedio() {
 		return participantePromedio;
 	}
 
-	public void setParticipantePromedio(double participantePromedio) {
+	public void setParticipantePromedio(String participantePromedio) {
 		this.participantePromedio = participantePromedio;
 	}
 
