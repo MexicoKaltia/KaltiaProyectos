@@ -10,7 +10,7 @@ var $idEntregable ;
 var $idEntregableLogico ;
 $(document).ready(function() {
 	
-//	console.log(asignacionItem);
+	console.log(asignacionItem);
 //	console.log(asignacionCliente);
 //	console.log(entregables);
 //	console.log(entregables.length);
@@ -694,10 +694,17 @@ $(document).ready(function() {
 		$("#altaDocto").val(true);
 		$("#idEntregableLogico").val($idEntregableLogico);
 				
-		if($("#entregableEdicion").valid()){
-			$('#myModalProcess').modal();
+		
+		if(asignacionItem.nombreFirmaInstructor !== "" ){
+			if($("#entregableEdicion").valid()){
+				$('#myModalProcess').modal();
+			}
+			$('#entregableEdicion').submit();
+		}else{
+			alert("No se puede generar documentación digital, el instructor asignado "+asignacionItem.instructorAsignacion+", no tiene capturada la firma digital")
+			return false;
 		}
-		$('#entregableEdicion').submit();
+		
 	});
 
 
@@ -706,45 +713,45 @@ $(document).ready(function() {
 });  // Fin JQRY
 
 function formCTextArea(entregable){
-	
-	if($('#formCComentariosGrupo').val() === "" || $('#formCComentariosGrupo').val() === null){
-		console.log("formCComentariosGrupo");
-		$('#formCComentariosGrupo').val(entregable.formCComentariosGrupo);
+	if(entregable){
+		if($('#formCComentariosGrupo').val() === "" || $('#formCComentariosGrupo').val() === null){
+			console.log("formCComentariosGrupo");
+			$('#formCComentariosGrupo').val(entregable.formCComentariosGrupo);
+		}
+		
+		console.log($('#formCProcesoAprendizaje').val());
+		if($('#formCProcesoAprendizaje').val() === ""){
+			$('#formCProcesoAprendizaje').val(entregable.formCProcesoAprendizaje);
+		}
+		
+		if($('#formCTeoria').val() === ""){
+			$('#formCTeoria').val(entregable.formCTeoria);
+		}
+		
+		if($('#formCPractica').val() === ""){
+			$('#formCPractica').val(entregable.formCPractica);
+		}
+		
+		if($('#formCRecomendaciones').val() === ""){
+			$('#formCRecomendaciones').val(entregable.formCRecomendaciones);
+		}
+		
+		if($('#formCNivelCumplimiento').val() === ""){
+			$('#formCNivelCumplimiento').val(entregable.formCNivelCumplimiento);
+		}
+		
+		if($('#formCContingencias').val() === ""){
+			$('#formCContingencias').val(entregable.formCContingencias);
+		}
+		
+		if($('#formCAvancesLogrados').val() === ""){
+			$('#formCAvancesLogrados').val(entregable.formCAvancesLogrados);
+		}
+		
+		if($('#formCObservaciones').val() === ""){
+			$('#formCObservaciones').val(entregable.formCObservaciones);
+		}
 	}
-	
-	console.log($('#formCProcesoAprendizaje').val());
-	if($('#formCProcesoAprendizaje').val() === ""){
-		$('#formCProcesoAprendizaje').val(entregable.formCProcesoAprendizaje);
-	}
-	
-	if($('#formCTeoria').val() === ""){
-		$('#formCTeoria').val(entregable.formCTeoria);
-	}
-	
-	if($('#formCPractica').val() === ""){
-		$('#formCPractica').val(entregable.formCPractica);
-	}
-	
-	if($('#formCRecomendaciones').val() === ""){
-		$('#formCRecomendaciones').val(entregable.formCRecomendaciones);
-	}
-	
-	if($('#formCNivelCumplimiento').val() === ""){
-		$('#formCNivelCumplimiento').val(entregable.formCNivelCumplimiento);
-	}
-	
-	if($('#formCContingencias').val() === ""){
-		$('#formCContingencias').val(entregable.formCContingencias);
-	}
-	
-	if($('#formCAvancesLogrados').val() === ""){
-		$('#formCAvancesLogrados').val(entregable.formCAvancesLogrados);
-	}
-	
-	if($('#formCObservaciones').val() === ""){
-		$('#formCObservaciones').val(entregable.formCObservaciones);
-	}
-	
 	
 }
 

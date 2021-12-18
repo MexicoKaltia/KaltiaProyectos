@@ -147,8 +147,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesCliente}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="211" y="442" width="334" height="68" uuid="4548ac2e-5ec0-46c7-b387-0d2876331169"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="211" y="442" width="334" height="178" uuid="4548ac2e-5ec0-46c7-b387-0d2876331169"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="14" isBold="true"/>
 				</textElement>

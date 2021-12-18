@@ -111,191 +111,191 @@ public class EntregableService implements IEntregableService {
 		entregable.setFormBParticipantes(participantes);
 		entregable.setUserCreate(idUsuario);
 		entregable.setCreateAt(me.getNowEntidad());
-		entregable.setStatus("create");
-		
-		/*
-		 * Entregable nuevo guardar Imagen logo
-		 */
-		if(entregable.getEstatusEntregable().equals("nuevo")) {
-			Path origenPath = FileSystems.getDefault().getPath("/uniprotec/"+ entregable.getRfcOriginalAsignacion() +"/image/"+ entregable.getFormALogoEmpresa());
-	        Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/imageLogo/"+ entregable.getFormALogoEmpresa());
-
-	        try {
-	            Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-	        } catch (IOException e) {
-	            System.err.println(e);
-	        }
-		}
-		
-		/*
-		 * Genera Documentacion
-		 */
 		entregable.setStatus("Elaborar Entregable");
-		if(entregable.isAltaDocto()) {
-			entregable.setStatus("Entregable Generado");
-			ResultLocal rl = new ResultLocal();
-			pathLogico = "/uniprotec/entregables/";
-			String idEmpresa = entregable.getRfcOriginalAsignacion();
-			String idEntregable = entregable.getIdEntregableLogico();
-			pathLogico = pathLogico + idEmpresa+"/"+ idEntregable;
-			
-			
-			//Genera Diploma
-			if(!entregable.getFormAFechaDiploma().equals("")) {
-				try {
-					rl = generaDiplomas(entregable);
-					rl.setCodigo(0);
-			        rl.setMensaje("Diploma PDF generado exitosamente");
-			        
-				} catch (JRException e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getCause().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				} catch (Exception e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getMessage().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				}
-				
-			}
-			
-			//Genera Credenciales
-			if(!entregable.getFormAEquipoCredencial().equals("")) {
-				try {
-					rl = generaCredenciales(entregable);
-					rl.setCodigo(0);
-			        rl.setMensaje("Credenciales PDF generado exitosamente");
-				} catch (JRException e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getCause().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				} catch (Exception e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getMessage().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				}
-			}
-			
-
-			
-			//Genera DC3
-			if(!entregable.getFormAFechaInicioDC3().equals("")) {
-				try {
-					rl = generaDC3(entregable);
-					rl.setCodigo(0);
-			        rl.setMensaje("DC3 PDF generado exitosamente");
-				} catch (JRException e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getCause().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				} catch (Exception e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getMessage().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				}
-			}
-			
-			//Genera Reporte
-			if(!entregable.getFormCFechaInicio().equals("")) {
-				try {
-					rl = generaReporte(entregable);
-					rl.setCodigo(0);
-			        rl.setMensaje("Reporte PDF generado exitosamente");
-				} catch (JRException e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getCause().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				} catch (Exception e) {
-					e.printStackTrace();
-					rl.setCodigo(500);
-		            rl.setMensaje(e.getMessage().toString());
-		            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				}
-			}
-			
-			/*
-			 * comprime archivos
-			 */
-			if(rl.getCodigo() == 0) {
-				
-				/*
-		         * comprimir archivos files a documentacion/evidenciaDocto.zip 
-		         */
-				 	String directory = pathLogico+"/file/";
-				 	String fileOutPut, folderInput= ""; 
-				 	
-			        File directorio = new File(directory);
-			        if (directorio.exists()) {
-			        	try {
-			        		log.info("Comprime EvidenciaDocumental");
-			        		fileOutPut = "/documentacion/evidenciasDocto.zip"; 
-			        		folderInput ="/file/";
-							compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
-							rl.setCodigo(0);
-					        rl.setMensaje("Comprime EvidenciaDocumental exitosamente");
-						} catch (Exception e) {
-							log.info("exception : "+e.getMessage());
-						    rl.setCodigo(99);
-						    rl.setMensaje(e.getMessage());
-						    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-						}
-			        }
-				
-		        /*
-		         * comprimir archivos zip idEntregable.zip
-		         */
-				try {
-					log.info("Comprime idEntregable.zip");
-					fileOutPut = "/zip/"+idEntregable+".zip"; 
-	        		folderInput ="/documentacion/";
-//					compress(idEmpresa, idEntregable);
-	        		compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
-	        		rl.setCodigo(0);
-	        		rl.setMensaje("Comprime idEntregable exitosamente");
-				} catch (Exception e) {
-					log.info("exception : "+e.getMessage());
-				    rl.setCodigo(99);
-				    rl.setMensaje(e.getMessage());
-				    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				}
-			}
-			
-			/**
-			 * Borrar PDF's
-			 */
-			if(rl.getCodigo() == 0) {
-				String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
-			    File directorio = new File(directory);
-			    try {
-					FileUtils.deleteDirectory(directorio);
-					rl.setCodigo(0);
-					rl.setMensaje("Borrar PDF's exitosamente");
-					FileUtils.forceMkdir(directorio);
-					entregable.setStatus("Entregable Generado");
-				} catch (IOException e) {
-					log.info("exception : "+e.getMessage());
-				    rl.setCodigo(99);
-				    rl.setMensaje(e.getMessage());
-				    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-				}
-
-			}
-			 				
-		}
+		
 		/*
 		 * Actualiza Entregable
 		 */
 		ResultVO rs= (ResultVO) baseClientRest.objetoPost(accesToken, BaseClientRest.URL_CRUD_ENTREGABLE, entregable);
 		if(rs.getCodigo() != 500) {
-			rs.setJsonResponseObject(null);
-		}
+			
+		
+			/*
+			 * Entregable nuevo guardar Imagen logo
+			 */
+			if(entregable.getEstatusEntregable().equals("nuevo")) {
+				Path origenPath = FileSystems.getDefault().getPath("/uniprotec/"+ entregable.getRfcOriginalAsignacion() +"/image/"+ entregable.getFormALogoEmpresa());
+		        Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/imageLogo/"+ entregable.getFormALogoEmpresa());
+	
+		        try {
+		            Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+		        } catch (IOException e) {
+		            System.err.println(e);
+		        }
+			}
+			
+			
+			
+			/*
+			 * Genera Documentacion
+			 */
+			
+			if(entregable.isAltaDocto()) {
+				entregable.setStatus("Entregable Generado");
+				ResultLocal rl = new ResultLocal();
+				pathLogico = "/uniprotec/entregables/";
+				String idEmpresa = entregable.getRfcOriginalAsignacion();
+				String idEntregable = entregable.getIdEntregableLogico();
+				pathLogico = pathLogico + idEmpresa+"/"+ idEntregable;
+				
+				//Genera Diploma
+				if(!entregable.getFormAFechaDiploma().equals("")) {
+					try {
+						rl = generaDiplomas(entregable);
+						rl.setCodigo(0);
+				        rl.setMensaje("Diploma PDF generado exitosamente");
+				        
+					} catch (JRException e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getCause().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					} catch (Exception e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getMessage().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					}
+					
+				}
+				
+				//Genera Credenciales
+				if(!entregable.getFormAEquipoCredencial().equals("")) {
+					try {
+						rl = generaCredenciales(entregable);
+						rl.setCodigo(0);
+				        rl.setMensaje("Credenciales PDF generado exitosamente");
+					} catch (JRException e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getCause().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					} catch (Exception e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getMessage().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					}
+				}
+				
+	
+				
+				//Genera DC3
+				if(!entregable.getFormAFechaInicioDC3().equals("")) {
+					try {
+						rl = generaDC3(entregable);
+						rl.setCodigo(0);
+				        rl.setMensaje("DC3 PDF generado exitosamente");
+					} catch (JRException e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getCause().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					} catch (Exception e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getMessage().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					}
+				}
+				
+				//Genera Reporte
+				if(!entregable.getFormCFechaInicio().equals("")) {
+					try {
+						rl = generaReporte(entregable);
+						rl.setCodigo(0);
+				        rl.setMensaje("Reporte PDF generado exitosamente");
+					} catch (JRException e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getCause().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					} catch (Exception e) {
+						e.printStackTrace();
+						rl.setCodigo(500);
+			            rl.setMensaje(e.getMessage().toString());
+			            return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					}
+				}
+				
+				/*
+				 * comprime archivos
+				 */
+				if(rl.getCodigo() == 0) {
+					
+					/*
+			         * comprimir archivos files a documentacion/evidenciaDocto.zip 
+			         */
+					 	String directory = pathLogico+"/file/";
+					 	String fileOutPut, folderInput= ""; 
+					 	
+				        File directorio = new File(directory);
+				        if (directorio.exists()) {
+				        	try {
+				        		log.info("Comprime EvidenciaDocumental");
+				        		fileOutPut = "/documentacion/evidenciasDocto.zip"; 
+				        		folderInput ="/file/";
+								compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
+								rl.setCodigo(0);
+						        rl.setMensaje("Comprime EvidenciaDocumental exitosamente");
+							} catch (Exception e) {
+								log.info("exception : "+e.getMessage());
+							    rl.setCodigo(99);
+							    rl.setMensaje(e.getMessage());
+							    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+							}
+				        }
+					
+			        /*
+			         * comprimir archivos zip idEntregable.zip
+			         */
+					try {
+						log.info("Comprime idEntregable.zip");
+						fileOutPut = "/zip/"+idEntregable+".zip"; 
+		        		folderInput ="/documentacion/";
+	//					compress(idEmpresa, idEntregable);
+		        		compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
+		        		rl.setCodigo(0);
+		        		rl.setMensaje("Comprime idEntregable exitosamente");
+					} catch (Exception e) {
+						log.info("exception : "+e.getMessage());
+					    rl.setCodigo(99);
+					    rl.setMensaje(e.getMessage());
+					    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					}
+				}
+				
+				/**
+				 * Borrar PDF's
+				 */
+				if(rl.getCodigo() == 0) {
+					String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
+				    File directorio = new File(directory);
+				    try {
+						FileUtils.deleteDirectory(directorio);
+						rl.setCodigo(0);
+						rl.setMensaje("Borrar PDF's exitosamente");
+						FileUtils.forceMkdir(directorio);
+						entregable.setStatus("Entregable Generado");
+					} catch (IOException e) {
+						log.info("exception : "+e.getMessage());
+					    rl.setCodigo(99);
+					    rl.setMensaje(e.getMessage());
+					    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+					}
+				}			
+			}
+		}		
 		
 		return rs;
 		
@@ -384,13 +384,10 @@ public class EntregableService implements IEntregableService {
 		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
 				
 			Map<String, Object> map = new HashMap<String, Object>();
-			if(pm.isParticipanteAprobado()) {
 				map= convertToDiploma(pm, entregable);
 //				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  jrBeanCollectionDS);
 				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
 				jasperPrintDiploma.add(report);
-			}
-			
 		}
 			
 			// guardar en disco local
@@ -638,7 +635,7 @@ public class EntregableService implements IEntregableService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("diplomaNombreParticipante", pm.getParticipanteNombre());
 		map.put("diplomaNombreCurso", entregable.getFormACurso());
-		map.put("diplomaFecha", entregable.getFormAFechaDiploma());
+		map.put("diplomaFecha", entregable.getFormAFechaDiploma().toUpperCase());
 		map.put("diplomaDuracion", entregable.getFormADuracion());
 		map.put("diplomaNombreInstructor", entregable.getFormAInstructor());
 		map.put("diplomaNombreDirector", "Olivier Sánchez");
@@ -822,8 +819,8 @@ public class EntregableService implements IEntregableService {
 				}else {
 					r = String.valueOf(i);
 				}
-				
 			}
+			i++;
 		}
 		return r;
 	}

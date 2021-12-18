@@ -129,7 +129,8 @@ public class EntregableRestController {
 			entregableEntity.setFormCProcesoAprendizaje(entregable.getFormCProcesoAprendizaje());
 			entregableEntity.setFormCTeoria(entregable.getFormCTeoria());
 			entregableEntity.setFormCPractica(entregable.getFormCPractica());
-			if(entregable.getFormCEvidenciasFotograficas() != null) {
+			log.info("size:"+entregable.getFormCEvidenciasFotograficas().size());
+			if(entregable.getFormCEvidenciasFotograficas().size() > 0) {
 				entregableEntity.setFormCEvidenciasFotograficas(getEvidenciasFoto(entregable.getFormCEvidenciasFotograficas()));
 			}		
 			entregableEntity.setFormCRecomendaciones(entregable.getFormCRecomendaciones());
@@ -137,7 +138,7 @@ public class EntregableRestController {
 			entregableEntity.setFormCContingencias(entregable.getFormCContingencias());
 			entregableEntity.setFormCAvancesLogrados(entregable.getFormCAvancesLogrados());
 			entregableEntity.setFormCObservaciones(entregable.getFormCObservaciones());
-			if(entregable.getFormCEvidenciaDocto() != null) {
+			if(entregable.getFormCEvidenciasFotograficas().size() > 0) {
 				entregableEntity.setFormCEvidenciaDocto(getEvidenciasFoto(entregable.getFormCEvidenciaDocto()));
 			}
 			entregableEntity.setRFCOriginalAsignacion(entregable.getRfcOriginalAsignacion());
@@ -231,17 +232,17 @@ public class EntregableRestController {
 			pe.setIdParticipante(pm.getIdParticipante());
 			pe.setIdEntregable(IdEntregable);
 			pe.setParticipanteNombre(pm.getParticipanteNombre());
-			pe.setParticipantePuesto(pm.getParticipantePuesto());
-			pe.setParticipanteOcupacion(pm.getParticipanteOcupacion());
-			pe.setParticipanteCURP(pm.getParticipanteCURP());
+			pe.setParticipantePuesto(pm.getParticipantePuesto() != null ? pm.getParticipantePuesto() : " ");  
+			pe.setParticipanteOcupacion(pm.getParticipanteOcupacion() != null ? pm.getParticipanteOcupacion() : " "); 
+ 			pe.setParticipanteCURP(pm.getParticipanteCURP() != null ? pm.getParticipanteCURP() : " ");
 			pe.setParticipanteFoto(pm.getParticipanteFoto());
 			pe.setParticipanteExamenTeoricoInicial(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
 			pe.setParticipanteExamenTeoricoFinal(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
 			pe.setParticipanteExamenPractico(Double.valueOf(pm.getParticipanteExamenPractico()));
 			pe.setParticipantePromedio(Double.valueOf(pm.getParticipantePromedio()));
-			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento());
+			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento() != null ? pm.getParticipanteAprovechamiento() : " ");
 			pe.setParticipanteAprobado(pm.isParticipanteAprobado());
-			pe.setParticipanteObservaciones(pm.getParticipanteObservaciones());
+			pe.setParticipanteObservaciones(pm.getParticipanteObservaciones() != null ? pm.getParticipanteObservaciones() : " ");
 			pe.setStatusParticipante(pm.getStatus());
 			pe.setUserCreateParticipante(pm.getUserCreate());
 			pe.setCreateAtParticipante(pm.getCreateAt());
