@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="diploma" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a978e93-46e8-43ec-8ee5-4ffe8afa3b05">
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="diploma" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a978e93-46e8-43ec-8ee5-4ffe8afa3b05">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="background.image.path" value="C:\Users\hugo\JaspersoftWorkspace\MyReports\formatos\imagenes\diploma.jpg"/>
 	<property name="background.image.x" value="10"/>
 	<property name="background.image.y" value="10"/>
 	<property name="background.image.widht" value="842"/>
 	<property name="background.image.alpha" value="1.0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="diplomaNombreParticipante" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{diplomaNombreParticipante}]]></defaultValueExpression>
 	</parameter>
@@ -35,50 +44,50 @@
 			<property name="com.jaspersoft.studio.unit.width" value="29.7"/>
 			<property name="com.jaspersoft.studio.layout"/>
 			<image>
-				<reportElement x="0" y="-10" width="802" height="555" uuid="07fec8a6-dc8e-4377-9b8f-29d4fd057cad"/>
+				<reportElement x="18" y="0" width="752" height="555" uuid="07fec8a6-dc8e-4377-9b8f-29d4fd057cad"/>
 				<imageExpression><![CDATA["jasper/imagenes/diploma.jpg"]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="71" y="247" width="490" height="63" forecolor="#2859A8" uuid="2df4de60-c3e7-4493-b2cc-edb73ba0b2c0"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="83" y="250" width="447" height="53" forecolor="#2859A8" uuid="2df4de60-c3e7-4493-b2cc-edb73ba0b2c0"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="16" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreCurso}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="71" y="146" width="490" height="47" forecolor="#2859A8" uuid="424d27bc-445e-4bd0-909a-630ea8e27025"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="81" y="146" width="491" height="47" forecolor="#2859A8" uuid="424d27bc-445e-4bd0-909a-630ea8e27025"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="35" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreParticipante}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="71" y="292" width="459" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="83" y="294" width="460" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
 				<textElement>
 					<font fontName="Montserrat Medium" size="12" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Impartido el "+$P{diplomaFecha}+", con una duración de "+$P{diplomaDuracion}+" horas."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="391" width="184" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
+				<reportElement x="66" y="395" width="185" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreInstructor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="252" y="391" width="184" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
+				<reportElement x="268" y="395" width="185" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreDirector}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="85" y="313" width="143" height="80" uuid="44ef725f-66c0-4d07-a2c9-0c7339bd9cbf"/>
+				<reportElement x="97" y="317" width="144" height="80" uuid="44ef725f-66c0-4d07-a2c9-0c7339bd9cbf"/>
 				<imageExpression><![CDATA[$P{diplomaFirmaInstructor}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="290" y="315" width="130" height="78" uuid="3e5560ec-b0ae-4bd8-89cf-081759bdcb9e"/>
+				<reportElement x="302" y="319" width="131" height="78" uuid="3e5560ec-b0ae-4bd8-89cf-081759bdcb9e"/>
 				<imageExpression><![CDATA[$P{diplomaFirmaDirector}]]></imageExpression>
 			</image>
 		</band>

@@ -735,7 +735,7 @@ public class EntregableService implements IEntregableService {
 	
 	private String transformToCURP(String participanteCURP) {
 		char [] palabra = participanteCURP.toCharArray();
-		String[] espacios = {"    ","  ","   ","   ","   ","   ","   ","  ","   ","   ","  ","   ","   ","   ","   ","   ","   ","   ","   ","    ","     ","   "};
+		String[] espacios = {"    ","   ","   ","    ","    ","    ","    ","   ","   ","   ","   ","   ","   ","     ","    ","    ","    ","   ","   ","    ","     ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
@@ -747,7 +747,7 @@ public class EntregableService implements IEntregableService {
 
 	private String transformToRFC(String formARFC) {
 		char [] palabra = formARFC.toCharArray();
-		String[] espacios = {"  ","   ","  ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   ","   "};
+		String[] espacios = {"   ","   ","   ","    ","   ","   ","    ","    ","    ","   ","   ","   ","   ","   ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
@@ -762,7 +762,7 @@ public class EntregableService implements IEntregableService {
 		String dia = convertToDia(tmp[1]);
 		String mes = convertToMes(tmp[3]);
 		String anio = tmp[5];
-		String[] espacios = {"   ","   ","   ","    ","    ","    ","    ","    "};
+		String[] espacios = {"   ","   ","   ","    ","     ","     ","    ","    "};
 		String fecha = anio+mes+dia;
 		
 		char [] palabra = fecha.toCharArray();
@@ -781,7 +781,7 @@ public class EntregableService implements IEntregableService {
 		String dia = convertToDia(tmp[1]);
 		String mes = convertToMes(tmp[3]);
 		String anio = tmp[5];
-		String[] espacios = {"     ","     ","     ","    ","      ","     ","     ","     "};
+		String[] espacios = {"     ","       ","      ","      ","       ","      ","     ","     "};
 		String fecha = anio+mes+dia;
 		
 		char [] palabra = fecha.toCharArray();
