@@ -3,7 +3,7 @@ $(document).ready(function(){
 	/*
 	 * entregableEdicion
 	 */
-	
+	formPreAsignacionAE
 	$("#entregableEdicion").validate({
 		rules: {
 			formARazonSocial :"required",
@@ -70,11 +70,62 @@ $(document).ready(function(){
 		}
 		
 	});
-	/*
-	 * fin entregableEdicion
-	 */
+	// * fin entregableEdicion
+	 
 
-    
+	
+
+	// PreAsignacionAE
+	$("#formPreAsignacionAE").validate({
+		rules: {
+			formAESesiones : {
+			      required: true,
+			      number: true
+			    },
+		   formAECostoHoraInstructor : {
+			     required: true,
+			     number: true
+			    },
+			    formAEPrecioVentaReal : {
+			      required: true,
+			      number: true
+			    }
+		},
+		messages: {
+			formAESesiones : "Favor capturar dato númerico",
+			formAECostoHoraInstructor : "Favor capturar dato númerico",
+			formAEPrecioVentaReal : "Favor capturar dato númerico",
+		}
+	});	
+	// *FIN PreAsignacionAE
+	
+	
+	
+	//formInstructorViaticos
+	$("#formInstructorViaticos").validate({
+		rules: {
+			instructorViaticosTCC : "number",
+			instructorViaticosTCE : "number",
+			instructorViaticosTEC : "number",
+			instructorViaticosTENumero : "number",
+			instructorViaticosTE : "number",
+			instructorViaticosCGNumero : "number",
+			instructorViaticosCG : "number",
+			instructorViaticosANumero : "number",
+			instructorViaticosA : "number",
+			instructorViaticosCNumero : "number",
+			instructorViaticosC : "number",
+			instructorViaticosHNumero : "number",
+			instructorViaticosH : "number",
+			instructorViaticosCV : "number",
+			instructorViaticosTotal : "number"
+		},
+		messages: {
+		}
+	});	
+	// *FIN formInstructorViaticos
+	
+	
 
 	
 });
