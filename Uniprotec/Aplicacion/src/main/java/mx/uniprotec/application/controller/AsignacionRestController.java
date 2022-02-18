@@ -156,7 +156,11 @@ public class AsignacionRestController {
 			asignacionNew.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
 			asignacionNew.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
 			asignacionNew.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
-			asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
+			if(asignacion.getTipoCursoAsignacion().equals("")) {
+				asignacionNew.setTipoCursoAsignacion("PRESENCIAL");
+			}else {
+				asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
+			}
 			asignacionNew.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
