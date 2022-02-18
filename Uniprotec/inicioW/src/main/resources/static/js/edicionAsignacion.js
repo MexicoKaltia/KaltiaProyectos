@@ -386,8 +386,10 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function limpiaCurso(){
 		$('#asignaCurso').val("");
-		$('#asignaCurso').attr("disabled", true);
+//		$('#asignaCurso').attr("disabled", true);
 		$('#asignaInstructor').val("");
+		$('#asignaCurso option[value=""]');
+		$("#asignaCurso").trigger("chosen:updated");
 //		$.asignaCursoTexto = null;
 //		$.asignaInstructorTexto = null;
 		$.asignaCurso = null;
