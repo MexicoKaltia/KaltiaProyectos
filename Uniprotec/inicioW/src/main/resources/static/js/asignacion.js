@@ -180,12 +180,12 @@ console.log("hoy");
 		$("#asignaConfirmar").hide();
 		return true;
 	}
+	
 	$("#asignaConfirmar").click(function(){
 		modal();
 		return true;
-	})
+	});
 	
-
 	
 });  // fin de documento JQuery
 
@@ -238,7 +238,9 @@ var alerta, proceso;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function limpiaCurso(){
 		$('#asignaCurso').val("");
-		$('#asignaCurso').attr("disabled", true);
+		$('#asignaCurso option[value=""]');
+		$("#asignaCurso").trigger("chosen:updated");
+		
 		$('#asignaInstructor').val("");
 		$.asignaCursoTexto= null;
 		$.asignaInstructorTexto= null;
@@ -253,7 +255,7 @@ var alerta, proceso;
 		var elementoPicker = $datepicker.pickadate('picker');	
 		$.asignaFecha = elementoPicker.get('select', 'dd/mm/yyyy');
 		$.asignaFecha2 = elementoPicker.get('select', 'mm/dd/yyyy');
-   	    //console.log($.asignaFecha);
+//   	    console.log($.asignaFecha);
    	    $.asignaFechaCalendario = $('#asignaFecha').val();
 		//console.log("asignaFecha:"+ $.asignaFechaCalendario);
 		
@@ -528,7 +530,7 @@ var alerta, proceso;
 					$('#btnAsignaCurso').attr("disabled", true);
 				}else{
 					var jsonCliente;
-					for (o in asignacionClientes){
+					for (var o in asignacionClientes){
 						var idCliente = asignacionClientes[o].idCliente;
 						var cliente = asignacionClientes[o];
 						if((idCliente * 1) === ($('#asignaCliente').val() * 1)){
@@ -554,7 +556,7 @@ var alerta, proceso;
 						instructoresDiaSelect.push(instructor);
 					}
 				}
-					 //console.log(instructoresDiaSelect);
+//					 console.log(instructoresDiaSelect);
 				/*
 				 * libre ayer
 				 */
@@ -575,7 +577,7 @@ var alerta, proceso;
 						}
 					}
 				}
-				//console.log(instructoresDiaAyer);
+//				console.log(instructoresDiaAyer);
 				/*
 				 * libre mañana 
 				 */
@@ -585,17 +587,13 @@ var alerta, proceso;
 					 nombreInstructor = instructor.nombreInstructor
 					if(!validaDiaMan(idInstructor)){					
 						instructoresDiaMan.push(instructor);
-//						idRegionOrigen = getRegionOrigen(idInstructor);
-//						if(validaZonaBase(idRegionOrigen, regionCliente)){
-//							instructoresDiaMan.push(instructor);
-//						}
 					}else{
 						if(validaDmas1(regionCliente, idInstructor)){
 							instructoresDiaMan.push(instructor);
 						}
 					}
 				}
-				//console.log(instructoresDiaMan);
+
 				for(ai in instructoresDiaMan){
 					instructor = instructoresDiaMan[ai];
 					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
@@ -727,7 +725,6 @@ var alerta, proceso;
 			asignacion = asignacionAsignaciones[i];
 			asignacionFecha = asignacion.fechaAsignacion;
 			asignacionInstructor = asignacion.idInstructorAsignacion;
-//			//console.log(dManTexto+":"+asignacionFecha);
 			if((asignacionFecha.toString() === dManTexto.toString()) && (asignacionInstructor.toString() === idInstructor.toString())){
 				if(asignacion.tipoCursoAsignacion === "PRESENCIAL"){
 					return true;
@@ -792,8 +789,7 @@ var alerta, proceso;
 	}
 	
 	function validaDmas1(regionCliente, idInstructor){
-//		//console.log("regionCliente:"+regionCliente);
-//		//console.log("idInstructor:"+idInstructor);
+		
 //		var flagDiaAnterior;
 		var asignacion;
 		var asignacionFecha;
