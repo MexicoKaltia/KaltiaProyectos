@@ -48,6 +48,7 @@ public class PreAsignacionService implements IPreAsignacionService{
 		asignacion.setIdAsignacionLogica(fecha(asignacion.getFechaAsignacion())+"-"+asignacion.getIdClienteAsignacion()+"-"+asignacion.getIdInstructorAsignacion()+"-"+asignacion.getIdCursoAsignacion());
 		asignacion.setErrorProceso("");
 		
+		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				token,
 				BaseClientRest.URL_CRUD_PREASIGNACION,
@@ -57,12 +58,17 @@ public class PreAsignacionService implements IPreAsignacionService{
 		return resultVO;
 	}
 
+	private String seguimiento(String seguimiento) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public ResultVO altaPreAsignacionAE(PreAsignacionAE preAsignacionAE, String accesToken, Long idUsuario) {
 		me = ComponenteComun.monitorCampos();
 		preAsignacionAE.setCreateAt(me.getNowEntidad());
 		preAsignacionAE.setUserCreate(idUsuario);
-		preAsignacionAE.setStatus("Alta");
+		preAsignacionAE.setStatus("Alta Análisis Económico");
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
 				accesToken,

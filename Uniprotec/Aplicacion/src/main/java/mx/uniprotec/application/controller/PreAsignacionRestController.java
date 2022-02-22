@@ -1,5 +1,7 @@
 package mx.uniprotec.application.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +102,8 @@ public class PreAsignacionRestController {
 			pre_asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			pre_asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			pre_asignacionNew.setClienteStatus(asignacion.getClienteStatus());
-			pre_asignacionNew.setSeguimiento(asignacion.getSeguimiento());
+			pre_asignacionNew.setSeguimiento(seguimientoUpdate("","nombreUsuario","Vendedor","ALTA PREASIGNACION"));
+			
 			
 			pre_asignacionNew.setFechaPago("");
 			pre_asignacionNew.setGuiaEntregable("");
@@ -125,9 +128,19 @@ public class PreAsignacionRestController {
 		}
 	}
 	
-	private Object seguimiento(String seguimiento) {
-		// TODO Auto-generated method stub
-		return null;
+	private String seguimientoUpdate(String seguimiento, String nombreUsuario, String perfilUsuario, String mensaje) {
+		
+		String nuevoSeguimiento1 = "<div class='alert alert-ligth alert-dismissible fade show' role='alert'><ul id='listPrimerNivel11'><li style='list-style-type: disc;'><ul id='itemPrimerNivel11'><b>";
+		String nuevoSeguimiento2 = "</b><li style='list-style-type: circle;'><ul id='itemSegundoNivel11'>"; 
+		String nuevoSeguimiento3 = "</ul></li></ul></li></ul></div>";
+		Calendar c1 = Calendar.getInstance();
+		String dia = Integer.toString(c1.get(Calendar.DATE));
+		String mes = Integer.toString(c1.get(Calendar.MONTH));
+		String anio = Integer.toString(c1.get(Calendar.YEAR));
+		String fechaHoy = dia + "-" + mes + "-" + anio;
+		Date fecha = new Date();
+		
+		return seguimiento+nuevoSeguimiento1+fecha+" "+perfilUsuario+" "+nombreUsuario+nuevoSeguimiento2+mensaje+nuevoSeguimiento3;
 	}
 
 	@PostMapping("/preAsignacionAE")
@@ -198,12 +211,14 @@ public class PreAsignacionRestController {
 			preAsignacionAENew.setCreateAt(preAsignacionAE.getCreateAt());
 			preAsignacionAENew.setUserCreate(preAsignacionAE.getUserCreate());
 			preAsignacionAENew.setUserCreateTexto(preAsignacionAE.getUserCreateTexto());
-			preAsignacionAENew.setStatus("ALTA");
+			preAsignacionAENew.setStatus(preAsignacionAE.getStatus());
 			
 			preAsignacionAENew = preAsignacionAEService.savePreAsignacionAE(preAsignacionAENew);
 			PreAsignacion preAsignacion = preAsignacionService.findId(Long.valueOf(preAsignacionAE.getFormAEidPreAsignacion()));
 			preAsignacion.setIdPreAsignacionAE(preAsignacionAENew.getIdPreAsignacionAE());
 			preAsignacion.setPreAsignacionAEStatus(preAsignacionAENew.getStatus());
+			preAsignacion.setStatusAsignacion(preAsignacionAENew.getStatus());
+			preAsignacion.setSeguimiento(seguimientoUpdate(preAsignacion.getSeguimiento(),"nombreUsuario","Vendedor","ALTA ANÁLISIS ECONÓMICO"));
 			preAsignacionService.savePreAsignacion(preAsignacion);
 			
 			
