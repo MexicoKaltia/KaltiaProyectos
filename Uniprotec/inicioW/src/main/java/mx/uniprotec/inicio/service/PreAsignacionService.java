@@ -14,6 +14,7 @@ import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
+import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -56,6 +57,38 @@ public class PreAsignacionService implements IPreAsignacionService{
 		return resultVO;
 	}
 
+	@Override
+	public ResultVO altaPreAsignacionAE(PreAsignacionAE preAsignacionAE, String accesToken, Long idUsuario) {
+		me = ComponenteComun.monitorCampos();
+		preAsignacionAE.setCreateAt(me.getNowEntidad());
+		preAsignacionAE.setUserCreate(idUsuario);
+		preAsignacionAE.setStatus("Alta");
+		
+		resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken,
+				BaseClientRest.URL_CRUD_PREASIGNACIONAE,
+				preAsignacionAE);
+		
+		return resultVO;
+	}
+	
+	@Override
+	public ResultVO consultaPreAsignacion(String accesToken) {
+		
+		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(accesToken, BaseClientRest.URL_CRUD_PREASIGNACIONES);
+		
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+//			log.info(rs.getJsonResponse().toJSONString());
+			JSONObject jsonPreAsignaciones = new JSONObject();
+			jsonPreAsignaciones.put("preAsignaciones", jsonGeneral.get("preAsignaciones"));
+			jsonPreAsignaciones.put("preAsignacionesAE", jsonGeneral.get("preAsignacionesAE"));
+			
+			rs.setJsonResponseObject(jsonPreAsignaciones);
+		}
+			return rs;
+		
+	}
 	
 	
 	
@@ -68,6 +101,10 @@ public class PreAsignacionService implements IPreAsignacionService{
 		String[] fechas = fechaAsignacion.split("/");
 		return fechas[1]+fechas[0]+fechas[2];
 	}
+
+	
+
+	
 
 	
 	

@@ -339,121 +339,126 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background-color: #F1FFFE">
-          <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
-          <h4 style="padding:35px 50px; position: center">Edicion Instructor</h4>
+          <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
         <div class="modal-body" style="padding:40px 50px; ">
           <form id="actualizaInstructor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaInstructor}"  th:object="${instructorForm}" method="post">
-          <input type="hidden" id="idInstructor" th:field="*{idInstructor}" th:value="*{idInstructor}"/>
-          <input type="hidden" id="listFechas" th:field="*{listFechas}" th:value="*{listFechas}"/> 
-          <input type="hidden" id="statusInstructor" th:field="*{statusInstructor}" />
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom01">Nombre Corto</label>
-                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="150"  required>
-                                            <div class="invalid-feedback">
-                                                Capturar Nombre Corto
-                                            </div>
-                                        </div>
-                                     </div>
-                                     <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">Email Instructor Empresa</label>
-                                            <input type="email" class="form-control"  id="emailInstructor" name="emailInstructor" placeholder="Capture Email Instructor" value=""  maxlength="150"  required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Válido
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">Email Instructor Gmail</label>
-                                            <input type="email" class="form-control"  id="emailGmailInstructor" name="emailGmailInstructor" placeholder="Capture Email Gmail Instructor" value=""  maxlength="150"  required>
-                                            <div class="invalid-feedback">
-                                                Capturar Email Válido
-                                            </div>
-                                        </div>
-                                     </div>
-                                     
-                                     <div class="form-row">
-                                         <label for="validationCustom02">Region Instructor</label>
-                           				     <select id="regionInstructor"name="regionInstructor" class="form-control" required>
-													<option th:each="region: ${model.jsonResponseObject.regiones.regiones}"
-											             th:value="${region.idRegion}"
-											             th:text="${region.nombreRegion}"/>
-	              							</select>
-                                            <div class="invalid-feedback">
-                                                Capturar Sede Valida
-                                            </div>
-                                      </div>
-                                     
-                                      <div class="form-row">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="validationCustom02">Lista de Cursos.</label>
-                                            <select id='listCursoInstructor' multiple='multiple'  name="listCursoInstructor" class="form-control" required>
-											</select>
-                                            <div class="invalid-feedback">
-                                                Capturar por lo menos un Curso
-                                           </div>
-                                       </div>                                     
-                                   </div>
-                                   <div class="form-row">
-                                      <div class="col-md-6 mb-3">
-							               <label for="validationCustom02">Inicio Fechas Ausencia.</label>
-							               <input id="inicioAusencia" class="datepicker form-control" name="date" type="text" onchange="fechasAusencia(this)" />											
-							          </div>
-							          <div class="col-md-6 mb-3">
-							               <label for="validationCustom02">Fin Fechas Ausencia.</label>
-							               <input id="finAusencia" class="datepicker form-control" name="date" type="text"  />
-							          </div> 
-							          <div id="fechas"></div>
-							          
-							      </div>
-							      <input id="btnFechasAusencia" name="btnFechasAusencia" type="button"  value="Agregar Fechas" class="btn btn-info" onclick="sumaFechas()" disabled/>
-<!-- 							      <input id="btnBorrarAusencia" name="btnBorrarAusencia" type="button"  value="Borrar Fechas Ausencia" class="btn btn-danger" /> -->
-							         <br>
-							         <hr>
-							         <div class="form-row">
-							          <div class="col-md-8 mb-3">
-                                        <input type="hidden" id="firmaInstructorH" th:field="*{firmaInstructorH}" th:value="*{firmaInstructorH}"/>
-                                            <label for="validationCustom02">Adjuntar Imagen Firma Instructor</label>
-												<div class="alert alert-success alert-dismissible fade show" role="alert">
- 												  <a href="" id="linkImg"></a>
-												  <img id="firmaInstructorPrev" src="" class="img-fluid rounded float-left" alt="">
-												  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												    <span aria-hidden="true">&times;</span>
-												  </button>
-												</div>
-												<div class="alerta">
-														<hiden class="alerta_in"></hiden>
-												</div>
-                                                <div class="inputImage">
-                                                	<input type="file" name="firmaInstructor" id="firmaInstructor" class="form-control-file" accept="image/*" data-show-upload="false" onchange="firmaInstructorF(this)"/>
-													 <br/>
-<!-- 													<img id="thumbnil" style="width:60%; margin-top:10px;"  src="" alt="image"/> -->
-                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  no mayor a un 1MB.</small>
-                                                </div>
-                                          </div>
-                                        </div>
-							         <hr>
-                                  <div class="form-row">
-                                      <label class=" control-label" for="textarea">Nota Instructor</label>
-								            <div class="">                     
-								              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" required></textarea>
-								            </div>
-							         </div>
-							         <div class="col-md-8 mb-3">
-								                       <h5><b>Status Instructor :</b></h5>
-								                       <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
-		                                                	<button type="button" id="statusInstructorbtn" class="btn btn-info" onclick="checkStatusInstructor()"></button>
-	                                            		</div>
-	                                            		<br>
-		                                                	<small class="form-text text-muted">Dar click en el boton sí desea dar de Baja Instructor.</small>
-	                                               </div>
- 
-                                <br>
-                                    
-                                    <button class="btn btn-success" type="submit">Edicion Instructor</button>
+          <div class="card" style="width: rem;">
+<!--               <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;"> -->
+              <div class="card-body">
+              	<h5 class="card-title">Edicion Instructor</h5>
+	          <input type="hidden" id="idInstructor" th:field="*{idInstructor}" th:value="*{idInstructor}"/>
+	          <input type="hidden" id="listFechas" th:field="*{listFechas}" th:value="*{listFechas}"/> 
+	          <input type="hidden" id="statusInstructor" th:field="*{statusInstructor}" />
+	                                    <div class="form-row">
+	                                        <div class="col-md-12 mb-3">
+	                                            <label for="validationCustom01">Nombre Corto</label>
+	                                            <input type="text" class="form-control"  id="nombreInstructor" name="nombreInstructor" placeholder="Capture Nombre Instructor" value=""  maxlength="150"  required>
+	                                            <div class="invalid-feedback">
+	                                                Capturar Nombre Corto
+	                                            </div>
+	                                        </div>
+	                                     </div>
+	                                     <div class="form-row">
+	                                        <div class="col-md-6 mb-3">
+	                                            <label for="validationCustom01">Email Instructor Empresa</label>
+	                                            <input type="email" class="form-control"  id="emailInstructor" name="emailInstructor" placeholder="Capture Email Instructor" value=""  maxlength="150"  required>
+	                                            <div class="invalid-feedback">
+	                                                Capturar Email Válido
+	                                            </div>
+	                                        </div>
+	                                        <div class="col-md-6 mb-3">
+	                                            <label for="validationCustom01">Email Instructor Gmail</label>
+	                                            <input type="email" class="form-control"  id="emailGmailInstructor" name="emailGmailInstructor" placeholder="Capture Email Gmail Instructor" value=""  maxlength="150"  required>
+	                                            <div class="invalid-feedback">
+	                                                Capturar Email Válido
+	                                            </div>
+	                                        </div>
+	                                     </div>
+	                                     
+	                                     <div class="form-row">
+	                                         <label for="validationCustom02">Region Instructor</label>
+	                           				     <select id="regionInstructor"name="regionInstructor" class="form-control" required>
+														<option th:each="region: ${model.jsonResponseObject.regiones.regiones}"
+												             th:value="${region.idRegion}"
+												             th:text="${region.nombreRegion}"/>
+		              							</select>
+	                                            <div class="invalid-feedback">
+	                                                Capturar Sede Valida
+	                                            </div>
+	                                      </div>
+	                                     
+	                                      <div class="form-row">
+	                                        <div class="col-md-12 mb-3">
+	                                            <label for="validationCustom02">Lista de Cursos.</label>
+	                                            <select id='listCursoInstructor' multiple='multiple'  name="listCursoInstructor" class="form-control" required>
+												</select>
+	                                            <div class="invalid-feedback">
+	                                                Capturar por lo menos un Curso
+	                                           </div>
+	                                       </div>                                     
+	                                   </div>
+	                                   <div class="form-row">
+	                                      <div class="col-md-6 mb-3">
+								               <label for="validationCustom02">Inicio Fechas Ausencia.</label>
+								               <input id="inicioAusencia" class="datepicker form-control" name="date" type="text" onchange="fechasAusencia(this)" />											
+								          </div>
+								          <div class="col-md-6 mb-3">
+								               <label for="validationCustom02">Fin Fechas Ausencia.</label>
+								               <input id="finAusencia" class="datepicker form-control" name="date" type="text"  />
+								          </div> 
+								          <div id="fechas"></div>
+								          
+								      </div>
+								      <input id="btnFechasAusencia" name="btnFechasAusencia" type="button"  value="Agregar Fechas" class="btn btn-info" onclick="sumaFechas()" disabled/>
+	<!-- 							      <input id="btnBorrarAusencia" name="btnBorrarAusencia" type="button"  value="Borrar Fechas Ausencia" class="btn btn-danger" /> -->
+								         <br>
+								         <hr>
+								         <div class="form-row">
+								          <div class="col-md-8 mb-3">
+	                                        <input type="hidden" id="firmaInstructorH" th:field="*{firmaInstructorH}" th:value="*{firmaInstructorH}"/>
+	                                            <label for="validationCustom02">Adjuntar Imagen Firma Instructor</label>
+													<div class="alert alert-success alert-dismissible fade show" role="alert">
+	 												  <a href="" id="linkImg"></a>
+													  <img id="firmaInstructorPrev" src="" class="img-fluid rounded float-left" alt="">
+													  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+													    <span aria-hidden="true">&times;</span>
+													  </button>
+													</div>
+													<div class="alerta">
+															<hiden class="alerta_in"></hiden>
+													</div>
+	                                                <div class="inputImage">
+	                                                	<input type="file" name="firmaInstructor" id="firmaInstructor" class="form-control-file" accept="image/*" data-show-upload="false" onchange="firmaInstructorF(this)"/>
+														 <br/>
+	<!-- 													<img id="thumbnil" style="width:60%; margin-top:10px;"  src="" alt="image"/> -->
+	                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  no mayor a un 1MB.</small>
+	                                                </div>
+	                                          </div>
+	                                        </div>
+								         <hr>
+	                                  <div class="form-row">
+	                                      <label class=" control-label" for="textarea">Nota Instructor</label>
+									            <div class="">                     
+									              <textarea class="form-control" th:field="*{notaInstructor}" id="notaInstructor" rows="3" cols="150" required></textarea>
+									            </div>
+								         </div>
+								         <div class="col-md-8 mb-3">
+									                       <h5><b>Status Instructor :</b></h5>
+									                       <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+			                                                	<button type="button" id="statusInstructorbtn" class="btn btn-info" onclick="checkStatusInstructor()"></button>
+		                                            		</div>
+		                                            		<br>
+			                                                	<small class="form-text text-muted">Dar click en el boton sí desea dar de Baja Instructor.</small>
+		                                               </div>
+	 
+	                                <br>
+	                                    
+	                                    <button class="btn btn-success" type="submit">Edicion Instructor</button>
+	                                </div>
+	                              </div>
                                 </form>
                                 <script>
 							    $("#firmaInstructor").fileinput({
@@ -500,7 +505,7 @@
                                  
         </div>
         <div class="modal-footer" style=" background-color: #F1FFFE">
-          <button  class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+          <button type="button" class="btn btn-secondary btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
         </div>
       </div>
       

@@ -35,7 +35,7 @@ $(document).ready(function(){
         $('#agregarPautaOperativa').attr('disabled', false);
         contarPrimerNivel++;
         contarSegundoNivel++;
-    })
+    });
     
     $('#btnSegundoNivel').click(function(){
         var segundoNivel = $('#txtSegundoNivel').val();
@@ -49,7 +49,7 @@ $(document).ready(function(){
             $('#txtSegundoNivel').val("");
             contarSegundoNivel++;
         }
-    })
+    });
     
     $('#btnTercerNivel').click(function(){
         
@@ -65,7 +65,7 @@ $(document).ready(function(){
             //$('#btnSegundoNivel').attr('disabled', true);
             $('#txtTercerNivel').val("");
         }
-    })
+    });
     
     $('#agregarPautaOperativa').click(function(){
 //        //console.log("agregarInstruccion");
@@ -76,7 +76,7 @@ $(document).ready(function(){
         $('#btnTercerNivel').attr('disabled', true);
         $('#txtTercerNivel').attr('disabled', true);
                
-    })
+    });
     
     
     /*
@@ -107,7 +107,7 @@ $(document).ready(function(){
         $('#agregarPautaEntregable').attr('disabled', false);
         contarPrimerNivel1++;
         contarSegundoNivel1++;
-    })
+    });
     
     $('#btnSegundoNivel1').click(function(){
         var segundoNivel = $('#txtSegundoNivel1').val();
@@ -121,7 +121,7 @@ $(document).ready(function(){
             $('#txtSegundoNivel1').val("");
             contarSegundoNivel1++;
         }
-    })
+    });
     
     $('#btnTercerNivel1').click(function(){
         
@@ -137,7 +137,7 @@ $(document).ready(function(){
             //$('#btnSegundoNivel1').attr('disabled', true);
             $('#txtTercerNivel1').val("");
         }
-    })
+    });
     
     $('#agregarPautaEntregable').click(function(){
 //        //console.log("agregarInstruccion");
@@ -148,7 +148,7 @@ $(document).ready(function(){
         $('#btnTercerNivel1').attr('disabled', true);
         $('#txtTercerNivel1').attr('disabled', true);
                
-    })
+    });
 
     
 });

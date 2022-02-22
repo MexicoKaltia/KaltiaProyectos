@@ -6,7 +6,7 @@ import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 
-public interface IPreAsignacionService {
+public interface IPreAsignacionAEService {
 	
 //	public List<Asignacion> findAll();
 //	
@@ -18,12 +18,10 @@ public interface IPreAsignacionService {
 //
 //	public List<AsignacionHistorico> findAllHistorico();
 
-	public PreAsignacion savePreAsignacion(PreAsignacion pre_asignacionNew);
+	
 
-//	public PreAsignacionAEEntity savePreAsignacionAE(PreAsignacionAEEntity preAsignacionAENew);
+	public PreAsignacionAEEntity savePreAsignacionAE(PreAsignacionAEEntity preAsignacionAENew);
 
-	public List<PreAsignacion> findAll();
-
-	public PreAsignacion findId(Long valueOf);
+	public List<PreAsignacionAEEntity> findAll();
 	
 }

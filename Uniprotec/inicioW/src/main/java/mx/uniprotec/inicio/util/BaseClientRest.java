@@ -68,6 +68,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_ASIGNACIONES  =	"asignaciones";
 	public static final String URL_CRUD_ASIGNACIONES_HISTORICO  =	"asignacionesHistorico";
 	public static final String URL_CRUD_PREASIGNACION  =	"preAsignacion";
+	public static final String URL_CRUD_PREASIGNACIONES  =	"preAsignaciones";
+	public static final String URL_CRUD_PREASIGNACIONAE  =	"preAsignacionAE";
 	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
 	public static final String URL_CRUD_PERFIL		  =	"perfil";
 	public static final String URL_CRUD_PERFILES	  =	"perfiles";
@@ -448,7 +450,6 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	 *  Auxiliares
 	 */
 
-	@SuppressWarnings("unchecked")
 	private ResultVO asignaResponse(ResponseEntity<JSONObject> response) {
 
 	    JSONObject jsonResponse = (JSONObject) response.getBody();

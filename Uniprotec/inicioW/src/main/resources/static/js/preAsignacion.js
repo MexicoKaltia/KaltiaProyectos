@@ -156,6 +156,7 @@ console.log("hoy");
 		$('#asignaCliente').empty();
 		clientesVendedor = vendedorCliente(operacionId);
 		$('#asignaCliente').append("<option value='' selected  >Selecciona Cliente</option>");
+		$('#asignaCliente').append("<option value='PROSPECTO'>CLIENTE PROSPECTO</option>");
 		for(i in clientesVendedor){
 			$('#asignaCliente').append("<option value='"+clientesVendedor[i].idCliente+"'>"+clientesVendedor[i].nombreCortoCliente+"</option>");
 		}
@@ -180,6 +181,18 @@ console.log("hoy");
 		$("#asignaConfirmar").hide();
 		return true;
 	}
+	
+	
+	$("#asignaCliente").change(function(){
+		if($.asignaCliente === 'PROSPECTO'){
+//			$('#modalClienteProspecto').modal();
+			$('#clienteStatus').val("PROSPECTO");
+		}else{
+			$('#clienteStatus').val("EXISTENTE");
+		}		
+	});
+		
+	 
 	$("#btnPreAsignacionGuardar").click(function(){
 		modal();
 		return true;
@@ -242,7 +255,10 @@ var alerta, proceso;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function limpiaCurso(){
 		$('#asignaCurso').val("");
-		$('#asignaCurso').attr("disabled", true);
+//		$('#asignaCurso').attr("disabled", true);
+		$('#asignaCurso option[value=""]');
+		$("#asignaCurso").trigger("chosen:updated");
+		
 		$('#asignaInstructor').val("");
 		$.asignaCursoTexto= null;
 		$.asignaInstructorTexto= null;
@@ -315,6 +331,11 @@ var alerta, proceso;
 	var idRegion;
 	var nombreRegion;
 	function colorZonaCliente(cliente){
+		if(cliente === "PROSPECTO"){
+			$.asignaIdRegion = 1;
+			$.asignaNombreRegion = "PROSPECTO";
+			return '<div class="zona" style="background:purple; color:white">PROSPECTO</div>';
+		}
 		cliente = (cliente * 1);
 		var idRegion;
 		var nombreRegion;

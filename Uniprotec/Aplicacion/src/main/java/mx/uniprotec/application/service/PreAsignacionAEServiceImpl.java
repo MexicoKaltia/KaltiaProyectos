@@ -4,27 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import mx.uniprotec.application.dao.IAsignacionDao;
-import mx.uniprotec.application.dao.IAsignacionHistoricoDao;
 import mx.uniprotec.application.dao.IPreAsignacionAEDao;
-import mx.uniprotec.application.dao.IPreAsignacionDao;
-import mx.uniprotec.application.entity.PreAsignacion;
+import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 
 @Service
-public class PreAsignacionServiceImpl implements IPreAsignacionService {
+public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 
-	public PreAsignacionServiceImpl() {
+	public PreAsignacionAEServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Autowired
-	IAsignacionDao asignacionDao;
-	@Autowired
-	IAsignacionHistoricoDao asignacionHistoricoDao;
-	@Autowired
-	IPreAsignacionDao preAsignacionDao;
+	
 	@Autowired
 	IPreAsignacionAEDao preAsignacionAEDao;
 
@@ -33,29 +24,21 @@ public class PreAsignacionServiceImpl implements IPreAsignacionService {
 	/*
 	 * PRE ASIGNACION
 	 */
+	
 	@Override
-	@Transactional
-	public PreAsignacion savePreAsignacion(PreAsignacion asignacion) {
-		return preAsignacionDao.save(asignacion);
-	}
-
-
-
-	@Override
-	public List<PreAsignacion> findAll() {
-		return (List<PreAsignacion>) preAsignacionDao.findAll();
-	}
-
-
-
-	@Override
-	public PreAsignacion findId(Long id) {
-		return preAsignacionDao.findById(id).orElse(null);
+	public PreAsignacionAEEntity savePreAsignacionAE(PreAsignacionAEEntity preAsignacionAENew) {
+		return preAsignacionAEDao.save(preAsignacionAENew);
 	}
 
 
 
 	
+
+	@Override
+	public List<PreAsignacionAEEntity> findAll() {
+		return (List<PreAsignacionAEEntity>) preAsignacionAEDao.findAll();
+	}
+
 	
 //	@Override
 //	@Transactional(readOnly = true)

@@ -1,5 +1,6 @@
 package mx.uniprotec.inicio.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
@@ -127,8 +129,13 @@ public class ControllerPreAsignacion {
 		Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
 		
 		resultVO  = preAsignacionService.altaPreAsignacion(asignacion, resultVO.getAccesToken(), idUsuario );
+		JSONObject jsonPreAsignacion= new JSONObject((Map) resultVO.getJsonResponse().get("preAsignacion"));
+		asignacion.setIdAsignacion(Long.valueOf( jsonPreAsignacion.get("idPreAsignacion").toString()));  
+		
 		ModelAndView mav = new ModelAndView("APreAsignacionAE" , model);
 		model.addAttribute("preAsignacion", asignacion);
+//		model.addAttribute("idUsuario", idUsuario);
+		
 		if(resultVO.getCodigo() != 500) {
 //			log.info(resultVO.toString());
 			mav.addObject("ejecucion", true);
@@ -142,17 +149,16 @@ public class ControllerPreAsignacion {
 	
 	@PostMapping("/altaPreAsignacionAE")
 	public ModelAndView altaPreAsignacionAE(@ModelAttribute("preAsignacionAE") PreAsignacionAE preAsignacionAE, ModelMap model) {
-		log.info("Metodo de altaPreAsignacion");
-//		log.info(asignacion.toString());
-		
+		log.info("Metodo de Alata PreAsignacionAE");
+				
 		ResultVO resultVO = (ResultVO)model.get("model");
-//		log.info(resultVO.getJsonResponse().toJSONString());
 		JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 		JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
 		Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
+		preAsignacionAE.setUserCreateTexto(jsonUsuario.get("nombre").toString());
 		
-//		resultVO  = preAsignacionService.altaPreAsignacion(preAsignacionAE, resultVO.getAccesToken(), idUsuario );
-		ModelAndView mav = new ModelAndView("APreAsignacionAE" , model);
+		resultVO  = preAsignacionService.altaPreAsignacionAE(preAsignacionAE, resultVO.getAccesToken(), idUsuario );
+		ModelAndView mav = new ModelAndView("redirect:/BSeguimiento" , model);
 		model.addAttribute("preAsignacion", preAsignacionAE);
 		if(resultVO.getCodigo() != 500) {
 //			log.info(resultVO.toString());
@@ -165,6 +171,37 @@ public class ControllerPreAsignacion {
 		}
 	}
 	
+	@GetMapping("/BSeguimiento")
+	public ModelAndView consultaSeguimiento(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
+			@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+		
+			log.info("Seguimiento model Activo");
+			
+			model.addAttribute("asignacionItem", new AsignacionModelo());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = preAsignacionService.consultaPreAsignacion(resultVO.getAccesToken());
+			
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			ModelAndView mav = new ModelAndView("BSeguimiento", model);
+			model.addAttribute("preAsignaciones", rs.getJsonResponseObject());
+			model.addAttribute("asignacionItem", new AsignacionModelo());
+			
+			if(rs.getCodigo() != 500) {
+				mav.addObject("ejecucion", ejecucion);
+				mav.addObject("ejecucion2", ejecucion2);
+				mav.addObject("error", error);
+				return mav;
+			}else {
+				mav.addObject("consulta", true);
+				log.info("NOK ConsultaAsignacion");
+				return mav;
+			}
+		}
 	
 	
 //	@PostMapping("/BAsignacion")

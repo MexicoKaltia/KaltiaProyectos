@@ -554,7 +554,8 @@
      min : today
     })
 	
-    $('.chosen').chosen();
+//     $('.chosen').chosen();
+    $(".chosen").chosen({allow_single_deselect: true});
         </script>
     
 </body>
@@ -609,6 +610,7 @@
                                                <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="clienteStatus" th:field="*{clienteStatus}" />
                                        			<br>
                                        			
                                        			<div class="alert alert-warning alert-dismissible">
@@ -634,6 +636,34 @@
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
                                    		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                          <!-- Modal Inicio-->
+                       <div class="modal" id="modalClienteProspecto" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-sm" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Proceso de Confirmacion</h4>
+<!--                                        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                          
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                        
                                    </div>
 

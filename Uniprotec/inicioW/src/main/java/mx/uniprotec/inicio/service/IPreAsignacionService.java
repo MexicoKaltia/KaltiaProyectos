@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.service;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IPreAsignacionService {
@@ -15,6 +16,10 @@ public interface IPreAsignacionService {
 //	public ResultVO consultaAsignacionHistorico(String accesToken);
 //	ResultVO consultaAsignacionCliente(String token);
 	ResultVO altaPreAsignacion(AsignacionModelo asignacion, String token, Long idUser);
+
+	ResultVO altaPreAsignacionAE(PreAsignacionAE preAsignacionAE, String accesToken, Long idUsuario);
+
+	ResultVO consultaPreAsignacion(String accesToken);
 	
 	
 	

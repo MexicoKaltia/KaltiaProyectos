@@ -16,16 +16,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.dao.INotificacionDao;
+import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.PreAsignacion;
+import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 import mx.uniprotec.application.service.IEntregableService;
+import mx.uniprotec.application.service.IPreAsignacionAEService;
 import mx.uniprotec.application.service.IPreAsignacionService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -34,6 +39,8 @@ public class PreAsignacionRestController {
 	
 	@Autowired
 	private IPreAsignacionService preAsignacionService;
+	@Autowired
+	private IPreAsignacionAEService preAsignacionAEService;
 	@Autowired
 	private INotificacionDao notificacionDao;
 	@Autowired
@@ -92,6 +99,8 @@ public class PreAsignacionRestController {
 			pre_asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			pre_asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			pre_asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
+			pre_asignacionNew.setClienteStatus(asignacion.getClienteStatus());
+			pre_asignacionNew.setSeguimiento(asignacion.getSeguimiento());
 			
 			pre_asignacionNew.setFechaPago("");
 			pre_asignacionNew.setGuiaEntregable("");
@@ -101,8 +110,106 @@ public class PreAsignacionRestController {
 			pre_asignacionNew.setErrorProceso("");
 			
 			pre_asignacionNew = preAsignacionService.savePreAsignacion(pre_asignacionNew);
-			 response.put("asignacion", pre_asignacionNew );
+			 response.put("preAsignacion", pre_asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("preAsignacion create fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			log.info("catch preAsignacion  create fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	private Object seguimiento(String seguimiento) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@PostMapping("/preAsignacionAE")
+	public ResponseEntity<?> createPreAsignacionAE(@Valid @RequestBody PreAsignacionAE preAsignacionAE, BindingResult result) {
+		log.info("preasignacion create");
+		
+		PreAsignacionAEEntity preAsignacionAENew = new PreAsignacionAEEntity();
+		Map<String, Object> response = new HashMap<>();
+		
+		if(result.hasErrors()) {
+
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		try {
+			
+			preAsignacionAENew.setFormAECurso(preAsignacionAE.getFormAECurso());
+			preAsignacionAENew.setFormAEEmpresa(preAsignacionAE.getFormAEEmpresa());
+			preAsignacionAENew.setFormAEHorasEfectivas(preAsignacionAE.getFormAEHorasEfectivas());
+			preAsignacionAENew.setFormAESesiones(preAsignacionAE.getFormAESesiones());
+			preAsignacionAENew.setFormAEParticipantes(preAsignacionAE.getFormAEParticipantes());
+			preAsignacionAENew.setFormAEFechaCotizacion(preAsignacionAE.getFormAEFechaCotizacion());
+			preAsignacionAENew.setFormAESede(preAsignacionAE.getFormAESede());
+			preAsignacionAENew.setFormAENivelCurso(preAsignacionAE.getFormAENivelCurso());
+
+			preAsignacionAENew.setFormAENumInstructor(preAsignacionAE.getFormAENumInstructor());
+			preAsignacionAENew.setFormAETotalHoras(preAsignacionAE.getFormAETotalHoras());
+			preAsignacionAENew.setFormAECostoHoraInstructor(preAsignacionAE.getFormAECostoHoraInstructor());
+			preAsignacionAENew.setFormAETotalImparticion(preAsignacionAE.getFormAETotalImparticion());
+			preAsignacionAENew.setFormAEViaticosTotal(preAsignacionAE.getFormAEViaticosTotal());
+
+			preAsignacionAENew.setFormAESumaImparticionViaticos(preAsignacionAE.getFormAESumaImparticionViaticos());
+			preAsignacionAENew.setFormAECostoCursoRecomendado(preAsignacionAE.getFormAECostoCursoRecomendado());
+			preAsignacionAENew.setFormAECostoHoraRecomendada(preAsignacionAE.getFormAECostoHoraRecomendada());
+
+			preAsignacionAENew.setFormAEImparticion(preAsignacionAE.getFormAEImparticion());
+			preAsignacionAENew.setFormAEImparticionPorcentaje(preAsignacionAE.getFormAEImparticionPorcentaje());
+			preAsignacionAENew.setFormAEComisionVendedor(preAsignacionAE.getFormAEComisionVendedor());
+			preAsignacionAENew.setFormAEComisionVendedorPorcentaje(preAsignacionAE.getFormAEComisionVendedorPorcentaje());
+			preAsignacionAENew.setFormAEViaticos(preAsignacionAE.getFormAEViaticos());
+			preAsignacionAENew.setFormAEViaticosPorcentaje(preAsignacionAE.getFormAEViaticosPorcentaje());
+			preAsignacionAENew.setFormAEGastosFijos(preAsignacionAE.getFormAEGastosFijos());
+			preAsignacionAENew.setFormAEGastosFijosPorcentaje(preAsignacionAE.getFormAEGastosFijosPorcentaje());
+			preAsignacionAENew.setFormAEGananciaCurso(preAsignacionAE.getFormAEGananciaCurso());
+			preAsignacionAENew.setFormAEGananciaCursoPorcentaje(preAsignacionAE.getFormAEGananciaCursoPorcentaje());
+			preAsignacionAENew.setFormAETotales(preAsignacionAE.getFormAETotales());
+			preAsignacionAENew.setFormAETotalesPorcentaje(preAsignacionAE.getFormAETotalesPorcentaje());
+			preAsignacionAENew.setFormAEPrecioVentaReal(preAsignacionAE.getFormAEPrecioVentaReal());
+			preAsignacionAENew.setFormAEComisionVendedorReal(preAsignacionAE.getFormAEComisionVendedorReal());
+			preAsignacionAENew.setFormAEGastosFijosReal(preAsignacionAE.getFormAEGastosFijosReal());
+			preAsignacionAENew.setFormAEUtilidadReal(preAsignacionAE.getFormAEUtilidadReal());
+			preAsignacionAENew.setFormAENuevaComisionReal(preAsignacionAE.getFormAENuevaComisionReal());
+
+			preAsignacionAENew.setFormAERegla3PorcentajeNuevaComisionReal(preAsignacionAE.getFormAERegla3PorcentajeNuevaComisionReal());
+			preAsignacionAENew.setFormAERegla3PorcentajeNuevaComision(preAsignacionAE.getFormAERegla3PorcentajeNuevaComision());
+
+			preAsignacionAENew.setFormAEObservaciones(preAsignacionAE.getFormAEObservaciones());
+
+			preAsignacionAENew.setFormAEidPreAsignacionLogica(preAsignacionAE.getFormAEidPreAsignacionLogica());
+			preAsignacionAENew.setFormAEidPreAsignacion(preAsignacionAE.getFormAEidPreAsignacion());
+
+			preAsignacionAENew.setCreateAt(preAsignacionAE.getCreateAt());
+			preAsignacionAENew.setUserCreate(preAsignacionAE.getUserCreate());
+			preAsignacionAENew.setUserCreateTexto(preAsignacionAE.getUserCreateTexto());
+			preAsignacionAENew.setStatus("ALTA");
+			
+			preAsignacionAENew = preAsignacionAEService.savePreAsignacionAE(preAsignacionAENew);
+			PreAsignacion preAsignacion = preAsignacionService.findId(Long.valueOf(preAsignacionAE.getFormAEidPreAsignacion()));
+			preAsignacion.setIdPreAsignacionAE(preAsignacionAENew.getIdPreAsignacionAE());
+			preAsignacion.setPreAsignacionAEStatus(preAsignacionAENew.getStatus());
+			preAsignacionService.savePreAsignacion(preAsignacion);
+			
+			
+			
+			 response.put("preAsignacionAE", preAsignacionAENew );
+			 response.put("mensaje", "AE creada con Exito");
 			 response.put("status", HttpStatus.CREATED);
 			 response.put("code", HttpStatus.CREATED.value());
 			 log.info("preAsignacion create fin");
@@ -117,30 +224,32 @@ public class PreAsignacionRestController {
 	}
 
 	
-//	@GetMapping("/asignaciones")
-//	public ResponseEntity<?> index() {
-//		log.info("asignaciones");
-//		List<Asignacion> asignaciones = null;
-//		Map<String, Object> response = new HashMap<>();
-//		try {
-//			asignaciones  = asignacionService.findAll();
-//			
-//			 response.put("asignaciones", asignaciones );
-//			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
-//			 response.put("status", HttpStatus.ACCEPTED);
-//			 response.put("code", HttpStatus.ACCEPTED.value());
-//			 log.info("asignaciones fin");
-//			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
-//		} catch (Exception e) {
-//			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
-//			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
-//			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-//			e.printStackTrace();
-//			log.info("asignaciones fin");
-//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//		
-//	}
+	@GetMapping("/preAsignaciones")
+	public ResponseEntity<?> PreAsignaciones() {
+		log.info("preAsignaciones");
+		List<PreAsignacion> preAsignaciones = null;
+		List<PreAsignacionAEEntity> preAsignacionesAE = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			preAsignaciones  = preAsignacionService.findAll();
+			preAsignacionesAE = preAsignacionAEService.findAll();
+			 response.put("preAsignaciones", preAsignaciones );
+			 response.put("preAsignacionesAE", preAsignacionesAE );
+			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("preAsignaciones fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			log.info("catch preAsignaciones fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
 //
 //	 /*
 //	  * 

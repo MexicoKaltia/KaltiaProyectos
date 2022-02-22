@@ -90,6 +90,14 @@ public class PreAsignacion implements Serializable{
 	private String costoHotel;
 	@Column
 	private String errorProceso;
+	@Column
+	private Long idPreAsignacionAE;
+	@Column
+	private String preAsignacionAEStatus;
+	@Column
+	private String clienteStatus;
+	@Column
+	private String seguimiento;
 
 	@Override
 	public String toString() {
@@ -356,6 +364,38 @@ public class PreAsignacion implements Serializable{
 
 	public void setErrorProceso(String errorProceso) {
 		this.errorProceso = errorProceso;
+	}
+
+	public Long getIdPreAsignacionAE() {
+		return idPreAsignacionAE;
+	}
+
+	public void setIdPreAsignacionAE(Long idPreAsignacionAE) {
+		this.idPreAsignacionAE = idPreAsignacionAE;
+	}
+
+	public String getPreAsignacionAEStatus() {
+		return preAsignacionAEStatus;
+	}
+
+	public void setPreAsignacionAEStatus(String preAsignacionAEStatus) {
+		this.preAsignacionAEStatus = preAsignacionAEStatus;
+	}
+
+	public String getClienteStatus() {
+		return clienteStatus;
+	}
+
+	public void setClienteStatus(String clienteStatus) {
+		this.clienteStatus = clienteStatus;
+	}
+
+	public String getSeguimiento() {
+		return seguimiento;
+	}
+
+	public void setSeguimiento(String seguimiento) {
+		this.seguimiento = seguimiento;
 	}
 	
 	

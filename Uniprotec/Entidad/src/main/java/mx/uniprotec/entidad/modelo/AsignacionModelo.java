@@ -45,6 +45,10 @@ public class AsignacionModelo implements Serializable{
 	private String costoHotel;
 	private String errorProceso;
 	private String nombreFirmaInstructor;
+	private Long idPreAsignacionAE;
+	private String preAsignacionAEStatus;	
+	private String clienteStatus;
+	private String seguimiento;
 	
 	
 	
@@ -291,6 +295,30 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setNombreFirmaInstructor(String nombreFirmaInstructor) {
 		this.nombreFirmaInstructor = nombreFirmaInstructor;
+	}
+	public Long getIdPreAsignacionAE() {
+		return idPreAsignacionAE;
+	}
+	public void setIdPreAsignacionAE(Long idPreAsignacionAE) {
+		this.idPreAsignacionAE = idPreAsignacionAE;
+	}
+	public String getClienteStatus() {
+		return clienteStatus;
+	}
+	public void setClienteStatus(String clienteStatus) {
+		this.clienteStatus = clienteStatus;
+	}
+	public String getPreAsignacionAEStatus() {
+		return preAsignacionAEStatus;
+	}
+	public void setPreAsignacionAEStatus(String preAsignacionAEStatus) {
+		this.preAsignacionAEStatus = preAsignacionAEStatus;
+	}
+	public String getSeguimiento() {
+		return seguimiento;
+	}
+	public void setSeguimiento(String seguimiento) {
+		this.seguimiento = seguimiento;
 	}
 	
 	

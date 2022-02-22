@@ -9,9 +9,9 @@ $(document).ready(function(){
 	$('#formAECurso').text(preAsignacion.cursoAsignacion);
 	$('#formAEEmpresa').text(preAsignacion.clienteAsignacion);
 	$('#formAEHorasEfectivas').text(horasEfectivas(preAsignacion.horarioAsignacion));  $.horasEfectivas = $('#formAEHorasEfectivas').text(); 
-	$('#formAESesiones').val();
+	$('#formAESesiones').val("1"); $.sesiones = $('#formAESesiones').val(); 
 	$('#formAEParticipantes').text(preAsignacion.participantesAsignacion);
-	$('#formAEFechaCotizacion').text(hoy());
+	$('#formAEFechaCotizacion').text(hoy());  $.fechaCotizacion = $('#formAEFechaCotizacion').text(); 
 	$('#formAESede').text(preAsignacion.nombreRegionAsignacion);
 	$('#formAENivelCurso').text(preAsignacion.nivelAsignacion);
 
@@ -224,7 +224,7 @@ $(document).ready(function(){
 		$('#formAETotalesPorcentaje').html(totalesPorcentaje()); $.totalesPorcentaje = $('#formAETotalesPorcentaje').text();
 		$('#formAETotales').text(totales()); $.totales = $('#formAETotales').text();
 		
-		$('#formAEPrecioVentaReal').val(financial($.totales));
+		$('#formAEPrecioVentaReal').val(financial($.totales));  
 		
 		$('#formAEidPreAsignacion').val(preAsignacion.idAsignacion);
 		$('#formAEidPreAsignacionLogica').val(preAsignacion.idAsignacionLogica);
@@ -248,6 +248,8 @@ $(document).ready(function(){
 		$('#formAERegla3PorcentajeNuevaComisionRealDiv').css("width", $.regla3PorcentajeNuevaComisionReal+"%");
 		$('#formAERegla3PorcentajeNuevaComisionDiv').attr("aria-valuenow", $.regla3PorcentajeNuevaComision);
 		$('#formAERegla3PorcentajeNuevaComisionDiv').css("width", $.regla3PorcentajeNuevaComision+"%");
+		
+		$.observaciones = $('#formAEObservaciones').val();
 		
 		if($.regla3PorcentajeNuevaComisionReal < 100){
 			$('#formAERegla3PorcentajeNuevaComisionRealDiv').removeClass("bg-success");
@@ -322,6 +324,55 @@ $(document).ready(function(){
 		
 			$('#instructorViaticosTotal').text($.instructorViaticosTotal);
 	}
+	
+	$('#btnFormAESubmit').click(function(){
+		
+		$('#formAECursoS').val(preAsignacion.cursoAsignacion);
+		$('#formAEEmpresaS').val(preAsignacion.clienteAsignacion);
+		$('#formAEHorasEfectivasS').val($.horasEfectivas);
+		$('#formAESesionesS').val($.sesiones);
+		$('#formAEParticipantesS').val(preAsignacion.participantesAsignacion);
+		$('#formAEFechaCotizacionS').val($.fechaCotizacion);
+		$('#formAESedeS').val(preAsignacion.nombreRegionAsignacion);
+		$('#formAENivelCursoS').val(preAsignacion.nivelAsignacion);
+
+		$('#formAENumInstructorS').val($.horasEfectivas);
+		$('#formAETotalHorasS').val($.totalHoras);
+		$('#formAECostoHoraInstructorS').val($.costoHoraInstructor);
+		$('#formAETotalImparticionS').val($.totalImparticion);
+		$('#formAEViaticosTotalS').val($.viaticosTotal);
+
+		$('#formAESumaImparticionViaticosS').val($.sumaImparticionViaticos);
+		$('#formAECostoCursoRecomendadoS').val($.costoCursoRecomendado);
+		$('#formAECostoHoraRecomendadaS').val($.costoHoraRecomendada);
+
+		$('#formAEImparticionS').val($.imparticionTotal);
+		$('#formAEImparticionPorcentajeS').val($.imparticionPorcentaje);
+		$('#formAEComisionVendedorS').val($.comisionVendedor);
+		$('#formAEComisionVendedorPorcentajeS').val($.comisionVendedorPorcentaje);
+		$('#formAEViaticosS').val($.viaticosTotal);
+		$('#formAEViaticosPorcentajeS').val($.viaticosPorcentaje);
+		$('#formAEGastosFijosS').val($.gastosFijos);
+		$('#formAEGastosFijosPorcentajeS').val($.gastosFijosPorcentaje);
+		$('#formAEGananciaCursoS').val($.gananciaCurso);
+		$('#formAEGananciaCursoPorcentajeS').val($.gananciaCursoPorcentaje);
+		$('#formAETotalesS').val($.totales);
+		$('#formAETotalesPorcentajeS').val($.totalesPorcentaje);
+
+		$('#formAEPrecioVentaRealS').val( $.precioVentaReal);
+		$('#formAEComisionVendedorRealS').val($.comisionVendedorReal);
+		$('#formAEGastosFijosRealS').val( $.gastosFijosReal);
+		$('#formAEUtilidadRealS').val($.utilidadReal);
+		$('#formAENuevaComisionRealS').val($.nuevaComisionReal);
+
+		$('#formAERegla3PorcentajeNuevaComisionRealS').val($.regla3PorcentajeNuevaComisionReal);
+		$('#formAERegla3PorcentajeNuevaComisionS').val($.regla3PorcentajeNuevaComision);
+
+		$('#formAEObservacionesS').val($.observaciones);
+		
+		alert("Este Análisis Económico será enviado a revisión al personal Administrativo para ser aprobado, en caso de algún comentario, podrá dar continuidad en el módulo de Seguimiento");
+
+	});
 	
 	
 	

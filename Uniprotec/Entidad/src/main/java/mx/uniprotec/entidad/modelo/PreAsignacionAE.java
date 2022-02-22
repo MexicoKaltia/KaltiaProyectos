@@ -1,11 +1,14 @@
 package mx.uniprotec.entidad.modelo;
 
+import java.time.LocalDateTime;
+
 public class PreAsignacionAE {
 
 	public PreAsignacionAE() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	private long idPreAsignacionAE;
 	private String formAECurso;
 	private String formAEEmpresa;
 	private int formAEHorasEfectivas;
@@ -26,11 +29,17 @@ public class PreAsignacionAE {
 	private int formAECostoHoraRecomendada;
 
 	private int formAEImparticion;
+	private int formAEImparticionPorcentaje;
 	private int formAEComisionVendedor;
+	private int formAEComisionVendedorPorcentaje;
 	private int formAEViaticos;
+	private int formAEViaticosPorcentaje;
 	private int formAEGastosFijos;
+	private int formAEGastosFijosPorcentaje;
 	private int formAEGananciaCurso;
+	private int formAEGananciaCursoPorcentaje;
 	private int formAETotales;
+	private int formAETotalesPorcentaje;
 	private int formAEPrecioVentaReal;
 	private int formAEComisionVendedorReal;
 	private int formAEGastosFijosReal;
@@ -44,6 +53,11 @@ public class PreAsignacionAE {
 	
 	private String formAEidPreAsignacionLogica;
 	private String formAEidPreAsignacion;
+	
+	private LocalDateTime createAt;
+	private Long userCreate;
+	private String userCreateTexto;
+	private String status;
 
 	public String getFormAECurso() {
 		return formAECurso;
@@ -299,6 +313,94 @@ public class PreAsignacionAE {
 
 	public void setFormAEidPreAsignacion(String formAEidPreAsignacion) {
 		this.formAEidPreAsignacion = formAEidPreAsignacion;
+	}
+
+	public int getFormAEImparticionPorcentaje() {
+		return formAEImparticionPorcentaje;
+	}
+
+	public void setFormAEImparticionPorcentaje(int formAEImparticionPorcentaje) {
+		this.formAEImparticionPorcentaje = formAEImparticionPorcentaje;
+	}
+
+	public int getFormAEComisionVendedorPorcentaje() {
+		return formAEComisionVendedorPorcentaje;
+	}
+
+	public void setFormAEComisionVendedorPorcentaje(int formAEComisionVendedorPorcentaje) {
+		this.formAEComisionVendedorPorcentaje = formAEComisionVendedorPorcentaje;
+	}
+
+	public int getFormAEViaticosPorcentaje() {
+		return formAEViaticosPorcentaje;
+	}
+
+	public void setFormAEViaticosPorcentaje(int formAEViaticosPorcentaje) {
+		this.formAEViaticosPorcentaje = formAEViaticosPorcentaje;
+	}
+
+	public int getFormAEGastosFijosPorcentaje() {
+		return formAEGastosFijosPorcentaje;
+	}
+
+	public void setFormAEGastosFijosPorcentaje(int formAEGastosFijosPorcentaje) {
+		this.formAEGastosFijosPorcentaje = formAEGastosFijosPorcentaje;
+	}
+
+	public int getFormAEGananciaCursoPorcentaje() {
+		return formAEGananciaCursoPorcentaje;
+	}
+
+	public void setFormAEGananciaCursoPorcentaje(int formAEGananciaCursoPorcentaje) {
+		this.formAEGananciaCursoPorcentaje = formAEGananciaCursoPorcentaje;
+	}
+
+	public int getFormAETotalesPorcentaje() {
+		return formAETotalesPorcentaje;
+	}
+
+	public void setFormAETotalesPorcentaje(int formAETotalesPorcentaje) {
+		this.formAETotalesPorcentaje = formAETotalesPorcentaje;
+	}
+
+	public LocalDateTime getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
+	}
+
+	public Long getUserCreate() {
+		return userCreate;
+	}
+
+	public void setUserCreate(Long userCreate) {
+		this.userCreate = userCreate;
+	}
+
+	public String getUserCreateTexto() {
+		return userCreateTexto;
+	}
+
+	public void setUserCreateTexto(String userCreateTexto) {
+		this.userCreateTexto = userCreateTexto;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status= status;
+	}
+
+	public long getIdPreAsignacionAE() {
+		return idPreAsignacionAE;
+	}
+
+	public void setIdPreAsignacionAE(long idPreAsignacionAE) {
+		this.idPreAsignacionAE = idPreAsignacionAE;
 	}
 
 	
