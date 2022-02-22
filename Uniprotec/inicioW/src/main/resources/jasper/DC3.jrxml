@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DC3" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6747b997-a6d1-4df2-aa29-d7c21f414557">
 	<parameter name="dc3EmpresaLogo" class="java.io.InputStream"/>
 	<parameter name="dc3ParticipanteNombre" class="java.lang.String"/>
@@ -47,7 +47,7 @@
 				<textFieldExpression><![CDATA[$P{dc3ParticipantePuesto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="331" y="139" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
+				<reportElement x="331" y="137" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteOcupacion}.toUpperCase()]]></textFieldExpression>
 			</textField>
@@ -57,7 +57,7 @@
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRazonSocial}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="39" y="140" width="293" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
+				<reportElement x="39" y="138" width="293" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteCURP}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -75,20 +75,20 @@
 				<textFieldExpression><![CDATA[$P{dc3Duracion}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="293" width="132" height="25" uuid="95312733-601e-4a39-b3aa-891af099a3d7"/>
+				<reportElement x="199" y="293" width="132" height="25" uuid="95312733-601e-4a39-b3aa-891af099a3d7"/>
 				<textFieldExpression><![CDATA[$P{dc3FechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="362" y="293" width="183" height="25" uuid="a1bd11ba-9453-4556-9a19-d2fb0e1664e3"/>
 				<textFieldExpression><![CDATA[$P{dc3FechaFinal}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="ScaleFont">
 				<reportElement x="44" y="510" width="132" height="15" uuid="a93f3dce-87c5-4e1e-a35e-9f1485c5d11d"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3Instructor}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="85" y="482" width="75" height="30" uuid="ef97b49d-c7ea-44dc-90e4-276617c583fa"/>
+				<reportElement x="65" y="460" width="95" height="52" uuid="ef97b49d-c7ea-44dc-90e4-276617c583fa"/>
 				<imageExpression><![CDATA[$P{dc3InstructorFirma}]]></imageExpression>
 			</image>
 			<textField>

@@ -55,7 +55,7 @@
 							</textElement>
 							<textFieldExpression><![CDATA[$F{nombreParticipante}.toUpperCase()]]></textFieldExpression>
 						</textField>
-						<textField>
+						<textField textAdjust="ScaleFont">
 							<reportElement x="310" y="190" width="380" height="30" forecolor="#2859A8" uuid="8f442387-055d-4837-9ac1-b149bfb807b4"/>
 							<textElement>
 								<font fontName="Montserrat" size="24" isBold="true" pdfFontName=""/>

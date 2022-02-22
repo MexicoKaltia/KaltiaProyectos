@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="diploma" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a978e93-46e8-43ec-8ee5-4ffe8afa3b05">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="background.image.path" value="C:\Users\hugo\JaspersoftWorkspace\MyReports\formatos\imagenes\diploma.jpg"/>
@@ -48,7 +48,7 @@
 				<imageExpression><![CDATA["jasper/imagenes/diploma.jpg"]]></imageExpression>
 			</image>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="83" y="250" width="447" height="53" forecolor="#2859A8" uuid="2df4de60-c3e7-4493-b2cc-edb73ba0b2c0"/>
+				<reportElement x="83" y="252" width="437" height="53" forecolor="#2859A8" uuid="2df4de60-c3e7-4493-b2cc-edb73ba0b2c0"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="16" isBold="true" isItalic="false"/>
 				</textElement>
@@ -62,21 +62,21 @@
 				<textFieldExpression><![CDATA[$P{diplomaNombreParticipante}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="83" y="294" width="460" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
+				<reportElement x="83" y="297" width="460" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
 				<textElement>
 					<font fontName="Montserrat Medium" size="12" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Impartido el "+$P{diplomaFecha}+", con una duración de "+$P{diplomaDuracion}+" horas."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="66" y="395" width="185" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
+				<reportElement x="66" y="401" width="185" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreInstructor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="268" y="395" width="185" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
+				<reportElement x="268" y="401" width="185" height="22" forecolor="#2859A8" uuid="c66245cf-d1f1-4877-a386-3fdc543c61fa"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>
