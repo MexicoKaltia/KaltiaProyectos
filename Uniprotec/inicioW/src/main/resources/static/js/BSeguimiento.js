@@ -95,6 +95,7 @@ $(document).ready(function(){
 	window.operateEventsViewExpedientePreAsignacionAE = {
 		    'click .like': function (e, value, row, index) {
 		    	console.log(row);
+		    	var flag = false;
 		    	for(var a in $preAsignacionesAE){
 		    		var preAsignacionAE = $preAsignacionesAE[a];
 		    		console.log(preAsignacionAE);
@@ -180,10 +181,15 @@ $(document).ready(function(){
 		    				$('#formAETotalesDiv').removeClass("text-danger");
 		    				$('#formAETotalesDiv').addClass("text-success");
 		    			}
-
+		    			var flag = true;
+		    			$('#modalDivNuevoAE').hide();
+		    			$('#modalDivAE').show();
 		    		}
 		    	}
-		    		      
+		    	if(!flag){
+		    		$('#modalDivAE').hide();
+		    		$('#modalDivNuevoAE').show();
+		    	}	      
 		    }
 		   }
 
