@@ -237,7 +237,7 @@ public class EntregableRestController {
  			pe.setParticipanteCURP(pm.getParticipanteCURP() != null ? pm.getParticipanteCURP() : " ");
 			pe.setParticipanteFoto(pm.getParticipanteFoto());
 			pe.setParticipanteExamenTeoricoInicial(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
-			pe.setParticipanteExamenTeoricoFinal(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
+			pe.setParticipanteExamenTeoricoFinal(Double.valueOf(pm.getParticipanteExamenTeoricoFinal()));
 			pe.setParticipanteExamenPractico(Double.valueOf(pm.getParticipanteExamenPractico()));
 			pe.setParticipantePromedio(Double.valueOf(pm.getParticipantePromedio()));
 			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento() != null ? pm.getParticipanteAprovechamiento() : " ");

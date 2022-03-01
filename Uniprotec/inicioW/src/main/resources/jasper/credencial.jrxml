@@ -48,7 +48,7 @@
 							<reportElement x="10" y="10" width="750" height="460" uuid="6361799a-7abc-461c-afbf-1389c7969af0"/>
 							<imageExpression><![CDATA["jasper/imagenes/Credenciales.jpg"]]></imageExpression>
 						</image>
-						<textField>
+						<textField textAdjust="ScaleFont">
 							<reportElement x="310" y="130" width="380" height="30" forecolor="#2859A8" uuid="bff96313-61d2-4715-9e40-b87cef8530eb"/>
 							<textElement>
 								<font fontName="Montserrat" size="24" isBold="true" pdfFontName=""/>
@@ -76,7 +76,7 @@
 							</textElement>
 							<textFieldExpression><![CDATA[$F{fechaFinal}]]></textFieldExpression>
 						</textField>
-						<textField>
+						<textField textAdjust="ScaleFont">
 							<reportElement x="310" y="320" width="378" height="30" forecolor="#2859A8" uuid="1596d395-8e56-40fd-97fb-6e4d3289ebe5"/>
 							<textElement>
 								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>

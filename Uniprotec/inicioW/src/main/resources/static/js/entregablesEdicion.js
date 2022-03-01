@@ -701,6 +701,7 @@ $(document).ready(function() {
 			}
 			$('#entregableEdicion').submit();
 		}else{
+			$('#btnGeneraDocto').hide();
 			alert("No se puede generar documentación digital, el instructor asignado "+asignacionItem.instructorAsignacion+", no tiene capturada la firma digital")
 			return false;
 		}
@@ -871,7 +872,7 @@ function duracion(str){
 			var TF = $('#participanteETF').val();
 			var EP = $('#participanteEP').val();
 
-			var promedio = ( TF*1+ EP*1 )/2 ;
+			var promedio = ( TF*1 + EP*1 )/2 ;
 			$('#participanteP').val(promedio);
 			$('#checkAprovechamiento').bootstrapToggle('on');
 			if(promedio < 8){

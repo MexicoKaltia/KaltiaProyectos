@@ -55,7 +55,7 @@
 				<textFieldExpression><![CDATA[$P{diplomaNombreCurso}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="86" y="146" width="490" height="47" forecolor="#2859A8" uuid="424d27bc-445e-4bd0-909a-630ea8e27025"/>
+				<reportElement x="86" y="146" width="444" height="94" forecolor="#2859A8" uuid="424d27bc-445e-4bd0-909a-630ea8e27025"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="35" isBold="true" isItalic="true"/>
 				</textElement>
@@ -68,8 +68,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Impartido el "+$P{diplomaFecha}+", con una duración de "+$P{diplomaDuracion}+" horas."]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="66" y="400" width="184" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="43" y="400" width="229" height="22" forecolor="#2859A8" uuid="7057902a-7197-4b62-ab5b-3ddcc99e2212"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="true" isItalic="false"/>
 				</textElement>

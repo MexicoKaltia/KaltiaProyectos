@@ -112,6 +112,12 @@ public class EntregableService implements IEntregableService {
 		entregable.setUserCreate(idUsuario);
 		entregable.setCreateAt(me.getNowEntidad());
 		entregable.setStatus("Elaborar Entregable");
+		if(entregable.getFormARepresentanteEmpresa().equals("")) {
+			entregable.setFormARepresentanteEmpresa("");
+		}
+		if(entregable.getFormARepresentanteTrabajador().equals("")) {
+			entregable.setFormARepresentanteTrabajador("");
+		}
 		
 		/*
 		 * Actualiza Entregable
