@@ -83,11 +83,11 @@
 				<textFieldExpression><![CDATA[$P{diplomaNombreDirector}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="97" y="317" width="144" height="80" uuid="44ef725f-66c0-4d07-a2c9-0c7339bd9cbf"/>
+				<reportElement x="97" y="317" width="163" height="80" uuid="44ef725f-66c0-4d07-a2c9-0c7339bd9cbf"/>
 				<imageExpression><![CDATA[$P{diplomaFirmaInstructor}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="302" y="319" width="131" height="78" uuid="3e5560ec-b0ae-4bd8-89cf-081759bdcb9e"/>
+				<reportElement x="272" y="340" width="176" height="78" uuid="3e5560ec-b0ae-4bd8-89cf-081759bdcb9e"/>
 				<imageExpression><![CDATA[$P{diplomaFirmaDirector}]]></imageExpression>
 			</image>
 		</band>
