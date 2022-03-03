@@ -88,6 +88,12 @@ $(document).ready(function(){
 		    	$('#modalObservaciones').html('<b>'+row.observacionesAsignacion+'</b>');
 		    	$('#modalArchivos').html('<b>'+row.archivosAsignacion+'</b>');
 		    	$('#modalVentas').html('<b>'+row.userCreateAsignacionTexto+'</b>');
+		    	
+		    	$('#btnEliminarPreAsignacion').click(function(){
+		    		console.log("btnModalPreAsignacion");
+		    		$("#formPreAsignacion").attr("action", "/DPreAsignacion/"+row.idPreAsignacion);
+		    		$("#formPreAsignacion").submit();
+		    	});
 	      
 		    }
 		   }
@@ -98,7 +104,7 @@ $(document).ready(function(){
 		    	var flag = false;
 		    	for(var a in $preAsignacionesAE){
 		    		var preAsignacionAE = $preAsignacionesAE[a];
-		    		console.log(preAsignacionAE);
+		    		
 		    		if((preAsignacionAE.formAEidPreAsignacion*1) === row.idPreAsignacion){
 		    			$('#formAECurso').text(preAsignacionAE.formAECurso);
 		    			$('#formAEEmpresa').text(preAsignacionAE.formAEEmpresa);
@@ -184,11 +190,40 @@ $(document).ready(function(){
 		    			var flag = true;
 		    			$('#modalDivNuevoAE').hide();
 		    			$('#modalDivAE').show();
+		    			$('#modalAE').removeClass("modal-lg");
+		    			$('#modalAE').addClass("modal-xl");
 		    		}
 		    	}
 		    	if(!flag){
 		    		$('#modalDivAE').hide();
 		    		$('#modalDivNuevoAE').show();
+		    		$('#modalAE').removeClass("modal-xl");
+		    		$('#modalAE').addClass("modal-lg");
+		    		
+		    		$('#btnAENuevoSubmit').click(function(){
+		    			$('#idAsignacion').val(row.idPreAsignacion);
+		    			alert(row.idPreAsignacion);
+		    			$('#fechaAsignacion').val(row.fechaAsignacion);
+						$('#idClienteAsignacion').val(row.idClienteAsignacion);
+						$('#clienteAsignacion').val(row.clienteAsignacion);
+						$('#idCursoAsignacion').val(row.idCursoAsignacion);
+						$('#cursoAsignacion').val(row.cursoAsignacion);
+						$('#idInstructorAsignacion').val(row.idInstructorAsignacion);
+						$('#instructorAsignacion').val(row.instructorAsignacion);
+						$('#horarioAsignacion').val(row.horarioAsignacion);
+						$('#participantesAsignacion').val(row.participantesAsignacion);
+						$('#nivelAsignacion').val(row.nivelAsignacion);
+						$('#archivosAsignacionTexto').val("archivos asignacion Texto");
+						$('#archivosAsignacion').html(row.archivosAsignacion);
+						$('#observacionesAsignacion').val(row.observacionesAsignacion);
+						$('#idRegionAsignacion').val(row.idRegionAsignacion);
+						$('#nombreRegionAsignacion').val(row.nombreRegionAsignacion);
+						$('#tipoCursoAsignacion').val(row.tipoCursoAsignacion);
+						$('#userCreateAsignacion').val(row.userCreateAsignacion);
+						$('#userCreateAsignacionTexto').val(row.userCreateAsignacionTexto);
+						
+						$('#formPreAsignacionAENuevo').submit();
+		    		});
 		    	}	      
 		    }
 		   }
@@ -204,6 +239,14 @@ $(document).ready(function(){
 			
 		    'click .like': function (e, value, row, index) {
 		    	$('#seccionPautaOperativa').html(row.seguimiento);
+		    	
+		    	$('#btnAgregarNotificacion').click(function(){
+//		    		console.log($('#modaltextAreaSeguimiento').val());
+		    		$('#idPreAsignacion').val(row.idPreAsignacion);
+		    		$('#nombreUsuarioSeguimiento').val(nombreUsuario);
+		    		$('#perfilUsuarioSeguimiento').val(perfilUsuario);
+		    		
+		    	});
 		    }
 		   }
 	
@@ -277,55 +320,43 @@ $(document).ready(function(){
     var contarSegundoNivel = 0;
     var contarTercerNivel = 0;
     
-    $('#seccionPautaOperativa').each(function(){
-    	contarPrimerNivel++;
-    	$('#listPrimerNivel'+contarPrimerNivel).each(function(){
-    		contarSegundoNivel++;
-    	})
-    })
-    
-    $('#btnPrimerNivel').click(function(){
-        
-        $('#seccionPautaOperativa').append('<div class="alert alert-ligth alert-dismissible fade show" role="alert"><ul id="listPrimerNivel'+contarPrimerNivel+'"></ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        
-        var primerNivel = $('#txtPrimerNivel').val();
-        $('#listPrimerNivel'+contarPrimerNivel).append('<li style="list-style-type: disc;" ><ul id="itemPrimerNivel'+contarPrimerNivel+'"><b>'+primerNivel+' </b></ul></li>');
-        $('#txtSegundoNivel').attr('disabled', false);
-        $('#btnPrimerNivel').attr('disabled', true);
-        $('#btnSegundoNivel').attr('disabled', false);
-        $('#txtPrimerNivel').val("");
-        $('#txtPrimerNivel').attr('disabled', true);
-        $('#agregarPautaOperativa').attr('disabled', false);
-        contarPrimerNivel++;
-        contarSegundoNivel++;
-    });
-    
-    $('#btnSegundoNivel').click(function(){
-        var segundoNivel = $('#txtSegundoNivel').val();
-        
-        if(segundoNivel.length > 0){
-            
-            $('#itemPrimerNivel'+(contarPrimerNivel-1)).append('<li style="list-style-type: circle;"  ><ul id="itemSegundoNivel'+contarSegundoNivel+'">'+segundoNivel+' </ul></li>');
-            $('#txtPrimerNivel').attr('disabled', true);
-            $('#txtTercerNivel').attr('disabled', false);
-            $('#btnTercerNivel').attr('disabled', false);
-            $('#txtSegundoNivel').val("");
-            contarSegundoNivel++;
-        }
-    });
+//    $('#seccionPautaOperativa').each(function(){
+//    	contarPrimerNivel++;
+//    	$('#listPrimerNivel'+contarPrimerNivel).each(function(){
+//    		contarSegundoNivel++;
+//    	})
+//    })
+//    
+//    $('#btnPrimerNivel').click(function(){
+//        
+//        $('#seccionPautaOperativa').append('<div class="alert alert-ligth alert-dismissible fade show" role="alert"><ul id="listPrimerNivel'+contarPrimerNivel+'"></ul><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+//        
+//        var primerNivel = $('#txtPrimerNivel').val();
+//        $('#listPrimerNivel'+contarPrimerNivel).append('<li style="list-style-type: disc;" ><ul id="itemPrimerNivel'+contarPrimerNivel+'"><b>'+primerNivel+' </b></ul></li>');
+//        $('#txtSegundoNivel').attr('disabled', false);
+//        $('#btnPrimerNivel').attr('disabled', true);
+//        $('#btnSegundoNivel').attr('disabled', false);
+//        $('#txtPrimerNivel').val("");
+//        $('#txtPrimerNivel').attr('disabled', true);
+//        $('#agregarPautaOperativa').attr('disabled', false);
+//        contarPrimerNivel++;
+//        contarSegundoNivel++;
+//    });
+//    
+//    $('#btnSegundoNivel').click(function(){
+//        var segundoNivel = $('#txtSegundoNivel').val();
+//        
+//        if(segundoNivel.length > 0){
+//            
+//            $('#itemPrimerNivel'+(contarPrimerNivel-1)).append('<li style="list-style-type: circle;"  ><ul id="itemSegundoNivel'+contarSegundoNivel+'">'+segundoNivel+' </ul></li>');
+//            $('#txtPrimerNivel').attr('disabled', true);
+//            $('#txtTercerNivel').attr('disabled', false);
+//            $('#btnTercerNivel').attr('disabled', false);
+//            $('#txtSegundoNivel').val("");
+//            contarSegundoNivel++;
+//        }
+//    });
 
-    
-    $('#agregarPautaOperativa').click(function(){
-//        //console.log("agregarInstruccion");
-        $('#btnPrimerNivel').attr('disabled', false);
-        $('#txtPrimerNivel').attr('disabled', false);
-        $('#btnSegundoNivel').attr('disabled', true);
-        $('#txtSegundoNivel').attr('disabled', true);
-        $('#btnTercerNivel').attr('disabled', true);
-        $('#txtTercerNivel').attr('disabled', true);
-               
-    });
-	
 	
 	
 }); // Fin documento jquery
@@ -341,4 +372,12 @@ function getFecha(fechaValor){
 	return fecha;
 }
 
-	
+	function minLenghtTextArea(element){
+		var valor = element.value;
+		if(valor.length > 4){
+			console.log(valor.length);
+			$('#btnAgregarNotificacion').attr("disabled", false);
+		}else{
+			$('#btnAgregarNotificacion').attr("disabled", true);
+		}
+	}

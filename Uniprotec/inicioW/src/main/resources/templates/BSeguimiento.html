@@ -318,6 +318,7 @@
 		 
 		 var idUsuario =  [[${model.jsonResponse.user.id}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 	</script>
 											    
@@ -362,15 +363,20 @@
 	                <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
                 </ul>
               </div>
-<!--           <form id="actualizaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaVendedor}"  th:object="${vendedorForm}" method="post"> -->
-                                              
-<!--               <button class="btn btn-primary" type="submit">Edicion Vendedor</button> -->
-<!--           </form> -->
+        	</div>
+        	<br><hr>
+        	<div class="row">
+        		<div class = "col-mg-4"></div>
+        		<div class = "col-mg-4">
+        			<form role="form" id="formPreAsignacion" th:action="@{/DPreAsignacion}"  method="post">
+        				<button type="submit" id="btnEliminarPreAsignacion" class="btn btn-warning btn-default pull-left" data-dismiss="modal">Eliminar PreAsignacion</button>
+        			</form>
+        		</div>
+        		<div class = "col-mg-4"></div>
         	</div>
 		</div>
         <div class="modal-footer" style=" background-color: #F1FFFE">
           <button type="button" class="btn btn-secondary btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
-          
         </div>
       </div>
       
@@ -395,50 +401,28 @@
               <div class="card-body">
               	<h5 class="card-title">Resumen de Notificaciones PreAsignacion</h5>
                 <div class="form-row">
-                                      	<label for="textArea">Registros:</label>
-                                      <input type="hidden" id="pautaOperativaClienteTxt"  />
-<!--                                       <span id="pautaOperativaCliente" ></span> -->
-                                     	<div id="seccionPautaOperativa">
-                                     		
-            							</div>
-                                     </div>
-                                     <div class="form-row">      
-							            <div class="form-group purple-border col-md-12">
-
-							
-							                <div class="input-group mb-2 input-group-lg">
-							                    <input type="text" class="form-control" id="txtPrimerNivel" placeholder="Primer Nivel">
-							                    <div class="input-group-append">
-							                        <button class="btn btn-outline-info" id="btnPrimerNivel" type="button">Primer Nivel</button>
-							                    </div>
-							                </div>
-							
-							                <div class="input-group mb-2">
-							                    <input type="text" class="form-control" id="txtSegundoNivel" placeholder="Segundo Nivel" disabled>
-							                    <div class="input-group-append">
-							                        <button class="btn btn-outline-info" id="btnSegundoNivel" type="button" disabled>Segundo Nivel</button>
-							                    </div>
-							                </div>
-							                <div class="input-group mb-2 input-group-sm">
-							                    <input type="text" class="form-control" id="txtTercerNivel" placeholder="Tercer Nivel" disabled>
-							                    <div class="input-group-append">
-							                        <button class="btn btn-outline-info" id="btnTercerNivel" type="button" disabled>Tercer Nivel</button>
-							                    </div>
-							                </div>
-							                <div class="clearfix">
-							            <span class="float-right">
-							                <button type="button" id="agregarPautaOperativa" class="btn btn-success" disabled>Agregar Notificacion</button>
-							            </span>
-        
-                                     </div>
-							                <small class="form-text text-muted">Captura Regla o Enunciado de informacion. Para enlistar dar click en boton Agregar </small>
-							            </div>
-							        </div>
+                       <label for="textArea">Registros:</label>
+                        <div id="seccionPautaOperativa"></div>
+                      </div>
+                      <div class="form-row">      
+                      <form role="form" id="formNotificacionNuevo" th:action="@{/BPreAsignacion}"  th:object="${asignacionForm}" method="post">
+                      	<input type="hidden" id="idPreAsignacion" th:field="*{idAsignacion}" />
+                      	<input type="hidden" id="nombreUsuarioSeguimiento" th:field="*{nombreUsuarioSeguimiento}" />
+						<input type="hidden" id="perfilUsuarioSeguimiento" th:field="*{perfilUsuarioSeguimiento}" />
+						
+			            <div class="form-group purple-border col-md-12">
+			            	<textarea name="modaltextAreaSeguimiento" id="modaltextAreaSeguimiento" th:field="*{mensajeSeguimiento}" class="form-control" placeholder="Capture Observaciones"  rows="4" cols="100" onfocusout="minLenghtTextArea(this)"></textarea>
+			           <div class="clearfix">
+			           <br>
+			            <span class="float-right">
+			                <button type="submit" id="btnAgregarNotificacion" class="btn btn-success" disabled>Agregar Notificacion</button>
+			            </span>
+                        </div>
+			                <small class="form-text text-muted">Captura Regla o Enunciado de informacion. Para enlistar dar click en boton Agregar </small>
+			            </div>
+			            </form>
+			        </div>
               </div>
-<!--           <form id="actualizaVendedor" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaVendedor}"  th:object="${vendedorForm}" method="post"> -->
-                                              
-<!--               <button class="btn btn-primary" type="submit">Edicion Vendedor</button> -->
-<!--           </form> -->
         	</div>
 		</div>
         <div class="modal-footer" style=" background-color: #F1FFFE">
@@ -453,7 +437,7 @@
   <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
   <!-- Modal -->
   <div class="modal fade" id="modalPreAsignacionAE" role="dialog">
-    <div class="modal-dialog modal-xl">   
+    <div class="modal-dialog modal-xl" id="modalAE">   
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background-color: #F1FFFE">
@@ -1042,7 +1026,31 @@
                             <div class="row">   
                                <div class="col-md-3"></div>
                                <div class="col-md-6">
-	                                  	<button class="mb-2 mr-2 btn btn-success btn-lg btn-block" id="btnFormAESubmit">Análisis Económico</button>
+                               <form role="form" id="formPreAsignacionAENuevo" th:action="@{/APreAsignacionAE}"  th:object="${asignacionForm}" method="post">
+                               		
+                               		<input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+                               		<input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                                    <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                                    <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                                    <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                                    <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                                    <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                                    <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                                    <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                                    <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                                    <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                                    <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+                                    <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                                    <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                                    <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                                    <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                    <input type="hidden" id="clienteStatus" th:field="*{clienteStatus}" />
+                                    
+			        				<button class="mb-2 mr-2 btn btn-success btn-lg btn-block" id="btnAENuevoSubmit">Análisis Económico</button>
+			        			</form>
+	                                  	
 							  </div>
 							   <div class="col-md-3"></div>
 							</div>

@@ -54,6 +54,11 @@ public class PreAsignacionAE {
 	private String formAEidPreAsignacionLogica;
 	private String formAEidPreAsignacion;
 	
+	private String nombreUsuarioSeguimiento;
+	private String perfilUsuarioSeguimiento;
+	private String mensajeSeguimiento;
+
+	
 	private LocalDateTime createAt;
 	private Long userCreate;
 	private String userCreateTexto;
@@ -401,6 +406,30 @@ public class PreAsignacionAE {
 
 	public void setIdPreAsignacionAE(long idPreAsignacionAE) {
 		this.idPreAsignacionAE = idPreAsignacionAE;
+	}
+
+	public String getNombreUsuarioSeguimiento() {
+		return nombreUsuarioSeguimiento;
+	}
+
+	public void setNombreUsuarioSeguimiento(String nombreUsuarioSeguimiento) {
+		this.nombreUsuarioSeguimiento = nombreUsuarioSeguimiento;
+	}
+
+	public String getPerfilUsuarioSeguimiento() {
+		return perfilUsuarioSeguimiento;
+	}
+
+	public void setPerfilUsuarioSeguimiento(String perfilUsuarioSeguimiento) {
+		this.perfilUsuarioSeguimiento = perfilUsuarioSeguimiento;
+	}
+
+	public String getMensajeSeguimiento() {
+		return mensajeSeguimiento;
+	}
+
+	public void setMensajeSeguimiento(String mensajeSeguimiento) {
+		this.mensajeSeguimiento = mensajeSeguimiento;
 	}
 
 	

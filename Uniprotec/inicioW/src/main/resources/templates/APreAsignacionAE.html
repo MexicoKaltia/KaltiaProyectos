@@ -813,6 +813,11 @@
 	                                  
 	                                  	<input name="formAEidPreAsignacion" id="formAEidPreAsignacion"  type="hidden"  >
 	                                  	<input name="formAEidPreAsignacionLogica" id="formAEidPreAsignacionLogica"  type="hidden"  >
+	                                  	
+	                                    <input type="hidden" id="nombreUsuarioSeguimiento" th:field="*{nombreUsuarioSeguimiento}" />
+                                        <input type="hidden" id="perfilUsuarioSeguimiento" th:field="*{perfilUsuarioSeguimiento}" />
+                                        <input type="hidden" id="mensajeSeguimiento" th:field="*{mensajeSeguimiento}" />
+                                        
 	                                  </div>
 	                                  <div class="col-md-6">
 	                                  	<button class="mb-2 mr-2 btn btn-success btn-lg btn-block" disabled id="btnFormAESubmit">Guardar Análisis Económico</button>
@@ -851,6 +856,10 @@
 	
 	          <script th:inline="javascript">
 				var preAsignacion =  [[${preAsignacion}]];
+				var idUsuario =  [[${model.jsonResponse.user.id}]];
+				 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+				 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+				 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 			</script>  
    
     <script type="text/javascript" th:src="@{js/main.js}"></script>

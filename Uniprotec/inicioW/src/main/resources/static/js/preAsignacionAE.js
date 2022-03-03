@@ -370,6 +370,10 @@ $(document).ready(function(){
 
 		$('#formAEObservacionesS').val($.observaciones);
 		
+		$('#nombreUsuarioSeguimiento').val(nombreUsuario);
+		$('#perfilUsuarioSeguimiento').val(perfilUsuario);
+		$('#mensajeSeguimiento').val("ALTA ANÁLISIS ECONÓMICO");
+		
 		alert("Este Análisis Económico será enviado a revisión al personal Administrativo para ser aprobado, en caso de algún comentario podrá dar continuidad en el módulo de Seguimiento");
 
 	});

@@ -105,7 +105,7 @@ public class ControllerPreAsignacion {
 		Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
 		
 		resultVO  = preAsignacionService.altaPreAsignacion(asignacion, resultVO.getAccesToken(), idUsuario );
-		ModelAndView mav = new ModelAndView("redirect:/CAsignacion" , model);
+		ModelAndView mav = new ModelAndView("redirect:/BSeguimiento" , model);
 		if(resultVO.getCodigo() != 500) {
 //			log.info(resultVO.toString());
 			mav.addObject("ejecucion", true);
@@ -128,9 +128,12 @@ public class ControllerPreAsignacion {
 		JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
 		Long idUsuario = Long.valueOf( jsonUsuario.get("id").toString());
 		
-		resultVO  = preAsignacionService.altaPreAsignacion(asignacion, resultVO.getAccesToken(), idUsuario );
-		JSONObject jsonPreAsignacion= new JSONObject((Map) resultVO.getJsonResponse().get("preAsignacion"));
-		asignacion.setIdAsignacion(Long.valueOf( jsonPreAsignacion.get("idPreAsignacion").toString()));  
+		if(asignacion.getIdAsignacion() == null) {
+			resultVO  = preAsignacionService.altaPreAsignacion(asignacion, resultVO.getAccesToken(), idUsuario );
+			JSONObject jsonPreAsignacion= new JSONObject((Map) resultVO.getJsonResponse().get("preAsignacion"));
+			asignacion.setIdAsignacion(Long.valueOf( jsonPreAsignacion.get("idPreAsignacion").toString()));
+		}
+		  
 		
 		ModelAndView mav = new ModelAndView("APreAsignacionAE" , model);
 		model.addAttribute("preAsignacion", asignacion);
@@ -179,8 +182,6 @@ public class ControllerPreAsignacion {
 		
 			log.info("Seguimiento model Activo");
 			
-			model.addAttribute("asignacionItem", new AsignacionModelo());
-			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
 			
@@ -189,7 +190,7 @@ public class ControllerPreAsignacion {
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 			ModelAndView mav = new ModelAndView("BSeguimiento", model);
 			model.addAttribute("preAsignaciones", rs.getJsonResponseObject());
-			model.addAttribute("asignacionItem", new AsignacionModelo());
+			model.addAttribute("asignacionForm", new AsignacionModelo());
 			
 			if(rs.getCodigo() != 500) {
 				mav.addObject("ejecucion", ejecucion);
@@ -204,30 +205,48 @@ public class ControllerPreAsignacion {
 		}
 	
 	
-//	@PostMapping("/BAsignacion")
-//	public ModelAndView BAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
-//		model.addAttribute("asignacionItem", asignacion);
-//		log.info(asignacion.toString());
-//		if(model.equals(null)) {
-//			log.info("NULL");
-//			return new  ModelAndView("login");
-//		}else {
-//			log.info("Edicion Asignacion model Activo");
-//			ResultVO resultVO = (ResultVO)model.get("model");			
-//			ResultVO rs = aplicacionService.consultaData(resultVO);
-//			model.addAttribute("model", rs);
-//			ModelAndView mav = new  ModelAndView("BAsignacion",  model);
-//			if(rs.getCodigo() != 500) {					
-//				return mav;
-//			}else {
-//				mav.addObject("consulta", true);
-//				log.info("NOK AltaCliente");
-//				return mav;	
-//			}
-//				
-//		}		
-//			
-//	}
+	@PostMapping("/DPreAsignacion/{idAsignacion}")
+	public ModelAndView DPreAsignacion(@PathVariable String idAsignacion, ModelMap model) {
+//		log.info(idAsignacion);
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("Delete PRE Asignacion model Activo");
+			ResultVO resultVO = (ResultVO)model.get("model");			
+			ResultVO rs = preAsignacionService.deletePreAsignacion(idAsignacion, resultVO.getAccesToken());
+			model.addAttribute("model", resultVO);
+			ModelAndView mav = new  ModelAndView("redirect:/BSeguimiento",  model);
+			if(rs.getCodigo() != 500) {
+				mav.addObject("ejecucion", true);
+				return mav;
+			}else {
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+				return mav;	
+			}
+				
+		}		
+			
+	}
+	
+	@PostMapping("/BPreAsignacion")
+	public ModelAndView actualizaPreAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
+		log.info("Actualizacion PreAsignacion");
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+
+		ResultVO rs = preAsignacionService.actualizaPreAsignacion(asignacion, resultVO.getAccesToken());
+		ModelAndView mav = new ModelAndView("redirect:/BSeguimiento", model);
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK AltaCliente");
+		}
+		return mav;			
+	}
 //	
 //	
 //	

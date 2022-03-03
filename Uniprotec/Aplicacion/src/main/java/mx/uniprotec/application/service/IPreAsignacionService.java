@@ -25,5 +25,7 @@ public interface IPreAsignacionService {
 	public List<PreAsignacion> findAll();
 
 	public PreAsignacion findId(Long valueOf);
+
+	public int deleteId(Long id);
 	
 }

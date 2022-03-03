@@ -93,8 +93,40 @@ public class PreAsignacionService implements IPreAsignacionService{
 			rs.setJsonResponseObject(jsonPreAsignaciones);
 		}
 			return rs;
-		
 	}
+	
+	@Override
+	public ResultVO deletePreAsignacion(String idAsignacion, String accesToken) {
+	ResultVO rs= (ResultVO) baseClientRest.objetoDeleteId(idAsignacion, accesToken , BaseClientRest.URL_CRUD_PREASIGNACION_D);
+		
+		if(rs.getCodigo() != 500) {
+			JSONObject jsonGeneral = rs.getJsonResponse();
+			JSONObject jsonResponseObject = new JSONObject();
+			jsonResponseObject.put("mensaje", jsonGeneral.get("mensaje"));
+			rs.setJsonResponseObject(jsonResponseObject);
+		}
+		return rs;
+	}
+	
+	@Override
+	public ResultVO actualizaPreAsignacion(AsignacionModelo asignacion, String accesToken) {
+		me = ComponenteComun.monitorCampos();
+		asignacion.setCreateAtAsignacion(me.getNowEntidad());
+		resultVO = (ResultVO) baseClientRest.objetoPut(
+				accesToken,
+				BaseClientRest.URL_CRUD_PREASIGNACION,
+				asignacion,
+				asignacion.getIdAsignacion());
+//		if(resultVO.getCodigo() != 500) {
+//			baseClientRest.objetoPost(
+//					accesToken,
+//					BaseClientRest.URL_CRUD_NOTIFICACION,
+//					asignacion);
+//		}
+			
+		return resultVO;
+	}
+
 	
 	
 	
@@ -107,6 +139,9 @@ public class PreAsignacionService implements IPreAsignacionService{
 		String[] fechas = fechaAsignacion.split("/");
 		return fechas[1]+fechas[0]+fechas[2];
 	}
+
+
+	
 
 	
 

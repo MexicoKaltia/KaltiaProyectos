@@ -55,6 +55,19 @@ public class PreAsignacionServiceImpl implements IPreAsignacionService {
 
 
 
+	@Override
+	public int deleteId(Long id) {
+		try {
+			preAsignacionDao.deleteById(id);
+			return  0;
+		} catch (Exception e) {
+			return  99;
+		}
+		
+	}
+
+
+
 	
 	
 //	@Override

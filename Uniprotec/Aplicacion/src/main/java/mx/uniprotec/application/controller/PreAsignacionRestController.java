@@ -18,13 +18,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.dao.INotificacionDao;
+import mx.uniprotec.application.dao.IPreAsignacionDao;
 import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
@@ -46,7 +50,7 @@ public class PreAsignacionRestController {
 	@Autowired
 	private INotificacionDao notificacionDao;
 	@Autowired
-	private IEntregableService entregableService;
+	private IPreAsignacionDao preAsignacionDao;
 
 	
 	
@@ -102,7 +106,8 @@ public class PreAsignacionRestController {
 			pre_asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			pre_asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			pre_asignacionNew.setClienteStatus(asignacion.getClienteStatus());
-			pre_asignacionNew.setSeguimiento(seguimientoUpdate("","nombreUsuario","Vendedor","ALTA PREASIGNACION"));
+//			pre_asignacionNew.setSeguimiento(seguimientoUpdate("","nombreUsuario","Vendedor","ALTA PREASIGNACION"));
+			pre_asignacionNew.setSeguimiento(seguimientoUpdate("",asignacion.getNombreUsuarioSeguimiento(),asignacion.getPerfilUsuarioSeguimiento(),asignacion.getMensajeSeguimiento()));
 			
 			
 			pre_asignacionNew.setFechaPago("");
@@ -128,20 +133,6 @@ public class PreAsignacionRestController {
 		}
 	}
 	
-	private String seguimientoUpdate(String seguimiento, String nombreUsuario, String perfilUsuario, String mensaje) {
-		
-		String nuevoSeguimiento1 = "<div class='alert alert-ligth alert-dismissible fade show' role='alert'><ul id='listPrimerNivel11'><li style='list-style-type: disc;'><ul id='itemPrimerNivel11'><b>";
-		String nuevoSeguimiento2 = "</b><li style='list-style-type: circle;'><ul id='itemSegundoNivel11'>"; 
-		String nuevoSeguimiento3 = "</ul></li></ul></li></ul></div>";
-		Calendar c1 = Calendar.getInstance();
-		String dia = Integer.toString(c1.get(Calendar.DATE));
-		String mes = Integer.toString(c1.get(Calendar.MONTH));
-		String anio = Integer.toString(c1.get(Calendar.YEAR));
-		String fechaHoy = dia + "-" + mes + "-" + anio;
-		Date fecha = new Date();
-		
-		return seguimiento+nuevoSeguimiento1+fecha+" "+perfilUsuario+" "+nombreUsuario+nuevoSeguimiento2+mensaje+nuevoSeguimiento3;
-	}
 
 	@PostMapping("/preAsignacionAE")
 	public ResponseEntity<?> createPreAsignacionAE(@Valid @RequestBody PreAsignacionAE preAsignacionAE, BindingResult result) {
@@ -218,7 +209,9 @@ public class PreAsignacionRestController {
 			preAsignacion.setIdPreAsignacionAE(preAsignacionAENew.getIdPreAsignacionAE());
 			preAsignacion.setPreAsignacionAEStatus(preAsignacionAENew.getStatus());
 			preAsignacion.setStatusAsignacion(preAsignacionAENew.getStatus());
-			preAsignacion.setSeguimiento(seguimientoUpdate(preAsignacion.getSeguimiento(),"nombreUsuario","Vendedor","ALTA ANÁLISIS ECONÓMICO"));
+//			preAsignacion.setSeguimiento(seguimientoUpdate(preAsignacion.getSeguimiento(),"nombreUsuario","Vendedor","ALTA ANÁLISIS ECONÓMICO"));
+			preAsignacion.setSeguimiento(seguimientoUpdate(preAsignacion.getSeguimiento(),preAsignacionAE.getNombreUsuarioSeguimiento(),preAsignacionAE.getPerfilUsuarioSeguimiento(),preAsignacionAE.getMensajeSeguimiento()));
+			
 			preAsignacionService.savePreAsignacion(preAsignacion);
 			
 			
@@ -265,6 +258,193 @@ public class PreAsignacionRestController {
 		}
 		
 	}
+	
+	@DeleteMapping("/preAsignacion/{idPreAsignacion}")
+	public ResponseEntity<?> deletePreAsignaciones(@PathVariable Long idPreAsignacion) {
+		log.info("Delete preAsignaciones");
+		
+		Map<String, Object> response = new HashMap<>();
+		try {
+			int code  = preAsignacionAEService.deleteIdpreAsignacion(idPreAsignacion);
+			if(code == 0){
+				code  = preAsignacionService.deleteId(idPreAsignacion);
+			}
+			 response.put("code", code );
+			 response.put("mensaje", "Registro eliminado correctamente");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("Delete preAsignaciones  fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			log.info("catch Delete preAsignaciones fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@PutMapping("/preAsignacion/{id}")
+	public ResponseEntity<?> update(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result, @PathVariable Long id) {
+		
+		log.info("asignacion update:"+ id);
+		PreAsignacion preAsignacionActual = preAsignacionDao.findById(id).orElse(null);
+		PreAsignacion preAsignacionUpdated = null;
+		Map<String, Object> response = new HashMap<>();
+		if(result.hasErrors()) {
+			log.info("result.hasErrors");
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			 response.put("errors", errors);
+			 response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("asignacion update fin:"+ id);
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		if (preAsignacionActual == null) {
+			response.put("mensaje", "Error: no se pudo editar, asignacion ID: "
+					.concat(id.toString().concat(" no existe en la base de datos!")));
+			 response.put("status", HttpStatus.NOT_FOUND);
+			 response.put("code", HttpStatus.NOT_FOUND.value());
+			 log.info("asignacion update fin:"+ id);
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		log.info("update Asignacion:"+asignacion.toString());
+//		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
+//			try {
+//				List<Notificacion> notificacionUpdate = notificacionDao.findByIdAsignacionNotificacion(id);
+//				for(Notificacion notificacion : notificacionUpdate) {
+//					notificacion.setStatusNotificacion("cancelada");
+//					notificacionDao.save(notificacion);
+//				}
+//			} catch (Exception e) {
+//				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+//				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+//				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+//				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//			}			
+//		}
+		if(asignacion.getIdPreAsignacionAE() == null) {
+			try {				
+				preAsignacionActual.setSeguimiento(seguimientoUpdate(preAsignacionActual.getSeguimiento(), asignacion.getNombreUsuarioSeguimiento(), asignacion.getPerfilUsuarioSeguimiento(), asignacion.getMensajeSeguimiento()));
+//				asignacionActual.setFechaAsignacion(asignacion.getFechaAsignacion());
+//				asignacionActual.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
+//				asignacionActual.setClienteAsignacion(asignacion.getClienteAsignacion());
+//				asignacionActual.setIdCursoAsignacion(asignacion.getIdCursoAsignacion());
+//				asignacionActual.setCursoAsignacion(asignacion.getCursoAsignacion());
+//				asignacionActual.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
+//				asignacionActual.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
+//				asignacionActual.setInstructorAsignacion(asignacion.getInstructorAsignacion());
+//				asignacionActual.setHorarioAsignacion(asignacion.getHorarioAsignacion());
+//				asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
+//				asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
+//				asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+//				asignacionActual.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
+//				asignacionActual.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
+//				asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
+//				asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
+//				asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
+//				asignacionActual.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
+//				asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
+//				asignacionActual.setFechaPago(asignacion.getFechaPago());
+//				asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());
+//				asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
+//				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
+//				asignacionActual.setArchivoParticipantes(asignacion.getArchivoParticipantesTexto());
+//				asignacionActual.setCostoHotel(asignacion.getCostoHotel());
+//				if(asignacion.getErrorProceso() == null || asignacion.getErrorProceso().length() == 0) {
+//					asignacionActual.setErrorProceso("");
+//				}else {
+//					asignacionActual.setErrorProceso(asignacion.getErrorProceso());
+//				}
+				
+				preAsignacionActual= preAsignacionService.savePreAsignacion(preAsignacionActual);
+//				EntregableEntity ee = (EntregableEntity) entregableService.consultaEntregable(asignacion.getIdAsignacion());
+				
+				response.put("asignacion", preAsignacionActual  );
+				 response.put("mensaje", "PRE Asignacion actualizada con Exito");
+				 response.put("status", HttpStatus.CREATED);
+				 response.put("code", HttpStatus.CREATED.value());
+				 log.info("asignacion update fin:"+ id);
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+
+			} catch (DataAccessException e) {
+				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				log.info("asignacion update fin:"+ id);
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}			
+		}else {
+			response.put("mensaje", "PRE Asignacion NO actualizada con Exito es otro tipo de actualizacion.");
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			log.info("asignacion update fin:"+ id);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	
+	
+	/*
+	 * PRIVATES
+	 */	
+	private String seguimientoUpdate(String seguimiento, String nombreUsuario, String perfilUsuario, String mensaje) {
+		
+		String nuevoSeguimiento1 = "<div class='alert alert-ligth alert-dismissible fade show' role='alert'><ul id='listPrimerNivel11'><li style='list-style-type: disc;'><ul id='itemPrimerNivel11'><b>";
+		String nuevoSeguimiento2 = "</b><li style='list-style-type: circle;'><ul id='itemSegundoNivel11'>"; 
+		String nuevoSeguimiento3 = "</ul></li></ul></li></ul></div>";
+		Calendar c1 = Calendar.getInstance();
+		String dia = Integer.toString(c1.get(Calendar.DATE));
+		String mes = Integer.toString(c1.get(Calendar.MONTH)+1);
+		String anio = Integer.toString(c1.get(Calendar.YEAR));
+		String hora = Integer.toString(c1.get(Calendar.HOUR_OF_DAY)-7);
+		String min = Integer.toString(c1.get(Calendar.MINUTE));
+		String seg = Integer.toString(c1.get(Calendar.SECOND));
+		String diaSemana = diaSemana(c1.get(Calendar.DAY_OF_WEEK));
+		String fechaHoy = diaSemana+" "+dia + "/" + mes + "/" + anio +"  " +hora+":"+min+":"+seg;
+		
+		return seguimiento+nuevoSeguimiento1+fechaHoy+"  "+perfilUsuario+" "+nombreUsuario+nuevoSeguimiento2+mensaje+nuevoSeguimiento3;
+	}
+
+private String diaSemana(int i) {
+		
+		String diaSemana = null;
+		switch (i) {
+		case 1:
+			diaSemana = "DOMINGO";
+			break;
+		case 2:
+			diaSemana = "LUNES";
+			break;
+		case 3:
+			diaSemana = "MARTES";
+			break;
+		case 4:
+			diaSemana = "MIERCOLES";
+			break;
+		case 5:
+			diaSemana = "JUEVES";
+			break;
+		case 6:
+			diaSemana = "VIERNES";
+			break;
+		case 7:
+			diaSemana = "SABADO";
+			break;
+		}
+		
+		
+		return diaSemana;
+	}
+
 //
 //	 /*
 //	  * 

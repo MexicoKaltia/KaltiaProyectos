@@ -23,5 +23,7 @@ public interface IPreAsignacionAEService {
 	public PreAsignacionAEEntity savePreAsignacionAE(PreAsignacionAEEntity preAsignacionAENew);
 
 	public List<PreAsignacionAEEntity> findAll();
+
+	public int deleteIdpreAsignacion(Long id);
 	
 }

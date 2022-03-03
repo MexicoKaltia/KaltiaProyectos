@@ -249,6 +249,12 @@ var alerta, proceso;
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
 		$('#userCreateAsignacion').val(idUsuario);
 		$('#userCreateAsignacionTexto').val(nombreUsuario);
+		
+		$('#nombreUsuarioSeguimiento').val(nombreUsuario);
+		$('#perfilUsuarioSeguimiento').val(perfilUsuario);
+		$('#mensajeSeguimiento').val("ALTA PREASIGNACION");
+		
+		
 	}
 
 

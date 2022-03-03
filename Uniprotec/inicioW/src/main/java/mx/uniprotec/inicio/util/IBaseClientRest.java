@@ -16,5 +16,6 @@ public interface IBaseClientRest {
 	public ResultVO objetoGetAll(String token, String urlCrudCliente);
 	public ResultVO objetoGetId(String token, String urlCrud, Object object, String idObject);
 	public List<UserCorreo> objetoGetObject(String token, String urlCrudRegiones, List<UserCorreo> usersCorreo);
+	public ResultVO objetoDeleteId(String token, String urlCrud, String idObject);
 
 }

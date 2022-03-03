@@ -48,7 +48,11 @@ public class AsignacionModelo implements Serializable{
 	private Long idPreAsignacionAE;
 	private String preAsignacionAEStatus;	
 	private String clienteStatus;
+	
 	private String seguimiento;
+	private String nombreUsuarioSeguimiento;
+	private String perfilUsuarioSeguimiento;
+	private String mensajeSeguimiento;
 	
 	
 	
@@ -319,6 +323,24 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setSeguimiento(String seguimiento) {
 		this.seguimiento = seguimiento;
+	}
+	public String getPerfilUsuarioSeguimiento() {
+		return perfilUsuarioSeguimiento;
+	}
+	public void setPerfilUsuarioSeguimiento(String perfilUsuarioSeguimiento) {
+		this.perfilUsuarioSeguimiento = perfilUsuarioSeguimiento;
+	}
+	public String getMensajeSeguimiento() {
+		return mensajeSeguimiento;
+	}
+	public void setMensajeSeguimiento(String mensajeSeguimiento) {
+		this.mensajeSeguimiento = mensajeSeguimiento;
+	}
+	public String getNombreUsuarioSeguimiento() {
+		return nombreUsuarioSeguimiento;
+	}
+	public void setNombreUsuarioSeguimiento(String nombreUsuarioSeguimiento) {
+		this.nombreUsuarioSeguimiento = nombreUsuarioSeguimiento;
 	}
 	
 	
