@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -28,10 +29,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.dao.INotificacionDao;
+import mx.uniprotec.application.dao.IPreAsignacionAEDao;
 import mx.uniprotec.application.dao.IPreAsignacionDao;
 import mx.uniprotec.application.entity.Asignacion;
+import mx.uniprotec.application.entity.Cliente;
+import mx.uniprotec.application.entity.ClienteProspectoEntity;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
+import mx.uniprotec.application.service.IClienteProspecto;
 import mx.uniprotec.application.service.IEntregableService;
 import mx.uniprotec.application.service.IPreAsignacionAEService;
 import mx.uniprotec.application.service.IPreAsignacionService;
@@ -51,7 +56,11 @@ public class PreAsignacionRestController {
 	private INotificacionDao notificacionDao;
 	@Autowired
 	private IPreAsignacionDao preAsignacionDao;
-
+	@Autowired
+	private IPreAsignacionAEDao preAsignacionAEDao;
+	@Autowired
+	private IClienteProspecto clienteProspectoService;
+	
 	
 	
 	
@@ -105,10 +114,10 @@ public class PreAsignacionRestController {
 			pre_asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			pre_asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			pre_asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
+			pre_asignacionNew.setIdStatusAsignacion(1);
 			pre_asignacionNew.setClienteStatus(asignacion.getClienteStatus());
-//			pre_asignacionNew.setSeguimiento(seguimientoUpdate("","nombreUsuario","Vendedor","ALTA PREASIGNACION"));
-			pre_asignacionNew.setSeguimiento(seguimientoUpdate("",asignacion.getNombreUsuarioSeguimiento(),asignacion.getPerfilUsuarioSeguimiento(),asignacion.getMensajeSeguimiento()));
 			
+			pre_asignacionNew.setSeguimiento(seguimientoUpdate("",asignacion.getNombreUsuarioSeguimiento(),asignacion.getPerfilUsuarioSeguimiento(),asignacion.getMensajeSeguimiento()));
 			
 			pre_asignacionNew.setFechaPago("");
 			pre_asignacionNew.setGuiaEntregable("");
@@ -118,6 +127,32 @@ public class PreAsignacionRestController {
 			pre_asignacionNew.setErrorProceso("");
 			
 			pre_asignacionNew = preAsignacionService.savePreAsignacion(pre_asignacionNew);
+			
+			try {
+				if(asignacion.getIdClienteAsignacion() == 9999) {
+					
+					ClienteProspectoEntity clienteProspecto = new ClienteProspectoEntity();
+					clienteProspecto.setNombreCortoClienteProspecto(asignacion.getNombreCortoClienteProspecto());
+					clienteProspecto.setNombreCompletoClienteProspecto(asignacion.getNombreCompletoClienteProspecto());
+					clienteProspecto.setIdRegionClienteProspecto(asignacion.getIdRegionClienteProspecto());
+					clienteProspecto.setNombreRegionClienteProspecto(asignacion.getNombreRegionClienteProspecto());
+					clienteProspecto.setRfcClienteProspecto(asignacion.getRfcClienteProspecto());
+					clienteProspecto.setIdPreAsignacion(pre_asignacionNew.getIdPreAsignacion());
+					clienteProspecto.setUserCreate(asignacion.getUserCreateAsignacion());
+					clienteProspecto.setStatus(asignacion.getStatusAsignacion());
+					clienteProspecto.setCreateAt(asignacion.getCreateAtAsignacion());
+					clienteProspecto.setDireccionClienteProspecto(asignacion.getDireccionClienteProspecto());
+					
+					clienteProspectoService.saveClienteProspecto(clienteProspecto);
+				}
+			} catch (Exception e) {
+					response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+					response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+					response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+					log.info("catch cliente Prosptecto create fin");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+			
 			 response.put("preAsignacion", pre_asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
 			 response.put("status", HttpStatus.CREATED);
@@ -139,6 +174,9 @@ public class PreAsignacionRestController {
 		log.info("preasignacion create");
 		
 		PreAsignacionAEEntity preAsignacionAENew = new PreAsignacionAEEntity();
+		if((Long.valueOf(preAsignacionAE.getIdPreAsignacionAE()) != 0)) {
+			preAsignacionAENew = preAsignacionAEDao.findById(preAsignacionAE.getIdPreAsignacionAE()).orElse(null);
+		}
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -205,16 +243,16 @@ public class PreAsignacionRestController {
 			preAsignacionAENew.setStatus(preAsignacionAE.getStatus());
 			
 			preAsignacionAENew = preAsignacionAEService.savePreAsignacionAE(preAsignacionAENew);
+			
 			PreAsignacion preAsignacion = preAsignacionService.findId(Long.valueOf(preAsignacionAE.getFormAEidPreAsignacion()));
 			preAsignacion.setIdPreAsignacionAE(preAsignacionAENew.getIdPreAsignacionAE());
 			preAsignacion.setPreAsignacionAEStatus(preAsignacionAENew.getStatus());
 			preAsignacion.setStatusAsignacion(preAsignacionAENew.getStatus());
+			preAsignacion.setIdStatusAsignacion(2);
 //			preAsignacion.setSeguimiento(seguimientoUpdate(preAsignacion.getSeguimiento(),"nombreUsuario","Vendedor","ALTA ANÁLISIS ECONÓMICO"));
 			preAsignacion.setSeguimiento(seguimientoUpdate(preAsignacion.getSeguimiento(),preAsignacionAE.getNombreUsuarioSeguimiento(),preAsignacionAE.getPerfilUsuarioSeguimiento(),preAsignacionAE.getMensajeSeguimiento()));
 			
 			preAsignacionService.savePreAsignacion(preAsignacion);
-			
-			
 			
 			 response.put("preAsignacionAE", preAsignacionAENew );
 			 response.put("mensaje", "AE creada con Exito");
@@ -287,11 +325,10 @@ public class PreAsignacionRestController {
 	}
 	
 	@PutMapping("/preAsignacion/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result, @PathVariable Long id) {
+	public ResponseEntity<?> updatePreAsignacion(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result, @PathVariable Long id) {
 		
 		log.info("asignacion update:"+ id);
 		PreAsignacion preAsignacionActual = preAsignacionDao.findById(id).orElse(null);
-		PreAsignacion preAsignacionUpdated = null;
 		Map<String, Object> response = new HashMap<>();
 		if(result.hasErrors()) {
 			log.info("result.hasErrors");
@@ -317,58 +354,38 @@ public class PreAsignacionRestController {
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		log.info("update Asignacion:"+asignacion.toString());
-//		if(asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
-//			try {
-//				List<Notificacion> notificacionUpdate = notificacionDao.findByIdAsignacionNotificacion(id);
-//				for(Notificacion notificacion : notificacionUpdate) {
-//					notificacion.setStatusNotificacion("cancelada");
-//					notificacionDao.save(notificacion);
-//				}
-//			} catch (Exception e) {
-//				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
-//				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
-//				response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-//				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-//			}			
-//		}
-		if(asignacion.getIdPreAsignacionAE() == null) {
-			try {				
-				preAsignacionActual.setSeguimiento(seguimientoUpdate(preAsignacionActual.getSeguimiento(), asignacion.getNombreUsuarioSeguimiento(), asignacion.getPerfilUsuarioSeguimiento(), asignacion.getMensajeSeguimiento()));
-//				asignacionActual.setFechaAsignacion(asignacion.getFechaAsignacion());
-//				asignacionActual.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
-//				asignacionActual.setClienteAsignacion(asignacion.getClienteAsignacion());
-//				asignacionActual.setIdCursoAsignacion(asignacion.getIdCursoAsignacion());
-//				asignacionActual.setCursoAsignacion(asignacion.getCursoAsignacion());
-//				asignacionActual.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
-//				asignacionActual.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
-//				asignacionActual.setInstructorAsignacion(asignacion.getInstructorAsignacion());
-//				asignacionActual.setHorarioAsignacion(asignacion.getHorarioAsignacion());
-//				asignacionActual.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
-//				asignacionActual.setNivelAsignacion(asignacion.getNivelAsignacion());
-//				asignacionActual.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
-//				asignacionActual.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
-//				asignacionActual.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
-//				asignacionActual.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
-//				asignacionActual.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
-//				asignacionActual.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
-//				asignacionActual.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
-//				asignacionActual.setStatusAsignacion(asignacion.getStatusAsignacion());
-//				asignacionActual.setFechaPago(asignacion.getFechaPago());
-//				asignacionActual.setGuiaEntregable(asignacion.getGuiaEntregable());
-//				asignacionActual.setVerificarEntregable(asignacion.getVerificarEntregable());
-//				asignacionActual.setNumeroFactura(asignacion.getNumeroFactura());
-//				asignacionActual.setArchivoParticipantes(asignacion.getArchivoParticipantesTexto());
-//				asignacionActual.setCostoHotel(asignacion.getCostoHotel());
-//				if(asignacion.getErrorProceso() == null || asignacion.getErrorProceso().length() == 0) {
-//					asignacionActual.setErrorProceso("");
-//				}else {
-//					asignacionActual.setErrorProceso(asignacion.getErrorProceso());
-//				}
+
+		if(asignacion.getIdPreAsignacionAE() == null || asignacion.getIdStatusAsignacion() > 4 ) {
+			try {
+				String mensaje = asignacion.getMensajeSeguimiento();
+//				preAsignacionActual.setSeguimiento(seguimientoUpdate(preAsignacionActual.getSeguimiento(), asignacion.getNombreUsuarioSeguimiento(), asignacion.getPerfilUsuarioSeguimiento(), asignacion.getMensajeSeguimiento()));
+				if(asignacion.getIdStatusAsignacion() == 4) {
+					preAsignacionActual.setIdStatusAsignacion(4);
+					preAsignacionActual.setStatusAsignacion("APROBACION PREASIGNACION");
+				}else if(asignacion.getIdStatusAsignacion() == 3){
+					preAsignacionActual.setIdStatusAsignacion(3);
+					preAsignacionActual.setStatusAsignacion("REVISION");
+				}else if(asignacion.getIdStatusAsignacion() == 5){
+					preAsignacionActual.setIdStatusAsignacion(5);
+					preAsignacionActual.setStatusAsignacion("ASIGNACION");
+				}else if(asignacion.getIdStatusAsignacion() == 6){
+					preAsignacionActual.setIdStatusAsignacion(6);
+					preAsignacionActual.setStatusAsignacion("FACTURA INTEGRADA");
+					if(asignacion.getAgregarFactura() != null) {
+						mensaje = asignacion.getMensajeSeguimiento() + " " + "<a href='/uploads/fileAsignacionFactura/"+preAsignacionActual.getIdAsignacionLogica()+"/"+asignacion.getAgregarFactura()+"' id='linkFile'>"+asignacion.getAgregarFactura()+"</a>";
+					}
+				}
+				if(asignacion.getFechaInicioFactura() != null ) {
+					preAsignacionActual.setFechaInicioFactura(asignacion.getFechaInicioFactura());
+				}
+				 if(asignacion.getFechaFinFactura() != null) {
+					 preAsignacionActual.setFechaFinFactura(asignacion.getFechaFinFactura());
+				 }
 				
+				preAsignacionActual.setSeguimiento(seguimientoUpdate(preAsignacionActual.getSeguimiento(), asignacion.getNombreUsuarioSeguimiento(), asignacion.getPerfilUsuarioSeguimiento(), mensaje));			
 				preAsignacionActual= preAsignacionService.savePreAsignacion(preAsignacionActual);
-//				EntregableEntity ee = (EntregableEntity) entregableService.consultaEntregable(asignacion.getIdAsignacion());
 				
-				response.put("asignacion", preAsignacionActual  );
+    			 response.put("asignacion", preAsignacionActual  );
 				 response.put("mensaje", "PRE Asignacion actualizada con Exito");
 				 response.put("status", HttpStatus.CREATED);
 				 response.put("code", HttpStatus.CREATED.value());
@@ -389,6 +406,8 @@ public class PreAsignacionRestController {
 			log.info("asignacion update fin:"+ id);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		
 	}
 
 	
@@ -396,7 +415,7 @@ public class PreAsignacionRestController {
 	/*
 	 * PRIVATES
 	 */	
-	private String seguimientoUpdate(String seguimiento, String nombreUsuario, String perfilUsuario, String mensaje) {
+	public String seguimientoUpdate(String seguimiento, String nombreUsuario, String perfilUsuario, String mensaje) {
 		
 		String nuevoSeguimiento1 = "<div class='alert alert-ligth alert-dismissible fade show' role='alert'><ul id='listPrimerNivel11'><li style='list-style-type: disc;'><ul id='itemPrimerNivel11'><b>";
 		String nuevoSeguimiento2 = "</b><li style='list-style-type: circle;'><ul id='itemSegundoNivel11'>"; 
@@ -414,7 +433,7 @@ public class PreAsignacionRestController {
 		return seguimiento+nuevoSeguimiento1+fechaHoy+"  "+perfilUsuario+" "+nombreUsuario+nuevoSeguimiento2+mensaje+nuevoSeguimiento3;
 	}
 
-private String diaSemana(int i) {
+	private String diaSemana(int i) {
 		
 		String diaSemana = null;
 		switch (i) {

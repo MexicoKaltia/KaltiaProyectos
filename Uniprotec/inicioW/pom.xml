@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>mx.uniprotec</groupId>
 	<artifactId>inicio</artifactId>
-	<version>3.0.2</version>
+	<version>3.0.8</version>
 	<name>inicio</name>
 	<description>control-uniprotec</description>
 
@@ -81,7 +81,7 @@
      <dependency>
             <groupId>mx.uniprotec</groupId>
             <artifactId>entidad</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.8</version>
      </dependency>
      <dependency>
             <groupId>mx.uniprotec</groupId>

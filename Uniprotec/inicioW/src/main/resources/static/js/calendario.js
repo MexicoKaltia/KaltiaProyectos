@@ -259,6 +259,8 @@ $(document).ready(function() {
 		if(perfilUsuario !== "Administracion"){
 			$('#admon').hide();
 		}
+		
+		
 		$('#myModal').modal();
 		
 		

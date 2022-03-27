@@ -44,7 +44,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	 
 //		public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
 //		public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
-		
+//		
 //		public static final String URL_POST_LOGIN 		  =	"http://45.80.153.253:8016/oauth/token";
 //		public static final String URL_CRUD				  = "http://45.80.153.253:8016/crud/";
 		
@@ -67,6 +67,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_PREASIGNACIONES  =	"preAsignaciones";
 	public static final String URL_CRUD_PREASIGNACION_D  =	"preAsignacion";
 	public static final String URL_CRUD_PREASIGNACIONAE  =	"preAsignacionAE";
+	public static final String URL_CRUD_PREASIGNACIONES_AE  =	"preAsignacionesAE";
 	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
 	public static final String URL_CRUD_PERFIL		  =	"perfil";
 	public static final String URL_CRUD_PERFILES	  =	"perfiles";
@@ -75,7 +76,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_NOTIFICACION 	  =	"notificacion";
 	public static final String URL_CRUD_NOTIFICACIONES 	  =	"notificaciones";
 	public static final String URL_CRUD_ENTREGABLE    = "entregable";
-	
+	public static final String URL_CRUD_PROSPECTOS	  =	"prospectos";
 	
 	
 	public static final String POST = "HttpMethod.POST";

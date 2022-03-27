@@ -68,20 +68,57 @@ public class LoginService implements ILoginService{
 					jsonObject.putAll(jsonUsuario);
 					resultVO.setJsonResponse(jsonObject);
 					
+					/*
+					 * Instructor Notificaciones 
+					 */
 					if(jsonUsuario.get("perfil").toString().equals("Instructor")) {
 						ResultVO resultNotificaciones = baseClientRest.objetoGetNotificaciones(
 								resultVO.getAccesToken(),
 								BaseClientRest.URL_CRUD_NOTIFICACIONES,
 								Integer.valueOf(jsonUsuario.get("id").toString()));
 						JSONObject jsonResultNotificaciones = (JSONObject) resultNotificaciones.getJsonResponse();
-//						log.info(jsonResultNotificaciones.toJSONString());
-//						JSONArray jsonNotificaciones = new JSONArray();
 						JSONObject jsonNotificaciones = new JSONObject();
 						jsonNotificaciones.put( "notificaciones", jsonResultNotificaciones.get("notificaciones"));
 						jsonUsuario.put("notificaciones", jsonResultNotificaciones.get("notificaciones"));
 						jsonObject.putAll(jsonUsuario);
 						resultVO.setJsonResponse(jsonObject);
 					}
+					
+					/*
+					 * Administracion && Direccion Notificaciones PREASIGNACIONES 
+					 */
+						/*
+						 * usuario id 90 Cynthia
+						 * usuario id	 Martha
+						 * usuario id 	 Jesus
+						 * 
+						 */
+					else if(Integer.valueOf(jsonUsuario.get("id").toString()) == 90 || jsonUsuario.get("perfil").toString().equals("Vendedor")) {
+							ResultVO rs = baseClientRest.objetoGetAll(resultVO.getAccesToken(),
+									BaseClientRest.URL_CRUD_PREASIGNACIONES);
+									
+							JSONObject jsonResultPreAsignaciones = (JSONObject) rs.getJsonResponse();
+							jsonUsuario.put("preAsignaciones", jsonResultPreAsignaciones.get("preAsignaciones"));
+							jsonObject.putAll(jsonUsuario);
+							resultVO.setJsonResponse(jsonObject);							
+						}
+					
+					/*
+					 * Vendedor Notificaciones PREASIGNACIONES 
+					 */
+//					else if(jsonUsuario.get("perfil").toString().equals("Vendedor")) {
+//						ResultVO resultNotificaciones = baseClientRest.objetoGetNotificaciones(
+//								resultVO.getAccesToken(),
+//								BaseClientRest.URL_CRUD_NOTIFICACIONES,
+//								Integer.valueOf(jsonUsuario.get("id").toString()));
+//						JSONObject jsonResultNotificaciones = (JSONObject) resultNotificaciones.getJsonResponse();
+//						JSONObject jsonNotificaciones = new JSONObject();
+//						jsonNotificaciones.put( "notificaciones", jsonResultNotificaciones.get("notificaciones"));
+//						jsonUsuario.put("notificaciones", jsonResultNotificaciones.get("notificaciones"));
+//						jsonObject.putAll(jsonUsuario);
+//						resultVO.setJsonResponse(jsonObject);
+//					}
+
 					
 				}else {
 					resultVO.setResponse("index");

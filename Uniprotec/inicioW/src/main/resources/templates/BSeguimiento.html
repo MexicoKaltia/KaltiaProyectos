@@ -10,8 +10,15 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
 	    <link th:href="@{main.css}" rel="stylesheet">
-	    <link rel="stylesheet" th:href="@{css/multi-select.css}">
+<!-- 	    <link rel="stylesheet" th:href="@{css/multi-select.css}"> -->
 	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
+	    
+	    <link th:href="@{css/default.css}" rel="stylesheet">
+    	<link th:href="@{css/default.date.css}" rel="stylesheet">
+    	<link th:href="@{css/default.time.css}" rel="stylesheet">
+	    
+	    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 </head>
 
 <body background="images/fondo4.png">
@@ -242,7 +249,7 @@
 									<table id='preAsignacionesTable' class="mb-0 table table-striped table-sm"
 										data-locale="es-MX" 
 										data-toggle='table' 
-										data-sort-name='nombreVendedor'
+										data-sort-name='idPreAsignacion'
 										data-search='true' 
 										data-sort-order='desc'
 										data-pagination='true'
@@ -253,18 +260,12 @@
 												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='clienteAsignacion' data-sortable='true'>Cliente</th>
 												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='cursoAsignacion' data-sortable='true'>Curso</th>
 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='statusAsignacion' data-sortable='true'>Estatus</th>
-<!-- 												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='createAtAsignacion' data-sortable='true'>Fecha Pre Asignacion</th> -->
-												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operatePreAsignacion" data-formatter="operateFormatterViewPreAsignacion" data-events="window.operateEventsViewExpedientePreAsignacion">Expediente PreAsignacion</th>
-												
-												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operatePreAsignacionAE" data-formatter="operateFormatterViewPreAsignacionAE" data-events="window.operateEventsViewExpedientePreAsignacionAE">Expediente Análisis Económico</th>
-<!-- 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='preAsignacionAEStatus' data-sortable='true'>Estatus AE</th> -->
-<!-- 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateCliente" data-formatter="operateFormatterViewCliente" data-events="window.operateEventsViewExpedienteCliente">Expediente Cliente</th> -->
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='clienteStatus' data-sortable='true'>Estatus Cliente</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operatePreAsignacion" data-formatter="operateFormatterViewPreAsignacion" data-events="window.operateEventsViewExpedientePreAsignacion">PreAsignacion</th>										
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operatePreAsignacionAE" data-formatter="operateFormatterViewPreAsignacionAE" data-events="window.operateEventsViewExpedientePreAsignacionAE">Análisis Económico</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='clienteStatus' data-sortable='true'>Cliente</th>
 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='userCreateAsignacionTexto' data-sortable='true'>Ventas</th>
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='preAsignacion.numeroFactura' data-sortable='true'>Facturacion</th>
-												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateSeguimiento" data-formatter="operateFormatterViewSeguimiento" data-events="window.operateEventsViewExpedienteSeguimiento">Expediente Seguimiento</th>
-												
-<!-- 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
+<!-- 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='numeroFactura' data-sortable='true'>Facturacion</th> -->
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateSeguimiento" data-formatter="operateFormatterViewSeguimiento" data-events="window.operateEventsViewExpedienteSeguimiento">Seguimiento</th>
 											</tr>
 										</thead>					
 									</table>
@@ -312,9 +313,21 @@
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
     
+    <script type="text/javascript" th:src="@{js/fileUpload.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+    
     <script th:inline="javascript">
 		 var $preAsignaciones = [[${model.jsonResponseObject.preAsignaciones}]];
 		 var $preAsignacionesAE = [[${model.jsonResponseObject.preAsignacionesAE}]];
+		 
+		 var asignacionClientes = [[${clientes}]];
+		 var asignacionRegiones = [[${regiones}]];
+		 var asignacionAsignacionesTotal = [[${asignaciones}]];
+		 var asignacionInstructoresOperacion = [[${instructores}]];
+		 var asignacionInstructores = [[${instructores}]];
+		 var asignacionCursos = [[${cursos}]];
 		 
 		 var idUsuario =  [[${model.jsonResponse.user.id}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
@@ -322,10 +335,14 @@
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 	</script>
 											    
+    
     <script type="text/javascript" th:src="@{js/BSeguimiento.js}"></script>
+    <script type="text/javascript" th:src="@{js/evaluaPreAsignacion.js}"></script>
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+    
+    
 	
 	
 
@@ -406,21 +423,79 @@
                       </div>
                       <div class="form-row">      
                       <form role="form" id="formNotificacionNuevo" th:action="@{/BPreAsignacion}"  th:object="${asignacionForm}" method="post">
-                      	<input type="hidden" id="idPreAsignacion" th:field="*{idAsignacion}" />
+                      
+                        <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                        <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                        <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                        <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                        <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                        <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                        <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                        <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                        <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                        <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                        <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+                        <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                        <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                        <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                        <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                        <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+						<input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                      
+<!--                       	<input type="hidden" id="idPreAsignacion" th:field="*{idAsignacion}" /> -->
                       	<input type="hidden" id="nombreUsuarioSeguimiento" th:field="*{nombreUsuarioSeguimiento}" />
 						<input type="hidden" id="perfilUsuarioSeguimiento" th:field="*{perfilUsuarioSeguimiento}" />
+						<input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+						<input type="hidden" id="idStatusAsignacion" th:field="*{idStatusAsignacion}" />
+						<input type="hidden" id="idPreAsignacion" th:field="*{idPreAsignacion}" />
+						<input type="hidden" id="idPreAsignacionAE" th:field="*{idPreAsignacionAE}" />
+						<input type="hidden" id="seguimiento" th:field="*{seguimiento}" />
+						<input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
 						
 			            <div class="form-group purple-border col-md-12">
+			            	<div id="validaInstructor"></div>
+			            	<div id="validaClienteProspecto"></div>
 			            	<textarea name="modaltextAreaSeguimiento" id="modaltextAreaSeguimiento" th:field="*{mensajeSeguimiento}" class="form-control" placeholder="Capture Observaciones"  rows="4" cols="100" onfocusout="minLenghtTextArea(this)"></textarea>
-			           <div class="clearfix">
-			           <br>
-			            <span class="float-right">
-			                <button type="submit" id="btnAgregarNotificacion" class="btn btn-success" disabled>Agregar Notificacion</button>
-			            </span>
-                        </div>
-			                <small class="form-text text-muted">Captura Regla o Enunciado de informacion. Para enlistar dar click en boton Agregar </small>
 			            </div>
-			            </form>
+			            <br>
+				        <div class="clearfix row">
+				         <div class="col-md-6">
+					       <span class="float-left">
+				      		<div id="divAgregarFactura" >
+									<label for="validationCustom02">Adjuntar Archivos Facturacion</label>
+									<br/>
+				            		<div class="alertaFile">
+										<hiden class="alerta_inFile"></hiden>
+									</div>
+				        			<input id="agregarFactura" name="agregarFactura[]"  th:field="*{agregarFactura}"  type="file" class="file"    data-show-upload="false" multiple  onchange="validaArchivos(this)"/>
+									<br/>
+				    				<small class="form-text text-muted">Adjuntar documento de facturacion cliente.</small>					      		
+					      		</div>
+					      		<script>
+					      		$("#agregarFactura").fileinput({
+				    		        browseClass: "btn btn-info",
+				    		        browseLabel: "Seleccionar Archivos",
+				    		        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+				    		        removeClass: "btn btn-warning",
+				    		        removeLabel: "Remover",
+				    		 	   showCaption: false, 
+				    		 	   dropZoneEnabled: false
+				    		 	  });
+					      		</script>
+					      	<div id="divAgregarFechas" class="row"></div>
+					        <div id="divAsignacion" class="row"></div>
+					        <div id="divAprobarPreAsignacion" class="row"></div>
+				            </span>
+				           </div>
+				           <div class="col-md-6">
+				            <span class="float-right">
+				                <button type="submit" id="btnAgregarNotificacion" class="btn btn-primary" disabled>Agregar Notificación</button>
+				                <small class="form-text text-muted">Captura Regla o Enunciado de información. Para enlistar dar click en boton Agregar </small>
+				            </span>
+				          </div>				            
+	                    </div>
+		            </form>
+			            
 			        </div>
               </div>
         	</div>
@@ -1008,6 +1083,39 @@
                                   </div>
                             </div>
                           </div>
+                          <div id="divEdicionAE" class ="row">
+                          	<div class="col-md-3"></div>
+                          	<div class="col-md-6">
+                          	   <form role="form" id="formPreAsignacionAEEdicion" th:action="@{/APreAsignacionAE}"  th:object="${asignacionForm}" method="post">
+                               		
+                               		<input type="hidden" id="idAsignacionEdicion" th:field="*{idAsignacion}" />
+                               		<input type="hidden" id="fechaAsignacionEdicion" th:field="*{fechaAsignacion}" />
+                                    <input type="hidden" id="idClienteAsignacionEdicion"   th:field="*{idClienteAsignacion}"    />
+                                    <input type="hidden" id="clienteAsignacionEdicion"   th:field="*{clienteAsignacion}"    />
+                                    <input type="hidden" id="idCursoAsignacionEdicion" th:field="*{idCursoAsignacion}" />
+                                    <input type="hidden" id="cursoAsignacionEdicion" th:field="*{cursoAsignacion}" />
+                                    <input type="hidden" id="idInstructorAsignacionEdicion" th:field="*{idInstructorAsignacion}" />
+                                    <input type="hidden" id="instructorAsignacionEdicion" th:field="*{instructorAsignacion}" />
+                                    <input type="hidden" id="horarioAsignacionEdicion" th:field="*{horarioAsignacion}" />
+                                    <input type="hidden" id="participantesAsignacionEdicion" th:field="*{participantesAsignacion}" />
+                                    <input type="hidden" id="nivelAsignacionEdicion" th:field="*{nivelAsignacion}" />
+                                    <input type="hidden" id="archivosAsignacionTextoEdicion" th:field="*{archivosAsignacionTexto}" />
+                                    <input type="hidden" id="observacionesAsignacionEdicion" th:field="*{observacionesAsignacion}" />
+                                    <input type="hidden" id="idRegionAsignacionEdicion" th:field="*{idRegionAsignacion}" />
+                                    <input type="hidden" id="nombreRegionAsignacionEdicion" th:field="*{nombreRegionAsignacion}" />
+                                    <input type="hidden" id="tipoCursoAsignacionEdicion" th:field="*{tipoCursoAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionEdicion" th:field="*{userCreateAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionTextoEdicion" th:field="*{userCreateAsignacionTexto}" />
+                                    <input type="hidden" id="clienteStatusEdicion" th:field="*{clienteStatus}" />
+                                    <input type="hidden" id="idPreAsignacionAEEdicion" th:field="*{idPreAsignacionAE}" />
+                                    
+                                    
+			        				<button class="mb-2 mr-2 btn btn-primary btn-lg btn-block" id="btnAEEdicionSubmit">Edición Análisis Económico</button>
+			        			</form>
+                          	</div>
+                          	<div class="col-md-3"></div>
+                          </div>
+                          
                     </div>    <!--     BODY FIN de seccion -->
               </div>
         	</div><!--      FIN de AE-->
@@ -1028,25 +1136,28 @@
                                <div class="col-md-6">
                                <form role="form" id="formPreAsignacionAENuevo" th:action="@{/APreAsignacionAE}"  th:object="${asignacionForm}" method="post">
                                		
-                               		<input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
-                               		<input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
-                                    <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
-                                    <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
-                                    <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
-                                    <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
-                                    <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
-                                    <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
-                                    <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
-                                    <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
-                                    <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
-                                    <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
-                                    <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
-                                    <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
-                                    <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
-                                    <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
-                                    <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
-                                    <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
-                                    <input type="hidden" id="clienteStatus" th:field="*{clienteStatus}" />
+                               		<input type="hidden" id="idAsignacionAlta" th:field="*{idAsignacion}" />
+                               		<input type="hidden" id="fechaAsignacionAlta" th:field="*{fechaAsignacion}" />
+                                    <input type="hidden" id="idClienteAsignacionAlta"   th:field="*{idClienteAsignacion}"    />
+                                    <input type="hidden" id="clienteAsignacionAlta"   th:field="*{clienteAsignacion}"    />
+                                    <input type="hidden" id="idCursoAsignacionAlta" th:field="*{idCursoAsignacion}" />
+                                    <input type="hidden" id="cursoAsignacionAlta" th:field="*{cursoAsignacion}" />
+                                    <input type="hidden" id="idInstructorAsignacionAlta" th:field="*{idInstructorAsignacion}" />
+                                    <input type="hidden" id="instructorAsignacionAlta" th:field="*{instructorAsignacion}" />
+                                    <input type="hidden" id="horarioAsignacionAlta" th:field="*{horarioAsignacion}" />
+                                    <input type="hidden" id="participantesAsignacionAlta" th:field="*{participantesAsignacion}" />
+                                    <input type="hidden" id="nivelAsignacionAlta" th:field="*{nivelAsignacion}" />
+                                    <input type="hidden" id="archivosAsignacionTextoAlta" th:field="*{archivosAsignacionTexto}" />
+                                    <input type="hidden" id="observacionesAsignacionAlta" th:field="*{observacionesAsignacion}" />
+                                    <input type="hidden" id="idRegionAsignacionAlta" th:field="*{idRegionAsignacion}" />
+                                    <input type="hidden" id="nombreRegionAsignacionAlta" th:field="*{nombreRegionAsignacion}" />
+                                    <input type="hidden" id="tipoCursoAsignacionAlta" th:field="*{tipoCursoAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionAlta" th:field="*{userCreateAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionTextoAlta" th:field="*{userCreateAsignacionTexto}" />
+                                    <input type="hidden" id="clienteStatusAlta" th:field="*{clienteStatus}" />
+                                    <input type="hidden" id="nombreUsuarioSeguimientoAlta" th:field="*{nombreUsuarioSeguimiento}" />
+                                    <input type="hidden" id="perfilUsuarioSeguimientoAlta" th:field="*{perfilUsuarioSeguimiento}" />
+                                    <input type="hidden" id="mensajeSeguimientoAlta" th:field="*{mensajeSeguimiento}" />
                                     
 			        				<button class="mb-2 mr-2 btn btn-success btn-lg btn-block" id="btnAENuevoSubmit">Análisis Económico</button>
 			        			</form>
@@ -1066,3 +1177,54 @@
     </div>
   </div>
   <!-- fin modal --> 
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+  <!-- Modal -->
+<div class="modal fade" id="modalFechas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Fechas Cobro Facturacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>    
+      <div class="modal-body">
+        <div class="form-row">
+			<div class="col-md-6 mb-3">
+				<label for="validationCustom02">Fecha Pago 1 Factura.</label>
+				<input id="fechaInicioFactura" class="datepicker form-control" name="fechaInicioFactura"  type="text"  />
+				</div>
+			<div class="col-md-6 mb-3">
+				<label for="validationCustom02">Fecha Pago 2 Factura.</label>
+				<input id="fechaFinFactura" class="datepicker form-control" name="fechaFinFactura"  type="text"  />
+			</div> 
+		</div>
+      </div>
+      <div class="modal-footer">
+      	<form role="form" id="formFechasFactura" th:action="@{/BPreAsignacion}"  th:object="${asignacionForm}" method="post">
+      		<input type="hidden" id="idPreAsignacionFecha" th:field="*{idPreAsignacion}" />
+      		<input type="hidden" id="mensajeSeguimientoFecha" th:field="*{mensajeSeguimiento}" />
+      		<input type="hidden" id="fechaFinFacturaFecha" th:field="*{fechaFinFactura}" />
+      		<input type="hidden" id="fechaInicioFacturaFecha" th:field="*{fechaInicioFactura}" />
+      		<input type="hidden" id="nombreUsuarioSeguimientoFecha" th:field="*{nombreUsuarioSeguimiento}" />
+			<input type="hidden" id="perfilUsuarioSeguimientoFecha" th:field="*{perfilUsuarioSeguimiento}" />
+      		
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" id="btnAgregarFechaModal" class="btn btn-primary">Guardar Fechas</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- fin modal --> 
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+  <script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+    <script type="text/javascript">
+    var today = new Date();
+    var $datepicker = $( '.datepicker' ).pickadate({
+    	 min : today
+    });
+    </script>

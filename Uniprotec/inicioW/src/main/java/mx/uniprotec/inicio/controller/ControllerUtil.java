@@ -784,6 +784,85 @@ public class ControllerUtil {
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
 	
+
+    /*
+     * archivo factura carga
+     */
+    @RequestMapping(method = RequestMethod.POST, path = "/fileAsignacionFactura/{idAsignacion}",  consumes = "multipart/form-data", produces = "application/json")
+	public ResultVO fileAsignacionFactura(@PathVariable String idAsignacion, @RequestParam("agregarFactura") MultipartFile agregarFactura){
+   try {
+	   log.info(idAsignacion);
+	    // Get the filename and build the local file path (be sure that the 
+	    // application have write permissions on such directory)
+	    String filename = agregarFactura.getOriginalFilename();
+
+	    String directory = "/uniprotec/asignacion/"+idAsignacion+"/factura/";
+        File directorio = new File(directory);
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                log.info("Directorio creado");
+    		    String filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(agregarFactura.getBytes());
+    		    stream.close();
+            } else {
+            	log.info("Error al crear directorio");
+            }
+        }else {
+        	log.info("Directorio Ya existe");
+        	String filepath = Paths.get(directory, filename).toString();
+		    
+		    // Save the file locally
+		    BufferedOutputStream stream =
+		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+		    stream.write(agregarFactura.getBytes());
+		    stream.close();
+        }
+	    
+	    
+	    
+	    resultVO.setCodigo((long) 0);
+	    resultVO.setMensaje("Exito File Upload");
+	    
+	  }
+	  catch (Exception e) {
+	    log.info("exception : "+e.getMessage());
+	    resultVO.setCodigo((long) 99);
+	    resultVO.setMensaje(e.getMessage());
+	    return resultVO;//new ResultVO(99, "fallo");
+	  }
+      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+	}
+
+	@GetMapping("/uploads/fileAsignacionFactura/{idEmpresa}/{nombreFile:.+}")
+	public ResponseEntity<Resource> verFileAsignacionFactura(@PathVariable String idEmpresa, @PathVariable String nombreFile){
+		
+		Path rutaArchivo = Paths.get("/uniprotec/asignacion/"+idEmpresa+"/factura/").resolve(nombreFile).toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la Archivo: " + nombreFile);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+
+
+
+	
 	
 	
 	/*
@@ -827,24 +906,6 @@ public class ControllerUtil {
         System.out.println("fin resize");
     }
     
-    
-//    private void moverArchivos(String pathLogico, String idEmpresa, String idEntregable) throws Exception {
-//    	
-//		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/file/");
-//	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/evidenciaDocto/");
-//
-//	    try {
-//	        Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-//	    } catch (IOException e) {
-//	      System.err.println(e);
-//	    }
-//	    
-//	    compressFile(idEmpresa, idEntregable);
-//	}
-    
-    
-    
-    
        
     private void crearDirectoriosDocumentacion(String idEmpresa, String idEntregable) {
 		String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
@@ -868,7 +929,5 @@ public class ControllerUtil {
             }
         }
 	}
-
-
-
+    
 }

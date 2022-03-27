@@ -42,6 +42,8 @@ public class ClienteModelo implements Serializable {
 	
 	private Long idVendedorCliente;
 	private VendedorModelo vendedorCliente;
+	private Long idClienteProspecto;
+	private Long idPreAsignacion;
 
 	
 	
@@ -408,6 +410,26 @@ public class ClienteModelo implements Serializable {
 
 	public void setArchivosClienteH(String archivosClienteH) {
 		this.archivosClienteH = archivosClienteH;
+	}
+
+
+	public Long getIdClienteProspecto() {
+		return idClienteProspecto;
+	}
+
+
+	public void setIdClienteProspecto(Long idClienteProspecto) {
+		this.idClienteProspecto = idClienteProspecto;
+	}
+
+
+	public Long getIdPreAsignacion() {
+		return idPreAsignacion;
+	}
+
+
+	public void setIdPreAsignacion(Long idPreAsignacion) {
+		this.idPreAsignacion = idPreAsignacion;
 	}
 	
 	

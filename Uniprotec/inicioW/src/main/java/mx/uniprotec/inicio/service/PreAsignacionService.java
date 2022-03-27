@@ -79,9 +79,9 @@ public class PreAsignacionService implements IPreAsignacionService{
 	}
 	
 	@Override
-	public ResultVO consultaPreAsignacion(String accesToken) {
+	public ResultVO consultaPreAsignacion(ResultVO resultVO) {
 		
-		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(accesToken, BaseClientRest.URL_CRUD_PREASIGNACIONES);
+		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(resultVO.getAccesToken(), BaseClientRest.URL_CRUD_PREASIGNACIONES);
 		
 		if(rs.getCodigo() != 500) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
@@ -89,8 +89,18 @@ public class PreAsignacionService implements IPreAsignacionService{
 			JSONObject jsonPreAsignaciones = new JSONObject();
 			jsonPreAsignaciones.put("preAsignaciones", jsonGeneral.get("preAsignaciones"));
 			jsonPreAsignaciones.put("preAsignacionesAE", jsonGeneral.get("preAsignacionesAE"));
+									
+			ResultVO resultData = aplicacionService.consultaData(resultVO);
+			rs.setAsignaciones(resultData.getAsignaciones());
+			rs.setClientes(resultData.getClientes());
+			rs.setInstructores(resultData.getInstructores());
+			rs.setCursos(resultData.getCursos());
+			rs.setRegiones(resultData.getRegiones());
+			
+			jsonPreAsignaciones.put("consultaData", resultData.getJsonResponseObject());
 			
 			rs.setJsonResponseObject(jsonPreAsignaciones);
+			
 		}
 			return rs;
 	}
@@ -116,7 +126,7 @@ public class PreAsignacionService implements IPreAsignacionService{
 				accesToken,
 				BaseClientRest.URL_CRUD_PREASIGNACION,
 				asignacion,
-				asignacion.getIdAsignacion());
+				asignacion.getIdPreAsignacion());
 //		if(resultVO.getCodigo() != 500) {
 //			baseClientRest.objetoPost(
 //					accesToken,

@@ -1,32 +1,3 @@
-/*
- * funciones de table Genericas
- */
-
-	/*
-	 * Acciones de EVENTOS userEmpresaTable
-	 */
-
- function operateFormatterUpdate(value, row, index) {
-	    return [
-	      '<a class="like" href="javascript:void(0)" title="Editar" id="UserUpdate" data-toggle="modal" data-target="#modalRegistro">',
-	      '<i class="fa fa-2x fa-user-edit"></i>',
-	      '</a>'
-	    ].join('')
-	  }
-	  
-	  function operateFormatterDelete(value, row, index) {
-		    return [
-		      '<a class="remove" href="javascript:void(0)" title="Eliminar">',
-		      '<i class="fa fa-2x fa-address-book">',
-		      '</a>'
-		    ].join('')
-		  }
-	  
-
-	  function alerta(){
-//	  	alert("prueba js invocada desde html");
-	  }
-	 
 	  
 	
 $(document).ready(function(){
@@ -221,17 +192,7 @@ $(document).ready(function(){
 	window.operateEventsUpdateProspectos = {
 		    'click .like': function (e, value, row, index) {
 		    	console.log(JSON.stringify(row));
-		    	$('#nombreCortoCliente').val(row.nombreCortoClienteProspecto);
-		    	$('#rfcCliente').val(row.rfcClienteProspecto);
-		    	$('#nombreCompletoCliente').val(row.nombreCompletoClienteProspecto);
-		    	$('#idRegionCliente').val(row.idRegionClienteProspecto);
-		    	$('#idRegionCliente').append('<option value="'+row.idRegionClienteProspecto+'" selected >'+row.nombreRegionClienteProspecto+'</option>');
-//		    	$('#nombreRegionClienteProspectoForm').val(row.nombreRegionClienteProspecto);
-		    	$('#domicilioCliente').val(row.direccionClienteProspecto);
-		    	$('#idClienteProspecto').val(row.idClienteProspecto);
-		    	$('#idPreAsignacion').val(row.idPreAsignacion);
-		    	
-		      
+//		      
 	      
 		    }
 		   }

@@ -156,7 +156,7 @@ console.log("hoy");
 		$('#asignaCliente').empty();
 		clientesVendedor = vendedorCliente(operacionId);
 		$('#asignaCliente').append("<option value='' selected  >Selecciona Cliente</option>");
-		$('#asignaCliente').append("<option value='PROSPECTO'>CLIENTE PROSPECTO</option>");
+		$('#asignaCliente').append("<option value='PROSPECTO'>----------------- CLIENTE PROSPECTO -----------------</option>");
 		for(i in clientesVendedor){
 			$('#asignaCliente').append("<option value='"+clientesVendedor[i].idCliente+"'>"+clientesVendedor[i].nombreCortoCliente+"</option>");
 		}
@@ -185,7 +185,8 @@ console.log("hoy");
 	
 	$("#asignaCliente").change(function(){
 		if($.asignaCliente === 'PROSPECTO'){
-//			$('#modalClienteProspecto').modal();
+			$('#modalClienteProspecto').modal();
+			console.log("prospecto");
 			$('#clienteStatus').val("PROSPECTO");
 		}else{
 			$('#clienteStatus').val("EXISTENTE");
@@ -201,6 +202,30 @@ console.log("hoy");
 	$("#btnPreAsignacionAE").click(function(){
 		$("#formPreAsignacion").attr("action", "/APreAsignacionAE");
 	})
+	
+	$flagClienteProspecto = false;
+	$('#btnClienteProspectoAlta').click(function(){
+		$('#rfcClienteProspecto').val($('#rfcClienteProspectoForm').val());
+		$('#nombreCompletoClienteProspecto').val($('#nombreCompletoClienteProspectoForm').val());
+		$('#nombreCortoClienteProspecto').val($('#nombreCortoClienteProspectoForm').val());
+		$('#idRegionClienteProspecto').val($('#idRegionClienteProspectoForm').val());
+		$('#nombreRegionClienteProspecto').val($('#idRegionClienteProspectoForm option:selected').text());
+		$('#direccionClienteProspecto').val($('#direccionClienteProspectoForm').val());
+
+		$flagClienteProspecto = true;
+//		$idClienteProspecto = $('#idClienteProspecto').val();
+		$nombreClienteProspecto = $('#nombreCortoClienteProspecto').val();
+		$idRegionClienteProspecto = $('#idRegionClienteProspecto').val();
+		$nombreRegionClienteProspecto = $('#nombreRegionClienteProspecto').val();
+		
+		var zonaCliente = colorZonaCliente("PROSPECTO");
+		procesoCliente="<li>Prospecto Cliente : <b>"+ $nombreClienteProspecto +"</b>"+zonaCliente+"</li>";
+		
+		$('#modalClienteProspecto').modal('toggle');
+		return false;
+
+	})
+
 	
 
 	
@@ -232,8 +257,15 @@ var alerta, proceso;
 
 	function asignaCamposSubmit(){
 		$('#fechaAsignacion').val($.asignaFecha2);
-		$('#idClienteAsignacion').val($.asignaCliente);
-		$('#clienteAsignacion').val($.asignaClienteTexto);
+		if($.asignaCliente !== "PROSPECTO"){
+			$('#idClienteAsignacion').val($.asignaCliente);
+			$('#clienteAsignacion').val($.asignaClienteTexto);
+		}else{
+			$('#idClienteAsignacion').val(9999);
+			$('#clienteAsignacion').val($nombreClienteProspecto);
+		}
+		
+		
 		$('#idCursoAsignacion').val($.asignaCurso);
 		$('#cursoAsignacion').val($.asignaCursoTexto);
 		$('#idInstructorAsignacion').val($.asignaInstructor);
@@ -314,10 +346,11 @@ var alerta, proceso;
    		}else{
    			$('#btnAsignaCliente').attr("disabled", false);
    		}
-		
-		var zonaCliente = colorZonaCliente($.asignaCliente);
-//		zonaCliente = '<div class="zona" style="background-color:yellow">1</div>';
-		procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+		if($.asignaCliente !== "PROSPECTO"){
+			var zonaCliente = colorZonaCliente($.asignaCliente);
+			procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+		}
+
 	}
 	
 	function vendedorCliente(idV){
@@ -337,26 +370,25 @@ var alerta, proceso;
 	var idRegion;
 	var nombreRegion;
 	function colorZonaCliente(cliente){
-		if(cliente === "PROSPECTO"){
-			$.asignaIdRegion = 1;
-			$.asignaNombreRegion = "PROSPECTO";
-			return '<div class="zona" style="background:purple; color:white">PROSPECTO</div>';
-		}
-		cliente = (cliente * 1);
-		var idRegion;
-		var nombreRegion;
 		
-		var idCliente
-		for(i in asignacionClientes){
-//			//console.log(asignacionClientes[i]);
-			idCliente = (asignacionClientes[i].idCliente * 1);
-			if(idCliente === cliente){
-				idRegion = (asignacionClientes[i].regionCliente.idRegion *1 );
-				nombreRegion = asignacionClientes[i].regionCliente.nombreRegion;
+		if(cliente === "PROSPECTO"){
+			idRegion = $idRegionClienteProspecto*1;
+			nombreRegion = $nombreRegionClienteProspecto;
+		}else{
+			cliente = (cliente * 1);
+//			var idRegion;
+//			var nombreRegion;
+//			var idCliente;
+			
+			for(i in asignacionClientes){
+//				//console.log(asignacionClientes[i]);
+				var idCliente = (asignacionClientes[i].idCliente * 1);
+				if(idCliente === cliente){
+					idRegion = (asignacionClientes[i].regionCliente.idRegion *1 );
+					nombreRegion = asignacionClientes[i].regionCliente.nombreRegion;
+				}
 			}
 		}
-			
-//		//console.log(idRegion+":"+nombreRegion);
 		
 		switch (idRegion){
 		case 1:
@@ -396,6 +428,7 @@ var alerta, proceso;
 		$.asignaIdRegion = idRegion;
 		$.asignaNombreRegion = nombreRegion;
 		return zonaCliente;
+
 				
 	}
 	
@@ -553,22 +586,28 @@ var alerta, proceso;
 				/*
 				 * Obtener ZonaCliente 
 				 */
-				if($('#asignaCliente').val() === null || $('#asignaCliente').val() === ""){
-		   			alerta="<div class='alert alert-danger' id='alertaCliente' role='alert'>Seleccione Cliente</div>";
-					alertaFade(alerta);
-					$('#btnAsignaCurso').attr("disabled", true);
+				if($flagClienteProspecto){
+					regionCliente = $idRegionClienteProspecto;
+					
 				}else{
-					var jsonCliente;
-					for (o in asignacionClientes){
-						var idCliente = asignacionClientes[o].idCliente;
-						var cliente = asignacionClientes[o];
-						if((idCliente * 1) === ($('#asignaCliente').val() * 1)){
-							jsonCliente = cliente;
+					if($('#asignaCliente').val() === null || $('#asignaCliente').val() === ""){
+			   			alerta="<div class='alert alert-danger' id='alertaCliente' role='alert'>Seleccione Cliente</div>";
+						alertaFade(alerta);
+						$('#btnAsignaCurso').attr("disabled", true);
+					}else{
+						var jsonCliente;
+						for (o in asignacionClientes){
+							var idCliente = asignacionClientes[o].idCliente;
+							var cliente = asignacionClientes[o];
+							if((idCliente * 1) === ($('#asignaCliente').val() * 1)){
+								jsonCliente = cliente;
+							}
 						}
+						regionCliente = jsonCliente.regionCliente.idRegion;
+						//console.log(jsonCliente);
 					}
-					regionCliente = jsonCliente.regionCliente.idRegion;
-					//console.log(jsonCliente);
 				}
+				
 
 				/*
 				 * Consultar D-1 y D+1 Instructores
@@ -1284,8 +1323,15 @@ var alerta, proceso;
 	
 	}
 	
+	function validaEspacio(element){
+		  var tmp = element.value;
+		  if(tmp.includes(" ") || tmp.includes("\t") || tmp.includes("\n")){
+			  element.value = "";
+			  alert("Verifique el RFC no contenga espacios, regularmente al final de la cadena.");
+		  }
+	  }
 	
-
+	
 
 
 

@@ -89,6 +89,20 @@ $(document).ready(function(){
 			showCaption: false, 
 			dropZoneEnabled: false
 		});
+	 
+	 
+	 /*
+	  * Factura
+	  */
+//	   $("#agregarFactura").fileinput({
+//	        browseClass: "btn btn-info",
+//	        browseLabel: "Seleccionar Archivos",
+//	        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+//	        removeClass: "btn btn-warning",
+//	        removeLabel: "Remover",
+//	 	   showCaption: false, 
+//	 	   dropZoneEnabled: false
+//	 	  });
 })
 
     

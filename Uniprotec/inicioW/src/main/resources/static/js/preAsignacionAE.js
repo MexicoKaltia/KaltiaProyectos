@@ -188,7 +188,8 @@ $(document).ready(function(){
 	}
 	
 	function nuevaComisionReal(){
-		return financial($.regla3PorcentajeNuevaComisionReal*$.comisionVendedorReal/100);
+//		return financial($.regla3PorcentajeNuevaComisionReal*$.comisionVendedorReal/100);
+		return financial(10*$.comisionVendedorReal/100);
 	}
 	
 	/*
@@ -373,6 +374,10 @@ $(document).ready(function(){
 		$('#nombreUsuarioSeguimiento').val(nombreUsuario);
 		$('#perfilUsuarioSeguimiento').val(perfilUsuario);
 		$('#mensajeSeguimiento').val("ALTA ANÁLISIS ECONÓMICO");
+		
+		if(preAsignacion.idPreAsignacionAE*1 > 0){
+			$('#idPreAsignacionAE').val(preAsignacion.idPreAsignacionAE);
+		}
 		
 		alert("Este Análisis Económico será enviado a revisión al personal Administrativo para ser aprobado, en caso de algún comentario podrá dar continuidad en el módulo de Seguimiento");
 

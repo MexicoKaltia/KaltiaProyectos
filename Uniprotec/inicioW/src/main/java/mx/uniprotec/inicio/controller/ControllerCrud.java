@@ -1,5 +1,6 @@
 package mx.uniprotec.inicio.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
+import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -31,6 +33,7 @@ import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IInstructorService;
 import mx.uniprotec.inicio.service.ILoginService;
+import mx.uniprotec.inicio.service.IProspectoService;
 import mx.uniprotec.inicio.service.IUsuarioService;
 import mx.uniprotec.inicio.service.IVendedorService;
 
@@ -62,6 +65,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	IAplicacionService aplicacionService;
 	@Autowired
 	IAsignacionService asignacionService;
+	@Autowired
+	IProspectoService prospectoService;
 	
 	
 //	@Autowired
@@ -124,6 +129,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		}	
 	}
 	
+	
 //	
 	@PostMapping("/altaCliente")
 	public ModelAndView altaCliente(@ModelAttribute("clienteForm") ClienteModelo cliente, ModelMap model) {
@@ -132,7 +138,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 		resultVO  = clienteService.altaCliente(cliente, resultVO.getAccesToken());
-		ModelAndView mav = new ModelAndView("redirect:/ACliente" , model);
+		ModelAndView mav = new ModelAndView("redirect:/BCliente" , model);
 //		mav.addObject("mensaje", resultVO.getMensaje());
 		if(resultVO.getCodigo() != 500) {
 //			log.info(resultVO.toString());
@@ -702,7 +708,119 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			}
 			return mav;
 		}
+	
+	
+	/*
+	 * CLIENTE PROSPECTO
+	 */
+	
+	@GetMapping("/CProspectos")
+	public ModelAndView cProspectos(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+		log.info("Prospectos model Activo");
+		
+		model.addAttribute("clienteForm", new ClienteModelo());
+		
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		
+		ModelAndView mav = new ModelAndView("CProspectos", model);
+		
+		ResultVO rs = prospectoService.consultaProspectos(resultVO.getAccesToken());
+		
+		JSONObject jsonResponse = new JSONObject();
+		ResultVO rs2 = new ResultVO();
+		ResultVO rs3 = new ResultVO();
+		model.addAttribute("clienteForm", new ClienteModelo());
+		
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			jsonResponse = resultVO.getJsonResponseObject();
 
+			 rs2 = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			if(rs2.getCodigo() != 500) {
+				 rs3 = vendedorService.consultaVendedores(resultVO.getAccesToken());
+				if(rs3.getCodigo() != 500) {
+//					log.info(jsonResponse.toJSONString());
+					jsonResponse.put("regiones", rs2.getJsonResponseObject());
+					jsonResponse.put("vendedores", rs3.getJsonResponseObject());
+					
+					resultVO.setJsonResponseObject(jsonResponse);
+					
+//					log.info(model.values().toString());
+					mav = new ModelAndView("CProspectos", model);
+					mav.addObject("error", error);
+					mav.addObject("ejecucion", ejecucion);
+					
+					return mav;
+				}else {
+//					model.addAttribute("model", rs3);
+					mav = new ModelAndView("redirect:/BCliente", model);
+					mav.addObject("consulta", true);
+					return mav;
+				}
+				
+			}else {
+//				model.addAttribute("model", rs2);
+				mav = new ModelAndView("redirect:/BCliente", model);
+				mav.addObject("consulta", true);
+				return mav;
+			}
+			
+		}else {
+//			model.addAttribute("model", rs);
+			mav = new ModelAndView("redirect:/BCliente", model);
+			mav.addObject("consulta", true);
+			return mav;
+		}
+
+	}
+	
+	@PostMapping("/actualizaProspecto")
+	public ModelAndView actualizaProspecto(@ModelAttribute("clienteForm") ClienteModelo cliente, ModelMap model) {
+		log.info("ActualizaCliente model Activo");
+		model.addAttribute("clienteForm", new ClienteModelo());
+			
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		ResultVO rs = clienteService.edicionCliente(cliente, resultVO.getAccesToken());
+		ModelAndView mav = new ModelAndView("redirect:/BCliente", model);
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+		}
+		return mav;
+	}
+	
+	/*
+	 * Analisis Vendedor
+	 */
+	@GetMapping("/BVendedorAnalisis")
+	public ModelAndView BVendedorAnalisis(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("BVendedorAnalisis model Activo");
+			model.addAttribute("vendedorForm", new VendedorModelo());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = vendedorService.consultaVendedoresAnalisis(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			ModelAndView mav = new ModelAndView("BVendedorAnalisis", model);
+			if(resultVO.getCodigo() != 500) {	
+//				log.info(model.values().toString());
+				
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+			}else {
+				mav.addObject("consulta", true);
+			}
+			return mav;
+		}	
 	
 
 	//Fin de clase

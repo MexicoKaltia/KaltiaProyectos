@@ -1,6 +1,5 @@
 package mx.uniprotec.inicio.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -14,18 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
-import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
-import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.IEntregableService;
 import mx.uniprotec.inicio.service.ILoginService;
@@ -96,7 +92,7 @@ public class ControllerPreAsignacion {
 	@PostMapping("/altaPreAsignacion")
 	public ModelAndView altaPreAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Metodo de altaPreAsignacion");
-//		log.info(asignacion.toString());
+		log.info(asignacion.toString());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 //		log.info(resultVO.getJsonResponse().toJSONString());
@@ -185,12 +181,24 @@ public class ControllerPreAsignacion {
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
 			
-			ResultVO rs = preAsignacionService.consultaPreAsignacion(resultVO.getAccesToken());
+			ResultVO rs = preAsignacionService.consultaPreAsignacion(resultVO);
 			
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 			ModelAndView mav = new ModelAndView("BSeguimiento", model);
-			model.addAttribute("preAsignaciones", rs.getJsonResponseObject());
 			model.addAttribute("asignacionForm", new AsignacionModelo());
+//			model.addAttribute("asignaciones", rs.getAsignaciones());
+//			model.addAttribute("cursos", rs.getCursos());
+//			model.addAttribute("clientes", rs.getClientes());
+//			model.addAttribute("instructores", rs.getInstructores());
+//			model.addAttribute("regiones", rs.getRegiones());
+			
+			mav.addObject("asignaciones", rs.getAsignaciones());
+			mav.addObject("cursos", rs.getCursos());
+			mav.addObject("clientes", rs.getClientes());
+			mav.addObject("instructores", rs.getInstructores());
+			mav.addObject("regiones", rs.getRegiones());
+			
+			
 			
 			if(rs.getCodigo() != 500) {
 				mav.addObject("ejecucion", ejecucion);
@@ -225,9 +233,7 @@ public class ControllerPreAsignacion {
 				log.info("NOK AltaCliente");
 				return mav;	
 			}
-				
 		}		
-			
 	}
 	
 	@PostMapping("/BPreAsignacion")

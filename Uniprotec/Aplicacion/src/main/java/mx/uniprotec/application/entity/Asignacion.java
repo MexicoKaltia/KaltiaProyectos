@@ -90,6 +90,10 @@ public class Asignacion implements Serializable{
 	private String costoHotel;
 	@Column
 	private String errorProceso;
+	@Column
+	private Long idPreAsignacion;
+	@Column
+	private Long idPreAsignacionAE;
 
 	@Override
 	public String toString() {
@@ -356,6 +360,22 @@ public class Asignacion implements Serializable{
 
 	public void setErrorProceso(String errorProceso) {
 		this.errorProceso = errorProceso;
+	}
+
+	public Long getIdPreAsignacion() {
+		return idPreAsignacion;
+	}
+
+	public void setIdPreAsignacion(Long idPreAsignacion) {
+		this.idPreAsignacion = idPreAsignacion;
+	}
+
+	public Long getIdPreAsignacionAE() {
+		return idPreAsignacionAE;
+	}
+
+	public void setIdPreAsignacionAE(Long idPreAsignacionAE) {
+		this.idPreAsignacionAE = idPreAsignacionAE;
 	}
 	
 	

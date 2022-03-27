@@ -1,15 +1,8 @@
 package mx.uniprotec.application.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -20,12 +13,9 @@ import org.slf4j.LoggerFactory;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -37,16 +27,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Cliente;
+import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.service.IAplicacionService;
+import mx.uniprotec.application.service.IClienteProspecto;
 import mx.uniprotec.application.service.IClienteService;
+import mx.uniprotec.application.service.IPreAsignacionService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
@@ -72,6 +63,13 @@ public class ClienteRestController {
 
 	@Autowired
 	private IAplicacionService aplicacionService;
+	
+	@Autowired
+	private IClienteProspecto prospectoService;
+	
+	@Autowired
+	private IPreAsignacionService preAsignacionService;
+
 
 
 	 /*
@@ -205,6 +203,18 @@ public class ClienteRestController {
 			clienteNew.setArchivosCliente(cliente.getArchivosCliente());
 			
 			clienteNew = clienteService.save(clienteNew);
+			
+			int i = 99;
+			if(cliente.getIdClienteProspecto() > 0) {
+				i = prospectoService.deleteId(cliente.getIdClienteProspecto());
+			}
+			if(cliente.getIdPreAsignacion() > 0 && i == 0) {
+				PreAsignacion preAsignacion =  preAsignacionService.findId(cliente.getIdPreAsignacion());
+				preAsignacion.setClienteStatus("EXISTENTE");
+				preAsignacion.setIdClienteAsignacion(clienteNew.getIdCliente());
+				preAsignacionService.savePreAsignacion(preAsignacion);
+				
+			}
 
 			response.put("cliente", clienteNew);
 			response.put("mensaje", "El Cliente ha sido creado con éxito!");

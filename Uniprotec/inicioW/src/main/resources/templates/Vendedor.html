@@ -202,6 +202,7 @@
 <!--     LEFT FIN -->
              <div class="app-main__outer">
                 <div class="app-main__inner">
+                <div id="notificacionVendedorPreAsignaciones"></div>
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -339,6 +340,13 @@
                 
             </div>
         </div>  <!-- fin de div principal-->
+      <script th:inline="javascript">
+ 		var $preAsignaciones = [[${model.jsonResponse.preAsignaciones}]];
+ 		var idUsuario =  [[${model.jsonResponse.user.id}]];
+ 		var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+		var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+		var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+	  </script>
 </div>
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>

@@ -77,6 +77,8 @@ public class PreAsignacion implements Serializable{
 	@Column(nullable=false)
 	private String statusAsignacion;
 	@Column
+	private int idStatusAsignacion;
+	@Column
 	private Boolean verificarEntregable;
 	@Column
 	private String guiaEntregable;
@@ -98,6 +100,10 @@ public class PreAsignacion implements Serializable{
 	private String clienteStatus;
 	@Column
 	private String seguimiento;
+	@Column
+	private String fechaInicioFactura;
+	@Column
+	private String fechaFinFactura;
 
 	@Override
 	public String toString() {
@@ -396,6 +402,30 @@ public class PreAsignacion implements Serializable{
 
 	public void setSeguimiento(String seguimiento) {
 		this.seguimiento = seguimiento;
+	}
+
+	public int getIdStatusAsignacion() {
+		return idStatusAsignacion;
+	}
+
+	public void setIdStatusAsignacion(int idStatusAsignacion) {
+		this.idStatusAsignacion = idStatusAsignacion;
+	}
+
+	public String getFechaInicioFactura() {
+		return fechaInicioFactura;
+	}
+
+	public void setFechaInicioFactura(String fechaInicioFactura) {
+		this.fechaInicioFactura = fechaInicioFactura;
+	}
+
+	public String getFechaFinFactura() {
+		return fechaFinFactura;
+	}
+
+	public void setFechaFinFactura(String fechaFinFactura) {
+		this.fechaFinFactura = fechaFinFactura;
 	}
 	
 	

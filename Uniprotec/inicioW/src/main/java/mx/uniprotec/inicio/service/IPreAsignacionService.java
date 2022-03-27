@@ -19,7 +19,7 @@ public interface IPreAsignacionService {
 
 	ResultVO altaPreAsignacionAE(PreAsignacionAE preAsignacionAE, String accesToken, Long idUsuario);
 
-	ResultVO consultaPreAsignacion(String accesToken);
+	ResultVO consultaPreAsignacion(ResultVO resultVO);
 
 	ResultVO deletePreAsignacion(String idAsignacion, String accesToken);
 

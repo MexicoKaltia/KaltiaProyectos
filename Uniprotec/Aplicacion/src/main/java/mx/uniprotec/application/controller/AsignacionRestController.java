@@ -29,8 +29,10 @@ import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.AsignacionHistorico;
 import mx.uniprotec.application.entity.EntregableEntity;
 import mx.uniprotec.application.entity.Notificacion;
+import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.service.IAsignacionService;
 import mx.uniprotec.application.service.IEntregableService;
+import mx.uniprotec.application.service.IPreAsignacionService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 
 @CrossOrigin(origins = { "*" })
@@ -44,6 +46,10 @@ public class AsignacionRestController {
 	private INotificacionDao notificacionDao;
 	@Autowired
 	private IEntregableService entregableService;
+	@Autowired
+	private IPreAsignacionService preAsignacionService;
+	@Autowired
+	private PreAsignacionRestController preAsignacionRestController;
 
 	
 	
@@ -164,13 +170,36 @@ public class AsignacionRestController {
 			
 			asignacionNew.setFechaPago("");
 			asignacionNew.setGuiaEntregable("");
-//			asignacionNew.setVerificarEntregable("");
 			asignacionNew.setNumeroFactura("");
 			asignacionNew.setArchivoParticipantes("");
 			asignacionNew.setCostoHotel("");
 			asignacionNew.setErrorProceso("");
 			
+			if(asignacion.getIdPreAsignacion() > 0) {
+				asignacionNew.setIdPreAsignacion(asignacion.getIdPreAsignacion());
+			}
+			if(asignacion.getIdPreAsignacionAE() > 0) {
+				asignacionNew.setIdPreAsignacionAE(asignacion.getIdPreAsignacionAE());
+			}
+						
 			asignacionNew = asignacionService.save(asignacionNew);
+				
+			if(asignacionNew.getIdAsignacion() > 0) {
+				try {
+					PreAsignacion preAsignacion = preAsignacionService.findId(asignacion.getIdPreAsignacion());
+					preAsignacion.setStatusAsignacion(asignacion.getStatusAsignacion());
+					preAsignacion.setIdStatusAsignacion(asignacion.getIdStatusAsignacion());
+					preAsignacion.setSeguimiento(preAsignacionRestController.seguimientoUpdate(preAsignacion.getSeguimiento(),asignacion.getNombreUsuarioSeguimiento(),asignacion.getPerfilUsuarioSeguimiento(),asignacion.getMensajeSeguimiento()));
+					preAsignacionService.savePreAsignacion(preAsignacion);
+				} catch (Exception e) {
+					response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+					response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+					response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+					log.info("catch PreAsignacion update fin");
+					return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+				
+			}
 			 response.put("asignacion", asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
 			 response.put("status", HttpStatus.CREATED);
@@ -181,7 +210,7 @@ public class AsignacionRestController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-			log.info("asignacion create fin");
+			log.info("catch asignacion create fin");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
