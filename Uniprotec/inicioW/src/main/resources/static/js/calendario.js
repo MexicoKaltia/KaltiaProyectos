@@ -24,7 +24,9 @@ $(document).ready(function() {
 //	//console.log("id usuario sesion:"+idUsuario)
 	var filtroInstructores = new Array();
 	var asignacionesFiltro = new Array();
-	
+	var filtroVendedores = new Array();
+	var filtroVendedoresVendedor = new Array();
+	var asignacionesFiltroV = new Array();
 	
 	
 	
@@ -47,6 +49,7 @@ $(document).ready(function() {
 	$('#btnFiltroInstructores').click(function(){
 		$('#todosInstructores').prop( "checked", false );
 	});
+	
 	
 	$('#btnFiltro').click(function(){
 		
@@ -73,9 +76,93 @@ $(document).ready(function() {
 		
 	});
 	
-	
+	/*
+	 * Filtro Vendedores
+	 */
+//	console.log(perfilUsuario);
+	if(perfilUsuario === "Vendedor"){
+		$('#modalFiltroVendedor').empty();
+//		$('#modalNombreVendedor').text(nombreUsuario);
+		var registroVendedor = '\
+		<div class="input-group mb-1" >\
+		  <div class="input-group-prepend">\
+		    <div class="input-group-text">\
+		      <input type="checkbox" class="checkboxFiltroV" id="'+idUsuario+'" >\
+		    </div>\
+		  </div>\
+		  <span  style="padding-left: 10px;">'+nombreUsuario+'</span>\
+		</div>';
 		
-});
+		$('#modalFiltroVendedor').append(registroVendedor);
+		
+		for(var a in vendedores){
+			var vendedor = vendedores[a];
+			filtroVendedoresVendedor.push(vendedor.usuarioVendedor.idUsuario);
+//			
+		}
+	}
+	
+	var check = false;
+	$( '#todosVendedores' ).on( 'click', function() {
+		if(check === false){
+			check = true;
+		}else{
+			check = false;
+		}
+		
+		$('.checkboxFiltroV').prop( "checked", check );
+			
+	});
+		
+	$('#btnFiltroVendedores').click(function(){
+		$('#todosVendedores').prop( "checked", false );
+	});
+		
+	
+	$('#btnFiltroV').click(function(){	
+		$('.checkboxFiltroV:checked').each(function(){
+			if($(this).attr('checked',true)){
+				idVendedor = $(this).attr('id')
+				filtroVendedores.push(idVendedor);
+			}
+		});
+		
+		for(var i in asignaciones){
+			var asignacionB  = asignaciones[i];
+			for(var a in filtroVendedores){
+				var vendedorFiltro = filtroVendedores[a];
+				if((asignacionB.userCreateAsignacion * 1) === (vendedorFiltro * 1)){
+					asignacionesFiltroV.push(asignacionB);
+				}
+			}
+		}
+		
+		if(perfilUsuario === "Vendedor"){
+			if($('#todosVendedores').prop('checked')){
+				filtroVendedores.length = 0;
+				filtroVendedores = filtroVendedoresVendedor;
+				console.log(filtroVendedoresVendedor.length);
+				calendario(asignaciones, filtroVendedores, identificadorUsuario);
+			}else{
+				calendario(asignacionesFiltroV, filtroVendedores, identificadorUsuario);
+			}
+				
+		}else{
+			if($('#todosVendedores').prop('checked')){
+				calendario(asignaciones, filtroVendedores, identificadorUsuario);
+			}else{
+				calendario(asignacionesFiltroV, filtroVendedores, identificadorUsuario);
+			}
+			
+		}
+		
+		filtroVendedores.length = 0;
+		asignacionesFiltroV.length =0;
+	});
+	
+	
+			
+}); // Fin Jquery
 
 
 	function calendario(asignaciones, filtroInstructores, identificadorUsuario){
@@ -139,7 +226,7 @@ $(document).ready(function() {
 			$('#seccionErrorProceso').html("");
 			if(perfilUsuario === "Vendedor"){
 				if(identificadorUsuario === asignacion0.userCreateAsignacion){
-					console.log(identificadorUsuario);
+//					console.log(identificadorUsuario);
 					$("#divOperacion").append('<button type="submit" id="asignaConfirmar0" class="btn btn-primary pull-left"  >Revision Expediente Asignación / Cliente</button>');
 					$("#divArchivoParticipantes").append('<button type="submit" id="archivoParticipantes" class="btn btn-info pull-right"  value="">Adjuntar Archivo Participantes</button>');
 					
@@ -535,6 +622,9 @@ $(document).ready(function() {
 		case 8:
 			zonaCliente = 'purple';
 			break;
+		case 9:
+			zonaCliente = 'cyan';
+			break;
 		}
 		return zonaCliente;
 	}
@@ -574,6 +664,10 @@ $(document).ready(function() {
 		case 8:
 			
 			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
+			break;
+		case 9:
+			
+			zonaCliente = '<div class="zona" style="background:cyan; color:blue">'+nombreRegion+'</div>';
 			break;
 		}
 		$.asignaIdRegion = idRegion;

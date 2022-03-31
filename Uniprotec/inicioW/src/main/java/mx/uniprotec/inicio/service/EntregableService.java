@@ -125,19 +125,45 @@ public class EntregableService implements IEntregableService {
 		ResultVO rs= (ResultVO) baseClientRest.objetoPost(accesToken, BaseClientRest.URL_CRUD_ENTREGABLE, entregable);
 		if(rs.getCodigo() != 500) {
 			
-		
+			String idEmpresa = entregable.getRfcOriginalAsignacion();
+			String idEntregable = entregable.getIdEntregableLogico();
+			
+			
 			/*
 			 * Entregable nuevo guardar Imagen logo
 			 */
 			if(entregable.getEstatusEntregable().equals("nuevo")) {
+				
+//				JSONObject jsonResponse = rs.getJsonResponse();
+//				JSONObject jsonEntregable = (JSONObject) jsonResponse.get("entregable");
+//				String idEntregable = (String) jsonEntregable.get("idEntregable");
+//				String idAsignacion = Long.valueOf(entregable.getIdAsignacion()).toString();
+
+				String pathImageLogo = pathLogico +"/"+ entregable.getRfcOriginalAsignacion() +"/"+ idEntregable+"/imageLogo/";
 				Path origenPath = FileSystems.getDefault().getPath("/uniprotec/"+ entregable.getRfcOriginalAsignacion() +"/image/"+ entregable.getFormALogoEmpresa());
-		        Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/imageLogo/"+ entregable.getFormALogoEmpresa());
-	
-		        try {
-		            Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-		        } catch (IOException e) {
-		            System.err.println(e);
+		        Path destinoPath = FileSystems.getDefault().getPath( pathImageLogo + entregable.getFormALogoEmpresa());
+//		        "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/"+tipoCarpeta+"/"
+		        File directorio = new File(pathImageLogo); 
+		        
+		        if (!directorio.exists()) {
+		            if (directorio.mkdirs()) {
+		                try {
+							Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+		                log.info("Directorio creado : "+pathImageLogo);
+		            } else {
+		                System.out.println("Error al crear directorio");
+		            }
 		        }
+//		        try {
+//		        	directory.mkdirs();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+		        
+
 			}
 			
 			
@@ -150,8 +176,6 @@ public class EntregableService implements IEntregableService {
 				entregable.setStatus("Entregable Generado");
 				ResultLocal rl = new ResultLocal();
 				pathLogico = "/uniprotec/entregables/";
-				String idEmpresa = entregable.getRfcOriginalAsignacion();
-				String idEntregable = entregable.getIdEntregableLogico();
 				pathLogico = pathLogico + idEmpresa+"/"+ idEntregable;
 				
 				//Genera Diploma

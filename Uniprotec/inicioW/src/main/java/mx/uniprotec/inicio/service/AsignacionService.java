@@ -32,6 +32,8 @@ public class AsignacionService implements IAsignacionService{
 	IAplicacionService aplicacionService;
 	@Autowired
 	IInstructorService instructorService;
+	@Autowired
+	IVendedorService vendedorService;
 	
 	public AsignacionService() {
 		// TODO Auto-generated constructor stub
@@ -194,7 +196,14 @@ public class AsignacionService implements IAsignacionService{
 			if(rsInstructores.getCodigo() != 500) {
 				JSONObject jsonInstructores = rsInstructores.getJsonResponseObject();
 				jsonAsignaciones.put("instructores", jsonInstructores.get("instructores"));
-				
+				ResultVO rsVendedores = vendedorService.consultaVendedores(token);
+				if(rsVendedores.getCodigo() != 500) {
+					JSONObject jsonVendedores = rsVendedores.getJsonResponseObject();
+					jsonAsignaciones.put("vendedores", jsonVendedores.get("vendedores"));
+					
+				}else {
+					return rsVendedores;
+				}
 			}else {
 				return rsInstructores;
 			}

@@ -418,6 +418,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
+		case 9:
+			
+			zonaCliente = '<div class="zona" style="background:cyan; color:blue">'+nombreRegion+'</div>';
+			break;
+
 		}
 		$.asignaIdRegion = idRegion;
 		$.asignaNombreRegion = nombreRegion;

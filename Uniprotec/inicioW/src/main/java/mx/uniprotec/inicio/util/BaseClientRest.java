@@ -2,15 +2,12 @@ package mx.uniprotec.inicio.util;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +22,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
-import mx.uniprotec.entidad.modelo.PerfilModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UserCorreo;
@@ -42,12 +38,12 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 
-//	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
-//	
+	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
+
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
 	public static final String URL_CRUD_VENDEDOR	  =	"vendedor";

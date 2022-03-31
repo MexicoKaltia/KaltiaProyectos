@@ -252,6 +252,11 @@
                                     <span>Filtro Instructores</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a  class="nav-link active" id="btnFiltroVendedores" data-toggle="modal" data-target="#modalFiltroVendedores">
+                                    <span>Filtro Vendedores</span>
+                                </a>
+                            </li>
                             
                         </ul>
                         <div class="tab-content">
@@ -452,6 +457,8 @@
                        </div>
                        <!-- Modal Fin-->
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalFormErrorProceso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 					    <div class="modal-dialog modal-lg" role="document">
@@ -558,7 +565,8 @@
                        
  	<script th:inline="javascript">
  		 var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
- 		var instructores = [[${model.jsonResponseObject.instructores}]];
+ 	     var instructores = [[${model.jsonResponseObject.instructores}]];
+ 	     var vendedores= [[${model.jsonResponseObject.vendedores}]];
  		 var idUsuario =  [[${model.jsonResponse.user.id}]];
  		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
@@ -575,14 +583,68 @@
 										 
 	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
-	<script th:src="@{js/calendario.js}"></script>
+	
 	<script th:src="@{js/errorProceso.js}"></script>
     
      
      									
                                     	
+    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       
+                       <div class="modal" id="modalFiltroVendedores" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Vendedores</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body" >
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosVendedores" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;" id="modalNombreVendedor">Todos</span>
+											</div>
+			                            </li>
+			                            <hr>
+			                            <div  id="modalFiltroVendedor">
+									    <li th:each= "vendedor : ${model.jsonResponseObject.vendedores}" style="list-style-type:none" >
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxFiltroV" th:id="${vendedor.usuarioVendedor.idUsuario}" >
+											    </div>
+											  </div>
+											  <span th:text="${vendedor.nombreVendedor}" style="padding-left: 10px;"></span>
+											</div>
+			                            </li>
+			                            </div>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="submit"  class="btn btn-info pull-left" id="btnFiltroV" data-dismiss="modal">Actualizar Calendario</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
     
-    
+    <script th:src="@{js/calendario.js}"></script>
 </body>
 
 </html>

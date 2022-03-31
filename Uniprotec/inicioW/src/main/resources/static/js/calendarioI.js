@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		var nombreRegion = nombreRegionAsignacion;
 		switch (idRegion){
-case 1:
+		case 1:
 			
 			zonaCliente = '<div class="zona" style="background:yellow; color:blue">'+nombreRegion+'</div>';
 			break;
@@ -371,6 +371,10 @@ case 1:
 		case 8:
 			
 			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
+			break;
+		case 9:
+			
+			zonaCliente = '<div class="zona" style="background:cyan; color:blue">'+nombreRegion+'</div>';
 			break;
 		}
 		$.asignaIdRegion = idRegion;

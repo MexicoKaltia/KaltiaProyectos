@@ -211,9 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		var color;
 		var items = new Array();
 		
-		console.log(perfilUsuario);
-		console.log(idUsuario);
-		console.log(operacionId);
+//		console.log(perfilUsuario);
+//		console.log(idUsuario);
+//		console.log(operacionId);
 		
 		if(perfilUsuario === "Instructor"){
 			for(i in asignaciones){
@@ -376,7 +376,12 @@ case 1:
 			
 			zonaCliente = '<div class="zona" style="background:purple; color:white">'+nombreRegion+'</div>';
 			break;
+		case 9:
+			
+			zonaCliente = '<div class="zona" style="background:cyan; color:blue">'+nombreRegion+'</div>';
+			break;
 		}
+		
 		$.asignaIdRegion = idRegion;
 		$.asignaNombreRegion = nombreRegion;
 		return zonaCliente;

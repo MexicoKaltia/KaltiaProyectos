@@ -399,12 +399,20 @@ $(document).ready(function() {
 			var flagFoto = false;
 			$('#btnAltaEntregable').attr('disabled', false);
 			if($participantes.length > 0){
+				
+				if($("#formAFechaFinDC3").val() ==="" && $("#formAFechaDiploma").val() ===""){
+					flagFoto = true;
+					alert("Revisa las fechas DC3 o Fecha Diploma, no tienes información para generar documentos tipo DC3 o Diplomas para los "+$participantes.length+" participantes");
+				}
+				
 				for(var a in $participantes){
 					var participante = $participantes[a];
 					if(participante.participanteFoto === ""){
-						flagFoto = true;
-						alert("Revisa a los participantes que contenga su Foto, parece que no está completo el expediente de participantes");
-						break;
+						if($("#formAEquipoCredencial").val() !==""){
+							flagFoto = true;
+							alert("Revisa a los participantes que contenga su Foto, parece que no está completo el expediente de participantes");
+							break;
+						}
 					}
 				}
 				if(!flagFoto){
@@ -702,7 +710,7 @@ $(document).ready(function() {
 			$('#entregableEdicion').submit();
 		}else{
 			$('#btnGeneraDocto').hide();
-			alert("No se puede generar documentación digital, el instructor asignado "+asignacionItem.instructorAsignacion+", no tiene capturada la firma digital")
+			alert("No se puede generar documentación digital, el instructor asignado "+asignacionItem.instructorAsignacion+", no tiene capturada la firma digital");
 			return false;
 		}
 		
