@@ -178,6 +178,8 @@ public class EntregableService implements IEntregableService {
 				pathLogico = "/uniprotec/entregables/";
 				pathLogico = pathLogico + idEmpresa+"/"+ idEntregable;
 				
+				crearDirectoriosDocumentacion( idEmpresa,  idEntregable);
+				
 				//Genera Diploma
 				if(!entregable.getFormAFechaDiploma().equals("")) {
 					try {
@@ -853,6 +855,29 @@ public class EntregableService implements IEntregableService {
 			i++;
 		}
 		return r;
+	}
+	
+	private void crearDirectoriosDocumentacion(String idEmpresa, String idEntregable) {
+		String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
+        File directorio = new File(directory);
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                log.info("Nuevo Directorio creado documentacion");
+    		
+            } else {
+            	log.info("Error al crear directorio documentacion");
+            }
+        }
+        directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/zip/";
+        directorio = new File(directory);
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                log.info("Nuevo Directorio creado zip");
+    		
+            } else {
+            	log.info("Error al crear directorio zip");
+            }
+        }
 	}
 
 }

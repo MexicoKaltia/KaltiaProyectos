@@ -204,10 +204,19 @@ $(document).ready(function(){
 			}else{
 				$('#consirmarStatus').html('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  Debe de cumplir la fecha de evento: '+$.asignaFecha+' </u></div>');
 			}	
+		}else if($.asignaStatus === "Curso Completado"){
+			$.sigStatus = "Elaborar Entregable";
+			$('#verificarEntregable').val(true);
+			
+			$('#consirmarStatus').html('<button type="submit" id="elaborarEntregable" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
+			$('#elaborarEntregable').click(function(){
+//				$("#formEntregables").attr("action", "AEntregable");
+			})
 		}
 	}
 	
-	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion" || perfilUsuario === "Instructor"){
+//	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion" || perfilUsuario === "Instructor"){
+	if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 		if($.asignaStatus === "Curso Completado"){
 			$.sigStatus = "Entregables Validado";//$.sigStatus = "Elaborar Entregable";
 			$('#verificarEntregable').val(true);
