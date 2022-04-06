@@ -87,6 +87,7 @@ $(document).ready(function(){
 			removeClass: "btn btn-warning",
 			removeLabel: "Remover",
 			showCaption: false, 
+			maxFileSize: 102400,
 			dropZoneEnabled: false
 		});
 })
