@@ -554,7 +554,8 @@ public class EntregableService implements IEntregableService {
 		
 		//Genera Resultados Participantes
 //		JRBeanCollectionDataSource participantes = new JRBeanCollectionDataSource(entregable.getFormBParticipantes());
-		JasperPrint resultadosParticipantesJasperPrint = resultadosParticipantes(entregable.getFormBParticipantes());
+		
+		JasperPrint resultadosParticipantesJasperPrint = resultadosParticipantes(listaParticipantes(entregable.getFormBParticipantes()));
 		jasperPrintReporte.add(resultadosParticipantesJasperPrint);
 		
 			// guardar en disco local
@@ -578,14 +579,32 @@ public class EntregableService implements IEntregableService {
 		
 	
 	
+	private List<ParticipantesModelo> listaParticipantes(List<ParticipantesModelo> formBParticipantes) {
+		
+		List<ParticipantesModelo> listaParticipanteTotal = new ArrayList<ParticipantesModelo>();
+		List<ParticipantesModelo> listaParticipanteNew = new ArrayList<ParticipantesModelo>();
+		List<ParticipantesModelo> listaParticipanteRest = new ArrayList<ParticipantesModelo>();
+		List<List<ParticipantesModelo>> listaTotal = new ArrayList<List<ParticipantesModelo>>();
+		
+		int count = 0;
+		while(formBParticipantes.size() == 0) {
+			ParticipantesModelo participante = formBParticipantes.get(count);
+			if(count < 15) {
+				listaParticipanteNew.add(participante);
+				formBParticipantes.remove(count);
+			}
+			count++;
+		}
+		listaTotal.add(listaParticipanteNew);
+		return listaParticipanteNew;
+	}
+
 	private JasperPrint resultadosParticipantes(List<ParticipantesModelo> formBParticipantes) throws JRException {
 		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/resultadosParticipantes.jrxml"));
 		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
 		Map<String, Object> map = new HashMap<String, Object>();
 		JRBeanCollectionDataSource participantes = new JRBeanCollectionDataSource(formBParticipantes);
-		
-//		map.put("resultadosParticipantes", participantes);
-//				
+				
 		return JasperFillManager.fillReport(compileReport, map,  participantes);
 		
 	}
