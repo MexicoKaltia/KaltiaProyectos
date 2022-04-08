@@ -424,19 +424,35 @@ $(document).ready(function(){
 		console.log($.registro);
 		var fechaInicioFactura = $('#fechaInicioFactura').val();
 		var fechaFinFactura = $('#fechaFinFactura').val();
+		var elementoPicker = $datepicker.pickadate('picker');
 		console.log(fechaInicioFactura );
 		$('#fechaInicioFacturaFecha').val(fechaInicioFactura);
-		$('#fechaFinFacturaFecha').val(fechaFinFactura);
+		$('#fechaFinFacturaFecha').val(elementoPicker.get('select', 'mm/dd/yyyy'));
+		$('#fechaHoy').val(hoy());
 		$('#idPreAsignacionFecha').val($.registro.idPreAsignacion);
 		$('#nombreUsuarioSeguimientoFecha').val(nombreUsuario);
 		$('#perfilUsuarioSeguimientoFecha').val(perfilUsuario);
-		$('#mensajeSeguimientoFecha').val("Fechas Cobro Factura : <b>"+ fechaInicioFactura + " - " + fechaFinFactura + "</b>");
+		$('#mensajeSeguimientoFecha').val("Fecha Cobro Factura : <b>"+ fechaInicioFactura + "</b>");
 		$('#formFechasFactura').submit();
 	});
 	
 	/*
 	 * funciones
 	 */
+	
+	function hoy() {
+		var d = new Date();
+		var dia = d.getDate();
+		var mes = (d.getMonth() + 1);
+		var anio = d.getFullYear();
+		if (dia < 10)
+			dia = "0" + dia.toString();
+		if (mes < 10)
+			mes = "0" + mes.toString();
+		var today = mes + '/' + dia + '/' + anio;
+//		//console.log(today);
+		return today;
+	}
 	function getPREVendedor(){
 		
 		var preAsignaciones = new Array();

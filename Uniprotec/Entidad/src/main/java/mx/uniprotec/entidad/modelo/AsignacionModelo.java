@@ -68,7 +68,10 @@ public class AsignacionModelo implements Serializable{
 	private String agregarFacturaTexto;
 	private String fechaInicioFactura;
 	private String fechaFinFactura;
+	private String fechaHoy;
 	
+	
+
 	private Long idPreAsignacion; // Este valor solo se carga una vez aprobado el evento. 
 	
 	
@@ -479,5 +482,12 @@ public class AsignacionModelo implements Serializable{
 	public void setFechaFinFactura(String fechaFinFactura) {
 		this.fechaFinFactura = fechaFinFactura;
 	}
+	public String getFechaHoy() {
+		return fechaHoy;
+	}
+	public void setFechaHoy(String fechaHoy) {
+		this.fechaHoy = fechaHoy;
+	}
+
 
 }

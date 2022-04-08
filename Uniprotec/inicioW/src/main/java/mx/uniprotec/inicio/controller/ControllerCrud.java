@@ -821,7 +821,30 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			}
 			return mav;
 		}	
-	
+
+	/*
+	 * Analisis Vendedor
+	 */
+	@GetMapping("CVendedorAnalisis")
+	public ModelAndView CVendedorAnalisis(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("CVendedorAnalisis model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = vendedorService.consultaVendedoresAnalisis(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ModelAndView mav = new ModelAndView("CVendedorAnalisis", model);
+			if(resultVO.getCodigo() != 500) {	
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+			}
+			return mav;
+		}	
+
 
 	//Fin de clase
 }

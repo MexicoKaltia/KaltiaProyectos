@@ -1,0 +1,1230 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+<head>
+    <meta charset="utf-8"/>
+    <title>UNIPROTEC v 2.0</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+        <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
+	    <link th:href="@{main.css}" rel="stylesheet">
+<!-- 	    <link rel="stylesheet" th:href="@{css/multi-select.css}"> -->
+	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
+	    
+	    <link th:href="@{css/default.css}" rel="stylesheet">
+    	<link th:href="@{css/default.date.css}" rel="stylesheet">
+    	<link th:href="@{css/default.time.css}" rel="stylesheet">
+	    
+	    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+</head>
+
+<body background="images/fondo4.png">
+   	
+    <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
+        <!--      HEAD INICIO    -->
+    <div class="app-header header-shadow bg-royal header-text-light" >
+            <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
+                <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
+                    
+                    <ul class="header-menu nav">
+                    
+                        <li class="dropdown nav-item">
+                            <a href="javascript:alerta();" class="nav-link">
+                                <i class="nav-link-icon fa fa-cog"></i>
+                                Configuracion
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+                                            
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
+                                    </div>
+                                    <div class="widget-subheading">
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
+                                    </div>
+                                </div>
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <button type="button"
+                                        class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!--      HEAD FIN    --> 
+        
+        <div class="app-main">
+            <!--     LEFT INICIO -->
+	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">  
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">PRINCIPAL</li>
+                            <li>
+                                <a th:href="@{/inicio}" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    CONTROL
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.modules.modulos}">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    <span th:text="${modulo.nombreModulo}"></span>
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li th:each= "submodulo : ${modulo.submodules}">
+                                        <a th:href="${submodulo.referenciaSubmodulo}">
+                                            <i class="metismenu-icon"></i>
+                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                           <li class="app-sidebar__heading">ACCIONES</li>
+                            <li th:each= "accion : ${model.jsonResponse.modules.acciones}">
+                                <a th:href="${accion.referenciaAccion}">
+                                  <i th:class="${accion.iconoAccion}"></i>
+                                  <span th:text="${accion.nombreAccion}"></span>
+                                </a>
+                            </li>
+
+            
+                        </ul>
+                    </div>
+                </div>  
+            </div> 
+<!--     LEFT FIN -->
+
+			<div class="app-main__outer">
+				<div class="app-main__inner">
+					<div class="app-page-title">
+						<div class="page-title-wrapper">
+							<div class="page-title-heading">
+								<div class="page-title-icon">
+									<i class="pe-7s-news-paper icon-gradient bg-mean-fruit"> </i>
+								</div>
+								<div>
+									MODULO DE SEGUIMIENTO PRE ASIGNACIONES Y ANALISIS ECONOMICO
+									<div class="page-title-subheading">REGISTROS</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="app-header-right">
+							<br>
+                            <span th:if='${ejecucion}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b><u>Se ha Actualizado correctamente el registro de PREASIGNACIONES.</u>
+								</div>
+							</span>
+							<span th:if='${error}'>
+								<div class="alert alert-danger" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Revisión : </b><u>No se realizó la Actualizacion del registro de PREASIGNACIONES, Verifique datos. </u>
+								</div>
+							</span>
+							<span th:if='${consulta}'>
+								<div class="alert alert-warning" role="alert" id="dataError">
+		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Notificación : </b><u>No se realizó la consulta de PREASIGNACIONES, Notifique Administrador. </u>
+								</div>
+							</span>
+					 </div>
+					</div>
+
+					<!--  
+                    	SECCION DE EDICION  
+                    -->
+					<!-- 
+                     			iNICIO DE SECCION TABLA
+                  			-->
+					<div class="form-row">
+						<div class="col-md-12 mb-3">
+							<div class="main-card mb-3 card">
+								<div class="card-body">
+									<h5 class="card-title">REGISTROS PREASIGNACIONES UNIPROTEC</h5>
+
+									<table id='preAsignacionesTable' class="mb-0 table table-striped table-sm"
+										data-locale="es-MX" 
+										data-toggle='table' 
+										data-sort-name='idPreAsignacion'
+										data-search='true' 
+										data-sort-order='desc'
+										data-pagination='true'
+										data-page-list='[10, 25, 50, 100, 200, Todos]'>
+										<thead class='thead-dark'>
+											<tr>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='idPreAsignacion' data-sortable='true'>ID Pre Asignacion</th>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='clienteAsignacion' data-sortable='true'>Cliente</th>
+												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='cursoAsignacion' data-sortable='true'>Curso</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='statusAsignacion' data-sortable='true'>Estatus</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operatePreAsignacion" data-formatter="operateFormatterViewPreAsignacion" data-events="window.operateEventsViewExpedientePreAsignacion">PreAsignacion</th>										
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operatePreAsignacionAE" data-formatter="operateFormatterViewPreAsignacionAE" data-events="window.operateEventsViewExpedientePreAsignacionAE">Análisis Económico</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='clienteStatus' data-sortable='true'>Cliente</th>
+												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='userCreateAsignacionTexto' data-sortable='true'>Ventas</th>
+<!-- 												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='numeroFactura' data-sortable='true'>Facturacion</th> -->
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateSeguimiento" data-formatter="operateFormatterViewSeguimiento" data-events="window.operateEventsViewExpedienteSeguimiento">Seguimiento</th>
+											</tr>
+										</thead>					
+									</table>
+								
+								</div>
+								<!-- FIN DE SECCION TABLA                  			-->
+							</div>
+						</div>
+					</div>
+					
+				<!--  FIN DE SECCION DE EDICION     -->
+
+					<!-- Footer-->
+                                       <div class="app-wrapper-footer">
+                                        <div class="app-footer">
+                                            <div class="app-footer__inner">
+                                                <div class="app-footer-right">
+                                                    <ul class="nav">
+                                                        
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="nav-link">
+                                                                <div class="badge badge-success mr-1 ml-0">
+                                                                    <small>v 2.0</small>
+                                                                </div>
+                                                                Derechos Reservados © Uniprotec 2021
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div></div></div>
+
+                                <!-- Fin Footer-->
+
+			</div>
+			<!--  app-main__inner -->
+        </div>  <!-- fin de app-main__outer-->
+	</div>  <!-- app-main -->
+</div>   <!-- app-container -->
+
+<!--  -->
+
+
+	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
+    
+    <script type="text/javascript" th:src="@{js/fileUpload.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+    
+    <script th:inline="javascript">
+		 var $preAsignaciones = [[${model.jsonResponseObject.preAsignaciones}]];
+		 var $preAsignacionesAE = [[${model.jsonResponseObject.preAsignacionesAE}]];
+		 
+		 var asignacionClientes = [[${clientes}]];
+		 var asignacionRegiones = [[${regiones}]];
+		 var asignacionAsignacionesTotal = [[${asignaciones}]];
+		 var asignacionInstructoresOperacion = [[${instructores}]];
+		 var asignacionInstructores = [[${instructores}]];
+		 var asignacionCursos = [[${cursos}]];
+		 
+		 var idUsuario =  [[${model.jsonResponse.user.id}]];
+		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+	</script>
+											    
+    
+    <script type="text/javascript" th:src="@{js/BSeguimiento.js}"></script>
+    <script type="text/javascript" th:src="@{js/evaluaPreAsignacion.js}"></script>
+    
+    <script th:src="@{js/bootstrap-table.min.js}"></script>
+    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+    
+    
+	
+	
+
+</body>
+
+</html>
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="modalPreAsignacion" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F1FFFE">
+          <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; ">
+        	<div class="card" style="width: rem;">
+<!--               <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;"> -->
+              <div class="card-body">
+              	<h5 class="card-title">Resumen de PRE Asignación</h5>
+                <ul class="list-group">
+	                <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
+	                <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
+	                <li class="list-group-item list-group-item-info">Instructor : <span id="modalInstructor"></span></li>
+	                <li class="list-group-item list-group-item-info">Fecha : <span id="modalFecha"></span></li>
+	                <li class="list-group-item list-group-item-info">Horario : <span id="modalHorario"></span></li>
+	                <li class="list-group-item list-group-item-info">Participantes : <span id="modalParticipantes"></span></li>
+	                <li class="list-group-item list-group-item-info">Nivel : <span id="modalNivel"></span></li>
+	                <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
+	                <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
+	                <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                </ul>
+              </div>
+        	</div>
+        	<br><hr>
+        	<div class="row">
+        		<div class = "col-mg-4"></div>
+        		<div class = "col-mg-4">
+        			<form role="form" id="formPreAsignacion" th:action="@{/DPreAsignacion}"  method="post">
+        				<button type="submit" id="btnEliminarPreAsignacion" class="btn btn-warning btn-default pull-left" data-dismiss="modal">Eliminar PreAsignacion</button>
+        			</form>
+        		</div>
+        		<div class = "col-mg-4"></div>
+        	</div>
+		</div>
+        <div class="modal-footer" style=" background-color: #F1FFFE">
+          <button type="button" class="btn btn-secondary btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- fin modal -->
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+  <!-- Modal -->
+  <div class="modal fade" id="modalSeguimiento" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F1FFFE">
+          <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; ">
+        	<div class="card" style="width: rem;">
+<!--               <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;"> -->
+              <div class="card-body">
+              	<h5 class="card-title">Resumen de Notificaciones PreAsignacion</h5>
+                <div class="form-row">
+                       <label for="textArea">Registros:</label>
+                        <div id="seccionPautaOperativa"></div>
+                      </div>
+                      <div class="form-row">      
+                      <form role="form" id="formNotificacionNuevo" th:action="@{/BPreAsignacion}"  th:object="${asignacionForm}" method="post">
+                      
+                        <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                        <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                        <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                        <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                        <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                        <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                        <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                        <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                        <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                        <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                        <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+                        <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                        <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                        <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                        <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                        <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+						<input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                      
+<!--                       	<input type="hidden" id="idPreAsignacion" th:field="*{idAsignacion}" /> -->
+                      	<input type="hidden" id="nombreUsuarioSeguimiento" th:field="*{nombreUsuarioSeguimiento}" />
+						<input type="hidden" id="perfilUsuarioSeguimiento" th:field="*{perfilUsuarioSeguimiento}" />
+						<input type="hidden" id="statusAsignacion" th:field="*{statusAsignacion}" />
+						<input type="hidden" id="idStatusAsignacion" th:field="*{idStatusAsignacion}" />
+						<input type="hidden" id="idPreAsignacion" th:field="*{idPreAsignacion}" />
+						<input type="hidden" id="idPreAsignacionAE" th:field="*{idPreAsignacionAE}" />
+						<input type="hidden" id="seguimiento" th:field="*{seguimiento}" />
+						<input type="hidden" id="idAsignacion" th:field="*{idAsignacion}" />
+						
+			            <div class="form-group purple-border col-md-12">
+			            	<div id="validaInstructor"></div>
+			            	<div id="validaClienteProspecto"></div>
+			            	<textarea name="modaltextAreaSeguimiento" id="modaltextAreaSeguimiento" th:field="*{mensajeSeguimiento}" class="form-control" placeholder="Capture Observaciones"  rows="4" cols="100" onfocusout="minLenghtTextArea(this)"></textarea>
+			            </div>
+			            <br>
+				        <div class="clearfix row">
+				         <div class="col-md-6">
+					       <span class="float-left">
+				      		<div id="divAgregarFactura" >
+									<label for="validationCustom02">Adjuntar Archivos Facturacion</label>
+									<br/>
+				            		<div class="alertaFile">
+										<hiden class="alerta_inFile"></hiden>
+									</div>
+				        			<input id="agregarFactura" name="agregarFactura[]"  th:field="*{agregarFactura}"  type="file" class="file"    data-show-upload="false" multiple  onchange="validaArchivos(this)"/>
+									<br/>
+				    				<small class="form-text text-muted">Adjuntar documento de facturacion cliente.</small>					      		
+					      		</div>
+					      		<script>
+					      		$("#agregarFactura").fileinput({
+				    		        browseClass: "btn btn-info",
+				    		        browseLabel: "Seleccionar Archivos",
+				    		        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+				    		        removeClass: "btn btn-warning",
+				    		        removeLabel: "Remover",
+				    		 	   showCaption: false, 
+				    		 	   dropZoneEnabled: false
+				    		 	  });
+					      		</script>
+					      	<div id="divAgregarFechas" class="row"></div>
+					        <div id="divAsignacion" class="row"></div>
+					        <div id="divAprobarPreAsignacion" class="row"></div>
+				            </span>
+				           </div>
+				           <div class="col-md-6">
+				            <span class="float-right">
+				                <button type="submit" id="btnAgregarNotificacion" class="btn btn-primary" disabled>Agregar Notificación</button>
+				                <small class="form-text text-muted">Captura Regla o Enunciado de información. Para enlistar dar click en boton Agregar </small>
+				            </span>
+				          </div>				            
+	                    </div>
+		            </form>
+			            
+			        </div>
+              </div>
+        	</div>
+		</div>
+        <div class="modal-footer" style=" background-color: #F1FFFE">
+          <button type="button" class="btn btn-secondary btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- fin modal -->
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+  <!-- Modal -->
+  <div class="modal fade" id="modalPreAsignacionAE" role="dialog">
+    <div class="modal-dialog modal-xl" id="modalAE">   
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #F1FFFE">
+          <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span></h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px; ">
+        	<div class="card" id="modalDivAE" style="width: rem;">
+              <div class="card-body">
+              	<h5 class="card-title">Resumen de AnÁlisis económico</h5>
+                    <div class="main-card mb-3 card">    <!--  inicio de seccion body -->
+                          <div class="card-body">
+                              <h5 class="card-title">DATOS GENERALES EVENTO</h5>
+                              <hr>
+                    
+                              <!-- AQUI VA LA SECCION BODY -->
+                    				<div class="content" id="step1">
+                    				<div class="row">
+                    				<div class="col-md-4"></div>
+                    				<div class="col-md-4"></div>
+                    				 <div class="col-md-4">
+		                                <div class="card mb-3 widget-content ">
+		                                    <div class="widget-content-wrapper ">
+		                                        <div class="widget-content-left">
+		                                            <div class="widget-heading">Fecha </div>
+		                                            <div class="widget-subheading">Cotización</div>
+		                                        </div>
+		                                        <div class="widget-content-right">
+		                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label id="formAEFechaCotizacion" th:field="*{formAEFechaCotizacion}"></label></div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            </div>
+                    				<div class="row">
+                    				 <div class="col-md-6">
+		                                <div class="card mb-3 widget-content ">
+		                                    <div class="widget-content-wrapper ">
+		                                        <div class="widget-content-left">
+		                                            <div class="widget-heading">Curso</div>
+		                                            <div class="widget-subheading">Pre Asignación</div>
+		                                        </div>
+		                                        <div class="widget-content-right">
+		                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label id="formAECurso" th:field="*{formAECurso}"></label></div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6">
+		                                <div class="card mb-3 widget-content ">
+		                                    <div class="widget-content-wrapper ">
+		                                        <div class="widget-content-left">
+		                                            <div class="widget-heading">Empresa</div>
+		                                            <div class="widget-subheading">Pre Asignación</div>
+		                                        </div>
+		                                        <div class="widget-content-right">
+		                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label id="formAEEmpresa" th:field="*{formAEEmpresa}"></label></div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            </div>
+		                            <div class="row">
+			                            <div class="col-md-6">
+			                                <div class="card mb-3 widget-content ">
+			                                    <div class="widget-content-wrapper ">
+			                                        <div class="widget-content-left">
+			                                            <div class="widget-heading">Sede</div>
+			                                            <div class="widget-subheading">Pre Asignación</div>
+			                                        </div>
+			                                        <div class="widget-content-right">
+			                                            <div class="widget-numbers mt-0 fsize-1 text-primary"><label id="formAESede"></label></div>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                            <div class="col-md-6">
+			                                <div class="card mb-3 widget-content ">
+			                                    <div class="widget-content-wrapper ">
+			                                        <div class="widget-content-left">
+			                                            <div class="widget-heading">Nivel de Curso</div>
+			                                            <div class="widget-subheading">Pre Asignacion</div>
+			                                        </div>
+			                                        <div class="widget-content-right">
+			                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label id="formAENivelCurso"></label></div>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </div>
+		                            </div>
+		                          <div class="row">
+		                            <div class="col-md-4">
+		                                <div class="card mb-3 widget-content ">
+		                                    <div class="widget-content-wrapper ">
+		                                        <div class="widget-content-left">
+		                                            <div class="widget-heading">Horas para el Curso</div>
+		                                            <div class="widget-subheading"></div>
+		                                        </div>
+		                                        <div class="widget-content-right">
+		                                            <div class="widget-numbers text-primary fsize-2"><label id="formAEHorasEfectivas"></label></div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+									<div class="col-md-4">
+		                                <div class="card mb-3 widget-content ">
+		                                    <div class="widget-content-wrapper ">
+		                                        <div class="widget-content-left">
+		                                            <div class="widget-heading">Número de Personas</div>
+		                                            <div class="widget-subheading">Pre Asignacion</div>
+		                                        </div>
+		                                        <div class="widget-content-right">
+		                                            <div class="widget-numbers text-primary fsize-2"><label id="formAEParticipantes"></label></div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            
+		                            <div class="col-md-4">
+		                                <div class="card mb-3 widget-content ">
+		                                    <div class="widget-content-wrapper ">
+		                                        <div class="widget-content-left">
+		                                            <div class="widget-heading">Número de Sesiones</div>
+		                                            <div class="widget-subheading"></div>
+		                                        </div>
+		                                        <div class="widget-content-right">
+		                                            <div class="widget-numbers text-primary"><label id="formAESesiones"></label></div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                          </div>
+
+                            <!-- FIN DE SECCION BODY -->
+                            </div>   
+                          </div>
+                    </div>    <!--     BODY FIN de seccion -->
+                    <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+                    <div class="main-card mb-3 card">    <!--  inicio de seccion body -->
+                          <div class="card-body">
+                              <h5 class="card-title">IMPARTICIÓN DEL CURSO</h5>
+                    		  <hr>
+                              <!-- AQUI VA LA SECCION BODY -->
+                              <div class="row content" id="step2">
+                              		<div class="col-md-6">
+				                    	<div class="card  widget-content ">
+				                        	<div class="row widget-content-wrapper ">
+				                            	<div class=" col-md-4 widget-content-left">
+				                                	<div class="widget-heading">Costo Hora Instructor</div>
+				                                    	<div class="widget-subheading">Asignar</div>
+				                                 </div>
+				                                  <div class="col-md-8 widget-content-right">
+				                                  		<div class="widget-numbers mt-0 fsize-2 text-primary">$<label id="formAECostoHoraInstructor"></label></div>
+				                                  </div>
+				                             </div>
+  										  </div>
+				                        </div>
+	                    				<div class="col-md-6">
+                                            <div class="position-relative row form-group">
+                                            	<label  class="col-md-3 col-form-label">Instructores & horas de instructores</label>
+                                                <div class="col-md-4">
+                                                	<div class="position-relative form-group">
+<!--                                                 		<label  class="col-md-6 col-form-label">Instructor</label> -->
+                                                		<div class="col-md-6 widget-numbers mt-0 fsize-2 text-primary">
+                                                			<label id="formAENumInstructor"></label>
+                                                		</div>
+                                                		<div class="col-md-6">
+		                                                     <div class="font-icon-wrapper  fsize-2"><strong><i class="pe-7s-add-user" data-toggle="modal" data-target="#modalInstructor"></i></strong></div>
+		                                                </div>
+                                            		</div>
+                                            	</div>
+                                            	<div class="col-md-4">
+                                            		<ul id="addInstructor"></ul>
+						                        </div>
+                                            </div>
+                                         </div>
+                                        </div>
+		                                  <div class="row">
+											<div class="col-md-3">
+				                                <div class="card mb-3 widget-content ">
+				                                    <div class="widget-content-wrapper ">
+				                                        <div class="widget-content-left">
+				                                            <div class="widget-heading">Total Horas Impartidas </div>
+				                                            <div class="widget-subheading">Sesion</div>
+				                                        </div>
+				                                        <div class="widget-content-right">
+				                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label id="formAETotalHoras"></label></div>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            
+				                            <div class="col-md-4">
+				                                <div class="card mb-3 widget-content ">
+				                                    <div class="widget-content-wrapper ">
+				                                        <div class="widget-content-left">
+				                                            <div class="widget-heading">Viáticos </div>
+				                                            <div class="widget-subheading">Sesion</div>
+				                                        </div>
+				                                        <div class="widget-content-right">
+				                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label>$</label><label id="formAEViaticosTotal"></label></div>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="col-md-4">
+				                                <div class="card mb-3 widget-content ">
+				                                    <div class="widget-content-wrapper ">
+				                                        <div class="widget-content-left">
+				                                            <div class="widget-heading">Total Imparticion</div>
+				                                            <div class="widget-subheading">Sesion</div>
+				                                        </div>
+				                                        <div class="widget-content-right">
+				                                            <div class="widget-numbers mt-0 fsize-2 text-primary"><label>$</label><label id="formAETotalImparticion"></label></div>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                          </div>       
+                                         
+                              	</div>
+                            <!-- FIN DE SECCION BODY -->
+                              
+                    </div>    <!--     BODY FIN de seccion -->
+                    <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+                    <div class="main-card mb-3 card">    <!--  inicio de seccion body -->
+                          <div class="card-body">
+                              <h5 class="card-title">RECOMENDACIÓN</h5>
+                    		  <hr>
+                              <!-- AQUI VA LA SECCION BODY -->
+                              <div class="main-card mb-3 card" id="step3">
+                                <div class="no-gutters row">
+                                    <div class="col-md-4">
+                                        <div class="widget-content">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-right ml-0 mr-3">
+                                                    <div class="widget-numbers text-success fsize-2"><label>$</label><label id="formAESumaImparticionViaticos"></label></div>
+                                                </div>
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">Suma</div>
+                                                    <div class="widget-subheading ">Impartición + Viáticos</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="widget-content">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-right ml-0 mr-3">
+                                                    <div class="widget-numbers text-success fsize-2"><label>$</label><label id="formAECostoHoraRecomendada"></label></div>
+                                                </div>
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">Costo de hora</div>
+                                                    <div class="widget-subheading">Recomendada</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="widget-content">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-right ml-0 mr-3">
+                                                    <div class="widget-numbers text-success fsize-2"><label>$</label><label id="formAECostoCursoRecomendado"></label></div>
+                                                </div>
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">Costo del curso </div>
+                                                    <div class="widget-subheading">Recomendado</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FIN DE SECCION BODY -->
+                               
+                          </div>
+                    </div>    <!--     BODY FIN de seccion -->
+                    <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+                    <div class="main-card mb-3 card">    <!--  inicio de seccion body -->
+                          <div class="card-body">
+                              <h4 class="card-title">ANÁLISIS ECONÓMICO</h4>
+                    		  <hr>
+                              <!-- AQUI VA LA SECCION BODY -->
+                                     <h5 class="card-title">RECOMENDADO</h5>
+                            <div class="main-card mb-3 card">
+                                <div class="no-gutters row">
+                                    <div class="col-md-4">
+                                        <div class="pt-0 pb-0 card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Imparticion</div>
+                                                                    <div class="widget-subheading"><label  id="formAEImparticionPorcentaje"></label><label>%</label></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-info fsize-2"><label>$</label><label  id="formAEImparticion"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Comision Vendedor</div>
+                                                                    <div class="widget-subheading"><label  id="formAEComisionVendedorPorcentaje"></label><label>%</label></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-info fsize-2"><label>$</label><label  id="formAEComisionVendedor"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pt-0 pb-0 card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Viaticos</div>
+                                                                    <div class="widget-subheading"><label  id="formAEViaticosPorcentaje"></label><label>%</label></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-info fsize-2"><label>$</label><label  id="formAEViaticos"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Gastos fijos</div>
+                                                                    <div class="widget-subheading"><label  id="formAEGastosFijosPorcentaje"></label><label>%</label></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-info fsize-2"><label>$</label><label id="formAEGastosFijos"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pt-0 pb-0 card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Ganancia del Curso</div>
+                                                                    <div class="widget-subheading"><label  id="formAEGananciaCursoPorcentaje"></label><label>%</label></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-info fsize-2"><label>$</label><label  id="formAEGananciaCurso"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">TOTALES</div>
+                                                                    <div class="widget-subheading"><label  id="formAETotalesPorcentaje" ></label><label>%</label></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers fsize-2 text-success" id="formAETotalesDiv"><label>$</label><label  id="formAETotales" ></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="card-title">LO VENDIDO</h5>
+                            <div class="main-card mb-3 card">
+                              <div class="row">
+                              <div class="col-md-3"></div>
+                            	<div class="col-md-6">
+				                   	<div class="card  widget-content ">
+				                       	<div class="row widget-content-wrapper ">
+				                           	<div class=" col-md-4 widget-content-left">
+				                               	<div class="widget-heading">Precio Venta Real</div>
+				                                   	<div class="widget-subheading"></div>
+				                                </div>
+				                                 <div class="col-md-8 widget-numbers mt-0 fsize-2 text-primary">
+				                                		$<label id="formAEPrecioVentaReal"></label>
+				                                 </div>
+				                            </div>
+  									  </div>
+				                  </div>
+				                <div class="col-md-3"></div>
+				                </div>
+				                <hr>
+                                <div class="no-gutters row">
+                                    <div class="col-md-6">
+                                        <div class="pt-0 pb-0 card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+													<div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Utilidad Real</div>
+                                                                    <div class="widget-subheading"></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-primary fsize-2"><label>$</label><label id="formAEUtilidadReal"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Gastos Fijos Real</div>
+                                                                    <div class="widget-subheading"></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-primary fsize-2"><label>$</label><label id="formAEGastosFijosReal" ></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="pt-0 pb-0 card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Comisión  Real</div>
+                                                                    <div class="widget-subheading"></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-primary fsize-2"><label>$</label><label id="formAEComisionVendedorReal"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-outer">
+                                                            <div class="widget-content-wrapper">
+                                                                <div class="widget-content-left">
+                                                                    <div class="widget-heading">Nueva Comisión Real</div>
+                                                                    <div class="widget-subheading"></div>
+                                                                </div>
+                                                                <div class="widget-content-right">
+                                                                    <div class="widget-numbers text-success fsize-2" id="formAENuevaComisionRealDiv"><label>$</label><label id="formAENuevaComisionReal"></label></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						      <hr>
+	                          <div class="row content">
+		                          <div class="col-md-1"></div>
+		                          <div class="col-md-10">
+			                       	<h5 class="card-title">Regla de 3</h5>
+			                          	<div class="row content">
+			                                <div class="col-md-6 ">
+			                                    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+			                                        <div class="widget-content">
+			                                            <div class="widget-content-outer">
+			                                                <div class="widget-content-wrapper">
+			                                                    <div class="widget-content-left pr-2 fsize-1">
+			                                                        <div class="widget-numbers mt-0 fsize-3 text-info"><label  class="col-form-label" id="formAERegla3PorcentajeNuevaComision"></label>%</div>
+			                                                    </div>
+			                                                    <div class="widget-content-right w-100">
+			                                                        <div class="progress-bar-xs progress">
+			                                                            <div class="progress-bar bg-info" role="progressbar" id="formAERegla3PorcentajeNuevaComisionDiv" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
+			                                                        </div>
+			                                                    </div>
+			                                                </div>
+			                                                <div class="widget-content-left fsize-1">
+			                                                    <div class="text-muted opacity-12">Porcentaje Nueva Utilidad Real</div>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                                <div class="col-md-6 ">
+			                                    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+			                                        <div class="widget-content">
+			                                            <div class="widget-content-outer">
+			                                                <div class="widget-content-wrapper">
+			                                                    <div class="widget-content-left pr-2 fsize-1">
+			                                                        <div class="widget-numbers mt-0 fsize-3 text-success"><label   id="formAERegla3PorcentajeNuevaComisionReal"></label>%</div>
+			                                                    </div>
+			                                                    <div class="widget-content-right w-100">
+			                                                        <div class="progress-bar-xs progress">
+			                                                            <div class="progress-bar bg-success" role="progressbar" id="formAERegla3PorcentajeNuevaComisionRealDiv" aria-valuenow="81" aria-valuemin="0" aria-valuemax="100" style="width: 31%;"></div>
+			                                                        </div>
+			                                                    </div>
+			                                                </div>
+			                                                <div class="widget-content-left fsize-1">
+			                                                    <div class="text-muted opacity-9">Porcentaje Nueva Venta Real</div>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                    </div>
+			                                </div>
+
+				                    	</div>	
+		                          </div>
+		                          <div class="col-md-1"></div>
+	                          </div>
+	                                    
+	                        <!-- FIN DE SECCION BODY -->
+                               
+                          </div>
+                    </div>    <!--     BODY FIN de seccion -->
+
+                     <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+                    <div class="main-card mb-3 card">    <!--  inicio de seccion body -->
+                          <div class="card-body">
+                              <h5 class="card-title">OBSERVACIONES GENERALES</h5>
+                    		  <hr>
+                              <!-- AQUI VA LA SECCION BODY -->
+                              <div class="main-card mb-3 card" id="step5">
+                                <div class="row">
+	                                <div class="col-md-2"></div>
+	                                 <div class="col-md-8">
+	                                    <div class="position-relative form-group">
+	                                    	<label ><strong></strong></label><textarea name="formAEObservaciones" id="formAEObservaciones" class="form-control" placeholder="Capture Observaciones"  rows="4" cols="100"></textarea>
+	                                    </div>
+	                                  </div>
+	                                  <div class="col-md-2"></div>
+                                  </div>
+                            </div>
+                          </div>
+                          <div id="divEdicionAE" class ="row">
+                          	<div class="col-md-3"></div>
+                          	<div class="col-md-6">
+                          	   <form role="form" id="formPreAsignacionAEEdicion" th:action="@{/APreAsignacionAE}"  th:object="${asignacionForm}" method="post">
+                               		
+                               		<input type="hidden" id="idAsignacionEdicion" th:field="*{idAsignacion}" />
+                               		<input type="hidden" id="fechaAsignacionEdicion" th:field="*{fechaAsignacion}" />
+                                    <input type="hidden" id="idClienteAsignacionEdicion"   th:field="*{idClienteAsignacion}"    />
+                                    <input type="hidden" id="clienteAsignacionEdicion"   th:field="*{clienteAsignacion}"    />
+                                    <input type="hidden" id="idCursoAsignacionEdicion" th:field="*{idCursoAsignacion}" />
+                                    <input type="hidden" id="cursoAsignacionEdicion" th:field="*{cursoAsignacion}" />
+                                    <input type="hidden" id="idInstructorAsignacionEdicion" th:field="*{idInstructorAsignacion}" />
+                                    <input type="hidden" id="instructorAsignacionEdicion" th:field="*{instructorAsignacion}" />
+                                    <input type="hidden" id="horarioAsignacionEdicion" th:field="*{horarioAsignacion}" />
+                                    <input type="hidden" id="participantesAsignacionEdicion" th:field="*{participantesAsignacion}" />
+                                    <input type="hidden" id="nivelAsignacionEdicion" th:field="*{nivelAsignacion}" />
+                                    <input type="hidden" id="archivosAsignacionTextoEdicion" th:field="*{archivosAsignacionTexto}" />
+                                    <input type="hidden" id="observacionesAsignacionEdicion" th:field="*{observacionesAsignacion}" />
+                                    <input type="hidden" id="idRegionAsignacionEdicion" th:field="*{idRegionAsignacion}" />
+                                    <input type="hidden" id="nombreRegionAsignacionEdicion" th:field="*{nombreRegionAsignacion}" />
+                                    <input type="hidden" id="tipoCursoAsignacionEdicion" th:field="*{tipoCursoAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionEdicion" th:field="*{userCreateAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionTextoEdicion" th:field="*{userCreateAsignacionTexto}" />
+                                    <input type="hidden" id="clienteStatusEdicion" th:field="*{clienteStatus}" />
+                                    <input type="hidden" id="idPreAsignacionAEEdicion" th:field="*{idPreAsignacionAE}" />
+                                    
+                                    
+			        				<button class="mb-2 mr-2 btn btn-primary btn-lg btn-block" id="btnAEEdicionSubmit">Edición Análisis Económico</button>
+			        			</form>
+                          	</div>
+                          	<div class="col-md-3"></div>
+                          </div>
+                          
+                    </div>    <!--     BODY FIN de seccion -->
+              </div>
+        	</div><!--      FIN de AE-->
+        	<div class="card" id="modalDivNuevoAE" style="width: rem;">
+              <div class="card-body">
+              	<h5 class="card-title">PRE Asignación no contiene Expediente Análisis Económico</h5>
+                    <div class="main-card mb-3 card">    <!--  inicio de seccion body -->
+                          <div class="card-body">
+                          <div class="row">
+                           	   <div class="col-md-3"></div>
+                           	   <div class="col-md-6">
+                               		<h5 class="card-title">GENERAR ANÁLISIS ECONÓMICO</h5>
+                               </div>
+                               <div class="col-md-3"></div>
+                            </div>   
+                            <div class="row">   
+                               <div class="col-md-3"></div>
+                               <div class="col-md-6">
+                               <form role="form" id="formPreAsignacionAENuevo" th:action="@{/APreAsignacionAE}"  th:object="${asignacionForm}" method="post">
+                               		
+                               		<input type="hidden" id="idAsignacionAlta" th:field="*{idAsignacion}" />
+                               		<input type="hidden" id="fechaAsignacionAlta" th:field="*{fechaAsignacion}" />
+                                    <input type="hidden" id="idClienteAsignacionAlta"   th:field="*{idClienteAsignacion}"    />
+                                    <input type="hidden" id="clienteAsignacionAlta"   th:field="*{clienteAsignacion}"    />
+                                    <input type="hidden" id="idCursoAsignacionAlta" th:field="*{idCursoAsignacion}" />
+                                    <input type="hidden" id="cursoAsignacionAlta" th:field="*{cursoAsignacion}" />
+                                    <input type="hidden" id="idInstructorAsignacionAlta" th:field="*{idInstructorAsignacion}" />
+                                    <input type="hidden" id="instructorAsignacionAlta" th:field="*{instructorAsignacion}" />
+                                    <input type="hidden" id="horarioAsignacionAlta" th:field="*{horarioAsignacion}" />
+                                    <input type="hidden" id="participantesAsignacionAlta" th:field="*{participantesAsignacion}" />
+                                    <input type="hidden" id="nivelAsignacionAlta" th:field="*{nivelAsignacion}" />
+                                    <input type="hidden" id="archivosAsignacionTextoAlta" th:field="*{archivosAsignacionTexto}" />
+                                    <input type="hidden" id="observacionesAsignacionAlta" th:field="*{observacionesAsignacion}" />
+                                    <input type="hidden" id="idRegionAsignacionAlta" th:field="*{idRegionAsignacion}" />
+                                    <input type="hidden" id="nombreRegionAsignacionAlta" th:field="*{nombreRegionAsignacion}" />
+                                    <input type="hidden" id="tipoCursoAsignacionAlta" th:field="*{tipoCursoAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionAlta" th:field="*{userCreateAsignacion}" />
+                                    <input type="hidden" id="userCreateAsignacionTextoAlta" th:field="*{userCreateAsignacionTexto}" />
+                                    <input type="hidden" id="clienteStatusAlta" th:field="*{clienteStatus}" />
+                                    <input type="hidden" id="nombreUsuarioSeguimientoAlta" th:field="*{nombreUsuarioSeguimiento}" />
+                                    <input type="hidden" id="perfilUsuarioSeguimientoAlta" th:field="*{perfilUsuarioSeguimiento}" />
+                                    <input type="hidden" id="mensajeSeguimientoAlta" th:field="*{mensajeSeguimiento}" />
+                                    
+			        				<button class="mb-2 mr-2 btn btn-success btn-lg btn-block" id="btnAENuevoSubmit">Análisis Económico</button>
+			        			</form>
+	                                  	
+							  </div>
+							   <div class="col-md-3"></div>
+							</div>
+                          </div>
+                     </div>
+              </div>
+           </div>
+		</div>
+        <div class="modal-footer" style=" background-color: #F1FFFE">
+          <button type="button" class="btn btn-secondary btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- fin modal --> 
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+  <!-- Modal -->
+<div class="modal fade" id="modalFechas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Fechas Cobro Facturacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>    
+      <div class="modal-body">
+        <div class="form-row">
+			<div class="col-md-6 mb-3">
+				<label for="validationCustom02">Fecha Pago 1 Factura.</label>
+				<input id="fechaInicioFactura" class="datepicker form-control" name="fechaInicioFactura"  type="text"  />
+				</div>
+			<div class="col-md-6 mb-3">
+				<label for="validationCustom02">Fecha Pago 2 Factura.</label>
+				<input id="fechaFinFactura" class="datepicker form-control" name="fechaFinFactura"  type="text"  />
+			</div> 
+		</div>
+      </div>
+      <div class="modal-footer">
+      	<form role="form" id="formFechasFactura" th:action="@{/BPreAsignacion}"  th:object="${asignacionForm}" method="post">
+      		<input type="hidden" id="idPreAsignacionFecha" th:field="*{idPreAsignacion}" />
+      		<input type="hidden" id="mensajeSeguimientoFecha" th:field="*{mensajeSeguimiento}" />
+      		<input type="hidden" id="fechaFinFacturaFecha" th:field="*{fechaFinFactura}" />
+      		<input type="hidden" id="fechaInicioFacturaFecha" th:field="*{fechaInicioFactura}" />
+      		<input type="hidden" id="nombreUsuarioSeguimientoFecha" th:field="*{nombreUsuarioSeguimiento}" />
+			<input type="hidden" id="perfilUsuarioSeguimientoFecha" th:field="*{perfilUsuarioSeguimiento}" />
+      		
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" id="btnAgregarFechaModal" class="btn btn-primary">Guardar Fechas</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- fin modal --> 
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+  <script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+    <script type="text/javascript">
+    var today = new Date();
+    var $datepicker = $( '.datepicker' ).pickadate({
+    	 min : today
+    });
+    </script>

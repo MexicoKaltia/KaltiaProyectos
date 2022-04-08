@@ -10,8 +10,19 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
 	    <link th:href="@{main.css}" rel="stylesheet">
-	    <link rel="stylesheet" th:href="@{css/multi-select.css}">
 	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
+	    <link th:href="@{css/fc/core/main.css}" rel='stylesheet' />
+	    <link th:href="@{css/fc/daygrid/main.css}" rel='stylesheet' />
+		<link th:href="@{css/fc/timegrid/main.css}" rel='stylesheet' />
+		<link th:href="@{css/fc/list/main.css}" rel='stylesheet' />
+
+	<style>
+		#calendar {
+		    max-width: 900px;
+		    margin: 0 auto;
+		 }								
+	</style>
+	    
 </head>
 
 <body background="images/fondo4.png">
@@ -250,7 +261,7 @@
 										<thead class='thead-dark'>
 											<tr>
 												<th data-width="50" data-width-unit="%" data-halign="center" data-align="center" data-field='nombreVendedor' data-sortable='true'>Nombre Vendedor</th>
-												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateVendedor">Editar</th>
+												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateVendedor">Analisis</th>
 <!-- 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
 											</tr>
 										</thead>					
@@ -261,7 +272,31 @@
 							</div>
 						</div>
 					</div>
-					
+					<!--  Calendario -->
+					<div class="app-page-title">
+						<div class="page-title-wrapper">
+							<div class="page-title-heading">
+								<div class="page-title-icon">
+									<i class="pe-7s-date icon-gradient bg-mean-fruit"> </i>
+								</div>
+								<div>
+									CONSULTA COBRANZA CLIENTE Y PAGOS COMISIONES VENDEDOR
+									<div class="page-title-subheading">CALENDARIO INGRESOS - EGRESOS</div>
+								</div>
+							</div>
+
+						</div>
+						
+					</div>
+					<div class="tab-content">
+                            <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div id='calendar'></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 				<!--  FIN DE SECCION DE EDICION     -->
 
 					<!-- Footer-->
@@ -290,24 +325,136 @@
         </div>  <!-- fin de app-main__outer-->
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
+ 
+<!-- Modal -->
+ <!-- Modal Inicio-->
+                       <div class="modal" id="modalPagoCobro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-xl" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h3 class="modal-title">Expediente de Pago Comision y Cobranza Factura Cliente</h3>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+	                                   <br>
+							          <h4>Resumen de Pago Vendedor : <span id="modalNombreVendedor"></span></h4><hr>
+							          	<div class="row container">
+								          	<div class="col-md-6">
+								          		Fecha de Asignacion : <strong><span id="vendedorFechaAsignacion"></span></strong>
+								          	</div>
+								          	<div class="col-md-6">
+								          		Curso : <strong><span id="vendedorCursoAsignacion"></span></strong>
+								          	</div>
+							          	</div>
+							          	<div class="row container">
+								          	<div class="col-md-6">
+								          		Instructor : <strong><span id="vendedorInstructorAsignacion"></span></strong>
+								          	</div>
+<!-- 								          	<div class="col-md-6"> -->
+<!-- 								          		<h6>Resumen de Pago Vendedor : <strong><span id="modalNombreVendedor"></span></h6></strong> -->
+<!-- 								          	</div> -->
+							          	</div><hr>
+                                   		<div class="row container">
+                                   			<div class="col-md-6">
+                                   				<div class="alert alert-success">
+												  <h6><span>Fecha Pago 1 </span><br><span> Recibo de Factura : </span> 
+												  <strong><span id="fechaPagoVendedorInicio"></span></strong><br>
+												  <span>Monto : </span><strong><span id="montoPagoVendedorInicio"></span></strong></h6>
+												</div>
+                                   			</div>
+                                   			<div class="col-md-6">
+                                   				<div class="alert alert-info">
+												  <h6><span>Fecha Pago 2 </span><br><span> Pago de Factura : </span> 
+												  <strong><span id="fechaPagoVendedorFin"></span></strong><br>
+												  <span>Monto : </span><strong><span id="montoPagoVendedorFin"></span></strong></h6>
+												</div>
+                                   			</div>
+                                   		</div>
+                                   		<hr><hr>
+                                   		 <h4>Resumen de FacturaCliente : <span id="modalNombreCliente"></span></h4><hr>
+                                   		<div class="row container">
+								          	<div class="col-md-6">
+								          		Nombre Completo : <strong><span id="clienteNombreCompleto"></span></strong>
+								          	</div>
+								          	<div class="col-md-6">
+								          		RFC : <strong><span id="clienteRFC"></span></strong>
+								          	</div>
+							          	</div>
+							          	<div class="row container">
+								          	<div class="col-md-6">
+								          		Representante Empresa : <strong><span id="clienteRepresentanteEmpresa"></span></strong>
+								          	</div>
+								          	<div class="col-md-6">
+								          		Contacto Empresa : <strong><span id="clienteContacto"></span></strong>
+								          	</div>
+							          	</div>
+							          	<div class="row container">
+								          	<div class="col-md-6">
+								          		Telefono : <strong><span id="clienteTelefono"></span></strong>
+								          	</div>
+								          	<div class="col-md-6">
+								          		Correo : <strong><span id="clienteEmail"></span></strong>
+								          	</div>
+							          	</div><hr>
+                                   		<div class="row container">
+                                   			<div class="col-md-6">
+                                   				<div class="alert alert-primary">
+												  <h6><span>Cobro Factura Cliente : </span>
+												  <strong><span id="fechaCobroFactura"></span></strong><br>
+												  <span>Monto : </span><strong><span id="montoCobroFactura"></span></strong></h6>
+												</div>
+                                   			</div>
+                                   			<div class="col-md-6">
+                                   				<div class="alert alert-primary">
+												  <h6><span>Descarga Factura : </span>
+												  <strong><span id="descargaFactura"></span></strong>
+												</div>
+                                   			</div>
+                                   		</div>
+                                   </div>
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		<button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
+                         
 
 <!--  -->
-
-
-	
-    <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script>
-    
-    <script th:inline="javascript">
+	<script th:inline="javascript">
 		 var $data = [[${model.jsonResponseObject.vendedores}]];
 		 var preAsignaciones = [[${model.jsonResponseObject.preAsignaciones}]];
 		 var preAsignacionesAE = [[${model.jsonResponseObject.preAsignacionesAE}]];
 		 var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
+		 var clientes = [[${model.jsonResponseObject.clientes}]];
+		 
+		 var idUsuario =  [[${model.jsonResponse.user.id}]];
+		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+		 
 	</script>
-											    
-<!--     <script type="text/javascript" th:src="@{js/complemento.js}"></script> -->
+	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+<!--     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script> -->
+<!--     <script type="text/javascript" th:src="@{js/jquery.multi-select.js}"></script> -->
+    										    
+ 	<script th:src="@{js/fc/core/main.js}"></script>
+	<script th:src="@{js/fc/interaction/main.js}"></script>
+	<script th:src="@{js/fc/daygrid/main.js}"></script>
+	<script th:src="@{js/fc/timegrid/main.js}"></script>
+	<script th:src="@{js/fc/list/main.js}"></script>
+										 
+	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+		
     <script type="text/javascript" th:src="@{js/BVendedorAnalisis.js}"></script>
+    <script th:src="@{js/calendarioVendedor.js}"></script>
     
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
@@ -491,3 +638,5 @@
   </div> 
   
 <script th:src="@{js/chart/chart.js}"></script>
+
+  

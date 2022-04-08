@@ -1191,13 +1191,13 @@
       <div class="modal-body">
         <div class="form-row">
 			<div class="col-md-6 mb-3">
-				<label for="validationCustom02">Fecha Pago 1 Factura.</label>
+				<label for="validationCustom02">Fecha Pago Factura.</label>
 				<input id="fechaInicioFactura" class="datepicker form-control" name="fechaInicioFactura"  type="text"  />
-				</div>
-			<div class="col-md-6 mb-3">
-				<label for="validationCustom02">Fecha Pago 2 Factura.</label>
-				<input id="fechaFinFactura" class="datepicker form-control" name="fechaFinFactura"  type="text"  />
-			</div> 
+			</div>
+<!-- 			<div class="col-md-6 mb-3"> -->
+<!-- 				<label for="validationCustom02">Fecha Pago 2 Factura.</label> -->
+<!-- 				<input id="fechaFinFactura" class="datepicker form-control" name="fechaFinFactura"  type="text"  /> -->
+<!-- 			</div>  -->
 		</div>
       </div>
       <div class="modal-footer">
@@ -1206,6 +1206,7 @@
       		<input type="hidden" id="mensajeSeguimientoFecha" th:field="*{mensajeSeguimiento}" />
       		<input type="hidden" id="fechaFinFacturaFecha" th:field="*{fechaFinFactura}" />
       		<input type="hidden" id="fechaInicioFacturaFecha" th:field="*{fechaInicioFactura}" />
+      		<input type="hidden" id="fechaHoy" th:field="*{fechaHoy}" />
       		<input type="hidden" id="nombreUsuarioSeguimientoFecha" th:field="*{nombreUsuarioSeguimiento}" />
 			<input type="hidden" id="perfilUsuarioSeguimientoFecha" th:field="*{perfilUsuarioSeguimiento}" />
       		

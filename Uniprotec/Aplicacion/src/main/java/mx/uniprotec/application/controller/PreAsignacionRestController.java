@@ -373,6 +373,7 @@ public class PreAsignacionRestController {
 					preAsignacionActual.setStatusAsignacion("FACTURA INTEGRADA");
 					if(asignacion.getAgregarFactura() != null) {
 						mensaje = asignacion.getMensajeSeguimiento() + " " + "<a href='/uploads/fileAsignacionFactura/"+preAsignacionActual.getIdAsignacionLogica()+"/"+asignacion.getAgregarFactura()+"' id='linkFile'>"+asignacion.getAgregarFactura()+"</a>";
+						preAsignacionActual.setNombreFactura(asignacion.getAgregarFactura());
 					}
 				}
 				if(asignacion.getFechaInicioFactura() != null ) {
@@ -380,6 +381,9 @@ public class PreAsignacionRestController {
 				}
 				 if(asignacion.getFechaFinFactura() != null) {
 					 preAsignacionActual.setFechaFinFactura(asignacion.getFechaFinFactura());
+				 }
+				 if(asignacion.getFechaHoy() != null) {
+					 preAsignacionActual.setFechaHoy(asignacion.getFechaHoy());
 				 }
 				
 				preAsignacionActual.setSeguimiento(seguimientoUpdate(preAsignacionActual.getSeguimiento(), asignacion.getNombreUsuarioSeguimiento(), asignacion.getPerfilUsuarioSeguimiento(), mensaje));			

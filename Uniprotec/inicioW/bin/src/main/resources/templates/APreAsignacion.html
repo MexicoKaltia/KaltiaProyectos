@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+<head>
+    <meta charset="utf-8"/>
+    <title>UNIPROTEC v 2.0</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+        <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
+
+    <link th:href="@{main.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{css/process.css}">
+    <link th:href="@{css/default.css}" rel="stylesheet">
+    <link th:href="@{css/default.date.css}" rel="stylesheet">
+    <link th:href="@{css/default.time.css}" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <!--  chosen select --> 
+    	 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    <style>
+	.zona {
+	  border: none;
+	  color: white;
+	  padding: 10px 22px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  margin: 1px 2px;
+	  cursor: pointer;
+	}
+
+</style>
+    
+
+
+</head>
+
+<body background="images/fondo3.png">
+    
+    <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
+<!--      HEAD INICIO    -->
+    <div class="app-header header-shadow bg-royal header-text-light" >
+            <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
+                <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
+                    
+                    <ul class="header-menu nav">
+                    
+                        <li class="dropdown nav-item">
+                            <a href="javascript:alerta();" class="nav-link">
+                                <i class="nav-link-icon fa fa-cog"></i>
+                                Configuracion
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+                                            
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        <span th:text="${model.jsonResponse.user.nombre}"></span>
+                                    </div>
+                                    <div class="widget-subheading">
+                                    	<span th:if='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											Ventas
+										</span>
+										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
+											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										</span>
+                                    </div>
+                                </div>
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <button type="button"
+                                        class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!--      HEAD FIN    --> 
+        
+        <div class="app-main">
+        <!--     LEFT INICIO -->
+	<div class="app-sidebar sidebar-shadow bg-royal sidebar-text-light">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">  
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">PRINCIPAL</li>
+                            <li>
+                                <a th:href="@{/inicio}" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    CONTROL
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">MODULOS</li>
+                            <li th:each= "modulo : ${model.jsonResponse.modules.modulos}">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    <span th:text="${modulo.nombreModulo}"></span>
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li th:each= "submodulo : ${modulo.submodules}">
+                                        <a th:href="${submodulo.referenciaSubmodulo}">
+                                            <i class="metismenu-icon"></i>
+                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+            
+                           <li class="app-sidebar__heading">ACCIONES</li>
+                            <li th:each= "accion : ${model.jsonResponse.modules.acciones}">
+                                <a th:href="${accion.referenciaAccion}">
+                                  <i th:class="${accion.iconoAccion}"></i>
+                                  <span th:text="${accion.nombreAccion}"></span>
+                                </a>
+                            </li>
+
+            
+                        </ul>
+                    </div>
+                </div>  
+            </div> 
+<!--     LEFT FIN -->
+
+             <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div><h3>Proceso de PRE Asignación Curso Uniprotec</h3>
+                                    <div class="page-title-subheading"> Flujo de Asignación
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <!--  
+                    	SECCION DE EDICION  
+                    -->
+                    <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <div class="container mt-3">
+							       <h4>Linea de Proceso</h4>
+							       <br><br>
+							       <div class="stepwizard col-md-offset-3 col-md-12 mb-3">
+							
+							           <div class="stepwizard-row setup-panel">
+							               <div class="stepwizard-step"> <a href="#step-1" type="button" class="btn btn-primary btn-circle" id="procesoFecha">1</a>
+							                   <p>Fecha</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-2" type="button" class="btn btn-default btn-circle" id="procesoCliente" disabled="disabled">2</a>
+							                   <p>Cliente</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-3" type="button" class="btn btn-default btn-circle" id="procesoCurso" disabled="disabled">3</a>
+							                   <p>Curso</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-4" type="button" class="btn btn-default btn-circle" id="procesoInstructor" disabled="disabled">4</a>
+							                   <p>Instructor</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-5" type="button" class="btn btn-default btn-circle" id="procesoHorario" disabled="disabled">5</a>
+							                   <p>Horarios</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-6" type="button" class="btn btn-default btn-circle" id="procesoParticipantes" disabled="disabled">6</a>
+							                   <p>Participantes</p>
+							               </div>
+							               <div class="stepwizard-step"> <a href="#step-7" type="button" class="btn btn-default btn-circle" id="procesoObservaciones" disabled="disabled">7</a>
+							                   <p>Observaciones</p>
+							               </div>
+							           </div>
+							       </div>
+							       	<div class='alert alert-info' id='proceso' role='alert'>Resumen de Proceso:
+							       		<ul class='listaProceso'></ul>
+							       	</div>
+							       
+							        <form id="asignaForm" class="login100-form validate-form needs-validation" novalidate action="#"  enctype="multipart/form-data" th:object="${asignaForm}" method="post">
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->							       
+							       <div class="row setup-content" id="step-1">
+							               <div class="col-md-12 mb-3">
+							                       <h3> Seleccione Fecha</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 1</label>
+							                         <input id="asignaFecha" class="datepicker form-control" name="date" type="text" autofocus required onchange="validaFecha(this)"/>
+							                       </div>
+							                       <div class="invalid-feedback">
+													  Seleccione Fecha
+													</div>
+													<div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaFecha" type="button" disabled>Siguiente</button>
+							                   </div>
+							                   <script th:inline="javascript">
+													 var asignacionClientes = [[${model.jsonResponseObject.clientes}]];
+													 var asignacionCurso = [[${model.jsonResponseObject.cursos}]];
+													 var asignacionInstructores = [[${model.jsonResponseObject.instructores}]];
+													 var asignacionInstructoresOperacion = [[${model.jsonResponseObject.instructores}]];
+													 var asignacionRegiones = [[${model.jsonResponseObject.regiones}]];
+													 var asignacionVendedores = [[${model.jsonResponseObject.vendedores}]];
+													 var asignacionAsignacionesTotal = [[${model.jsonResponseObject.asignaciones}]];
+													 var idUsuario =  [[${model.jsonResponse.user.id}]];
+													 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+													 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+													 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+												</script>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-2">
+							               <div class="col-md-12 mb-3">
+							                       <h3> Seleccione Cliente</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 2</label>
+							                           <select id="asignaCliente"  name="asignaCliente" class="form-control"  required onchange="validaCliente()">
+				                								 <option value="" selected  >Selecciona Cliente</option>
+				                								 <option th:each="cliente: ${model.jsonResponseObject.clientes}"
+														             th:value="${cliente.idCliente}"
+														             th:text="${cliente.nombreCortoCliente}"/>
+				              							</select>
+							                       </div>
+							                       <div class="invalid-feedback">
+													  Seleccione Cliente
+													</div>
+							                       <div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+													<button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaCliente" type="button" disabled>Siguiente</button>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-3">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3> Seleccione Curso</h3>
+							                       <br>
+							                       <div class="form-inline">
+								                       <h5>Modalidad Curso :_</h5>
+								                       <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                                                	<button type="button" id="tipoCurso" class="btn btn-alternate" onclick="checkTipoCurso()">PRESENCIAL</button>
+	                                            		</div>
+	                                               </div>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 3</label>
+							                           <select id="asignaCurso"  name="asignaCurso" class="form-control chosen"  required onchange="validaCurso()" >
+				                								 <option value="" selected  >Selecciona Curso</option>
+				                								 <option th:each="curso: ${model.jsonResponseObject.cursos}"
+														             th:value="${curso.idCurso}"
+														             th:text="${curso.nombreCurso}"/>
+				              							</select>
+							                       </div>
+							                       <div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> 
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right"  id="btnAsignaCurso" type="button" disabled>Siguiente</button>
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-4">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3>Seleccione Instructor</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 4</label>
+							                           <select id="asignaInstructor"  name="asignaInstructor" class="form-control"  required onchange="validaInstructor()">
+				                								 <option value="" selected  >Selecciona Instructor</option>
+<!-- 				                								 <option th:each="instructor: ${model.jsonResponseObject.instructores}" -->
+<!-- 														             th:value="${instructor.idInstructor}" -->
+<!-- 														             th:text="${instructor.nombreInstructor}"/> -->
+				              							</select>
+							                       </div>
+							                       <div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button> 
+							                       <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnAsignaInstructor" type="button" disabled>Siguiente</button>
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-5">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                   	
+							                       <h3> Horario</h3><label for="exampleFormControlSelect1">Paso 5</label>
+							                       <!-- BODY FORMULARIO -->
+							                   		<div class="form-row">
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+			                                                       <label class="form-check-label" for="asignaHorarioInicio">Horario Inicial</label>
+								                                   <select id="asignaHorarioInicio" name="asignaHorarioInicio" class="form-control" required onchange="validaHorarioInicio()">
+
+								                                   </select>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+		                      										<label class="form-check-label" for="asignaHorarioFinal">Horario . Final </label>
+								                                   <select id="asignaHorarioFinal" name="asignaHorarioFinal" class="form-control" required onchange="validaHorarioFinal()" disabled>   </select>
+								                             </div>
+		                                                </div>
+		                                            </div>
+							                   <!-- FIN BODY FORMULARIO -->
+							                       <div class="form-inline">
+								                       <div class="alert alert-dark" role="alert">Horas Efectivas: 
+									                       <b><select  id="horasEfectivas" class="form-control" name="horasEfectivas" disabled></select></b>
+									                       <button class="btn btn-primary" id="confirmarHorario" type="button" disabled>Confirmar Horario</button>
+									                   </div>
+	                                               </div>
+							                      
+							                   
+							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" disabled>Siguiente</button>
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+										<div class="row setup-content" id="step-6">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                   	<div class="col-md-12">
+							                       <h3> Participantes y Nivel de Curso</h3>
+							                     </div>  
+							                     <label for="exampleFormControlSelect1">Paso 6</label>
+							                   <!-- BODY FORMULARIO -->
+							                   		<div class="form-row">
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+			                                                       <label class="form-check-label" for="asignaHorarioInicio">Cantidad Participantes</label>
+								                                   <select id="asignaParticipantes" name="asignaParticipantes" class="form-control" required onchange="validaParticipantes()">
+								                                       <option value="" selected  >Selecciona Cantidad de Participantes</option>
+								                                       
+								                                   </select>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="col-md-6">
+		                                                    <div class="position-relative form-group">
+		                      										<label class="form-check-label" for="asignaNivel">Nivel </label>
+								                                   <select id="asignaNivel" name="asignaNivel" class="form-control" required onchange="validaNivel()" disabled>
+									                                   <option value="" selected  >Selecciona Nivel</option>
+									                                   <option value="Basico" >Básico</option>
+									                                   <option value="Intermedio" >Intermedio</option>
+									                                   <option value="Avanzado" >Avanzado</option>
+								                                   </select>
+								                             </div>
+		                                                </div>
+		                                            </div>
+							                   		<div class="alerta">
+														<hiden class="alerta_in"></hiden>
+													</div>
+							                   									                        
+							                   <!-- FIN BODY FORMULARIO -->
+							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaParticipantes" disabled>Siguiente</button>
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->
+							           <div class="row setup-content" id="step-7">
+							               <div class="col-md-12 mb-3">
+							                   <div class="col-md-12">
+							                       <h3> Adjuntar Observaciones</h3>
+							                       <div class="form-group">
+							                           <label for="exampleFormControlSelect1">Paso 7</label>
+							                           <textarea id="asignaObservaciones" class="form-control" placeholder="Observaciones" rows="4" cols="100"></textarea>
+							                           <div class="col-md-6 mb-3">
+				                                        	<label for="validationCustom02">Adjuntar Archivos Asignación</label>
+<!-- 				                                        	<input type="hidden" id="clienteRfcAsignacion"   th:field="*{clienteAsignacion.}"    /> -->
+				                                        	  <div class="col-sm-10">
+				                                        		<div class="alertaFile">
+																		<hiden class="alerta_inFile"></hiden>
+																</div>
+				        											<input id="asignaArchivos" name="asignaArchivos[]"  th:field="*{archivosAsignacion}"  type="file" class="file"    data-show-upload="false" multiple  onchange="validaArchivos(this)"/>
+																<br/>
+				    										   	<small class="form-text text-muted">Adjuntar documento de asignación.</small> 
+				    										</div>    
+				                                        </div>
+							                       </div>
+							            			<div class="alertaVacio">
+														<hiden class="alerta_inVacio"></hiden>
+													</div>
+							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
+							                       <button type="button" id="asignar" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal" >
+							                          Pre Agendar
+							                       </button>
+							
+							
+							                   </div>
+							               </div>
+							           </div>
+<!--                     -----------------------------------------------------------------------------------------------------------------        -->							           
+							       </form>
+							       <script>
+                                    
+                                </script>
+							   </div>
+
+
+							</div>
+						</div>
+                                              
+                        <!-- 
+                        	FIN DE SECCION DE EDICION 
+                        -->
+
+                                       	<!-- Footer-->
+                                       <div class="app-wrapper-footer">
+                                        <div class="app-footer">
+                                            <div class="app-footer__inner">
+                                                <div class="app-footer-right">
+                                                    <ul class="nav">
+                                                        
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="nav-link">
+                                                                <div class="badge badge-success mr-1 ml-0">
+                                                                    <small>v 2.0</small>
+                                                                </div>
+                                                                Derechos Reservados © Uniprotec 2021
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div></div></div>
+                                    
+                                <!-- Fin Footer-->
+                
+            </div>  <!--  app-main__inner -->
+        </div>  <!-- fin de app-main__outer-->
+	</div>  <!-- app-main -->
+</div>   <!-- app-container -->
+<!-- 	<script type="text/javascript" th:src="@{js/jquery.min.js}"></script> -->
+ 
+    
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    
+    <script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+   
+   <script type="text/javascript" th:src="@{js/fileUpload.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+    <!-- chosen select -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    
+    <script th:src="@{js/process.js}"></script>
+    <script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+    <script th:src="@{js/preAsignacion.js}"></script>
+<!--     <script th:src="@{js/autoComplete.js}"></script> -->
+    <script type="text/javascript">
+    var today = new Date();
+    var $datepicker = $( '.datepicker' ).pickadate({
+     min : today
+    })
+	
+//     $('.chosen').chosen();
+    $(".chosen").chosen({allow_single_deselect: true});
+        </script>
+    
+</body>
+
+</html>
+
+
+                       <!-- Modal Inicio-->
+                       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Confirmacion de PRE Asignación</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+                                           <div class="card-body">
+                                           <form role="form" id="formPreAsignacion" th:action="@{/altaPreAsignacion}" class="login100-form validate-form needs-validation" th:object="${asignacionForm}" method="post">
+                                               <h5 class="card-title">Resumen de PRE Asignación</h5>
+                                               <ul class="list-group">
+                                                   <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Instructor : <span id="modalInstructor"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Fecha : <span id="modalFecha"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Horario : <span id="modalHorario"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Participantes : <span id="modalParticipantes"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Nivel : <span id="modalNivel"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                               </ul>
+                                               <input type="hidden" id="fechaAsignacion" th:field="*{fechaAsignacion}" />
+                                               <input type="hidden" id="idClienteAsignacion"   th:field="*{idClienteAsignacion}"    />
+                                               <input type="hidden" id="clienteAsignacion"   th:field="*{clienteAsignacion}"    />
+                                               <input type="hidden" id="idCursoAsignacion" th:field="*{idCursoAsignacion}" />
+                                               <input type="hidden" id="cursoAsignacion" th:field="*{cursoAsignacion}" />
+                                               <input type="hidden" id="idInstructorAsignacion" th:field="*{idInstructorAsignacion}" />
+                                               <input type="hidden" id="instructorAsignacion" th:field="*{instructorAsignacion}" />
+                                               <input type="hidden" id="horarioAsignacion" th:field="*{horarioAsignacion}" />
+                                               <input type="hidden" id="participantesAsignacion" th:field="*{participantesAsignacion}" />
+                                               <input type="hidden" id="nivelAsignacion" th:field="*{nivelAsignacion}" />
+                                               <input type="hidden" id="archivosAsignacionTexto" th:field="*{archivosAsignacionTexto}" />
+                                               <input type="hidden" id="observacionesAsignacion" th:field="*{observacionesAsignacion}" />
+                                               <input type="hidden" id="idRegionAsignacion" th:field="*{idRegionAsignacion}" />
+                                               <input type="hidden" id="nombreRegionAsignacion" th:field="*{nombreRegionAsignacion}" />
+                                               <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
+                                               <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="clienteStatus" th:field="*{clienteStatus}" />
+                                               <input type="hidden" id="nombreUsuarioSeguimiento" th:field="*{nombreUsuarioSeguimiento}" />
+                                               <input type="hidden" id="perfilUsuarioSeguimiento" th:field="*{perfilUsuarioSeguimiento}" />
+                                               <input type="hidden" id="mensajeSeguimiento" th:field="*{mensajeSeguimiento}" />
+                                               
+                                               <input type="hidden" id="rfcClienteProspecto" th:field="*{rfcClienteProspecto}"/>
+												<input type="hidden" id="nombreCompletoClienteProspecto" th:field="*{nombreCompletoClienteProspecto}" />
+												<input type="hidden" id="nombreCortoClienteProspecto" th:field="*{nombreCortoClienteProspecto}" />
+												<input type="hidden" id="idRegionClienteProspecto" th:field="*{idRegionClienteProspecto}"/>
+												<input type="hidden" id="nombreRegionClienteProspecto" th:field="*{nombreRegionClienteProspecto}"/>
+												<input type="hidden" id="direccionClienteProspecto" th:field="*{direccionClienteProspecto}"/>
+												<input type="hidden" id="flagClienteProspecto" th:field="*{flagClienteProspecto}"/>
+                                       			<br>
+                                       			
+                                       			<div class="alert alert-warning alert-dismissible">
+												  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+												  <strong>Importante!:</strong> 
+												  <p>- Al guardar este registro como <strong>Pre-Agenda NO indica que se haya calendarizado y notificado</strong> vía email a los interesados.</p>
+												  <p>- Tampoco se ha 'apartado' al instructor seleccionado.</p>
+												  <p>- Puede guardar este registro para edición y posterior elaborar el Análisis Económico.</p>
+												  <p>- Al generar el registro de Análisis Económico avanza a la etapa de <strong>'Aprovación AE'</strong> y la aplicación control-uniprotec automáticamente formaliza de PreAsignacion --> Asignacion.</p>
+												  <p>- Siempre y cuando cumpla con las reglas de asignacion-instructor y cliente prospecto formalizado.</p>
+												   
+												</div>
+                                       			<br>
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+<!--                                        			<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalProcess">Modal</button> -->
+                                       			<button  type="submit" id="btnPreAsignacionGuardar" class="btn btn-info pull-right btn-lg" data-toggle="modal" data-target="#myModalProcess">Guardar Registro Pre Agenda</button>
+                                       			<button type="submit" id="btnPreAsignacionAE" class="btn btn-success pull-right btn-lg" data-toggle="modal" data-target="#myModalProcess">Elaborar Análisis Económico</button>        
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                          <!-- Modal Inicio-->
+                       <div class="modal" id="modalClienteProspecto" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Formulario Cliente Prospecto</h4>
+<!--                                        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card needs-validation" style="width: rem; padding:1.5rem">
+                                       	<form id="altaClienteProspecto" class="login100-form validate-form needs-validation" novalidate > 
+	                                          <div class="form-row">
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom01">Nombre Corto</label>
+		                                            <input type="text" class="form-control"  id="nombreCortoClienteProspectoForm" name="nombreCortoCliente" placeholder="Capture Nombre Corto " value=""  maxlength="100"  required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Nombre Corto
+		                                            </div>
+		                                        </div>
+		                                          <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">RFC </label>
+		                                            <input type="text" class="form-control"  id="rfcClienteProspectoForm" placeholder="RFC" value="" minlength="12" maxlength="14" required onfocusout="validaEspacio(this)">
+		                                            <div class="invalid-feedback">
+		                                                Capturar Nombre RFC Valido
+		                                            </div>
+		                                        </div>
+		                                     </div>
+		                                     <div class="form-row">
+		                                      <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Razon Social</label>
+		                                            <input type="text" class="form-control" id="nombreCompletoClienteProspectoForm" placeholder="Capture Nombre Completo " value="" maxlength="100" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Nombre Completo
+		                                            </div>
+		                                        </div>
+	                                        	<div class="col-md-6 mb-3">
+	                                            <label for="validationCustom02">Zona Geográfica</label>
+	                           				     <select id="idRegionClienteProspectoForm"  name="idRegionClienteProspectoForm" class="form-control"  required>
+		                								 <option value="" selected  >Selecciona Zona Geografica</option>
+		                								 <option th:each="region: ${model.jsonResponseObject.regiones}"
+												             th:value="${region.idRegion}"
+												             th:text="${region.nombreRegion}"/>
+		              							</select>
+	                                            <div class="invalid-feedback">
+	                                                Capturar Zona Valida
+	                                            </div>
+	                                        </div>
+	                                      </div>
+	                                      <div class="form-row">
+	                                      	<label class=" control-label" for="textarea">Direccion</label>
+									            <div class="">                     
+									              <textarea class="form-control"  id="direccionClienteProspectoForm" rows="5" cols="150" required></textarea>
+									            </div>
+								              <div class="invalid-feedback">
+	                                                Capturar Domicilio Valido
+	                                            </div>
+								         </div>
+									         <hr>
+											<button class="btn btn-primary"  type="submit"  id="btnClienteProspectoAlta">Agregar Cliente Prospecto</button>
+											</form>
+											<script >
+												(function() {
+			                                        'use strict';
+			                                        window.addEventListener('load', function() {
+			                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+			                                            var forms = document.getElementsByClassName('needs-validation');
+			                                            // Loop over them and prevent submission
+			                                            var validation = Array.prototype.filter.call(forms, function(form) {
+			                                                form.addEventListener('submit', function(event) {
+			                                                    if (form.checkValidity() === false) {
+			                                                        event.preventDefault();
+			                                                        event.stopPropagation();
+			                                                    }
+			                                                    form.classList.add('was-validated');
+			                                                }, false);
+			                                            });
+			                                        }, false);
+			                                    })();
+											</script>
+                                       </div>
+                                   </div>
+                                   
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
+                        <!-- Modal Inicio-->
+                       <div class="modal" id="myModalProcess" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-sm" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Proceso de Confirmacion</h4>
+<!--                                        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Card image cap">
+                                           <div class="card-body">
+                                           		<img  th:src="@{images/737.gif}" alt="Card image cap">
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->

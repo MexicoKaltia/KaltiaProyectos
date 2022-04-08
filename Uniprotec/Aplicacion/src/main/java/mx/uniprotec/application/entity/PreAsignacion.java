@@ -104,6 +104,19 @@ public class PreAsignacion implements Serializable{
 	private String fechaInicioFactura;
 	@Column
 	private String fechaFinFactura;
+	@Column
+	private String fechaHoy;
+	@Column
+	private String nombreFactura;
+
+	
+	public String getNombreFactura() {
+		return nombreFactura;
+	}
+
+	public void setNombreFactura(String nombreFactura) {
+		this.nombreFactura = nombreFactura;
+	}
 
 	@Override
 	public String toString() {
@@ -426,6 +439,13 @@ public class PreAsignacion implements Serializable{
 
 	public void setFechaFinFactura(String fechaFinFactura) {
 		this.fechaFinFactura = fechaFinFactura;
+	}
+	public String getFechaHoy() {
+		return fechaHoy;
+	}
+
+	public void setFechaHoy(String fechaHoy) {
+		this.fechaHoy = fechaHoy;
 	}
 	
 	

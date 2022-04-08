@@ -26,6 +26,7 @@ $(document).ready(function(){
 	console.log(preAsignaciones);
 	console.log(preAsignacionesAE);
 //	console.log(asignaciones);
+	  var myChartC, myChart; 
 	
 	window.operateEventsUpdateVendedor = {
 			
@@ -141,17 +142,25 @@ $(document).ready(function(){
 		    	  hoverOffset: 4
 		    	}]
 		    	};
-		    	const myChartC = new Chart(ctx1, {
+		    	 if (myChartC) {
+		    	 		myChartC.destroy();
+		    	 	}
+		    	 
+		    	 myChartC = new Chart(ctx1, {
 		    	  type: 'doughnut',
 		    	  data: data,
-		    	  
 		    	});
 		    	
+		    	
+		    	     
 		    	/*
 		    	 * chart BARRAS
 		    	 */
 		        const ctx = document.getElementById('myChart').getContext('2d');
-		        const myChart = new Chart(ctx, {
+		        if (myChart) {
+	    	     	myChart.destroy();
+	    	 	}
+		        myChart = new Chart(ctx, {
 		          type: 'bar',
 		          data: {
 		              labels: etiquetas,
@@ -171,10 +180,12 @@ $(document).ready(function(){
 		              }
 		          }
 		        });
+		       
 		    }
 		   }
 
 	$('#vendedoresAnalisisTable').bootstrapTable({data : $data})
+	
     
 }); // fin jquery
 		    	

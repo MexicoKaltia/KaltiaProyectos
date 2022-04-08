@@ -483,7 +483,7 @@ $(document).ready(function() {
 		if (mes < 10)
 			mes = "0" + mes.toString();
 		var fecha = anio + '-' + mes + '-' + dia+ 'T';
-//		//console.log(fecha);
+		console.log(fecha);
 		return fecha;
 	}
 	
