@@ -8,7 +8,7 @@ public interface IEntregableService {
 	public ResultVO consultaEntregable(String token, Long idAsignacion);
 //	public ResultVO createEntrgable(String token, String idAsignacion);
 	public ResultVO actualizaEntregable(String token, String idAsignacion);
-	public ResultVO deleteEntregable(String token, String idAsignacion);
+	public ResultVO deleteEntregable(String idAsignacion, String token);
 	public ResultVO createEntregable(EntregableModelo entregable, String accesToken, Long idUsuario);	
 
 }

@@ -114,6 +114,16 @@ public class EntregableService implements IEntregableService {
 			return participanteEntity ;
 	}
 
+	@Override
+	public int deleteIdEntregable(Long idEntregable) {
+		try {
+			entregableDao.deleteById(idEntregable);
+			return  0;
+			} catch (Exception e) {
+			return  99;
+			}
+	}
+
 	
 
 }

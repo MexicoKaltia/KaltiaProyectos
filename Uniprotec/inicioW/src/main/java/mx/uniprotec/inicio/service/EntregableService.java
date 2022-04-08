@@ -341,10 +341,18 @@ public class EntregableService implements IEntregableService {
 		return null;
 	}
 
+	
 	@Override
-	public ResultVO deleteEntregable(String token, String idAsignacion) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultVO deleteEntregable(String idAsignacion, String accesToken) {
+	ResultVO rs= (ResultVO) baseClientRest.objetoDeleteId(idAsignacion, accesToken , BaseClientRest.URL_CRUD_ENTREGABLE_D);
+
+	if(rs.getCodigo() != 500) {
+	JSONObject jsonGeneral = rs.getJsonResponse();
+	JSONObject jsonResponseObject = new JSONObject();
+	jsonResponseObject.put("mensaje", jsonGeneral.get("mensaje"));
+	rs.setJsonResponseObject(jsonResponseObject);
+	}
+	return rs;
 	}
 	
 	
@@ -536,6 +544,7 @@ public class EntregableService implements IEntregableService {
 	}
 
 	
+	private List<ParticipantesModelo> listaParticipanteTotal = new ArrayList<ParticipantesModelo>();  
 	private ResultLocal generaReporte (EntregableModelo entregable) throws Exception, JRException  {
 		ResultLocal rl = new ResultLocal();
 		long start = System.currentTimeMillis();
@@ -555,9 +564,23 @@ public class EntregableService implements IEntregableService {
 		//Genera Resultados Participantes
 //		JRBeanCollectionDataSource participantes = new JRBeanCollectionDataSource(entregable.getFormBParticipantes());
 		
-		JasperPrint resultadosParticipantesJasperPrint = resultadosParticipantes(listaParticipantes(entregable.getFormBParticipantes()));
-		jasperPrintReporte.add(resultadosParticipantesJasperPrint);
-		
+		listaParticipanteTotal = entregable.getFormBParticipantes();
+		List<List<ParticipantesModelo>> listas = new ArrayList<List<ParticipantesModelo>>();
+		List<ParticipantesModelo> listaParticipanteResto = listaParticipanteTotal;
+		listas.add(listaParticipanteTotal);
+		listas.add(listaParticipanteResto);
+		while(listaParticipanteResto.size() > 0) {
+			
+//			listaParticipanteTotal = listaParticipantes(listaParticipanteTotal);
+			listas = listaParticipantes(listas.get(1));
+			listaParticipanteResto = listas.get(1);
+//			listaParticipanteTotal = listaParticipanteResto; 
+//			JasperPrint resultadosParticipantesJasperPrint = resultadosParticipantes(entregable.getFormBParticipantes());
+			JasperPrint resultadosParticipantesJasperPrint = resultadosParticipantes(listas.get(0));
+			jasperPrintReporte.add(resultadosParticipantesJasperPrint);
+			
+		}
+			
 			// guardar en disco local
 //		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
 		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/Reporte_"+entregable.getIdEntregableLogico()+".pdf"));
@@ -575,30 +598,7 @@ public class EntregableService implements IEntregableService {
 		return rl;
 	}
 	
-
-		
 	
-	
-	private List<ParticipantesModelo> listaParticipantes(List<ParticipantesModelo> formBParticipantes) {
-		
-		List<ParticipantesModelo> listaParticipanteTotal = new ArrayList<ParticipantesModelo>();
-		List<ParticipantesModelo> listaParticipanteNew = new ArrayList<ParticipantesModelo>();
-		List<ParticipantesModelo> listaParticipanteRest = new ArrayList<ParticipantesModelo>();
-		List<List<ParticipantesModelo>> listaTotal = new ArrayList<List<ParticipantesModelo>>();
-		
-		int count = 0;
-		while(formBParticipantes.size() == 0) {
-			ParticipantesModelo participante = formBParticipantes.get(count);
-			if(count < 15) {
-				listaParticipanteNew.add(participante);
-				formBParticipantes.remove(count);
-			}
-			count++;
-		}
-		listaTotal.add(listaParticipanteNew);
-		return listaParticipanteNew;
-	}
-
 	private JasperPrint resultadosParticipantes(List<ParticipantesModelo> formBParticipantes) throws JRException {
 		JasperDesign toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/resultadosParticipantes.jrxml"));
 		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
@@ -608,6 +608,53 @@ public class EntregableService implements IEntregableService {
 		return JasperFillManager.fillReport(compileReport, map,  participantes);
 		
 	}
+	
+	private List<List<ParticipantesModelo>> listaParticipantes(List<ParticipantesModelo> formBParticipantes) {
+		List<ParticipantesModelo> listaParticipanteNew =  new ArrayList<ParticipantesModelo>();
+		List<ParticipantesModelo> listaParticipanteResto =  formBParticipantes;
+		List<List<ParticipantesModelo>> listas = new ArrayList<List<ParticipantesModelo>>();
+		int capacidad = formBParticipantes.size();
+		if(capacidad > 14) {
+			for(int count = 0; count < 14 ; count++) {
+				ParticipantesModelo participante = formBParticipantes.get(0);
+				listaParticipanteNew.add(participante);
+				listaParticipanteResto.remove(0);
+			}
+		}else {
+			for(int count = 0; count < capacidad ; count++) {
+				ParticipantesModelo participante = formBParticipantes.get(0);
+				listaParticipanteNew.add(participante);
+				listaParticipanteResto.remove(0);
+			}
+		}
+		listas.add(listaParticipanteNew);
+		listas.add(listaParticipanteResto);
+		return listas;
+	}
+
+
+
+//	private JasperPrint resultadosParticipantes(List<ParticipantesModelo> formBParticipantes) throws JRException {
+//		
+//		JasperDesign toJasperdesign = null;
+//		JasperReport compileReport  = null;
+//		JRBeanCollectionDataSource participantes =null;
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		while(formBParticipantes.size() == 0) {
+//			
+//			formBParticipantes = listaParticipantes(formBParticipantes);
+//			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/resultadosParticipantes.jrxml"));
+//			compileReport = JasperCompileManager.compileReport(toJasperdesign);
+//			participantes = new JRBeanCollectionDataSource(formBParticipantes);
+//			log.info(formBParticipantes.size());
+//		}
+//				
+//		return JasperFillManager.fillReport(compileReport, map,  participantes);
+//		
+//	}
+	
+	
 
 	
     

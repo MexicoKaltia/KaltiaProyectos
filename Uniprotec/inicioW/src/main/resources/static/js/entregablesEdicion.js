@@ -12,7 +12,7 @@ $(document).ready(function() {
 	
 	console.log(asignacionItem);
 //	console.log(asignacionCliente);
-//	console.log(entregables);
+	console.log(entregables);
 //	console.log(entregables.length);
 //	console.log(participantes);
 //	console.log(participantes.length);
@@ -80,7 +80,8 @@ $(document).ready(function() {
 		var e =0;
 		for(var a in entregables){
 			var entregable = entregables[a]; 
-			var entregableItem = '<a id="'+entregable.idEntregable+'" href="" data-dismiss="modal" class="entregable list-group-item">'+entregable.idEntregable+'-'+entregable.formACurso+'</a>';
+			var entregableItem = '<li class=" list-group-item"><div class="row"><div class="col-md-6"><a id="'+entregable.idEntregable+'" href="" data-dismiss="modal" class="entregable">'+entregable.idEntregable+'-'+entregable.formACurso+'</a></div>\
+			<div class="col-md-6"><a id="'+entregable.idEntregable+'" href="/DEntregable/'+entregable.idEntregable+'" >Borrar Expediente</a></div></div></li>';
 			$('#listEntregables').append(entregableItem);
 			e++;
 		}

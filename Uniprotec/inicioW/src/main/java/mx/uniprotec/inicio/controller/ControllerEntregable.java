@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -250,7 +251,29 @@ public class ControllerEntregable {
 				return mav;
 			}
 		}
+
 	
+	@GetMapping("/DEntregable/{idEntregable}")
+	public ModelAndView DPreAsignacion(@PathVariable String idEntregable, ModelMap model) {
+		if (model.equals(null)) {
+			log.info("NULL");
+			return new ModelAndView("login");
+		} else {
+			log.info("Delete Entregable model Activo");
+			ResultVO resultVO = (ResultVO) model.get("model");
+			ResultVO rs = entregableService.deleteEntregable(idEntregable, resultVO.getAccesToken());
+			model.addAttribute("model", resultVO);
+			ModelAndView mav = new ModelAndView("redirect:/CEntregable", model);
+			if (rs.getCodigo() != 500) {
+				mav.addObject("ejecucion", true);
+				return mav;
+			} else {
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+				return mav;
+			}
+		}
+	}
 	
 	
 

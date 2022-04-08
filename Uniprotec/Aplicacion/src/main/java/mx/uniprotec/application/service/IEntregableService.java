@@ -16,5 +16,6 @@ public interface IEntregableService {
 	public ParticipanteEntity createParticipantes(Long idEntregable, Long idAsignacion, List<ParticipanteEntity> list);
 	public ParticipanteEntity updateParticipantes(List<ParticipanteEntity> participantes, Long idEntregable);
 	public List<ParticipanteEntity> consultaParticipantes(Long idEntregable);
+	public int deleteIdEntregable(Long idEntregable);
 
 }

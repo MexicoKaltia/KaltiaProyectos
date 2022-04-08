@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -217,6 +218,33 @@ public class EntregableRestController {
 		}
 	}
 	
+	@DeleteMapping("/entregable/{idEntregable}")
+	public ResponseEntity<?> deleteEntregable(@PathVariable Long idEntregable) {
+		log.info("Delete entregable");
+
+		Map<String, Object> response = new HashMap<>();
+		try {
+			int code = entregableService.deleteIdEntregable(idEntregable);
+//			if (code == 0) {
+//				code = particiService.deleteId(idPreAsignacion);
+//			}
+			response.put("code", code);
+			response.put("mensaje", "Registro eliminado correctamente");
+			response.put("status", HttpStatus.ACCEPTED);
+			response.put("code", HttpStatus.ACCEPTED.value());
+			log.info("Delete preAsignaciones  fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ")
+					.concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			log.info("catch Delete preAsignaciones fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
 	
 	
 

@@ -38,11 +38,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 
-	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -65,6 +65,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_NOTIFICACION 	  =	"notificacion";
 	public static final String URL_CRUD_NOTIFICACIONES 	  =	"notificaciones";
 	public static final String URL_CRUD_ENTREGABLE    = "entregable";
+	public static final String URL_CRUD_ENTREGABLE_D    = "entregable";
 	
 	
 	
@@ -119,7 +120,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 //		return resultVO;
 	}
 	
-	
+	@Override
+	public ResultVO objetoDeleteId(String idObject, String token, String urlCrud) {
+		resultVO = getTemplateObjetoDeleteId(idObject, token, urlCrud);
+		return resultVO;
+	}
 
 	
 	
@@ -127,6 +132,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 
 
 	
+
+
 
 
 	/*
@@ -291,6 +298,37 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		}
 	    
 	}
+	
+	private ResultVO getTemplateObjetoDeleteId(String idObject, String token, String urlCrud) {
+		String urlDeleteId = URL_CRUD + urlCrud + "/" + Long.valueOf(idObject.toString());
+		log.info(urlDeleteId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);// .APPLICATION_JSON);
+		headers.add("Authorization", "Bearer " + token);
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+		RestTemplate restTemplate = new RestTemplate();
+		try {
+			ResponseEntity<JSONObject> response = restTemplate.exchange(urlDeleteId, HttpMethod.DELETE, entity,
+					JSONObject.class);
+//		    log.info(resultVO.toString());
+//		    resultVO = asignaResponseObject(response);
+
+			return asignaResponseObject(response);
+
+		} catch (Exception e) {
+
+			JSONObject jsonResponse = new JSONObject();
+			ResultVO rs = new ResultVO();
+			rs.setJsonResponse(jsonResponse);
+			e.printStackTrace();
+			rs.setMensaje("Error:" + e.getMessage().concat(": ").concat("-----"));
+			rs.setCodigo(Long.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+
+			return rs;
+		}
+	}
+
 
 	private List<UserCorreo> getTemplateObjetoGet(String token, String urlCrud, List<UserCorreo> usersCorreo) {
 		
