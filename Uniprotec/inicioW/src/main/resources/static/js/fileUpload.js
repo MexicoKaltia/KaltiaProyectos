@@ -74,7 +74,7 @@ $(document).ready(function(){
 		    validateInitialCount: true,
 			removeClass: "btn btn-warning",
 			removeLabel: "Remover",
-			maxFileSize: 1024,
+			maxFileSize: 5024,
 			showCaption: false, 
 			dropZoneEnabled: false
 		});

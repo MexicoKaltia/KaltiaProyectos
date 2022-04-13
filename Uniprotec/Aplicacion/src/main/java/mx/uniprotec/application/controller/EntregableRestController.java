@@ -139,7 +139,7 @@ public class EntregableRestController {
 			entregableEntity.setFormCContingencias(entregable.getFormCContingencias());
 			entregableEntity.setFormCAvancesLogrados(entregable.getFormCAvancesLogrados());
 			entregableEntity.setFormCObservaciones(entregable.getFormCObservaciones());
-			if(entregable.getFormCEvidenciasFotograficas().size() > 0) {
+			if(entregable.getFormCEvidenciaDocto().size() > 0) {
 				entregableEntity.setFormCEvidenciaDocto(getEvidenciasFoto(entregable.getFormCEvidenciaDocto()));
 			}
 			entregableEntity.setRFCOriginalAsignacion(entregable.getRfcOriginalAsignacion());

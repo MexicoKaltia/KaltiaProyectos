@@ -71,6 +71,9 @@ $(document).ready(function() {
 		if(asignaStatus ==="Entregable Enviado") {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+//			$('#asignaConfirmar').attr("disabled", false);
+			$('#edicionEntregable').attr("disabled", false);
+			$("#formEntregables").attr("action", "AEntregable");
 		}else{
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		}
