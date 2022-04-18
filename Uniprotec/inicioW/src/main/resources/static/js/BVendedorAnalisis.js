@@ -96,6 +96,8 @@ $(document).ready(function(){
 		    					}
 		    				}		    				
 		    			} 
+//		    			$('#seguimientoBitacora').empty();
+//		    			$('#seguimientoBitacora').append(preAsignacion.seguimiento);
 		    		}
 		    	}
 		    	

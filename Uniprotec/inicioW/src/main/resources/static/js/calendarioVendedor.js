@@ -61,10 +61,11 @@ $(document).ready(function() {
 	}
 
 	function abrirModal(item, identificadorUsuario){
+		console.log(item);
 		item = item.split('-');
 		$('#fechaPagoVendedorInicio').text(valoresFecha(formatoFecha(getFechaPago(item[5]))));
 		$('#fechaPagoVendedorFin').text(valoresFecha(formatoFecha(getFechaPago(item[4]))));
-		$('#fechaCobroFactura').text(valoresFecha(formatoFecha(getFechaPago(item[4]))));
+		$('#fechaCobroFactura').text(valoresFecha(formatoFecha(getFecha(item[4]))));
 		$('#modalNombreCliente').text(item[1]);
 		
 		var idPreAsignacion = item[0];
@@ -112,6 +113,8 @@ $(document).ready(function() {
 						 clienteTelefono = cliente.telefonoCliente;
 					}
 				}
+				$('#seguimientoBitacoraCalendario').empty();
+				$('#seguimientoBitacoraCalendario').append(preAsignacion.seguimiento);
 				break;
 			}
 		}
