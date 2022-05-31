@@ -159,8 +159,8 @@ $(document).ready(function(){
 			  
 			  $('#fechas').empty();
 			  $('#listaFechas').empty();
+			  $('#listFechasAct').remove();
 				if(row.listFechas ){
-					$('#listFechasAct').remove();
 					var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'>Fechas de Ausencia Actuales:<ul id='listaFechasAct'></ul></div>";
 					$(fechas).insertAfter($('#fechas'));
 					var arreglo = stringToList(row.listFechas);
@@ -183,7 +183,8 @@ $(document).ready(function(){
 				
 			  $('#statusInstructor').val("Actualizado");
 		      $('#notaInstructor').val(row.notaInstructor);
-		      $('#firmaInstructorH').val(row.firmaInstructorH);
+		      $('#firmaInstructorH').val(row.firmaInstructor);
+//		      $('#firmaInstructor').val(row.firmaInstructor);
 		      $('#firmaInstructorPrev').attr('src', "/firmainstructor/"+row.idInstructor+"/"+row.firmaInstructor);
 		      $('#firmaInstructorPrev').attr('alt', row.firmaInstructorH);
 		      $('#statusInstructorbtn').html(row.statusInstructor);

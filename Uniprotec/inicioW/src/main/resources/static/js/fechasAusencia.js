@@ -47,7 +47,7 @@ function sumaFechas() {
 	
 	if(inicioAusenciaMasUno.toString() === finAusenciaDate.toString()){
 		ausencia = transformaDia(inicioAusenciaMasUno);
-		$('#listaFechas').append("<li>Ausencia Fecha : style='font-family: Lucida Console, monospace; '><b>"+ ausencia +"</b>"+ sumaEspacio(ausencia.toString())+"</span><a onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'>Eliminar</a></li>");
+		$('#listaFechas').append("<li>Ausencia Fecha : <span style='font-family: Lucida Console, monospace; '><b>"+ ausencia +"</b>"+ sumaEspacio(ausencia.toString())+"</span><a onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'>Eliminar</a></li>");
 		arrayFechas.push(inicioAusenciaMasUno.toString());
 		arrayFechas2.push(ausencia);
 	}else{
@@ -64,7 +64,7 @@ function sumaFechas() {
 			arrayFechas.push(inicioAusenciaMasUno.toString());
 			arrayFechas2.push(ausencia);
 			var espacio = sumaEspacio(ausencia.toString());
-			$('#listaFechas').append("<li id='li"+i+"'>Ausencia Fecha : <span style='font-family: Lucida Console, monospace; '><b> "+ ausencia.toString() +".</b>"+espacio.toString()+"</span><a id='"+inicioAusenciaMasUno+"' idCount='"+i+"'  onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'> Eliminar</a></li>");
+			$('#listaFechas').append("<li id='li"+i+"'>Ausencia Fecha : <span style='font-family: Lucida Console, monospace; '><b>"+ ausencia.toString() +".</b>"+espacio.toString()+"</span><a id='"+inicioAusenciaMasUno+"' idCount='"+i+"'  onclick=eliminarFecha(this); class='mb-2 mr-2 badge badge-warning'> Eliminar</a></li>");
 			}
 		}
 	}

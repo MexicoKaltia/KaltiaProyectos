@@ -325,7 +325,18 @@ $(document).ready(function() {
 		$('#modalArchivos').html('<b>'+asignaArchivos+'</b>');
 		if(asignaStatus ==="Entregable Enviado") {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
-			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion0.guiaEntregable+' <b></div>');
+			if(asignacion0.guiaEntregable.includes("||")){
+				var arrayGuia = asignacion0.guiaEntregable.split("||"); 
+				for(var guia in arrayGuia){
+					var valor = arrayGuia[guia].split("&&");
+					if(valor[0]){
+						$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+valor[0]+'</b> -- Id Expediente Entregable : <b>'+valor[1]+'</b> </div>');
+					}
+				}
+			}else{
+				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion0.guiaEntregable+' <b></div>');
+			}
+			
 		}else{
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		}

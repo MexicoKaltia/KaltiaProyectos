@@ -62,10 +62,7 @@ public class EntregableService implements IEntregableService {
 	BaseClientRest baseClientRest ;
 	
 	protected final Log log = LogFactory.getLog(getClass());
-	
-	static String pathLogico = "/uniprotec/entregables/";
-
-
+	private String pathLogico = "";
 	public EntregableService() {
 		// TODO Auto-generated constructor stub
 	}
@@ -93,7 +90,7 @@ public class EntregableService implements IEntregableService {
 	public ResultVO createEntregable(EntregableModelo entregable, String accesToken, Long idUsuario) {
 //		log.info(entregable.toString());
 		List<ParticipantesModelo> participantes = getParticipantes(entregable, idUsuario);
-		
+		this.pathLogico = "/uniprotec/entregables/";
 		
 		
 		if(entregable.getFormCEvidenciasFotograficasB() != null || !(entregable.getFormCEvidenciasFotograficasB().size() == 0)) {
@@ -134,12 +131,7 @@ public class EntregableService implements IEntregableService {
 			 */
 			if(entregable.getEstatusEntregable().equals("nuevo")) {
 				
-//				JSONObject jsonResponse = rs.getJsonResponse();
-//				JSONObject jsonEntregable = (JSONObject) jsonResponse.get("entregable");
-//				String idEntregable = (String) jsonEntregable.get("idEntregable");
-//				String idAsignacion = Long.valueOf(entregable.getIdAsignacion()).toString();
-
-				String pathImageLogo = pathLogico +"/"+ entregable.getRfcOriginalAsignacion() +"/"+ idEntregable+"/imageLogo/";
+				String pathImageLogo = this.pathLogico +"/"+ idEmpresa +"/"+ idEntregable+"/imageLogo/";
 				Path origenPath = FileSystems.getDefault().getPath("/uniprotec/"+ entregable.getRfcOriginalAsignacion() +"/image/"+ entregable.getFormALogoEmpresa());
 		        Path destinoPath = FileSystems.getDefault().getPath( pathImageLogo + entregable.getFormALogoEmpresa());
 //		        "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/"+tipoCarpeta+"/"
@@ -157,12 +149,6 @@ public class EntregableService implements IEntregableService {
 		                System.out.println("Error al crear directorio");
 		            }
 		        }
-//		        try {
-//		        	directory.mkdirs();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-		        
 
 			}
 			
@@ -175,8 +161,7 @@ public class EntregableService implements IEntregableService {
 			if(entregable.isAltaDocto()) {
 				entregable.setStatus("Entregable Generado");
 				ResultLocal rl = new ResultLocal();
-				pathLogico = "/uniprotec/entregables/";
-				pathLogico = pathLogico + idEmpresa+"/"+ idEntregable;
+				this.pathLogico = this.pathLogico + idEmpresa+"/"+ idEntregable;
 				
 				crearDirectoriosDocumentacion( idEmpresa,  idEntregable);
 				
@@ -268,7 +253,7 @@ public class EntregableService implements IEntregableService {
 					/*
 			         * comprimir archivos files a documentacion/evidenciaDocto.zip 
 			         */
-					 	String directory = pathLogico+"/file/";
+					 	String directory = this.pathLogico+"/file/";
 					 	String fileOutPut, folderInput= ""; 
 					 	
 				        File directorio = new File(directory);
@@ -432,7 +417,7 @@ public class EntregableService implements IEntregableService {
 			
 			// guardar en disco local
 //		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
-		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/diplomas_"+entregable.getIdEntregableLogico()+".pdf"));
+		OutputStream output = new FileOutputStream(new File(this.pathLogico + "/documentacion/diplomas_"+entregable.getIdEntregableLogico()+".pdf"));
 		JRPdfExporter exporter = new JRPdfExporter();
 		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintDiploma));
 		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
@@ -464,7 +449,7 @@ public class EntregableService implements IEntregableService {
 		ResultLocal rl = new ResultLocal();
 		List<CredencialModelo> credenciales = convertToCredenciales(entregable);
 		String path ="";
-		String fileName =pathLogico + "/documentacion/credenciales_"+entregable.getIdEntregableLogico()+".pdf";
+		String fileName =this.pathLogico + "/documentacion/credenciales_"+entregable.getIdEntregableLogico()+".pdf";
 		long start = System.currentTimeMillis();
 
 		byte[] lyContent = null;
@@ -527,7 +512,7 @@ public class EntregableService implements IEntregableService {
 			
 			// guardar en disco local
 //		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
-		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/DC3_"+entregable.getIdEntregableLogico()+".pdf"));
+		OutputStream output = new FileOutputStream(new File(this.pathLogico + "/documentacion/DC3_"+entregable.getIdEntregableLogico()+".pdf"));
 		JRPdfExporter exporter = new JRPdfExporter();
 		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintDC3));
 		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
@@ -583,7 +568,7 @@ public class EntregableService implements IEntregableService {
 			
 			// guardar en disco local
 //		JasperExportManager.exportToPdfStream(jasperPrintDiploma, "nombreDiploma.pdf");
-		OutputStream output = new FileOutputStream(new File(pathLogico + "/documentacion/Reporte_"+entregable.getIdEntregableLogico()+".pdf"));
+		OutputStream output = new FileOutputStream(new File(this.pathLogico + "/documentacion/Reporte_"+entregable.getIdEntregableLogico()+".pdf"));
 		JRPdfExporter exporter = new JRPdfExporter();
 		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintReporte));
 		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
@@ -660,17 +645,17 @@ public class EntregableService implements IEntregableService {
     
     private void compressFile(String idEmpresa, String idEntregable, String fileOutPut, String folderInput) throws Exception {
     	byte[] buffer = new byte[20480];
-        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
+//        String pathLogico = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable;
         
 //          ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File("target/file.zip"))));
-          FileOutputStream fos = new FileOutputStream(pathLogico+fileOutPut);
+          FileOutputStream fos = new FileOutputStream(this.pathLogico+fileOutPut);
           ZipOutputStream zos = new ZipOutputStream(fos);
           
           try{  
           
               
               // create new file
-        	  String rutaCarpeta = pathLogico+folderInput;
+        	  String rutaCarpeta = this.pathLogico+folderInput;
             File  f = new File(rutaCarpeta);
                                       
               // array of files and directory
@@ -717,8 +702,8 @@ public class EntregableService implements IEntregableService {
 				cm.setFechaInicio(recortaDia(entregable.getFormAFechaInicioCredenciales()));
 				cm.setFechaFinal(recortaDia(entregable.getFormAFechaFinalCredenciales()));
 				cm.setInstructor(entregable.getFormAInstructor());
-				cm.setLogoEmpresa(new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
-				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
+				cm.setLogoEmpresa(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
+				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
 				cm.setFirmaInstructor(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
 //				cm.setFirmaDirector(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
 				 listCM.add(cm);
@@ -752,7 +737,7 @@ public class EntregableService implements IEntregableService {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		EntregableService entregableService = new EntregableService();
-		map.put("dc3EmpresaLogo", new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
+		map.put("dc3EmpresaLogo", new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
 		map.put("dc3ParticipanteNombre", pm.getParticipanteNombre());
 		map.put("dc3ParticipanteCURP", transformToCURP(pm.getParticipanteCURP()));
 		map.put("dc3ParticipanteOcupacion", pm.getParticipanteOcupacion());
@@ -799,7 +784,7 @@ public class EntregableService implements IEntregableService {
 		int i =1;
 		for(String a : entregable.getFormCEvidenciasFotograficasB()) {
 			if(!a.equals("")) {
-				map.put("reporteEFoto"+i, new ByteArrayInputStream(entregableService.getImage(pathLogico + "/imagenesEvidencias/".concat(a))));
+				map.put("reporteEFoto"+i, new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesEvidencias/".concat(a))));
 			}
 			i++;
 		}

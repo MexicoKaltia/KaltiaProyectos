@@ -73,7 +73,6 @@ public class Instructor implements Serializable {
 	private LocalDateTime createAtInstructor;
 	@Column(nullable=false)
 	private String statusInstructor;
-	@Size(max=3000)
 	@Column
 	private String listFechas;
 	@Column

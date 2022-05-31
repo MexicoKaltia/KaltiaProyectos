@@ -64,7 +64,18 @@ $(document).ready(function() {
 //		$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		if(asignaStatus ==="Entregable Enviado") {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
-			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+			if(asignacion.guiaEntregable.includes("||")){
+				var arrayGuia = asignacion.guiaEntregable.split("||"); 
+				for(var guia in arrayGuia){
+					var valor = arrayGuia[guia].split("&&");
+					if(valor[0]){
+						$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+valor[0]+'</b> -- Id Expediente Entregable : <b>'+valor[1]+'</b> </div>');
+					}
+				}
+			}else{
+				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+			}
+			
 		}else{
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		}
@@ -74,7 +85,7 @@ $(document).ready(function() {
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');
 		
 		if(perfilUsuario === "Instructor"){
-			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado"){ 
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado" || asignaStatus ==="Omitir Entregable" ){ 
 				$('#asignaConfirmar').attr("disabled", false);
 				$('#edicionEntregable').attr("disabled", false);
 				$('#edicionEntregable').click(function(){

@@ -21,6 +21,7 @@ $(document).ready(function() {
 	var asignaCostoHotel
 	var zonaCliente ;
 	var item;
+	var idAsignacion;
 	
 	function abrirModal(item){
 		$('#asignaConfirmar').attr("disabled", true);
@@ -31,6 +32,7 @@ $(document).ready(function() {
 			asignacion = asignaciones[i]; 
 			
 			if(asignacion.idAsignacion.toString() === item[0].toString()){
+				idAsignacion = asignacion.idAsignacion;
 				asignaFechaCalendario = cambiaFormatoFecha(asignacion.fechaAsignacion);
 				asignaIdAsignacionLogica = asignacion.idAsignacionLogica;
 				asignaClienteTexto = asignacion.clienteAsignacion;
@@ -70,7 +72,19 @@ $(document).ready(function() {
 		$('#modalStatus').empty();
 		if(asignaStatus ==="Entregable Enviado") {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
-			$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+			if(asignacion.guiaEntregable.includes("||")){
+				var arrayGuia = asignacion.guiaEntregable.split("||"); 
+				for(var guia in arrayGuia){
+					var valor = arrayGuia[guia].split("&&");
+					if(valor[0]){
+						$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+valor[0]+'</b> -- Id Expediente Entregable : <b>'+valor[1]+'</b> </div>');
+					}
+				}
+			}else{
+				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+			}
+			
+			
 //			$('#asignaConfirmar').attr("disabled", false);
 			$('#edicionEntregable').attr("disabled", false);
 			$("#formEntregables").attr("action", "AEntregable");
@@ -79,7 +93,7 @@ $(document).ready(function() {
 		}
 
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado"){ 
+			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado" || asignaStatus ==="Omitir Entregable" ){ 
 				$('#asignaConfirmar').attr("disabled", false);
 				$('#edicionEntregable').attr("disabled", false);
 				$('#edicionEntregable').click(function(){
@@ -90,9 +104,6 @@ $(document).ready(function() {
 			else if(asignaStatus ==="Evento Cancelado") {
 				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, no se realiza Edición. </u></div>');
 			}
-//			else if(asignaStatus ==="Entregable Enviado") {
-//				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
-//			}
 		}else{
 			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
 		}
