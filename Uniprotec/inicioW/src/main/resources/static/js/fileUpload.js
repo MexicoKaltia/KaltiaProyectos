@@ -69,12 +69,12 @@ $(document).ready(function(){
 	 $("#formCEvidenciasFotograficas").fileinput({
 			browseClass: "btn btn-success",
 			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-			browseLabel: "Seleccionar Imagenes",
+			browseLabel: "Cargar Documento",
 		    maxFileCount: 9,
 		    validateInitialCount: true,
 			removeClass: "btn btn-warning",
 			removeLabel: "Remover",
-			maxFileSize: 5024,
+			maxFileSize: 102400,
 			showCaption: false, 
 			dropZoneEnabled: false
 		});

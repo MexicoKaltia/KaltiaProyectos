@@ -666,71 +666,13 @@
 									                                            </div>
 									                                        </div>
 									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						2. Comentarios sobre el grupo 
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne2" class="collapse">
-									                                            	<div id="formCComentariosGrupoE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCComentariosGrupo" th:field="*{formCComentariosGrupo}" class="form-control" name="formCProcesoAprendizaje" rows="5" cols="150" placeholder="comentarios sobre el grupo"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						3. Proceso de aprendizaje 
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne3" class="collapse">
-									                                            <div id="formCProcesoAprendizajeE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCProcesoAprendizaje" th:field="*{formCProcesoAprendizaje}" class="form-control" name="formCProcesoAprendizaje" rows="4" cols="90" placeholder="PROCESO DE APRENDIZAJE"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						4. Teoría
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne4" class="collapse">
-									                                            <div id="formCTeoriaE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCTeoria" th:field="*{formCTeoria}" name="formCTeoria" class="form-control" rows="4" cols="90" placeholder="TEORIA"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						5. Práctica
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne5" class="collapse">
-									                                            <div id="formCPracticaE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCPractica" th:field="*{formCPractica}" name="formCPractica" class="form-control" rows="4" cols="90" placeholder="PRÁCTICA"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
+									                                   
 									                                        <!------------------------------------------------------------------------------>
 									                                        <div class="card">
 									                                            <div id="headingTwo" class="b-radius-0 card-header">
 									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
 									                                                <h6 class="m-0 p-0">
-																						6. Evidencias fotográficas 
+																						2. Reporte Externo 
 																					</h6></button>
 									                                            </div>
 									                                            <div data-parent="#accordion" id="collapseOne6" class="collapse">
@@ -738,94 +680,21 @@
 									                                                	<div class="col-md-12 mb-6">
 									                                                	<div id="evidenciasFotograficas"></div>
 									                                                	<input id="formCEvidenciasFotograficasB" th:field="*{formCEvidenciasFotograficasB}" type="hidden" />
-											                                        		<label for="validationCustom02" >Evidencias Fotográficas</label>
+											                                        		<label for="validationCustom02" >Reporte Externo</label>
 											                                        		<div class="col-sm-10">
 												                                                <div class="alertaE"></div>
 												                                                <div class="file-loading">
-											        												<input id="formCEvidenciasFotograficas" name="formCEvidenciasFotograficas[]"  th:field="*{formCEvidenciasFotograficas}" type="file" class="form-control-file" accept="image/*"   data-show-upload="false" multiple onchange="imagenEvidencias(this)"/>
+											        												<input id="formCEvidenciasFotograficas" name="formCEvidenciasFotograficas[]"  th:field="*{formCEvidenciasFotograficas}" type="file" class="form-control-file"    data-show-upload="true"  onchange="imagenEvidencias(this)"/>
 											    												</div>
 																									 <br/>
-												                                                    <small class="form-text text-muted">Adjuntar imagen formato *.jpg ,  *.png  *.gif  *.bmp  no mayor a un 1MB.</small>
+												                                                    <small class="form-text text-muted">Adjuntar imagen formato *.pdf , word,  excel.</small>
 												                                           </div>			    										    
 															                         </div>			
 									                                                </div>
 									                                            </div>
 									                                        </div>
 									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne7" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						7. Recomendaciones
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne7" class="collapse">
-									                                            <div id="formCRecomendacionesE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCRecomendaciones" th:field="*{formCRecomendaciones}" name="formCRecomendaciones" rows="4" cols="90" class="form-control" placeholder="RECOMENDACIONES"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne8" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						8. Nivel de cumplimiento de los objetivos y expectativas 
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne8" class="collapse">
-									                                            <div id="formCNivelCumplimientoE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCNivelCumplimiento" th:field="*{formCNivelCumplimiento}" name="formCNivelCumplimiento" rows="4" cols="90" class="form-control" placeholder="NIVEL DE CUMPLIMIENTO DE LOS OBJETIVOS Y EXPECTATIVAS"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne9" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						9. Contingencias 
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne9" class="collapse">
-									                                            <div id="formCContingenciasE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCContingencias" th:field="*{formCContingencias}" name="formCContingencias" rows="4" cols="90" class="form-control" placeholder="CONTINGENCIAS"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne10" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						10. Avances logrados en relación a los resultados de aprendizaje planeados 
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne10" class="collapse">
-									                                            <div id="formCAvancesLogradosE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCAvancesLogrados" th:field="*{formCAvancesLogrados}" name="formCAvancesLogrados" rows="4" cols="90" class="form-control" placeholder="AVANCES LOGRADOS EN RELACIÓN A LOS RESULTADOS DE APRENDIZAJE PLANEADOS "></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <!------------------------------------------------------------------------------>
-									                                        <div class="card">
-									                                            <div id="headingTwo" class="b-radius-0 card-header">
-									                                                <button type="button" data-toggle="collapse" data-target="#collapseOne11" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
-									                                                <h6 class="m-0 p-0">
-																						11. Observaciones
-																					</h6></button>
-									                                            </div>
-									                                            <div data-parent="#accordion" id="collapseOne11" class="collapse">
-									                                            <div id="formCObservacionesE" class="edicionTextArea"></div>
-									                                                <div class="card-body">				
-									                                                	<textarea id="formCObservaciones" th:field="*{formCObservaciones}" name="formCObservaciones" rows="4" cols="90" class="form-control" placeholder="OBSERVACIONES"></textarea>
-									                                                </div>
-									                                            </div>
-									                                        </div>
+									                                        
 									                                        <!------------------------------------------------------------------------------>
 									                                        
 									                                        <!------------------------------------------------------------------------------>
@@ -892,7 +761,7 @@
 												                                        
 												                                        	  <div class="col-sm-10">
 												                                        		<div class="alertaD"></div>
-												        											<input id="formCEvidenciaDocto" name="formCEvidenciaDocto[]" type="file" class="file"  th:field="*{formCEvidenciaDocto}"  data-show-upload="false" multiple onchange="archivoCliente(this)"/>
+												        											<input id="formCEvidenciaDocto" name="formCEvidenciaDocto[]" type="file" class="file"  th:field="*{formCEvidenciaDocto}"  data-show-upload="true" multiple onchange="archivoCliente(this)"/>
 																								<br/>
 												    										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.</small> 
 												    										</div>    

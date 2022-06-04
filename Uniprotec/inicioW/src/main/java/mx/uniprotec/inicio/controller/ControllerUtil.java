@@ -501,86 +501,137 @@ public class ControllerUtil {
 
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/imageUploadEvidencia/{idEmpresa}/{idEntregable}",  consumes = "multipart/form-data", produces = "application/json")
-	public ResultVO imageUploadEvidencia(@PathVariable String idEmpresa, @PathVariable String idEntregable, @RequestParam("entregableEdicion[]") MultipartFile[] formCEvidenciasFotograficas){
+	public ResultVO imageUploadEvidencia(@PathVariable String idEmpresa, @PathVariable String idEntregable, @RequestParam("entregableEdicion[]") MultipartFile formCEvidenciasFotograficas){
 		   log.info(idEmpresa);
 		   String message = "";
 		    try {
-//		      List<String> fileNames = new ArrayList<>();
-		      String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/imagenesEvidencias/";
-
-		      Arrays.asList(formCEvidenciasFotograficas).stream().forEach(file -> {
-		    	  File directorio = new File(directory);
-			        if (!directorio.exists()) {
-			            if (directorio.mkdirs()) {
-			                log.info("Nuevo Directorio creado");
-			                String filename = file.getOriginalFilename();
-			    		    String filepath = Paths.get(directory, filename).toString();
-			    		    
-			    		    // Save the file locally
-			    		    BufferedOutputStream stream = null;
-							try {
-								stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-							} catch (FileNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-			    		    try {
-								stream.write(file.getBytes());
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-			    		    try {
-								stream.close();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-			            } else {
-			            	log.info("Error al crear directorio");
-			            }
-			        }else {
-			        	log.info("Directorio Ya existe");
-			        	String filename = file.getOriginalFilename();
-			        	String filepath = Paths.get(directory, filename).toString();
-		    		    
+		    	 String filename = formCEvidenciasFotograficas.getOriginalFilename();
+		      String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/externo/";
+		      
+		      File directorio = new File(directory);
+			    FileUtils.deleteDirectory(directorio);
+			    
+		        if (!directorio.exists()) {
+		            if (directorio.mkdirs()) {
+		                log.info("Directorio creado");
+		    		    String filepath = Paths.get(directory, filename).toString();
 		    		    // Save the file locally
-		    		    BufferedOutputStream stream = null;
-						try {
-							stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		    		    try {
-							stream.write(file.getBytes());
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		    		    try {
-							stream.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-			        }
-		      });
+		    		    BufferedOutputStream stream =
+		    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+		    		    stream.write(formCEvidenciasFotograficas.getBytes());
+		    		    stream.close();
+		            } else {
+		            	log.info("Error al crear directorio");
+		            }
+		        }else {
+		        	log.info("Directorio Ya existe");
+//		        	Files.delete(FileSystems.getDefault().getPath(directory));
+		        	
+		        	String filepath = Paths.get(directory, filename).toString();
+	    		    
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(formCEvidenciasFotograficas.getBytes());
+	    		    stream.close();
+		        }
+			    resultVO.setCodigo((long) 0);
+			    resultVO.setMensaje("Exito File Upload");
+			    
+			    //copia archivo a documentacion para descarga
+			    try {
+					copyArchivos("/uniprotec/entregables/"+idEmpresa+"/"+idEntregable ,idEmpresa, idEntregable, filename);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    
+			  }
+			  catch (Exception e) {
+			    log.info("exception : "+e.getMessage());
+			    resultVO.setCodigo((long) 99);
+			    resultVO.setMensaje(e.getMessage());
+			    return resultVO;//new ResultVO(99, "fallo");
+			  }
 		    
-	        
+
 		    
-		    
-		    resultVO.setCodigo((long) 0);
-		    resultVO.setMensaje("Exito Imagen Upload");
-		    
-		  }
-		  catch (Exception e) {
-		    log.info("exception : "+e.getMessage());
-		    resultVO.setCodigo((long) 99);
-		    resultVO.setMensaje(e.getMessage());
-		    return resultVO;//new ResultVO(99, "fallo");
-		  }
-	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+		      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+			
+
+//		      Arrays.asList(formCEvidenciasFotograficas).stream().forEach(file -> {
+//		    	  File directorio = new File(directory);
+//			        if (!directorio.exists()) {
+//			            if (directorio.mkdirs()) {
+//			                log.info("Nuevo Directorio creado");
+//			                String filename = file.getOriginalFilename();
+//			    		    String filepath = Paths.get(directory, filename).toString();
+//			    		    
+//			    		    // Save the file locally
+//			    		    BufferedOutputStream stream = null;
+//							try {
+//								stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+//							} catch (FileNotFoundException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//			    		    try {
+//								stream.write(file.getBytes());
+//							} catch (IOException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//			    		    try {
+//								stream.close();
+//							} catch (IOException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//			            } else {
+//			            	log.info("Error al crear directorio");
+//			            }
+//			        }else {
+//			        	log.info("Directorio Ya existe");
+//			        	String filename = file.getOriginalFilename();
+//			        	String filepath = Paths.get(directory, filename).toString();
+//		    		    
+//		    		    // Save the file locally
+//		    		    BufferedOutputStream stream = null;
+//						try {
+//							stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+//						} catch (FileNotFoundException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//		    		    try {
+//							stream.write(file.getBytes());
+//						} catch (IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//		    		    try {
+//							stream.close();
+//						} catch (IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//			        }
+//		      });
+//		    
+//	        
+//		    
+//		    
+//		    resultVO.setCodigo((long) 0);
+//		    resultVO.setMensaje("Exito Imagen Upload");
+//		    
+//		  }
+//		  catch (Exception e) {
+//		    log.info("exception : "+e.getMessage());
+//		    resultVO.setCodigo((long) 99);
+//		    resultVO.setMensaje(e.getMessage());
+//		    return resultVO;//new ResultVO(99, "fallo");
+//		  }
+//	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
 	}
 
 	
@@ -828,19 +879,17 @@ public class ControllerUtil {
     }
     
     
-//    private void moverArchivos(String pathLogico, String idEmpresa, String idEntregable) throws Exception {
-//    	
-//		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/file/");
-//	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/evidenciaDocto/");
-//
-//	    try {
-//	        Files.move(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-//	    } catch (IOException e) {
-//	      System.err.println(e);
-//	    }
-//	    
-//	    compressFile(idEmpresa, idEntregable);
-//	}
+    private void copyArchivos(String pathLogico, String idEmpresa, String idEntregable, String fileName) throws Exception {
+    	
+		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/externo/"+fileName);
+	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/"+fileName);
+
+	    try {
+	        Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+	    } catch (IOException e) {
+	      System.err.println(e);
+	    }	    
+	}
     
     
     

@@ -540,15 +540,10 @@ public class EntregableService implements IEntregableService {
 		List<JasperPrint> jasperPrintReporte = new ArrayList<JasperPrint>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map = convertToDReporte(entregable);
-//		JRProperties.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "true");
 		JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());		
 		jasperPrintReporte.add(report);
 		
-		
-		
 		//Genera Resultados Participantes
-//		JRBeanCollectionDataSource participantes = new JRBeanCollectionDataSource(entregable.getFormBParticipantes());
-		
 		listaParticipanteTotal = entregable.getFormBParticipantes();
 		List<List<ParticipantesModelo>> listas = new ArrayList<List<ParticipantesModelo>>();
 		List<ParticipantesModelo> listaParticipanteResto = listaParticipanteTotal;
@@ -735,6 +730,7 @@ public class EntregableService implements IEntregableService {
 	private Map<String, Object> convertToDC3(ParticipantesModelo pm, EntregableModelo entregable) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		 char[] ch = pm.getParticipanteCURP().toCharArray();
 
 		EntregableService entregableService = new EntregableService();
 		map.put("dc3EmpresaLogo", new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
@@ -752,6 +748,24 @@ public class EntregableService implements IEntregableService {
 		map.put("dc3RepresentanteEmpresa", entregable.getFormARepresentanteEmpresa());
 		map.put("dc3RepresentanteTrabajador", entregable.getFormARepresentanteTrabajador());
 		map.put("dc3InstructorFirma", new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
+		map.put("dc3CURP1", ch[0]);
+		map.put("dc3CURP2", ch[1]);
+		map.put("dc3CURP3", ch[2]);
+		map.put("dc3CURP4", ch[3]);
+		map.put("dc3CURP5", ch[4]);
+		map.put("dc3CURP6", ch[5]);
+		map.put("dc3CURP7", ch[6]);
+		map.put("dc3CURP8", ch[7]);
+		map.put("dc3CURP9", ch[8]);
+		map.put("dc3CURP10", ch[9]);
+		map.put("dc3CURP11", ch[10]);
+		map.put("dc3CURP12", ch[11]);
+		map.put("dc3CURP13", ch[12]);
+		map.put("dc3CURP14", ch[13]);
+		map.put("dc3CURP15", ch[14]);
+		map.put("dc3CURP16", ch[15]);
+		map.put("dc3CURP17", ch[16]);
+		map.put("dc3CURP18", ch[17]);
 		
 		return map;
 	}
@@ -767,27 +781,27 @@ public class EntregableService implements IEntregableService {
 		map.put("reporteGeneralesHorario", entregable.getFormCDuracion());
 		map.put("reporteGeneralesCliente", entregable.getFormCRazonSocial());
 		map.put("reporteGeneralesSede", entregable.getFormCSede());
-		map.put("reporteComentarios", entregable.getFormCComentariosGrupo());
-		map.put("reporteAprendizaje", entregable.getFormCProcesoAprendizaje());
-		map.put("reporteTeoria", entregable.getFormCTeoria());
-		map.put("reportePractica", entregable.getFormCPractica());
-//		map.put("reporteEvidenciasFoto", entregable.getFormCEvidenciasFotograficasB());
-		map.put("reporteRecomendaciones", entregable.getFormCRecomendaciones());
-		map.put("reporteCumplimiento", entregable.getFormCNivelCumplimiento());
-		map.put("reporteContingencias", entregable.getFormCContingencias());
-		map.put("reporteAvances", entregable.getFormCAvancesLogrados());
+//		map.put("reporteComentarios", entregable.getFormCComentariosGrupo());
+//		map.put("reporteAprendizaje", entregable.getFormCProcesoAprendizaje());
+//		map.put("reporteTeoria", entregable.getFormCTeoria());
+//		map.put("reportePractica", entregable.getFormCPractica());
+		map.put("reporteEvidenciasFoto", entregable.getFormCEvidenciasFotograficas());
+//		map.put("reporteRecomendaciones", entregable.getFormCRecomendaciones());
+//		map.put("reporteCumplimiento", entregable.getFormCNivelCumplimiento());
+//		map.put("reporteContingencias", entregable.getFormCContingencias());
+//		map.put("reporteAvances", entregable.getFormCAvancesLogrados());
 //		map.put("reporteParticipantes", entregable.getFormBParticipantesStr());
 //		map.put("reporteResultadosParticipantes", entregable.getFormBParticipantes());
-		map.put("reporteObservaciones", entregable.getFormCObservaciones());
+//		map.put("reporteObservaciones", entregable.getFormCObservaciones());
 		map.put("reporteEvidenciasDocto", entregable.getFormCEvidenciaDoctoB());
 		
-		int i =1;
-		for(String a : entregable.getFormCEvidenciasFotograficasB()) {
-			if(!a.equals("")) {
-				map.put("reporteEFoto"+i, new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesEvidencias/".concat(a))));
-			}
-			i++;
-		}
+//		int i =1;
+//		for(String a : entregable.getFormCEvidenciasFotograficasB()) {
+//			if(!a.equals("")) {
+//				map.put("reporteEFoto"+i, new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesEvidencias/".concat(a))));
+//			}
+//			i++;
+//		}
 		
 		return map;
 
@@ -830,7 +844,7 @@ public class EntregableService implements IEntregableService {
 
 	private String transformToRFC(String formARFC) {
 		char [] palabra = formARFC.toCharArray();
-		String[] espacios = {"   ","   ","   ","    ","   ","   ","    ","    ","    ","   ","   ","   ","   ","   ","   "};
+		String[] espacios = {"   ","   ","   ","    ","   ","    ","   ","    ","    ","   ","    ","   ","   ","   ","   "};
 		String completa="";
 		int i = 0;
 		for(char a : palabra) {
@@ -845,7 +859,7 @@ public class EntregableService implements IEntregableService {
 		String dia = convertToDia(tmp[1]);
 		String mes = convertToMes(tmp[3]);
 		String anio = tmp[5];
-		String[] espacios = {"   ","   ","    ","     ","     ","     ","    ","    "};
+		String[] espacios = {"    ","     ","    ","     ","    ","     ","    ","   "};
 		String fecha = anio+mes+dia;
 		
 		char [] palabra = fecha.toCharArray();
@@ -864,7 +878,7 @@ public class EntregableService implements IEntregableService {
 		String dia = convertToDia(tmp[1]);
 		String mes = convertToMes(tmp[3]);
 		String anio = tmp[5];
-		String[] espacios = {"     ","       ","      ","      ","       ","      ","     ","     "};
+		String[] espacios = {"    ","     ","     ","    ","    ","     ","     ","    "};
 		String fecha = anio+mes+dia;
 		
 		char [] palabra = fecha.toCharArray();

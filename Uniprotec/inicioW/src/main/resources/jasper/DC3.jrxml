@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DC3" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6747b997-a6d1-4df2-aa29-d7c21f414557">
 	<parameter name="dc3EmpresaLogo" class="java.io.InputStream"/>
 	<parameter name="dc3ParticipanteNombre" class="java.lang.String"/>
@@ -16,6 +16,24 @@
 	<parameter name="dc3RepresentanteEmpresa" class="java.lang.String"/>
 	<parameter name="dc3RepresentanteTrabajador" class="java.lang.String"/>
 	<parameter name="dc3InstructorFirma" class="java.io.InputStream"/>
+	<parameter name="dc3CURP1" class="java.lang.Character"/>
+	<parameter name="dc3CURP2" class="java.lang.Character"/>
+	<parameter name="dc3CURP3" class="java.lang.Character"/>
+	<parameter name="dc3CURP4" class="java.lang.Character"/>
+	<parameter name="dc3CURP5" class="java.lang.Character"/>
+	<parameter name="dc3CURP6" class="java.lang.Character"/>
+	<parameter name="dc3CURP7" class="java.lang.Character"/>
+	<parameter name="dc3CURP8" class="java.lang.Character"/>
+	<parameter name="dc3CURP9" class="java.lang.Character"/>
+	<parameter name="dc3CURP10" class="java.lang.Character"/>
+	<parameter name="dc3CURP11" class="java.lang.Character"/>
+	<parameter name="dc3CURP12" class="java.lang.Character"/>
+	<parameter name="dc3CURP13" class="java.lang.Character"/>
+	<parameter name="dc3CURP14" class="java.lang.Character"/>
+	<parameter name="dc3CURP15" class="java.lang.Character"/>
+	<parameter name="dc3CURP16" class="java.lang.Character"/>
+	<parameter name="dc3CURP17" class="java.lang.Character"/>
+	<parameter name="dc3CURP18" class="java.lang.Character"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -37,8 +55,10 @@
 				<imageExpression><![CDATA[$P{dc3EmpresaLogo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="63" y="114" width="442" height="25" uuid="791c8974-3321-4c14-b698-d8d04bd5819c"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="63" y="113" width="442" height="25" uuid="791c8974-3321-4c14-b698-d8d04bd5819c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteNombre}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -47,7 +67,7 @@
 				<textFieldExpression><![CDATA[$P{dc3ParticipantePuesto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="331" y="137" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
+				<reportElement x="331" y="138" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteOcupacion}.toUpperCase()]]></textFieldExpression>
 			</textField>
@@ -55,10 +75,6 @@
 				<reportElement x="65" y="203" width="442" height="25" uuid="515a6f41-dd42-41ca-8dea-9f0d3e2f234b"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRazonSocial}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="39" y="138" width="293" height="25" uuid="12f84e43-e752-4212-9b6a-048c1f6f9d71"/>
-				<textFieldExpression><![CDATA[$P{dc3ParticipanteCURP}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="40" y="227" width="240" height="25" uuid="c26046b0-8eb8-40dd-bd7d-e0dde3e403de"/>
@@ -70,36 +86,114 @@
 				<textFieldExpression><![CDATA[$P{dc3Curso}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="25" y="293" width="132" height="25" uuid="a0330403-d8f9-490d-9b25-d221fed25de1"/>
+				<reportElement x="22" y="293" width="132" height="25" uuid="a0330403-d8f9-490d-9b25-d221fed25de1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3Duracion}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="199" y="293" width="132" height="25" uuid="95312733-601e-4a39-b3aa-891af099a3d7"/>
+				<reportElement x="229" y="293" width="141" height="25" uuid="95312733-601e-4a39-b3aa-891af099a3d7"/>
 				<textFieldExpression><![CDATA[$P{dc3FechaInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="362" y="293" width="183" height="25" uuid="a1bd11ba-9453-4556-9a19-d2fb0e1664e3"/>
+				<reportElement x="397" y="293" width="145" height="25" uuid="a1bd11ba-9453-4556-9a19-d2fb0e1664e3"/>
 				<textFieldExpression><![CDATA[$P{dc3FechaFinal}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="44" y="510" width="132" height="15" uuid="a93f3dce-87c5-4e1e-a35e-9f1485c5d11d"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="44" y="513" width="132" height="15" uuid="a93f3dce-87c5-4e1e-a35e-9f1485c5d11d"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{dc3Instructor}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="65" y="460" width="95" height="48" uuid="ef97b49d-c7ea-44dc-90e4-276617c583fa"/>
+				<reportElement x="65" y="462" width="95" height="51" uuid="ef97b49d-c7ea-44dc-90e4-276617c583fa"/>
 				<imageExpression><![CDATA[$P{dc3InstructorFirma}]]></imageExpression>
 			</image>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="204" y="510" width="132" height="15" uuid="09c8b169-4f6c-4935-909e-cfb22baafe89"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="204" y="513" width="132" height="15" uuid="09c8b169-4f6c-4935-909e-cfb22baafe89"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{dc3RepresentanteEmpresa}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="366" y="510" width="132" height="15" uuid="be030002-d1d2-41df-9173-9da82874de51"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="366" y="513" width="132" height="15" uuid="be030002-d1d2-41df-9173-9da82874de51"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{dc3RepresentanteTrabajador}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="138" width="10" height="21" uuid="bfa9ff56-b7af-43f5-8bea-7aa709f4d0f1"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="138" width="9" height="21" uuid="28be6794-fedd-42bf-b33f-bcc332ca3e65"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="138" width="8" height="21" uuid="d4eaf8f1-f27d-48d2-b8ee-7c770cc1c24d"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="138" width="8" height="21" uuid="7ef21169-5561-49a9-8c4b-1b603b5ce807"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="138" width="8" height="21" uuid="803e649a-8feb-4dcc-9ded-850925b65a2f"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="138" width="8" height="21" uuid="709aba60-6d01-4340-9866-535090cc5d6b"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="138" width="8" height="21" uuid="14fe54db-5115-476d-88e2-f073e14e4527"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="138" width="8" height="21" uuid="73edc608-c095-4bf9-9e3f-ea74872044f1"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="138" width="8" height="21" uuid="bd3ae50e-e554-433d-9eea-5a5ec38651fa"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="138" width="8" height="21" uuid="aa722747-b612-4ff5-b65e-0d0bd0f7df8c"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="138" width="8" height="21" uuid="de74cfb5-1daa-45a3-ae8c-4bf923308da3"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="138" width="8" height="21" uuid="c764fb54-9dcf-4c8c-9ae0-7e5da525fdec"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="138" width="8" height="21" uuid="0772fdd3-a5b9-4de5-91ec-b1db5ef5a36d"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP13}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="138" width="8" height="21" uuid="07c390ff-de24-440f-8ef0-1b7e89761153"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP14}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="264" y="138" width="8" height="21" uuid="80943380-5d90-4f41-9a98-df47799423b4"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="138" width="8" height="21" uuid="3dff01f2-a2f0-4817-a9c7-dd937acba4cd"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP16}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="138" width="8" height="21" uuid="4d90a9b7-1e2a-48ad-863c-49abac63e5db"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP17}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="138" width="8" height="21" uuid="d58b8053-842d-4ceb-88fb-03febd819270"/>
+				<textFieldExpression><![CDATA[$P{dc3CURP18}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

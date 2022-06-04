@@ -185,8 +185,10 @@ $(document).ready(function() {
 						$('#evidenciasFotograficas').empty();
 						var arrayImgEvidencias = entregable.formCEvidenciasFotograficas.split(","); 
 						for(var a in arrayImgEvidencias){
-							var urlImgEvidencia = "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imagenesEvidencias/"+arrayImgEvidencias[a];
-							var imgEvidencia =  '<img id="imgEvidencia" src="'+urlImgEvidencia+'" class="img-fluid rounded float-left" alt="">';
+							var urlImgEvidencia = "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/externo/"+arrayImgEvidencias[a];
+//							var imgEvidencia =  '<img id="imgEvidencia" src="'+urlImgEvidencia+'" class="img-fluid rounded float-left" alt="">';
+							var imgEvidencia =  "<div class='alert alert-success' role='alert'><a href='"+urlImgEvidencia+"'>"+arrayImgEvidencias[a]+"</div>";
+							
 							$('#evidenciasFotograficas').append(imgEvidencia);
 						}
 //						console.log(entregable.formCEvidenciasFotograficas);
