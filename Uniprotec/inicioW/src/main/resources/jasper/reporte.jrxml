@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e873a3db-602e-44d6-b8c4-530f96bf6374">
-	<property name="com.jaspersoft.studio.unit." value="inch"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="inch"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e873a3db-602e-44d6-b8c4-530f96bf6374">
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
 	<parameter name="reporteGeneralesInstructor" class="java.lang.String"/>
 	<parameter name="reporteGeneralesCurso" class="java.lang.String"/>
@@ -42,26 +33,22 @@
 		<![CDATA[]]>
 	</queryString>
 	<background>
-		<band height="752">
+		<band height="792">
 			<image>
-				<reportElement x="0" y="0" width="572" height="752" uuid="f69fd2ec-e990-4968-ae3a-ff46cb109e61"/>
-				<imageExpression><![CDATA["jasper/imagenes/reporte.jpg"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="266" y="240" width="311" height="321" uuid="a5a77384-7c00-402a-a38b-cf16a1335c1f"/>
-				<imageExpression><![CDATA["jasper/imagenes/imported_image_3.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="612" height="82" uuid="03878b3a-252b-4414-b8e0-dea6bc0a7df0"/>
+				<imageExpression><![CDATA["jasper/imagenes/encabezado.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</background>
 	<detail>
-		<band height="752" splitType="Stretch">
+		<band height="792" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<staticText>
 				<reportElement x="40" y="150" width="270" height="30" uuid="47b4c652-6793-4fa9-9a07-7431fe3dd28a"/>
 				<textElement>
 					<font fontName="Montserrat SemiBold" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[1.-DATOS GENERALES :]]></text>
+				<text><![CDATA[DATOS GENERALES :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="40" y="210" width="141" height="30" uuid="a6943d19-3d74-4b2f-a5bd-2d843be7a389"/>
@@ -105,13 +92,6 @@
 				</textElement>
 				<text><![CDATA[Sede del curso :]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="490" y="700" width="73" height="41" forecolor="#FFFFFF" uuid="ea750f60-7bb5-4381-bcca-1614feee9f31"/>
-				<textElement>
-					<font fontName="Montserrat Medium"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="41" y="258" width="170" height="32" uuid="1544476a-3d5e-4260-9168-6c6762c14c02"/>
 				<textElement>
@@ -154,6 +134,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reporteGeneralesSede}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="732" width="612" height="60" uuid="08cbb274-6257-4eef-9a26-b7882282c009"/>
+				<imageExpression><![CDATA["jasper/imagenes/pie.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>

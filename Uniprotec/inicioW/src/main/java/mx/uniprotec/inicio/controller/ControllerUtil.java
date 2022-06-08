@@ -539,12 +539,12 @@ public class ControllerUtil {
 			    resultVO.setMensaje("Exito File Upload");
 			    
 			    //copia archivo a documentacion para descarga
-			    try {
-					copyArchivos("/uniprotec/entregables/"+idEmpresa+"/"+idEntregable ,idEmpresa, idEntregable, filename);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//			    try {
+//					copyArchivos("/uniprotec/entregables/"+idEmpresa+"/"+idEntregable ,idEmpresa, idEntregable, filename);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			    
 			  }
 			  catch (Exception e) {
@@ -879,17 +879,17 @@ public class ControllerUtil {
     }
     
     
-    private void copyArchivos(String pathLogico, String idEmpresa, String idEntregable, String fileName) throws Exception {
-    	
-		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/externo/"+fileName);
-	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/"+fileName);
-
-	    try {
-	        Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-	    } catch (IOException e) {
-	      System.err.println(e);
-	    }	    
-	}
+//    private void copyArchivos(String pathLogico, String idEmpresa, String idEntregable, String fileName) throws Exception {
+//    	
+//		Path origenPath = FileSystems.getDefault().getPath( pathLogico +"/externo/"+fileName);
+//	    Path destinoPath = FileSystems.getDefault().getPath( pathLogico +"/documentacion/"+fileName);
+//
+//	    try {
+//	        Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+//	    } catch (IOException e) {
+//	      System.err.println(e);
+//	    }	    
+//	}
     
     
     

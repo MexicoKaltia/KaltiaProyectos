@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resultadosParticipantes" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="868819c0-2e1e-457b-84c5-82067f527855">
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resultadosParticipantes" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="868819c0-2e1e-457b-84c5-82067f527855">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="collectionBean"/>
 	<style name="Title" fontName="Montserrat Medium" fontSize="50" isBold="true" pdfFontName="Montserrat"/>
 	<style name="Column header" forecolor="#666666" fontName="Montserrat Medium" fontSize="12" isBold="true"/>
@@ -40,15 +40,15 @@
 	<field name="participantePromedio" class="java.lang.String"/>
 	<field name="participanteAprovechamiento" class="java.lang.String"/>
 	<background>
-		<band height="752">
+		<band height="792">
 			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
 			<image>
-				<reportElement x="0" y="0" width="572" height="752" uuid="955e3f01-ac76-4549-a942-afdb44ae47c1"/>
-				<imageExpression><![CDATA["jasper/imagenes/reporte.jpg"]]></imageExpression>
+				<reportElement x="0" y="0" width="612" height="82" uuid="6e3b01f0-ca4a-49c8-abc2-3ffa8994bb65"/>
+				<imageExpression><![CDATA["jasper/imagenes/encabezado.jpg"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="266" y="240" width="311" height="321" uuid="b90c3a93-a3b5-4a91-b14e-196b9c42042a"/>
-				<imageExpression><![CDATA["jasper/imagenes/imported_image_3.jpg"]]></imageExpression>
+				<reportElement x="0" y="732" width="612" height="60" uuid="2ef228bc-e1b8-4230-bc9e-18363cfd50f3"/>
+				<imageExpression><![CDATA["jasper/imagenes/pie.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</background>
@@ -56,7 +56,7 @@
 		<band height="243">
 			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
 			<staticText>
-				<reportElement mode="Opaque" x="2" y="213" width="28" height="21" forecolor="#030000" backcolor="#FFFFFF" uuid="5977a9f6-19d8-45e1-8a1d-958102a57fb2"/>
+				<reportElement mode="Opaque" x="32" y="213" width="28" height="21" forecolor="#030000" backcolor="#FFFFFF" uuid="5977a9f6-19d8-45e1-8a1d-958102a57fb2"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -67,7 +67,7 @@
 				<text><![CDATA[Id Usuario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="30" y="213" width="191" height="21" uuid="a8653a09-18f8-4f90-ba55-9f99ffad2ecd"/>
+				<reportElement x="60" y="213" width="191" height="21" uuid="a8653a09-18f8-4f90-ba55-9f99ffad2ecd"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -78,7 +78,7 @@
 				<text><![CDATA[Nombre Completo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="213" width="34" height="21" uuid="3508979e-fa46-43f5-ab1a-1f816d6d6bc6"/>
+				<reportElement x="251" y="213" width="34" height="21" uuid="3508979e-fa46-43f5-ab1a-1f816d6d6bc6"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -89,7 +89,7 @@
 				<text><![CDATA[Inicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="255" y="213" width="45" height="21" uuid="91b4af88-41a6-4365-b9d1-1702dde0628e"/>
+				<reportElement x="285" y="213" width="45" height="21" uuid="91b4af88-41a6-4365-b9d1-1702dde0628e"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -100,7 +100,7 @@
 				<text><![CDATA[Final]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="213" width="50" height="21" uuid="6982cddd-3e33-4afe-af2a-c8af8cdfcfad"/>
+				<reportElement x="330" y="213" width="50" height="21" uuid="6982cddd-3e33-4afe-af2a-c8af8cdfcfad"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -111,7 +111,7 @@
 				<text><![CDATA[Práctico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="350" y="213" width="50" height="21" uuid="be1f420e-4a6f-4041-a764-1ca1441a9012"/>
+				<reportElement x="380" y="213" width="50" height="21" uuid="be1f420e-4a6f-4041-a764-1ca1441a9012"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -129,10 +129,10 @@
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[12.- RESULTADOS PARTICIPANTES :]]></text>
+				<text><![CDATA[RESULTADOS PARTICIPANTES :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="189" width="91" height="24" uuid="4ec89da6-459a-4989-9ec8-0a530217483c"/>
+				<reportElement x="240" y="189" width="91" height="24" uuid="4ec89da6-459a-4989-9ec8-0a530217483c"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -146,7 +146,7 @@
 				<text><![CDATA[Exámen Teórico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="213" width="145" height="21" uuid="c6322394-ea75-4303-9cd3-f3a33280c14e"/>
+				<reportElement x="430" y="213" width="145" height="21" uuid="c6322394-ea75-4303-9cd3-f3a33280c14e"/>
 				<box>
 					<pen lineColor="#002FFF"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
@@ -162,7 +162,7 @@
 		<band height="28">
 			<property name="com.jaspersoft.studio.unit.height" value="inch"/>
 			<textField>
-				<reportElement x="0" y="2" width="30" height="21" uuid="4328d692-5e5d-4482-88ad-05995fe29199"/>
+				<reportElement x="30" y="2" width="30" height="21" uuid="4328d692-5e5d-4482-88ad-05995fe29199"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineColor="#FFFFFF"/>
@@ -176,7 +176,7 @@
 				<textFieldExpression><![CDATA[$F{idParticipante}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="30" y="2" width="191" height="21" uuid="f95c3b02-c2ae-4dcf-afb6-4e5026889713"/>
+				<reportElement x="60" y="2" width="191" height="21" uuid="f95c3b02-c2ae-4dcf-afb6-4e5026889713"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -190,7 +190,7 @@
 				<textFieldExpression><![CDATA[$F{participanteNombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="224" y="2" width="32" height="21" uuid="a47da84e-641e-471c-8111-85aa46c2be70"/>
+				<reportElement x="254" y="2" width="32" height="21" uuid="a47da84e-641e-471c-8111-85aa46c2be70"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -204,7 +204,7 @@
 				<textFieldExpression><![CDATA[$F{participanteExamenTeoricoInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="259" y="2" width="32" height="21" uuid="06a4d3fe-e912-4fb9-81f2-2e9c10f135f0"/>
+				<reportElement x="289" y="2" width="32" height="21" uuid="06a4d3fe-e912-4fb9-81f2-2e9c10f135f0"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -218,7 +218,7 @@
 				<textFieldExpression><![CDATA[$F{participanteExamenTeoricoFinal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="304" y="2" width="39" height="21" uuid="9be2b30c-4eee-4432-82f0-c507a6d40c0e"/>
+				<reportElement x="334" y="2" width="39" height="21" uuid="9be2b30c-4eee-4432-82f0-c507a6d40c0e"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -232,7 +232,7 @@
 				<textFieldExpression><![CDATA[$F{participanteExamenPractico}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="2" width="40" height="21" uuid="4bae667e-ea1d-4f7e-94a6-d2a6298561b6"/>
+				<reportElement x="380" y="2" width="40" height="21" uuid="4bae667e-ea1d-4f7e-94a6-d2a6298561b6"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -246,7 +246,7 @@
 				<textFieldExpression><![CDATA[$F{participantePromedio}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="392" y="2" width="158" height="21" uuid="cc695a74-b984-4493-8062-a236c972d52a"/>
+				<reportElement x="422" y="2" width="158" height="21" uuid="cc695a74-b984-4493-8062-a236c972d52a"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Dotted" lineColor="#0E2466"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

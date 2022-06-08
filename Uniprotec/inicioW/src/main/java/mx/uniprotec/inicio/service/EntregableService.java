@@ -34,6 +34,7 @@ import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.ResultLocal;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.inicio.controller.ControllerUtil;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.ComponenteComun;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -60,6 +61,8 @@ public class EntregableService implements IEntregableService {
 
 	@Autowired
 	BaseClientRest baseClientRest ;
+	@Autowired
+	ControllerUtil controllerUtil ;
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	private String pathLogico = "";
@@ -258,6 +261,19 @@ public class EntregableService implements IEntregableService {
 					 	
 				        File directorio = new File(directory);
 				        if (directorio.exists()) {
+				        	/*
+				        	 * copiar archivo de reporte externo a documentacion
+				        	 */
+				        	try {
+				        		log.info("Copiar Archivo reporte externo");
+								copyArchivos();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+				        	/*
+					         * comprimir archivos zip idEntregable.zip
+					         */
 				        	try {
 				        		log.info("Comprime EvidenciaDocumental");
 				        		fileOutPut = "/documentacion/evidenciasDocto.zip"; 
@@ -635,7 +651,24 @@ public class EntregableService implements IEntregableService {
 //	}
 	
 	
+	  private void copyArchivos() throws Exception {
+	    	
+			Path origenPath = FileSystems.getDefault().getPath( this.pathLogico +"/externo/");
+		    Path destinoPath = FileSystems.getDefault().getPath( this.pathLogico +"/documentacion/");
+		    File  f = new File(origenPath.toString());
+		    String[] paths = f.list();
 
+		    try {
+		    	for(String path:paths) {
+		    		origenPath = origenPath.resolve(path);
+		    		destinoPath = destinoPath.resolve(path);
+		    		Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+		    	}
+		    	
+		    } catch (IOException e) {
+		      System.err.println(e);
+		    }	    
+		}
 	
     
     private void compressFile(String idEmpresa, String idEntregable, String fileOutPut, String folderInput) throws Exception {
@@ -730,6 +763,9 @@ public class EntregableService implements IEntregableService {
 	private Map<String, Object> convertToDC3(ParticipantesModelo pm, EntregableModelo entregable) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(pm.getParticipanteCURP().equals(null) || pm.getParticipanteCURP().equals("")) {
+			pm.setParticipanteCURP("                  ");
+		}
 		 char[] ch = pm.getParticipanteCURP().toCharArray();
 
 		EntregableService entregableService = new EntregableService();
