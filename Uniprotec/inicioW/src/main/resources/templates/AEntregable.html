@@ -908,7 +908,7 @@
                                                	<div class="form-row">
 				                                        <div class="col-md-12 mb-3">
 				                                            <label for="validationCustom02">Nombre Completo</label>
-				                                            <input type="text" class="form-control"  id="participanteNombre" placeholder="Capture Nombre Completo " value="" maxlength="70" required>
+				                                            <input type="text" class="form-control"  id="participanteNombre" placeholder="Capture Nombre Completo " value="" maxlength="70" onfocusout="validaParticipante()" required>
 				                                            <div class="invalid-feedback">
 				                                                Capturar Nombre Completo
 				                                            </div>
@@ -918,7 +918,7 @@
 			                                     <div class="form-row">
 				                                        <div class="col-md-3 mb-3">
 				                                            <label for="validationCustom02">CURP</label>
-				                                            <input type="text" class="form-control"  id="participanteCURP" placeholder="Capture CURP" value="" maxlength="18" required>
+				                                            <input type="text" class="form-control"  id="participanteCURP" placeholder="Capture CURP" value="" maxlength="18" onfocusout="validaParticipante()" required>
 				                                            <div class="invalid-feedback">
 				                                                Capturar CURP
 				                                            </div>
@@ -979,7 +979,7 @@
 					                                        </div>
 					                                        <div class="col-md-3 mb-3">
 					                                            <label for="validationCustom02">Promedio</label>
-					                                            <input type="text" class="form-control prom"   id="participanteP"  value="" maxlength="2" required>
+					                                            <input type="text" class="form-control prom"   id="participanteP"  value="" maxlength="5" onchange="promedioP()" required>
 					                                            <div class="invalid-feedback">
 					                                                P
 					                                            </div>
@@ -1003,8 +1003,8 @@
 												<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                       			<button type="button" class="btn btn-info" id="btnAgregarParticipante" data-dismiss="modal">Agregar Participante</button>
-                                       			<button type="button" class="btn btn-primary" id="btnEditarParticipante" data-dismiss="modal">Editar Participante</button>
+                                       			<button type="button" class="btn btn-info" id="btnAgregarParticipante" data-dismiss="modal" disabled>Agregar Participante</button>
+                                       			<button type="button" class="btn btn-primary" id="btnEditarParticipante" data-dismiss="modal" disabled>Editar Participante</button>
 											</form>
                                            </div>
                                        </div>

@@ -400,6 +400,7 @@ $(document).ready(function() {
 		$('#btnGeneraDocto').hide();
 		if(e === 17 ){
 			var flagFoto = false;
+			var flagParticipante = false;
 			$('#btnAltaEntregable').attr('disabled', false);
 			if($participantes.length > 0){
 				
@@ -417,12 +418,18 @@ $(document).ready(function() {
 							break;
 						}
 					}
+					if(participante.participanteExamenPractico === "" || participante.participanteExamenTeoricoFinal=== "" ||  participante.participanteExamenTeoricoInicial=== "" ||  participante.participantePromedio=== ""){
+						flagFoto= true;
+						alert("Revisa a los participantes que contenga valores en los campos de Exámen Teórico Iinicial, Exámen Teórico Final, Exámen Práctico y Promedio, parece que no está completo el expediente de participantes");
+						$('#btnAltaEntregable').attr('disabled', true);
+						$('#btnGeneraDocto').hide();
+						break;
+					}
 				}
 				if(!flagFoto){
 					$('#btnGeneraDocto').show();
 				}
 				
-//				$('#divGeneraDocto').append('<button type="button" id="btnGeneraDocto" class="mb-2 mr-2 btn btn-success btn-lg btn-block">Generar Documentación</button>');
 			}
 		}
 		
@@ -510,12 +517,11 @@ $(document).ready(function() {
 		$('#participantePuesto').val("");
 		$('#participanteOcupacion').val("");
 		$('#formBFotoParticipante').val("");
-		$('#participanteETI').val("");
-		$('#participanteETF').val("");
-		$('#participanteEP').val("");
-		$('#participanteP').val("");
+		$('#participanteETI').val("0");
+		$('#participanteETF').val("0");
+		$('#participanteEP').val("0");
+		$('#participanteP').val("0");
 		$('#participanteAprovechamiento').val("");
-		console.log($participantesLength);
 		if($participantesLength > 0){
 			$participantesLength = $participantesLength + 1;
 		}else{
@@ -724,6 +730,19 @@ $(document).ready(function() {
 			
 });  // Fin JQRY
 
+function validaParticipante(){
+	var participanteNombre = $('#participanteNombre').val(); 
+	
+	if(participanteNombre !== "" ){
+		console.log("autorizado btnAgregarParticipante");
+		$('#btnAgregarParticipante').attr('disabled', false);
+		$('#btnEditarParticipante').attr('disabled', false);
+	}else{
+		$('#btnAgregarParticipante').attr('disabled', true);
+		$('#btnEditarParticipante').attr('disabled', true);
+	}    
+}
+
 function formCTextArea(entregable){
 	if(entregable){
 		if($('#formCComentariosGrupo').val() === "" || $('#formCComentariosGrupo').val() === null){
@@ -889,7 +908,18 @@ function duracion(str){
 			if(promedio < 8){
 				$('#checkAprovechamiento').bootstrapToggle('off');
 			}
+			if(promedio > 10){
+				$('#participanteP').val(0);
+			}
 		}
+		
+		function promedioP(){
+			var promedio = $('#participanteP').val();
+			if(promedio > 10){
+				$('#participanteP').val(0);
+			}
+		}
+
 
 		function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
 
