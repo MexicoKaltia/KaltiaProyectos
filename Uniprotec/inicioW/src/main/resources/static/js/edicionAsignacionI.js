@@ -194,6 +194,7 @@ $(document).ready(function(){
 	
 
 	if(perfilUsuario === "Instructor"){
+		$('#edicionAsignacion0').hide();
 		if($.asignaStatus === "Curso Asignado" || $.asignaStatus === "Curso Editado" ){
 			$.sigStatus = "Confirmado Instructor";
 			$('#consirmarStatus').html('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-center btn-lg" >'+$.sigStatus+'</button>');
@@ -266,6 +267,8 @@ $(document).ready(function(){
 	$('#archivosAsignacionTexto0').val(asignacionItem.archivosAsignacion);
 	$('#archivoParticipantes').val($.asignaArchivoParticipantes);
 	$('#archivoParticipantesTexto').val($.asignaArchivoParticipantes);
+	$('#archivoParticipantes1').val($.asignaArchivoParticipantes);
+	$('#archivoParticipantesTexto1').val($.asignaArchivoParticipantes);
 	
 	
 	if(perfilUsuario !== "Administracion"){
@@ -288,7 +291,6 @@ $(document).ready(function(){
 
 function validaEntregable(){
 	var valoresGuias = asignacionItem.guiaEntregable +  $('#guiaEntregableZ').val() + "&&" + $('#idEntregableZ').val() + "||";
-	alert(valoresGuias);
 	$('#guiaEntregable').val(valoresGuias);
 }
 //  JScript

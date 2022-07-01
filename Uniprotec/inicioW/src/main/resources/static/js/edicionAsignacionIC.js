@@ -26,6 +26,10 @@ $(document).ready(function(){
 	 $.asignaTipoCurso=asignacionItem.tipoCursoAsignacion;
 	 $.asignaStatus=asignacionItem.statusAsignacion;
 	 $.asignaErrorProceso=asignacionItem.errorProceso;
+	 $.asignaGuia=asignacionItem.guiaEntregable
+	 $.asignaArchivoParticipantes=asignacionItem.archivoParticipantes;
+	 $.asignaArchivoParticipantesTexto=asignacionItem.archivoParticipantes;
+	 $.asignaCostoHotel=asignacionItem.costoHotel;
 	 
 	 var nombreRegion = asignacionItem.nombreRegionAsignacion;
 	 var regionCliente = regionCliente($.asignaIdRegion);
@@ -215,7 +219,7 @@ $(document).ready(function(){
 	
 	
 	/*
-	*    Submit Asigancion
+	*    Submit Asignacion
 	*/
 	        $("#idAsignacion0").val(asignacionItem.idAsignacion);
 			$("#idAsignacionLogica0").val(asignacionItem.idAsignacionLogica);
@@ -238,7 +242,12 @@ $(document).ready(function(){
 			$("#statusAsignacion0").val(asignacionItem.statusAsignacion);
 			$("#verificarEntregable0").val(asignacionItem.verificarEntregable);
 			$("#userCreateAsignacion0").val(asignacionItem.userCreateAsignacion);
-			$("#userCreateAsignacionTexto0").val(asignacionItem.userCreateAsignacionTexto);	
+			$("#userCreateAsignacionTexto0").val(asignacionItem.userCreateAsignacionTexto);
+			$("#archivoParticipantes0").val(asignacionItem.archivoParticipantes);
+			$("#archivoParticipantesTexto0").val(asignacionItem.archivoParticipantesTexto);
+			$("#costoHotel").val(asignacionItem.costoHotel);
+			$("#fechaPago").val(asignacionItem.fechaPago);
+			$("#numeroFactura").val(asignacionItem.numeroFactura);
 			$('#statusAsignacion0').val($.sigStatus);
 	
 	if(perfilUsuario !== "Administracion"){

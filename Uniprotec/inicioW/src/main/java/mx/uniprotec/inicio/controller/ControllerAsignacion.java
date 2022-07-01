@@ -341,17 +341,17 @@ public class ControllerAsignacion {
 			
 			ResultVO rs = asignacionService.consultaAsignacionCorreo(idAsignacion);
 			JSONObject jsonObject = (JSONObject) rs.getJsonResponse();
-			JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("asignacion"));
-			model.addAttribute("asignacion", jsonUsuario);
+			JSONObject jsonAsignacion = new JSONObject((Map) jsonObject.get("asignacion"));
+			model.addAttribute("asignacion", jsonAsignacion);
 			model.addAttribute("asignacionItem", new AsignacionModelo());
 			
-			ResultVO rs1 = clienteService.consultaClienteCorreo(jsonUsuario.get("idClienteAsignacion").toString());
+			ResultVO rs1 = clienteService.consultaClienteCorreo(jsonAsignacion.get("idClienteAsignacion").toString());
 			jsonObject = (JSONObject) rs1.getJsonResponse();
 			JSONObject jsonCliente = new JSONObject((Map) jsonObject.get("clientes"));
 			model.addAttribute("cliente", jsonCliente);
 
 			if(!idInstructor.equals("0")) {
-				if(!jsonUsuario.get("idInstructorAsignacion").toString().equals(idInstructor)) {
+				if(!jsonAsignacion.get("idInstructorAsignacion").toString().equals(idInstructor)) {
 					ModelAndView mav = new ModelAndView("CAsignacionIC0", model);
 					mav.addObject("error", true);
 					return mav;

@@ -252,7 +252,7 @@ public class ControllerInicio extends HttpServlet{
 				asignacion.setParticipantesAsignacion((String) asignacionJson.get("participantesAsignacion"));
 				asignacion.setNivelAsignacion((String) asignacionJson.get("nivelAsignacion"));
 				asignacion.setObservacionesAsignacion((String) asignacionJson.get("observacionesAsignacion"));
-				asignacion.setArchivosAsignacion((String) asignacionJson.get("archivosAsignacionTexto"));
+				asignacion.setArchivosAsignacion((String) asignacionJson.get("archivosAsignacion"));
 				asignacion.setIdRegionAsignacion(Long.valueOf(asignacionJson.get("idRegionAsignacion").toString()));
 				asignacion.setNombreRegionAsignacion((String) asignacionJson.get("nombreRegionAsignacion"));
 				asignacion.setTipoCursoAsignacion((String) asignacionJson.get("tipoCursoAsignacion"));
@@ -260,9 +260,10 @@ public class ControllerInicio extends HttpServlet{
 				asignacion.setUserCreateAsignacion(Long.valueOf(asignacionJson.get("userCreateAsignacion").toString()));
 				asignacion.setUserCreateAsignacionTexto((String) asignacionJson.get("userCreateAsignacionTexto"));
 				asignacion.setStatusAsignacion((String) asignacionJson.get("statusAsignacion"));
-				asignacion.setFechaPago((String) asignacionJson.get("FechaPago"));
+				asignacion.setFechaPago((String) asignacionJson.get("fechaPago"));
 				asignacion.setGuiaEntregable((String) asignacionJson.get("guiaEntregable"));
 				asignacion.setNumeroFactura((String) asignacionJson.get("numeroFactura"));
+				asignacion.setCostoHotel((String) asignacionJson.get("costoHotel"));
 				asignacion.setArchivoParticipantes((String) asignacionJson.get("archivoParticipantes"));
 				model.addAttribute("asignacionItem", asignacion);
 				

@@ -254,40 +254,42 @@ public class EntregableService implements IEntregableService {
 				if(rl.getCodigo() == 0) {
 					
 					/*
-			         * comprimir archivos files a documentacion/evidenciaDocto.zip 
-			         */
-					 	String directory = this.pathLogico+"/file/";
+		        	 * copiar archivo de reporte externo a documentacion
+		        	 */
+		        
+					String directoryExterno = this.pathLogico+"/externo/";
+			        File directorioExterno = new File(directoryExterno);				        	
+		        	if (directorioExterno.exists()) {
+		        		try {
+			        		log.info("Copiar Archivo reporte externo");
+							copyArchivos();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+		        	}
+		        	
+				       	/*
+					        * comprimir archivos files a documentacion/evidenciaDocto.zip 
+					        */
+				       	String directory = this.pathLogico+"/file/";
 					 	String fileOutPut, folderInput= ""; 
-					 	
-				        File directorio = new File(directory);
-				        if (directorio.exists()) {
-				        	/*
-				        	 * copiar archivo de reporte externo a documentacion
-				        	 */
-				        	try {
-				        		log.info("Copiar Archivo reporte externo");
-								copyArchivos();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-				        	/*
-					         * comprimir archivos zip idEntregable.zip
-					         */
-				        	try {
-				        		log.info("Comprime EvidenciaDocumental");
-				        		fileOutPut = "/documentacion/evidenciasDocto.zip"; 
-				        		folderInput ="/file/";
-								compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
-								rl.setCodigo(0);
-						        rl.setMensaje("Comprime EvidenciaDocumental exitosamente");
-							} catch (Exception e) {
-								log.info("exception : "+e.getMessage());
-							    rl.setCodigo(99);
-							    rl.setMensaje(e.getMessage());
-							    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
-							}
-				        }
+					    File directorio = new File(directory);				        	
+				       	if (directorio.exists()) {
+				       	try {
+				       		log.info("Comprime EvidenciaDocumental");
+				       		fileOutPut = "/documentacion/evidenciasDocto.zip"; 
+				       		folderInput ="/file/";
+							compressFile(idEmpresa, idEntregable, fileOutPut, folderInput );
+							rl.setCodigo(0);
+					        rl.setMensaje("Comprime EvidenciaDocumental exitosamente");
+						} catch (Exception e) {
+							log.info("exception : "+e.getMessage());
+						    rl.setCodigo(99);
+						    rl.setMensaje(e.getMessage());
+						    return new ResultVO(Long.valueOf(rl.getCodigo()), rl.getMensaje());
+						}
+				       }
 					
 			        /*
 			         * comprimir archivos zip idEntregable.zip

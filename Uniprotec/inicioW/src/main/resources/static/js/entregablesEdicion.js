@@ -831,10 +831,8 @@ function duracion(str){
 	
 
 	function imagenCliente(archivosCampo){
-	  var $idCliente = asignacionCliente.rfcCliente
-//	  $idCliente = $(rfcCliente).val();                
+	  var $idCliente = asignacionCliente.rfcCliente             
 	  var files = archivosCampo.files[0];
-//	  console.log(files.size);
 	  if((files.size /1024) < 1024){
 		  var formALogo = $("#formALogo").val();
 		  $("#formALogoA").val("");
@@ -844,8 +842,7 @@ function duracion(str){
 	}
 	
 	function imagenParticipante(archivosCampo){
-		var $idCliente = asignacionCliente.rfcCliente
-//		  $idCliente = $(rfcCliente).val();                
+		var $idCliente = asignacionCliente.rfcCliente               
 		  var files = archivosCampo.files[0];
 		  if((files.size /1024) < 1024){
 			  enviaImagenParticipante(archivosCampo, $idCliente);
@@ -853,35 +850,17 @@ function duracion(str){
 		}
 	
 	function imagenEvidencias(archivosCampo){
-		var $idCliente = asignacionCliente.rfcCliente
-//		  $idCliente = $(rfcCliente).val();                
+		var $idCliente = asignacionCliente.rfcCliente               
 		  var files = archivosCampo.files;
 		  enviaImagenEvidencia(files, $idCliente);
-			
-		  for (var i = 0; i < files.length; i++) {   
-		      var file = files[i];
-//		      enviaImagenEvidencia(file, $idCliente);
-//		      sleep(1000);
-		      
-		  }
 		}
 	
 	function archivoCliente(archivosCampo){
 		var $idCliente = asignacionCliente.rfcCliente
-//		  $idCliente = $(rfcCliente).val();
 	      enviaFile(archivosCampo, $idCliente);
 	      }
 
-	
-//	function archivoCliente(archivosCampo){
-//		  var $idCliente = asignacionCliente.rfcCliente
-//	    enviaFile(archivosCampo, $idCliente);
-//	    var files = archivosCampo.files;
-//	    for (var i = 0; i < files.length; i++) {           
-//	        var file = files[i];
-//	        }        
-//	    }
-	
+		
 	
 	function sleep(milliseconds) {
 		  const date = Date.now();

@@ -81,9 +81,9 @@
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRFC}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="118" y="260" width="424" height="25" uuid="db4558d4-a937-4838-99e6-a7c79641dff3"/>
+				<reportElement stretchType="ContainerHeight" x="115" y="260" width="424" height="20" uuid="db4558d4-a937-4838-99e6-a7c79641dff3"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$P{dc3Curso}.toUpperCase()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{dc3Curso}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="22" y="293" width="132" height="25" uuid="a0330403-d8f9-490d-9b25-d221fed25de1"/>
