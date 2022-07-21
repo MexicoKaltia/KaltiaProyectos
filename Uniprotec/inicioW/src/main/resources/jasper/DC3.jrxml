@@ -34,6 +34,19 @@
 	<parameter name="dc3CURP16" class="java.lang.Character"/>
 	<parameter name="dc3CURP17" class="java.lang.Character"/>
 	<parameter name="dc3CURP18" class="java.lang.Character"/>
+	<parameter name="rfc0" class="java.lang.Character"/>
+	<parameter name="rfc1" class="java.lang.Character"/>
+	<parameter name="rfc2" class="java.lang.Character"/>
+	<parameter name="rfc3" class="java.lang.Character"/>
+	<parameter name="rfc4" class="java.lang.Character"/>
+	<parameter name="rfc5" class="java.lang.Character"/>
+	<parameter name="rfc6" class="java.lang.Character"/>
+	<parameter name="rfc7" class="java.lang.Character"/>
+	<parameter name="rfc8" class="java.lang.Character"/>
+	<parameter name="rfc9" class="java.lang.Character"/>
+	<parameter name="rfc10" class="java.lang.Character"/>
+	<parameter name="rfc11" class="java.lang.Character"/>
+	<parameter name="rfc12" class="java.lang.Character"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -67,7 +80,7 @@
 				<textFieldExpression><![CDATA[$P{dc3ParticipantePuesto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="331" y="139" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
+				<reportElement x="331" y="138" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteOcupacion}.toUpperCase()]]></textFieldExpression>
 			</textField>
@@ -76,12 +89,8 @@
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3EmpresaRazonSocial}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="40" y="227" width="240" height="25" uuid="c26046b0-8eb8-40dd-bd7d-e0dde3e403de"/>
-				<textFieldExpression><![CDATA[$P{dc3EmpresaRFC}.toUpperCase()]]></textFieldExpression>
-			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement stretchType="ContainerHeight" x="115" y="260" width="424" height="20" uuid="db4558d4-a937-4838-99e6-a7c79641dff3"/>
+				<reportElement stretchType="ContainerHeight" x="115" y="261" width="424" height="20" uuid="db4558d4-a937-4838-99e6-a7c79641dff3"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3Curso}]]></textFieldExpression>
 			</textField>
@@ -194,6 +203,58 @@
 			<textField>
 				<reportElement x="318" y="139" width="8" height="21" uuid="d58b8053-842d-4ceb-88fb-03febd819270"/>
 				<textFieldExpression><![CDATA[$P{dc3CURP18}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="228" width="10" height="20" uuid="1c6497f9-c727-4a07-aff5-b0f8b374abc6"/>
+				<textFieldExpression><![CDATA[$P{rfc0}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="228" width="10" height="20" uuid="824f6f80-1871-4d88-8a53-196fc96957fd"/>
+				<textFieldExpression><![CDATA[$P{rfc1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="228" width="10" height="20" uuid="12b06539-0ae9-40b6-b914-ca99ee117eda"/>
+				<textFieldExpression><![CDATA[$P{rfc2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="228" width="10" height="20" uuid="5aedbc3c-2032-4ff9-beda-c6f61435e8a2"/>
+				<textFieldExpression><![CDATA[$P{rfc3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="228" width="10" height="20" uuid="8a8b1e30-2a6f-4b7a-b176-cfd1f7d1f798"/>
+				<textFieldExpression><![CDATA[$P{rfc4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="228" width="10" height="20" uuid="70cdc5d8-d69b-4163-8b41-476d6ad1af10"/>
+				<textFieldExpression><![CDATA[$P{rfc5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="228" width="10" height="20" uuid="aa078459-a48a-4cb9-bcf8-e5415fb0062a"/>
+				<textFieldExpression><![CDATA[$P{rfc6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="228" width="10" height="20" uuid="02ce1b7d-2c18-4f9d-a549-a88ed6adffa0"/>
+				<textFieldExpression><![CDATA[$P{rfc7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="228" width="10" height="20" uuid="efb4eeec-59fd-4138-9008-c10b485e082b"/>
+				<textFieldExpression><![CDATA[$P{rfc8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="228" width="10" height="20" uuid="4eaa2c76-de38-457a-aec8-c53505f0958f"/>
+				<textFieldExpression><![CDATA[$P{rfc9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="228" width="10" height="20" uuid="4f7cc1eb-ee87-4feb-9ae3-b10d877c7ce1"/>
+				<textFieldExpression><![CDATA[$P{rfc10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="228" width="10" height="20" uuid="a5cee8a0-163b-4e04-8b48-acaec15eba10"/>
+				<textFieldExpression><![CDATA[$P{rfc11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="228" width="10" height="20" uuid="7bfe4454-541c-4c18-be70-6402432f7b6d"/>
+				<textFieldExpression><![CDATA[$P{rfc12}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

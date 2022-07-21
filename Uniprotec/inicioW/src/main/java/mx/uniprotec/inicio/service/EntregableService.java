@@ -769,6 +769,10 @@ public class EntregableService implements IEntregableService {
 			pm.setParticipanteCURP("                  ");
 		}
 		 char[] ch = pm.getParticipanteCURP().toCharArray();
+		 char[] rfc = entregable.getFormARFC().toCharArray();
+		 log.info("rfc.length : "+rfc.length);
+		 log.info("entregable.getFormARFC() : "+entregable.getFormARFC());
+//		 char cha = ' ';
 
 		EntregableService entregableService = new EntregableService();
 		map.put("dc3EmpresaLogo", new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
@@ -804,6 +808,25 @@ public class EntregableService implements IEntregableService {
 		map.put("dc3CURP16", ch[15]);
 		map.put("dc3CURP17", ch[16]);
 		map.put("dc3CURP18", ch[17]);
+		map.put("rfc0", rfc[0]);
+		map.put("rfc1", rfc[1]);
+		map.put("rfc2", rfc[2]);
+		map.put("rfc3", rfc[3]);
+		map.put("rfc4", rfc[4]);
+		map.put("rfc5", rfc[5]);
+		map.put("rfc6", rfc[6]);
+		map.put("rfc7", rfc[7]);
+		map.put("rfc8", rfc[8]);
+		map.put("rfc9", rfc[9]);
+		map.put("rfc10", rfc[10]);
+		map.put("rfc11", rfc[11]);
+		map.put("rfc12", ' ');
+		if(rfc.length == 13) {
+			map.put("rfc12", rfc[12]);
+		}
+		
+
+
 		
 		return map;
 	}
