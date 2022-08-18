@@ -35,19 +35,16 @@ $(document).ready(function() {
 	}
 	
 	//check box filtro Instructores
-	var check = false;
-	$( '#todosInstructores' ).on( 'click', function() {
-		if(check === false){
-			check = true;
-		}else{
-			check = false;
-		}
+	var check = true;
+	$('#btnFiltroInstructores').click(function(){
+		$('#todosInstructores').prop( "checked", check );
 		$('.checkboxFiltro').prop( "checked", check );
-		
 	});
 	
-	$('#btnFiltroInstructores').click(function(){
-		$('#todosInstructores').prop( "checked", false );
+	$( '#todosInstructores' ).on( 'click', function() {
+		check = $('#todosInstructores').prop( "checked");
+		$('.checkboxFiltro').prop( "checked", check );
+		
 	});
 	
 	

@@ -14,18 +14,33 @@ $(document).ready(function() {
 //	console.log(asignacionCliente);
 	console.log(entregables);
 //	console.log(entregables.length);
-//	console.log(participantes);
+	console.log(participantes);
 //	console.log(participantes.length);
 	var e=0;
 	var $participantes;
 	var $entregable;
 	var $participantesLength = 0;
 	var $estatusEntregable ="";
-//	var $idEntregable ;
+	var $participantesImportar = new Array();
 	
 	for(var a in entregables){
+		//cargar paricipantesImportar
+		var entregable = entregables[a];
+		if(e==0){
+			for(var i in participantes){
+				var participantesEntregable = participantes[i];
+				for(var o in participantesEntregable){
+					var participante = participantesEntregable[o];
+					if((participante.idEntregable*1) === (entregable.idEntregable*1)){
+						$participantesImportar.push(participante);
+					}
+				}
+			}
+		}//
 		e++;
 	}
+	
+	console.log($participantesImportar);
 	
 	
 	$("#idAsignacionEncabezado").html(asignacionItem.idAsignacion);
@@ -71,7 +86,7 @@ $(document).ready(function() {
 	});
 	
 	if(e > 0){
-		console.log("entregable existente");
+		console.log("expediente entregable mayor 0");
 		var listEntregables = '<div class="card-body"><h5 class="card-title">cuenta con los siguientes expedientes de Documentacion:</h5>\
 									<ul class="list-group list-group-flush" id="listEntregables">\
 									</ul>\
@@ -86,7 +101,6 @@ $(document).ready(function() {
 			e++;
 		}
 		
-		console.log("entregable edicion");
 		$("#formARazonSocial").val(asignacionCliente.nombreCompletoCliente);
 		$("#formARFC").val(asignacionCliente.rfcCliente);
 		$("#formACurso").val(asignacionItem.cursoAsignacion);
@@ -144,12 +158,12 @@ $(document).ready(function() {
 				    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
 					
 					var arrayParticipantes = new Array();
+					
 					for(var e in participantes){
 						var participantesEntregable = participantes[e];
 						for(var i in participantesEntregable){
 							var participante = participantesEntregable[i];
 							if((participante.idEntregable*1) === (valorEntregable*1)){
-								
 								arrayParticipantes.push(participante);
 							}
 							$participantesLength++;
@@ -216,13 +230,47 @@ $(document).ready(function() {
 					$('#formCObservacionesE').html(entregable.formCObservaciones);
 //					$('#formCEvidenciaDocto').val(entregable.formCEvidenciaDocto);
 					
+					
+					//PARTICIPANTES IMPORTAR
+					if($participantesImportar.length > 0 && $idEntregable > 0){
+						$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
+						$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
+						
+						for(var a in $participantesImportar){
+							var participante = $participantesImportar[a];
+							var liParticipanteImportar = '<li style="list-style-type:none">\
+		                        <div class="input-group mb-1">\
+								  <div class="input-group-prepend">\
+								    <div class="input-group-text">\
+								      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
+								    </div>\
+								  </div>\
+								  <span style="padding-left: 10px;">'+participante.participanteNombre+'</span>\
+								</div>\
+							</li>';
+
+							$("#participantesImportar").append(liParticipanteImportar);
+						}
+						var check = true;
+						$('#todosParticipantesImportar').prop( "checked", check );
+						$('.checkboxFiltro').prop( "checked", check );
+						
+						$( '#todosParticipantesImportar' ).on( 'click', function() {
+							check = $('#todosParticipantesImportar').prop( "checked");
+							$('.checkboxFiltro').prop( "checked", check );
+							
+						});
+						
+					}//FIN PARTICIPANTES IMPORTAR
+					
+					
 				}				
 			i++;
 			}
 		});
 		
 	}else{
-		console.log("entregable nuevo");
+		console.log("expediente entregable nuevo");
 		$estatusEntregable = "nuevo";
 		$idEntregable = 0;
 		$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
@@ -248,7 +296,7 @@ $(document).ready(function() {
 	}
 	
 	$('#btnAgregarNuevo').click(function(){
-		console.log("entregable nuevo expediente");
+		console.log("entregable nuevo");
 		$estatusEntregable = "nuevo";
 		$idEntregable = e++;
 		$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
@@ -270,6 +318,39 @@ $(document).ready(function() {
 		$('#formCDuracion').val($("#formADuracion").val());
 		$('#formCInstructor').val($("#formAInstructor").val());
 		$('#formCSede').val(asignacionCliente.domicilioCliente);
+		
+		//PARTICIPANTES IMPORTAR
+		console.log($participantesImportar);
+		if($participantesImportar.length > 0 && $idEntregable > 0){
+			$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
+			$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
+			
+			for(var a in $participantesImportar){
+				var participante = $participantesImportar[a];
+				var liParticipanteImportar = '<li style="list-style-type:none">\
+                    <div class="input-group mb-1">\
+					  <div class="input-group-prepend">\
+					    <div class="input-group-text">\
+					      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
+					    </div>\
+					  </div>\
+					  <span style="padding-left: 10px;">'+participante.participanteNombre+'</span>\
+					</div>\
+				</li>';
+
+				$("#participantesImportar").append(liParticipanteImportar);
+			}
+			var check = true;
+			$('#todosParticipantesImportar').prop( "checked", check );
+			$('.checkboxFiltro').prop( "checked", check );
+			
+			$( '#todosParticipantesImportar' ).on( 'click', function() {
+				check = $('#todosParticipantesImportar').prop( "checked");
+				$('.checkboxFiltro').prop( "checked", check );
+				
+			});
+			
+		}//FIN PARTICIPANTES IMPORTAR
 	})
 	
 	$('#imagenLogoClientePrev').attr('src', "/uploads/img/"+asignacionCliente.rfcCliente+"/"+asignacionCliente.imagenLogoCliente);
@@ -473,7 +554,27 @@ $(document).ready(function() {
 	/*
 	 * TABLE PARTICIPANTES
 	 */
+	$('#btnFiltro').click(function(){
+		var tmp = new Array();
+		$participantes = $('#participantesTable').bootstrapTable('getData');
+		$('.checkboxFiltro:checked').each(function(){
+			if($(this).attr('checked',true)){			
+				var idParticipante = $(this).attr('id')
+				for(var a in $participantesImportar){
+					var participante = $participantesImportar[a];
+					if(participante.idParticipante === idParticipante){
+						$participantes.push(participante);
+					}
+				}
+			}
+		});
+//		$('#participantesTable').bootstrapTable('append', participante);	
+		$('#participantesTable').bootstrapTable('load', $participantes);
+		$participantes = $('#participantesTable').bootstrapTable('getData');
+
+	});
 	
+
 	
 	var $idParticipante = "";
 	
@@ -486,7 +587,8 @@ $(document).ready(function() {
 				$('#participantePuesto').val(row.participantePuesto);
 				$('#participanteOcupacion').val(row.participanteOcupacion);
 				$('#formBFotoParticipante').val("");
-				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imagenesParticipantes/"+row.participanteFoto);
+//				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imagenesParticipantes/"+row.participanteFoto);
+				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/imagenesParticipantes/"+row.participanteFoto);
 				$('#participanteETI').val(row.participanteExamenTeoricoInicial);
 				$('#participanteETF').val(row.participanteExamenTeoricoFinal);
 				$('#participanteEP').val(row.participanteExamenPractico);
@@ -581,6 +683,8 @@ $(document).ready(function() {
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 		
 	});
+	
+	
 
 	/**
 	 *  ALTA ENTREGABLE y ALTA DOCUMENTACION
@@ -729,6 +833,7 @@ $(document).ready(function() {
 		
 			
 });  // Fin JQRY
+
 
 function validaParticipante(){
 	var participanteNombre = $('#participanteNombre').val(); 

@@ -254,6 +254,7 @@
 										 var idUsuario =  [[${model.jsonResponse.user.id}]];
 										 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 										 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+										 var expedientesEntregables = [[${entregables}]];
 									</script>
 <!--                     -----------------------------------------------------------------------------------------------------------------        -->
  									<div class="form-row">
@@ -706,7 +707,7 @@
                                                <input type="hidden"  id="guiaEntregable" th:field="*{guiaEntregable}"/>
                                                
                                                <ul class="list-group" id="procesoEvento">
-                                                   <li class="list-group-item list-group-item-info">Status Actual : <span id="modalStatus"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Estatus Actual : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>
                                                                                                       
                                                </ul>

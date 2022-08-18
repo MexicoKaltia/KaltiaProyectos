@@ -733,7 +733,8 @@ public class EntregableService implements IEntregableService {
 				cm.setFechaFinal(recortaDia(entregable.getFormAFechaFinalCredenciales()));
 				cm.setInstructor(entregable.getFormAInstructor());
 				cm.setLogoEmpresa(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
-				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
+//				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
+				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage("/uniprotec/entregables/"+entregable.getRfcOriginalAsignacion()+"/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
 				cm.setFirmaInstructor(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
 //				cm.setFirmaDirector(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
 				 listCM.add(cm);
@@ -770,9 +771,6 @@ public class EntregableService implements IEntregableService {
 		}
 		 char[] ch = pm.getParticipanteCURP().toCharArray();
 		 char[] rfc = entregable.getFormARFC().toCharArray();
-		 log.info("rfc.length : "+rfc.length);
-		 log.info("entregable.getFormARFC() : "+entregable.getFormARFC());
-//		 char cha = ' ';
 
 		EntregableService entregableService = new EntregableService();
 		map.put("dc3EmpresaLogo", new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));

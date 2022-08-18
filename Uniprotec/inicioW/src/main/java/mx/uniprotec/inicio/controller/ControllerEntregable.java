@@ -73,7 +73,6 @@ public class ControllerEntregable {
 			JSONObject jsonResponse = new JSONObject();
 			ResultVO resultVO = (ResultVO)model.get("model");			
 			ResultVO rs = clienteService.consultaCliente(resultVO.getAccesToken(), asignacion.getIdClienteAsignacion());
-			
 			jsonResponse.put("clientes", rs.getJsonResponse());
 			
 			rs = entregableService.consultaEntregable(resultVO.getAccesToken(), asignacion.getIdAsignacion());
@@ -82,9 +81,7 @@ public class ControllerEntregable {
 			resultVO.setJsonResponseObject(jsonResponse);
 			
 			model.addAttribute("model", resultVO);
-//			log.info(resultVO.toString());
 			ModelAndView mav = new  ModelAndView("AEntregable",  model);
-//			log.info(model.toString());
 			if(rs.getCodigo() != 500) {					
 				return mav;
 			}else {

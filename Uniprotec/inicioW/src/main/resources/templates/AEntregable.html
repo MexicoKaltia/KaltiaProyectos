@@ -1002,9 +1002,10 @@
 			                                     
 												<br>
                                        			<br>
-                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       			
                                        			<button type="button" class="btn btn-info" id="btnAgregarParticipante" data-dismiss="modal" disabled>Agregar Participante</button>
                                        			<button type="button" class="btn btn-primary" id="btnEditarParticipante" data-dismiss="modal" disabled>Editar Participante</button>
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 											</form>
                                            </div>
                                        </div>
@@ -1092,6 +1093,58 @@
                                </div>
                            </div>
                        <!-- Modal Entregables Fin-->
+                       <!-- ------------------- ------------------------------------------------------------------------------------------------------------------------------------------------>
+					   <!-- Modal Participantes Importar Inicio-->
+                       <div class="modal" id="modalParticipantesImportar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					    	    <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Importar Participantes</h4>
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <div class="card-body">
+                                               <h5 class="card-title" id="tituloParticipantesImportar">Actualmente el Evento Id Asignacion: <span style="text:bold; color:blue;" id="idAsignacionParticipantesImportar"></span>, existen los siguientes participantes :</h5>
+                                               <!-- ------------------- -->
+                                                 <!-- Modal body -->
+			                                    <ul>
+			                                    	<li  style=" list-style-type:none ">
+						                                <div class="input-group mb-1">
+														  <div class="input-group-prepend">
+														    <div class="input-group-text">
+														      <input type="checkbox" id="todosParticipantesImportar" checked>
+														    </div>
+														  </div>
+														  <span  style="padding-left: 10px;">Todos</span>
+														</div>
+						                            </li>
+						                            <hr>
+						                            <span id="participantesImportar"></span>
+						                            
+												    
+												 </ul>
+			                                     <!-- ------------------- -->
+											</div>
+				    						<!-- ------------------- -->
+                                       </div>
+                                       <button type="button"  class="btn btn-info " id="btnFiltro" data-dismiss="modal">Agregar Participantes</button>
+									   <button type="button" class="btn btn-secondary" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                  </div><!-- ------------------- fin modal body-->
+                            </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   			
+                                   </div>
+                               </div>
+                           </div>
+                       <!-- Modal Participantes Importar Fin-->
+                       
                        
                        <!-- ------------------- ------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Proceso de Confirmacion Inicio-->

@@ -447,7 +447,8 @@ public class ControllerUtil {
 		    
 		    //
 
-		    String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/imagenesParticipantes/";
+//		    String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/imagenesParticipantes/";
+		    String directory = "/uniprotec/entregables/"+idEmpresa+"/imagenesParticipantes/";
 	        File directorio = new File(directory);
 	        String filepath = Paths.get(directory, filename).toString();
 	        if (!directorio.exists()) {

@@ -99,7 +99,7 @@ public class EntregableService implements IEntregableService {
 		ParticipanteEntity participanteEntity = null;
 		for(ParticipanteEntity pe : participantes) {
 			try {
-				participanteDao.deleteByIdParticipante(pe.getIdParticipante());
+				participanteDao.deleteByIdParticipanteAndIdEntregable(pe.getIdParticipante(), idEntregable);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
