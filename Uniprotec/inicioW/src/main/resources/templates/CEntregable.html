@@ -278,8 +278,8 @@
                         </div>
                         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
                             <li class="nav-item">
-                                <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-                                    <span>Lista Eventos</span>
+                                <a  class="nav-link active" id="btnFiltroEntregables" data-toggle="modal" data-target="#modalFiltroEntregables">
+                                    <span>Filtro Entregables</span>
                                 </a>
                             </li>
 <!--                             <li class="nav-item"> -->
@@ -482,6 +482,137 @@
                            </div>
                        </div>
                        <!-- Modal Fin-->
+                       <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       <div class="modal" id="modalFiltroEntregables" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Entregables</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosEntregables" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;">Todos Entregables</span>
+											</div>
+			                            </li>
+			                            <hr>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="cursoAsignado" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:cyan;"><small>    </small></div>
+															  <span>Curso Asignado</span>
+															</div>
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="confirmadoInstructor" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:olive;"><small>    </small></div>
+															  <span>Confirmado Instructor</span>
+															</div>														                                                    
+														</li>
+															<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="cursoEditado" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:silver;"><small>    </small></div>
+															    <span>Curso Editado</span>
+															</div>															
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="cursoCompletado" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:maroon;"><small>    </small></div>
+															    <span>Curso Completado</span>
+															</div>														
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="eventoCancelado" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:red;"><small>    </small></div>
+															    <span>Evento Cancelado</span>
+															</div>														
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="elaborarEntregable" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:blue;"><small>    </small></div>
+															    <span>Elaborar Entregable</span>
+															</div>														
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="entregableEnviado" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:green;"><small>    </small></div>
+															    <span>Entregable Enviado</span>
+															</div>														
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="omitirEntregable" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:orange;"><small>    </small></div>
+															    <span>Omitir Entregable</span>
+															</div>														
+														</li>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="submit"  class="btn btn-info pull-left" id="btnFiltro" data-dismiss="modal">Actualizar Entregables</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       
                        
  	<script th:inline="javascript">
  		var asignaciones = [[${model.jsonResponseObject.asignaciones}]];

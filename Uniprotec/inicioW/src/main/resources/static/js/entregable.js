@@ -4,7 +4,7 @@
 
 $(document).ready(function() {
 	
-//	console.log(instructores);
+//	console.log(asignaciones);
 
 	var asignacion;
 	var asignaFechaCalendario ;
@@ -22,6 +22,125 @@ $(document).ready(function() {
 	var zonaCliente ;
 	var item;
 	var idAsignacion;
+	const identificadorUsuario = idUsuario;
+	
+//	if($('#todosInstructores').prop('checked')){
+//		calendario(asignaciones, filtroInstructores, identificadorUsuario);
+//	}
+	
+	//check box filtro entregables
+	var check = true;
+	var filtroEntregables = new Array();
+	var asignacionesFiltro = new Array();
+	$('#btnFiltroEntregables').click(function(){
+		$('#todosEntregables').prop( "checked", check );
+		$('.checkboxFiltro').prop( "checked", check );
+	});
+	
+	$( '#todosEntregables' ).on( 'click', function() {
+		check = $('#todosEntregables').prop( "checked");
+		$('.checkboxFiltro').prop( "checked", check );
+		
+	});
+	
+	
+	$('#btnFiltro').click(function(){
+		
+		$('.checkboxFiltro:checked').each(function(){
+			if($(this).attr('checked',true)){
+				idEntregable = $(this).attr('id')
+				filtroEntregables.push(idEntregable);
+			}
+		});
+		
+		for(var e in asignaciones){
+			var asignacionA  = asignaciones[e];
+			for(var a in filtroEntregables){
+				var entregableFiltro = filtroEntregables[a];
+				var strEstatusEntregable = getStatus(entregableFiltro);
+				if((asignacionA.statusAsignacion) === (strEstatusEntregable)){
+					asignacionesFiltro.push(asignacionA);
+				}
+			}
+		}
+		calendario(asignacionesFiltro);
+		filtroEntregables.length = 0;
+		asignacionesFiltro.length =0;
+		
+	});
+	
+	function getStatus(idEntregable){
+		var estatusEntregable;	
+		switch (idEntregable){
+		case "cursoAsignado":
+			estatusEntregable = 'Curso Asignado';
+			break;
+		case "confirmadoInstructor":
+			estatusEntregable = 'Confirmado Instructor';
+			break;
+		case "cursoEditado":
+			estatusEntregable = 'Curso Editado';
+			break;
+		case "cursoCompletado":
+			estatusEntregable = 'Curso Completado';
+			break;
+		case "eventoCancelado":
+			estatusEntregable = 'Evento Cancelado';
+			break;
+		case "elaborarEntregable":
+			estatusEntregable = 'Elaborar Entregable';
+			break;
+		case "omitirEntregable":
+			estatusEntregable = 'Omitir Entregable';
+			break;
+		case "entregableEnviado":
+			estatusEntregable = 'Entregable Enviado';
+			break;
+		case "entregablesValidado":
+			estatusEntregable = 'Entregables Validado';
+			break;
+		}
+		return estatusEntregable;
+	}
+	
+	function calendario(asignaciones){
+		$('#calendar').empty();
+		var eventos = new Array();
+		eventos = publicaEventos(asignaciones);
+		var calendarEl = document.getElementById('calendar');
+		var today = hoy();
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'list'],
+			header	: {
+			        left: 'prev,next today',
+			        center: 'title',
+			        right: 'listDay,listWeek,listMonth,listYear'
+		      },
+	      views: {
+	          listDay: { buttonText: 'dia' },
+	          listWeek: { buttonText: 'semana' },
+	          listMonth : { buttonText: 'mes' },  
+	            list: { buttonText: 'todos' }  
+	        },
+
+	        defaultView: 'listMonth',   
+	        editable: true,
+	        eventLimit: true, // allow "more" link when too many events
+			eventClick : function(info){
+//				alert(info.event.title);
+				abrirModal(info.event.title)
+			},		
+			defaultDate : today,
+			navLinks : true, // can click day/week names to navigate views
+			businessHours : true, // display business hours
+			locale : 'es',
+			events : eventos
+		});
+
+		calendar.render();
+	}
+	
+	
 	
 	function abrirModal(item){
 		$('#asignaConfirmar').attr("disabled", true);
@@ -157,7 +276,7 @@ $(document).ready(function() {
 
 	calendar.render();
 	
-});
+}); //fin JQRY
 
 
 document.addEventListener('DOMContentLoaded', function() {
