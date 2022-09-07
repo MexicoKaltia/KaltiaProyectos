@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uniprotec.application.dao.INotificacionDao;
+import mx.uniprotec.application.dao.IZonaBaseDao;
 import mx.uniprotec.application.entity.Mensaje;
 import mx.uniprotec.application.entity.Notificacion;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.entity.ZonaBase;
 import mx.uniprotec.application.service.IAplicacionService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
+import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -46,7 +50,8 @@ public class AplicacionController {
 	
 	@Autowired
 	private INotificacionDao notificacionDao;
-
+	@Autowired
+	IZonaBaseDao zonaBaseDao;
 
 	
 	
@@ -300,6 +305,70 @@ public class AplicacionController {
 //			log.info(mensaje.toString());
 //			 response.put("notificacion", mensajeDao);
 			 response.put("mensaje", "Actualizacion Notificacion Exitosa");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@GetMapping("/zonabase")
+	public ResponseEntity<?> zonaBase() {
+		log.info("zonaBase");
+		Map<String, Object> response = new HashMap<>();
+		try {
+			ZonaBase zonaBase = aplicacionService.getZonaBase();
+//			Map jsonZonaBase = aplicacionService.getZonaBase();
+			
+			if(zonaBase == null) {
+				response.put("mensaje", "Error: no se pudo encontrar, jsonZonaBase:  no existe en la base de datos!");
+				 response.put("status", HttpStatus.NOT_FOUND);
+				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}
+  			response.put("zonaBase", zonaBase);
+			 response.put("mensaje", "Exito en la busqueda de jsonZonaBase");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@PostMapping("/zonabase")
+	public ResponseEntity<?> zonaBasePost(@Valid @RequestBody ZonaBaseModelo zonaBaseModelo, BindingResult result) {
+		log.info("zonabase create");
+		HttpStatus status ;
+		Map<String, Object> response = new HashMap<>();
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			status = HttpStatus.BAD_REQUEST;
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		try {	
+			log.info(zonaBaseModelo.toString());
+			ZonaBase zonaBase = aplicacionService.getZonaBase();
+			zonaBase.setDataZonabase(zonaBaseModelo.getDataZonabase());
+
+			zonaBaseDao.save(zonaBase);			
+			
+			 response.put("mensaje", "Actualizacion Zona Base Exitosa");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);

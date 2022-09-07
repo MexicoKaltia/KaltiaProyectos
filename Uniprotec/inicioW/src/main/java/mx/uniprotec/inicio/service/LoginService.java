@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import mx.uniprotec.entidad.modelo.SubModulo;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UserMap;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
+import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 import mx.uniprotec.inicio.util.BaseClientRest;
 
 @Service
@@ -43,7 +45,6 @@ public class LoginService implements ILoginService{
 			ResultVO resultVO = new ResultVO();
 			try {
 				resultVO = baseClientRest.login(user);	
-//				log.info(resultVO.getCodigo().toString());
 				if(resultVO.getCodigo() == 200) {
 					JSONObject jsonObject = (JSONObject) resultVO.getJsonResponse();
 					JSONObject jsonUsuario = new JSONObject((Map) jsonObject.get("user"));
@@ -60,7 +61,6 @@ public class LoginService implements ILoginService{
 							jsonUsuario.get("perfil").toString());
 					
 					JSONObject jsonObjectPerfil = (JSONObject) resultUsuario.getJsonResponse();
-//					log.info(jsonObjectPerfil.toJSONString());
 					JSONObject jsonPerfil= new JSONObject((Map) jsonObjectPerfil.get("perfil"));
 					JSONObject jsonFields =new JSONObject();
 					jsonUsuario.put("modules", jsonPerfil);
@@ -74,14 +74,45 @@ public class LoginService implements ILoginService{
 								BaseClientRest.URL_CRUD_NOTIFICACIONES,
 								Integer.valueOf(jsonUsuario.get("id").toString()));
 						JSONObject jsonResultNotificaciones = (JSONObject) resultNotificaciones.getJsonResponse();
-//						log.info(jsonResultNotificaciones.toJSONString());
-//						JSONArray jsonNotificaciones = new JSONArray();
 						JSONObject jsonNotificaciones = new JSONObject();
 						jsonNotificaciones.put( "notificaciones", jsonResultNotificaciones.get("notificaciones"));
 						jsonUsuario.put("notificaciones", jsonResultNotificaciones.get("notificaciones"));
 						jsonObject.putAll(jsonUsuario);
 						resultVO.setJsonResponse(jsonObject);
 					}
+//					//borrar
+//					if(jsonUsuario.get("perfil").toString().equals("Direccion")) {
+//						ResultVO resultZonaBase= baseClientRest.objetoGetAll(
+//								resultVO.getAccesToken(),
+//								BaseClientRest.URL_CRUD_ZONABASE);
+//						JSONObject jsonResultZonaBase= (JSONObject) resultZonaBase.getJsonResponse();
+//						log.info(jsonResultZonaBase.toJSONString());
+//						
+//						JSONObject jsonZonaBase = new JSONObject((Map) jsonResultZonaBase.get("zonaBase"));
+//						log.info(jsonZonaBase.get("dataZonabase").toString());
+//						
+////						JSONObject jsonObject = (JSONObject) jsonParser(new FileReader("E:/players_data.json"));
+//						JSONParser jsonParser = new JSONParser();
+//						JSONObject jsonDataZonaBase = (JSONObject) jsonParser.parse(jsonZonaBase.get("dataZonabase").toString());
+//						log.info(jsonDataZonaBase.get("11").toString());
+//						
+//						
+//						//------------------------------------------------------------------------------//
+//						jsonDataZonaBase.put("11", false);
+//						jsonDataZonaBase.put("AA", true);
+//						
+//						ZonaBaseModelo zonaBase = new ZonaBaseModelo();
+//						zonaBase.setIdZonabase(1l);
+//						zonaBase.setDataZonabase(jsonDataZonaBase.toString());
+//						ResultVO resultZonaBaseUpdate = (ResultVO) baseClientRest.objetoPost(
+//								resultVO.getAccesToken(),
+//								BaseClientRest.URL_CRUD_ZONABASE,
+//								zonaBase);
+//						
+//						
+//						
+//					}
+//					//fin borrar
 					
 				}else {
 					resultVO.setResponse("index");

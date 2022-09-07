@@ -750,7 +750,7 @@ public class EntregableService implements IEntregableService {
 		map.put("diplomaNombreParticipante", pm.getParticipanteNombre());
 		map.put("diplomaNombreCurso", entregable.getFormACurso());
 		map.put("diplomaFecha", entregable.getFormAFechaDiploma().toUpperCase());
-		map.put("diplomaDuracion", entregable.getFormADuracion());
+		map.put("diplomaDuracion",formatHoraDuracion(entregable.getFormADuracion()));
 		map.put("diplomaNombreInstructor", entregable.getFormAInstructor());
 		map.put("diplomaNombreDirector", "Olivier Sánchez");
 				
@@ -763,6 +763,15 @@ public class EntregableService implements IEntregableService {
 		return map;
 	}
 	
+	private Object formatHoraDuracion(String formADuracion) {
+		if(formADuracion.contains(":")) {
+			String[] tmp = formADuracion.split(":");
+			return tmp[0];
+		}else {
+			return formADuracion;
+		}
+	}
+
 	private Map<String, Object> convertToDC3(ParticipantesModelo pm, EntregableModelo entregable) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();

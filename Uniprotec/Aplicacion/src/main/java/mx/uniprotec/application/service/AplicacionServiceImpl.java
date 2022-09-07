@@ -2,10 +2,13 @@ package mx.uniprotec.application.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.json.simple.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import mx.uniprotec.application.dao.IPerfilDao;
 import mx.uniprotec.application.dao.IRegionDao;
 import mx.uniprotec.application.dao.IUsuarioDao;
 import mx.uniprotec.application.dao.IVendedorDao;
+import mx.uniprotec.application.dao.IZonaBaseDao;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Mensaje;
 import mx.uniprotec.application.entity.Notificacion;
@@ -26,6 +30,7 @@ import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Vendedor;
+import mx.uniprotec.application.entity.ZonaBase;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 
@@ -57,7 +62,10 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	IMensajeDao mensajeDao;
 	@Autowired
 	INotificacionDao notificacionDao;
+	@Autowired
+	IZonaBaseDao zonaBaseDao;
 
+	
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -238,6 +246,17 @@ public class AplicacionServiceImpl implements IAplicacionService {
 
 	private List<Notificacion> getNotificaciones(Long idInstructor) {
 		return notificacionDao.findByIdInstructorNotificacion(idInstructor);
+	}
+
+	@Override
+	public ZonaBase getZonaBase() {
+		Optional<ZonaBase> optional = zonaBaseDao.findById(1l);
+		ZonaBase zonaBase = optional.get();
+//		JSONObject dataZB =  new JSONObject(zonaBase.getDataZonabase());
+//		String dataZB = zonaBase.getDataZonabase();
+		log.info(zonaBase.getDataZonabase().toString());
+//		List<ZonaBase> zonaBase = zonaBaseDao.findAll();
+		return zonaBase;
 	}
 	
 }

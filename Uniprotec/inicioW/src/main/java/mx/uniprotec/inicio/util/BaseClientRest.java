@@ -38,11 +38,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 
-//	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
+	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -66,6 +66,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_NOTIFICACIONES 	  =	"notificaciones";
 	public static final String URL_CRUD_ENTREGABLE    = "entregable";
 	public static final String URL_CRUD_ENTREGABLE_D    = "entregable";
+	public static final String URL_CRUD_ZONABASE = "zonabase";
 	
 	
 	
@@ -76,6 +77,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 	
 	public static final Long MAX_TIME_TOKEN = (long) 3600000;
+	
 	 
 	
 	ResultVO resultVO = new ResultVO();
@@ -119,6 +121,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 		return  getTemplateObjetoGet(token, urlCrud, usersCorreo);
 //		return resultVO;
 	}
+	
+	
 	
 	@Override
 	public ResultVO objetoDeleteId(String idObject, String token, String urlCrud) {
