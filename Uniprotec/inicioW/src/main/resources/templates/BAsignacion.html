@@ -281,6 +281,7 @@
 										 var asignacionRegiones = [[${model.jsonResponseObject.regiones}]];
 										 var asignacionVendedores = [[${model.jsonResponseObject.vendedores}]];
 										 var asignacionAsignaciones = [[${model.jsonResponseObject.asignaciones}]];
+										 var asignacionZonaBase = [[${model.jsonResponseObject.zonaBase}]];
 										 var idUsuario =  [[${model.jsonResponse.user.id}]];
 										 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 										 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
@@ -385,6 +386,7 @@
 							                   <div class="col-md-12">
 							                   	<div class="col-md-12">
 							                       <h3> Horario</h3><label for="exampleFormControlSelect1">Paso 5</label>
+							                        <div id="horarioInstructorNoDisponible"></div>
 							                       <div class="form-inline">
 								                       <div class="alert alert-dark" role="alert">Horas Efectivas: 
 									                       <b><select  id="horasEfectivas" class="form-control" name="horasEfectivas" disabled></select></b>

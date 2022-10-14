@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
+import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 import mx.uniprotec.inicio.entity.StatusVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.IBaseClientRest;
@@ -69,6 +71,37 @@ public class AplicacionService implements IAplicacionService {
 		ResultVO rs = (ResultVO) baseClientRest.objetoPost(accesToken, BaseClientRest.URL_CRUD_MENSAJE, mensaje);
 		return rs;
 	}
+	
+	@Override
+	public ResultVO consultaMovilidad(String accesToken) {
+		ResultVO rs = baseClientRest.objetoGetAll(accesToken,BaseClientRest.URL_CRUD_ZONABASE);
+		JSONObject jsonZB = new JSONObject();
+		jsonZB.putAll((Map) rs.getJsonResponse().get("zonaBase"));		
+		JSONObject jsonZonaBase = new JSONObject();
+		jsonZonaBase.put("zonaBase", jsonZB.get("dataZonabase"));
+		rs.setJsonResponse(jsonZonaBase);
+		if(rs.getCodigo() != 500) {
+			ResultVO rsRegiones = consultaRegiones(accesToken);
+			if(rsRegiones.getCodigo() != 500) {
+				rs.setRegiones((List<Region>) rsRegiones.getJsonResponseObject().get("regiones"));
+			}
+		}
+		
+		
+		
+		return rs;
+	}
+	
+
+	@Override
+	public ResultVO updateMovilidad(String accesToken, ZonaBaseModelo zonaBase) {
+		
+		ResultVO rs = (ResultVO) baseClientRest.objetoPost(accesToken, BaseClientRest.URL_CRUD_ZONABASE, zonaBase);
+		return rs;
+	}
+
+
+
 
 
 	@Override
@@ -81,6 +114,9 @@ public class AplicacionService implements IAplicacionService {
 		ResultVO rsRegiones = new ResultVO();
 		ResultVO rsVendedores = new ResultVO();
 		ResultVO rsAsignaciones = new ResultVO();
+		ResultVO rsZonaBase = new ResultVO();
+		
+		JSONObject jsonZonaBase = new JSONObject();
 		
 		ResultVO rsClientes = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
 		
@@ -98,6 +134,10 @@ public class AplicacionService implements IAplicacionService {
 						rsAsignaciones = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
 						if(rsAsignaciones.getCodigo() != 500) {
 							rs.setAsignaciones((List<AsignacionModelo>) rsAsignaciones.getJsonResponse().get("asignaciones"));
+							rsZonaBase = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ZONABASE);
+							JSONObject jsonZB = new JSONObject();
+							jsonZB.putAll((Map) rsZonaBase.getJsonResponse().get("zonaBase"));		
+							jsonZonaBase.put("zonaBase", jsonZB.get("dataZonabase"));
 						}else {
 							log.info("error Asignaciones");
 							return rsAsignaciones;
@@ -142,6 +182,8 @@ public class AplicacionService implements IAplicacionService {
 		jsonData.put("regiones", rs.getRegiones());
 		jsonData.put("vendedores", rs.getVendedores());
 		jsonData.put("asignaciones", rs.getAsignaciones());
+		jsonData.put("zonaBase", jsonZonaBase);
+		
 		
 		rs.setJsonResponseObject(jsonData);
 
@@ -254,20 +296,5 @@ public class AplicacionService implements IAplicacionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 	
-
-	
-	
-
-
-
-
-	
-
-
-
-	
-	
-	}
+}

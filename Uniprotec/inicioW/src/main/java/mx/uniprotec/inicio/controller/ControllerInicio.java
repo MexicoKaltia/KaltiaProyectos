@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +28,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
+import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
+import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ILoginService;
 import mx.uniprotec.inicio.service.IUsuarioService;
+import mx.uniprotec.inicio.util.BaseClientRest;
 
 @CrossOrigin(origins = { "*" })
 @Controller
@@ -287,6 +293,78 @@ public class ControllerInicio extends HttpServlet{
 				}
 			}		
 		}
+		
+		@PostMapping("/BMovilidad")
+		public ModelAndView BMovilidad(@ModelAttribute("zonaBase") ZonaBaseModelo zonaBase, ModelMap model) {
+			
+			
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("CMovilidad model Activo");
+				ResultVO resultVO = (ResultVO)model.get("model");
+				
+				zonaBase.setIdZonabase(1l);
+				ResultVO resultZonaBaseUpdate = aplicacionService.updateMovilidad(resultVO.getAccesToken(), zonaBase); 
+						
+				ModelAndView mav = new  ModelAndView("redirect:/CMovilidad", model );
+				if(resultZonaBaseUpdate.getCodigo() != 500) {
+					mav.addObject("ejecucion", true);
+				}else {
+					mav.addObject("error", true);
+					log.info("NOK BMOVILIDAD");
+				}		
+				model.addAttribute("model", resultVO);
+				return mav;
+									
+//				JSONParser jsonZonaBase = new JSONParser();
+//				try {
+//					jsonZonaBase.parse(zonaBase.getDataZonabase());
+//				} catch (ParseException e) {
+//					e.printStackTrace();
+//				}
+//				JSONObject jsonObject = (JSONObject) jsonParser(new FileReader("E:/players_data.json"));
+//				JSONParser jsonParser = new JSONParser();
+//				JSONObject jsonDataZonaBase = (JSONObject) jsonParser.parse(jsonZonaBase.get("dataZonabase").toString());
+//				log.info(jsonDataZonaBase.get("11").toString());
+//				//-------------------------------------------- ACTUALIZAR JSON ----------------------------------//
+//				jsonDataZonaBase.put("11", false);
+//				jsonDataZonaBase.put("AA", true);
+				
+			}
+		}
+
+		
+		@GetMapping("/CMovilidad")
+		public ModelAndView CMovilidad(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+				@RequestParam(name="error", required=false) boolean error,
+				ModelMap model) {
+			
+			
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("CMovilidad model Activo");
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				ResultVO resultZonaBase =  aplicacionService.consultaMovilidad(resultVO.getAccesToken());
+				JSONObject jsonResultObject = (JSONObject) resultZonaBase.getJsonResponse();
+				
+				resultVO.setJsonResponseObject(jsonResultObject );
+				resultVO.setRegiones(resultZonaBase.getRegiones());
+				
+				model.addAttribute("zonaBase", new ZonaBaseModelo());
+				
+				ModelAndView mav = new  ModelAndView("CMovilidad", model );
+				model.addAttribute("model", resultVO);
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+				return mav;
+			}	
+		}
+			
 
 }
 

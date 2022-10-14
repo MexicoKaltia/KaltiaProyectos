@@ -23,11 +23,16 @@ $(document).ready(function() {
 	const identificadorUsuario = idUsuario;
 //	//console.log("id usuario sesion:"+idUsuario)
 	var filtroInstructores = new Array();
+	var filtroInstructoresDisponibles = new Array();
 	var asignacionesFiltro = new Array();
 	var filtroVendedores = new Array();
 	var filtroVendedoresVendedor = new Array();
 	var asignacionesFiltroV = new Array();
 	
+	
+	$("#btnFiltroInstructoresDisponibles").click(function(){
+		calendarioDisponible(publicaInstructoresDisponibles());
+	});
 	
 	
 	if($('#todosInstructores').prop('checked')){
@@ -166,6 +171,7 @@ $(document).ready(function() {
 		$('#calendar').empty();
 		var eventos = new Array();
 		eventos = publicaEventos(asignaciones, filtroInstructores);
+		console.log(eventos[0]);
 		var calendarEl = document.getElementById('calendar');
 		var today = hoy();
 		var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -186,6 +192,29 @@ $(document).ready(function() {
 			businessHours : true, // display business hours
 			locale : 'es',
 			events : eventos
+		});
+
+		calendar.render();
+	}
+	
+	function calendarioDisponible(instructoresDisponiblesAA){
+		$('#calendar').empty();
+		var eventos = new Array();
+//		eventos = publicaEventos(asignaciones, filtroInstructores);
+		var calendarEl = document.getElementById('calendar');
+		var today = hoy();
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+				plugins : [ 'interaction', 'dayGrid', 'timeGrid', 'list'],
+				header : {
+					left : 'prev,next today',
+					center : 'title',
+					right : 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+				},
+			defaultDate : today,
+			navLinks : true, // can click day/week names to navigate views
+			businessHours : true, // display business hours
+			locale : 'es',
+			events : instructoresDisponiblesAA
 		});
 
 		calendar.render();
@@ -530,16 +559,13 @@ $(document).ready(function() {
 				 for(o in instructoresFiltro){
 						if(instructor.idInstructor == instructoresFiltro[o]){
 							if(instructor.listFechas){
-//								 //console.log(instructor.nombreInstructor)
 								 listaFechasAusencia = instructor.listFechas.split(";");
 								 for(a in listaFechasAusencia){
 									 fechaAusencia = getFecha(listaFechasAusencia[a]);
-//									 //console.log(fechaAusencia);
 									 item = {
 												'title' : instructor.nombreInstructor ,
 												'start' : fechaAusencia+'00:00',
 												'end' : fechaAusencia+'00:00',
-//												'constraint' : 'businessHours',
 												'color' : 'red',
 												'textColor': 'white'
 										}
@@ -552,6 +578,98 @@ $(document).ready(function() {
 		}
 		
 		return items;
+	}
+	
+	function publicaInstructoresDisponibles(){
+		var asignacion;
+		var item;
+		var inicio;
+		var fin;
+		var color;
+		var items = new Array();
+		var listaFechasAusencia = new Array();
+		var fechaAusencia ;
+		var instructoresDisponiblesDia = new Array();
+		var asignacionesDia = new Array();	
+		var instructoresDia = new Array();
+		var instructoresOcupados = new Array();
+
+		for(var dia = 0; dia<80; dia++){
+			asignacionesDia.length = 0;
+			instructoresDia.length = 0;
+			instructoresOcupados.length = 0;
+			fechaValidar = cambiaFormatoFechaDisponible(getFecha(fechaPlus(dia)));
+			
+			inicio = getFecha(fechaPlus(dia));
+			fin = inicio;
+			
+			for(i in asignaciones){
+				asignacion = asignaciones[i];
+				if(asignacion.statusAsignacion !== "Evento Cancelado"){
+					if(fechaValidar.toString() === asignacion.fechaAsignacion.toString()){
+						asignacionesDia.push(asignacion);
+					}
+				}
+			}
+			
+			for(o in asignacionesDia){
+				var asignacionDia = asignacionesDia[o];
+				instructoresOcupados.push(asignacionDia.idInstructorAsignacion);
+			}
+			
+			for(e in instructores){
+				 listaFechasAusencia = new Array();
+				 instructor = instructores[e];
+				 var flag = false;
+				if(instructor.listFechas){
+					 listaFechasAusencia = instructor.listFechas.split(";");
+					 for(a in listaFechasAusencia){
+						 var fechaAusencia = getFecha(listaFechasAusencia[a]);
+						 if(fechaAusencia.toString() === inicio.toString()){
+							 item = {
+										'title' : instructor.nombreInstructor ,
+										'start' : fechaAusencia+'00:00',
+										'end' : fechaAusencia+'00:00',
+										'color' : 'red',
+										'textColor': 'white'
+										}
+							 instructoresDisponiblesDia.push(item);
+							 flag = true;
+						 }						 
+					 } 
+				 }
+				if(flag){
+					instructoresOcupados.push(instructor.idInstructor);
+				}
+			}
+			
+			for(a in instructores){
+				var instructor= instructores[a];
+				if(!instructoresOcupados.includes(instructor.idInstructor)){
+					instructoresDia.push(instructor);
+				}
+			}
+			
+			for(u in instructoresDia){
+				var inst = instructoresDia[u];
+				item = {
+						'title' : inst.nombreInstructor ,
+						'start' : inicio+'00:01',
+						'end' : fin+'00:01',
+						'color' : 'green',
+						'textColor': 'white'
+					}				
+				instructoresDisponiblesDia.push(item);
+			}
+		}
+		return instructoresDisponiblesDia;
+	}
+		
+	
+	function fechaPlus(dia){
+		var fecha = new Date();
+		fecha.setDate(fecha.getDate() + dia);		
+		return fecha;
 	}
 	
 	function getInicio(fechaAsignacion, horarioAsignacion){
@@ -692,5 +810,9 @@ $(document).ready(function() {
 	function cambiaFormatoFecha(fecha){
 		fecha = fecha.split("/");
 		return fecha[1]+"/"+fecha[0]+"/"+fecha[2];
+	}
+	function cambiaFormatoFechaDisponible(fecha){
+		fecha = fecha.split("-");
+		return fecha[1]+"/"+fecha[2].substring(0,2)+"/"+fecha[0];
 	}
 	// fin de documento

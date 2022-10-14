@@ -10,11 +10,11 @@ var $idEntregable ;
 var $idEntregableLogico ;
 $(document).ready(function() {
 	
-	console.log(asignacionItem);
+//	console.log(asignacionItem);
 //	console.log(asignacionCliente);
-	console.log(entregables);
+//	console.log(entregables);
 //	console.log(entregables.length);
-	console.log(participantes);
+//	console.log(participantes);
 //	console.log(participantes.length);
 	var e=0;
 	var $participantes;
@@ -40,7 +40,7 @@ $(document).ready(function() {
 		e++;
 	}
 	
-	console.log($participantesImportar);
+//	console.log($participantesImportar);
 	
 	
 	$("#idAsignacionEncabezado").html(asignacionItem.idAsignacion);
@@ -126,8 +126,8 @@ $(document).ready(function() {
 					$idEntregable = i;
 					$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
 					
-					console.log($entregable);
-					console.log($idEntregableLogico);
+//					console.log($entregable);
+//					console.log($idEntregableLogico);
 					$("#formARazonSocial").val(entregable.formARazonSocial);
 					$("#formARFC").val(entregable.formARFC);
 					$("#formACurso").val(entregable.formACurso);
@@ -171,7 +171,7 @@ $(document).ready(function() {
 					}
 					
 					$participantes = arrayParticipantes;
-					console.log($participantes);
+//					console.log($participantes);
 					$('#participantesTable').bootstrapTable('load', $participantes);
 					$('#participantesTable').bootstrapTable({data : $participantes});
 					
@@ -578,23 +578,28 @@ $(document).ready(function() {
 	
 	var $idParticipante = "";
 	
+        
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
-//		    	console.log(JSON.stringify(row));
+		    	console.log(JSON.stringify(row));
+		    	limpiaAlerta();
+		    	$('#formBFotoParticipante').fileinput('clear');	        
+		    	$('#imnParticipante').attr('src', "");
 		    	$('#idParticipante').val(row.idParticipante);
 		    	$('#participanteNombre').val(row.participanteNombre);
 				$('#participanteCURP').val(row.participanteCURP);
 				$('#participantePuesto').val(row.participantePuesto);
 				$('#participanteOcupacion').val(row.participanteOcupacion);
-				$('#formBFotoParticipante').val("");
-//				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imagenesParticipantes/"+row.participanteFoto);
-				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/imagenesParticipantes/"+row.participanteFoto);
+				
+				$('#imnParticipante').attr('src', "/fotoParticipante/"+asignacionCliente.rfcCliente+"/"+row.participanteFoto);
+				$('#tmpFoto').val(row.participanteFoto);
+//				$("#fotoParticipante").append();
+//				$('#imagenParticipantePrev').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/imagenesParticipantes/"+row.participanteFoto);
 				$('#participanteETI').val(row.participanteExamenTeoricoInicial);
 				$('#participanteETF').val(row.participanteExamenTeoricoFinal);
 				$('#participanteEP').val(row.participanteExamenPractico);
 				$('#participanteP').val(row.participantePromedio);
 				$('#participanteAprovechamiento').val(row.participanteAprovechamiento);
-				
 				
 				$('#btnAgregarParticipante').hide();
 				$('#btnEditarParticipante').show();
@@ -605,6 +610,9 @@ $(document).ready(function() {
 				if(row.participantePromedio < 8){
 					$('#checkAprovechamiento').bootstrapToggle('off');
 				}
+				if(row.participanteAprobado){
+					$('#checkAprovechamiento').bootstrapToggle('on');
+				}
 		    }
 		   }
 	
@@ -612,6 +620,8 @@ $(document).ready(function() {
 	
 	
 	$('#addUser').click(function(){
+		limpiaAlerta();
+		$('#imnParticipante').attr('src', "");
 		$('#btnEditarParticipante').hide();
 		$('#btnAgregarParticipante').show();
 		$('#participanteNombre').val("");
@@ -647,6 +657,7 @@ $(document).ready(function() {
 				participantePromedio: $('#participanteP').val(),
 				participanteAprovechamiento: $('#participanteAprovechamiento').val(),
 				participanteAprobado : $('#checkAprovechamiento').is(':checked')
+				
 		};
 		$('#participantesTable').bootstrapTable('append', jsonParticipante)
 		$participantes = $('#participantesTable').bootstrapTable('getData');
@@ -655,13 +666,17 @@ $(document).ready(function() {
 	$('#btnEditarParticipante').click(function(){
 		console.log("btnEditarParticipante");
 		var checkAprobado = $('#checkAprovechamiento').is(':checked');
+		var nombreFoto = editaNombreImagen($('#formBFotoParticipante').val());
+		if(nombreFoto == "" || nombreFoto == null){
+			nombreFoto = $('#tmpFoto').val();
+		}
 		var jsonParticipante = {
 				idParticipante: $('#idParticipante').val(),
 				participanteNombre: $('#participanteNombre').val(),
 				participanteCURP: $('#participanteCURP').val().toUpperCase(),
 				participantePuesto: $('#participantePuesto').val(),
 				participanteOcupacion: $('#participanteOcupacion').val(),
-				participanteFoto: editaNombreImagen($('#formBFotoParticipante').val()),
+				participanteFoto: nombreFoto,
 				participanteExamenTeoricoInicial: $('#participanteETI').val(),
 				participanteExamenTeoricoFinal: $('#participanteETF').val(),
 				participanteExamenPractico: $('#participanteEP').val(),
@@ -681,7 +696,9 @@ $(document).ready(function() {
 		$('#participantesTable').bootstrapTable('load', $participantes);
 		$('#participantesTable').bootstrapTable('append', jsonParticipante);
 		$participantes = $('#participantesTable').bootstrapTable('getData');
-		
+//		 $('#formBFotoParticipante').val("");
+		 limpiaAlerta();
+		    
 	});
 	
 	
@@ -829,7 +846,12 @@ $(document).ready(function() {
 		
 	});
 
-
+	function limpiaAlerta(){
+//		$('.alertaL').empty();
+		$('.alertaP').remove();
+//		$('.alertaE').empty();
+//		$('.alertaD').empty();
+	}
 		
 			
 });  // Fin JQRY
@@ -839,7 +861,6 @@ function validaParticipante(){
 	var participanteNombre = $('#participanteNombre').val(); 
 	
 	if(participanteNombre !== "" ){
-		console.log("autorizado btnAgregarParticipante");
 		$('#btnAgregarParticipante').attr('disabled', false);
 		$('#btnEditarParticipante').attr('disabled', false);
 	}else{
@@ -947,11 +968,13 @@ function duracion(str){
 	}
 	
 	function imagenParticipante(archivosCampo){
+		$('#imnParticipante').attr('src', "");
 		var $idCliente = asignacionCliente.rfcCliente               
 		  var files = archivosCampo.files[0];
 		  if((files.size /1024) < 1024){
 			  enviaImagenParticipante(archivosCampo, $idCliente);
 		  }
+		 
 		}
 	
 	function imagenEvidencias(archivosCampo){
@@ -1182,7 +1205,7 @@ function duracion(str){
 	    	
 	    	function limpiaAlerta(){
 //				$('.alertaL').empty();
-//				$('.alertaP').empty();
+				$('.alertaP').remove();
 //				$('.alertaE').empty();
 //				$('.alertaD').empty();
 			}

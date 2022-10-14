@@ -6,6 +6,7 @@ import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UserCorreo;
+import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 import mx.uniprotec.inicio.entity.StatusVO;
 
 
@@ -22,5 +23,7 @@ public interface IAplicacionService {
 	public ResultVO getNotificacion(Long idNotificacion);
 	public void actualizaNotificacion(String token, String idAsignacion);
 	public void enviaMailSustitucion(AsignacionModelo asignacion, String token, Long idInstructorAnterior);
+	public ResultVO consultaMovilidad(String accesToken);
+	public ResultVO updateMovilidad(String accesToken, ZonaBaseModelo zonaBase);
 
 }

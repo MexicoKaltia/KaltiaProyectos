@@ -139,6 +139,29 @@ public class ControllerUtil {
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
 	
+	@GetMapping("/fotoParticipante/{idEmpresa}/{nombreFoto:.+}")
+	public ResponseEntity<Resource> verFotoParticipante(@PathVariable String idEmpresa, @PathVariable String nombreFoto){
+		
+		Path rutaArchivo = Paths.get("/uniprotec/entregables/"+idEmpresa+"/imagenesParticipantes/").resolve(nombreFoto).toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la imagen: " + nombreFoto);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+	
 	@GetMapping("/uploads/file/{idEmpresa}/{nombreFile:.+}")
 	public ResponseEntity<Resource> verFile(@PathVariable String idEmpresa, @PathVariable String nombreFile){
 		

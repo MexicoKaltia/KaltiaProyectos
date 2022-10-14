@@ -79,41 +79,7 @@ public class LoginService implements ILoginService{
 						jsonUsuario.put("notificaciones", jsonResultNotificaciones.get("notificaciones"));
 						jsonObject.putAll(jsonUsuario);
 						resultVO.setJsonResponse(jsonObject);
-					}
-//					//borrar
-//					if(jsonUsuario.get("perfil").toString().equals("Direccion")) {
-//						ResultVO resultZonaBase= baseClientRest.objetoGetAll(
-//								resultVO.getAccesToken(),
-//								BaseClientRest.URL_CRUD_ZONABASE);
-//						JSONObject jsonResultZonaBase= (JSONObject) resultZonaBase.getJsonResponse();
-//						log.info(jsonResultZonaBase.toJSONString());
-//						
-//						JSONObject jsonZonaBase = new JSONObject((Map) jsonResultZonaBase.get("zonaBase"));
-//						log.info(jsonZonaBase.get("dataZonabase").toString());
-//						
-////						JSONObject jsonObject = (JSONObject) jsonParser(new FileReader("E:/players_data.json"));
-//						JSONParser jsonParser = new JSONParser();
-//						JSONObject jsonDataZonaBase = (JSONObject) jsonParser.parse(jsonZonaBase.get("dataZonabase").toString());
-//						log.info(jsonDataZonaBase.get("11").toString());
-//						
-//						
-//						//------------------------------------------------------------------------------//
-//						jsonDataZonaBase.put("11", false);
-//						jsonDataZonaBase.put("AA", true);
-//						
-//						ZonaBaseModelo zonaBase = new ZonaBaseModelo();
-//						zonaBase.setIdZonabase(1l);
-//						zonaBase.setDataZonabase(jsonDataZonaBase.toString());
-//						ResultVO resultZonaBaseUpdate = (ResultVO) baseClientRest.objetoPost(
-//								resultVO.getAccesToken(),
-//								BaseClientRest.URL_CRUD_ZONABASE,
-//								zonaBase);
-//						
-//						
-//						
-//					}
-//					//fin borrar
-					
+					}					
 				}else {
 					resultVO.setResponse("index");
 				}

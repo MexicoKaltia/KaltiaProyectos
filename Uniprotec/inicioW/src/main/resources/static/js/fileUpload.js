@@ -63,8 +63,9 @@ $(document).ready(function(){
 			removeLabel: "Remover",
 			maxFileSize: 1024,
 			showCaption: false, 
-			dropZoneEnabled: false
+			dropZoneEnabled: false,
 		});
+	 
 	
 	 $("#formCEvidenciasFotograficas").fileinput({
 			browseClass: "btn btn-success",
