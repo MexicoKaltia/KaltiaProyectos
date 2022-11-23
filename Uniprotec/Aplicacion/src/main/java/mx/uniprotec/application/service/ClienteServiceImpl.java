@@ -35,6 +35,20 @@ public class ClienteServiceImpl implements IClienteService {
 		}
 		return clientes;
 	}
+	
+	@Override
+	public List<Cliente> findByIdVendedor() {
+		List<Cliente> clientes = null;
+		try {
+			clientes = clienteDao.findAll();
+		} catch (Exception e) {
+			clientes.set(0, new Cliente());
+			e.printStackTrace();
+		}
+		return clientes;
+
+	}
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -87,5 +101,6 @@ public class ClienteServiceImpl implements IClienteService {
 	public List<Region> findAllRegiones() {
 		return clienteDao.findAllRegiones();
 	}
+
 
 }

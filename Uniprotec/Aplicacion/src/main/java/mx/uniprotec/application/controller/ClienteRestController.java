@@ -98,9 +98,38 @@ public class ClienteRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("/clientesId")
+	public ResponseEntity<?> getClientesbyIdVendedor() {
+		log.info("clientes");
+		List<Cliente> clientes = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			 clientes = clienteService.findByIdVendedor();
+			 clientes = filtrarClientes(clientes);
+			 response.put("clientes", clientes);
+			 response.put("mensaje", "Exito en la busqueda de clientes");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("clientes fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("clientes fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	
-	 /*
+	 private List<Cliente> filtrarClientes(List<Cliente> clientes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	/*
 	  * 
 	  */
 	@GetMapping("/clientes/page/{page}")

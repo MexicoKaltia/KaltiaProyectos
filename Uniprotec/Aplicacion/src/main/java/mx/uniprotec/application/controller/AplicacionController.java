@@ -301,9 +301,6 @@ public class AplicacionController {
 				notificacionDao.save(notificacion);
 			}
 			
-			
-//			log.info(mensaje.toString());
-//			 response.put("notificacion", mensajeDao);
 			 response.put("mensaje", "Actualizacion Notificacion Exitosa");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());

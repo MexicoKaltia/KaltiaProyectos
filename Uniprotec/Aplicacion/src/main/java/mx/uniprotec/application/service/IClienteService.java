@@ -22,4 +22,6 @@ public interface IClienteService {
 	
 	public List<Region> findAllRegiones();
 
+	public List<Cliente> findByIdVendedor();
+
 }

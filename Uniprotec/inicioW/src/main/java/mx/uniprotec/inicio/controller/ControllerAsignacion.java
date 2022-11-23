@@ -76,12 +76,11 @@ public class ControllerAsignacion {
 			log.info("Asignacion model Activo");
 			ResultVO resultVO = (ResultVO)model.get("model");			
 			ResultVO rs = aplicacionService.consultaData(resultVO);
+
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 			
 			model.addAttribute("model", resultVO);
-//			log.info(rs.toString());
 			ModelAndView mav = new  ModelAndView("Asignacion",  model);
-//			log.info(mav.toString());
 			if(rs.getCodigo() != 500) {
 				return mav;
 			}else {
@@ -92,6 +91,7 @@ public class ControllerAsignacion {
 		}		
 	}
 	
+
 	@PostMapping("/altaAsignacion")
 	public ModelAndView altaAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Metodo de alta Asignacion");
