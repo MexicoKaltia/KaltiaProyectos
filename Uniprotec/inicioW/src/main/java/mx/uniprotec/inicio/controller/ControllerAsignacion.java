@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
@@ -150,6 +151,7 @@ public class ControllerAsignacion {
 			ModelMap model) {
 			log.info("Calendario model Activo");
 			model.addAttribute("asignacionItem", new AsignacionModelo());
+			model.addAttribute("datosEconomicosItem", new DatosEconomicosModelo());
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);

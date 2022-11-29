@@ -273,6 +273,10 @@ $(document).ready(function() {
 				$("#edicionAsignacion").attr("action", "/BAsignacionI");
 				$("#btnSubmit").empty();
 				$("#btnSubmit").append('<button type="submit" id="asignaConfirmarA" class="btn btn-success pull-right btn-lg"  value="">Edición Fecha de Pago y Numero de Factura</button>');
+				
+				$("#divSeccionEconomica").empty();
+				$("#divSeccionEconomica").append('<button type="button" data-toggle="modal" data-target="#modalFormDatosEconomicos" id="btnDatosEconomicos" class="btn btn-info pull-right btn-lg"  value="">Datos Económicos Asignación</button>');
+				
 				$("#asignaConfirmar").hide();
 			}else if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
 				$("#divOperacion").empty();

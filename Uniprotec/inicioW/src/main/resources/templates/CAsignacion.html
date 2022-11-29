@@ -392,8 +392,9 @@
                                       			</div>
                                       			<br>
                                       			<div class="row container">
-                                      				<div class="col-4" id="divErrorProceso"></div>
                                       				<div class="col-4" id="btnSubmit"></div>
+                                      				<div class="col-4" id="divSeccionEconomica"></div>
+                                      				<div class="col-4" id="divErrorProceso"></div>
                                        			</div>
 											</form>
                                            </div>
@@ -545,6 +546,96 @@
                                        			<br>
                                        		<span class="float-left">
                                        			<button type="submit" class="btn btn-success pull-left" id="agregarErrorProcesoFinal"   disabled>Actualizar Error Proceso</button>
+                                       		</span>
+
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		
+                                       	<span class="float-right">
+                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       	</span>                                   		
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       <div class="modal" id="modalFormDatosEconomicos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Captura Datos Económicos</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" src="../../../assets/images/logo.png" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+                                           <div class="card-body">
+                                           <form role="form" id="edicionAsignacion1" th:action="@{/actualizaAsignacion}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
+                                               <h5 class="card-title">Formato de datos económicos</h5>
+                                               <div class="form-row">
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Venta Real</label>
+		                                            <input type="number" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Porcentaje de Venta</label>
+		                                            <input type="number" class="form-control" th:field="*{porcentajeVenta}" id="porcentajeVenta" placeholder="porcentaje venta" value="" minlength="8" maxlength="12" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                      </div>
+		                                      <div class="form-row">
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Comisión Real</label>
+		                                            <input type="number" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Porcentaje de Comision Vendedor</label>
+		                                            <input type="number" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="8" maxlength="12" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                      </div>
+		                                      <div class="form-row">
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Viaticos Totales de Asignacion</label>
+		                                            <input type="number" class="form-control" th:field="*{viaticosTotales}" id="viaticosTotales" placeholder="viaticos totales" value="" maxlength="100" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Fecha Promesa de Pago</label>
+		                                            <input type="number" class="form-control" th:field="*{fechaPromesaPago}" id="fechaPromesaPago"  minlength="8" maxlength="12" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                      </div>
+                                               <br>
+                                       		<span class="float-left">
+                                       			<button type="submit" class="btn btn-success pull-left" id="agregarErrorProcesoFinal"   disabled>Actualizar Datos Económicos</button>
                                        		</span>
 
 											</form>
