@@ -8,6 +8,7 @@ public interface IVendedorService {
 	public ResultVO altaVendedor(VendedorModelo vendedor, String token);
 	public ResultVO edicionVendedor(VendedorModelo vendedor, String token);
 	public ResultVO consultaVendedores(String token);
+	ResultVO consultaVendedoresAnalisis(String token);
 
 }
 

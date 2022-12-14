@@ -171,7 +171,7 @@ $(document).ready(function() {
 		$('#calendar').empty();
 		var eventos = new Array();
 		eventos = publicaEventos(asignaciones, filtroInstructores);
-		console.log(eventos[0]);
+//		console.log(eventos[0]);
 		var calendarEl = document.getElementById('calendar');
 		var today = hoy();
 		var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -220,11 +220,8 @@ $(document).ready(function() {
 		calendar.render();
 	}
 
+	
 	function abrirModal(item, identificadorUsuario){
-		
-		
-		
-		
 		item = item.split('-');
 		if(item.length == 1){
 			//console.log("instructor dia de ausencia");
@@ -236,14 +233,12 @@ $(document).ready(function() {
 			var asignacion01= asignaciones[i];
 			asignacion0 = asignacion01;
 			if((asignacion01.idAsignacion*1) === (item[0]*1)){
-//				//console.log(asignacion01);
+				idAsignacionClic = asignacion01.idAsignacion*1; 
 				break;
 			}
 		}
 		
 		var status = asignacion0.statusAsignacion;
-//		alert(status);
-//		alert(perfilUsuario);
 		
 			$("#divOperacion").empty();
 			$("#divEdicionVentas").empty();
@@ -333,11 +328,8 @@ $(document).ready(function() {
 				archivoParticipantes=asignacion0.archivoParticipantes;
 				costoHotel=asignacion0.costoHotel;
 				errorProceso=asignacion0.errorProceso;
-//				console.log(asignacion0);	
 				asignaCamposSubmit(asignacion0);
-				valErrorProceso(asignacion0);
-				
-//				break;
+				valErrorProceso(asignacion0);				
 			}
 
 		$('#modalFecha').html('<b>'+asignaFechaCalendario+'</b>'); 
@@ -388,9 +380,12 @@ $(document).ready(function() {
 			$('#admon').hide();
 		}
 		$('#myModal').modal();
-		
-		
+		$('#porcentajeComision').val(porcentajeVendedor(idAsignacionClic));
+		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
+		$('#userCreateAsignacionDatosEconomicos').val(identificadorUsuario );
 	}
+	
+	
 	
 	
 	function asignaCamposSubmit(asignacionSub){
@@ -819,4 +814,13 @@ $(document).ready(function() {
 		fecha = fecha.split("-");
 		return fecha[1]+"/"+fecha[2].substring(0,2)+"/"+fecha[0];
 	}
+	
+	
+	
+	
+	
+	
+	
+
+	
 	// fin de documento

@@ -2,8 +2,10 @@ mx\uniprotec\entidad\modelo\VendedorModelo.class
 mx\uniprotec\entidad\modelo\Modulo.class
 mx\uniprotec\entidad\modelo\ResultVO.class
 mx\uniprotec\entidad\modelo\UserMap.class
+mx\uniprotec\entidad\modelo\DatosEconomicosModelo.class
 mx\uniprotec\entidad\modelo\AsignacionModelo.class
 mx\uniprotec\entidad\modelo\EntregableCredencial.class
+mx\uniprotec\entidad\modelo\PreAsignacionAE.class
 mx\uniprotec\entidad\modelo\CredencialModelo.class
 mx\uniprotec\entidad\modelo\UserCorreo.class
 mx\uniprotec\entidad\modelo\PerfilModelo.class
@@ -18,6 +20,7 @@ mx\uniprotec\entidad\modelo\EntregableModelo.class
 mx\uniprotec\entidad\modelo\ParticipantesModelo.class
 mx\uniprotec\entidad\modelo\MensajeModelo.class
 mx\uniprotec\entidad\modelo\ZonaBaseModelo.class
+mx\uniprotec\entidad\modelo\AsignacionModelo_old.class
 mx\uniprotec\entidad\modelo\Region.class
 mx\uniprotec\entidad\modelo\SubModulo.class
 mx\uniprotec\entidad\modelo\LoginSingle.class

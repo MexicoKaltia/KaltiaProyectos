@@ -80,6 +80,7 @@ public class VendedorRestController {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 //		return UtilController.responseGeneric(vendedorService.findAll(), "vendedores", HttpStatus.ACCEPTED);
@@ -161,6 +162,7 @@ public class VendedorRestController {
 			vendedorNew.setEmailVendedor(vendedor.getEmailVendedor());
 			vendedorNew.setEmailGmailVendedor(vendedor.getEmailGmailVendedor());
 			vendedorNew.setNotaVendedor(vendedor.getNotaVendedor());
+			vendedorNew.setPorcentajeVendedor(vendedor.getPorcentajeVendedor());
 			vendedorNew.setUsuarioVendedor(usuarioService.findById(vendedor.getUsuarioVendedor()));
 			vendedorNew.setCreateAtVendedor(vendedor.getCreateAtVendedor());
 			vendedorNew.setStatusVendedor(vendedor.getStatusVendedor());
@@ -252,6 +254,7 @@ public class VendedorRestController {
 				vendedorActual.setNombreVendedor(vendedor.getNombreVendedor());
 				vendedorActual.setEmailVendedor(vendedor.getEmailVendedor());
 				vendedorActual.setNotaVendedor(vendedor.getNotaVendedor());
+				vendedorActual.setPorcentajeVendedor(vendedor.getPorcentajeVendedor());
 				vendedorActual.setCreateAtVendedor(vendedor.getCreateAtVendedor());
 				vendedorActual.setStatusVendedor(vendedor.getStatusVendedor());
 				vendedorActual.setUserCreateVendedor(vendedor.getUserCreateVendedor());

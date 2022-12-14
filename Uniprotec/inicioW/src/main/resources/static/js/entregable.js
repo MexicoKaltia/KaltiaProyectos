@@ -24,32 +24,46 @@ $(document).ready(function() {
 	var idAsignacion;
 	const identificadorUsuario = idUsuario;
 	
-//	if($('#todosInstructores').prop('checked')){
-//		calendario(asignaciones, filtroInstructores, identificadorUsuario);
-//	}
-	
 	//check box filtro entregables
 	var check = true;
+	var checkI = true;
 	var filtroEntregables = new Array();
+	var filtroInstructores = new Array();
 	var asignacionesFiltro = new Array();
+	
 	$('#btnFiltroEntregables').click(function(){
 		$('#todosEntregables').prop( "checked", check );
 		$('.checkboxFiltro').prop( "checked", check );
+		$('.checkboxFiltroI').prop( "checked", check );
 	});
 	
 	$( '#todosEntregables' ).on( 'click', function() {
 		check = $('#todosEntregables').prop( "checked");
 		$('.checkboxFiltro').prop( "checked", check );
-		
 	});
+	
+	$( '#todosInstructores' ).on( 'click', function() {
+		checkI = $('#todosInstructores').prop( "checked");
+		$('.checkboxFiltroI').prop( "checked", checkI );
+	});
+	
+	
 	
 	
 	$('#btnFiltro').click(function(){
 		
 		$('.checkboxFiltro:checked').each(function(){
 			if($(this).attr('checked',true)){
-				idEntregable = $(this).attr('id')
+				var idEntregable = $(this).attr('id');
 				filtroEntregables.push(idEntregable);
+			}
+		});
+		
+		$('.checkboxFiltroI:checked').each(function(){
+			if($(this).attr('checked',true)){
+				var idInstructor = $(this).attr('id');
+//				console.log(idInstructor);
+				filtroInstructores.push(idInstructor);
 			}
 		});
 		
@@ -59,12 +73,18 @@ $(document).ready(function() {
 				var entregableFiltro = filtroEntregables[a];
 				var strEstatusEntregable = getStatus(entregableFiltro);
 				if((asignacionA.statusAsignacion) === (strEstatusEntregable)){
-					asignacionesFiltro.push(asignacionA);
+					for(var i in filtroInstructores){
+						var filtroInstructor = filtroInstructores[i]
+						if((asignacionA.idInstructorAsignacion*1) === (filtroInstructor*1)){
+							asignacionesFiltro.push(asignacionA);
+						}
+					}
 				}
 			}
 		}
 		calendario(asignacionesFiltro);
 		filtroEntregables.length = 0;
+		filtroInstructores.length = 0;
 		asignacionesFiltro.length =0;
 		
 	});
@@ -89,6 +109,9 @@ $(document).ready(function() {
 			break;
 		case "elaborarEntregable":
 			estatusEntregable = 'Elaborar Entregable';
+			break;
+		case "entregablesValidado":
+			estatusEntregable = 'Entregables Validado';
 			break;
 		case "omitirEntregable":
 			estatusEntregable = 'Omitir Entregable';

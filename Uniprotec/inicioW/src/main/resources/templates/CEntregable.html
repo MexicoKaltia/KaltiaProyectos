@@ -282,16 +282,6 @@
                                     <span>Filtro Entregables</span>
                                 </a>
                             </li>
-<!--                             <li class="nav-item"> -->
-<!--                                 <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"> -->
-<!--                                     <span>Lista de Asignaciones</span> -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                             <li class="nav-item"> -->
-<!--                                 <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2"> -->
-<!--                                     <span>Proximos Entregables</span> -->
-<!--                                 </a> -->
-<!--                             </li> -->
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
@@ -301,20 +291,6 @@
                                     </div>
                                 </div>
                             </div>
-<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel"> -->
-<!--                                 <div class="main-card mb-3 card"> -->
-<!--                                     <div class="card-body"> -->
-<!--                                         <div id='calendar-list'></div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel"> -->
-<!--                                 <div class="main-card mb-3 card"> -->
-<!--                                     <div class="card-body"> -->
-<!--                                         <div id="calendar-bg-events"></div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
                         </div>
                     </div>                            
                         <!-- 
@@ -356,6 +332,11 @@
 														<li class="nav-item">
 															<div class="badge mr-1 ml-0">
 															    <span style="background:blue; color:white"><small>Elaborar Entregable</small></span>
+															</div>-->
+														</li>
+														<li class="nav-item">
+															<div class="badge mr-1 ml-0">
+															    <span style="background:yellow; color:black"><small>Entregable Validado</small></span>
 															</div>-->
 														</li>
 														<li class="nav-item">
@@ -485,7 +466,7 @@
                        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalFiltroEntregables" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					    <div class="modal-dialog " role="document">
+					    <div class="modal-dialog  modal-lg" role="document">
 					        <div class="modal-content">
 
                                    <!-- Modal Header -->
@@ -498,18 +479,20 @@
 
                                    <!-- Modal body -->
                                    <div class="modal-body">
-                                    <ul>
-                                    	<li  style=" list-style-type:none ">
-			                                <div class="input-group mb-1">
-											  <div class="input-group-prepend">
-											    <div class="input-group-text">
-											      <input type="checkbox" id="todosEntregables" checked>
-											    </div>
-											  </div>
-											  <span  style="padding-left: 10px;">Todos Entregables</span>
-											</div>
-			                            </li>
-			                            <hr>
+                                   		<div class="row">
+                                   			<div class="form-group purple-border col-md-6">
+                                   				<ul>
+			                                    	<li  style=" list-style-type:none ">
+						                                <div class="input-group mb-1">
+														  <div class="input-group-prepend">
+														    <div class="input-group-text">
+														      <input type="checkbox" id="todosEntregables" checked>
+														    </div>
+														  </div>
+														  <span  style="padding-left: 10px;">Todos Entregables</span>
+														</div>
+						                            </li>
+						                            <hr>
 														<li style=" list-style-type:none ">
 	                                                    	<div class="input-group mb-1">
 															  <div class="input-group-prepend">
@@ -580,6 +563,17 @@
 	                                                    	<div class="input-group mb-1">
 															  <div class="input-group-prepend">
 															    <div class="input-group-text">
+															      <input type="checkbox" class="checkboxFiltro" id="entregablesValidado" checked>
+															    </div>
+															  </div>
+															  <div class="badge mr-1 ml-0" style="background:yellow;"><small>    </small></div>
+															    <span>Entregables Validado</span>
+															</div>														
+														</li>
+														<li style=" list-style-type:none ">
+	                                                    	<div class="input-group mb-1">
+															  <div class="input-group-prepend">
+															    <div class="input-group-text">
 															      <input type="checkbox" class="checkboxFiltro" id="entregableEnviado" checked>
 															    </div>
 															  </div>
@@ -598,7 +592,34 @@
 															    <span>Omitir Entregable</span>
 															</div>														
 														</li>
-									 </ul>
+									 				</ul>
+                                   			</div>
+                                   			<div class="form-group red-border col-md-6">
+                                   				<ul>
+			                                    	<li  style=" list-style-type:none ">
+						                                <div class="input-group mb-1">
+														  <div class="input-group-prepend">
+														    <div class="input-group-text">
+														      <input type="checkbox" id="todosInstructores" class="" checked>
+														    </div>
+														  </div>
+														  <span  style="padding-left: 10px;">Todos Instructores</span>
+														</div>
+						                            </li>
+						                            <hr>
+												    <li th:each= "instructor : ${model.jsonResponseObject.instructores}" style=" list-style-type:none ">
+						                                <div class="input-group mb-1">
+														  <div class="input-group-prepend">
+														    <div class="input-group-text">
+														      <input type="checkbox" class="checkboxFiltroI" th:id="${instructor.idInstructor}" >
+														    </div>
+														  </div>
+														  <span th:text="${instructor.nombreInstructor}" style="padding-left: 10px;"></span>
+														</div>
+						                            </li>
+												 </ul>
+                                   			</div>
+                                   		</div>
                                    </div>
 
                                    <!-- Modal footer -->

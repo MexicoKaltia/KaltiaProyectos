@@ -54,6 +54,8 @@ public class Vendedor implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Usuario usuarioVendedor;
 	@Column
+	private Integer porcentajeVendedor;
+	@Column
 	private String notaVendedor;
 	@Column(nullable=false)
 	private Long userCreateVendedor;
@@ -62,16 +64,13 @@ public class Vendedor implements Serializable{
 	@Column(nullable=false)
 	private String statusVendedor;
 
-	/*
-	 * 
-	 * 
-	 */
 	@Override
 	public String toString() {
 		return "Vendedor [idVendedor=" + idVendedor + ", nombreVendedor=" + nombreVendedor + ", emailVendedor="
-				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor //+ ", cliente=" + cliente
-				+ ", notaVendedor=" + notaVendedor + ", userCreateVendedor=" + userCreateVendedor
-				+ ", createAtVendedor=" + createAtVendedor + ", statusVendedor=" + statusVendedor + "]";
+				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor + ", usuarioVendedor=" + usuarioVendedor
+				+ ", porcentajeVendedor=" + porcentajeVendedor + ", notaVendedor=" + notaVendedor
+				+ ", userCreateVendedor=" + userCreateVendedor + ", createAtVendedor=" + createAtVendedor
+				+ ", statusVendedor=" + statusVendedor + "]";
 	}
 	
 	
@@ -156,8 +155,13 @@ public class Vendedor implements Serializable{
 	public void setUsuarioVendedor(Usuario usuarioVendedor) {
 		this.usuarioVendedor = usuarioVendedor;
 	}
-	
-	
+	public Integer getPorcentajeVendedor() {
+		return porcentajeVendedor;
+	}
+	public void setPorcentajeVendedor(Integer porcentajeVendedor) {
+		this.porcentajeVendedor = porcentajeVendedor;
+	}
+
 	
 	
 }

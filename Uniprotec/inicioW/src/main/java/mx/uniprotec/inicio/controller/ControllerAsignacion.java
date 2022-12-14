@@ -440,6 +440,26 @@ public class ControllerAsignacion {
 				return mav;
 			}
 		}
+	
+	@PostMapping("/altaDatosEconomicos")
+	public ModelAndView altaDatosEconomicos(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
+		log.info("Actualiza Asignacion model Activo");
+//		log.info(asignacion.toString());
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+
+		ResultVO rs = asignacionService.altaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
+		ModelAndView mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK altaDatosEconomicos");
+		}
+		return mav;			
+	}
+
 
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
+import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
@@ -166,12 +167,8 @@ public class AsignacionService implements IAsignacionService{
 	public ResultVO edicionAsignacionC(AsignacionModelo asignacion) {
 		
 		me = ComponenteComun.monitorCampos();
-		
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
-//		asignacion.setUserCreateAsignacion(me.getIdUsuarioEntidad());
 		asignacion.setStatusAsignacion(asignacion.getStatusAsignacion());
-		
-//		log.info(asignacion.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPutC(
 				BaseClientRest.URL_CRUD_ASIGNACION,
@@ -275,6 +272,20 @@ public class AsignacionService implements IAsignacionService{
 			return rs;
 		}
 
+	}
+
+	@Override
+	public ResultVO altaDatosEconomicos(DatosEconomicosModelo datosEconomicosItem, String accesToken) {
+		
+		me = ComponenteComun.monitorCampos();
+		
+		datosEconomicosItem.setCreateAtAsignacion(me.getNowEntidad());
+		datosEconomicosItem.setStatus("ALTA");
+		
+		resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken, BaseClientRest.URL_CRUD_DATOSECONOMICOS, datosEconomicosItem);
+
+		return resultVO;
 	}
 
 

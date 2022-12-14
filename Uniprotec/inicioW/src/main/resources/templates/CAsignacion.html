@@ -15,6 +15,11 @@
 	<link th:href="@{css/fc/daygrid/main.css}" rel='stylesheet' />
 	<link th:href="@{css/fc/timegrid/main.css}" rel='stylesheet' />
 	<link th:href="@{css/fc/list/main.css}" rel='stylesheet' />
+	
+	<link th:href="@{css/default.css}" rel="stylesheet">
+    <link th:href="@{css/default.date.css}" rel="stylesheet">
+    <link th:href="@{css/default.time.css}" rel="stylesheet">
+	
 
 	<style>
 		#calendar {
@@ -272,20 +277,6 @@
                                     </div>
                                 </div>
                             </div>
-<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel"> -->
-<!--                                 <div class="main-card mb-3 card"> -->
-<!--                                     <div class="card-body"> -->
-<!--                                         <div id='calendar-list'></div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                             <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel"> -->
-<!--                                 <div class="main-card mb-3 card"> -->
-<!--                                     <div class="card-body"> -->
-<!--                                         <div id="calendar-bg-events"></div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
                         </div>
                     </div>                            
                         <!-- 
@@ -392,9 +383,9 @@
                                       			</div>
                                       			<br>
                                       			<div class="row container">
+                                      				<div class="col-4" id="divErrorProceso"></div>
                                       				<div class="col-4" id="btnSubmit"></div>
                                       				<div class="col-4" id="divSeccionEconomica"></div>
-                                      				<div class="col-4" id="divErrorProceso"></div>
                                        			</div>
 											</form>
                                            </div>
@@ -583,19 +574,19 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" src="../../../assets/images/logo.png" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
-                                           <form role="form" id="edicionAsignacion1" th:action="@{/actualizaAsignacion}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
+                                           <form role="form" id="altaDatosEconomicos" th:action="@{/altaDatosEconomicos}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
                                                <h5 class="card-title">Formato de datos económicos</h5>
                                                <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Venta Real</label>
-		                                            <input type="number" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required>
+		                                            <label for="validationCustom02">Venta Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelVentaReal" ></label></div>
+		                                            <input type="number" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required onfocusout="formatoVentaReal()">
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Porcentaje de Venta</label>
-		                                            <input type="number" class="form-control" th:field="*{porcentajeVenta}" id="porcentajeVenta" placeholder="porcentaje venta" value="" minlength="8" maxlength="12" required>
+		                                            <label for="validationCustom02">Porcentaje de Venta</label><div class="widget-numbers mt-0 fsize-2 text-success pull-right" id="divPorcentajeVenta"><label id="labelPorcentajeVenta" ></label></div>
+		                                            <input type="number" class="form-control" th:field="*{porcentajeVenta}" id="porcentajeVenta" placeholder="porcentaje venta" value="" minlength="8" maxlength="12" onfocusout="formatoPorcentajeVenta()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -603,15 +594,16 @@
 		                                      </div>
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Comisión Real</label>
-		                                            <input type="number" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" required>
+		                                            <label for="validationCustom02">Comisión Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelComisionReal" ></label></div>
+		                                            <input type="number" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Porcentaje de Comision Vendedor</label>
-		                                            <input type="number" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="8" maxlength="12" required>
+		                                            <label for="validationCustom02">Porcentaje de Comisión Vendedor</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelPorcentajeComision" ></label></div>
+		                                            <label id="nombreVendedorComision" class="text-primary"></label>
+		                                            <input type="number" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="8" maxlength="12" onfocusout="formatoPorcentajeComision()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -619,23 +611,46 @@
 		                                      </div>
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Viaticos Totales de Asignacion</label>
-		                                            <input type="number" class="form-control" th:field="*{viaticosTotales}" id="viaticosTotales" placeholder="viaticos totales" value="" maxlength="100" required>
+		                                            <label for="validationCustom02">Fecha Confirmacion Factura</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaConfirmacion" ></label></div>
+		                                            <input type="text" class="datepicker form-control" th:field="*{fechaConfirmacion}" id="fechaConfirmacion"   onchange="formatoFechaConfirmacion()" required>
+		                                            <input type="hidden" th:field="*{fechaConfirmacionFormat}" id="fechaConfirmacionFormat" />
+		                                            <div id="btnAgregarFechas"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+		                                            	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas de Confirmacion Recibo Factura</small>
+		                                            </div>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Fecha Promesa de Pago</label>
-		                                            <input type="number" class="form-control" th:field="*{fechaPromesaPago}" id="fechaPromesaPago"  minlength="8" maxlength="12" required>
+		                                            <label for="validationCustom02">Fecha Promesa de Pago</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPromesaPago" ></label></div>
+		                                            <input type="text" class="datepicker  form-control" th:field="*{fechaPromesaPago}" id="fechaPromesaPago"   onchange="formatoFechaPromesaPago()" required>
+		                                            <input type="hidden" th:field="*{fechaPromesaPagoFormat}" id="fechaPromesaPagoFormat" />
+		                                            <div id="btnAgregarFechas"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+		                                            	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas de Cobro Facturacion</small>
+		                                            </div>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
 		                                      </div>
+		                                      <div class="form-row">
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Viáticos Totales de Asignación</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelViaticosTotales" ></label></div>
+		                                            <input type="number" class="form-control" th:field="*{viaticosTotales}" id="viaticosTotales" placeholder="viaticos totales" value="" maxlength="100" onfocusout="formatoViaticosTotales()" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Observaciones</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelViaticosTotales" ></label></div>
+		                                            <textarea class="form-control" th:field="*{observacion}" id="observacion" rows="3" cols="150" ></textarea>
+		                                        </div>
+		                                        </div>
+												<input type="hidden" th:field="*{idAsignacion}" id="idAsignacionDatosEconomicos" />
+												<input type="hidden" th:field="*{userCreateAsignacion}" id="userCreateAsignacionDatosEconomicos" />
                                                <br>
                                        		<span class="float-left">
-                                       			<button type="submit" class="btn btn-success pull-left" id="agregarErrorProcesoFinal"   disabled>Actualizar Datos Económicos</button>
+                                       			<button type="submit" class="btn btn-success pull-left" id="btnActualizarDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
                                        		</span>
 
 											</form>
@@ -683,8 +698,11 @@
 	
 	<script th:src="@{js/errorProceso.js}"></script>
     
-     
-     									
+	<script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+    						
                                     	
     <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
@@ -742,6 +760,17 @@
                        <!-- Modal Fin-->
     
     <script th:src="@{js/calendario.js}"></script>
+    <script th:src="@{js/datosEconomicos.js}"></script>
+    <script type="text/javascript">
+    var today = new Date();
+    var $datepicker1 = $( '#fechaConfirmacion' ).pickadate({
+    	 min : today
+    });
+    var $datepicker = $( '#fechaPromesaPago' ).pickadate({
+   	 min : today
+   });
+    </script>     
+     			
 </body>
 
 </html>

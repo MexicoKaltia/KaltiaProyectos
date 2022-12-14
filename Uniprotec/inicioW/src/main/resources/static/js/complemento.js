@@ -202,6 +202,7 @@ $(document).ready(function(){
 		      $('#emailGmailVendedor').val(row.emailGmailVendedor);
 		      $('#statusVendedor').val("Actualizado");
 		      $('#notaVendedor').val(row.notaVendedor);
+		      $('#porcentajeVendedor').val(row.porcentajeVendedor);
 		      $('#statusVendedorbtn').html(row.statusVendedor);
 		    }
 		   }

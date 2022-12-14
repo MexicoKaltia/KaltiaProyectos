@@ -38,11 +38,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 
-	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://151.106.108.196:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://151.106.108.196:8016/crud/";
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -58,6 +58,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_ASIGNACIONES  =	"asignaciones";
 	public static final String URL_CRUD_ASIGNACIONES_HISTORICO  =	"asignacionesHistorico";
 	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
+	public static final String URL_CRUD_PREASIGNACIONES  =	"preAsignaciones";
 	public static final String URL_CRUD_PERFIL		  =	"perfil";
 	public static final String URL_CRUD_PERFILES	  =	"perfiles";
 	public static final String URL_CRUD_CORREOS 	  =	"correos";
@@ -67,7 +68,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_ENTREGABLE    = "entregable";
 	public static final String URL_CRUD_ENTREGABLE_D    = "entregable";
 	public static final String URL_CRUD_ZONABASE = "zonabase";
-	
+	public static final String URL_CRUD_DATOSECONOMICOS = "datosEconomicos";
 	
 	
 	public static final String POST = "HttpMethod.POST";
@@ -77,6 +78,8 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 	
 	public static final Long MAX_TIME_TOKEN = (long) 3600000;
+	
+	
 	
 	 
 	

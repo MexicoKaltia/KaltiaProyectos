@@ -17,6 +17,7 @@ public class VendedorModelo implements Serializable {
 	private String emailVendedor;
 	private String emailGmailVendedor;
 	private Long usuarioVendedor;
+	private int porcentajeVendedor;
 	private String notaVendedor;
 	private Long userCreateVendedor;
 	private LocalDateTime createAtVendedor;
@@ -37,8 +38,9 @@ public class VendedorModelo implements Serializable {
 	public String toString() {
 		return "VendedorModelo [idVendedor=" + idVendedor + ", nombreVendedor=" + nombreVendedor + ", emailVendedor="
 				+ emailVendedor + ", emailGmailVendedor=" + emailGmailVendedor + ", usuarioVendedor=" + usuarioVendedor
-				+ ", notaVendedor=" + notaVendedor + ", userCreateVendedor=" + userCreateVendedor
-				+ ", createAtVendedor=" + createAtVendedor + ", statusVendedor=" + statusVendedor + "]";
+				+ ", porcentajeVendedor=" + porcentajeVendedor + ", notaVendedor=" + notaVendedor
+				+ ", userCreateVendedor=" + userCreateVendedor + ", createAtVendedor=" + createAtVendedor
+				+ ", statusVendedor=" + statusVendedor + "]";
 	}
 
 
@@ -147,6 +149,18 @@ public class VendedorModelo implements Serializable {
 
 	public void setStatusVendedor(String statusVendedor) {
 		this.statusVendedor = statusVendedor;
+	}
+
+
+
+	public int getPorcentajeVendedor() {
+		return porcentajeVendedor;
+	}
+
+
+
+	public void setPorcentajeVendedor(int porcentajeVendedor) {
+		this.porcentajeVendedor = porcentajeVendedor;
 	}
 
 
