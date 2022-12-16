@@ -23,7 +23,7 @@
 	  
 $(document).ready(function(){
 	
-	console.log(preAsignaciones);
+//	console.log(preAsignaciones);
 	console.log(preAsignacionesAE);
 	console.log(asignaciones);
 	var myChartC, myChart;

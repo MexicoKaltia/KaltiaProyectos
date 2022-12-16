@@ -25,6 +25,7 @@ import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
+import mx.uniprotec.inicio.service.IDatosEconomicosService;
 import mx.uniprotec.inicio.service.IEntregableService;
 import mx.uniprotec.inicio.service.ILoginService;
 import mx.uniprotec.inicio.service.IUsuarioService;
@@ -49,6 +50,8 @@ public class ControllerAsignacion {
 	IUsuarioService usuarioService;
 	@Autowired
 	IEntregableService entregableService;
+	@Autowired
+	IDatosEconomicosService datosEconomicosService;
 	
 	
 //	ResultVO resultVO = new ResultVO();
@@ -66,7 +69,6 @@ public class ControllerAsignacion {
 	
 	@GetMapping("/AAsignacion")
 	public ModelAndView asignacion(ModelMap model) {
-//		log.info(model.toString());
 		model.addAttribute("asignacionForm", new AsignacionModelo());
 		model.addAttribute("asignaForm", new AsignacionModelo());
 
@@ -448,7 +450,7 @@ public class ControllerAsignacion {
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 
-		ResultVO rs = asignacionService.altaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
+		ResultVO rs = datosEconomicosService.altaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
 		ModelAndView mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
 		if(rs.getCodigo() != 500) {
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());

@@ -43,10 +43,6 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 		return (List<PreAsignacionAEEntity>) preAsignacionAEDao.findAll();
 	}
 
-
-
-
-
 	@Override
 	public int deleteIdpreAsignacion(Long id) {
 		try {
@@ -63,37 +59,12 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 		
 	}
 
-	
-//	@Override
-//	@Transactional(readOnly = true)
-//	public List<Asignacion> findAll() {
-//		return (List<Asignacion>) asignacionDao.findAll();
-//	}
-//
-//	@Override
-//	@Transactional(readOnly = true)
-//	public Asignacion findById(Long id) {
-//		return asignacionDao.findById(id).orElse(null);
-//	}
-//
-//	@Override
-//	@Transactional
-//	public Asignacion save(Asignacion asignacion) {
-//		return asignacionDao.save(asignacion);
-//	}
-//
-//	@Override
-//	@Transactional
-//	public void delete(Long id) {
-//		asignacionDao.deleteById(id);
-//
-//	}
-//	
-//	@Override
-//	@Transactional(readOnly = true)
-//	public List<AsignacionHistorico> findAllHistorico() {
-//		return (List<AsignacionHistorico>) asignacionHistoricoDao.findAll();
-//	}
+
+	@Override
+	public PreAsignacionAEEntity findByIdDatoEconomico(Long idDatosEconomicos) {
+		PreAsignacionAEEntity preAsignacionAE = preAsignacionAEDao.findById(idDatosEconomicos).orElse(null);
+		return preAsignacionAE;
+	}
 
 
 }

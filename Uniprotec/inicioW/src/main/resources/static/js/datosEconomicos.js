@@ -4,11 +4,13 @@
 
 $(document).ready(function() {
 
-	console.log("datosEconomicos")
+	console.log(datosEconomicos);
+	console.log(idAsignacionClic);
 	
 	$("#btnActualizarDatosEconomicos").click(function(){
 		//idAsignacionDatosEconomicos
 	});
+	
 	
 		
 			
@@ -18,6 +20,12 @@ $(document).ready(function() {
 /*
  * funciones de datos economicos
  */	
+
+$("#btnDatosEconomicos").click(function(){
+	console.log("btnDatosEconomicos");
+	
+		});
+		
 	
 	function formatoVentaReal(){
 		$('#labelVentaReal').text(formatter.format($('#ventaReal').val()));
@@ -67,7 +75,7 @@ $(document).ready(function() {
 	
 	function formatoPorcentajeComision(){
 		$('#labelPorcentajeComision').text(formatoPorcentaje($('#porcentajeComision').val()));
-		formatoComisionReal();
+		formatoVentaReal();
 	}
 	function formatoViaticosTotales(){
 		$('#labelViaticosTotales').text(formatter.format($('#viaticosTotales').val()));

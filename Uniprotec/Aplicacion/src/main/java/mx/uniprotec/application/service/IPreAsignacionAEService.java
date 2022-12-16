@@ -8,22 +8,13 @@ import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 
 public interface IPreAsignacionAEService {
 	
-//	public List<Asignacion> findAll();
-//	
-//	public Asignacion findById(Long id);
-//	
-//	public Asignacion save(Asignacion asignacion);
-//	
-//	public void delete(Long id);
-//
-//	public List<AsignacionHistorico> findAllHistorico();
-
-	
 
 	public PreAsignacionAEEntity savePreAsignacionAE(PreAsignacionAEEntity preAsignacionAENew);
 
 	public List<PreAsignacionAEEntity> findAll();
 
 	public int deleteIdpreAsignacion(Long id);
+
+	public PreAsignacionAEEntity findByIdDatoEconomico(Long idDatosEconomicos);
 	
 }

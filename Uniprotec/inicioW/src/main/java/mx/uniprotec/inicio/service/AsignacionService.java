@@ -35,6 +35,8 @@ public class AsignacionService implements IAsignacionService{
 	IInstructorService instructorService;
 	@Autowired
 	IVendedorService vendedorService;
+	@Autowired
+	IDatosEconomicosService datosEconomicosService;
 	
 	public AsignacionService() {
 		// TODO Auto-generated constructor stub
@@ -197,6 +199,13 @@ public class AsignacionService implements IAsignacionService{
 				if(rsVendedores.getCodigo() != 500) {
 					JSONObject jsonVendedores = rsVendedores.getJsonResponseObject();
 					jsonAsignaciones.put("vendedores", jsonVendedores.get("vendedores"));
+					ResultVO rsDatosEconomicos = datosEconomicosService.consultaDatosEconomicos(token);
+					if(rsDatosEconomicos.getCodigo() != 500) {
+						JSONObject jsonDatosEconomicos = rsDatosEconomicos.getJsonResponse();
+						jsonAsignaciones.put("datosEconomicos", jsonDatosEconomicos.get("datosEconomicos"));
+					}else {
+						return rsDatosEconomicos;
+					}
 					
 				}else {
 					return rsVendedores;
@@ -272,20 +281,6 @@ public class AsignacionService implements IAsignacionService{
 			return rs;
 		}
 
-	}
-
-	@Override
-	public ResultVO altaDatosEconomicos(DatosEconomicosModelo datosEconomicosItem, String accesToken) {
-		
-		me = ComponenteComun.monitorCampos();
-		
-		datosEconomicosItem.setCreateAtAsignacion(me.getNowEntidad());
-		datosEconomicosItem.setStatus("ALTA");
-		
-		resultVO = (ResultVO) baseClientRest.objetoPost(
-				accesToken, BaseClientRest.URL_CRUD_DATOSECONOMICOS, datosEconomicosItem);
-
-		return resultVO;
 	}
 
 

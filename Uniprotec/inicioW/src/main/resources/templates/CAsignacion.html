@@ -579,14 +579,14 @@
                                                <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Venta Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelVentaReal" ></label></div>
-		                                            <input type="number" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required onfocusout="formatoVentaReal()">
+		                                            <input type="text" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required onfocusout="formatoVentaReal()">
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Porcentaje de Venta</label><div class="widget-numbers mt-0 fsize-2 text-success pull-right" id="divPorcentajeVenta"><label id="labelPorcentajeVenta" ></label></div>
-		                                            <input type="number" class="form-control" th:field="*{porcentajeVenta}" id="porcentajeVenta" placeholder="porcentaje venta" value="" minlength="8" maxlength="12" onfocusout="formatoPorcentajeVenta()" required>
+		                                            <input type="text" class="form-control" th:field="*{porcentajeVenta}" id="porcentajeVenta" placeholder="porcentaje venta" value="" minlength="1" maxlength="6" onfocusout="formatoPorcentajeVenta()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -595,7 +595,7 @@
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Comisión Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelComisionReal" ></label></div>
-		                                            <input type="number" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>
+		                                            <input type="text" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -603,7 +603,7 @@
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Porcentaje de Comisión Vendedor</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelPorcentajeComision" ></label></div>
 		                                            <label id="nombreVendedorComision" class="text-primary"></label>
-		                                            <input type="number" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="8" maxlength="12" onfocusout="formatoPorcentajeComision()" required>
+		                                            <input type="text" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="1" maxlength="6" onfocusout="formatoPorcentajeComision()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -636,7 +636,7 @@
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Viáticos Totales de Asignación</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelViaticosTotales" ></label></div>
-		                                            <input type="number" class="form-control" th:field="*{viaticosTotales}" id="viaticosTotales" placeholder="viaticos totales" value="" maxlength="100" onfocusout="formatoViaticosTotales()" required>
+		                                            <input type="text" class="form-control" th:field="*{viaticosTotales}" id="viaticosTotales" placeholder="viaticos totales" value="" maxlength="100" onfocusout="formatoViaticosTotales()" required>
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -648,6 +648,7 @@
 		                                        </div>
 												<input type="hidden" th:field="*{idAsignacion}" id="idAsignacionDatosEconomicos" />
 												<input type="hidden" th:field="*{userCreateAsignacion}" id="userCreateAsignacionDatosEconomicos" />
+												<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicos" />
                                                <br>
                                        		<span class="float-left">
                                        			<button type="submit" class="btn btn-success pull-left" id="btnActualizarDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
@@ -683,6 +684,7 @@
  		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+		 var datosEconomicos= [[${model.jsonResponseObject.datosEconomicos}]];
 	</script>
 	
 	 

@@ -20,6 +20,7 @@ $(document).ready(function() {
 	var asignaUserCreateAsignacion;
 	var costoHotel;
 	
+	
 	const identificadorUsuario = idUsuario;
 //	//console.log("id usuario sesion:"+idUsuario)
 	var filtroInstructores = new Array();
@@ -233,7 +234,7 @@ $(document).ready(function() {
 			var asignacion01= asignaciones[i];
 			asignacion0 = asignacion01;
 			if((asignacion01.idAsignacion*1) === (item[0]*1)){
-				idAsignacionClic = asignacion01.idAsignacion*1; 
+				idAsignacionClic = asignacion01.idAsignacion*1;
 				break;
 			}
 		}
@@ -380,9 +381,48 @@ $(document).ready(function() {
 			$('#admon').hide();
 		}
 		$('#myModal').modal();
+		
 		$('#porcentajeComision').val(porcentajeVendedor(idAsignacionClic));
 		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
 		$('#userCreateAsignacionDatosEconomicos').val(identificadorUsuario );
+		
+		$('#ventaReal').val(0);$('#labelVentaReal').text("");
+		$('#porcentajeVenta').val(0);$('#labelPorcentajeVenta').text("");
+		$('#comisionReal').val(0);$('#labelComisionReal').text("");
+//		$('#porcentajeComision').val(datoEconomico.);
+		
+		$('#fechaPromesaPago').val("");
+		$('#fechaPromesaPagoFormat').val("");
+		$('#fechaConfirmacion').val("");
+		$('#fechaConfirmacionFormat').val("");
+		
+		$('#viaticosTotales').val(0);
+		$('#observaciones').val("");
+		
+		for(var a in datosEconomicos){
+			var datoEconomico = datosEconomicos[a];
+			if(datoEconomico.formAEidPreAsignacion*1 === idAsignacionClic*1){
+				console.log("Existe el expediente datos Economicos");
+				
+				$('#idDatosEconomicos').val(datoEconomico.idPreAsignacionAE);
+				
+				$('#ventaReal').val(datoEconomico.formAEPrecioVentaReal);
+				$('#porcentajeVenta').val(datoEconomico.formAERegla3PorcentajeNuevaComisionReal);
+				$('#comisionReal').val(datoEconomico.formAEComisionVendedor);
+//				$('#porcentajeComision').val(datoEconomico.);
+				
+				$('#fechaPromesaPago').val(datoEconomico.formAEFechaPromesaPago);
+				$('#fechaPromesaPagoFormat').val(datoEconomico.formAEFechaPromesaPagoFormat);
+				$('#fechaConfirmacion').val(datoEconomico.formAEFechaConfirmacion);
+				$('#fechaConfirmacionFormat').val(datoEconomico.formAEFechaConfirmacionFormat);
+				
+				$('#viaticosTotales').val(datoEconomico.formAEViaticosTotal);
+				$('#observacion').val(datoEconomico.formAEObservaciones);
+				formatoVentaReal();
+				formatoPorcentajeVenta();	
+				break;
+			}
+		}
 	}
 	
 	

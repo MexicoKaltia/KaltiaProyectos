@@ -3,6 +3,8 @@ package mx.uniprotec.inicio.service;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.inicio.util.BaseClientRest;
+import mx.uniprotec.inicio.util.ComponenteComun;
 
 public interface IAsignacionService {
 	
@@ -15,7 +17,7 @@ public interface IAsignacionService {
 	public ResultVO edicionAsignacionVConfirma(AsignacionModelo asignacion, String token);
 	public ResultVO consultaAsignacionHistorico(String accesToken);
 	ResultVO consultaAsignacionCliente(String token);
-	public ResultVO altaDatosEconomicos(DatosEconomicosModelo datosEconomicosItem, String accesToken);
+
 	
 	
 	

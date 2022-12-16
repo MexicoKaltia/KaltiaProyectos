@@ -135,12 +135,12 @@ public class VendedorService implements IVendedorService {
 			JSONObject jsonAsignaciones = new JSONObject();
 			jsonConsulta.put("asignaciones", jsonGeneral.get("asignaciones"));
 			if(rs.getCodigo() == 202) {
-				rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_PREASIGNACIONES);
+				rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_DATOSECONOMICOS);
 				jsonGeneral = rs.getJsonResponse();
 				JSONObject jsonPreAsignaciones = new JSONObject();
 				JSONObject jsonPreAsignacionesAE = new JSONObject();
-				jsonConsulta.put("preAsignaciones", jsonGeneral.get("preAsignaciones"));
-				jsonConsulta.put("preAsignacionesAE", jsonGeneral.get("preAsignacionesAE"));
+//				jsonConsulta.put("preAsignaciones", jsonGeneral.get("preAsignaciones"));
+				jsonConsulta.put("datosEconomicos", jsonGeneral.get("datosEconomicos"));
 				
 				rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
 				if(rs.getCodigo() == 202) {
