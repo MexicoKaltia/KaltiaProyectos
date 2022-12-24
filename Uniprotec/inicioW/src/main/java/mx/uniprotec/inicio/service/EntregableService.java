@@ -83,6 +83,11 @@ public class EntregableService implements IEntregableService {
 			JSONObject jsonEntregables = new JSONObject();
 			jsonEntregables.put("entregables", jsonGeneral.get("entregables"));
 			jsonEntregables.put("participantes", jsonGeneral.get("participantes"));
+			rs= (ResultVO) baseClientRest.objetoGetId(token, BaseClientRest.URL_CRUD_PARTICIPANTES_IMPORTAR, null, idAsignacion.toString());
+			if(rs.getCodigo() != 500) {
+				jsonGeneral = rs.getJsonResponse();
+				jsonEntregables.put("prtsImportar", jsonGeneral.get("prtsImportar"));
+			}
 			rs.setJsonResponseObject(jsonEntregables);
 		}
 			return rs;
@@ -364,7 +369,7 @@ public class EntregableService implements IEntregableService {
 	 */
 	
 	private List<ParticipantesModelo> getParticipantes(EntregableModelo entregable, Long idUsuario) {
-//		log.info(entregable.getFormBParticipantesStr());
+
 		String[] tmp = null;
 		List<ParticipantesModelo> participantes = new ArrayList<ParticipantesModelo>();
 		me = ComponenteComun.monitorCampos();
@@ -398,6 +403,7 @@ public class EntregableService implements IEntregableService {
 							participante.setUserCreate(idUsuario);
 							participante.setCreateAt(me.getNowEntidad());
 							participante.setStatus("create");
+							participante.setIdCliente(entregable.getIdCliente());
 							
 							participantes.add(participante);
 //							log.info(participante);

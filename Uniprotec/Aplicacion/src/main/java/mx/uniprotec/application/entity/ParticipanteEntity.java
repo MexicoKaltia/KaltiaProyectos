@@ -62,6 +62,8 @@ public class ParticipanteEntity {
 	private Long userCreateParticipante;
 	@Column
 	private LocalDateTime createAtParticipante;
+	@Column
+	private Long idCliente;
 	
 	
 	@Override
@@ -202,6 +204,16 @@ public class ParticipanteEntity {
 
 	public void setParticipanteAprobado(boolean participanteAprobado) {
 		this.participanteAprobado = participanteAprobado;
+	}
+
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
 	
 	

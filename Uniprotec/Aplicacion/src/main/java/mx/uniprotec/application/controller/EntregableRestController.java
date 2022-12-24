@@ -62,6 +62,7 @@ public class EntregableRestController {
 			for(EntregableEntity ee : entregables) {
 				idEntregable = ee.getIdEntregable();
 				List<ParticipanteEntity> participantes = entregableService.consultaParticipantes(idEntregable);
+				log.info(participantes.toString());
 				arrayParticipantes.add(participantes);
 			}
 			
@@ -81,6 +82,35 @@ public class EntregableRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+	}
+	
+	@GetMapping("/participantesImportar/{idAsignacion}")
+	public ResponseEntity<?> consultaParticipantes(@PathVariable String idAsignacion) {
+		log.info("consulta participantes");
+		Map<String, Object> response = new HashMap<>();
+		try {
+			List<ParticipanteEntity> participantesImportar = entregableService.consultaParticipantesImportar(getIdClienteAsignacion(idAsignacion));
+			 
+			 response.put("prtsImportar", participantesImportar);
+			 response.put("mensaje", "Exito en la busqueda de participantes");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("consulta participantes fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			log.info("consulta participantes error fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	private Long getIdClienteAsignacion(String idAsignacion) {
+		Asignacion asignacion = asignacionService.findById(Long.valueOf(idAsignacion));
+		return asignacion.getIdClienteAsignacion();
 	}
 	
 	@SuppressWarnings("unused")
@@ -152,12 +182,11 @@ public class EntregableRestController {
 			if(entregable.getIdEntregable() == null) {
 				log.info("nuevo Entregable");
 				entregableNew = entregableService.createEntregable(entregableEntity);
-				pe = entregableService.createParticipantes(entregableNew.getIdEntregable(), entregableNew.getIdAsignacion(), getParticipantes(entregable.getFormBParticipantes(), entregableNew.getIdEntregable()));
+				pe = entregableService.createParticipantes(getParticipantes(entregable.getFormBParticipantes(), entregableNew.getIdEntregable()));
 			}else {
 				// Update
 				log.info("update Entregable");
 				entregableEntity.setIdEntregable(entregable.getIdEntregable());
-//				entregableEntity.setStatusEntregable("update");
 				entregableNew = entregableService.createEntregable(entregableEntity);
 				pe = entregableService.updateParticipantes(getParticipantes(entregable.getFormBParticipantes(), entregableNew.getIdEntregable()), entregableNew.getIdEntregable());
 			}
@@ -274,6 +303,7 @@ public class EntregableRestController {
 			pe.setStatusParticipante(pm.getStatus());
 			pe.setUserCreateParticipante(pm.getUserCreate());
 			pe.setCreateAtParticipante(pm.getCreateAt());
+			pe.setIdCliente(pm.getIdCliente());
 			
 			participantesEntity.add(pe);
 			

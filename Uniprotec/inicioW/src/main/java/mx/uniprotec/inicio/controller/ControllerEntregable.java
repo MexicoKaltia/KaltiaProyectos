@@ -76,7 +76,7 @@ public class ControllerEntregable {
 			jsonResponse.put("clientes", rs.getJsonResponse());
 			
 			rs = entregableService.consultaEntregable(resultVO.getAccesToken(), asignacion.getIdAsignacion());
-			jsonResponse.put("entregables", rs.getJsonResponse());
+			jsonResponse.put("entregables", rs.getJsonResponseObject());
 			
 			resultVO.setJsonResponseObject(jsonResponse);
 			

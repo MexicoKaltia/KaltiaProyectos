@@ -69,6 +69,7 @@ public class EntregableModelo implements Serializable{
 	private String idEntregableLogico;
 	private int idInstructorAsignacion;
 	private String nombreFirmaInstructorAsignacion;
+	private Long idCliente;
 	
 	
 	
@@ -402,7 +403,8 @@ public class EntregableModelo implements Serializable{
 				+ formCEvidenciaDoctoB + ", status=" + status + ", userCreate=" + userCreate + ", createAt=" + createAt
 				+ ", altaDocto=" + altaDocto + ", estatusEntregable=" + estatusEntregable + ", rfcOriginalAsignacion="
 				+ rfcOriginalAsignacion + ", idEntregableLogico=" + idEntregableLogico + ", idInstructorAsignacion="
-				+ idInstructorAsignacion + ", nombreFirmaInstructorAsignacion=" + nombreFirmaInstructorAsignacion + "]";
+				+ idInstructorAsignacion + ", nombreFirmaInstructorAsignacion=" + nombreFirmaInstructorAsignacion
+				+ ", idCliente=" + idCliente + "]";
 	}
 	public int getIdInstructorAsignacion() {
 		return idInstructorAsignacion;
@@ -415,6 +417,12 @@ public class EntregableModelo implements Serializable{
 	}
 	public void setNombreFirmaInstructorAsignacion(String nombreFirmaInstructorAsignacion) {
 		this.nombreFirmaInstructorAsignacion = nombreFirmaInstructorAsignacion;
+	}
+	public Long getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
 	
 	

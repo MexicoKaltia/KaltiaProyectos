@@ -283,6 +283,7 @@
 										 var asignacionCliente = [[${model.jsonResponseObject.clientes.clientes}]];
 										 var entregables = [[${model.jsonResponseObject.entregables.entregables}]];
 										 var participantes = [[${model.jsonResponseObject.entregables.participantes}]];
+										 var prtsImportar = [[${model.jsonResponseObject.entregables.prtsImportar}]];
 										 
 										 var idUsuario =  [[${model.jsonResponse.user.id}]];
 										 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
@@ -730,6 +731,7 @@
 																			<input type="hidden"  th:field="*{idEntregableLogico}" id="idEntregableLogico" />
 																			<input type="hidden"  th:field="*{idInstructorAsignacion}" id="idInstructorAsignacion" />
 																			<input type="hidden"  th:field="*{nombreFirmaInstructorAsignacion}" id="nombreFirmaInstructorAsignacion" />
+																			<input type="hidden"  th:field="*{idCliente}" id="idCliente" />
 																			
 																			
 																			
@@ -1117,22 +1119,50 @@
                                                <h5 class="card-title" id="tituloParticipantesImportar">Actualmente el Evento Id Asignacion: <span style="text:bold; color:blue;" id="idAsignacionParticipantesImportar"></span>, existen los siguientes participantes :</h5>
                                                <!-- ------------------- -->
                                                  <!-- Modal body -->
-			                                    <ul>
-			                                    	<li  style=" list-style-type:none ">
-						                                <div class="input-group mb-1">
-														  <div class="input-group-prepend">
-														    <div class="input-group-text">
-														      <input type="checkbox" id="todosParticipantesImportar" checked>
-														    </div>
-														  </div>
-														  <span  style="padding-left: 10px;">Todos</span>
+                                               <div class="form-row">
+					                           		<div class="col-md-12 mb-3">
+					                                    <ul>
+					                                    	<li  style=" list-style-type:none ">
+								                                <div class="input-group mb-1">
+																  <div class="input-group-prepend">
+																    <div class="input-group-text">
+																      <input type="checkbox" id="todosParticipantesImportar" checked>
+																    </div>
+																  </div>
+																  <span  style="padding-left: 10px;">Todos</span>
+																</div>
+								                            </li>
+								                            <hr>
+								                            <span id="participantesImportar"></span>
+														 </ul>
+													</div>
+												</div>
+												<hr><hr>
+												<form role="form" id="formImportarParticipantes">
+													<div class="form-row">
+														<div class="col-md-6 mb-3">
+															<span id="participantesExcel"></span>
 														</div>
-						                            </li>
-						                            <hr>
-						                            <span id="participantesImportar"></span>
-						                            
-												    
-												 </ul>
+														<div class="col-md-6 mb-3">
+															<div class="card">
+											                       <div id="headingTwo" class="b-radius-0 card-header">
+											        	               	<h6 class="m-0 p-0"><label for="validationCustom02">Importar Participantes Excel</label> </h6>
+											                        </div>
+											                       	<div class="card-body">
+											                           	<div class="col-md-12 mb-6">
+																			<div class="col-sm-10">
+														                       	<div class="alertaD"></div>
+														                       	
+														                       		<input id="importarParticipantesExcel" name="importarParticipantesExcel" type="file" class="form-control-file"  data-show-upload="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="importarParticipantes(this)" />
+																					<br/>
+														   							<small class="form-text text-muted">Adjuntar Archivos formato *.xls, *.xlsx.</small>
+														   					</div>    
+														                 </div>				
+											                        </div>
+															   </div>
+														   </div>
+													</div>
+												</form>
 			                                     <!-- ------------------- -->
 											</div>
 				    						<!-- ------------------- -->

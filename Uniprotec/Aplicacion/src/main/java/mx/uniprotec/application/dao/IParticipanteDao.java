@@ -19,5 +19,7 @@ public interface IParticipanteDao extends JpaRepository<ParticipanteEntity, Long
 	public void deleteByIdParticipante(String idParticipante);
 	public void deleteByIdParticipanteAndIdEntregable(String idParticipante, Long idEntregable);
 
+	public List<ParticipanteEntity> findByIdCliente(Long idCliente);
+
 }
 

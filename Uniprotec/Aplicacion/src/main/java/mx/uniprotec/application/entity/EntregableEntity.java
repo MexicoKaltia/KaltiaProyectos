@@ -68,15 +68,6 @@ public class EntregableEntity {
 	private String formARepresentanteTrabajador;
 	@Column
 	private String formALogo;
-	
-//	@OneToMany(cascade = CascadeType.MERGE,  mappedBy="entregable")
-////	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-////	@JoinTable(name="entregable_participante", joinColumns= @JoinColumn(name="entregable_id"),
-////	inverseJoinColumns=@JoinColumn(name="participante_id"),
-////	uniqueConstraints= {@UniqueConstraint(columnNames= {"entregable_id", "participante_id"})})
-////	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	private List<ParticipanteEntity> formBParticipantes = new ArrayList<>();
-	
 	@Column
 	private String formCRazonSocial;
 	@Column
@@ -121,28 +112,9 @@ public class EntregableEntity {
 	private Long userCreateEntregable;
 	@Column
 	private LocalDateTime createAtEntregable;
+	@Column
+	private Long idCliente;
 
-	
-	
-	@Override
-	public String toString() {
-		return "EntregableEntity [idEntregable=" + idEntregable + ", formARazonSocial=" + formARazonSocial
-				+ ", formARFC=" + formARFC + ", formACurso=" + formACurso + ", formADuracion=" + formADuracion
-				+ ", formAFechaInicioDC3=" + formAFechaInicioDC3 + ", formAFechaFinDC3=" + formAFechaFinDC3
-				+ ", formAFechaDiploma=" + formAFechaDiploma + ", formAEquipoCredencial=" + formAEquipoCredencial
-				+ ", formAFechaInicioCredenciales=" + formAFechaInicioCredenciales + ", formAFechaFinalCredenciales="
-				+ formAFechaFinalCredenciales + ", formAInstructor=" + formAInstructor + ", formARepresentanteEmpresa="
-				+ formARepresentanteEmpresa + ", formARepresentanteTrabajador=" + formARepresentanteTrabajador
-				+ ", formALogo=" + formALogo +  ", formCRazonSocial="
-				+ formCRazonSocial + ", formCCurso=" + formCCurso + ", formCDuracion=" + formCDuracion
-				+ ", formCInstructor=" + formCInstructor + ", formCFechas=" + formCFechaInicio+"-"+ formCFechaFinal + ", formCSede=" + formCSede
-				+ ", formCComentariosGrupo=" + formCComentariosGrupo + ", formCProcesoAprendizaje="
-				+ formCProcesoAprendizaje + ", formCTeoria=" + formCTeoria + ", formCPractica=" + formCPractica
-				+ ", formCEvidenciasFotograficas=" + formCEvidenciasFotograficas + ", formCRecomendaciones="
-				+ formCRecomendaciones + ", formCNivelCumplimiento=" + formCNivelCumplimiento + ", formCContingencias="
-				+ formCContingencias + ", formCAvancesLogrados=" + formCAvancesLogrados + ", formCObservaciones="
-				+ formCObservaciones + ", formCEvidenciaDocto=" + formCEvidenciaDocto + "]";
-	}
 	public Long getIdEntregable() {
 		return idEntregable;
 	}
@@ -378,6 +350,34 @@ public class EntregableEntity {
 	}
 	public void setRFCOriginalAsignacion(String rFCOriginalAsignacion) {
 		RFCOriginalAsignacion = rFCOriginalAsignacion;
+	}
+	public Long getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+	@Override
+	public String toString() {
+		return "EntregableEntity [idEntregable=" + idEntregable + ", idAsignacion=" + idAsignacion
+				+ ", formARazonSocial=" + formARazonSocial + ", formARFC=" + formARFC + ", formACurso=" + formACurso
+				+ ", formADuracion=" + formADuracion + ", formAFechaInicioDC3=" + formAFechaInicioDC3
+				+ ", formAFechaFinDC3=" + formAFechaFinDC3 + ", formAFechaDiploma=" + formAFechaDiploma
+				+ ", formAEquipoCredencial=" + formAEquipoCredencial + ", formAFechaInicioCredenciales="
+				+ formAFechaInicioCredenciales + ", formAFechaFinalCredenciales=" + formAFechaFinalCredenciales
+				+ ", formAInstructor=" + formAInstructor + ", formARepresentanteEmpresa=" + formARepresentanteEmpresa
+				+ ", formARepresentanteTrabajador=" + formARepresentanteTrabajador + ", formALogo=" + formALogo
+				+ ", formCRazonSocial=" + formCRazonSocial + ", formCCurso=" + formCCurso + ", formCDuracion="
+				+ formCDuracion + ", formCInstructor=" + formCInstructor + ", formCFechaInicio=" + formCFechaInicio
+				+ ", formCFechaFinal=" + formCFechaFinal + ", formCSede=" + formCSede + ", formCComentariosGrupo="
+				+ formCComentariosGrupo + ", formCProcesoAprendizaje=" + formCProcesoAprendizaje + ", formCTeoria="
+				+ formCTeoria + ", formCPractica=" + formCPractica + ", formCEvidenciasFotograficas="
+				+ formCEvidenciasFotograficas + ", formCRecomendaciones=" + formCRecomendaciones
+				+ ", formCNivelCumplimiento=" + formCNivelCumplimiento + ", formCContingencias=" + formCContingencias
+				+ ", formCAvancesLogrados=" + formCAvancesLogrados + ", formCObservaciones=" + formCObservaciones
+				+ ", formCEvidenciaDocto=" + formCEvidenciaDocto + ", RFCOriginalAsignacion=" + RFCOriginalAsignacion
+				+ ", statusEntregable=" + statusEntregable + ", userCreateEntregable=" + userCreateEntregable
+				+ ", createAtEntregable=" + createAtEntregable + ", idCliente=" + idCliente + "]";
 	}
 	
 	

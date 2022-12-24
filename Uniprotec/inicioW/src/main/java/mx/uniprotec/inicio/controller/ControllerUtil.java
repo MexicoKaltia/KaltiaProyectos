@@ -28,7 +28,15 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -47,6 +55,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.EntregableModelo;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.service.IClienteService;
 
@@ -468,9 +477,6 @@ public class ControllerUtil {
 		    // application have write permissions on such directory)
 		    String filename = formBFotoParticipante.getOriginalFilename();
 		    
-		    //
-
-//		    String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/imagenesParticipantes/";
 		    String directory = "/uniprotec/entregables/"+idEmpresa+"/imagenesParticipantes/";
 	        File directorio = new File(directory);
 	        String filepath = Paths.get(directory, filename).toString();
@@ -577,85 +583,7 @@ public class ControllerUtil {
 			    resultVO.setMensaje(e.getMessage());
 			    return resultVO;//new ResultVO(99, "fallo");
 			  }
-		    
-
-		    
 		      return resultVO;//new ResultVO(1, "ExitoFileUpload");
-			
-
-//		      Arrays.asList(formCEvidenciasFotograficas).stream().forEach(file -> {
-//		    	  File directorio = new File(directory);
-//			        if (!directorio.exists()) {
-//			            if (directorio.mkdirs()) {
-//			                log.info("Nuevo Directorio creado");
-//			                String filename = file.getOriginalFilename();
-//			    		    String filepath = Paths.get(directory, filename).toString();
-//			    		    
-//			    		    // Save the file locally
-//			    		    BufferedOutputStream stream = null;
-//							try {
-//								stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-//							} catch (FileNotFoundException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//			    		    try {
-//								stream.write(file.getBytes());
-//							} catch (IOException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//			    		    try {
-//								stream.close();
-//							} catch (IOException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//			            } else {
-//			            	log.info("Error al crear directorio");
-//			            }
-//			        }else {
-//			        	log.info("Directorio Ya existe");
-//			        	String filename = file.getOriginalFilename();
-//			        	String filepath = Paths.get(directory, filename).toString();
-//		    		    
-//		    		    // Save the file locally
-//		    		    BufferedOutputStream stream = null;
-//						try {
-//							stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-//						} catch (FileNotFoundException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//		    		    try {
-//							stream.write(file.getBytes());
-//						} catch (IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//		    		    try {
-//							stream.close();
-//						} catch (IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//			        }
-//		      });
-//		    
-//	        
-//		    
-//		    
-//		    resultVO.setCodigo((long) 0);
-//		    resultVO.setMensaje("Exito Imagen Upload");
-//		    
-//		  }
-//		  catch (Exception e) {
-//		    log.info("exception : "+e.getMessage());
-//		    resultVO.setCodigo((long) 99);
-//		    resultVO.setMensaje(e.getMessage());
-//		    return resultVO;//new ResultVO(99, "fallo");
-//		  }
-//	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
 	}
 
 	
@@ -709,6 +637,9 @@ public class ControllerUtil {
 		  }
 	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
 		}
+	
+
+		
 
 	@GetMapping("/uploadsEntregables/{idEmpresa}/{idEntregable}/{tipoCarpeta}/{nombreFile:.+}")
 	public ResponseEntity<Resource> verImagenEntregables(@PathVariable String idEmpresa, @PathVariable String idEntregable, @PathVariable String tipoCarpeta, @PathVariable String nombreFile){
@@ -858,7 +789,60 @@ public class ControllerUtil {
 		
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
-	
+
+	@RequestMapping(method = RequestMethod.POST, path = "/fileParticipantesExcel/{idEmpresa}/{idEntregable}",  consumes = "multipart/form-data", produces = "application/json")
+	public ResultVO fileUploadParticipantesExcel(@PathVariable String idEmpresa, @PathVariable String idEntregable, @RequestParam("importarParticipantesExcel") MultipartFile importarParticipantesExcel){
+	   try {
+		   log.info(idEmpresa);
+		    // Get the filename and build the local file path (be sure that the 
+		    // application have write permissions on such directory)
+		    String filename = importarParticipantesExcel.getOriginalFilename();
+		    
+		    String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/importarParticipantes/";
+		    File directorio = new File(directory);
+		    FileUtils.deleteDirectory(directorio);
+		    String filepath = "";
+	        if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	                log.info("Directorio creado");
+	    		    filepath = Paths.get(directory, filename).toString();
+	    		    // Save the file locally
+	    		    BufferedOutputStream stream =
+	    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    		    stream.write(importarParticipantesExcel.getBytes());
+	    		    stream.close();
+	            } else {
+	            	log.info("Error al crear directorio");
+	            }
+	        }else {
+	        	log.info("Directorio Ya existe");       	
+	        	filepath = Paths.get(directory, filename).toString();
+    		    
+    		    // Save the file locally
+    		    BufferedOutputStream stream =
+    		        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    		    stream.write(importarParticipantesExcel.getBytes());
+    		    stream.close();
+	        }
+	        
+	        List<ParticipantesModelo> ltPE = lecturaExcel(filepath);
+	        
+	        JSONObject jsonResponse = new JSONObject();
+	        jsonResponse.put("participantesImportados", ltPE);
+	        resultVO.setJsonResponse(jsonResponse);
+		    
+		    resultVO.setCodigo((long) 0);
+		    resultVO.setMensaje("Exito File Upload");
+		    
+		  }
+		  catch (Exception e) {
+		    log.info("exception : "+e.getMessage());
+		    resultVO.setCodigo((long) 99);
+		    resultVO.setMensaje(e.getMessage());
+		    return resultVO;//new ResultVO(99, "fallo");
+		  }
+	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
+	}
 	
 	
 	/*
@@ -940,6 +924,71 @@ public class ControllerUtil {
             	log.info("Error al crear directorio zip");
             }
         }
+	}
+    
+	private List<ParticipantesModelo> lecturaExcel(String pathExcel) {
+		
+		 
+//		 File f = new File("C:/Test/testExcel/ejemplo expediente participantes.xlsx");
+		 File f = new File(pathExcel);
+	       InputStream inp = null;
+		try {
+			inp = new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	       Workbook wb = null;
+		try {
+			wb = WorkbookFactory.create(inp);
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	       Sheet sheet = wb.getSheetAt(0);
+	       
+	       int iRow = 1;
+	       Row row = sheet.getRow(iRow); //En qué fila empezar ya dependerá también de si tenemos, por ejemplo, el título de cada columna en la primera fila
+	       List<ParticipantesModelo> ltPE = new ArrayList<ParticipantesModelo>();
+	       while(row!=null) 
+	       {
+	    	   ParticipantesModelo pe = new ParticipantesModelo();;
+	    	   for(int iCell=0;iCell<7;iCell++) {
+	    		   Cell cell = row.getCell(iCell);
+	    		   CellType ct = cell.getCellType();
+	    		   String valueOficial = "";
+	    		   Double dlvalueOficial = 0.0;
+	    		   if(ct.name().equals("STRING")) {
+	    			   String value = cell.getStringCellValue();
+	    			   valueOficial = value;
+	    		   }else{
+	    			   Double value = (Double)cell.getNumericCellValue();
+	    			   dlvalueOficial = value;
+	    		   }
+	    		   if(iCell == 0) {
+	    			 pe.setParticipanteNombre(valueOficial);  
+	    		   }else if(iCell == 1) {
+	    			 pe.setParticipanteCURP(valueOficial);  
+	    		   }else if(iCell == 2) {
+	    			 pe.setParticipantePuesto(valueOficial);  
+	    		   }else if(iCell == 3) {
+	    			 pe.setParticipanteExamenTeoricoInicial(String.valueOf(dlvalueOficial));  
+	    		   }else if(iCell == 4) {
+		    			 pe.setParticipanteExamenTeoricoFinal(String.valueOf(dlvalueOficial));
+	    		   }else if(iCell == 5) {
+		    			 pe.setParticipanteExamenPractico(String.valueOf(dlvalueOficial));
+	    		   }else if(iCell == 6) {
+		    			 pe.setParticipantePromedio(String.valueOf(dlvalueOficial));
+	    		   } 
+	    	   }
+	    	   ltPE.add(pe);
+	    	   iRow++;  
+	           row = sheet.getRow(iRow);
+	       }
+	       return ltPE;
 	}
 
 

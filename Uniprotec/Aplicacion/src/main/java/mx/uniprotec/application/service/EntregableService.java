@@ -77,10 +77,37 @@ public class EntregableService implements IEntregableService {
 		}
 
 	}
+	
+	@Override
+	public List<ParticipanteEntity> consultaParticipantesImportar(Long idCliente) {
+		try {
+			List<ParticipanteEntity> participantes = participanteDao.findByIdCliente(idCliente);
+			List<ParticipanteEntity> participantesImportar = getParticipantesUnicos(participantes);
+			return participantesImportar;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<ParticipanteEntity>();
+		}
+
+	}
+
+
+
+	private List<ParticipanteEntity> getParticipantesUnicos(List<ParticipanteEntity> participantes) {
+		List<ParticipanteEntity> participantesImportar = new ArrayList<ParticipanteEntity>();
+		List<String> nombresParticipantes = new ArrayList<String>();
+		for(ParticipanteEntity pe : participantes) {
+			String nombreParticipante = pe.getParticipanteNombre();
+			if(!nombresParticipantes.contains(nombreParticipante)) {
+				participantesImportar.add(pe);
+			}
+			nombresParticipantes.add(nombreParticipante);
+		}
+		return participantesImportar;
+	}
 
 	@Override
-	public ParticipanteEntity createParticipantes(Long idEntregable, Long idAsignacion,
-		List<ParticipanteEntity> formBParticipantes) {
+	public ParticipanteEntity createParticipantes(List<ParticipanteEntity> formBParticipantes) {
 		ParticipanteEntity participanteEntity = null;
 		for(ParticipanteEntity pe : formBParticipantes) {
 			try {

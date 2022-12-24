@@ -91,6 +91,19 @@ $(document).ready(function(){
 			maxFileSize: 102400,
 			dropZoneEnabled: false
 		});
+	 
+	 $("#importarParticipantesExcel").fileinput({
+			browseClass: "btn btn-success",
+			browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+			browseLabel: "Seleccionar Archivo Excel Importar Participantes(s)",
+			removeClass: "btn btn-danger",
+			removeLabel: "Remover",
+			showCaption: false, 
+			maxFileSize: 102400,
+			dropZoneEnabled: false
+		});
+	 
+	 
 })
 
     

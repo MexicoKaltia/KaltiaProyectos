@@ -8,39 +8,53 @@ function operateFormatterUpdate(value, row, index) {
 
 var $idEntregable ;
 var $idEntregableLogico ;
+var $participantesExcel = new Array();
+var idClienteAsignacion  ;
+var participantesLength ;
+var entregablesLength ;
 $(document).ready(function() {
 	
 //	console.log(asignacionItem);
 //	console.log(asignacionCliente);
 //	console.log(entregables);
 //	console.log(entregables.length);
-//	console.log(participantes);
+	console.log(participantes);
+	console.log(prtsImportar);
 //	console.log(participantes.length);
 	var e=0;
 	var $participantes;
+	var $participantesLength = participantes.length;
 	var $entregable;
-	var $participantesLength = 0;
 	var $estatusEntregable ="";
-	var $participantesImportar = new Array();
+	var $participantesImportar = prtsImportar;
+	var $idParticipante = "";
+
+	idClienteAsignacion = asignacionItem.idClienteAsignacion;
+	entregablesLength = entregables.length;
+	participantesLength = participantes.length;
 	
-	for(var a in entregables){
-		//cargar paricipantesImportar
-		var entregable = entregables[a];
-		if(e==0){
-			for(var i in participantes){
-				var participantesEntregable = participantes[i];
-				for(var o in participantesEntregable){
-					var participante = participantesEntregable[o];
-					if((participante.idEntregable*1) === (entregable.idEntregable*1)){
-						$participantesImportar.push(participante);
-					}
-				}
-			}
-		}//
+//	varios expedientes misma asignacion.
+	if(participantes.length > 0){
 		e++;
 	}
+//	for(var a in entregables){
+//		var entregable = entregables[a];
+//		if(e==0){
+//			for(var i in participantes){
+//				var participantesEntregable = participantes[i];
+//				for(var o in participantesEntregable){
+//					var participante = participantesEntregable[o];
+//					if((participante.idEntregable*1) === (entregable.idEntregable*1)){
+//						$participantesImportar.push(participante);
+//					}
+//				}
+//			}
+//		}//
+//		e++;
+//	}
+
 	
-//	console.log($participantesImportar);
+	console.log($participantesImportar);
 	
 	
 	$("#idAsignacionEncabezado").html(asignacionItem.idAsignacion);
@@ -84,6 +98,7 @@ $(document).ready(function() {
 		
 		$('#formEntregables').submit();
 	});
+	
 	
 	if(e > 0){
 		console.log("expediente entregable mayor 0");
@@ -245,7 +260,7 @@ $(document).ready(function() {
 								      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
 								    </div>\
 								  </div>\
-								  <span style="padding-left: 10px;">'+participante.participanteNombre+'</span>\
+								  <span style="padding-left: 10px;">'+participante.participanteNombre+' - '+participante.participanteCURP+'</span>\
 								</div>\
 							</li>';
 
@@ -321,36 +336,9 @@ $(document).ready(function() {
 		
 		//PARTICIPANTES IMPORTAR
 		console.log($participantesImportar);
-		if($participantesImportar.length > 0 && $idEntregable > 0){
-			$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
-			$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
-			
-			for(var a in $participantesImportar){
-				var participante = $participantesImportar[a];
-				var liParticipanteImportar = '<li style="list-style-type:none">\
-                    <div class="input-group mb-1">\
-					  <div class="input-group-prepend">\
-					    <div class="input-group-text">\
-					      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
-					    </div>\
-					  </div>\
-					  <span style="padding-left: 10px;">'+participante.participanteNombre+'</span>\
-					</div>\
-				</li>';
+		$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
+		$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
 
-				$("#participantesImportar").append(liParticipanteImportar);
-			}
-			var check = true;
-			$('#todosParticipantesImportar').prop( "checked", check );
-			$('.checkboxFiltro').prop( "checked", check );
-			
-			$( '#todosParticipantesImportar' ).on( 'click', function() {
-				check = $('#todosParticipantesImportar').prop( "checked");
-				$('.checkboxFiltro').prop( "checked", check );
-				
-			});
-			
-		}//FIN PARTICIPANTES IMPORTAR
 	})
 	
 	$('#imagenLogoClientePrev').attr('src', "/uploads/img/"+asignacionCliente.rfcCliente+"/"+asignacionCliente.imagenLogoCliente);
@@ -558,13 +546,21 @@ $(document).ready(function() {
 		var tmp = new Array();
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 		$('.checkboxFiltro:checked').each(function(){
-			if($(this).attr('checked',true)){			
+			if($(this).attr('checked',true)){
+				console.log("aqui llega");
 				var idParticipante = $(this).attr('id')
 				for(var a in $participantesImportar){
 					var participante = $participantesImportar[a];
 					if(participante.idParticipante === idParticipante){
 						$participantes.push(participante);
 					}
+				}
+				for(var a in $participantesExcel){
+					var participanteExcel = $participantesExcel[a];
+					if(participanteExcel.idParticipante === idParticipante){
+						$participantes.push(participanteExcel);
+					}
+					
 				}
 			}
 		});
@@ -576,7 +572,6 @@ $(document).ready(function() {
 	
 
 	
-	var $idParticipante = "";
 	
         
 	window.operateEventsUpdate = {
@@ -645,7 +640,7 @@ $(document).ready(function() {
 	$('#btnAgregarParticipante').click(function(){
 //		console.log("btnAgregarParticipante");
 		var jsonParticipante = {
-				idParticipante: asignacionItem.idAsignacion +"-"+ $participantesLength,
+				idParticipante: asignacionItem.idClienteAsignacion +"-"+ (entregables.length+1) +"-"+ $participantesLength,
 				participanteNombre: $('#participanteNombre').val(),
 				participanteCURP: $('#participanteCURP').val().toUpperCase(),
 				participantePuesto: $('#participantePuesto').val(),
@@ -770,6 +765,7 @@ $(document).ready(function() {
 		formCTextArea($entregable);
 				
 		$("#idEntregableLogico").val($idEntregableLogico);
+		$("#idCliente").val(asignacionItem.idClienteAsignacion);
 		
 		if($("#entregableEdicion").valid()){
 			$('#myModalProcess').modal();
@@ -786,6 +782,7 @@ $(document).ready(function() {
 		$("#idAsignacion").val(asignacionItem.idAsignacion);
 		$("#idInstructorAsignacion").val(asignacionItem.idInstructorAsignacion);
 		$("#nombreFirmaInstructorAsignacion").val(asignacionItem.nombreFirmaInstructor);
+		$("#idCliente").val(asignacionItem.idClienteAsignacion);
 		
 		if($entregable){
 			$("#idEntregable").val($entregable.idEntregable);
@@ -974,7 +971,6 @@ function duracion(str){
 		  if((files.size /1024) < 1024){
 			  enviaImagenParticipante(archivosCampo, $idCliente);
 		  }
-		 
 		}
 	
 	function imagenEvidencias(archivosCampo){
@@ -988,7 +984,12 @@ function duracion(str){
 	      enviaFile(archivosCampo, $idCliente);
 	      }
 
-		
+	function importarParticipantes(archivosCampo){
+		var $idCliente = asignacionCliente.rfcCliente
+		console.log($idCliente);
+	      enviaParticipantesExcel(archivosCampo, $idCliente);
+	      }
+			
 	
 	function sleep(milliseconds) {
 		  const date = Date.now();
@@ -1198,6 +1199,63 @@ function duracion(str){
 	    			    }
 	    			  });
 
+	    	}
+	    	
+	    	
+	    	function enviaParticipantesExcel(idImagenForm, rfcCliente){
+	    		limpiaAlerta();
+	    			console.log("Comineza envio ParticipantesExcel:"+rfcCliente+"-"+$idEntregableLogico);
+	    			var alerta="";
+	    			 var forma = $('#formImportarParticipantes')[0]; 
+			        var data = new FormData(forma);
+			        console.log(data);
+	    			  $.ajax({
+	    				url: "fileParticipantesExcel/"+rfcCliente+"/"+$idEntregableLogico,
+	    			    type: "POST",
+	    			    data: data,
+	    			    enctype: 'multipart/form-data',
+	    			    processData: false,
+	    			    contentType: false,
+	    			    cache: false,
+	    			    success: 	function(data){
+	    			    	if(data.codigo===0){
+	    			    		var alerta="";
+	    			    		if(data.codigo===0){
+	    			  			  alerta="<div class='alert alert-success' role='alert'>imagen : 0 - Exito carga</div>";
+	    			  			  $(alerta).insertAfter($('.alertaD'));
+	    			  			  console.log(data.jsonResponse.participantesImportados);
+	    			  			  imprimeParticipantesExcel(data.jsonResponse.participantesImportados);
+	    			  	    	}
+	    			    	  } 
+	    			    	},
+	    			    error: function () {
+	    			    	alerta="<div class='alert alert-danger' role='alert'>error de carga de imagen</div>";
+	    			    	$(alerta).insertAfter($('.alertaD'));
+	    			  	//console.log("envio error");
+	    			    }
+	    			  });
+	    	}
+
+	    	function imprimeParticipantesExcel(participantesExcel){
+	    		var i = 1;
+	    		for(var a in participantesExcel){
+					var participante = participantesExcel[a];
+					participante.idParticipante =  idClienteAsignacion +"-"+ (entregablesLength+1) +"-"+ (participantesLength+i);
+					var liParticipanteImportar = '<li style="list-style-type:none">\
+                        <div class="input-group mb-1">\
+						  <div class="input-group-prepend">\
+						    <div class="input-group-text">\
+						      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
+						    </div>\
+						  </div>\
+						  <span style="padding-left: 10px;">'+participante.participanteNombre+' - '+participante.participanteCURP+'</span>\
+						</div>\
+					</li>';
+
+					$("#participantesExcel").append(liParticipanteImportar);
+					$participantesExcel.push(participante);
+					i++
+				}
 	    	}
 
 	    	

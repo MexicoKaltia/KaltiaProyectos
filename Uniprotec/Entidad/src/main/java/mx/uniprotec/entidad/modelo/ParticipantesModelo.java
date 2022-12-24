@@ -30,20 +30,10 @@ public class ParticipantesModelo implements Serializable{
 	private String status;
 	private Long userCreate;
 	private LocalDateTime createAt;
+	private Long idCliente;
 	
 
-	@Override
-	public String toString() {
-		return "ParticipantesModelo [idParticipante=" + idParticipante + ", participanteNombre=" + participanteNombre
-				+ ", participanteCURP=" + participanteCURP + ", participantePuesto=" + participantePuesto
-				+ ", participanteOcupacion=" + participanteOcupacion + ", participanteFoto=" + participanteFoto
-				+ ", participanteExamenTeoricoInicial=" + participanteExamenTeoricoInicial
-				+ ", participanteExamenTeoricoFinal=" + participanteExamenTeoricoFinal + ", participanteExamenPractico="
-				+ participanteExamenPractico + ", participantePromedio=" + participantePromedio
-				+ ", participanteObservaciones=" + participanteObservaciones + ", participanteAprovechamiento="
-				+ participanteAprovechamiento + ", participanteAprobado=" + participanteAprobado + ", status=" + status
-				+ ", userCreate=" + userCreate + ", createAt=" + createAt + "]";
-	}
+	
 
 	public ParticipantesModelo(String idParticipante, String participanteNombre, String participanteCURP,
 			String participantePuesto, String participanteFoto, String participanteExamenTeoricoInicial,
@@ -188,6 +178,27 @@ public class ParticipantesModelo implements Serializable{
 
 	public void setParticipanteAprobado(boolean participanteAprobado) {
 		this.participanteAprobado = participanteAprobado;
+	}
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	@Override
+	public String toString() {
+		return "ParticipantesModelo [idParticipante=" + idParticipante + ", participanteNombre=" + participanteNombre
+				+ ", participanteCURP=" + participanteCURP + ", participantePuesto=" + participantePuesto
+				+ ", participanteOcupacion=" + participanteOcupacion + ", participanteFoto=" + participanteFoto
+				+ ", participanteExamenTeoricoInicial=" + participanteExamenTeoricoInicial
+				+ ", participanteExamenTeoricoFinal=" + participanteExamenTeoricoFinal + ", participanteExamenPractico="
+				+ participanteExamenPractico + ", participantePromedio=" + participantePromedio
+				+ ", participanteObservaciones=" + participanteObservaciones + ", participanteAprovechamiento="
+				+ participanteAprovechamiento + ", participanteAprobado=" + participanteAprobado + ", status=" + status
+				+ ", userCreate=" + userCreate + ", createAt=" + createAt + ", idCliente=" + idCliente + "]";
 	}
 
 	

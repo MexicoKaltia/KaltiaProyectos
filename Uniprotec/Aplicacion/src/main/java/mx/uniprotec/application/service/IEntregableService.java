@@ -13,9 +13,10 @@ public interface IEntregableService {
 	public EntregableEntity actualizaEntregable(EntregableEntity entregableEntity);
 	public int deleteEntrgable(String idAsignacion);
 	
-	public ParticipanteEntity createParticipantes(Long idEntregable, Long idAsignacion, List<ParticipanteEntity> list);
+	public ParticipanteEntity createParticipantes(List<ParticipanteEntity> list);
 	public ParticipanteEntity updateParticipantes(List<ParticipanteEntity> participantes, Long idEntregable);
 	public List<ParticipanteEntity> consultaParticipantes(Long idEntregable);
 	public int deleteIdEntregable(Long idEntregable);
+	public List<ParticipanteEntity> consultaParticipantesImportar(Long idClienteAsignacion);
 
 }
