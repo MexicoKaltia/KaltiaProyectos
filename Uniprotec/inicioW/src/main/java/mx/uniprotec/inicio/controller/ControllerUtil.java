@@ -844,6 +844,29 @@ public class ControllerUtil {
 	      return resultVO;//new ResultVO(1, "ExitoFileUpload");
 	}
 	
+	@GetMapping("/verParticipantesExcelMuestra")
+	public ResponseEntity<Resource> verParticipantesExcelMuestra(){
+		
+		Path rutaArchivo = Paths.get("/uniprotec/recursos/verParticipantesExcelMuestra.xlsx").toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la imagen: " );
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+	
 	
 	/*
 	 * Private

@@ -55,6 +55,7 @@ $(document).ready(function() {
 				asignaStatus = asignacion.statusAsignacion;
 				asignaUserCreateAsignacion = asignacion.userCreateAsignacionTexto
 				archivoParticipantes=asignacion.archivoParticipantes;
+				numeroFactura = asignacion.numeroFactura;
 				errorProceso=asignacion.errorProceso;
 //				//console.log(asignacion);	
 				asignaCamposSubmit(asignacion);
@@ -93,6 +94,8 @@ $(document).ready(function() {
 		
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
+		$('#modalNumeroFactura').html('<b>'+numeroFactura+'</b>');
+		
 		if(errorProceso !== "" && errorProceso){
 			//console.log(errorProceso);
 			$('#liErrorProceso').remove();
@@ -162,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		$('#statusAsignacion').val(asignacionSub.statusAsignacion);
 		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
 		$('#fechaPago').val(asignacionSub.fechaPago);
-		$('#numeroFactura').val(asignacionSub.numeroFactura);
+		
 //			$('#userCreateAsignacion').val(idUsuario);userCreateAsignacion
 //			$('#userCreateAsignacionTexto').val(nombreUsuario);userCreateAsignacionTexto
 		$('#userCreateAsignacion').val(asignacionSub.userCreateAsignacion);
@@ -170,10 +173,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		$('#archivoParticipantes').val(asignacionSub.archivoParticipantes);
 		$('#archivoParticipantesTexto').val(asignacionSub.archivoParticipantes);
+		$('#numeroFactura').val(asignacionSub.numeroFactura);
 		
 //		$('#fechaPago').val(asignacionSub.fechaPago);
 //		$('#guiaEntregable').val(asignacionSub.guiaEntregable);
-//		$('#numeroFactura').val(asignacionSub.numeroFactura);
+		
 		$('#verificarEntregable').val(asignacionSub.verificarEntregable);
 		$('#costoHotel').val(asignacionSub.costoHotel);
 	}

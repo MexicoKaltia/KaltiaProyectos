@@ -233,8 +233,6 @@ $(document).ready(function(){
 		}
 		if($.asignaStatus === "Entregables Validado"){//if($.asignaStatus === "Elaborar Entregable"){
 			$.sigStatus = "Entregable Enviado";
-			console.log(expedientesEntregables.entregables.length);
-			console.log($.sigStatus);
 			
 			$('#expedienteEntregable').empty();
 //			if(expedientesEntregables.entregables.length > 0){

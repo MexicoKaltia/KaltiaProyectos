@@ -72,8 +72,6 @@ public class EntregableService implements IEntregableService {
 	
 	MonitorEntidades me = new MonitorEntidades();
 
-//	private byte[] xportReportToPdf;
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public ResultVO consultaEntregable(String token, Long idAsignacion) {
