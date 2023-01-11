@@ -60,6 +60,7 @@ $(document).ready(function() {
 		calendar.render();
 	}
 
+	
 	function abrirModal(item, identificadorUsuario){
 //		console.log(item);
 		item = item.split('-');
@@ -86,6 +87,12 @@ $(document).ready(function() {
 		
 		var cliente
 		
+		
+//		$('#pagoComisionTable').bootstrapTable({data : dataPagoComision});
+//		$('#cobroFacturaTable').bootstrapTable({data : dataCobroFactura});
+		$('#registroCobroFactura').empty();
+		$('#registroPagoComision').empty();
+		
 		for(var a in asignaciones){
 			var preAsignacion = asignaciones[a];
 			if(idPreAsignacion*1 === preAsignacion.idAsignacion*1){
@@ -101,8 +108,65 @@ $(document).ready(function() {
 						montoPagoVendedorInicio = validaComisionReal(preAsignacionAE.formAEComisionVendedor, preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal);
 						montoPagoVendedorFin = validaComisionReal(preAsignacionAE.formAEComisionVendedor, preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal);
 						montoCobroFactura = preAsignacionAE.formAEPrecioVentaReal;
+						
+						
+						/*
+						 *  //tabla de Cobro Factura 
+						 */
+						
+						var listFechasPromesa = stringToList(preAsignacionAE.formAEListFechaPromesaPago);
+						var listFechasConfirmacion = stringToList(preAsignacionAE.formAEListFechaConfirmacion);
+						
+						var fechaConfirmacionLast = listFechasConfirmacion[listFechasConfirmacion.length - 1]; 
+						var registroConfirmacion = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
+							"</td><td>"+valoresFecha(formatoFecha(fechaConfirmacionLast))+
+			    			"</td><td>"+"Recibo de Factura"+
+			    			"</tr>";
+							$('#registroCobroFactura').append(registroConfirmacion);
+
+						for(var a in listFechasPromesa){
+							var registro = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
+			    			"</td><td>"+valoresFecha(formatoFecha(listFechasPromesa[a]))+
+			    			"</td><td>"+validaCumplimiento(listFechasPromesa[a])+
+			    			"</tr>";
+							$('#registroCobroFactura').append(registro);
+//							$.dataCobroFactura.push(jsonFechaPromesa);
+						}
+//						$('#cobroFacturaTable').bootstrapTable({data : $.dataCobroFactura});
+						
+
+						/*
+						 *  //tabla de Pago Comision 
+						 */
+						//tabla de Pago Comision
+
+						var registroComision = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
+		    			"</td><td>"+nombreVendedor+
+		    			"</td><td>"+"1er Pago Comision"+
+		    			"</td><td>"+valoresFecha(formatoFecha(getFechaFinalPago(fechaConfirmacionLast)))+
+		    			"</tr>";
+		
+						$('#registroPagoComision').append(registroComision);
+						for(var a in listFechasPromesa){
+//							var jsonFechaPromesa = {
+//									idDatoEconomico : preAsignacionAE.idPreAsignacionAE,
+//									fechaPromesaPago : valoresFecha(formatoFecha(getFechaFinalPago(listFechasPromesa[a]))),
+//									cumplimiento : validaCumplimiento(listFechasPromesa[a])
+//							}
+							var registro = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
+			    			"</td><td>"+nombreVendedor+
+			    			"</td><td>"+validaPagoComision(listFechasPromesa[a])+
+			    			"</td><td>"+valoresFecha(formatoFecha(getFechaFinalPago(listFechasPromesa[a])))+
+			    			"</tr>";
+			
+							$('#registroPagoComision').append(registro);
+//							dataPagoComision.push(jsonFechaPromesa);
+						}
+//						$('#pagoComisionTable').bootstrapTable({data : dataPagoComision});
 					}
 				}
+				
+				
 				for(var i in clientes){
 					var cliente = clientes[i];
 					if(cliente.idCliente === preAsignacion.idClienteAsignacion){
@@ -118,7 +182,7 @@ $(document).ready(function() {
 //				$('#seguimientoBitacoraCalendario').append(preAsignacion.seguimiento);
 				break;
 			}
-		}
+		} //fin abrirModal
 		
 		
 		$('#montoPagoVendedorInicio').text("$ "+montoPagoVendedorInicio);
@@ -340,4 +404,44 @@ $(document).ready(function() {
 		fecha = fecha.split("/");
 		return fecha[1]+"/"+fecha[0]+"/"+fecha[2];
 	}
+	
+	function validaCumplimiento(fecha){
+		var fechaHoy = hoy();
+		var tipoFecha = "";
+		if(Date.parse(fecha) < Date.parse(fechaHoy)){
+			tipoFecha = "No cumplimiento";
+		}else{
+			tipoFecha = "Pendiente";
+		}
+		return tipoFecha;
+	}
+	
+	function validaPagoComision(fecha){
+		var fechaHoy = hoy();
+		var tipoFecha = "";
+		if(Date.parse(fecha) < Date.parse(fechaHoy)){
+			tipoFecha = "No cumplimiento";
+		}else{
+			tipoFecha = "2o Pago Comision";
+		}
+		return tipoFecha;
+	}
+	
+	function stringToList(cadena){
+		return cadena.split(";");
+	}
 	// fin de documento
+	
+	function hoy() {
+		var d = new Date();
+		var dia = d.getDate();
+		var mes = (d.getMonth() + 1);
+		var anio = d.getFullYear();
+		if (dia < 10)
+			dia = "0" + dia.toString();
+		if (mes < 10)
+			mes = "0" + mes.toString();
+		var today = anio + '-' + mes + '-' + dia;
+//		//console.log(today);
+		return today;
+	}

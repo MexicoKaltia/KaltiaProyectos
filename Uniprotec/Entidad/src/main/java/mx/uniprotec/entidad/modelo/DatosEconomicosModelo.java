@@ -1,6 +1,7 @@
 package mx.uniprotec.entidad.modelo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DatosEconomicosModelo {
 
@@ -23,6 +24,9 @@ public class DatosEconomicosModelo {
 	private String status;
 	private LocalDateTime createAtAsignacion;
 	private Long userCreateAsignacion;
+	private List<String> listFechaPromesaPago;
+	private List<String> listFechaConfirmacion;
+	
 	public Long getIdDatosEconomicos() {
 		return idDatosEconomicos;
 	}
@@ -113,6 +117,19 @@ public class DatosEconomicosModelo {
 	public void setUserCreateAsignacion(Long userCreateAsignacion) {
 		this.userCreateAsignacion = userCreateAsignacion;
 	}
+	
+	public List<String> getListFechaPromesaPago() {
+		return listFechaPromesaPago;
+	}
+	public void setListFechaPromesaPago(List<String> listFechaPromesaPago) {
+		this.listFechaPromesaPago = listFechaPromesaPago;
+	}
+	public List<String> getListFechaConfirmacion() {
+		return listFechaConfirmacion;
+	}
+	public void setListFechaConfirmacion(List<String> listFechaConfirmacion) {
+		this.listFechaConfirmacion = listFechaConfirmacion;
+	}
 	@Override
 	public String toString() {
 		return "DatosEconomicosModelo [idDatosEconomicos=" + idDatosEconomicos + ", ventaReal=" + ventaReal
@@ -121,12 +138,14 @@ public class DatosEconomicosModelo {
 				+ ", fechaPromesaPagoFormat=" + fechaPromesaPagoFormat + ", fechaConfirmacion=" + fechaConfirmacion
 				+ ", fechaConfirmacionFormat=" + fechaConfirmacionFormat + ", observacion=" + observacion
 				+ ", idAsignacion=" + idAsignacion + ", status=" + status + ", createAtAsignacion=" + createAtAsignacion
-				+ ", userCreateAsignacion=" + userCreateAsignacion + "]";
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", listFechaPromesaPago=" + listFechaPromesaPago
+				+ ", listFechaConfirmacion=" + listFechaConfirmacion + "]";
 	}
 	public DatosEconomicosModelo(Long idDatosEconomicos, Double ventaReal, Double porcentajeVenta, Double comisionReal,
 			Double porcentajeComision, Double viaticosTotales, String fechaPromesaPago, String fechaPromesaPagoFormat,
 			String fechaConfirmacion, String fechaConfirmacionFormat, String observacion, Long idAsignacion,
-			String status, LocalDateTime createAtAsignacion, Long userCreateAsignacion) {
+			String status, LocalDateTime createAtAsignacion, Long userCreateAsignacion,
+			List<String> listFechaPromesaPago, List<String> listFechaConfirmacion) {
 		super();
 		this.idDatosEconomicos = idDatosEconomicos;
 		this.ventaReal = ventaReal;
@@ -143,7 +162,10 @@ public class DatosEconomicosModelo {
 		this.status = status;
 		this.createAtAsignacion = createAtAsignacion;
 		this.userCreateAsignacion = userCreateAsignacion;
+		this.listFechaPromesaPago = listFechaPromesaPago;
+		this.listFechaConfirmacion = listFechaConfirmacion;
 	}
 
+	
 	
 }

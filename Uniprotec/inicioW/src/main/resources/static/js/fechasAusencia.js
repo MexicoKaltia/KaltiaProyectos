@@ -38,11 +38,6 @@ function sumaFechas() {
 	var sem, dia, mes , anio, ausencia;
 	var arrayFechas2 = new Array();
 
-//	//console.log(inicioAusenciaMasUno);
-//	//console.log(finAusenciaDate);
-//	//console.log("______________________________");
-//	$('#listFechasAct').remove();
-//	$('#listaFechas').empty();
 	$(fechas).insertAfter($('#fechas'));
 	
 	if(inicioAusenciaMasUno.toString() === finAusenciaDate.toString()){
@@ -68,9 +63,7 @@ function sumaFechas() {
 			}
 		}
 	}
-		//console.log(arrayFechas);
-	//	//console.log(arrayFechas2);
-//		agregaFechas(arrayFechas);
+
 		$.listFechas = arrayFechas;
 	$('#listFechas').val($.listFechas);
 }
@@ -78,7 +71,6 @@ function sumaFechas() {
 
 function agregaFechas(arrayFechas){
 	$('#listFechas').val(arrayFechas);
-	//console.log(arrayFechas)
 	return arrayFechas;
 }
 
@@ -116,8 +108,6 @@ function eliminarFecha(ele){
 	 var id = $(ele).attr('id');
 	 var idCount = $(ele).attr('idCount');
 	 var newArray = new Array();
-//	 //console.log(idCount);
-//	 //console.log(id);
 	    $('#li'+idCount).remove();
 	    for(i in $.listFechas){
 	    	var fecha = $.listFechas[i];
@@ -126,7 +116,6 @@ function eliminarFecha(ele){
 	    	}
 	    }
 	    $.listFechas = newArray; 
-//	    //console.log($.listFechas);
 	    $('#listFechas').val($.listFechas);
 }
 

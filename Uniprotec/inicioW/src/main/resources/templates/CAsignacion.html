@@ -591,15 +591,9 @@
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
+		                                        <hr>
 		                                      </div>
 		                                      <div class="form-row">
-		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Comisión Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelComisionReal" ></label></div>
-		                                            <input type="text" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>
-		                                            <div class="invalid-feedback">
-		                                                Capturar Datos Númericos
-		                                            </div>
-		                                        </div>
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Porcentaje de Comisión Vendedor</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelPorcentajeComision" ></label></div>
 		                                            <label id="nombreVendedorComision" class="text-primary"></label>
@@ -608,7 +602,24 @@
 		                                                Capturar Datos Númericos
 		                                            </div>
 		                                        </div>
+		                                         <div class="col-md-6 mb-3">
+		                                            <label for="validationCustom02">Comisión Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelComisionReal" ></label></div>
+		                                            <input type="text" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>
+		                                            <div class="invalid-feedback">
+		                                                Capturar Datos Númericos
+		                                            </div>
+		                                        </div>
 		                                      </div>
+		                                      <div class="form-row" id="divAgregarVendedores">
+		                                        
+		                                      </div>
+		                                      <div class="form-row">
+		                                        <div class="col-md-6 mb-3">
+		                                         	<a id="addUser" data-toggle="modal" data-target="#modalFiltroVendedoresComision"class="btn btn-primary"><i style="color: white" class="fa fa-3x fa-user-plus" aria-hidden="true"></i></a>
+		                                        </div>
+		                                         
+		                                      </div>
+		                                      <hr>
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Fecha Confirmacion Factura</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaConfirmacion" ></label></div>
@@ -649,6 +660,10 @@
 												<input type="hidden" th:field="*{idAsignacion}" id="idAsignacionDatosEconomicos" />
 												<input type="hidden" th:field="*{userCreateAsignacion}" id="userCreateAsignacionDatosEconomicos" />
 												<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicos" />
+												<input type="hidden" th:field="*{listFechaPromesaPago}" id="listFechaPromesaPago" />
+												<input type="hidden" th:field="*{listFechaConfirmacion}" id="listFechaConfirmacion" />
+<!-- 												<input type="hidden" th:field="*{strFechaPromesaPago}" id="strFechaPromesaPago" /> -->
+<!-- 												<input type="hidden" th:field="*{strFechaConfirmacion}" id="strFechaConfirmacion" /> -->
                                                <br>
                                        		<span class="float-left">
                                        			<button type="submit" class="btn btn-success pull-left" id="btnActualizarDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
@@ -760,6 +775,61 @@
                            </div>
                        </div>
                        <!-- Modal Fin-->
+                           <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       
+                       <div class="modal" id="modalFiltroVendedoresComision" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Integrar Vendedores al Expediente Datos Económicos</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body" >
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosVendedores" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;" id="modalNombreVendedor">Todos Vendedores</span>
+											</div>
+			                            </li>
+			                            <hr>
+			                            <div  id="modalFiltroVendedor">
+									    <li th:each= "vendedor : ${model.jsonResponseObject.vendedores}" style="list-style-type:none" >
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxFiltroV" th:id="${vendedor.idVendedor}" >
+											    </div>
+											  </div>
+											  <span th:text="${vendedor.nombreVendedor}" style="padding-left: 10px;"></span>
+											</div>
+			                            </li>
+			                            </div>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="submit"  class="btn btn-info pull-left" id="btnVendedoresComision" data-dismiss="modal">Agregar Vendedores</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
     
     <script th:src="@{js/calendario.js}"></script>
     <script th:src="@{js/datosEconomicos.js}"></script>

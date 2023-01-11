@@ -49,7 +49,7 @@ $(document).ready(function(){
 	$.statusCurso="";
 	$.listFechas="";
 	
-	//console.log(perfilUsuario + ":1");
+	console.log(asignaciones);
 	arrayClientesInstructor = new Array();
 	if(perfilUsuario === "Instructor"){
 		var idInstructor = operacionId;

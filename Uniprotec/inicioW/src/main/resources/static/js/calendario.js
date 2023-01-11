@@ -382,6 +382,7 @@ $(document).ready(function() {
 		}
 		$('#myModal').modal();
 		
+		//llenado de form Datos Economicos
 		$('#porcentajeComision').val(porcentajeVendedor(idAsignacionClic));
 		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
 		$('#userCreateAsignacionDatosEconomicos').val(identificadorUsuario );
@@ -389,7 +390,6 @@ $(document).ready(function() {
 		$('#ventaReal').val(0);$('#labelVentaReal').text("");
 		$('#porcentajeVenta').val(0);$('#labelPorcentajeVenta').text("");
 		$('#comisionReal').val(0);$('#labelComisionReal').text("");
-//		$('#porcentajeComision').val(datoEconomico.);
 		
 		$('#fechaPromesaPago').val("");
 		$('#fechaPromesaPagoFormat').val("");
@@ -409,7 +409,6 @@ $(document).ready(function() {
 				$('#ventaReal').val(datoEconomico.formAEPrecioVentaReal);
 				$('#porcentajeVenta').val(datoEconomico.formAERegla3PorcentajeNuevaComisionReal);
 				$('#comisionReal').val(datoEconomico.formAEComisionVendedor);
-//				$('#porcentajeComision').val(datoEconomico.);
 				
 				$('#fechaPromesaPago').val(datoEconomico.formAEFechaPromesaPago);
 				$('#fechaPromesaPagoFormat').val(datoEconomico.formAEFechaPromesaPagoFormat);
@@ -418,6 +417,11 @@ $(document).ready(function() {
 				
 				$('#viaticosTotales').val(datoEconomico.formAEViaticosTotal);
 				$('#observacion').val(datoEconomico.formAEObservaciones);
+				$('#listFechaPromesaPago').val(datoEconomico.formAEListFechaPromesaPago);
+				$('#listFechaConfirmacion').val(datoEconomico.formAEListFechaConfirmacion);
+//				$('#strFechaPromesaPago').val(datoEconomico.formAEStrFechaPromesaPago);
+//				$('#strFechaConfirmacion').val(datoEconomico.formAEStrFechaConfirmacion);
+				
 				formatoVentaReal();
 				formatoPorcentajeVenta();	
 				break;

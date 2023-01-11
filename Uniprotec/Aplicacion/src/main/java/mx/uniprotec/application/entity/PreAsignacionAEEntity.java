@@ -125,6 +125,13 @@ public class PreAsignacionAEEntity {
 		private String formAEFechaConfirmacion;
 	@Column(nullable=false)
 		private String formAEFechaConfirmacionFormat;
+	@Column(nullable=false)
+		private String formAEListFechaPromesaPago;
+	@Column(nullable=false)
+		private String formAEListFechaConfirmacion;
+	
+	
+	
 	public Long getIdPreAsignacionAE() {
 		return idPreAsignacionAE;
 	}
@@ -406,6 +413,18 @@ public class PreAsignacionAEEntity {
 	}
 	public void setFormAEFechaConfirmacionFormat(String formAEFechaConfirmacionFormat) {
 		this.formAEFechaConfirmacionFormat = formAEFechaConfirmacionFormat;
+	}
+	public String getFormAEListFechaPromesaPago() {
+		return formAEListFechaPromesaPago;
+	}
+	public void setFormAEListFechaPromesaPago(String formAEListFechaPromesaPago) {
+		this.formAEListFechaPromesaPago = formAEListFechaPromesaPago;
+	}
+	public String getFormAEListFechaConfirmacion() {
+		return formAEListFechaConfirmacion;
+	}
+	public void setFormAEListFechaConfirmacion(String formAEListFechaConfirmacion) {
+		this.formAEListFechaConfirmacion = formAEListFechaConfirmacion;
 	}
 	
 	

@@ -35,6 +35,7 @@ import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 import mx.uniprotec.application.service.IClienteProspecto;
 import mx.uniprotec.application.service.IPreAsignacionAEService;
 import mx.uniprotec.application.service.IPreAsignacionService;
+import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.PreAsignacionAE;
@@ -106,6 +107,17 @@ public class PreAsignacionRestController {
 			preAsignacionAENew.setUserCreate(datosEconomicos.getUserCreateAsignacion());
 			preAsignacionAENew.setCreateAt(datosEconomicos.getCreateAtAsignacion());
 			
+			if(datosEconomicos.getListFechaPromesaPago().size()>0) {
+				preAsignacionAENew.setFormAEListFechaPromesaPago(UtilController.listToString(datosEconomicos.getListFechaPromesaPago()));
+			}else {
+				datosEconomicos.setListFechaPromesaPago(null);
+			}
+			
+			if(datosEconomicos.getListFechaConfirmacion().size()>0) {
+				preAsignacionAENew.setFormAEListFechaConfirmacion(UtilController.listToString(datosEconomicos.getListFechaConfirmacion()));
+			}else {
+				datosEconomicos.setListFechaConfirmacion(null);
+			}
 			
 			preAsignacionAENew = preAsignacionAEService.savePreAsignacionAE(preAsignacionAENew);
 			

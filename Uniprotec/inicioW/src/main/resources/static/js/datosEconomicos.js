@@ -5,7 +5,7 @@
 $(document).ready(function() {
 
 	console.log(datosEconomicos);
-	console.log(idAsignacionClic);
+//	console.log(idAsignacionClic);
 	
 	$("#btnActualizarDatosEconomicos").click(function(){
 		//idAsignacionDatosEconomicos
@@ -21,11 +21,47 @@ $(document).ready(function() {
  * funciones de datos economicos
  */	
 
-$("#btnDatosEconomicos").click(function(){
-	console.log("btnDatosEconomicos");
-	
-		});
+	$("#btnDatosEconomicos").click(function(){
+		console.log("btnDatosEconomicos");
+	});
 		
+	$("#btnVendedoresComision").click(function(){
+		console.log("btnVendedoresComision");
+		$("#divAgregarVendedores").empty();
+		var vendedoresArray =  new Array();
+		$('.checkboxFiltroV:checked').each(function(){
+			if($(this).attr('checked',true)){
+				var idVendedor= $(this).attr('id')
+				for(var a in vendedores){
+					var vendedor = vendedores[a];
+					if(idVendedor*1 === vendedor.idVendedor*1){
+						vendedoresArray.push(vendedor);
+					}
+				}
+			}
+		});
+		console.log(vendedoresArray);
+		for(var e in vendedoresArray){
+			var registroNuevoVendedor =
+			'<div class="col-md-6 mb-3">\
+            <label for="validationCustom02">Porcentaje de Comisión Vendedor</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelPorcentajeComision" ></label></div>\
+            <label id="nombreVendedorComision" class="text-primary"></label>\
+            <input type="text" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="1" maxlength="6" onfocusout="formatoPorcentajeComision()" required>\
+            <div class="invalid-feedback">\
+                Capturar Datos Númericos\
+            </div>\
+        </div>\
+         <div class="col-md-6 mb-3">\
+            <label for="validationCustom02">Comisión Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelComisionReal" ></label></div>\
+            <input type="text" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>\
+            <div class="invalid-feedback">\
+                Capturar Datos Númericos\
+            </div>\
+        </div>';
+			$("#divAgregarVendedores").append(registroNuevoVendedor);
+		}
+	});
+
 	
 	function formatoVentaReal(){
 		$('#labelVentaReal').text(formatter.format($('#ventaReal').val()));
@@ -86,7 +122,22 @@ $("#btnDatosEconomicos").click(function(){
 		var elementoPicker = $datepicker.pickadate('picker');	
 		var asignaFecha = elementoPicker.get('select', 'mm/dd/yyyy');
 		$('#fechaPromesaPagoFormat').val(asignaFecha);
-//		console.log($('#fechaPromesaPagoFormat').val());
+		
+		var fechasPromesa = new Array();
+		var strLisFechaPromesa = $("#listFechaPromesaPago").val();
+		if(isEmpty(strLisFechaPromesa)){
+			console.log("listFechaPromesaPago");
+			fechasPromesa = stringToList(strLisFechaPromesa);
+			var fechasPromesaOrdenado = new Array();
+			fechasPromesaOrdenado = fechasPromesa.sort(function(a, b){return new Date(a) - new Date(b)});//orderFecha(arreglo);
+			fechasPromesaOrdenado.push(asignaFecha);
+			$('#listFechaPromesaPago').val(fechasPromesaOrdenado);
+		}else{
+			fechasPromesa.push(asignaFecha);
+			$('#listFechaPromesaPago').val(fechasPromesa);
+		}
+		
+		
 	}
 	function formatoFechaConfirmacion(){
 		var fechaConfirmacion = $('#fechaConfirmacion').val()
@@ -94,7 +145,22 @@ $("#btnDatosEconomicos").click(function(){
 		var elementoPicker = $datepicker1.pickadate('picker');	
 		var asignaFecha = elementoPicker.get('select', 'mm/dd/yyyy');
 		$('#fechaConfirmacionFormat').val(asignaFecha);
-//		console.log($('#fechaPromesaPagoFormat').val());
+
+		var fechasConfirmacion = new Array();
+		var strLisFechaConfirmacion = $("#listFechaConfirmacion").val();
+		if(isEmpty(strLisFechaConfirmacion)){
+			console.log("listFechaConfirmacion");
+			fechasConfirmacion = stringToList(strLisFechaConfirmacion);
+			var fechasConfirmacionOrdenado = new Array();
+			fechasConfirmacionOrdenado = fechasConfirmacion.sort(function(a, b){return new Date(a) - new Date(b)});//orderFecha(arreglo);
+			fechasConfirmacionOrdenado.push(asignaFecha);
+			$('#listFechaConfirmacion').val(fechasConfirmacionOrdenado);
+		}else{
+			fechasConfirmacion.push(asignaFecha);
+			$('#listFechaConfirmacion').val(fechasConfirmacion);
+		}
+		
+		
 	}
 	
 	const formatter = new Intl.NumberFormat('es-MX', {
@@ -127,3 +193,10 @@ $("#btnDatosEconomicos").click(function(){
 		}
 	}
 	
+	function stringToList(cadena){
+		return cadena.split(";");
+	}
+	
+	function isEmpty(str) {
+	    return (str || 0 !== str.length);
+	}
