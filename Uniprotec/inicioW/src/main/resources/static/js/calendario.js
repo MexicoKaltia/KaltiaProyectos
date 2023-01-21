@@ -3,6 +3,8 @@
  */
 
 $(document).ready(function() {
+	
+	console.log("calendario");
 
 	var asignaFechaCalendario ;
 	var asignaClienteTexto ;
@@ -162,9 +164,7 @@ $(document).ready(function() {
 		filtroVendedores.length = 0;
 		asignacionesFiltroV.length =0;
 	});
-	
-	
-			
+				
 }); // Fin Jquery
 
 
@@ -383,7 +383,7 @@ $(document).ready(function() {
 		$('#myModal').modal();
 		
 		//llenado de form Datos Economicos
-		$('#porcentajeComision').val(porcentajeVendedor(idAsignacionClic));
+		
 		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
 		$('#userCreateAsignacionDatosEconomicos').val(identificadorUsuario );
 		
@@ -399,34 +399,38 @@ $(document).ready(function() {
 		$('#viaticosTotales').val(0);
 		$('#observaciones').val("");
 		
+		flagExistDatosEconomicos = false;
 		for(var a in datosEconomicos){
 			var datoEconomico = datosEconomicos[a];
 			if(datoEconomico.formAEidPreAsignacion*1 === idAsignacionClic*1){
-				console.log("Existe el expediente datos Economicos");
+				flagExistDatosEconomicos = true;
+				console.log(flagExistDatosEconomicos);
 				
 				$('#idDatosEconomicos').val(datoEconomico.idPreAsignacionAE);
-				
 				$('#ventaReal').val(datoEconomico.formAEPrecioVentaReal);
 				$('#porcentajeVenta').val(datoEconomico.formAERegla3PorcentajeNuevaComisionReal);
-				$('#comisionReal').val(datoEconomico.formAEComisionVendedor);
-				
+//				$('#comisionReal').val(datoEconomico.formAEComisionVendedor);
 				$('#fechaPromesaPago').val(datoEconomico.formAEFechaPromesaPago);
 				$('#fechaPromesaPagoFormat').val(datoEconomico.formAEFechaPromesaPagoFormat);
 				$('#fechaConfirmacion').val(datoEconomico.formAEFechaConfirmacion);
 				$('#fechaConfirmacionFormat').val(datoEconomico.formAEFechaConfirmacionFormat);
-				
 				$('#viaticosTotales').val(datoEconomico.formAEViaticosTotal);
 				$('#observacion').val(datoEconomico.formAEObservaciones);
 				$('#listFechaPromesaPago').val(datoEconomico.formAEListFechaPromesaPago);
 				$('#listFechaConfirmacion').val(datoEconomico.formAEListFechaConfirmacion);
-//				$('#strFechaPromesaPago').val(datoEconomico.formAEStrFechaPromesaPago);
-//				$('#strFechaConfirmacion').val(datoEconomico.formAEStrFechaConfirmacion);
 				
-				formatoVentaReal();
-				formatoPorcentajeVenta();	
+//				formatoVentaReal();
+//				formatoPorcentajeVenta();	
+				cargaVendedoresDE(idAsignacionClic);
 				break;
 			}
 		}
+		
+		if(!flagExistDatosEconomicos){
+			console.log(flagExistDatosEconomicos);
+			porcentajeVendedor(idAsignacionClic);
+		}
+		
 	}
 	
 	

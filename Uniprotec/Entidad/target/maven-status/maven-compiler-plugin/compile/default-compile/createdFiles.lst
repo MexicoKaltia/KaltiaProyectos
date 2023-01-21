@@ -12,6 +12,7 @@ mx\uniprotec\entidad\modelo\PerfilModelo.class
 mx\uniprotec\entidad\modelo\ClienteModelo.class
 mx\uniprotec\entidad\modelo\InstructorModelo.class
 mx\uniprotec\entidad\modelo\Role.class
+mx\uniprotec\entidad\modelo\VendedorDEModelo.class
 mx\uniprotec\entidad\modelo\CursoModelo.class
 mx\uniprotec\entidad\modelo\MonitorEntidades.class
 mx\uniprotec\entidad\modelo\User.class

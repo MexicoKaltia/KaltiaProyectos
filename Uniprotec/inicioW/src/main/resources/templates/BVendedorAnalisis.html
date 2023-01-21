@@ -348,7 +348,6 @@
                                    <!-- Modal body -->
                                    <div class="modal-body">
 	                                   <br>
-							          <h4>Resumen de Pago Vendedor : <strong><span id="modalNombreVendedor"></span></strong></h4><hr>
 							          	<div class="row container">
 								          	<div class="col-md-6">
 								          		Fecha de Asignacion : <strong><span id="vendedorFechaAsignacion"></span></strong>
@@ -365,22 +364,7 @@
 								          		<h6>Id Asignacion : <strong><span id="idAsignacion"></span></h6></strong>
 								          	</div>
 							          	</div><hr>
-                                   		<div class="row container">
-                                   			<div class="col-md-6">
-                                   				<div class="alert alert-success">
-												  <h6><span>Fecha Pago 1 </span><br><span> Recibo de Factura : </span> 
-												  <strong><span id="fechaPagoVendedorInicio"></span></strong><br>
-												  <span>Monto : </span><strong><span id="montoPagoVendedorInicio"></span></strong></h6>
-												</div>
-                                   			</div>
-                                   			<div class="col-md-6">
-                                   				<div class="alert alert-info">
-												  <h6><span>Fecha Pago 2 </span><br><span> Pago de Factura : </span> 
-												  <strong><span id="fechaPagoVendedorFin"></span></strong><br>
-												  <span>Monto : </span><strong><span id="montoPagoVendedorFin"></span></strong></h6>
-												</div>
-                                   			</div>
-                                   		</div>
+							          	<div id="divVendedoresDatosEconomicos"></div>
                                    		<hr><hr>
                                    		 <h4>Resumen Factura Cliente : <strong><span id="modalNombreCliente"></span></strong></h4><hr>
                                    		<div class="row container">
@@ -479,7 +463,7 @@
 		 var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
 		 var clientes = [[${model.jsonResponseObject.clientes}]];
 		 var preAsignacionesAE = [[${model.jsonResponseObject.datosEconomicos}]];
-		 
+		 var vendedoresDatosEconomicos = [[${model.jsonResponseObject.vendedoresDatosEconomicos}]];
 		 var idUsuario =  [[${model.jsonResponse.user.id}]];
 		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 

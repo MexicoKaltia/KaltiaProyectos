@@ -1,6 +1,5 @@
 package mx.uniprotec.inicio.service;
 
-import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 
@@ -13,6 +12,8 @@ public interface IDatosEconomicosService {
 	public ResultVO actualizaDatosEconomicos(DatosEconomicosModelo datosEconomicos, String accesToken);
 
 	public ResultVO consultaDatosEconomicos(String token);
+
+	public ResultVO consultaVendoresDatosEconomicos(String token);
 	
 
 		

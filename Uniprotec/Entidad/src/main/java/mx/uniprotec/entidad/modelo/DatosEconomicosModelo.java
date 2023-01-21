@@ -26,6 +26,8 @@ public class DatosEconomicosModelo {
 	private Long userCreateAsignacion;
 	private List<String> listFechaPromesaPago;
 	private List<String> listFechaConfirmacion;
+	private List<VendedorDEModelo> vendedores;
+	private String vendedoresStr;
 	
 	public Long getIdDatosEconomicos() {
 		return idDatosEconomicos;
@@ -130,6 +132,19 @@ public class DatosEconomicosModelo {
 	public void setListFechaConfirmacion(List<String> listFechaConfirmacion) {
 		this.listFechaConfirmacion = listFechaConfirmacion;
 	}
+	public List<VendedorDEModelo> getVendedores() {
+		return vendedores;
+	}
+	public void setVendedores(List<VendedorDEModelo> vendedores) {
+		this.vendedores = vendedores;
+	}
+	
+	public String getVendedoresStr() {
+		return vendedoresStr;
+	}
+	public void setVendedoresStr(String vendedoresStr) {
+		this.vendedoresStr = vendedoresStr;
+	}
 	@Override
 	public String toString() {
 		return "DatosEconomicosModelo [idDatosEconomicos=" + idDatosEconomicos + ", ventaReal=" + ventaReal
@@ -139,13 +154,15 @@ public class DatosEconomicosModelo {
 				+ ", fechaConfirmacionFormat=" + fechaConfirmacionFormat + ", observacion=" + observacion
 				+ ", idAsignacion=" + idAsignacion + ", status=" + status + ", createAtAsignacion=" + createAtAsignacion
 				+ ", userCreateAsignacion=" + userCreateAsignacion + ", listFechaPromesaPago=" + listFechaPromesaPago
-				+ ", listFechaConfirmacion=" + listFechaConfirmacion + "]";
+				+ ", listFechaConfirmacion=" + listFechaConfirmacion + ", vendedores=" + vendedores + ", vendedoresStr="
+				+ vendedoresStr + "]";
 	}
 	public DatosEconomicosModelo(Long idDatosEconomicos, Double ventaReal, Double porcentajeVenta, Double comisionReal,
 			Double porcentajeComision, Double viaticosTotales, String fechaPromesaPago, String fechaPromesaPagoFormat,
 			String fechaConfirmacion, String fechaConfirmacionFormat, String observacion, Long idAsignacion,
 			String status, LocalDateTime createAtAsignacion, Long userCreateAsignacion,
-			List<String> listFechaPromesaPago, List<String> listFechaConfirmacion) {
+			List<String> listFechaPromesaPago, List<String> listFechaConfirmacion, List<VendedorDEModelo> vendedores,
+			String vendedoresStr) {
 		super();
 		this.idDatosEconomicos = idDatosEconomicos;
 		this.ventaReal = ventaReal;
@@ -164,6 +181,8 @@ public class DatosEconomicosModelo {
 		this.userCreateAsignacion = userCreateAsignacion;
 		this.listFechaPromesaPago = listFechaPromesaPago;
 		this.listFechaConfirmacion = listFechaConfirmacion;
+		this.vendedores = vendedores;
+		this.vendedoresStr = vendedoresStr;
 	}
 
 	

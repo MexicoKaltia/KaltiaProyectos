@@ -26,6 +26,7 @@ $(document).ready(function(){
 //	console.log(preAsignaciones);
 	console.log(preAsignacionesAE);
 	console.log(asignaciones);
+	console.log(vendedoresDatosEconomicos);
 	var myChartC, myChart;
 	var userSelect = 0;
 	
@@ -74,20 +75,25 @@ $(document).ready(function(){
 		    				for(var i in preAsignacionesAE){
 		    					var preAsignacionAE = preAsignacionesAE[i];
 		    					if(preAsignacionAE.formAEidPreAsignacion*1 === preAsignacion.idAsignacion*1){
-		    						if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal >= 99){
-			    							facturaPlus = facturaPlus + preAsignacionAE.formAEPrecioVentaReal*1;
-			    							colorBar = azulBk; 
-			    							colorBor = azulBr
-		    						}else{
-			    							facturaMinus = facturaMinus + preAsignacionAE.formAEPrecioVentaReal*1;
-			    							colorBar = rojoBk; 
-			    							colorBor = rojoBr
+		    						for(var o in vendedoresDatosEconomicos){
+		    							var vendedoreDE = vendedoresDatosEconomicos[o];
+		    							if(vendedoreDE.idDatosEconomicos === preAsignacionAE.idPreAsignacionAE){
+		    								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
+				    							facturaPlus = facturaPlus + vendedoreDE.montoFacturaDivida*1;
+				    							colorBar = azulBk; 
+				    							colorBor = azulBr
+				    						}else{
+					    							facturaMinus = facturaMinus + vendedoreDE.montoFacturaDivida*1;
+					    							colorBar = rojoBk; 
+					    							colorBor = rojoBr
+				    						}
+				    						facturaTotal = facturaTotal + vendedoreDE.montoFacturaDivida*1;
+				    						dataSetBar.push(vendedoreDE.montoFacturaDivida*1);
+				    						arrayColorBar.push(colorBar);
+				    						arrayBorderColorBar.push(colorBor);
+				    						etiquetas.push(preAsignacion.idAsignacion);
+		    							}
 		    						}
-		    						facturaTotal = facturaTotal + preAsignacionAE.formAEPrecioVentaReal*1;
-		    						dataSetBar.push(preAsignacionAE.formAEPrecioVentaReal*1);
-		    						arrayColorBar.push(colorBar);
-		    						arrayBorderColorBar.push(colorBor);
-		    						etiquetas.push(preAsignacion.idAsignacion);
 		    					}
 		    				}
 		    			}else{
@@ -201,7 +207,7 @@ $(document).ready(function(){
 						    							    <div class="alert alert-success">\
 															  <h6><span>id Asignacion : </span><strong><span>'+preAsignacion.idAsignacion+'</span></strong>\
 															  <span> - Factura : </span><strong><span>'+preAsignacion.numeroFactura+'</span></strong>\
-															  <span> - Monto : </span><strong><span>'+formatter.format(preAsignacionAE.formAEPrecioVentaReal)+'</span></strong></h6>\
+															  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
 															</div>\
 						    							</div>';
     													
@@ -215,7 +221,7 @@ $(document).ready(function(){
 													    <div class="alert alert-warning">\
 														  <h6><span>id Asignacion : </span><strong><span>'+preAsignacion.idAsignacion+'</span></strong>\
 														  <span> - Factura : </span><strong><span>'+preAsignacion.numeroFactura+'</span></strong>\
-														  <span> - Monto : </span><strong><span>'+formatter.format(preAsignacionAE.formAEPrecioVentaReal)+'</span></strong></h6>\
+														  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
 														</div>\
 													</div>';	
     						}
@@ -244,14 +250,18 @@ $(document).ready(function(){
 				for(a in filtroFacturas){
 					var idAsignacion = filtroFacturas[a];
 					if(idAsignacion*1 === preAsignacionAE.formAEidPreAsignacion){
-						if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
-							filtroFacturasPlus = filtroFacturasPlus + preAsignacionAE.formAEPrecioVentaReal;
-						}else{
-							filtroFacturasMinus = filtroFacturasMinus + preAsignacionAE.formAEPrecioVentaReal;
+						for(var i in vendedoresDatosEconomicos){
+							var vendedorDE = vendedoresDatosEconomicos[i];
+							if(vendedorDE.idDatosEconomicos*1 === preAsignacionAE.idPreAsignacionAE*1){
+								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
+									filtroFacturasPlus = filtroFacturasPlus + vendedorDE.montoFacturaDivida;
+								}else{
+									filtroFacturasMinus = filtroFacturasMinus + vendedorDE.montoFacturaDivida;
+								}
+								facturaTotal = facturaTotal + vendedorDE.montoFacturaDivida;
+							}
 						}
-						facturaTotal = facturaTotal + preAsignacionAE.formAEPrecioVentaReal*1;
-					}
-						
+					}						
 				}
 			}
 			console.log(filtroFacturasMinus);
@@ -265,6 +275,19 @@ $(document).ready(function(){
     
 }); // fin jquery
 
+
+	function getMontoFacturaDividida(idDatosEconomicos){
+		var montoFacturaDividida = 0;
+		for(var a in vendedoresDatosEconomicos){
+			var vendedorDE = vendedoresDatosEconomicos[a];
+			if(vendedorDE.idDatosEconomicos*1 === idDatosEconomicos*1){
+				console.log(idDatosEconomicos);
+				montoFacturaDividida = vendedorDE.montoFacturaDivida; 
+				break;
+			}
+		}
+		return montoFacturaDividida;
+	}
 		    	
 	function validateDatosEconomicos(idAsignacion){
 		for(var a in preAsignacionesAE){

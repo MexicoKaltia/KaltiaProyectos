@@ -35,6 +35,8 @@ public class VendedorService implements IVendedorService {
 	ResultVO resultVO = new  ResultVO();
 	@Autowired
 	BaseClientRest baseClientRest;
+	@Autowired
+	IDatosEconomicosService datosEconomicosService;
 //	@Autowired
 	MonitorEntidades me = new  MonitorEntidades();
 
@@ -147,11 +149,15 @@ public class VendedorService implements IVendedorService {
 					jsonGeneral = rs.getJsonResponse();
 					JSONObject jsonClientes = new JSONObject();
 					jsonConsulta.put("clientes", jsonGeneral.get("clientes"));
-				}				
+					rs = datosEconomicosService.consultaVendoresDatosEconomicos(token);
+					if(rs.getCodigo() == 202) {
+						JSONObject jsonVendedoresDatosEconomicos = rs.getJsonResponse();
+						jsonConsulta.put("vendedoresDatosEconomicos", jsonVendedoresDatosEconomicos.get("vendedoresDatosEconomicos"));
+					}			
 			}
 			rs.setJsonResponseObject(jsonConsulta);
 		}
-		return rs;
 	}
-
+		return rs;
+	}	
 }

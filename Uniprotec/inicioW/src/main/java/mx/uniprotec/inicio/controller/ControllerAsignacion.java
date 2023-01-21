@@ -446,7 +446,7 @@ public class ControllerAsignacion {
 	@PostMapping("/altaDatosEconomicos")
 	public ModelAndView altaDatosEconomicos(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
 		log.info("Actualiza Asignacion model Activo");
-//		log.info(asignacion.toString());
+		log.info(datosEconomicosItem.toString());
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
 

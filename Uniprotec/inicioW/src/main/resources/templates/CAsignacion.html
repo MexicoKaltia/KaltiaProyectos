@@ -311,7 +311,7 @@
 	
 	
 	  <!-- Modal Inicio-->
-                       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="overflow-y: scroll;">
 					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
@@ -458,7 +458,7 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
-                       <div class="modal" id="modalFormErrorProceso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                       <div class="modal" id="modalFormErrorProceso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="overflow-y: scroll;">
 					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
@@ -559,7 +559,7 @@
                        <!-- Modal Fin-->
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
-                       <div class="modal" id="modalFormDatosEconomicos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                       <div class="modal" id="modalFormDatosEconomicos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-backdrop="false" aria-hidden="true" style="overflow-y: scroll;">
 					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
@@ -579,7 +579,7 @@
                                                <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
 		                                            <label for="validationCustom02">Venta Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelVentaReal" ></label></div>
-		                                            <input type="text" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required onfocusout="formatoVentaReal()">
+		                                            <input type="text" class="form-control" th:field="*{ventaReal}" id="ventaReal" placeholder="venta real" value="" maxlength="100" required autofocus  onfocusout="formatoVentaReal()">
 		                                            <div class="invalid-feedback">
 		                                                Capturar Datos Númericos
 		                                            </div>
@@ -593,26 +593,12 @@
 		                                        </div>
 		                                        <hr>
 		                                      </div>
-		                                      <div class="form-row">
-		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Porcentaje de Comisión Vendedor</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelPorcentajeComision" ></label></div>
-		                                            <label id="nombreVendedorComision" class="text-primary"></label>
-		                                            <input type="text" class="form-control" th:field="*{porcentajeComision}" id="porcentajeComision" placeholder="porcentaje comision" value="" minlength="1" maxlength="6" onfocusout="formatoPorcentajeComision()" required>
-		                                            <div class="invalid-feedback">
-		                                                Capturar Datos Númericos
-		                                            </div>
-		                                        </div>
-		                                         <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Comisión Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelComisionReal" ></label></div>
-		                                            <input type="text" class="form-control" th:field="*{comisionReal}" id="comisionReal" placeholder="comision real" value="" maxlength="100" onfocusout="formatoComisionReal()" required>
-		                                            <div class="invalid-feedback">
-		                                                Capturar Datos Númericos
-		                                            </div>
-		                                        </div>
-		                                      </div>
-		                                      <div class="form-row" id="divAgregarVendedores">
-		                                        
-		                                      </div>
+		                                      
+		                                      <div class="form-row" id="divVendedorMain"></div>
+<!-- 		                                       <input type="hidden"  id="vendedores" th:field="*{vendedores}"/> -->
+		                                       <input type="hidden"  id="vendedoresStr" th:field="*{vendedoresStr}"/>
+		                                      <div class="form-row" id="divAgregarVendedores"></div>
+		                                      
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
 		                                         	<a id="addUser" data-toggle="modal" data-target="#modalFiltroVendedoresComision"class="btn btn-primary"><i style="color: white" class="fa fa-3x fa-user-plus" aria-hidden="true"></i></a>
@@ -700,6 +686,7 @@
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 		 var datosEconomicos= [[${model.jsonResponseObject.datosEconomicos}]];
+		 var vendedoresDatosEconomicos= [[${model.jsonResponseObject.vendedoresDatosEconomicos}]];
 	</script>
 	
 	 
@@ -778,7 +765,7 @@
                            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
                        
-                       <div class="modal" id="modalFiltroVendedoresComision" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                       <div class="modal" id="modalFiltroVendedoresComision" tabindex="-1" role="dialog"  data-backdrop="false" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 					    <div class="modal-dialog " role="document">
 					        <div class="modal-content">
 
@@ -793,17 +780,17 @@
                                    <!-- Modal body -->
                                    <div class="modal-body" >
                                     <ul>
-                                    	<li  style=" list-style-type:none ">
-			                                <div class="input-group mb-1">
-											  <div class="input-group-prepend">
-											    <div class="input-group-text">
-											      <input type="checkbox" id="todosVendedores" checked>
-											    </div>
-											  </div>
-											  <span  style="padding-left: 10px;" id="modalNombreVendedor">Todos Vendedores</span>
-											</div>
-			                            </li>
-			                            <hr>
+<!--                                     	<li  style=" list-style-type:none "> -->
+<!-- 			                                <div class="input-group mb-1"> -->
+<!-- 											  <div class="input-group-prepend"> -->
+<!-- 											    <div class="input-group-text"> -->
+<!-- 											      <input type="checkbox" id="todosVendedores" checked> -->
+<!-- 											    </div> -->
+<!-- 											  </div> -->
+<!-- 											  <span  style="padding-left: 10px;" id="modalNombreVendedor">Todos Vendedores</span> -->
+<!-- 											</div> -->
+<!-- 			                            </li> -->
+<!-- 			                            <hr> -->
 			                            <div  id="modalFiltroVendedor">
 									    <li th:each= "vendedor : ${model.jsonResponseObject.vendedores}" style="list-style-type:none" >
 			                                <div class="input-group mb-1">
@@ -821,7 +808,7 @@
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-											<button type="submit"  class="btn btn-info pull-left" id="btnVendedoresComision" data-dismiss="modal">Agregar Vendedores</button>
+											<button type="submit"  class="btn btn-info pull-left" id="btnVendedoresComision"  data-dismiss="modal">Agregar Vendedores</button>
 											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
                                    </div>
 

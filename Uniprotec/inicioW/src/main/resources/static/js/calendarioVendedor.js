@@ -66,7 +66,7 @@ $(document).ready(function() {
 		item = item.split('-');
 		$('#fechaPagoVendedorInicio').text(valoresFecha(formatoFecha(getFechaFinalPago(item[4]))));
 		$('#fechaPagoVendedorFin').text(valoresFecha(formatoFecha(getFechaFinalPago(item[5]))));
-		$('#fechaCobroFactura').text(valoresFecha(formatoFecha(getFecha(item[4]))));
+		$('#fechaCobroFactura').text(valoresFecha(formatoFecha(getFecha(item[5]))));
 		$('#modalNombreCliente').text(item[1]);
 		var idPreAsignacion = item[0];
 		$('#idAsignacion').text(idPreAsignacion);
@@ -92,7 +92,7 @@ $(document).ready(function() {
 //		$('#cobroFacturaTable').bootstrapTable({data : dataCobroFactura});
 		$('#registroCobroFactura').empty();
 		$('#registroPagoComision').empty();
-		
+		$('#divVendedoresDatosEconomicos').empty();
 		for(var a in asignaciones){
 			var preAsignacion = asignaciones[a];
 			if(idPreAsignacion*1 === preAsignacion.idAsignacion*1){
@@ -109,6 +109,34 @@ $(document).ready(function() {
 						montoPagoVendedorFin = validaComisionReal(preAsignacionAE.formAEComisionVendedor, preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal);
 						montoCobroFactura = preAsignacionAE.formAEPrecioVentaReal;
 						
+						/*
+						 * imprime datos vendedoresDatosEconomicos
+						 */
+						for (var i in vendedoresDatosEconomicos){
+							var vendedorDE = vendedoresDatosEconomicos[i];
+							if(vendedorDE.idDatosEconomicos*1 === preAsignacionAE.idPreAsignacionAE*1){
+								var registroVendedorDE = '<span>Resumen de Pago Vendedor : </span><strong><span>'+vendedorDE.nombreVendedor+'</span></strong>\
+			                   		<div class="row container">\
+			               			<div class="col-md-6">\
+			               				<div class="alert alert-success">\
+										  <h6><span>Fecha Pago 1 </span><br><span> Recibo de Factura : </span>\
+										  <strong><span>'+valoresFecha(formatoFecha(getFechaFinalPago(item[4])))+'</span></strong><br>\
+										  <span>Monto : </span><strong><span id="montoPagoVendedorInicioAA">'+vendedorDE.comisionRealVendedor+'</span></strong></h6>\
+										</div>\
+			               			</div>\
+			               			<div class="col-md-6">\
+			               				<div class="alert alert-info">\
+										  <h6><span>Fecha Pago 2 </span><br><span> Pago de Factura : </span>\
+										  <strong><span id="fechaPagoVendedorFinAA">'+valoresFecha(formatoFecha(getFechaFinalPago(item[5])))+'</span></strong><br>\
+										  <span>Monto : </span><strong><span id="montoPagoVendedorFinAA">'+vendedorDE.comisionRealVendedor+'</span></strong></h6>\
+										</div>\
+			               			</div>\
+			               		</div>'; 
+										
+			               		$('#divVendedoresDatosEconomicos').append(registroVendedorDE);
+							}
+						}
+						
 						
 						/*
 						 *  //tabla de Cobro Factura 
@@ -117,22 +145,23 @@ $(document).ready(function() {
 						var listFechasPromesa = stringToList(preAsignacionAE.formAEListFechaPromesaPago);
 						var listFechasConfirmacion = stringToList(preAsignacionAE.formAEListFechaConfirmacion);
 						
-						var fechaConfirmacionLast = listFechasConfirmacion[listFechasConfirmacion.length - 1]; 
+						var fechaConfirmacionLast = listFechasConfirmacion[listFechasConfirmacion.length - 1];
+						console.log(fechaConfirmacionLast);
 						var registroConfirmacion = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
-							"</td><td>"+valoresFecha(formatoFecha(fechaConfirmacionLast))+
+							"</td><td>"+valoresFecha(fechaConfirmacionLast)+
 			    			"</td><td>"+"Recibo de Factura"+
 			    			"</tr>";
 							$('#registroCobroFactura').append(registroConfirmacion);
 
 						for(var a in listFechasPromesa){
+							var fechaPago = listFechasPromesa[a];
+							console.log(fechaPago);
 							var registro = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
-			    			"</td><td>"+valoresFecha(formatoFecha(listFechasPromesa[a]))+
-			    			"</td><td>"+validaCumplimiento(listFechasPromesa[a])+
+			    			"</td><td>"+valoresFecha(fechaPago)+
+			    			"</td><td>"+validaCumplimiento(fechaPago)+
 			    			"</tr>";
 							$('#registroCobroFactura').append(registro);
-//							$.dataCobroFactura.push(jsonFechaPromesa);
 						}
-//						$('#cobroFacturaTable').bootstrapTable({data : $.dataCobroFactura});
 						
 
 						/*
@@ -145,14 +174,9 @@ $(document).ready(function() {
 		    			"</td><td>"+"1er Pago Comision"+
 		    			"</td><td>"+valoresFecha(formatoFecha(getFechaFinalPago(fechaConfirmacionLast)))+
 		    			"</tr>";
-		
 						$('#registroPagoComision').append(registroComision);
+						
 						for(var a in listFechasPromesa){
-//							var jsonFechaPromesa = {
-//									idDatoEconomico : preAsignacionAE.idPreAsignacionAE,
-//									fechaPromesaPago : valoresFecha(formatoFecha(getFechaFinalPago(listFechasPromesa[a]))),
-//									cumplimiento : validaCumplimiento(listFechasPromesa[a])
-//							}
 							var registro = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
 			    			"</td><td>"+nombreVendedor+
 			    			"</td><td>"+validaPagoComision(listFechasPromesa[a])+
@@ -160,9 +184,7 @@ $(document).ready(function() {
 			    			"</tr>";
 			
 							$('#registroPagoComision').append(registro);
-//							dataPagoComision.push(jsonFechaPromesa);
 						}
-//						$('#pagoComisionTable').bootstrapTable({data : dataPagoComision});
 					}
 				}
 				

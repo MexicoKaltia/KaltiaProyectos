@@ -1,5 +1,6 @@
 package mx.uniprotec.application.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ import mx.uniprotec.application.dao.IPreAsignacionDao;
 import mx.uniprotec.application.entity.ClienteProspectoEntity;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
+import mx.uniprotec.application.entity.VendedorDatosEconomicos;
 import mx.uniprotec.application.service.IClienteProspecto;
 import mx.uniprotec.application.service.IPreAsignacionAEService;
 import mx.uniprotec.application.service.IPreAsignacionService;
@@ -39,6 +41,7 @@ import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.PreAsignacionAE;
+import mx.uniprotec.entidad.modelo.VendedorDEModelo;
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -70,7 +73,7 @@ public class PreAsignacionRestController {
 	@PostMapping("/datosEconomicos")
 	public ResponseEntity<?> createDatosEconomicos(@Valid @RequestBody DatosEconomicosModelo datosEconomicos, BindingResult result) {
 		log.info("datosEconomicos create");
-		log.info(datosEconomicos.toString());
+//		log.info(datosEconomicos.toString());
 		
 		PreAsignacionAEEntity preAsignacionAENew = new PreAsignacionAEEntity();
 		Map<String, Object> response = new HashMap<>();
@@ -84,8 +87,10 @@ public class PreAsignacionRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
+		Boolean flagNewDatosEconomicos = true;
 		if(datosEconomicos.getIdDatosEconomicos()!=null) {
 			preAsignacionAENew = preAsignacionAEService.findByIdDatoEconomico(datosEconomicos.getIdDatosEconomicos());
+			flagNewDatosEconomicos = false;
 		}
 		
 		try {
@@ -120,6 +125,18 @@ public class PreAsignacionRestController {
 			}
 			
 			preAsignacionAENew = preAsignacionAEService.savePreAsignacionAE(preAsignacionAENew);
+			
+			//guardar o actualizar Vendedores
+			List<VendedorDatosEconomicos> vendedores = getVendedores(datosEconomicos.getVendedores(), preAsignacionAENew);
+			if(flagNewDatosEconomicos) {
+				//nuevo expediente DE
+				preAsignacionAEService.saveVendedores(vendedores);
+				
+			}else {
+				//actualiza expediente DE
+				log.info(preAsignacionAENew.getIdPreAsignacionAE().toString());
+				preAsignacionAEService.updateVendedores(vendedores, preAsignacionAENew.getIdPreAsignacionAE());
+			}
 			
 			
 			 response.put("datosEconomicos", preAsignacionAENew );
@@ -188,6 +205,33 @@ public class PreAsignacionRestController {
 		
 	}
 	
+	
+	// Vendedores Datos Economicos
+
+	@GetMapping("/vendedoresDatosEconomicos")
+	public ResponseEntity<?> vendedoresDatosEconomicos() {
+		log.info("vendedoresDatosEconomicos");
+		List<VendedorDatosEconomicos> vendedoresDatosEconomicos = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			vendedoresDatosEconomicos = preAsignacionAEService.VendedoresFindAll();
+			 response.put("vendedoresDatosEconomicos", vendedoresDatosEconomicos);
+			 response.put("mensaje", "Exito en la busqueda de vendedoresDatosEconomicos ");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("vendedoresDatosEconomicos  fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			log.info("catch vendedoresDatosEconomicos  fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
 
 	
 	
@@ -242,6 +286,32 @@ public class PreAsignacionRestController {
 		
 		return diaSemana;
 	}
+	
+	private List<VendedorDatosEconomicos> getVendedores(List<VendedorDEModelo> vendedores, PreAsignacionAEEntity datosEconomicos) {
+		List<VendedorDatosEconomicos> vendedoresDatosEconomicos = new ArrayList<VendedorDatosEconomicos>();
+		for(VendedorDEModelo vendedor : vendedores) {
+			VendedorDatosEconomicos vendedorDE = new VendedorDatosEconomicos();
+			
+			vendedorDE.setIdAsignacion(vendedor.getIdAsignacion());
+			vendedorDE.setIdVendedorAsignacion(vendedor.getIdVendedorAsignacion());
+			vendedorDE.setIdDatosEconomicos(datosEconomicos.getIdPreAsignacionAE());
+			
+			vendedorDE.setNombreVendedor(vendedor.getNombreVendedor());
+			vendedorDE.setComisionRealVendedor(vendedor.getComisionRealVendedor());
+			vendedorDE.setPorcentajeComisionVendedor(vendedor.getPorcentajeComisionVendedor());
+			vendedorDE.setMontoFacturaDivida(vendedor.getMontoFacturaDivida());
+			
+			vendedorDE.setCreateAtVendedor(datosEconomicos.getCreateAt());
+			vendedorDE.setUserCreateVendedor(datosEconomicos.getUserCreate());
+			vendedorDE.setStatusVendedor(datosEconomicos.getStatus());
+			
+			vendedoresDatosEconomicos.add(vendedorDE);
+		}
+		return vendedoresDatosEconomicos;
+	}
+
+
+
 	
 //	@PostMapping("/preAsignacion")
 //	public ResponseEntity<?> createPreAsignacion(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result) {

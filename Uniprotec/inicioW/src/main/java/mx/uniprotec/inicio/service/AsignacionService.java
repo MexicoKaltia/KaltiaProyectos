@@ -203,6 +203,13 @@ public class AsignacionService implements IAsignacionService{
 					if(rsDatosEconomicos.getCodigo() != 500) {
 						JSONObject jsonDatosEconomicos = rsDatosEconomicos.getJsonResponse();
 						jsonAsignaciones.put("datosEconomicos", jsonDatosEconomicos.get("datosEconomicos"));
+						ResultVO rsVendedoresDatosEconomicos = datosEconomicosService.consultaVendoresDatosEconomicos(token);
+						if(rsVendedoresDatosEconomicos.getCodigo() != 500) {
+							JSONObject jsonVendedoresDatosEconomicos = rsVendedoresDatosEconomicos.getJsonResponse();
+							jsonAsignaciones.put("vendedoresDatosEconomicos", jsonVendedoresDatosEconomicos.get("vendedoresDatosEconomicos"));
+						}else {
+							return rsDatosEconomicos;
+						}
 					}else {
 						return rsDatosEconomicos;
 					}
