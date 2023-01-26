@@ -84,6 +84,7 @@ $(document).ready(function() {
 		var clienteContacto;
 		var clienteEmail;
 		var clienteTelefono;
+		var numeroFactura;
 		
 		var cliente
 		
@@ -102,11 +103,13 @@ $(document).ready(function() {
 				vendedorInstructorAsignacion = preAsignacion.instructorAsignacion;
 				preAsignacionLogica = preAsignacion.idAsignacionLogica;
 				nombreFactura = preAsignacion.nombreFactura;
+				numeroFactura = preAsignacion.numeroFactura
+				
 				for(var e in preAsignacionesAE){
 					var preAsignacionAE = preAsignacionesAE[e];
 					if(preAsignacionAE.formAEidPreAsignacion*1 === preAsignacion.idAsignacion*1){	
-						montoPagoVendedorInicio = validaComisionReal(preAsignacionAE.formAEComisionVendedor, preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal);
-						montoPagoVendedorFin = validaComisionReal(preAsignacionAE.formAEComisionVendedor, preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal);
+						montoPagoVendedorInicio = validaComisionReal(preAsignacionAE.formAEComisionVendedor);
+						montoPagoVendedorFin = validaComisionReal(preAsignacionAE.formAEComisionVendedor);
 						montoCobroFactura = preAsignacionAE.formAEPrecioVentaReal;
 						
 						/*
@@ -121,14 +124,14 @@ $(document).ready(function() {
 			               				<div class="alert alert-success">\
 										  <h6><span>Fecha Pago 1 </span><br><span> Recibo de Factura : </span>\
 										  <strong><span>'+valoresFecha(formatoFecha(getFechaFinalPago(item[4])))+'</span></strong><br>\
-										  <span>Monto : </span><strong><span id="montoPagoVendedorInicioAA">'+vendedorDE.comisionRealVendedor+'</span></strong></h6>\
+										  <span>Monto : </span><strong><span id="montoPagoVendedorInicioAA">'+validaComisionReal(vendedorDE.comisionRealVendedor)+'</span></strong></h6>\
 										</div>\
 			               			</div>\
 			               			<div class="col-md-6">\
 			               				<div class="alert alert-info">\
 										  <h6><span>Fecha Pago 2 </span><br><span> Pago de Factura : </span>\
 										  <strong><span id="fechaPagoVendedorFinAA">'+valoresFecha(formatoFecha(getFechaFinalPago(item[5])))+'</span></strong><br>\
-										  <span>Monto : </span><strong><span id="montoPagoVendedorFinAA">'+vendedorDE.comisionRealVendedor+'</span></strong></h6>\
+										  <span>Monto : </span><strong><span id="montoPagoVendedorFinAA">'+validaComisionReal(vendedorDE.comisionRealVendedor)+'</span></strong></h6>\
 										</div>\
 			               			</div>\
 			               		</div>'; 
@@ -146,7 +149,6 @@ $(document).ready(function() {
 						var listFechasConfirmacion = stringToList(preAsignacionAE.formAEListFechaConfirmacion);
 						
 						var fechaConfirmacionLast = listFechasConfirmacion[listFechasConfirmacion.length - 1];
-						console.log(fechaConfirmacionLast);
 						var registroConfirmacion = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
 							"</td><td>"+valoresFecha(fechaConfirmacionLast)+
 			    			"</td><td>"+"Recibo de Factura"+
@@ -155,7 +157,6 @@ $(document).ready(function() {
 
 						for(var a in listFechasPromesa){
 							var fechaPago = listFechasPromesa[a];
-							console.log(fechaPago);
 							var registro = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
 			    			"</td><td>"+valoresFecha(fechaPago)+
 			    			"</td><td>"+validaCumplimiento(fechaPago)+
@@ -207,8 +208,8 @@ $(document).ready(function() {
 		} //fin abrirModal
 		
 		
-		$('#montoPagoVendedorInicio').text("$ "+montoPagoVendedorInicio);
-		$('#montoPagoVendedorFin').text("$ "+montoPagoVendedorFin);
+//		$('#montoPagoVendedorInicio').text("$ "+montoPagoVendedorInicio);
+//		$('#montoPagoVendedorFin').text("$ "+montoPagoVendedorFin);
 		$('#montoCobroFactura').text("$ "+montoCobroFactura);
 		$('#modalNombreVendedor').text(nombreVendedor);
 		
@@ -217,6 +218,7 @@ $(document).ready(function() {
 		$('#vendedorInstructorAsignacion').text(vendedorInstructorAsignacion);
 		
 		$('#clienteNombreCompleto').text(clienteNombreCompleto);
+		$('#modalFacturaCliente').text(numeroFactura);
 		$('#clienteRFC').text(clienteRFC);
 		$('#clienteRepresentanteEmpresa').text(clienteRepresentanteEmpresa);
 		$('#clienteContacto').text(clienteContacto);
@@ -229,14 +231,8 @@ $(document).ready(function() {
 		
 	}
 	
-	function validaComisionReal(formAEComisionVendedorReal, formAERegla3PorcentajeNuevaComisionReal){
-//		console.log(formAERegla3PorcentajeNuevaComisionReal);
-//		if(formAERegla3PorcentajeNuevaComisionReal*1 < 100){
-//			return 0;
-//		}else{
-			return (formAEComisionVendedorReal / 2);
-//		}
-		
+	function validaComisionReal(comisionVendedorReal){
+			return (comisionVendedorReal / 2);
 	}
 	
 	function formatoFecha(fecha){

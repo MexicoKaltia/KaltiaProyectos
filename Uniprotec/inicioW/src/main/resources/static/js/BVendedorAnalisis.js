@@ -29,6 +29,8 @@ $(document).ready(function(){
 	console.log(vendedoresDatosEconomicos);
 	var myChartC, myChart;
 	var userSelect = 0;
+	var idVendedorDE = 0;
+	var arrayAsignaciones = new Array();
 	
 	window.operateEventsUpdateVendedor = {
 			
@@ -36,10 +38,14 @@ $(document).ready(function(){
 		    	
 		    	console.log(row);
 		    	userSelect = row.usuarioVendedor.idUsuario;
+		    	idVendedorDE = row.idVendedor;
 		    	var nombreVendedor = row.nombreVendedor;
 		    	$('#modalNombreVendedorAnalisis').text(nombreVendedor);
 		    	
+//		    	console.log(idVendedorDE);
+		    	
 		    	var eventosAsignadosCount=0;
+		    	var eventosAsignadosSecCount =0;
 		    	var preAsignacionesCount=0;
 		    	var cancelacionesCount=0;
 		    	
@@ -58,8 +64,9 @@ $(document).ready(function(){
 		        
 		        var arrayColorBar = new Array();
 		        var arrayBorderColorBar = new Array();
-		        
+		        	        
 		        var etiquetas = new Array();
+		        arrayAsignaciones.length = 0;
 		    	
 		    	for(var a in asignaciones){
 		    		var preAsignacion = asignaciones[a];
@@ -72,20 +79,24 @@ $(document).ready(function(){
 		    			}
 		    			if(validateDatosEconomicos(preAsignacion.idAsignacion)){//preAsignados
 		    				preAsignacionesCount++;
-		    				for(var i in preAsignacionesAE){
+		    				arrayAsignaciones.push(preAsignacion.idAsignacion);
+		    				for(var i in preAsignacionesAE){//buscar en Datos Economicos
 		    					var preAsignacionAE = preAsignacionesAE[i];
 		    					if(preAsignacionAE.formAEidPreAsignacion*1 === preAsignacion.idAsignacion*1){
 		    						for(var o in vendedoresDatosEconomicos){
 		    							var vendedoreDE = vendedoresDatosEconomicos[o];
-		    							if(vendedoreDE.idDatosEconomicos === preAsignacionAE.idPreAsignacionAE){
+		    							if(vendedoreDE.idAsignacion === preAsignacion.idAsignacion && vendedoreDE.idVendedorAsignacion*1 === idVendedorDE*1){
+		    								console.log("INCLUDE"+ vendedoreDE.idAsignacion*1);
+		    								console.log(vendedoreDE.nombreVendedor);
 		    								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
+		    									console.log("positivo"+ preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal *1);
 				    							facturaPlus = facturaPlus + vendedoreDE.montoFacturaDivida*1;
 				    							colorBar = azulBk; 
-				    							colorBor = azulBr
+				    							colorBor = azulBr;
 				    						}else{
 					    							facturaMinus = facturaMinus + vendedoreDE.montoFacturaDivida*1;
 					    							colorBar = rojoBk; 
-					    							colorBor = rojoBr
+					    							colorBor = rojoBr;
 				    						}
 				    						facturaTotal = facturaTotal + vendedoreDE.montoFacturaDivida*1;
 				    						dataSetBar.push(vendedoreDE.montoFacturaDivida*1);
@@ -98,18 +109,53 @@ $(document).ready(function(){
 		    				}
 		    			}else{
 		    				eventosAsignadosCount++;
-		    						    				
-		    			} 
-//		    			$('#seguimientoBitacora').empty();
-//		    			$('#seguimientoBitacora').append(preAsignacion.seguimiento);
+//		    				arrayAsignaciones.push(preAsignacion);
+		    			}
 		    		}
 		    	}
 		    	
+		    	console.log(arrayAsignaciones);
 		    	
+		    	var arrayDatosEconomicosVendedor = new Array(); 
+		    	for(var a in vendedoresDatosEconomicos){
+		    		var vendedorDE = vendedoresDatosEconomicos[a];
+//		    		console.log(vendedorDE.idVendedorAsignacion);
+					if(idVendedorDE === vendedorDE.idVendedorAsignacion){
+						arrayDatosEconomicosVendedor.push(vendedorDE);
+					}
+		    	}
 		    	
+		    	for(var a in arrayDatosEconomicosVendedor){
+		    		var vendedorDE = arrayDatosEconomicosVendedor[a];
+		    		if(!arrayAsignaciones.includes(vendedorDE.idAsignacion*1)){
+		    			for(var i in preAsignacionesAE){//buscar en Datos Economicos
+		    				console.log("no includes "+ vendedorDE.idAsignacion*1);
+	    					var preAsignacionAE = preAsignacionesAE[i];
+							if(vendedorDE.idDatosEconomicos === preAsignacionAE.idPreAsignacionAE){
+								preAsignacionesCount++;
+								eventosAsignadosSecCount++;
+								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
+	    							facturaPlus = facturaPlus + vendedorDE.montoFacturaDivida*1;
+	    							colorBar = azulBk; 
+	    							colorBor = azulBr;
+	    						}else{
+		    							facturaMinus = facturaMinus + vendedorDE.montoFacturaDivida*1;
+		    							colorBar = rojoBk; 
+		    							colorBor = rojoBr;
+	    						}
+	    						facturaTotal = facturaTotal + vendedorDE.montoFacturaDivida*1;
+	    						dataSetBar.push(vendedorDE.montoFacturaDivida*1);
+	    						arrayColorBar.push(colorBar);
+	    						arrayBorderColorBar.push(colorBor);
+	    						etiquetas.push(vendedorDE.idAsignacion);
+							}
+						}
+		    		}
+		    	}
 			    	
 		    	$('#totalAsignaciones').text(eventosAsignadosCount*1 + preAsignacionesCount*1 + cancelacionesCount*1 );
 		    	$('#eventosAsignados').text(eventosAsignadosCount);
+		    	$('#eventosAsignadosSec').text(eventosAsignadosSecCount);
 		    	$('#preAsignaciones').text(preAsignacionesCount);
 		    	$('#cancelaciones').text(cancelacionesCount);
 		    	
@@ -132,7 +178,7 @@ $(document).ready(function(){
 		    	],
 		    	datasets: [{
 		    	  label: 'My First Dataset',
-		    	  data: [preAsignacionesCount, eventosAsignadosCount, cancelacionesCount],
+		    	  data: [preAsignacionesCount, eventosAsignadosCount + eventosAsignadosSecCount, cancelacionesCount],
 		    	  backgroundColor: [
 		    	  'rgba(54, 162, 235, 0.8)',
 		    	  'rgba(75, 192, 192, 0.7)',
@@ -164,7 +210,7 @@ $(document).ready(function(){
 		          data: {
 		              labels: etiquetas,
 		              datasets: [{
-		                  label: 'Venta Real',
+		                  label: 'Venta Real Divida',
 		                  data: dataSetBar,
 		                  backgroundColor: arrayColorBar ,
 		                  borderColor: arrayBorderColorBar,
@@ -208,6 +254,8 @@ $(document).ready(function(){
 															  <h6><span>id Asignacion : </span><strong><span>'+preAsignacion.idAsignacion+'</span></strong>\
 															  <span> - Factura : </span><strong><span>'+preAsignacion.numeroFactura+'</span></strong>\
 															  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
+															  <span> - Cliente : </span><strong><span>'+preAsignacion.clienteAsignacion+'</span></strong><br>\
+															  <span> - Curso : </span><strong><span>'+preAsignacion.cursoAsignacion+'</span></strong></h6>\
 															</div>\
 						    							</div>';
     													
@@ -222,6 +270,8 @@ $(document).ready(function(){
 														  <h6><span>id Asignacion : </span><strong><span>'+preAsignacion.idAsignacion+'</span></strong>\
 														  <span> - Factura : </span><strong><span>'+preAsignacion.numeroFactura+'</span></strong>\
 														  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
+														  <span> - Cliente : </span><strong><span>'+preAsignacion.clienteAsignacion+'</span></strong><br>\
+														  <span> - Curso : </span><strong><span>'+preAsignacion.cursoAsignacion+'</span></strong></h6>\
 														</div>\
 													</div>';	
     						}
@@ -231,6 +281,64 @@ $(document).ready(function(){
     			}
     		}
     	}
+		
+    	var arrayDatosEconomicosVendedor = new Array(); 
+    	for(var a in vendedoresDatosEconomicos){
+    		var vendedorDE = vendedoresDatosEconomicos[a];
+//    		console.log(vendedorDE.idVendedorAsignacion);
+			if(idVendedorDE === vendedorDE.idVendedorAsignacion){
+				arrayDatosEconomicosVendedor.push(vendedorDE);
+			}
+    	}
+		
+    	for(var a in arrayDatosEconomicosVendedor){
+    		var vendedorDE = arrayDatosEconomicosVendedor[a];
+    		if(!arrayAsignaciones.includes(vendedorDE.idAsignacion)){
+    			for(var i in preAsignacionesAE){//buscar en Datos Economicos
+					var preAsignacionAE = preAsignacionesAE[i];
+					if(vendedorDE.idDatosEconomicos === preAsignacionAE.idPreAsignacionAE){
+						for(var e in asignaciones){
+							var asignacion = asignaciones[e];
+							if(asignacion.idAsignacion === preAsignacionAE.formAEidPreAsignacion){
+								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal >= 99){
+	    							var divDetalleFactura = '<div class="input-group" >\
+							    								<div class="input-group-prepend">\
+								    							    <div class="input-group-text">\
+								    							      <input type="checkbox" class="detalleFactura" id="'+preAsignacionAE.formAEidPreAsignacion+'" checked>\
+								    							    </div>\
+								    							</div>\
+							    							    <div class="alert alert-success">\
+																  <h6><span>id Asignacion : </span><strong><span>'+preAsignacionAE.formAEidPreAsignacion+'</span></strong>\
+																  <span> - Factura : </span><strong><span>'+asignacion.numeroFactura+'</span></strong>\
+																  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
+																  <span> - Cliente : </span><strong><span>'+asignacion.clienteAsignacion+'</span></strong><br>\
+																  <span> - Curso : </span><strong><span>'+asignacion.cursoAsignacion+'</span></strong></h6>\
+																</div>\
+							    							</div>';
+	    													
+		    						}else{
+		    							var divDetalleFactura = '<div class="input-group" >\
+								    								<div class="input-group-prepend">\
+								    							    <div class="input-group-text">\
+								    							      <input type="checkbox" class="detalleFactura" id="'+preAsignacionAE.formAEidPreAsignacion+'" checked>\
+								    							    </div>\
+								    							</div>\
+															    <div class="alert alert-warning">\
+															    <h6><span>id Asignacion : </span><strong><span>'+preAsignacionAE.formAEidPreAsignacion+'</span></strong>\
+																  <span> - Factura : </span><strong><span>'+asignacion.numeroFactura+'</span></strong>\
+																  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
+																  <span> - Cliente : </span><strong><span>'+asignacion.clienteAsignacion+'</span></strong><br>\
+																  <span> - Curso : </span><strong><span>'+asignacion.cursoAsignacion+'</span></strong></h6>\
+																</div>\
+															</div>';	
+		    						}
+		    						$('#modalDivDetalleFactura').append(divDetalleFactura);
+								}
+							}
+    					}
+    				}
+    			}
+    		}
 		
 		$('#modalDetalleFactura').modal("show");
 		
@@ -281,7 +389,7 @@ $(document).ready(function(){
 		for(var a in vendedoresDatosEconomicos){
 			var vendedorDE = vendedoresDatosEconomicos[a];
 			if(vendedorDE.idDatosEconomicos*1 === idDatosEconomicos*1){
-				console.log(idDatosEconomicos);
+//				console.log(idDatosEconomicos);
 				montoFacturaDividida = vendedorDE.montoFacturaDivida; 
 				break;
 			}
@@ -290,13 +398,17 @@ $(document).ready(function(){
 	}
 		    	
 	function validateDatosEconomicos(idAsignacion){
+		var flag = false;
+//		console.log(idAsignacion);
 		for(var a in preAsignacionesAE){
 			var preAsignacionAE = preAsignacionesAE[a];
 			if(preAsignacionAE.formAEidPreAsignacion*1 === idAsignacion*1){
-				return true;
+//				console.log(idAsignacion);
+				flag = true;
+				break;
 			}
 		}
-		return false;
+		return flag;
 	}
 		    	
 		    	
