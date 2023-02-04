@@ -31,6 +31,7 @@ import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.dao.IPreAsignacionAEDao;
 import mx.uniprotec.application.dao.IPreAsignacionDao;
 import mx.uniprotec.application.entity.ClienteProspectoEntity;
+import mx.uniprotec.application.entity.DatosEconomicosEntity;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 import mx.uniprotec.application.entity.VendedorDatosEconomicos;
@@ -75,7 +76,7 @@ public class PreAsignacionRestController {
 		log.info("datosEconomicos create");
 //		log.info(datosEconomicos.toString());
 		
-		PreAsignacionAEEntity preAsignacionAENew = new PreAsignacionAEEntity();
+		DatosEconomicosEntity preAsignacionAENew = new DatosEconomicosEntity();
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -93,20 +94,24 @@ public class PreAsignacionRestController {
 			flagNewDatosEconomicos = false;
 		}
 		
+		
 		try {
 			
 			preAsignacionAENew.setFormAEidPreAsignacion(datosEconomicos.getIdAsignacion());
-			preAsignacionAENew.setFormAERegla3PorcentajeNuevaComisionReal(datosEconomicos.getPorcentajeVenta());
+			preAsignacionAENew.setFormAEPorcentajeVentaReal(datosEconomicos.getPorcentajeVenta());
 			preAsignacionAENew.setFormAEPrecioVentaReal(datosEconomicos.getVentaReal());
 			
-			preAsignacionAENew.setFormAEComisionVendedor(datosEconomicos.getComisionReal());
-			preAsignacionAENew.setFormAEComisionVendedorPorcentaje(datosEconomicos.getPorcentajeComision());
+//			preAsignacionAENew.setFormAEComisionVendedor(datosEconomicos.getComisionReal());
+//			preAsignacionAENew.setFormAEComisionVendedorPorcentaje(datosEconomicos.getPorcentajeComision());
 			preAsignacionAENew.setFormAEViaticosTotal(datosEconomicos.getViaticosTotales());
 			preAsignacionAENew.setFormAEFechaPromesaPago(datosEconomicos.getFechaPromesaPago());
 			preAsignacionAENew.setFormAEFechaPromesaPagoFormat(datosEconomicos.getFechaPromesaPagoFormat());
 			preAsignacionAENew.setFormAEFechaConfirmacion(datosEconomicos.getFechaConfirmacion());
 			preAsignacionAENew.setFormAEFechaConfirmacionFormat(datosEconomicos.getFechaConfirmacionFormat());
 			preAsignacionAENew.setFormAEObservaciones(datosEconomicos.getObservacion());
+			preAsignacionAENew.setFormAENumFactura(datosEconomicos.getNumFactura());
+			preAsignacionAENew.setFormAECliente(datosEconomicos.getProspectoCliente());
+			preAsignacionAENew.setFormAEClienteTexto(datosEconomicos.getProspectoClienteTexto());
 			
 			preAsignacionAENew.setStatus(datosEconomicos.getStatus());
 			preAsignacionAENew.setUserCreate(datosEconomicos.getUserCreateAsignacion());
@@ -159,11 +164,11 @@ public class PreAsignacionRestController {
 	@GetMapping("/datosEconomicos")
 	public ResponseEntity<?> datosEconomicos() {
 		log.info("datosEconomicos");
-		List<PreAsignacionAEEntity> preAsignacionesAE = null;
+		List<DatosEconomicosEntity> datosEconomicosEntity = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			preAsignacionesAE = preAsignacionAEService.findAll();
-			 response.put("datosEconomicos", preAsignacionesAE );
+			datosEconomicosEntity = preAsignacionAEService.findAll();
+			 response.put("datosEconomicos", datosEconomicosEntity );
 			 response.put("mensaje", "Exito en la busqueda de datosEconomicos ");
 			 response.put("status", HttpStatus.ACCEPTED);
 			 response.put("code", HttpStatus.ACCEPTED.value());
@@ -287,23 +292,23 @@ public class PreAsignacionRestController {
 		return diaSemana;
 	}
 	
-	private List<VendedorDatosEconomicos> getVendedores(List<VendedorDEModelo> vendedores, PreAsignacionAEEntity datosEconomicos) {
+	private List<VendedorDatosEconomicos> getVendedores(List<VendedorDEModelo> vendedores, DatosEconomicosEntity preAsignacionAENew) {
 		List<VendedorDatosEconomicos> vendedoresDatosEconomicos = new ArrayList<VendedorDatosEconomicos>();
 		for(VendedorDEModelo vendedor : vendedores) {
 			VendedorDatosEconomicos vendedorDE = new VendedorDatosEconomicos();
 			
 			vendedorDE.setIdAsignacion(vendedor.getIdAsignacion());
 			vendedorDE.setIdVendedorAsignacion(vendedor.getIdVendedorAsignacion());
-			vendedorDE.setIdDatosEconomicos(datosEconomicos.getIdPreAsignacionAE());
+			vendedorDE.setIdDatosEconomicos(preAsignacionAENew.getIdPreAsignacionAE());
 			
 			vendedorDE.setNombreVendedor(vendedor.getNombreVendedor());
 			vendedorDE.setComisionRealVendedor(vendedor.getComisionRealVendedor());
 			vendedorDE.setPorcentajeComisionVendedor(vendedor.getPorcentajeComisionVendedor());
 			vendedorDE.setMontoFacturaDivida(vendedor.getMontoFacturaDivida());
 			
-			vendedorDE.setCreateAtVendedor(datosEconomicos.getCreateAt());
-			vendedorDE.setUserCreateVendedor(datosEconomicos.getUserCreate());
-			vendedorDE.setStatusVendedor(datosEconomicos.getStatus());
+			vendedorDE.setCreateAtVendedor(preAsignacionAENew.getCreateAt());
+			vendedorDE.setUserCreateVendedor(preAsignacionAENew.getUserCreate());
+			vendedorDE.setStatusVendedor(preAsignacionAENew.getStatus());
 			
 			vendedoresDatosEconomicos.add(vendedorDE);
 		}

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mx.uniprotec.application.dao.IPreAsignacionAEDao;
 import mx.uniprotec.application.dao.IPreAsignacionDao;
 import mx.uniprotec.application.dao.IVendedorDEDao;
+import mx.uniprotec.application.entity.DatosEconomicosEntity;
 import mx.uniprotec.application.entity.ParticipanteEntity;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
@@ -36,7 +37,7 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 	 */
 	
 	@Override
-	public PreAsignacionAEEntity savePreAsignacionAE(PreAsignacionAEEntity preAsignacionAENew) {
+	public DatosEconomicosEntity savePreAsignacionAE(DatosEconomicosEntity preAsignacionAENew) {
 		return preAsignacionAEDao.save(preAsignacionAENew);
 	}
 
@@ -45,8 +46,8 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 	
 
 	@Override
-	public List<PreAsignacionAEEntity> findAll() {
-		return (List<PreAsignacionAEEntity>) preAsignacionAEDao.findAll();
+	public List<DatosEconomicosEntity> findAll() {
+		return (List<DatosEconomicosEntity>) preAsignacionAEDao.findAll();
 	}
 
 	@Override
@@ -67,9 +68,9 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 
 
 	@Override
-	public PreAsignacionAEEntity findByIdDatoEconomico(Long idDatosEconomicos) {
-		PreAsignacionAEEntity preAsignacionAE = preAsignacionAEDao.findById(idDatosEconomicos).orElse(null);
-		return preAsignacionAE;
+	public DatosEconomicosEntity findByIdDatoEconomico(Long idDatosEconomicos) {
+		DatosEconomicosEntity datosEconomicosEntity = preAsignacionAEDao.findById(idDatosEconomicos).orElse(null);
+		return datosEconomicosEntity;
 	}
 
 

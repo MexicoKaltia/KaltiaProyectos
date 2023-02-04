@@ -29,7 +29,9 @@ public class PreAsignacionAEEntity {
 	@Column(nullable=false)
 		private String formAECurso;
 	@Column(nullable=false)
-		private String formAEEmpresa;
+		private int formAECliente;
+	@Column(nullable=false)
+	private String formAEClienteTexto;
 	@Column(nullable=false)
 		private int formAEHorasEfectivas;
 	@Column(nullable=false)
@@ -129,6 +131,8 @@ public class PreAsignacionAEEntity {
 		private String formAEListFechaPromesaPago;
 	@Column(nullable=false)
 		private String formAEListFechaConfirmacion;
+	@Column(nullable=false)
+		private String formAENumFactura;
 	
 	
 	
@@ -144,12 +148,7 @@ public class PreAsignacionAEEntity {
 	public void setFormAECurso(String formAECurso) {
 		this.formAECurso = formAECurso;
 	}
-	public String getFormAEEmpresa() {
-		return formAEEmpresa;
-	}
-	public void setFormAEEmpresa(String formAEEmpresa) {
-		this.formAEEmpresa = formAEEmpresa;
-	}
+	
 	public int getFormAEHorasEfectivas() {
 		return formAEHorasEfectivas;
 	}
@@ -425,6 +424,24 @@ public class PreAsignacionAEEntity {
 	}
 	public void setFormAEListFechaConfirmacion(String formAEListFechaConfirmacion) {
 		this.formAEListFechaConfirmacion = formAEListFechaConfirmacion;
+	}
+	public String getFormAENumFactura() {
+		return formAENumFactura;
+	}
+	public void setFormAENumFactura(String formAENumFactura) {
+		this.formAENumFactura = formAENumFactura;
+	}
+	public int getFormAECliente() {
+		return formAECliente;
+	}
+	public void setFormAECliente(int formAECliente) {
+		this.formAECliente = formAECliente;
+	}
+	public String getFormAEClienteTexto() {
+		return formAEClienteTexto;
+	}
+	public void setFormAEClienteTexto(String formAEClienteTexto) {
+		this.formAEClienteTexto = formAEClienteTexto;
 	}
 	
 	

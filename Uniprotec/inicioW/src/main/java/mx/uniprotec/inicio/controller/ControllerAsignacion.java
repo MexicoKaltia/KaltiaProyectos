@@ -387,15 +387,8 @@ public class ControllerAsignacion {
 		log.info("Actualiza Asignacion Correo model Activo");
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);
-//		log.info(asignacion.toString());
-//		log.info(asignacion.getStatusAsignacion());
 		ModelAndView mav=null;
 		ResultVO rs = asignacionService.edicionAsignacionC(asignacion);
-//		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") && rs.getCodigo() != 500) {
-//			aplicacionService.citaInstructor(asignacion);
-//		}
-
-			
 		
 		if(asignacion.getStatusAsignacion().equals("Confirmado Instructor") || asignacion.getStatusAsignacion().equals("Curso Editado") || asignacion.getStatusAsignacion().equals("Curso Completado") || asignacion.getStatusAsignacion().equals("Evento Cancelado")) {
 			mav = new ModelAndView("CAsignacionIC0", model);
@@ -408,7 +401,6 @@ public class ControllerAsignacion {
 		
 		
 		if(rs.getCodigo() != 500) {
-//			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
 			mav.addObject("ejecucion2", true);
 		}else {
 			mav.addObject("error", true);
@@ -443,25 +435,8 @@ public class ControllerAsignacion {
 			}
 		}
 	
-	@PostMapping("/altaDatosEconomicos")
-	public ModelAndView altaDatosEconomicos(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
-		log.info("Actualiza Asignacion model Activo");
-		log.info(datosEconomicosItem.toString());
-		ResultVO resultVO = (ResultVO)model.get("model");
-		model.addAttribute("model", resultVO);
+	
 
-		ResultVO rs = datosEconomicosService.altaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
-		ModelAndView mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
-		if(rs.getCodigo() != 500) {
-			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-			mav.addObject("ejecucion", true);
-		}else {
-			mav.addObject("error", true);
-			log.info("NOK altaDatosEconomicos");
-		}
-		return mav;			
-	}
-
-
+	
 
 }

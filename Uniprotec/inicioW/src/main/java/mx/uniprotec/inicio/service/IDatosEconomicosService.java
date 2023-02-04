@@ -14,6 +14,8 @@ public interface IDatosEconomicosService {
 	public ResultVO consultaDatosEconomicos(String token);
 
 	public ResultVO consultaVendoresDatosEconomicos(String token);
+
+	ResultVO consultaVendedoresAnalisis(String token);
 	
 
 		

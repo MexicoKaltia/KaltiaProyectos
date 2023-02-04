@@ -28,6 +28,9 @@ public class DatosEconomicosModelo {
 	private List<String> listFechaConfirmacion;
 	private List<VendedorDEModelo> vendedores;
 	private String vendedoresStr;
+	private String numFactura;
+	private int prospectoCliente;
+	private String prospectoClienteTexto;
 	
 	public Long getIdDatosEconomicos() {
 		return idDatosEconomicos;
@@ -145,6 +148,22 @@ public class DatosEconomicosModelo {
 	public void setVendedoresStr(String vendedoresStr) {
 		this.vendedoresStr = vendedoresStr;
 	}
+	
+	
+	public String getNumFactura() {
+		return numFactura;
+	}
+	public void setNumFactura(String numFactura) {
+		this.numFactura = numFactura;
+	}
+	
+	public String getProspectoClienteTexto() {
+		return prospectoClienteTexto;
+	}
+	public void setProspectoClienteTexto(String prospectoClienteTexto) {
+		this.prospectoClienteTexto = prospectoClienteTexto;
+	}
+	
 	@Override
 	public String toString() {
 		return "DatosEconomicosModelo [idDatosEconomicos=" + idDatosEconomicos + ", ventaReal=" + ventaReal
@@ -155,14 +174,15 @@ public class DatosEconomicosModelo {
 				+ ", idAsignacion=" + idAsignacion + ", status=" + status + ", createAtAsignacion=" + createAtAsignacion
 				+ ", userCreateAsignacion=" + userCreateAsignacion + ", listFechaPromesaPago=" + listFechaPromesaPago
 				+ ", listFechaConfirmacion=" + listFechaConfirmacion + ", vendedores=" + vendedores + ", vendedoresStr="
-				+ vendedoresStr + "]";
+				+ vendedoresStr + ", numFactura=" + numFactura + ", prospectoCliente=" + prospectoCliente
+				+ ", prospectoClienteTexto=" + prospectoClienteTexto + "]";
 	}
 	public DatosEconomicosModelo(Long idDatosEconomicos, Double ventaReal, Double porcentajeVenta, Double comisionReal,
 			Double porcentajeComision, Double viaticosTotales, String fechaPromesaPago, String fechaPromesaPagoFormat,
 			String fechaConfirmacion, String fechaConfirmacionFormat, String observacion, Long idAsignacion,
 			String status, LocalDateTime createAtAsignacion, Long userCreateAsignacion,
 			List<String> listFechaPromesaPago, List<String> listFechaConfirmacion, List<VendedorDEModelo> vendedores,
-			String vendedoresStr) {
+			String vendedoresStr, String numFactura, int prospectoCliente, String prospectoClienteTexto) {
 		super();
 		this.idDatosEconomicos = idDatosEconomicos;
 		this.ventaReal = ventaReal;
@@ -183,6 +203,15 @@ public class DatosEconomicosModelo {
 		this.listFechaConfirmacion = listFechaConfirmacion;
 		this.vendedores = vendedores;
 		this.vendedoresStr = vendedoresStr;
+		this.numFactura = numFactura;
+		this.prospectoCliente = prospectoCliente;
+		this.prospectoClienteTexto = prospectoClienteTexto;
+	}
+	public int getProspectoCliente() {
+		return prospectoCliente;
+	}
+	public void setProspectoCliente(int prospectoCliente) {
+		this.prospectoCliente = prospectoCliente;
 	}
 
 	

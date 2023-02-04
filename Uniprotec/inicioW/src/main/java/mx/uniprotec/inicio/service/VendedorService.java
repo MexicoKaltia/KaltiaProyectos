@@ -124,40 +124,5 @@ public class VendedorService implements IVendedorService {
 		}
 	}
 	
-	@Override
-	public ResultVO consultaVendedoresAnalisis(String token) {
-		ResultVO rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_VENDEDORES);
-		
-		if(rs.getCodigo() == 202) {
-			JSONObject jsonGeneral = rs.getJsonResponse();
-			JSONObject jsonConsulta = new JSONObject();
-			jsonConsulta.put("vendedores", jsonGeneral.get("vendedores"));
-			rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
-			jsonGeneral = rs.getJsonResponse();
-			JSONObject jsonAsignaciones = new JSONObject();
-			jsonConsulta.put("asignaciones", jsonGeneral.get("asignaciones"));
-			if(rs.getCodigo() == 202) {
-				rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_DATOSECONOMICOS);
-				jsonGeneral = rs.getJsonResponse();
-				JSONObject jsonPreAsignaciones = new JSONObject();
-				JSONObject jsonPreAsignacionesAE = new JSONObject();
-//				jsonConsulta.put("preAsignaciones", jsonGeneral.get("preAsignaciones"));
-				jsonConsulta.put("datosEconomicos", jsonGeneral.get("datosEconomicos"));
-				
-				rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_CLIENTES);
-				if(rs.getCodigo() == 202) {
-					jsonGeneral = rs.getJsonResponse();
-					JSONObject jsonClientes = new JSONObject();
-					jsonConsulta.put("clientes", jsonGeneral.get("clientes"));
-					rs = datosEconomicosService.consultaVendoresDatosEconomicos(token);
-					if(rs.getCodigo() == 202) {
-						JSONObject jsonVendedoresDatosEconomicos = rs.getJsonResponse();
-						jsonConsulta.put("vendedoresDatosEconomicos", jsonVendedoresDatosEconomicos.get("vendedoresDatosEconomicos"));
-					}			
-			}
-			rs.setJsonResponseObject(jsonConsulta);
-		}
-	}
-		return rs;
-	}	
+	
 }
