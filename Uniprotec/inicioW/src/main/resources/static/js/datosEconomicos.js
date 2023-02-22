@@ -28,7 +28,8 @@ $("#btnActualizarDatosEconomicos").click(function(){
 				idDatosEconomicos : null,
 				nombreVendedor : vendedorInicial.nombreVendedor,
 				comisionRealVendedor : $('#comisionReal'+vendedorInicial.idVendedorAsignacion).val(),
-				porcentajeComisionVendedor : $('#porcentajeComision'+vendedorInicial.idVendedorAsignacion).val()
+				porcentajeComisionVendedor : $('#porcentajeComision'+vendedorInicial.idVendedorAsignacion).val(),
+				listAsignaciones : vendedorInicial.listAsignaciones
 		}
 		finalVendedores.push(JSON.stringify(vendedorFinal));
 	}
@@ -77,13 +78,27 @@ $("#btnActualizarDatosEconomicos").click(function(){
 			var asignacion = asignaciones[i];
 			if((asignacion.idAsignacion*1) === (idAsignacion)){
 				idUsuario = asignacion.userCreateAsignacion;
+				$('#prospectoClienteTexto').val(asignacion.clienteAsignacion);
+				$('#prospectoCliente').val(asignacion.idClienteAsignacion);
+				$('#numFactura').val(asignacion.numeroFactura);
 				break;
 			}
 		}
 		for(var e in vendedoresDatosEconomicos){
 			var vendedor = vendedoresDatosEconomicos[e];
-			if(vendedor.idAsignacion == idAsignacion){
-				vendedoresArray.push(vendedor);
+			if(vendedor.idAsignacion != null){			
+				if(vendedor.idAsignacion == idAsignacion){
+					$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
+					vendedoresArray.push(vendedor);
+				}
+			}else{
+				var arrayAsignaciones = stringToList(vendedor.listAsignaciones);
+				for(var e in arrayAsignaciones){
+					var asignacion = arrayAsignaciones[e]; 
+					if(asignacion*1 === idAsignacion*1){
+						vendedoresArray.push(vendedor);
+					}
+				}
 			}
 		}
 		cargaVendedoresForm(vendedoresArray);

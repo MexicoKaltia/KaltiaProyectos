@@ -54,9 +54,6 @@ $(document).ready(function() {
 //	}
 
 	
-	console.log($participantesImportar);
-	
-	
 	$("#idAsignacionEncabezado").html(asignacionItem.idAsignacion);
 	$('#modalEntregables').modal();
 	
@@ -247,36 +244,38 @@ $(document).ready(function() {
 					
 					
 					//PARTICIPANTES IMPORTAR
-					if($participantesImportar.length > 0 && $idEntregable > 0){
+					console.log($participantesImportar.length);
+					console.log($idEntregable);
+//					if($participantesImportar.length > 0 && $idEntregable+1 > 0){
 						$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
 						$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
+						listadoParticipantesImportar($participantesImportar);
+//						for(var a in $participantesImportar){
+//							var participante = $participantesImportar[a];
+//							var liParticipanteImportar = '<li style="list-style-type:none">\
+//		                        <div class="input-group mb-1">\
+//								  <div class="input-group-prepend">\
+//								    <div class="input-group-text">\
+//								      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
+//								    </div>\
+//								  </div>\
+//								  <span style="padding-left: 10px;">'+participante.participanteNombre+' - '+participante.participanteCURP+'</span>\
+//								</div>\
+//							</li>';
+//
+//							$("#participantesImportar").append(liParticipanteImportar);
+//						}
+//						var check = true;
+//						$('#todosParticipantesImportar').prop( "checked", check );
+//						$('.checkboxFiltro').prop( "checked", check );
+//						
+//						$( '#todosParticipantesImportar' ).on( 'click', function() {
+//							check = $('#todosParticipantesImportar').prop( "checked");
+//							$('.checkboxFiltro').prop( "checked", check );
+//							
+//						});
 						
-						for(var a in $participantesImportar){
-							var participante = $participantesImportar[a];
-							var liParticipanteImportar = '<li style="list-style-type:none">\
-		                        <div class="input-group mb-1">\
-								  <div class="input-group-prepend">\
-								    <div class="input-group-text">\
-								      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
-								    </div>\
-								  </div>\
-								  <span style="padding-left: 10px;">'+participante.participanteNombre+' - '+participante.participanteCURP+'</span>\
-								</div>\
-							</li>';
-
-							$("#participantesImportar").append(liParticipanteImportar);
-						}
-						var check = true;
-						$('#todosParticipantesImportar').prop( "checked", check );
-						$('.checkboxFiltro').prop( "checked", check );
-						
-						$( '#todosParticipantesImportar' ).on( 'click', function() {
-							check = $('#todosParticipantesImportar').prop( "checked");
-							$('.checkboxFiltro').prop( "checked", check );
-							
-						});
-						
-					}//FIN PARTICIPANTES IMPORTAR
+//					}//FIN PARTICIPANTES IMPORTAR
 					
 					
 				}				
@@ -338,6 +337,7 @@ $(document).ready(function() {
 		console.log($participantesImportar);
 		$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
 		$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
+		listadoParticipantesImportar($participantesImportar);
 
 	})
 	
@@ -547,7 +547,6 @@ $(document).ready(function() {
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 		$('.checkboxFiltro:checked').each(function(){
 			if($(this).attr('checked',true)){
-				console.log("aqui llega");
 				var idParticipante = $(this).attr('id')
 				for(var a in $participantesImportar){
 					var participante = $participantesImportar[a];
@@ -852,6 +851,35 @@ $(document).ready(function() {
 		
 			
 });  // Fin JQRY
+
+function listadoParticipantesImportar($participantesImportar){
+	for(var a in $participantesImportar){
+		var participante = $participantesImportar[a];
+		console.log(participante);
+		var liParticipanteImportar = '<li style="list-style-type:none">\
+            <div class="input-group mb-1">\
+			  <div class="input-group-prepend">\
+			    <div class="input-group-text">\
+			      <input type="checkbox" class="checkboxFiltro" id="'+participante.idParticipante+'" checked>\
+			    </div>\
+			  </div>\
+			  <span style="padding-left: 10px;">'+participante.participanteNombre+' - '+participante.participanteCURP+'</span>\
+			</div>\
+		</li>';
+
+		$("#participantesImportar").append(liParticipanteImportar);
+	}
+	var check = true;
+	$('#todosParticipantesImportar').prop( "checked", check );
+	$('.checkboxFiltro').prop( "checked", check );
+	
+	$( '#todosParticipantesImportar' ).on( 'click', function() {
+		check = $('#todosParticipantesImportar').prop( "checked");
+		$('.checkboxFiltro').prop( "checked", check );
+		
+	});
+
+}
 
 
 function validaParticipante(){
@@ -1240,7 +1268,9 @@ function duracion(str){
 	    		var i = 1;
 	    		for(var a in participantesExcel){
 					var participante = participantesExcel[a];
-					participante.idParticipante =  idClienteAsignacion +"-"+ (entregablesLength+1) +"-"+ (participantesLength+i);
+					console.log(entregables.length);
+					console.log(participantes.length);
+					participante.idParticipante =  idClienteAsignacion +"-"+ (entregables.length+1) +"-"+ (participantes.length+i);
 					var liParticipanteImportar = '<li style="list-style-type:none">\
                         <div class="input-group mb-1">\
 						  <div class="input-group-prepend">\
@@ -1254,7 +1284,7 @@ function duracion(str){
 
 					$("#participantesExcel").append(liParticipanteImportar);
 					$participantesExcel.push(participante);
-					i++
+					i++;
 				}
 	    	}
 

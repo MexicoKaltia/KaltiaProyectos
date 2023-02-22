@@ -31,6 +31,7 @@ public class DatosEconomicosModelo {
 	private String numFactura;
 	private int prospectoCliente;
 	private String prospectoClienteTexto;
+	private List<Integer> listAsignaciones;
 	
 	public Long getIdDatosEconomicos() {
 		return idDatosEconomicos;
@@ -175,7 +176,7 @@ public class DatosEconomicosModelo {
 				+ ", userCreateAsignacion=" + userCreateAsignacion + ", listFechaPromesaPago=" + listFechaPromesaPago
 				+ ", listFechaConfirmacion=" + listFechaConfirmacion + ", vendedores=" + vendedores + ", vendedoresStr="
 				+ vendedoresStr + ", numFactura=" + numFactura + ", prospectoCliente=" + prospectoCliente
-				+ ", prospectoClienteTexto=" + prospectoClienteTexto + "]";
+				+ ", prospectoClienteTexto=" + prospectoClienteTexto + ", listAsignaciones=" + listAsignaciones + "]";
 	}
 	public DatosEconomicosModelo(Long idDatosEconomicos, Double ventaReal, Double porcentajeVenta, Double comisionReal,
 			Double porcentajeComision, Double viaticosTotales, String fechaPromesaPago, String fechaPromesaPagoFormat,
@@ -212,6 +213,12 @@ public class DatosEconomicosModelo {
 	}
 	public void setProspectoCliente(int prospectoCliente) {
 		this.prospectoCliente = prospectoCliente;
+	}
+	public List<Integer> getListAsignaciones() {
+		return listAsignaciones;
+	}
+	public void setListAsignaciones(List<Integer> listAsignaciones) {
+		this.listAsignaciones = listAsignaciones;
 	}
 
 	

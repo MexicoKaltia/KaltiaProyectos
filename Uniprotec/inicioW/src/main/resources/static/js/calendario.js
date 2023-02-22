@@ -384,7 +384,7 @@ $(document).ready(function() {
 		
 		//llenado de form Datos Economicos
 		
-		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
+//		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);    //se comenta y se integra en las lineas de function porcentajeVendedor(idAsignacionClick)
 		$('#userCreateAsignacionDatosEconomicos').val(identificadorUsuario );
 		
 		$('#ventaReal').val(0);$('#labelVentaReal').text("");
@@ -400,29 +400,23 @@ $(document).ready(function() {
 		$('#observaciones').val("");
 		
 		flagExistDatosEconomicos = false;
+		console.log(datosEconomicos);
 		for(var a in datosEconomicos){
 			var datoEconomico = datosEconomicos[a];
 			if(datoEconomico.formAEidPreAsignacion*1 === idAsignacionClic*1){
-				flagExistDatosEconomicos = true;
-				console.log(flagExistDatosEconomicos);
-				
-				$('#idDatosEconomicos').val(datoEconomico.idPreAsignacionAE);
-				$('#ventaReal').val(datoEconomico.formAEPrecioVentaReal);
-				$('#porcentajeVenta').val(datoEconomico.formAERegla3PorcentajeNuevaComisionReal);
-//				$('#comisionReal').val(datoEconomico.formAEComisionVendedor);
-				$('#fechaPromesaPago').val(datoEconomico.formAEFechaPromesaPago);
-				$('#fechaPromesaPagoFormat').val(datoEconomico.formAEFechaPromesaPagoFormat);
-				$('#fechaConfirmacion').val(datoEconomico.formAEFechaConfirmacion);
-				$('#fechaConfirmacionFormat').val(datoEconomico.formAEFechaConfirmacionFormat);
-				$('#viaticosTotales').val(datoEconomico.formAEViaticosTotal);
-				$('#observacion').val(datoEconomico.formAEObservaciones);
-				$('#listFechaPromesaPago').val(datoEconomico.formAEListFechaPromesaPago);
-				$('#listFechaConfirmacion').val(datoEconomico.formAEListFechaConfirmacion);
-				
-//				formatoVentaReal();
-//				formatoPorcentajeVenta();	
-				cargaVendedoresDE(idAsignacionClic);
+				console.log("Asignacion Ordinaria");
+				asignaDatosEconomicos(datoEconomico);	
 				break;
+			}
+			if(datoEconomico.formAEidPreAsignacion == null){
+				var arrayAsignaciones = stringToList(datoEconomico.formAEListAsignaciones);
+				for(var e in arrayAsignaciones){
+					var asignacion = arrayAsignaciones[e]; 
+					if(asignacion*1 === idAsignacionClic*1){
+						asignaDatosEconomicos(datoEconomico);
+						break;
+					}
+				}
 			}
 		}
 		
@@ -430,10 +424,28 @@ $(document).ready(function() {
 			console.log(flagExistDatosEconomicos);
 			porcentajeVendedor(idAsignacionClic);
 		}
-		
 	}
 	
-	
+	function asignaDatosEconomicos(datoEconomico){
+		flagExistDatosEconomicos = true;
+		
+		$('#idDatosEconomicos').val(datoEconomico.idPreAsignacionAE);
+		$('#ventaReal').val(datoEconomico.formAEPrecioVentaReal);
+		$('#porcentajeVenta').val(datoEconomico.formAEPorcentajeVentaReal);
+//		$('#comisionReal').val(datoEconomico.formAEComisionVendedor);
+		$('#fechaPromesaPago').val(datoEconomico.formAEFechaPromesaPago);
+		$('#fechaPromesaPagoFormat').val(datoEconomico.formAEFechaPromesaPagoFormat);
+		$('#fechaConfirmacion').val(datoEconomico.formAEFechaConfirmacion);
+		$('#fechaConfirmacionFormat').val(datoEconomico.formAEFechaConfirmacionFormat);
+		$('#viaticosTotales').val(datoEconomico.formAEViaticosTotal);
+		$('#observacion').val(datoEconomico.formAEObservaciones);
+		$('#listFechaPromesaPago').val(datoEconomico.formAEListFechaPromesaPago);
+		$('#listFechaConfirmacion').val(datoEconomico.formAEListFechaConfirmacion);
+		
+//		formatoVentaReal();
+		formatoPorcentajeVenta();
+		cargaVendedoresDE(idAsignacionClic);
+	}
 	
 	
 	function asignaCamposSubmit(asignacionSub){

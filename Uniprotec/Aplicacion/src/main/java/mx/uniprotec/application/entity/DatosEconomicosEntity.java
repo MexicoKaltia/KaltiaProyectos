@@ -31,23 +31,25 @@ public class DatosEconomicosEntity {
 	@Column(nullable=false)
 		private String formAENumFactura;
 	@Column(nullable=false)
+		private String formAEListAsignaciones;
+	@Column(nullable=false)
 		private int formAECliente;
 	@Column(nullable=false)
-	private String formAEClienteTexto;
+		private String formAEClienteTexto;
 	@Column(nullable=false)
-	private Double formAEPrecioVentaReal;
+		private Double formAEPrecioVentaReal;
 	@Column(nullable=false)
-	private Double formAEPorcentajeVentaReal;
+		private Double formAEPorcentajeVentaReal;
 	@Column(nullable=false)
-	private String formAEFechaConfirmacion;
+		private String formAEFechaConfirmacion;
 	@Column(nullable=false)
-	private String formAEFechaConfirmacionFormat;
+		private String formAEFechaConfirmacionFormat;
 	@Column(nullable=false)
 		private String formAEFechaPromesaPago;
 	@Column(nullable=false)
 		private String formAEFechaPromesaPagoFormat;
 	@Column(nullable=false)
-	private String formAEListFechaConfirmacion;
+		private String formAEListFechaConfirmacion;
 	@Column(nullable=false)
 		private String formAEListFechaPromesaPago;
 	@Column(nullable=false)
@@ -197,6 +199,12 @@ public class DatosEconomicosEntity {
 	}
 	public void setFormAENuevaComisionReal(int formAENuevaComisionReal) {
 		this.formAENuevaComisionReal = formAENuevaComisionReal;
+	}
+	public String getFormAEListAsignaciones() {
+		return formAEListAsignaciones;
+	}
+	public void setFormAEListAsignaciones(String formAEListAsignaciones) {
+		this.formAEListAsignaciones = formAEListAsignaciones;
 	}
 
 

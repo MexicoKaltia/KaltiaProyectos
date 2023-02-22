@@ -647,6 +647,9 @@
 												<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicos" />
 												<input type="hidden" th:field="*{listFechaPromesaPago}" id="listFechaPromesaPago" />
 												<input type="hidden" th:field="*{listFechaConfirmacion}" id="listFechaConfirmacion" />
+												<input type="hidden" th:field="*{prospectoCliente}" id="prospectoCliente" />
+												<input type="hidden" th:field="*{prospectoClienteTexto}" id="prospectoClienteTexto" />
+												<input type="hidden" th:field="*{numFactura}" id="numFactura" />
 <!-- 												<input type="hidden" th:field="*{strFechaPromesaPago}" id="strFechaPromesaPago" /> -->
 <!-- 												<input type="hidden" th:field="*{strFechaConfirmacion}" id="strFechaConfirmacion" /> -->
                                                <br>
@@ -822,10 +825,10 @@
     <script type="text/javascript">
     var today = new Date();
     var $datepicker1 = $( '#fechaConfirmacion' ).pickadate({
-    	 min : today
+//     	 min : today
     });
     var $datepicker = $( '#fechaPromesaPago' ).pickadate({
-   	 min : today
+//    	 min : today
    });
     </script>     
      			

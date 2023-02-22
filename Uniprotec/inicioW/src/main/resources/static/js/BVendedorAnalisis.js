@@ -36,14 +36,12 @@ $(document).ready(function(){
 			
 		    'click .like': function (e, value, row, index) {
 		    	
-		    	console.log(row);
+//		    	console.log(row);
 		    	userSelect = row.usuarioVendedor.idUsuario;
 		    	idVendedorDE = row.idVendedor;
 		    	var nombreVendedor = row.nombreVendedor;
 		    	$('#modalNombreVendedorAnalisis').text(nombreVendedor);
-		    	
-//		    	console.log(idVendedorDE);
-		    	
+		    		    	
 		    	var eventosAsignadosCount=0;
 		    	var eventosAsignadosSecCount =0;
 		    	var preAsignacionesCount=0;
@@ -68,11 +66,16 @@ $(document).ready(function(){
 		        var etiquetas = new Array();
 		        arrayAsignaciones.length = 0;
 		    	
+		        /*
+		         * Funcionalidad A
+		         * Conteo de asignaciones, asignacion secundaria, datos economicos  y cancelaciones.
+		         */
 		    	for(var a in asignaciones){
 		    		var preAsignacion = asignaciones[a];
 		    		var fechaInicioFactura ="";
 		    		var fechaFinFactura ="";
 	    			
+		    		// datos asignaciones normal
 		    		if(preAsignacion.userCreateAsignacion*1 === userSelect*1){
 		    			if(preAsignacion.statusAsignacion === "Evento Cancelado"){
 		    				cancelacionesCount++;
@@ -86,10 +89,7 @@ $(document).ready(function(){
 		    						for(var o in vendedoresDatosEconomicos){
 		    							var vendedoreDE = vendedoresDatosEconomicos[o];
 		    							if(vendedoreDE.idAsignacion === preAsignacion.idAsignacion && vendedoreDE.idVendedorAsignacion*1 === idVendedorDE*1){
-		    								console.log("INCLUDE"+ vendedoreDE.idAsignacion*1);
-		    								console.log(vendedoreDE.nombreVendedor);
-		    								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
-		    									console.log("positivo"+ preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal *1);
+		    								if(preAsignacionAE.formAEPorcentajeVentaReal > 99){
 				    							facturaPlus = facturaPlus + vendedoreDE.montoFacturaDivida*1;
 				    							colorBar = azulBk; 
 				    							colorBor = azulBr;
@@ -109,17 +109,16 @@ $(document).ready(function(){
 		    				}
 		    			}else{
 		    				eventosAsignadosCount++;
-//		    				arrayAsignaciones.push(preAsignacion);
 		    			}
 		    		}
 		    	}
 		    	
 		    	console.log(arrayAsignaciones);
-		    	
+
+		    	// datos asignaciones varios vendedores secundarios
 		    	var arrayDatosEconomicosVendedor = new Array(); 
 		    	for(var a in vendedoresDatosEconomicos){
 		    		var vendedorDE = vendedoresDatosEconomicos[a];
-//		    		console.log(vendedorDE.idVendedorAsignacion);
 					if(idVendedorDE === vendedorDE.idVendedorAsignacion){
 						arrayDatosEconomicosVendedor.push(vendedorDE);
 					}
@@ -127,14 +126,14 @@ $(document).ready(function(){
 		    	
 		    	for(var a in arrayDatosEconomicosVendedor){
 		    		var vendedorDE = arrayDatosEconomicosVendedor[a];
+//		    		console.log(vendedorDE);
 		    		if(!arrayAsignaciones.includes(vendedorDE.idAsignacion*1)){
 		    			for(var i in preAsignacionesAE){//buscar en Datos Economicos
-		    				console.log("no includes "+ vendedorDE.idAsignacion*1);
 	    					var preAsignacionAE = preAsignacionesAE[i];
 							if(vendedorDE.idDatosEconomicos === preAsignacionAE.idPreAsignacionAE){
 								preAsignacionesCount++;
 								eventosAsignadosSecCount++;
-								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
+								if(preAsignacionAE.formAEPorcentajeVentaReal > 99){
 	    							facturaPlus = facturaPlus + vendedorDE.montoFacturaDivida*1;
 	    							colorBar = azulBk; 
 	    							colorBor = azulBr;
@@ -147,11 +146,17 @@ $(document).ready(function(){
 	    						dataSetBar.push(vendedorDE.montoFacturaDivida*1);
 	    						arrayColorBar.push(colorBar);
 	    						arrayBorderColorBar.push(colorBor);
-	    						etiquetas.push(vendedorDE.idAsignacion);
+	    						if(vendedorDE.idAsignacion!=null){
+	    							etiquetas.push(vendedorDE.idAsignacion);
+	    						}else{
+	    							//ingresa conteo vendedorAsignaciones
+	    							etiquetas.push(vendedorDE.listAsignaciones);
+	    						}
+	    						
 							}
 						}
 		    		}
-		    	}
+		    	}		    	//fin Funcionalidad A
 			    	
 		    	$('#totalAsignaciones').text(eventosAsignadosCount*1 + preAsignacionesCount*1 + cancelacionesCount*1 );
 		    	$('#eventosAsignados').text(eventosAsignadosCount);
@@ -159,10 +164,13 @@ $(document).ready(function(){
 		    	$('#preAsignaciones').text(preAsignacionesCount);
 		    	$('#cancelaciones').text(cancelacionesCount);
 		    	
-		    	$('#facturaPlus').text(facturaPlus);
-		    	$('#facturaMinus').text(facturaMinus);
-		    	$('#facturaTotal').text(facturaMinus + facturaPlus);
-		    	$('#bonoTrimestral').text(calculaBonoTrimestral(facturaMinus, facturaPlus))
+		    	$('#facturaPlus').text(formatter.format(facturaPlus));
+		    	$('#facturaMinus').text(formatter.format(facturaMinus));
+		    	$('#facturaTotal').text(formatter.format(facturaMinus + facturaPlus));
+		    	$('#facturaPlusIVA').text(formatter.format(getIVA(facturaPlus)));
+		    	$('#facturaMinusIVA').text(formatter.format(getIVA(facturaMinus)));
+		    	$('#facturaTotalIVA').text(formatter.format(getIVA(facturaMinus + facturaPlus)));
+		    	$('#bonoTrimestral').text(formatter.format(calculaBonoTrimestral(facturaMinus, facturaPlus)));
 		    	
 		    	
 		    	
@@ -232,7 +240,7 @@ $(document).ready(function(){
 	$('#vendedoresAnalisisTable').bootstrapTable({data : $data})
 	
 	$('#divFacturaTotal').click(function(){
-		console.log('#divFacturaTotal');
+		console.log('divFacturaTotal');
 		$('#modalDivDetalleFactura').empty();
 		
 		for(var a in asignaciones){
@@ -243,7 +251,7 @@ $(document).ready(function(){
     				for(var i in preAsignacionesAE){
     					var preAsignacionAE = preAsignacionesAE[i];
     					if(preAsignacionAE.formAEidPreAsignacion*1 === preAsignacion.idAsignacion*1){
-    						if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal >= 99){
+    						if(preAsignacionAE.formAEPorcentajeVentaReal >= 99){
     							var divDetalleFactura = '<div class="input-group" >\
 						    								<div class="input-group-prepend">\
 							    							    <div class="input-group-text">\
@@ -285,7 +293,6 @@ $(document).ready(function(){
     	var arrayDatosEconomicosVendedor = new Array(); 
     	for(var a in vendedoresDatosEconomicos){
     		var vendedorDE = vendedoresDatosEconomicos[a];
-//    		console.log(vendedorDE.idVendedorAsignacion);
 			if(idVendedorDE === vendedorDE.idVendedorAsignacion){
 				arrayDatosEconomicosVendedor.push(vendedorDE);
 			}
@@ -300,7 +307,7 @@ $(document).ready(function(){
 						for(var e in asignaciones){
 							var asignacion = asignaciones[e];
 							if(asignacion.idAsignacion === preAsignacionAE.formAEidPreAsignacion){
-								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal >= 99){
+								if(preAsignacionAE.formAEPorcentajeVentaReal >= 99){
 	    							var divDetalleFactura = '<div class="input-group" >\
 							    								<div class="input-group-prepend">\
 								    							    <div class="input-group-text">\
@@ -333,8 +340,51 @@ $(document).ready(function(){
 															</div>';	
 		    						}
 		    						$('#modalDivDetalleFactura').append(divDetalleFactura);
-								}
+								}	
 							}
+    					}
+    				}
+    			}
+    		}
+    	
+		//factura varias asignaciones
+    	for(var a in arrayDatosEconomicosVendedor){
+    		var vendedorDE = arrayDatosEconomicosVendedor[a];
+    		if(!arrayAsignaciones.includes(vendedorDE.idAsignacion)){
+    			for(var i in preAsignacionesAE){//buscar en Datos Economicos
+					var preAsignacionAE = preAsignacionesAE[i];
+					if(vendedorDE.idDatosEconomicos === preAsignacionAE.idPreAsignacionAE){
+						if(preAsignacionAE.formAEPorcentajeVentaReal >= 99){
+							var divDetalleFactura = '<div class="input-group" >\
+					    								<div class="input-group-prepend">\
+						    							    <div class="input-group-text">\
+						    							      <input type="checkbox" class="detalleFactura" id="'+preAsignacionAE.formAENumFactura+'" checked>\
+						    							    </div>\
+						    							</div>\
+					    							    <div class="alert alert-success">\
+														  <h6><span>id Asignacion : </span><strong><span>'+preAsignacionAE.formAEListAsignaciones+'</span></strong>\
+														  <span> - Factura : </span><strong><span>'+preAsignacionAE.formAENumFactura+'</span></strong>\
+														  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
+														  <span> - Cliente : </span><strong><span>'+preAsignacionAE.formAEClienteTexto+'</span></strong><br>\
+														</div>\
+					    							</div>';
+													
+    						}else{
+    							var divDetalleFactura = '<div class="input-group" >\
+						    								<div class="input-group-prepend">\
+						    							    <div class="input-group-text">\
+						    							      <input type="checkbox" class="detalleFactura" id="'+preAsignacionAE.formAENumFactura+'" checked>\
+						    							    </div>\
+						    							</div>\
+													    <div class="alert alert-warning">\
+													    <h6><span>id Asignacion : </span><strong><span>'+preAsignacionAE.formAEListAsignaciones+'</span></strong>\
+														  <span> - Factura : </span><strong><span>'+preAsignacionAE.formAENumFactura+'</span></strong>\
+														  <span> - Monto : </span><strong><span>'+formatter.format(getMontoFacturaDividida(preAsignacionAE.idPreAsignacionAE))+'</span></strong></h6>\
+														  <span> - Cliente : </span><strong><span>'+preAsignacionAE.formAEClienteTexto+'</span></strong><br>\
+														</div>\
+													</div>';	
+    						}
+		    						$('#modalDivDetalleFactura').append(divDetalleFactura);
     					}
     				}
     			}
@@ -361,7 +411,7 @@ $(document).ready(function(){
 						for(var i in vendedoresDatosEconomicos){
 							var vendedorDE = vendedoresDatosEconomicos[i];
 							if(vendedorDE.idDatosEconomicos*1 === preAsignacionAE.idPreAsignacionAE*1){
-								if(preAsignacionAE.formAERegla3PorcentajeNuevaComisionReal > 99){
+								if(preAsignacionAE.formAEPorcentajeVentaReal > 99){
 									filtroFacturasPlus = filtroFacturasPlus + vendedorDE.montoFacturaDivida;
 								}else{
 									filtroFacturasMinus = filtroFacturasMinus + vendedorDE.montoFacturaDivida;
@@ -374,7 +424,8 @@ $(document).ready(function(){
 			}
 			console.log(filtroFacturasMinus);
 			console.log(filtroFacturasPlus);
-			$('#facturaTotal').text(facturaTotal);
+			$('#facturaTotal').text(formatter.format(facturaTotal));
+			$('#facturaTotalIVA').text(formatter.format(getIVA(facturaTotal)));
 			$('#bonoTrimestral').text(calculaBonoTrimestral(filtroFacturasMinus, filtroFacturasPlus))
 		});
 		

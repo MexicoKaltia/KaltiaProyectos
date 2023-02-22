@@ -316,8 +316,8 @@
 														<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='idPreAsignacionAE' data-sortable='true'>Expediente Eco</th>
 														<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEFechaConfirmacion' data-sortable='true'>Confirmacion</th>
 														<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAENumFactura' data-sortable='true'>Id Factura</th>
-														<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEClienteTexto' data-sortable='true'>Cliente</th>
-														<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateDE">Edicion</th>
+														<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEClienteTexto' data-sortable='true'>Cliente</th>
+														<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdateDE">Edicion</th>
 <!-- 														<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th>  -->
 													</tr>
 												</thead>					
@@ -510,73 +510,108 @@
                                        <div class="card" style="width: rem;">
                                            <img class="card-img-top" src="../../../assets/images/logo.png" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
-                                           <form role="form" id="edicionDatosEconomicos" th:action="@{/edicionDatosEconomicos}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
+                                           <form role="form" id="edicionDatosEconomicos" th:action="@{/BDatosEconomicos}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
                                                <h5 class="card-title">Resumen datos económicos</h5>
                                                <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Número de Factura</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelNumFacturaEdicion" ></label></div>
+		                                            <label for="validationCustom02">Número de Factura</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelNumFacturaEdicion" ></label></div>
 		                                            
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Prospecto Cliente</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelProspectoClienteEdicion" ></label></div>
+		                                            <label for="validationCustom02">Prospecto Cliente</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelProspectoClienteEdicion" ></label></div>
 												</div>
 		                                      </div>
-		                                      <hr>
+<!-- 		                                      <hr> -->
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Venta Real</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelVentaRealEdicion" ></label></div>
+		                                            <label for="validationCustom02">Venta Real</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelVentaRealEdicion" ></label></div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Porcentaje de Venta</label><div class="widget-numbers mt-0 fsize-2 text-success pull-right"><label id="labelPorcentajeVentaEdicion" ></label></div>
+		                                            <label for="validationCustom02">Porcentaje de Venta</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-success pull-left" id="divPorcentajeVentaEdicion"><label id="labelPorcentajeVentaEdicion" ></label></div>
+		                                        </div>
+		                                      </div>
+		                                      <hr>
+		                                      <div class="form-row">
+		                                        <div class="col-md-12 mb-3">
+		                                            <h5 class="card-title">Vendedores</h5>
+		                                            <br><div  id="divVendedoresEdicion"></div>
 		                                        </div>
 		                                      </div>
 		                                      <hr>
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Ventas</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right" id="divVendedoresEdicion"><label id="labelVendedorEdicion" ></label></div>
-		                                        </div>
-		                                      </div>
-		                                      
-		                                      
-		                                      <hr>
-		                                      <div class="form-row">
-		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Fecha Confirmacion Factura</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaConfirmacionEdicion" ></label></div>
+		                                            <label for="validationCustom02">Fecha Confirmacion Factura</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaConfirmacionEdicion" ></label></div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Fecha Promesa de Pago</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPromesaPagoEdicion" ></label></div>
+		                                            <label for="validationCustom02">Fecha Promesa de Pago</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaPromesaPagoEdicion" ></label></div>
 		                                        </div>
 		                                      </div>
 		                                      <div class="form-row">
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Viáticos Totales de Asignación</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelViaticosTotalesEdicion" ></label></div>
+		                                            <label for="validationCustom02">Viáticos Totales de Asignación</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelViaticosTotalesEdicion" ></label></div>
 		                                        </div>
 		                                        <div class="col-md-6 mb-3">
-		                                            <label for="validationCustom02">Observaciones</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelObservacionesEdicion" ></label></div>
+		                                            <label for="validationCustom02">Observaciones</label>
+		                                            <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelObservacionesEdicion" ></label></div>
 		                                        </div>
 		                                       </div>
 		                                       <hr>
+		                                      
+		                                       <h5 class="card-title">Relación de Asignaciones sin Expediente Económico</h5>
 		                                       <div class="form-row">
 		                                        <div class="col-md-12 mb-3">
-		                                            <label for="validationCustom02">Relacion de Asignaciones sin Expediente Económico</label>
+		                                            <table id='asignacionesOutDETable' class="mb-0 table table-striped table-sm"
+														data-locale="es-MX" 
+														data-toggle='table' 
+														data-sort-name='idAsignacion'
+														data-search='true' 
+														data-sort-order='desc'
+														data-pagination='true'
+														data-page-list='[10, 25, 50, 100, 200, Todos]'
+														data-detail-formatter="detailFormatter"
+														 data-checkbox-header="false"
+  														data-click-to-select="true">
+														<thead class='thead-dark'>
+															<tr>
+															 	<th data-field="state" data-checkbox="true"></th>
+																<th data-field="idAsignacion">ID</th>
+													            <th data-field="fechaAsignacion">Fecha</th>
+													            <th data-field="cursoAsignacion">Nombre Curso</th>
+													            <th data-field="instructorAsignacion">Instructor</th>
+													            <th data-field="statusAsignacion">Estatus</th>
+																<th data-field="expedienteAsignacion">Expediente Asignacion</th>
+<!-- 																<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterGet" data-events="window.operateEventsUpdateAsignacion">Expediente</th> -->
+		<!-- 														<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th>  -->
+															</tr>
+														</thead>		
+														<tbody id="bodyAsignacion"></tbody>			
+													</table>
 		                                        </div>
-		                                        
 		                                      </div>
+		                                      
+												<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicosEdicion" />
 												<input type="hidden" th:field="*{idAsignacion}" id="idAsignacionDatosEconomicos" />
 												<input type="hidden" th:field="*{userCreateAsignacion}" id="userCreateAsignacionDatosEconomicos" />
-												<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicos" />
 												<input type="hidden" th:field="*{listFechaPromesaPago}" id="listFechaPromesaPago" />
 												<input type="hidden" th:field="*{listFechaConfirmacion}" id="listFechaConfirmacion" />
+												<input type="hidden" th:field="*{listAsignaciones}" id="listAsignaciones" />
                                                <br>
                                                <div class="form-row">
 	                                               	<div class="col-md-6 mb-3">
 	                                               		<span class="float-left">
-	                                       					<button type="submit" class="btn btn-warning pull-left" id="btnEliminarDatosEconomicos"   disabled>Eliminar Expediente</button>
+	                                       					<button type="submit" class="btn btn-warning pull-left" id="btnEliminarDatosEconomicos"   >Eliminar Expediente</button>
 	                                       				</span>
 	                                               	</div>
 		                                       		<div class="col-md-6 mb-3">
 		                                       			<span class="float-rigth">
-		                                       			<button type="submit" class="btn btn-success pull-left" id="btnActualizarDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
+		                                       			<button type="submit" class="btn btn-success pull-left" id="btnAsignacionDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
 		                                       		</span>
 		                                       		</div>                                       		   
                                               </div>
@@ -639,6 +674,64 @@
                            </div>
                        </div>
                        <!-- Modal Fin-->
+                       <!-- Modal Inicio-->
+                       <div class="modal" id="modalAsignacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <h4 class="modal-title">Asignación</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                       <div class="card" style="width: rem;">
+                                           <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
+                                           <div class="card-body">
+                                           <form role="form"  class="login100-form validate-form needs-validation" >
+                                               <h5 class="card-title">Resumen de Asignación</h5>
+                                               <ul class="list-group">
+                                                   <li class="list-group-item list-group-item-info">Cliente : <span id="modalCliente"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Curso : <span id="modalCurso"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Instructor : <span id="modalInstructor"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Fecha : <span id="modalFecha"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Horario : <span id="modalHorario"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Participantes : <span id="modalParticipantes"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Nivel : <span id="modalNivel"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Observaciones : <span id="modalObservaciones"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
+                                               </ul>
+                                               
+<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
+<!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
+<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
+<!--                                                <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" /> -->
+<!--                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" /> -->
+                                       			<br>
+                                       			<br>
+                                       			
+<!--                                        			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Confirmar y Revision Expediente Asignación</button>         -->
+											</form>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+                                   		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
                        
 
 
@@ -677,10 +770,10 @@ var vendedoresDatosEconomicos= [[${model.jsonResponseObject.vendedoresDatosEcono
 	<script type="text/javascript">
     var today = new Date();
     var $datepicker1 = $( '#fechaConfirmacion' ).pickadate({
-    	 min : today
+//     	 min : today
     });
     var $datepicker = $( '#fechaPromesaPago' ).pickadate({
-   	 min : today
+//    	 min : today
    });
     $(".chosen").chosen({width: "inherit"}) 
 

@@ -272,8 +272,9 @@ public class ControllerAsignacion {
 			model.addAttribute("model", resultVO);
 			
 			rs = entregableService.consultaEntregable(resultVO.getAccesToken(), asignacion.getIdAsignacion());
+//			resultVO.setJsonResponse(rs.getJsonResponse());
 //			jsonResponse.put("entregables", rs.getJsonResponse());
-			model.addAttribute("entregables", rs.getJsonResponse());
+			model.addAttribute("entregables", rs.getJsonResponseObject());
 			
 			ModelAndView mav = new  ModelAndView("BAsignacionI",  model);
 			if(rs.getCodigo() != 500) {					

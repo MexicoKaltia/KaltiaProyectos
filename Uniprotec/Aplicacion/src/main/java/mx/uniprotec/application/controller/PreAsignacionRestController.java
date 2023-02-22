@@ -31,7 +31,9 @@ import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.dao.IPreAsignacionAEDao;
 import mx.uniprotec.application.dao.IPreAsignacionDao;
 import mx.uniprotec.application.entity.ClienteProspectoEntity;
+import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.DatosEconomicosEntity;
+import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
 import mx.uniprotec.application.entity.VendedorDatosEconomicos;
@@ -40,6 +42,7 @@ import mx.uniprotec.application.service.IPreAsignacionAEService;
 import mx.uniprotec.application.service.IPreAsignacionService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 import mx.uniprotec.entidad.modelo.VendedorDEModelo;
@@ -141,6 +144,7 @@ public class PreAsignacionRestController {
 				//actualiza expediente DE
 				log.info(preAsignacionAENew.getIdPreAsignacionAE().toString());
 				preAsignacionAEService.updateVendedores(vendedores, preAsignacionAENew.getIdPreAsignacionAE());
+				preAsignacionAEService.updateAsignacionFactura(datosEconomicos);
 			}
 			
 			
@@ -186,18 +190,23 @@ public class PreAsignacionRestController {
 	}
 	
 	@DeleteMapping("/datosEconomicos/{idDatosEconomicos}")
-	public ResponseEntity<?> deletePreAsignaciones(@PathVariable Long idDatosEconomicos) {
+	public ResponseEntity<?> deleteDatosEconomicos(@PathVariable Long idDatosEconomicos) {
 		log.info("Delete idDatosEconomicos");
 		
 		Map<String, Object> response = new HashMap<>();
 		try {
-			int code  = preAsignacionAEService.deleteIdpreAsignacion(idDatosEconomicos);
-			
-			 response.put("code", code );
-			 response.put("mensaje", "Registro datosEconomicos eliminado correctamente");
-			 response.put("status", HttpStatus.ACCEPTED);
-			 response.put("code", HttpStatus.ACCEPTED.value());
-			 log.info("Delete datosEconomicos fin");
+			int code  = preAsignacionAEService.deleteDatosEconomicos(idDatosEconomicos);
+			log.info(Long.toString(idDatosEconomicos));
+			if(code == 0) {
+				code = preAsignacionAEService.deleteVendedoresIdDatosEconomicos(idDatosEconomicos);
+			}
+			if(code == 0) {
+				response.put("code", code );
+				 response.put("mensaje", "Registro datosEconomicos eliminado correctamente");
+				 response.put("status", HttpStatus.ACCEPTED);
+				 response.put("code", HttpStatus.ACCEPTED.value());
+				 log.info("Delete datosEconomicos fin");
+			}
 			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
@@ -211,7 +220,85 @@ public class PreAsignacionRestController {
 	}
 	
 	
-	// Vendedores Datos Economicos
+	@PutMapping("/datosEconomicos/{idDatosEconomicos}")
+	public ResponseEntity<?> update(@Valid @RequestBody DatosEconomicosModelo datosEconomicos, BindingResult result, @PathVariable Long idDatosEconomicos) {
+		log.info(datosEconomicos.toString());
+		
+		DatosEconomicosEntity datosEconomicosActual = preAsignacionAEService.findByIdDatoEconomico(idDatosEconomicos);
+		Map<String, Object> response = new HashMap<>();
+
+		if(result.hasErrors()) {
+
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("datosEconomicos ERROR update fin:"+datosEconomicos.toString());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		if (datosEconomicosActual == null) {
+			response.put("mensaje", "Error: no se pudo editar, el datosEconomicos ID: "
+					.concat(idDatosEconomicos.toString().concat(" no existe en la base de datos!")));
+			
+			response.put("status", HttpStatus.NOT_FOUND);
+			response.put("code", HttpStatus.NOT_FOUND.value());
+			log.info("datosEconomicos NULL  update fin:"+datosEconomicos.toString());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		try {
+			
+			
+			datosEconomicosActual.setFormAEListAsignaciones(listToString(datosEconomicos.getListAsignaciones()));
+			datosEconomicosActual.setStatus("ACTUALIZADO");
+
+			datosEconomicosActual = preAsignacionAEService.savePreAsignacionAE(datosEconomicosActual);
+
+			//guardar Vendedores
+			try {
+				List<VendedorDatosEconomicos> vendedores = getVendedoresEdicion(datosEconomicos.getIdDatosEconomicos(), datosEconomicos.getListAsignaciones());
+				preAsignacionAEService.saveVendedores(vendedores);
+
+			} catch (DataAccessException e) {
+				response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+				response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+				 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+				 log.info("catch datosEconomicosActual Vendedores update fin:"+datosEconomicos.toString());
+				 e.printStackTrace();
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			 response.put("datosEconomicos", datosEconomicosActual);
+			 response.put("mensaje", "El datosEconomicosActual se ha creado con Exito");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("datosEconomicos update fin:"+datosEconomicos.toString());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("catch datosEconomicosActual update fin:"+datosEconomicos.toString());
+			 e.printStackTrace();
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	
+	
+
+	
+
+	/*
+	 * Vendedores Datos Economicos
+	 */
 
 	@GetMapping("/vendedoresDatosEconomicos")
 	public ResponseEntity<?> vendedoresDatosEconomicos() {
@@ -315,6 +402,23 @@ public class PreAsignacionRestController {
 		return vendedoresDatosEconomicos;
 	}
 
+	private List<VendedorDatosEconomicos> getVendedoresEdicion(Long idDatosEconomicos, List<Integer> listAsignaciones) {
+		List<VendedorDatosEconomicos> vendedores = preAsignacionAEService.findVendedoresIdDatosEconomicos(idDatosEconomicos);
+		String strAsignaciones = listToString(listAsignaciones);
+		for(VendedorDatosEconomicos vendedor : vendedores) {
+			vendedor.setListAsignaciones(strAsignaciones);
+		}
+		
+		return vendedores;
+	}
+
+	private String listToString(List<Integer> list) {
+		String strAsignaciones = "";
+		for(Integer a : list) {
+			strAsignaciones = strAsignaciones + Integer.toString(a) + ";";
+		}
+		return strAsignaciones;
+	}
 
 
 	

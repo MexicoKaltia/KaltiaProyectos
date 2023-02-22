@@ -12,11 +12,11 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Entity
-@Table(name="preAsignacionesAE")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "idPreAsignacionAE")
+//@Entity
+//@Table(name="preAsignacionesAE")
+//@JsonIdentityInfo(
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "idPreAsignacionAE")
 public class PreAsignacionAEEntity {
 
 	public PreAsignacionAEEntity() {

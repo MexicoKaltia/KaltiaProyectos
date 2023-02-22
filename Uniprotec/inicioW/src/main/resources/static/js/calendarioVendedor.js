@@ -62,7 +62,6 @@ $(document).ready(function() {
 
 	
 	function abrirModal(item, identificadorUsuario){
-//		console.log(item);
 		item = item.split('-');
 		$('#fechaPagoVendedorInicio').text(valoresFecha(formatoFecha(getFechaFinalPago(item[4]))));
 		$('#fechaPagoVendedorFin').text(valoresFecha(formatoFecha(getFechaFinalPago(item[5]))));
@@ -88,9 +87,6 @@ $(document).ready(function() {
 		
 		var cliente
 		
-		
-//		$('#pagoComisionTable').bootstrapTable({data : dataPagoComision});
-//		$('#cobroFacturaTable').bootstrapTable({data : dataCobroFactura});
 		$('#registroCobroFactura').empty();
 		$('#registroPagoComision').empty();
 		$('#divVendedoresDatosEconomicos').empty();
@@ -103,7 +99,7 @@ $(document).ready(function() {
 				vendedorInstructorAsignacion = preAsignacion.instructorAsignacion;
 				preAsignacionLogica = preAsignacion.idAsignacionLogica;
 				nombreFactura = preAsignacion.nombreFactura;
-				numeroFactura = preAsignacion.numeroFactura
+				numeroFactura = preAsignacion.numeroFactura;
 				
 				for(var e in preAsignacionesAE){
 					var preAsignacionAE = preAsignacionesAE[e];
@@ -168,7 +164,6 @@ $(document).ready(function() {
 						/*
 						 *  //tabla de Pago Comision 
 						 */
-						//tabla de Pago Comision
 
 						var registroComision = "<tr><td>"+preAsignacionAE.idPreAsignacionAE+
 		    			"</td><td>"+nombreVendedor+
@@ -188,29 +183,122 @@ $(document).ready(function() {
 						}
 					}
 				}
-				
-				
-				for(var i in clientes){
-					var cliente = clientes[i];
-					if(cliente.idCliente === preAsignacion.idClienteAsignacion){
-						 clienteNombreCompleto = cliente.nombreCompletoCliente;
-						 clienteRFC = cliente.rfcCliente;
-						 clienteRepresentanteEmpresa = cliente.representanteEmpresaCliente;
-						 clienteContacto = cliente.nombreContactoRecibeCliente;
-						 clienteEmail = cliente.emailCliente;
-						 clienteTelefono = cliente.telefonoCliente;
-					}
-				}
-//				$('#seguimientoBitacoraCalendario').empty();
-//				$('#seguimientoBitacoraCalendario').append(preAsignacion.seguimiento);
 				break;
 			}
-		} //fin abrirModal
+		}// fin asignaciones ordinarias
+		
+		//datos economicos vs varias asignaciones
+		for(var e in preAsignacionesAE){
+			var datoEconomico = preAsignacionesAE[e];
+			if(datoEconomico.formAEListAsignaciones != null){
+				if(idPreAsignacion === datoEconomico.formAEListAsignaciones){
+					montoPagoVendedorInicio = validaComisionReal(datoEconomico.formAEComisionVendedor);
+					montoPagoVendedorFin = validaComisionReal(datoEconomico.formAEComisionVendedor);
+					montoCobroFactura = datoEconomico.formAEPrecioVentaReal;
+					numeroFactura = datoEconomico.formAENumFactura;
+					for(var i in  vendedoresDatosEconomicos){
+						var vendedorDE = vendedoresDatosEconomicos[i];
+						if(vendedorDE.idDatosEconomicos === datoEconomico.idPreAsignacionAE){
+							nombreVendedor = vendedorDE.nombreVendedor;
+						}
+					}
+					
+					
+					for (var i in vendedoresDatosEconomicos){
+						var vendedorDE = vendedoresDatosEconomicos[i];
+						if(vendedorDE.idDatosEconomicos*1 === datoEconomico.idPreAsignacionAE*1){
+							var registroVendedorDE = '<span>Resumen de Pago Vendedor : </span><strong><span>'+vendedorDE.nombreVendedor+'</span></strong>\
+		                   		<div class="row container">\
+		               			<div class="col-md-6">\
+		               				<div class="alert alert-success">\
+									  <h6><span>Fecha Pago 1 </span><br><span> Recibo de Factura : </span>\
+									  <strong><span>'+valoresFecha(formatoFecha(getFechaFinalPago(item[4])))+'</span></strong><br>\
+									  <span>Monto : </span><strong><span id="montoPagoVendedorInicioAA">'+validaComisionReal(vendedorDE.comisionRealVendedor)+'</span></strong></h6>\
+									</div>\
+		               			</div>\
+		               			<div class="col-md-6">\
+		               				<div class="alert alert-info">\
+									  <h6><span>Fecha Pago 2 </span><br><span> Pago de Factura : </span>\
+									  <strong><span id="fechaPagoVendedorFinAA">'+valoresFecha(formatoFecha(getFechaFinalPago(item[5])))+'</span></strong><br>\
+									  <span>Monto : </span><strong><span id="montoPagoVendedorFinAA">'+validaComisionReal(vendedorDE.comisionRealVendedor)+'</span></strong></h6>\
+									</div>\
+		               			</div>\
+		               		</div>'; 
+									
+		               		$('#divVendedoresDatosEconomicos').append(registroVendedorDE);
+						}
+					}
+					
+					
+					/*
+					 *  //tabla de Cobro Factura 
+					 */
+					
+					var listFechasPromesa = stringToList(datoEconomico.formAEListFechaPromesaPago);
+					var listFechasConfirmacion = stringToList(datoEconomico.formAEListFechaConfirmacion);
+					
+					var fechaConfirmacionLast = listFechasConfirmacion[listFechasConfirmacion.length - 1];
+					var registroConfirmacion = "<tr><td>"+datoEconomico.idPreAsignacionAE+
+						"</td><td>"+valoresFecha(fechaConfirmacionLast)+
+		    			"</td><td>"+"Recibo de Factura"+
+		    			"</tr>";
+						$('#registroCobroFactura').append(registroConfirmacion);
+
+					for(var a in listFechasPromesa){
+						var fechaPago = listFechasPromesa[a];
+						var registro = "<tr><td>"+datoEconomico.idPreAsignacionAE+
+		    			"</td><td>"+valoresFecha(fechaPago)+
+		    			"</td><td>"+validaCumplimiento(fechaPago)+
+		    			"</tr>";
+						$('#registroCobroFactura').append(registro);
+					}
+					
+
+					/*
+					 *  //tabla de Pago Comision 
+					 */
+
+					var registroComision = "<tr><td>"+datoEconomico.idPreAsignacionAE+
+	    			"</td><td>"+nombreVendedor+
+	    			"</td><td>"+"1er Pago Comision"+
+	    			"</td><td>"+valoresFecha(formatoFecha(getFechaFinalPago(fechaConfirmacionLast)))+
+	    			"</tr>";
+					$('#registroPagoComision').append(registroComision);
+					
+					for(var a in listFechasPromesa){
+						var registro = "<tr><td>"+datoEconomico.idPreAsignacionAE+
+		    			"</td><td>"+nombreVendedor+
+		    			"</td><td>"+validaPagoComision(listFechasPromesa[a])+
+		    			"</td><td>"+valoresFecha(formatoFecha(getFechaFinalPago(listFechasPromesa[a])))+
+		    			"</tr>";
+		
+						$('#registroPagoComision').append(registro);
+					}
+				}
+			}
+		}
+		
+		for(var i in clientes){
+			var cliente = clientes[i];
+			if(cliente.idCliente === preAsignacion.idClienteAsignacion){
+				 clienteNombreCompleto = cliente.nombreCompletoCliente;
+				 clienteRFC = cliente.rfcCliente;
+				 clienteRepresentanteEmpresa = cliente.representanteEmpresaCliente;
+				 clienteContacto = cliente.nombreContactoRecibeCliente;
+				 clienteEmail = cliente.emailCliente;
+				 clienteTelefono = cliente.telefonoCliente;
+			}
+		}
+			
 		
 		
-//		$('#montoPagoVendedorInicio').text("$ "+montoPagoVendedorInicio);
-//		$('#montoPagoVendedorFin').text("$ "+montoPagoVendedorFin);
-		$('#montoCobroFactura').text("$ "+montoCobroFactura);
+		
+		
+		
+		
+		
+		$('#montoCobroFactura').text(formatter.format(montoCobroFactura));
+		$('#montoCobroFacturaIVA').text(formatter.format(getIVA(montoCobroFactura)));
 		$('#modalNombreVendedor').text(nombreVendedor);
 		
 		$('#vendedorFechaAsignacion').text(vendedorFechaAsignacion);
@@ -225,14 +313,19 @@ $(document).ready(function() {
 		$('#clienteEmail').text(clienteEmail);
 		$('#clienteTelefono').text(clienteTelefono);
 		
-		$('#descargaFactura').html("<a href='/uploads/fileAsignacionFactura/"+preAsignacionLogica+"/"+nombreFactura+"' id='linkFileFactura'>"+nombreFactura+"</a>");
+//		$('#descargaFactura').html("<a href='/uploads/fileAsignacionFactura/"+preAsignacionLogica+"/"+nombreFactura+"' id='linkFileFactura'>"+nombreFactura+"</a>");
 		
 		$('#modalPagoCobro').modal();
 		
+	}//fin abrirModal
+	
+	function getIVA(monto){
+		var IVA = monto*.16;
+		return monto+IVA;
 	}
 	
 	function validaComisionReal(comisionVendedorReal){
-			return (comisionVendedorReal / 2);
+			return (formatter.format(comisionVendedorReal / 2));
 	}
 	
 	function formatoFecha(fecha){
@@ -338,6 +431,52 @@ $(document).ready(function() {
 				}
 			}
 		}
+		
+		//factura varias asignaciones
+		for(var e in preAsignacionesAE){
+			var preAsignacion  = preAsignacionesAE[e];
+			if(preAsignacion.formAEidPreAsignacion == null && preAsignacion.status != "SIN_ASIGNACION"){
+				if(preAsignacion.formAEFechaPromesaPagoFormat){
+					var inicio = getInicio(preAsignacion.formAEFechaPromesaPagoFormat.toString());
+					var fin = getFinal(preAsignacion.formAEFechaPromesaPagoFormat.toString());
+					var color = "purple"; //getColor("blue");
+					var item = {
+							'title' : preAsignacion.formAEListAsignaciones +"-"+ preAsignacion.formAEClienteTexto +"-N/A-N/A-"+ preAsignacion.formAEFechaConfirmacionFormat +"-"+ preAsignacion.formAEFechaPromesaPagoFormat ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color,
+							'textColor': 'white'
+					}
+					items.push(item);
+					 inicio = getFinalPago(preAsignacion.formAEFechaConfirmacionFormat.toString());
+					 fin = getFinalPago(preAsignacion.formAEFechaConfirmacionFormat.toString());
+					 color = "green"; //getColor("blue");
+					var item0 = {
+							'title' : preAsignacion.formAEListAsignaciones +"-"+ preAsignacion.formAEClienteTexto +"-N/A-N/A-"+ preAsignacion.formAEFechaConfirmacionFormat +"-"+ preAsignacion.formAEFechaPromesaPagoFormat ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color,
+							'textColor': 'white'
+					}
+					items.push(item0);
+					 inicio = getFinalPago(preAsignacion.formAEFechaPromesaPagoFormat.toString());
+					 fin = getFinalPago(preAsignacion.formAEFechaPromesaPagoFormat.toString());
+					 color = "blue"; //getColor("blue");
+					var item1 = {
+							'title' : preAsignacion.formAEListAsignaciones +"-"+ preAsignacion.formAEClienteTexto +"-N/A-N/A-"+ preAsignacion.formAEFechaConfirmacionFormat +"-"+ preAsignacion.formAEFechaPromesaPagoFormat ,
+							'start' : inicio,
+							'end' : fin,
+							'constraint' : 'businessHours',
+							'color' : color,
+							'textColor': 'white'
+					}
+					items.push(item1);	
+				}
+			}
+		}
+		
 		return items;
 	}
 	

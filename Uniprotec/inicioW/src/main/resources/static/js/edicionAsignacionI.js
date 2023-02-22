@@ -236,13 +236,14 @@ $(document).ready(function(){
 			
 			$('#expedienteEntregable').empty();
 //			if(expedientesEntregables.entregables.length > 0){
-				$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Estatus Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">Capturar Guía de Entregable : \
+				$('#procesoEvento').html('<li class="list-group-item list-group-item-info">Estatus Actual : <span id="modalStatus"></span></li><li class="list-group-item list-group-item-info">\
 						<select id="expedienteEntregable"  name="expedienteEntregable" class="form-control"  required onchange="expedienteEntregableFun()"></select><hr>\
 						<input type="text" class="form-control"  id="guiaEntregableZ" name="guiaEntregableZ" placeholder="Capture guía entregable " value=""  maxlength="100" required/>\
 						<input type="text" class="form-control"  id="idEntregableZ"  name="idEntregableZ" placeholder="Capture Id Expediente Entregable " value=""  maxlength="100"  required/></li>\
 						<li class="list-group-item list-group-item-info">Avanzar Etapa : <span id="consirmarStatus"></span></li>');
 				var options = "";
-				for(i in expedientesEntregables.entregables){
+				console.log(expedientesEntregables);
+				for(var i in expedientesEntregables.entregables){
 					var entregable = expedientesEntregables.entregables[i]
 					options = options + "<option value='"+entregable.idEntregable+"'>"+entregable.idEntregable+" - "+entregable.formACurso+"</option>";
 				}

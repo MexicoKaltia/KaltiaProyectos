@@ -58,7 +58,7 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 			datosEconomicosItem.setStatus("SIN_ASIGNACION");
 		}
 		
-		List<VendedorDEModelo> vendedores = getVendedores(datosEconomicosItem.getVendedoresStr(), datosEconomicosItem.getIdAsignacion(), datosEconomicosItem.getVentaReal());
+		List<VendedorDEModelo> vendedores = getVendedores(datosEconomicosItem.getVendedoresStr(),  datosEconomicosItem.getVentaReal());
 		datosEconomicosItem.setVendedores(vendedores);
 		
 		resultVO = (ResultVO) baseClientRest.objetoPost(
@@ -95,10 +95,13 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 				accesToken,
 				BaseClientRest.URL_CRUD_DATOSECONOMICOS,
 				datosEconomicos,
-				datosEconomicos.getIdAsignacion());
+				datosEconomicos.getIdDatosEconomicos());
 			
 		return resultVO;
 	}
+	
+	
+
 	
 	@Override
 	public ResultVO consultaVendedoresAnalisis(String token) {
@@ -160,7 +163,7 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 		return fechas[1]+fechas[0]+fechas[2];
 	}
 
-	private List<VendedorDEModelo> getVendedores(String vendedoresStr, Long idAsignacion, Double ventaReal) {
+	private List<VendedorDEModelo> getVendedores(String vendedoresStr,  Double ventaReal) {
 		
 		List<VendedorDEModelo> vendedores = new ArrayList<VendedorDEModelo>();
 		String[] tmp = vendedoresStr.split("},");
@@ -187,9 +190,6 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 					vendedor.setComisionRealVendedor(Double.valueOf(json.get("comisionRealVendedor").toString()));
 					vendedor.setPorcentajeComisionVendedor(Double.valueOf(json.get("porcentajeComisionVendedor").toString()));
 					vendedor.setMontoFacturaDivida(montoFacturaDivida);
-					 
-					
-					
 					
 					vendedores.add(vendedor);
 					
@@ -200,6 +200,7 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 		}
 		return vendedores;
 	}
+
 
 
 

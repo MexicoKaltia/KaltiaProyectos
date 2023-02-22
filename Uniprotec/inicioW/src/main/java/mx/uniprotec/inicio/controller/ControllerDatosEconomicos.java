@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -83,31 +85,7 @@ public class ControllerDatosEconomicos {
 			return mav;
 		}	
 		
-	@PostMapping("/altaDatosEconomicos")
-	public ModelAndView altaDatosEconomicos(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
-		log.info("altaDatosEconomicos model Activo");
-		log.info(datosEconomicosItem.toString());
-		ResultVO resultVO = (ResultVO)model.get("model");
-		model.addAttribute("model", resultVO);
-
-		ResultVO rs = datosEconomicosService.altaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
-		ModelAndView mav = null;
-		if(datosEconomicosItem.getIdAsignacion()==null) {
-			mav = new ModelAndView("redirect:/ADatosEconomicos", model);
-		}else {
-			mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
-		}
-		
-		if(rs.getCodigo() != 500) {
-			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-			mav.addObject("ejecucion", true);
-		}else {
-			mav.addObject("error", true);
-			log.info("NOK altaDatosEconomicos");
-		}
-		return mav;			
-	}
-
+	
 	@GetMapping("/ADatosEconomicos")
 	public ModelAndView adatosEconomicos(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
 			@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
@@ -135,24 +113,78 @@ public class ControllerDatosEconomicos {
 			}
 	}
 	
-//	@PostMapping("/altaDatosEconomicosAsignacion")
-//	public ModelAndView altaDatosEconomicosAsignacion(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
-//		log.info("altaDatosEconomicosAsignacion model Activo");
-//		log.info(datosEconomicosItem.toString());
-//		ResultVO resultVO = (ResultVO)model.get("model");
-//		model.addAttribute("model", resultVO);
-//
-//		ResultVO rs = datosEconomicosService.altaDatosEconomicosAsignacion(datosEconomicosItem, resultVO.getAccesToken());
-//		ModelAndView mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
-//		if(rs.getCodigo() != 500) {
-//			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-//			mav.addObject("ejecucion", true);
-//		}else {
-//			mav.addObject("error", true);
-//			log.info("NOK altaDatosEconomicos");
-//		}
-//		return mav;			
-//	}
+	@PostMapping("/altaDatosEconomicos")
+	public ModelAndView altaDatosEconomicos(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
+		log.info("altaDatosEconomicos model Activo");
+		log.info(datosEconomicosItem.toString());
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+
+		ResultVO rs = datosEconomicosService.altaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
+		ModelAndView mav = null;
+		if(datosEconomicosItem.getIdAsignacion()==null) {
+			mav = new ModelAndView("redirect:/ADatosEconomicos", model);
+		}else {
+			mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
+		}
+		
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK altaDatosEconomicos");
+		}
+		return mav;			
+	}
+
+	@PostMapping("/BDatosEconomicos")
+	public ModelAndView edicionDatosEconomicos(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
+		log.info("edicionDatosEconomicos model Activo");
+		log.info(datosEconomicosItem.toString());
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+
+		ResultVO rs = datosEconomicosService.actualizaDatosEconomicos(datosEconomicosItem, resultVO.getAccesToken());
+		ModelAndView mav = null;
+		if(datosEconomicosItem.getIdAsignacion()==null) {
+			mav = new ModelAndView("redirect:/ADatosEconomicos", model);
+		}else {
+			mav = new ModelAndView("redirect:/BVendedorAnalisis", model);
+		}
+		
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK altaDatosEconomicos");
+		}
+		return mav;			
+	}
+
+	
+	@PostMapping("/DDatosEconomicos/{idDatosEconomicos}")
+	public ModelAndView DDatosEconomicos(@PathVariable String idDatosEconomicos, ModelMap model) {
+		if (model.equals(null)) {
+			log.info("NULL");
+			return new ModelAndView("login");
+		} else {
+			log.info("Delete Datos Economicos model Activo");
+			ResultVO resultVO = (ResultVO) model.get("model");
+			ResultVO rs = datosEconomicosService.deleteDatosEconomicos(idDatosEconomicos, resultVO.getAccesToken());
+			model.addAttribute("model", resultVO);
+			ModelAndView mav = new ModelAndView("redirect:/ADatosEconomicos", model);
+			if (rs.getCodigo() != 500) {
+				mav.addObject("ejecucion", true);
+				return mav;
+			} else {
+				mav.addObject("error", true);
+				log.info("NOK AltaCliente");
+				return mav;
+			}
+		}
+	}
 
 
 

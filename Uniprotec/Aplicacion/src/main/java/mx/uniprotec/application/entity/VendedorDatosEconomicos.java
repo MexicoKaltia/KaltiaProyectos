@@ -47,6 +47,8 @@ public class VendedorDatosEconomicos implements Serializable{
 	private Double porcentajeComisionVendedor;
 	@Column
 	private Double montoFacturaDivida;
+	@Column
+	private String listAsignaciones;
 	
 	@Column
 	private Long userCreateVendedor;
@@ -145,6 +147,12 @@ public class VendedorDatosEconomicos implements Serializable{
 		this.userCreateVendedor = userCreateVendedor;
 		this.createAtVendedor = createAtVendedor;
 		this.statusVendedor = statusVendedor;
+	}
+	public String getListAsignaciones() {
+		return listAsignaciones;
+	}
+	public void setListAsignaciones(String listAsignaciones) {
+		this.listAsignaciones = listAsignaciones;
 	}
 
 		

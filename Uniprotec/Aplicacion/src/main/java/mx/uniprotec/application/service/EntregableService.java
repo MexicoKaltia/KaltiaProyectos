@@ -93,19 +93,6 @@ public class EntregableService implements IEntregableService {
 
 
 
-	private List<ParticipanteEntity> getParticipantesUnicos(List<ParticipanteEntity> participantes) {
-		List<ParticipanteEntity> participantesImportar = new ArrayList<ParticipanteEntity>();
-		List<String> nombresParticipantes = new ArrayList<String>();
-		for(ParticipanteEntity pe : participantes) {
-			String nombreParticipante = pe.getParticipanteNombre();
-			if(!nombresParticipantes.contains(nombreParticipante)) {
-				participantesImportar.add(pe);
-			}
-			nombresParticipantes.add(nombreParticipante);
-		}
-		return participantesImportar;
-	}
-
 	@Override
 	public ParticipanteEntity createParticipantes(List<ParticipanteEntity> formBParticipantes) {
 		ParticipanteEntity participanteEntity = null;
@@ -153,4 +140,21 @@ public class EntregableService implements IEntregableService {
 
 	
 
+	/*
+	 * Privates
+	 */
+		private List<ParticipanteEntity> getParticipantesUnicos(List<ParticipanteEntity> participantes) {
+			List<ParticipanteEntity> participantesImportar = new ArrayList<ParticipanteEntity>();
+			List<String> nombresParticipantes = new ArrayList<String>();
+			for(ParticipanteEntity pe : participantes) {
+				String nombreParticipante = pe.getParticipanteNombre();
+				if(!nombresParticipantes.contains(nombreParticipante)) {
+					participantesImportar.add(pe);
+				}
+				nombresParticipantes.add(nombreParticipante);
+			}
+			return participantesImportar;
+		}
+
+		
 }
