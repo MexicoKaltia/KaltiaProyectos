@@ -1,0 +1,117 @@
+SCRIPT RESPALDO TRIMESTRAL UNIPROTEC
+
+----------------------------------------------------------------------------------------------------------------------------------
+CERTIFICADO
+
+bin/shutdown.sh tomcat bajar el puerto 80 y 443
+
+ingresar root, en $HOME teclear
+
+certbot certonly
+opcion 2  -->2: Spin up a temporary webserver (standalone)
+pegar los control-uniprotec.com www.control-uniprotec.com  
+(esperar unos segundos, tal vez el primer intento no salió correcto por temas de firewall, pero la segundo intento salió sin problema)
+
+root@control-uniprotec-v2:~# certbot certonly
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+How would you like to authenticate with the ACME CA?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: Apache Web Server plugin - Beta (apache)
+2: Spin up a temporary webserver (standalone)
+3: Place files in webroot directory (webroot)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-3] then [enter] (press 'c' to cancel): 2
+Plugins selected: Authenticator standalone, Installer None
+Starting new HTTPS connection (1): acme-v02.api.letsencrypt.org
+Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'
+to cancel): control-uniprotec.com www.control-uniprotec.com
+Cert is due for renewal, auto-renewing...
+Renewing an existing certificate
+Performing the following challenges:
+http-01 challenge for control-uniprotec.com
+http-01 challenge for www.control-uniprotec.com
+Waiting for verification...
+Cleaning up challenges
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/control-uniprotec.com-0001/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/control-uniprotec.com-0001/privkey.pem
+   Your cert will expire on 2021-12-31. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+RESPALDO BASE DE DATOS
+
+	respaldo base de datos:
+	exportar el db completo
+	exportar asignaciones en la carpeta de la fecha
+	exportar asignaciones_respaldo en la carpeta de la fecha
+	
+	update registros respaldo:
+		abrir el archivo asignaciones.json
+		copiar el contenido de asignaciones.json en un archivo nuevo y realizar los siguientes pasos: tiene que quedar igual que el archivo macro update asignacion respaldo.txt
+			-eliminar los corchetes de array json, inicio y final
+			-remplazar el espacio  {" inicio de cada registro por vacio
+            -remplazar al final de linea }, por ;
+
+            -remplazar el contenido de '":'   por  '='
+            -remplazar el , " por ', espacio'
+			-ejecutar la macro :  'update asignacion respaldo'
+			-verificar y ejecutar la macro hasta el final del archivo-
+            -reemplazar error_proceso="  por--->  error_proceso=""
+            -reemplazar setfecha_asignacion=  --> set fecha_asignacion=
+            
+
+		copiar el contenido del archivo y pegar en el editor de mysql
+		verificar formato
+		ejecutar update
+
+	insert registros respaldo nuevos.:
+		verificar el ultimo id de asignacion_respaldos
+        insertar hasta el ultimo id asignacion_resplados
+		abrir el archivo asignaciones.json
+		copiar el contenido de asignaciones.json en un archivo nuevo y realizar los siguientes pasos: tiene que quedar igual que el archivo insert respaldo.txt
+			-eliminar los corchetes de array json, inicio y final
+			-remplazar las llaves json, inicio y final por ( y )
+			-ejecutar la macro :  'paso 1 insert respaldo'
+			copiar el encabezado de insert
+				insert into u674969544_db_uniprotec.asignaciones_respaldo (id_asignacion, fecha_asignacion, id_cliente_asignacion, cliente_asignacion, id_curso_asignacion, curso_asignacion, id_instructor_asignacion, instructor_asignacion, horario_asignacion, archivos_asignacion, participantes_asignacion, nivel_asignacion, observaciones_asignacion, create_at_asignacion, user_create_asignacion, status_asignacion, id_region_asignacion, nombre_region_asignacion, tipo_curso_asignacion, id_asignacion_logica, fecha_pago, guia_entregable, numero_factura, verificar_entregable, user_create_asignacion_texto, archivo_participantes, costo_hotel, error_proceso)
+				values
+			coapiar el contenido de archivo
+			ejecutar el qry
+
+	eliminar el ultimo mes de asignaciones.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+RESPALDO ENTREGABLES
+
+respaldo archivos en servidor
+	descargar /uniprotec  en formato *.rar
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+BORRAR LOGS Y LIMPIAR CACHE Y MEMORIA
+
+aplicacion
+	cd /UniprotecApp
+	
+	ps -fea | grep aplicacion_XXXX
+	kill -9 XXXX
+	
+	nohup java -jar aplicacion-3.1.7.jar &
+	
+inicioW
+	
+	
+	
+	
+	
+	
+	https://www.solvetic.com/tutoriales/article/3693-encontrar-carpetas-archivos-que-ocupan-mas-espacio-linux/

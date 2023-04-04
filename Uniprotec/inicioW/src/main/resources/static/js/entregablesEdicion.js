@@ -19,14 +19,14 @@ $(document).ready(function() {
 //	console.log(entregables);
 //	console.log(entregables.length);
 	console.log(participantes);
-	console.log(prtsImportar);
+//	console.log(prtsImportar);
 //	console.log(participantes.length);
 	var e=0;
 	var $participantes;
 	var $participantesLength = participantes.length;
 	var $entregable;
 	var $estatusEntregable ="";
-	var $participantesImportar = prtsImportar;
+	var $participantesImportar =""// prtsImportar;
 	var $idParticipante = "";
 
 	idClienteAsignacion = asignacionItem.idClienteAsignacion;
@@ -244,12 +244,12 @@ $(document).ready(function() {
 					
 					
 					//PARTICIPANTES IMPORTAR
-					console.log($participantesImportar.length);
+//					console.log($participantesImportar.length);
 					console.log($idEntregable);
 //					if($participantesImportar.length > 0 && $idEntregable+1 > 0){
 						$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
 						$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
-						listadoParticipantesImportar($participantesImportar);
+//						listadoParticipantesImportar($participantesImportar);
 //						for(var a in $participantesImportar){
 //							var participante = $participantesImportar[a];
 //							var liParticipanteImportar = '<li style="list-style-type:none">\
@@ -334,10 +334,10 @@ $(document).ready(function() {
 		$('#formCSede').val(asignacionCliente.domicilioCliente);
 		
 		//PARTICIPANTES IMPORTAR
-		console.log($participantesImportar);
+//		console.log($participantesImportar);
 		$('#addUser').after('<span><i style="color: white" class="fa fa-3x fa-minus" aria-hidden="true"></i></span><a id="addUserImportar" data-toggle="modal" data-target="#modalParticipantesImportar"class="btn btn-success"><i style="color: white" class="fa fa-3x fa-users" aria-hidden="true"></i></a>')
 		$("#idAsignacionParticipantesImportar").html(asignacionItem.idAsignacion);
-		listadoParticipantesImportar($participantesImportar);
+//		listadoParticipantesImportar($participantesImportar);
 
 	})
 	
@@ -612,11 +612,14 @@ $(document).ready(function() {
 	
 //	$('#participantesTable').bootstrapTable({data : $participantes});
 	
-	
+	/*
+	 * Agregar Participante
+	 */
 	$('#addUser').click(function(){
 		limpiaAlerta();
 		$('#imnParticipante').attr('src', "");
 		$('#btnEditarParticipante').hide();
+		$('#btnEliminarParticipante').hide();
 		$('#btnAgregarParticipante').show();
 		$('#participanteNombre').val("");
 		$('#participanteCURP').val("");
@@ -657,6 +660,9 @@ $(document).ready(function() {
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 	});
 	
+	/*
+	 * Editar Participante
+	 */
 	$('#btnEditarParticipante').click(function(){
 		console.log("btnEditarParticipante");
 		var checkAprobado = $('#checkAprovechamiento').is(':checked');
@@ -690,9 +696,27 @@ $(document).ready(function() {
 		$('#participantesTable').bootstrapTable('load', $participantes);
 		$('#participantesTable').bootstrapTable('append', jsonParticipante);
 		$participantes = $('#participantesTable').bootstrapTable('getData');
-//		 $('#formBFotoParticipante').val("");
 		 limpiaAlerta();
 		    
+	});
+	
+	/*
+	 * Eliminar Participante
+	 */
+	$('#btnEliminarParticipante').click(function(){
+		console.log("btnEliminarParticipante");
+		
+		var tmp = new Array();
+		for(var a in $participantes){
+			var participante = $participantes[a];
+			if(participante.idParticipante !== $idParticipante){
+				tmp.push(participante);
+			}
+		}
+		$participantes = tmp;
+		$('#participantesTable').bootstrapTable('load', $participantes);
+		$participantes = $('#participantesTable').bootstrapTable('getData');
+		 limpiaAlerta();
 	});
 	
 	
@@ -855,7 +879,7 @@ $(document).ready(function() {
 function listadoParticipantesImportar($participantesImportar){
 	for(var a in $participantesImportar){
 		var participante = $participantesImportar[a];
-		console.log(participante);
+//		console.log(participante);
 		var liParticipanteImportar = '<li style="list-style-type:none">\
             <div class="input-group mb-1">\
 			  <div class="input-group-prepend">\
@@ -1268,8 +1292,8 @@ function duracion(str){
 	    		var i = 1;
 	    		for(var a in participantesExcel){
 					var participante = participantesExcel[a];
-					console.log(entregables.length);
-					console.log(participantes.length);
+//					console.log(entregables.length);
+//					console.log(participantes.length);
 					participante.idParticipante =  idClienteAsignacion +"-"+ (entregables.length+1) +"-"+ (participantes.length+i);
 					var liParticipanteImportar = '<li style="list-style-type:none">\
                         <div class="input-group mb-1">\

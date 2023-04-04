@@ -81,11 +81,11 @@ public class EntregableService implements IEntregableService {
 			JSONObject jsonEntregables = new JSONObject();
 			jsonEntregables.put("entregables", jsonGeneral.get("entregables"));
 			jsonEntregables.put("participantes", jsonGeneral.get("participantes"));
-			rs= (ResultVO) baseClientRest.objetoGetId(token, BaseClientRest.URL_CRUD_PARTICIPANTES_IMPORTAR, null, idAsignacion.toString());
-			if(rs.getCodigo() != 500) {
-				jsonGeneral = rs.getJsonResponse();
-				jsonEntregables.put("prtsImportar", jsonGeneral.get("prtsImportar"));
-			}
+//			rs= (ResultVO) baseClientRest.objetoGetId(token, BaseClientRest.URL_CRUD_PARTICIPANTES_IMPORTAR, null, idAsignacion.toString());
+//			if(rs.getCodigo() != 500) {
+//				jsonGeneral = rs.getJsonResponse();
+//				jsonEntregables.put("prtsImportar", jsonGeneral.get("prtsImportar"));
+//			}
 			rs.setJsonResponseObject(jsonEntregables);
 		}
 			return rs;

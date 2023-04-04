@@ -99,7 +99,14 @@ public class PreAsignacionRestController {
 		
 		
 		try {
-			
+
+//			//Verificar si contiene fechaConfirmacion
+//			if(datosEconomicos.getFechaConfirmacion().equals("") || datosEconomicos.getFechaConfirmacion() == null) {
+//				preAsignacionAENew.setFormAEidPreAsignacion(99l);
+//			}else {
+//				preAsignacionAENew.setFormAEidPreAsignacion(datosEconomicos.getIdAsignacion());
+//			}
+//			
 			preAsignacionAENew.setFormAEidPreAsignacion(datosEconomicos.getIdAsignacion());
 			preAsignacionAENew.setFormAEPorcentajeVentaReal(datosEconomicos.getPorcentajeVenta());
 			preAsignacionAENew.setFormAEPrecioVentaReal(datosEconomicos.getVentaReal());
@@ -131,6 +138,7 @@ public class PreAsignacionRestController {
 			}else {
 				datosEconomicos.setListFechaConfirmacion(null);
 			}
+			
 			
 			preAsignacionAENew = preAsignacionAEService.savePreAsignacionAE(preAsignacionAENew);
 			

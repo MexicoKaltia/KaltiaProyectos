@@ -283,7 +283,6 @@
 										 var asignacionCliente = [[${model.jsonResponseObject.clientes.clientes}]];
 										 var entregables = [[${model.jsonResponseObject.entregables.entregables}]];
 										 var participantes = [[${model.jsonResponseObject.entregables.participantes}]];
-										 var prtsImportar = [[${model.jsonResponseObject.entregables.prtsImportar}]];
 										 
 										 var idUsuario =  [[${model.jsonResponse.user.id}]];
 										 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
@@ -1012,7 +1011,13 @@
                                        			
                                        			<button type="button" class="btn btn-info" id="btnAgregarParticipante" data-dismiss="modal" disabled>Agregar Participante</button>
                                        			<button type="button" class="btn btn-primary" id="btnEditarParticipante" data-dismiss="modal" disabled>Editar Participante</button>
-                                       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                       			<div class="row justify-content-end">
+                                       				<div class="col-4">
+	                                       				<button type="button" class="btn btn-warning " id="btnEliminarParticipante" data-dismiss="modal" >Eliminar Participante</button>
+	                                       				<button type="button" class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
+                                       				</div>
+                                       			</div>
+                                       			
 											</form>
                                            </div>
                                        </div>
@@ -1116,28 +1121,28 @@
                                    <div class="modal-body">
                                        <div class="card" style="width: rem;">
                                            <div class="card-body">
-                                               <h5 class="card-title" id="tituloParticipantesImportar">Actualmente el Evento Id Asignacion: <span style="text:bold; color:blue;" id="idAsignacionParticipantesImportar"></span>, existen los siguientes participantes :</h5>
+                                               <h5 class="card-title" id="tituloParticipantesImportar">Evento Id Asignacion: <span style="text:bold; color:blue;" id="idAsignacionParticipantesImportar"></span>, carga participantes excel:</h5>
                                                <!-- ------------------- -->
                                                  <!-- Modal body -->
-                                               <div class="form-row">
-					                           		<div class="col-md-12 mb-3">
-					                                    <ul>
-					                                    	<li  style=" list-style-type:none ">
-								                                <div class="input-group mb-1">
-																  <div class="input-group-prepend">
-																    <div class="input-group-text">
-																      <input type="checkbox" id="todosParticipantesImportar" checked>
-																    </div>
-																  </div>
-																  <span  style="padding-left: 10px;">Todos</span>
-																</div>
-								                            </li>
-								                            <hr>
-								                            <span id="participantesImportar"></span>
-														 </ul>
-													</div>
-												</div>
-												<hr><hr>
+<!--                                                <div class="form-row"> -->
+<!-- 					                           		<div class="col-md-12 mb-3"> -->
+<!-- 					                                    <ul> -->
+<!-- 					                                    	<li  style=" list-style-type:none "> -->
+<!-- 								                                <div class="input-group mb-1"> -->
+<!-- 																  <div class="input-group-prepend"> -->
+<!-- 																    <div class="input-group-text"> -->
+<!-- 																      <input type="checkbox" id="todosParticipantesImportar" checked> -->
+<!-- 																    </div> -->
+<!-- 																  </div> -->
+<!-- 																  <span  style="padding-left: 10px;">Todos</span> -->
+<!-- 																</div> -->
+<!-- 								                            </li> -->
+<!-- 								                            <hr> -->
+<!-- 								                            <span id="participantesImportar"></span> -->
+<!-- 														 </ul> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 												<hr><hr> -->
 												<form role="form" id="formImportarParticipantes">
 													<div class="form-row">
 														<div class="col-md-6 mb-3">
