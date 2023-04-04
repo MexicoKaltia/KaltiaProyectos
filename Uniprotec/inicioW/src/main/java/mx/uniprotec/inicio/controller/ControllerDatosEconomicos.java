@@ -185,6 +185,33 @@ public class ControllerDatosEconomicos {
 			}
 		}
 	}
+	
+	/*
+	 * Calendario Cobranza
+	 */
+	@GetMapping("/CCobranza")
+	public ModelAndView CCobranza(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("CCobranza model Activo");
+			model.addAttribute("vendedorForm", new VendedorModelo());
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = datosEconomicosService.consultaVendedoresAnalisis(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			ModelAndView mav = new ModelAndView("CCobranza", model);
+			if(resultVO.getCodigo() != 500) {	
+//				log.info(model.values().toString());
+				
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+			}else {
+				mav.addObject("consulta", true);
+			}
+			return mav;
+		}
 
 
 
