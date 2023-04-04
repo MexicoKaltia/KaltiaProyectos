@@ -80,7 +80,7 @@
 				<textFieldExpression><![CDATA[$P{dc3ParticipantePuesto}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="331" y="138" width="207" height="25" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
+				<reportElement x="330" y="138" width="207" height="12" uuid="0380fac1-6289-404f-bfd1-93d6f9a59356"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{dc3ParticipanteOcupacion}.toUpperCase()]]></textFieldExpression>
 			</textField>

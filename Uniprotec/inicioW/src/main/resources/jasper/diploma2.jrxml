@@ -61,8 +61,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diplomaNombreParticipante}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
-				<reportElement x="83" y="303" width="460" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="83" y="289" width="460" height="22" forecolor="#2859A8" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
 				<textElement>
 					<font fontName="Montserrat Medium" size="12" isBold="false" isItalic="false"/>
 				</textElement>
