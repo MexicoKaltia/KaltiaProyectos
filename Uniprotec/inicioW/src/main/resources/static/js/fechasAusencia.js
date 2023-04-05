@@ -3,8 +3,9 @@
  */
 var elementoPicker = $datepicker.pickadate('picker');
 var elementoPicker2 = $datepicker2.pickadate('picker');
-var fechas="<div class='alert alert-warning alert-dismissible' id='listFechasAct' role='alert'>Nuevas Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
+var fechas="<div class='alert alert-secondary alert-dismissible' id='listFechasAct' role='alert'>Nuevas Fechas de Ausencia:<ul id='listaFechas'></ul></div>";
 var arrayFechas = new Array();
+$('#fechasNuevas').empty();
 
 function fechasAusencia() {
 	
@@ -25,6 +26,11 @@ function fechasAusencia() {
 	}
 }
 
+//$('#btnFechasAusencia').clic(function(){
+//	
+//});
+
+
 function isEmpty(str) {
     return (str || 0 !== str.length);
 }
@@ -38,7 +44,7 @@ function sumaFechas() {
 	var sem, dia, mes , anio, ausencia;
 	var arrayFechas2 = new Array();
 
-	$(fechas).insertAfter($('#fechas'));
+	$(fechas).insertAfter($('#fechasNuevas'));
 	
 	if(inicioAusenciaMasUno.toString() === finAusenciaDate.toString()){
 		ausencia = transformaDia(inicioAusenciaMasUno);
@@ -66,6 +72,10 @@ function sumaFechas() {
 
 		$.listFechas = arrayFechas;
 	$('#listFechas').val($.listFechas);
+	
+	$('#btnFechasAusencia').attr("disabled", true);
+	$('#inicioAusencia').val("");
+	$('#finAusencia').val("");
 }
 
 
