@@ -25,6 +25,7 @@ public class InstructorModelo implements Serializable {
 	private LocalDateTime createAtInstructor;
 	private String statusInstructor;
 	private List<String> listFechas;
+	private Long idOperacion;
 
 	public InstructorModelo() {}
 
@@ -41,9 +42,10 @@ public class InstructorModelo implements Serializable {
 		return "InstructorModelo [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
 				+ ", emailInstructor=" + emailInstructor + ", emailGmailInstructor=" + emailGmailInstructor
 				+ ", regionInstructor=" + regionInstructor + ", listCursoInstructor=" + listCursoInstructor
-				+ ", notaInstructor=" + notaInstructor + ", usuarioInstructor=" + usuarioInstructor
-				+ ", userCreateInstructor=" + userCreateInstructor + ", createAtInstructor=" + createAtInstructor
-				+ ", statusInstructor=" + statusInstructor + ", listFechas=" + listFechas + "]";
+				+ ", notaInstructor=" + notaInstructor + ", firmaInstructorH=" + firmaInstructorH
+				+ ", usuarioInstructor=" + usuarioInstructor + ", userCreateInstructor=" + userCreateInstructor
+				+ ", createAtInstructor=" + createAtInstructor + ", statusInstructor=" + statusInstructor
+				+ ", listFechas=" + listFechas + ", idOperacion=" + idOperacion + "]";
 	}
 
 
@@ -202,6 +204,18 @@ public class InstructorModelo implements Serializable {
 
 	public void setFirmaInstructorH(String firmaInstructorH) {
 		this.firmaInstructorH = firmaInstructorH;
+	}
+
+
+
+	public Long getIdOperacion() {
+		return idOperacion;
+	}
+
+
+
+	public void setIdOperacion(Long idOperacion) {
+		this.idOperacion = idOperacion;
 	}
 
 

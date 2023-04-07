@@ -314,6 +314,36 @@ log.info(usuario.toString());
 		log.info("usuario delete fin:"+id);
 		return UtilController.responseGeneric(usuario, "usuario", status);
 	}
+	
+	 /*
+	  * 
+	  */
+	@GetMapping("/operadores")
+	public ResponseEntity<?> getOperadores() {
+		log.info("operadores inicio");
+		List<Usuario> usuarios = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			usuarios = usuarioService.findAllOperadores();
+			 response.put("operadores", usuarios);
+			 response.put("mensaje", "Exito en la busqueda de usuarios operadores");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("usuarios operadores fin"); 
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("catch usuarios operadoress fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	
+	/*
+	 * PRIVATES
+	 */
 
 
 	private List<Role> rolUsuario(String perfilUsuario) {

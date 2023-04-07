@@ -87,6 +87,7 @@ public class InstructorService implements IInstructorService {
 
 	@Override
 	public ResultVO edicionInstructor(InstructorModelo instructor, String token) {
+		log.info(instructor.toString());
 		me = ComponenteComun.monitorCampos();
 		instructor.setCreateAtInstructor(me.getNowEntidad());
 		instructor.setUserCreateInstructor(me.getIdUsuarioEntidad());

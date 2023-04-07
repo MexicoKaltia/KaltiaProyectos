@@ -77,6 +77,9 @@ public class Instructor implements Serializable {
 	private String listFechas;
 	@Column
 	private String firmaInstructor;
+	@Column
+	private Long idOperacion;
+	
 	
 
 	public Instructor() {		}
@@ -238,22 +241,6 @@ public class Instructor implements Serializable {
 	}
 
 
-
-
-
-
-
-	@Override
-	public String toString() {
-		return "Instructor [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
-				+ ", emailInstructor=" + emailInstructor + ", emailGmailInstructor=" + emailGmailInstructor
-				+ ", cursosInstructor=" + cursosInstructor + ", curso=" + curso + ", regionInstructor="
-				+ regionInstructor + ", notaInstructor=" + notaInstructor + ", userCreateInstructor="
-				+ userCreateInstructor + ", createAtInstructor=" + createAtInstructor + ", statusInstructor="
-				+ statusInstructor + "]";
-	}
-
-
 	public String getFirmaInstructor() {
 		return firmaInstructor;
 	}
@@ -261,6 +248,28 @@ public class Instructor implements Serializable {
 
 	public void setFirmaInstructor(String firmaInstructor) {
 		this.firmaInstructor = firmaInstructor;
+	}
+
+
+	public Long getIdOperacion() {
+		return idOperacion;
+	}
+
+
+	public void setIdOperacion(Long idOperacion) {
+		this.idOperacion = idOperacion;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Instructor [idInstructor=" + idInstructor + ", nombreInstructor=" + nombreInstructor
+				+ ", emailInstructor=" + emailInstructor + ", emailGmailInstructor=" + emailGmailInstructor
+				+ ", cursosInstructor=" + cursosInstructor + ", curso=" + curso + ", regionInstructor="
+				+ regionInstructor + ", usuarioInstructor=" + usuarioInstructor + ", notaInstructor=" + notaInstructor
+				+ ", userCreateInstructor=" + userCreateInstructor + ", createAtInstructor=" + createAtInstructor
+				+ ", statusInstructor=" + statusInstructor + ", listFechas=" + listFechas + ", firmaInstructor="
+				+ firmaInstructor + ", idOperacion=" + idOperacion + "]";
 	}
 
 

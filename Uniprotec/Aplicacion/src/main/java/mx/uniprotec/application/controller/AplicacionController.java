@@ -212,7 +212,7 @@ public class AplicacionController {
 		List<Notificacion> notificaciones = new ArrayList<Notificacion>();
 		try {
 //			log.info(nombrePerfil);
-			notificaciones = aplicacionService.getNotificaciones(idUsuario, "Instructor");
+			notificaciones = aplicacionService.getNotificaciones(idUsuario, "Operacion");
 			if(notificaciones == null) {
 				log.info("notificaciones null");
 				response.put("mensaje", "Usuario no tiene notificaciones");

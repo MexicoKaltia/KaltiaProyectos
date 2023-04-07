@@ -296,5 +296,19 @@ public class AplicacionService implements IAplicacionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ResultVO consultaOperacion(String accesToken) {
+		ResultVO rsOperacion = (ResultVO) baseClientRest.objetoGetAll(accesToken, BaseClientRest.URL_CRUD_OPERADORES);
+		if(rsOperacion.getCodigo() == 202) {
+			JSONObject jsonGeneral = rsOperacion.getJsonResponse();
+			JSONObject jsonOperacion = new JSONObject();
+			jsonOperacion.put("operadores", jsonGeneral.get("operadores"));
+			
+			rsOperacion.setJsonResponseObject(jsonOperacion);
+	
+		}
+		return rsOperacion;
+	}
 	
 }

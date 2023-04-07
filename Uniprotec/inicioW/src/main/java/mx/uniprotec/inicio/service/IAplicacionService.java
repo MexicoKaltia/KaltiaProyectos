@@ -25,5 +25,6 @@ public interface IAplicacionService {
 	public void enviaMailSustitucion(AsignacionModelo asignacion, String token, Long idInstructorAnterior);
 	public ResultVO consultaMovilidad(String accesToken);
 	public ResultVO updateMovilidad(String accesToken, ZonaBaseModelo zonaBase);
+	public ResultVO consultaOperacion(String accesToken);
 
 }

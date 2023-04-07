@@ -17,6 +17,8 @@ public interface IUsuarioService {
 	public Usuario findById(Long id);
 	public Usuario save(Usuario usuario);
 	public void delete(Long id);
+
+	public List<Usuario> findAllOperadores();
 	
 	//public List<Region> findAllRegiones();
 

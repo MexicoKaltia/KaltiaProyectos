@@ -68,7 +68,7 @@ public class LoginService implements ILoginService{
 					jsonObject.putAll(jsonUsuario);
 					resultVO.setJsonResponse(jsonObject);
 					
-					if(jsonUsuario.get("perfil").toString().equals("Instructor")) {
+					if(jsonUsuario.get("perfil").toString().equals("Operacion")) {
 						ResultVO resultNotificaciones = baseClientRest.objetoGetNotificaciones(
 								resultVO.getAccesToken(),
 								BaseClientRest.URL_CRUD_NOTIFICACIONES,

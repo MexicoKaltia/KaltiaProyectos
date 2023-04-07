@@ -458,6 +458,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		return mav;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/BInstructor")
 	public ModelAndView BInstructor(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
 			@RequestParam(name="error", required=false) boolean error,
@@ -479,9 +480,15 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 			jsonResponse.put("regiones", rs2.getJsonResponseObject());
 				
 			ResultVO rs3 = cursoService.consultaCursos(resultVO.getAccesToken());
-			if(rs2.getCodigo() != 500) {
+			if(rs3.getCodigo() != 500) {
 				resultVO.setJsonResponseObject(rs3.getJsonResponseObject());
 				jsonResponse.put("cursos", rs3.getJsonResponseObject());
+				
+				ResultVO rs4 = aplicacionService.consultaOperacion(resultVO.getAccesToken());
+				if(rs4.getCodigo() != 500) {
+					resultVO.setJsonResponseObject(rs4.getJsonResponseObject());
+					jsonResponse.put("operadores", rs4.getJsonResponseObject());
+				}
 				resultVO.setJsonResponseObject(jsonResponse);
 				mav.addObject("error", error);
 				mav.addObject("ejecucion", ejecucion);

@@ -188,7 +188,20 @@
                 </div>  
             </div> 
 <!--     LEFT FIN -->
-<div class="app-main__outer">
+		<div class="app-main__outer">
+			<div  style=" float: right;" >
+				<ul>
+                  <li th:each= "notificacion : ${model.jsonResponse.notificaciones}" style = "list-style-type: none;">
+		               <div class="alert alert-info alert-dismissible" role="alert" id="idNotificacion">
+  					    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		                   	<h6><i class="metismenu-icon pe-7s-rocket"></i>
+		                   	<a th:href="${notificacion.referenciaNotificacion}">
+							     <span th:text="${notificacion.mensaje}"></span>
+							</a></h6>
+						</div>
+		          </li>
+                </ul>
+              </div>
                 <div class="app-main__inner">
                     <div class="app-page-title">
                         <div class="page-title-wrapper">

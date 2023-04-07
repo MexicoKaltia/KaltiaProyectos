@@ -308,6 +308,7 @@
     <script th:inline="javascript">
 		 var $data = [[${model.jsonResponseObject.instructores}]];
 		 var $cursosTotal = [[${model.jsonResponseObject.cursos.cursos}]];
+		 var $operadores = [[${model.jsonResponseObject.operadores.operadores}]];
 	</script>
 	
     <script th:src="@{js/picker.js}"></script>   
@@ -397,6 +398,17 @@
                                            </div>
                                        </div>                                     
                                    </div>
+                                   <div class="form-row">
+                                         <label for="validationCustom02">Operación Capturista</label>
+                           				     <select id="idOperacion"name="idOperacion" class="form-control" required>
+													<option th:each="operacion: ${model.jsonResponseObject.operadores.operadores}"
+											             th:value="${operacion.idUsuario}"
+											             th:text="${operacion.nombreUsuario}"/>
+	              							</select>
+                                            <div class="invalid-feedback">
+                                                Capturar Operador
+                                            </div>
+                                      </div>
                                    <br>
 							       <hr>
                                    <div class="form-row">

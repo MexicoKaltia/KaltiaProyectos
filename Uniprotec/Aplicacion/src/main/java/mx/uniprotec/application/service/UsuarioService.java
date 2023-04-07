@@ -95,6 +95,12 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 		usuarioDao.deleteById(id);
 	}
 
+	@Override
+	public List<Usuario> findAllOperadores() {
+		List<Usuario> operadores = usuarioDao.findByPerfilUsuario("Operacion");
+		return operadores;
+	}
+
 	
 	
 }

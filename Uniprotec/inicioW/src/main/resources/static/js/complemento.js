@@ -86,10 +86,8 @@ $(document).ready(function(){
 	window.operateEventsUpdateCurso = {
 		    'click .like': function (e, value, row, index) {
 		    	
-//		      alert('You click like action, row: ' + JSON.stringify(row));//+row.instructores.idInstructor+'  selected:'+row.instructores.nombreInstructor);
 		      $('#idCurso').val(row.idCurso);
 		      $('#nombreCurso').val(row.nombreCurso);
-//		      $('#listInstructores').multiSelect();
 		      $('#listInstructores').multiSelect({
 				  selectableHeader: "<div class='custom-header'>Instructores</div>",
 				  selectionHeader: "<div class='custom-header'>Instructores Participantes</div>"
@@ -124,9 +122,10 @@ $(document).ready(function(){
 		    'click .like': function (e, value, row, index) {
 //		      alert('You click like action, row: ' +JSON.stringify(row));
 //		    	//console.log(row);
+		      $('.tmp').remove();
 		      $('#idInstructor').val(row.idInstructor);
 		      $('#nombreInstructor').val(row.nombreInstructor);
-		      $('#regionInstructor').append('<option value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
+		      $('#regionInstructor').append('<option class="tmp" value="'+row.regionInstructor.idRegion+'" selected >'+row.regionInstructor.nombreRegion+'</option>');
 		      $('#emailInstructor').val(row.emailInstructor);
 		      $('#emailGmailInstructor').val(row.emailGmailInstructor);
 		      $('#listCursoInstructor').multiSelect({
@@ -156,8 +155,16 @@ $(document).ready(function(){
 
 		      });
 			  $('#listCursoInstructor').multiSelect('select', $cursosAsignados);
-			  
+			  var nombreOperador ="";
+			  for(var a in $operadores){
+				  var operador = $operadores[a];
+				  if(operador.idUsuario === row.idOperacion){
+					  nombreOperador = operador.nombreUsuario;   
+				  } 
+			  }
+		      $('#idOperacion').append('<option class="tmp" value="'+row.idOperacion+'" selected >'+nombreOperador+'</option>');
 			  $('#fechas').empty();
+			  $('#fechasNuevas').empty();
 			  $('#listaFechas').empty();
 			  $('#listFechasAct').remove();
 				if(row.listFechas ){

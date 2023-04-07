@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.json.simple.JSONArray;
+import org.eclipse.jdt.internal.compiler.ast.TryStatement;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -212,35 +213,42 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	public List<Notificacion> getNotificaciones(Long idUsuario, String perfilUsuario) {
 		
 		List<Notificacion> notificaciones = new ArrayList<Notificacion>(); 
-
-		switch (perfilUsuario) {
-		case "Vendedor":
-			//do Vendedor
-			break;
-		case "Instructor":
-			Instructor instructor = instructorDao.findByUsuarioInstructorIdUsuario(idUsuario);
-			if(instructor != null) {
-				log.info(instructor.toString());
-				notificaciones = getNotificaciones(instructor.getIdInstructor());
-				
-				if(notificaciones.isEmpty()) {
-					log.info("notificaciones isEmpty");
+		try {
+			switch (perfilUsuario) {
+			case "Vendedor":
+				//do Vendedor
+				break;
+			case "Operacion":
+				List<Instructor> instructores = instructorDao.findByIdOperacion(idUsuario);
+				for(Instructor instructor : instructores) {
+					notificaciones.addAll(getNotificaciones(instructor.getIdInstructor()));
 				}
 				break;
+			case "Administrador":
+				//do Vendedor
+				break;
+			case "Instructor":
+				Instructor instructor = instructorDao.findByUsuarioInstructorIdUsuario(idUsuario);
+				if(instructor != null) {
+					log.info(instructor.toString());
+					notificaciones = getNotificaciones(instructor.getIdInstructor());
+					
+					if(notificaciones.isEmpty()) {
+						log.info("notificaciones isEmpty");
+					}
+				}	
+				break;
+			case "Direccion":
+				//do Vendedor
+				break;
+			
+			default:
+				break;
 			}
-		case "Administrador":
-			//do Vendedor
-			break;
-		case "Operacion":
-			//do Vendedor
-			break;
-		case "Direccion":
-			//do Vendedor
-			break;
-		
-		default:
-			break;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 		return notificaciones;
 	}
 

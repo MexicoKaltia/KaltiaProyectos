@@ -17,4 +17,6 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long>{
 	@Query("select u from Usuario u where u.perfilUsuario in('Operacion', 'Administracion','Direccion')")
 	public List<Usuario> getUsuariosCorreo();
 
+	public List<Usuario> findByPerfilUsuario(String string);
+
 }
