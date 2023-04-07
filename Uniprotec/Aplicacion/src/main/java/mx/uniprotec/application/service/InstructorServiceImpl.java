@@ -62,6 +62,11 @@ public class InstructorServiceImpl implements IInstructorService {
 		instructorDao.deleteById(id);
 	}
 
+	@Override
+	public Instructor findByUsuarioInstructorIdUsuario(Long idUsuario) {
+		return instructorDao.findByUsuarioInstructorIdUsuario(idUsuario);
+	}
+
 //	@Override
 //	@Transactional(readOnly = true)
 //	public List<Region> findAllRegiones() {

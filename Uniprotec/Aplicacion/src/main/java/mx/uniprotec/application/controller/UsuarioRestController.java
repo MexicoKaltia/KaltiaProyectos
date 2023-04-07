@@ -39,12 +39,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.uniprotec.application.entity.Usuario;
+import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ResponseGeneral;
 import mx.uniprotec.application.entity.Role;
 import mx.uniprotec.application.service.IUsuarioService;
+import mx.uniprotec.application.service.IVendedorService;
+import mx.uniprotec.application.service.InstructorServiceImpl;
+import mx.uniprotec.application.service.IInstructorService;
 import mx.uniprotec.application.service.IUploadFileService;
 import mx.uniprotec.application.util.UtilController;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
@@ -59,6 +63,10 @@ public class UsuarioRestController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
+	@Autowired
+	private IInstructorService instructorService;
+	@Autowired
+	private IVendedorService vendedorService;
 	
 	@Autowired
 	private IUploadFileService uploadService;
@@ -207,7 +215,7 @@ public class UsuarioRestController {
 		Usuario usuarioActual = usuarioService.findById(id);
 		Usuario usuarioUpdated = null;
 		Map<String, Object> response = new HashMap<>();
-log.info(usuario.toString());
+		log.info(usuario.toString());
 		if(result.hasErrors()) {
 			List<String> errors = result.getFieldErrors()
 					.stream()
@@ -249,7 +257,6 @@ log.info(usuario.toString());
 		try {
 			
 			usuarioActual.setUsernameUsuario(usuario.getUsernameUsuario());
-		
 			usuarioActual.setPerfilUsuario(usuario.getPerfilUsuario());
 			usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
 			usuarioActual.setEmailUsuario(usuario.getEmailUsuario());
@@ -257,9 +264,36 @@ log.info(usuario.toString());
 			usuarioActual.setRoles(rolUsuario(usuario.getPerfilUsuario()));
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
-			usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
+			
+			if(usuario.getStatusUsuario().equals("Baja")) {
+				usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
+				usuarioActual.setPasswordUsuario("Axxxxx");
+				usuarioActual.setUsernameUsuario("Bxxxxx");
+				usuarioActual.setPerfilUsuario("x".concat(usuario.getPerfilUsuario()));
+				
+				String perfil = usuario.getPerfilUsuario();
+				log.info(perfil);
+				switch (perfil) {
+				case "Instructor" :
+					Instructor instructor = instructorService.findByUsuarioInstructorIdUsuario(usuarioActual.getIdUsuario());
+					log.info(instructor.getIdInstructor().toString());
+					instructor.setCursosInstructor("");
+					instructor.setStatusInstructor(usuario.getStatusUsuario());
+					instructorService.save(instructor);
+					break;
+				case "Vendedor" :
+					Vendedor vendedor= vendedorService.findByUsuarioVendedorIdUsuario(usuarioActual.getIdUsuario());
+					log.info(vendedor.getIdVendedor().toString());
+					vendedorService.delete(vendedor.getIdVendedor());
+					break;
+				}
+				
+			}
 
 			usuarioUpdated = usuarioService.save(usuarioActual);
+			
+			
+			
 			response.put("usuario", usuarioUpdated);
 			 response.put("mensaje", "Usuario actualizado con exito");
 			 response.put("status", HttpStatus.CREATED);

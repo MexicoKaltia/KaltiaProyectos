@@ -18,6 +18,8 @@ public interface IVendedorService {
 	public Vendedor save(Vendedor Vendedor);
 	
 	public void delete(Long id);
+
+	public Vendedor findByUsuarioVendedorIdUsuario(Long idUsuario);
 	
 	//public List<Region> findAllRegiones();
 

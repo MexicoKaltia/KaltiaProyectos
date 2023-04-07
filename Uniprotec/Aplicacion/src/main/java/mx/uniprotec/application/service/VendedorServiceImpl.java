@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.IVendedorDao;
 import mx.uniprotec.application.entity.Vendedor;
+import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
 
 @Service
@@ -46,6 +47,12 @@ public class VendedorServiceImpl implements IVendedorService {
 	@Transactional
 	public void delete(Long id) {
 		vendedorDao.deleteById(id);
+	}
+
+	@Override
+	public Vendedor findByUsuarioVendedorIdUsuario(Long idUsuario) {
+		
+		return vendedorDao.findByUsuarioVendedorIdUsuario(idUsuario);
 	}
 
 //	@Override

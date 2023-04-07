@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import mx.uniprotec.application.entity.Instructor;
 import mx.uniprotec.application.entity.Region;
+import mx.uniprotec.application.entity.Vendedor;
 
 public interface IInstructorService {
 
@@ -19,6 +20,9 @@ public interface IInstructorService {
 	public Instructor save(Instructor Instructor);
 	
 	public void delete(Long id);
+
+	public Instructor findByUsuarioInstructorIdUsuario(Long idUsuario);
+
 	
 	//public List<Region> findAllRegiones();
 

@@ -224,6 +224,7 @@ $(document).ready(function(){
 		      $('#nombreUsuario').val(row.nombreUsuario);
 		      $('#emailUsuario').val(row.emailUsuario);
 		      $('#notaUsuario').val(row.notaUsuario);
+		      $('#statusUsuariobtn').html(row.statusUsuario);
 		    }
 		   }
 
@@ -297,13 +298,13 @@ $(document).ready(function(){
 }); // Fin documento
 
 
-function checkStatusInstructor(){
-	$('#statusInstructorbtn').html("Instructor Baja");
-	$('#statusInstructorbtn').removeClass("btn-info");
-	$('#statusInstructorbtn').addClass("btn-danger");
-	var r = confirm("Seguro de dar de baja al Instructor, esta operacion no se puede reversar, tendría que dar de Alta Instructor nuevo.")
+function checkStatusUsuario(){
+	$('#statusUsuariobtn').html("Usuario Baja");
+	$('#statusUsuariobtn').removeClass("btn-info");
+	$('#statusUsuariobtn').addClass("btn-danger");
+	var r = confirm("Seguro de dar de baja al Usuario, esta operacion no se puede reversar, tendría que dar de Alta Usuario nuevo.")
 	if(r){
-		$('#statusInstructor').val("Baja");
+		$('#statusUsuario').val("Baja");
 	}
 	
 }

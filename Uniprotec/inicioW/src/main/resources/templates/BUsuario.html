@@ -335,6 +335,7 @@
           <input type="hidden" id="idUsuario" th:field="*{idUsuario}" th:value="*{idUsuario}"/>
           <input type="hidden" id="usernameUsuario" th:field="*{usernameUsuario}" th:value="*{usernameUsuario}"/>
           <input type="hidden" id="passwordUsuario" th:field="*{passwordUsuario}" th:value="*{passwordUsuario}"/>
+          <input type="hidden" id="statusUsuario" th:field="*{statusUsuario}" th:value="*{statusUsuario}"/>
 <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom01">Nombre Usuario</label>
@@ -378,7 +379,15 @@
 								            </div>
 							         </div>
                                         
-                                <br>
+                                  <div class="col-md-8 mb-3">
+									<h5><b>Status Usuario:</b></h5>
+								    <div role="group" class="btn-group btn-group-toggle" data-toggle="buttons">
+		                            	<button type="button" id="statusUsuariobtn" class="btn btn-info" onclick="checkStatusUsuario()"></button>
+	                                </div>
+	                                <br>
+		                            <small class="form-text text-muted">Dar click en el boton sí desea dar de Baja Usuario.</small>
+	                               </div>
+	                               <br>
                                   <button class="btn btn-primary" type="submit">Edicion Usuario</button>
                                 </form>
                                 <script>
