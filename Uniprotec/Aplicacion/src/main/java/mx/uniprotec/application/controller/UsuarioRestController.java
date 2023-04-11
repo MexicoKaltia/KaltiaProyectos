@@ -265,30 +265,32 @@ public class UsuarioRestController {
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
 			usuarioActual.setCreateAtUsuario(usuario.getCreateAtUsuario());
 			
-			if(usuario.getStatusUsuario().equals("Baja")) {
-				usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
-				usuarioActual.setPasswordUsuario("Axxxxx");
-				usuarioActual.setUsernameUsuario("Bxxxxx");
-				usuarioActual.setPerfilUsuario("x".concat(usuario.getPerfilUsuario()));
-				
-				String perfil = usuario.getPerfilUsuario();
-				log.info(perfil);
-				switch (perfil) {
-				case "Instructor" :
-					Instructor instructor = instructorService.findByUsuarioInstructorIdUsuario(usuarioActual.getIdUsuario());
-					log.info(instructor.getIdInstructor().toString());
-					instructor.setCursosInstructor("");
-					instructor.setStatusInstructor(usuario.getStatusUsuario());
-					instructorService.save(instructor);
-					break;
-				case "Vendedor" :
-					Vendedor vendedor= vendedorService.findByUsuarioVendedorIdUsuario(usuarioActual.getIdUsuario());
-					log.info(vendedor.getIdVendedor().toString());
-					vendedorService.delete(vendedor.getIdVendedor());
-					break;
+			if(usuario.getStatusUsuario()!= null) {
+				if(usuario.getStatusUsuario().equals("Baja")) {
+					usuarioActual.setStatusUsuario(usuario.getStatusUsuario());
+					usuarioActual.setPasswordUsuario("Axxxxx");
+					usuarioActual.setUsernameUsuario("Bxxxxx");
+					usuarioActual.setPerfilUsuario("x".concat(usuario.getPerfilUsuario()));
+					
+					String perfil = usuario.getPerfilUsuario();
+					log.info(perfil);
+					switch (perfil) {
+					case "Instructor" :
+						Instructor instructor = instructorService.findByUsuarioInstructorIdUsuario(usuarioActual.getIdUsuario());
+						log.info(instructor.getIdInstructor().toString());
+						instructor.setCursosInstructor("");
+						instructor.setStatusInstructor(usuario.getStatusUsuario());
+						instructorService.save(instructor);
+						break;
+					case "Vendedor" :
+						Vendedor vendedor= vendedorService.findByUsuarioVendedorIdUsuario(usuarioActual.getIdUsuario());
+						log.info(vendedor.getIdVendedor().toString());
+						vendedorService.delete(vendedor.getIdVendedor());
+						break;
+					}
 				}
-				
 			}
+			
 
 			usuarioUpdated = usuarioService.save(usuarioActual);
 			

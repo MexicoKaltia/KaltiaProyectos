@@ -67,9 +67,12 @@ public class UsuarioService implements IUsuarioService {
 		
 		usuario.setCreateAtUsuario(me.getNowEntidad());
 		usuario.setUserCreateUsuario(me.getIdUsuarioEntidad());
-		if(!usuario.getStatusUsuario().equals("Baja")) {
-			usuario.setStatusUsuario("Actualizado");
+		if(usuario.getStatusUsuario()!= null) {
+			if(!usuario.getStatusUsuario().equals("Baja")) {
+				usuario.setStatusUsuario("Actualizado");
+			}
 		}
+		
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,
