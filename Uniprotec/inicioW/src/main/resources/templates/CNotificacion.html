@@ -8,29 +8,54 @@
     <title>UNIPROTEC v 3.2.0</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-	 <link rel="icon" type="image/png" href="../../../images/logo.png"/>
+        <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
 
-    <link href="../../../main.css" rel="stylesheet">
-<!--     <link href="../../../css/fc/core/main.css" rel='stylesheet' /> -->
-<!-- 	<link href="../../../css/fc/daygrid/main.css" rel='stylesheet' /> -->
-<!-- 	<link href="../../../css/fc/timegrid/main.css" rel='stylesheet' /> -->
-<!-- 	<link href="../../../css/fc/list/main.css" rel='stylesheet' /> -->
-	<link href="../../../css/cards.css" rel='stylesheet' />
+    <link th:href="@{main.css}" rel="stylesheet">
+    <link th:href="@{css/cards.css}" rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+	   
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+	 <style>
+	 
+	 td {
+	 align="center"
+	 }
+			
+		.zona {
+		  border: none;
+		  color: white;
+		  padding: 10px 22px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 12px;
+		  margin: 1px 2px;
+		  cursor: pointer;
+		}
+		
+		.zona1 {background:yellow; color:blue}
+		.zona2 {background:blue; color:white}
+		.zona3 {background:fuchsia; color:white}
+		.zona4 {background:lime; color:blue}
+		.zona5 {background:gray; color:blue}
+		.zona6 {background:coral; color:blue}
+		.zona7 {background:chocolate; color:white}
+		.zona8 {background:purple; color:white}
+		.zona9 {background:cyan; color:blue}
+
+	</style>
     
 
 
 </head>
 
-<body background="../../../images/fondo6.png">
+<body background="images/fondo3.png">
     
     <div class="app-container  body-tabs-shadow fixed-sidebar fixed-header">
 <!--      HEAD INICIO    -->
     <div class="app-header header-shadow bg-royal header-text-light" >
             <div class="app-header__logo bg-heavy-rain header-text-dark" style="position:center'; margin :0px">
-                <div class="logo-src2" ><img width="90%"  src="../../../images/logo.png}"alt=""></div>
+                <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -82,7 +107,7 @@
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="../../../assets/images/avatars/1.jpg"
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
                                                 alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
@@ -199,7 +224,7 @@
             </div> 
 <!--     LEFT FIN -->
 
-             <div class="app-main__outer">
+<div class="app-main__outer">
                 <div class="app-main__inner">
                     <div class="app-page-title">
                         <div class="page-title-wrapper">

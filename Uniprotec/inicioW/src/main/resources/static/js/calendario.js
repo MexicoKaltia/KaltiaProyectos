@@ -409,12 +409,14 @@ $(document).ready(function() {
 				break;
 			}
 			if(datoEconomico.formAEidPreAsignacion == null){
-				var arrayAsignaciones = stringToList(datoEconomico.formAEListAsignaciones);
-				for(var e in arrayAsignaciones){
-					var asignacion = arrayAsignaciones[e]; 
-					if(asignacion*1 === idAsignacionClic*1){
-						asignaDatosEconomicos(datoEconomico);
-						break;
+				if(datoEconomico.formAEListAsignaciones != null){
+					var arrayAsignaciones = stringToList(datoEconomico.formAEListAsignaciones);
+					for(var e in arrayAsignaciones){
+						var asignacion = arrayAsignaciones[e]; 
+						if(asignacion*1 === idAsignacionClic*1){
+							asignaDatosEconomicos(datoEconomico);
+							break;
+						}
 					}
 				}
 			}

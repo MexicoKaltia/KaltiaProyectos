@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
-import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.User;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
@@ -38,7 +35,6 @@ import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 import mx.uniprotec.inicio.service.ILoginService;
 import mx.uniprotec.inicio.service.IUsuarioService;
-import mx.uniprotec.inicio.util.BaseClientRest;
 
 @CrossOrigin(origins = { "*" })
 @Controller
@@ -229,9 +225,8 @@ public class ControllerInicio extends HttpServlet{
 		}
 		
 		@GetMapping("/notificacion/{idAsignacion}")
-		public ModelAndView getNotificaciona(@PathVariable String idAsignacion, 
+		public ModelAndView getNotificaciona(@PathVariable("idAsignacion") String idAsignacion, 
 				ModelMap model) {
-			
 			if(model.equals(null)) {
 				log.info("NULL");
 				return new  ModelAndView("login");
@@ -271,28 +266,48 @@ public class ControllerInicio extends HttpServlet{
 				asignacion.setNumeroFactura((String) asignacionJson.get("numeroFactura"));
 				asignacion.setCostoHotel((String) asignacionJson.get("costoHotel"));
 				asignacion.setArchivoParticipantes((String) asignacionJson.get("archivoParticipantes"));
-				model.addAttribute("asignacionItem", asignacion);
-				
+				List<AsignacionModelo> asignaciones = new ArrayList<AsignacionModelo>(); 
+				asignaciones.add(asignacion);
+				resultVO.setAsignaciones(asignaciones);
 				
 				ResultVO rs = clienteService.consultaCliente(resultVO.getAccesToken(), Long.valueOf(asignacionJson.get("idClienteAsignacion").toString()));
-//				log.info(rs.getJsonResponse().toJSONString());
 				resultVO.setJsonResponseObject(rs.getJsonResponse());
 				
-				aplicacionService.actualizaNotificacion(resultVO.getAccesToken(), idAsignacion);
-				
-				
-				ModelAndView mav = new  ModelAndView("CNotificacion",  model);
-//				ModelAndView mav = new  ModelAndView("redirect:/CAsignacionIC/"+asignacion.getIdAsignacion()+"/"+asignacion.getInstructorAsignacion(),  model);
-				
-//				log.info(model.toString());
+				ModelAndView mav = new  ModelAndView("redirect:/BNotificacionO",  model);
 				if(rs0.getCodigo() != 500) {					
 					return mav;
 				}else {
-					mav.addObject("consulta", true);
+//					mav.addObject("consulta", true);
 					return mav;	
 				}
 			}		
 		}
+		
+		@GetMapping("/BNotificacionO")
+		public ModelAndView BNotificaionO(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+				@RequestParam(name="error", required=false) boolean error,
+				ModelMap model) {
+			
+			
+			if(model.equals(null)) {
+				log.info("NULL");
+				return new  ModelAndView("login");
+			}else {
+				log.info("Notificacion Asignacion model Activo Redirect");
+				
+				ResultVO resultVO = (ResultVO)model.get("model");
+				List<AsignacionModelo> asignacion = resultVO.getAsignaciones();
+				
+				aplicacionService.actualizaNotificacion(resultVO.getAccesToken(), asignacion.get(0).getIdAsignacion().toString());
+				model.addAttribute("asignacionItem", asignacion.get(0));
+				
+				ModelAndView mav = new  ModelAndView("CNotificacion", model );
+				model.addAttribute("model", resultVO);
+				
+				return mav;
+			}	
+		}
+
 		
 		@PostMapping("/BMovilidad")
 		public ModelAndView BMovilidad(@ModelAttribute("zonaBase") ZonaBaseModelo zonaBase, ModelMap model) {
