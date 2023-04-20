@@ -51,6 +51,7 @@ $("#btnActualizarDatosEconomicos").click(function(){
 			var asignacion = asignaciones[i];
 			if((asignacion.idAsignacion*1) === (idAsignacion)){
 				idUsuario = asignacion.userCreateAsignacion;
+				$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
 				break;
 			}
 		}

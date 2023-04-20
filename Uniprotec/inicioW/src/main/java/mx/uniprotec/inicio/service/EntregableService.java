@@ -21,7 +21,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+//import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -320,12 +320,14 @@ public class EntregableService implements IEntregableService {
 					String directory = "/uniprotec/entregables/"+idEmpresa+"/"+idEntregable +"/documentacion/";
 				    File directorio = new File(directory);
 				    try {
-						FileUtils.deleteDirectory(directorio);
+//						FileUtils.deleteDirectory(directorio);
+						directorio.delete();
 						rl.setCodigo(0);
 						rl.setMensaje("Borrar PDF's exitosamente");
-						FileUtils.forceMkdir(directorio);
+//						FileUtils.forceMkdir(directorio);
+						directorio.mkdir();
 						entregable.setStatus("Entregable Generado");
-					} catch (IOException e) {
+					} catch (Exception e) {
 						log.info("exception : "+e.getMessage());
 					    rl.setCodigo(99);
 					    rl.setMensaje(e.getMessage());

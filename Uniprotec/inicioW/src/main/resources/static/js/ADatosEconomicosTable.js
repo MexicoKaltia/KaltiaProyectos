@@ -184,9 +184,25 @@ $(document).ready(function(){
 		var flag = false;
 		for(var a in datosEconomicos){
 			var datoEconomico = datosEconomicos[a];
-			if(datosEconomicos.formAEidPreAsignacion*1 === idAsignacion*1){
-				flag = true;
-				break;
+			if(datoEconomico.formAEidPreAsignacion != null){
+				if(datoEconomico.formAEidPreAsignacion*1 === idAsignacion*1){
+					flag = true;
+					break;
+				}
+			}else{
+				if(datoEconomico.formAEListAsignaciones){
+					var arrayAsignaciones = new Array();
+					if(datoEconomico.formAEListAsignaciones.includes(";")){
+						arrayAsignaciones = datoEconomico.formAEListAsignaciones.split(";");
+						for(var e in arrayAsignaciones){
+							var valueAsig = arrayAsignaciones[e]
+							if(valueAsig*1 === idAsignacion*1){
+								flag = true;
+								break;
+							}
+						}
+					}
+				}
 			}
 		}
 		return flag;
