@@ -262,6 +262,7 @@ var alerta, proceso;
    	    $.asignaFechaCalendario = $('#asignaFecha').val();
 		
 		limpiaCurso();
+		$('#asignaInstructor').empty();
 		
    		if($.asignaFechaCalendario === null || $.asignaFechaCalendario === ""){
    			alerta="<div class='alert alert-danger' id='alertaFecha' role='alert'>Seleccione Fecha</div>";
@@ -405,7 +406,7 @@ var alerta, proceso;
 			tipoCursoVal = "PRESENCIAL";
 		}
 		$('#asignaCurso').attr("disabled", false);
-//		validaCurso();
+
 	}
 	
 	
@@ -609,7 +610,7 @@ var alerta, proceso;
 		if(instructor.listFechas){
 			fechasAusente = instructor.listFechas.toString().split(";");
 			for(e in fechasAusente){
-				var fechaAusente = fechaTransforma(fechasAusente[e]); 				
+				var fechaAusente = fechaTransforma(fechasAusente[e]); 
 				if(fechaAusente.toString() === $.asignaFecha2.toString()){
 					fechaDisponible = false;
 					break;

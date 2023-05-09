@@ -416,7 +416,8 @@ $(document).ready(function(){
 //		//console.log("asignaFecha:"+ $.asignaFechaCalendario);
    		$('#alertaFecha').remove();
    		
-   		limpiaCurso()
+   		limpiaCurso();
+   		$('#asignaInstructor').empty();
    		
    		if($.asignaFechaCalendario === null || $.asignaFechaCalendario === ""){
    			alerta="<div class='alert alert-danger' id='alertaFecha' role='alert'>Seleccione Fecha</div>";
