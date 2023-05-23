@@ -193,22 +193,24 @@ public class EntregableRestController {
 			
 			if(entregableNew != null ) {
 				try {
-					Asignacion asignacion = asignacionService.findById(entregable.getIdAsignacion());
-					asignacion.setStatusAsignacion("Elaborar Entregable");
-					if(entregable.getStatus().equals("Entregable Generado")) {
-						asignacion.setStatusAsignacion("Entregable Generado");
-					}
-					
-					asignacion.setCreateAtAsignacion(LocalDateTime.now()); 
-					try {
-						asignacionService.save(asignacion);
-					} catch (Exception e) {
-						response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
-						response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
-						response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-						log.info("entregable catch update status Asignacion fin");
-						e.printStackTrace();
-						return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+					if(entregable.getIdAsignacion() > 0 ){
+						Asignacion asignacion = asignacionService.findById(entregable.getIdAsignacion());
+						asignacion.setStatusAsignacion("Elaborar Entregable");
+						if(entregable.getStatus().equals("Entregable Generado")) {
+							asignacion.setStatusAsignacion("Entregable Generado");
+						}
+						
+						asignacion.setCreateAtAsignacion(LocalDateTime.now()); 
+						try {
+							asignacionService.save(asignacion);
+						} catch (Exception e) {
+							response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+							response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+							response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+							log.info("entregable catch update status Asignacion fin");
+							e.printStackTrace();
+							return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+						}
 					}
 				} catch (Exception e) {
 					response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));

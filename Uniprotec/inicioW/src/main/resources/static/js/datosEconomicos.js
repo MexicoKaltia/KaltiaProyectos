@@ -87,8 +87,9 @@ $("#btnActualizarDatosEconomicos").click(function(){
 		}
 		for(var e in vendedoresDatosEconomicos){
 			var vendedor = vendedoresDatosEconomicos[e];
-			if(vendedor.idAsignacion != null){			
+			if(vendedor.idAsignacion > 0){	
 				if(vendedor.idAsignacion == idAsignacion){
+					console.log("vendedor.idAsignacion != null");
 					$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
 					vendedoresArray.push(vendedor);
 				}
@@ -205,6 +206,7 @@ $("#btnActualizarDatosEconomicos").click(function(){
 	function formatoViaticosTotales(){
 		$('#labelViaticosTotales').text(formatter.format($('#viaticosTotales').val()));
 	}
+	
 	function formatoFechaPromesaPago(){
 		var fechaPromesaPago = $('#fechaPromesaPago').val()
 		$('#labelFechaPromesaPago').text(fechaPromesaPago);
@@ -225,9 +227,8 @@ $("#btnActualizarDatosEconomicos").click(function(){
 			fechasPromesa.push(asignaFecha);
 			$('#listFechaPromesaPago').val(fechasPromesa);
 		}
-		
-		
 	}
+	
 	function formatoFechaConfirmacion(){
 		var fechaConfirmacion = $('#fechaConfirmacion').val()
 		$('#labelFechaConfirmacion').text(fechaConfirmacion);

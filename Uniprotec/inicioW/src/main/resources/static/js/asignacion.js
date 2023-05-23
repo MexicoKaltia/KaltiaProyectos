@@ -506,8 +506,6 @@ var alerta, proceso;
 			var idInstructor;
 			var jsonCliente;
 			
-			if(tipoCurso){
-
 				/*
 				 * Obtener ZonaCliente 
 				 */
@@ -526,6 +524,8 @@ var alerta, proceso;
 					regionCliente = jsonCliente.regionCliente.idRegion;
 					//console.log(jsonCliente);
 				}
+				
+				if(tipoCurso){
 
 				/*
 				 * Consultar D-1 y D+1 Instructores
@@ -587,11 +587,12 @@ var alerta, proceso;
 				
 			}else{
 				//validar dia seleccion
+				console.log(arrayInstructores);
 				for(i in arrayInstructores){
-					 instructor = arrayInstructores[i];
-					 idInstructor = instructor.idInstructor
-					 nombreInstructor = instructor.nombreInstructor
-					if(validaDiaSelect2(idInstructor)){
+					 var instructor = arrayInstructores[i];
+					 var idInstructor = instructor.idInstructor
+					 var nombreInstructor = instructor.nombreInstructor
+					if(validaDiaSelect(idInstructor, jsonCliente)){
 						$('#asignaInstructor').append('<option value="'+idInstructor+'">'+nombreInstructor+'</option>');
 					}
 				}
@@ -706,11 +707,9 @@ var alerta, proceso;
 			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
 				fechaDisponible = false;
 				if(asignacion.idClienteAsignacion === cliente.idCliente){
-					console.log(idInstructor.toString());
+//					console.log(idInstructor.toString());
 					$.asignacionMismoDia = asignacion;
 					fechaDisponible = true;
-				}else{
-					$.asignacionMismoDia ="";
 				}
 				break;
 			}
@@ -718,23 +717,34 @@ var alerta, proceso;
 		return fechaDisponible;
 	}
 	
-	function validaDiaSelect2(idInstructor){
-		var fechaDisponible = true;
-		var asignacion;
-		var asigna;
-		var dia;
-		for(i in asignacionAsignaciones){
-			asignacion = asignacionAsignaciones[i];
-			asigna = asignacion.fechaAsignacion.toString().split("/");
-			dia = asigna[1]+"/"+asigna[0]+"/"+asigna[2];
-			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
-				//console.log(asignacion);
-				fechaDisponible = false;
-				break;
-			}
-		}
-		return fechaDisponible;
-	}
+//	function validaDiaSelect2(idInstructor, cliente){
+//		var fechaDisponible = true;
+//		var asignacion;
+//		var asigna;
+//		var dia;
+//		for(i in asignacionAsignaciones){
+//			asignacion = asignacionAsignaciones[i];
+//			asigna = asignacion.fechaAsignacion.toString().split("/");
+//			dia = asigna[1]+"/"+asigna[0]+"/"+asigna[2];
+//			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
+//				fechaDisponible = false;
+//				if(asignacion.idClienteAsignacion === cliente.idCliente){
+////					console.log(dia);
+////					console.log($.asignaFecha.toString());
+////					console.log(asignacion.idInstructorAsignacion.toString());
+////					console.log(idInstructor.toString());
+////					console.log(cliente.idCliente);
+////					console.log(asignacion.idClienteAsignacion);
+////					
+//					$.asignacionMismoDia = asignacion;
+//					console.log($.asignacionMismoDia);
+//					fechaDisponible = true;
+//				}
+//				break;
+//			}
+//		}
+//		return fechaDisponible;
+//	}
 	
 	function validaMismoDia(idInstructor, cliente){
 		var fechaDisponible = false;
@@ -912,13 +922,13 @@ var alerta, proceso;
 	
 	function validarHorarioMismoDia(asignacionMismoDia, idInstructor){
 		var horario = asignacion.horarioAsignacion.split(";");
-		console.log(horario);
-		console.log(horarioInstructorDisponible);
-		console.log($.asignacionMismoDia);
+//		console.log(horario);
+//		console.log(horarioInstructorDisponible);
+//		console.log($.asignacionMismoDia);
 		if($.asignacionMismoDia.idInstructorAsignacion === idInstructor*1){
 			var horario = $.asignacionMismoDia.horarioAsignacion.split(";");
 			horarioInstructorDisponible = ((horarioInstructorDisponible*1) + (horario[1]*1));
-			console.log(horarioInstructorDisponible);
+//			console.log(horarioInstructorDisponible);
 		}
 	}
 	

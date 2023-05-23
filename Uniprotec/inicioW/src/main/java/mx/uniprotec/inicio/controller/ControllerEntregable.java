@@ -24,7 +24,9 @@ import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
+import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IEntregableService;
+import mx.uniprotec.inicio.service.IInstructorService;
 import mx.uniprotec.inicio.service.ILoginService;
 import mx.uniprotec.inicio.service.IUsuarioService;
 
@@ -48,6 +50,11 @@ public class ControllerEntregable {
 	IUsuarioService usuarioService;
 	@Autowired
 	IEntregableService entregableService;
+	@Autowired
+	ICursoService cursoService;
+	@Autowired
+	IInstructorService instructorService;
+	
 	
 	
 //	ResultVO resultVO = new ResultVO();
@@ -82,6 +89,45 @@ public class ControllerEntregable {
 			
 			model.addAttribute("model", resultVO);
 			ModelAndView mav = new  ModelAndView("AEntregable",  model);
+			if(rs.getCodigo() != 500) {					
+				return mav;
+			}else {
+				mav.addObject("consulta", true);
+				return mav;	
+			}
+		}		
+	}
+	
+	@GetMapping("/AEntregableX")
+	public ModelAndView AEntregableX(ModelMap model) {
+		AsignacionModelo asignacion = new AsignacionModelo();
+		asignacion.setIdAsignacion(0l);
+		model.addAttribute("asignacionItem", asignacion);
+		model.addAttribute("entregableModelo", new EntregableModelo());
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("Captura EntregableX model Activo");
+			JSONObject jsonResponse = new JSONObject();
+			ResultVO resultVO = (ResultVO)model.get("model");
+			String token = resultVO.getAccesToken();
+			ResultVO rs = clienteService.consultaClientes(token);
+			jsonResponse.put("clientes", rs.getJsonResponse());
+			
+			rs = cursoService.consultaCursos(token);
+			jsonResponse.put("cursos", rs.getJsonResponse());
+			
+			rs = instructorService.consultaInstructores(token);
+			jsonResponse.put("instructores", rs.getJsonResponse());
+			
+			rs = entregableService.consultaEntregable(resultVO.getAccesToken(), asignacion.getIdAsignacion());
+			jsonResponse.put("entregables", rs.getJsonResponseObject());
+			
+			resultVO.setJsonResponseObject(jsonResponse);
+			
+			model.addAttribute("model", resultVO);
+			ModelAndView mav = new  ModelAndView("AEntregableX",  model);
 			if(rs.getCodigo() != 500) {					
 				return mav;
 			}else {

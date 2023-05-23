@@ -69,13 +69,28 @@ function sumaFechas() {
 			}
 		}
 	}
+	
+	var arrayFechasHorario = new Array();
+	for(var a in arrayFechas){
+		arrayFechasHorario.push(agregaHorario(arrayFechas[a]));
+//		console.log(arrayFechasHorario);
+	}
+	
+	console.log(arrayFechasHorario);
 
-		$.listFechas = arrayFechas;
+	$.listFechas = arrayFechasHorario; //arrayFechas;
 	$('#listFechas').val($.listFechas);
 	
 	$('#btnFechasAusencia').attr("disabled", true);
 	$('#inicioAusencia').val("");
 	$('#finAusencia').val("");
+}
+
+function agregaHorario(fecha){
+	var fecha = new Date(fecha);
+    fecha.setHours(5);
+    console.log(fecha);
+    return fecha;
 }
 
 
@@ -111,7 +126,7 @@ function sumarDias(fecha, dias){
 	}
 
 function stringToList(cadena){
-	return cadena.split(";");
+	return cadena.split(",");
 }
 
 function eliminarFecha(ele){

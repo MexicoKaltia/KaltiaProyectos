@@ -602,10 +602,14 @@ $(document).ready(function() {
 					 listaFechasAusencia = instructor.listFechas.split(";");
 					 for(a in listaFechasAusencia){
 						 fechaAusencia = getFecha(listaFechasAusencia[a]);
+//						 if(instructor.idInstructor === 31){
+//							 var fechaHector  = getFechaHector(listaFechasAusencia[a]);
+////							 console.log(fechaHector);
+//						 }
 						 item = {
 								'title' : instructor.nombreInstructor ,
-								'start' : fechaAusencia+'03:00',
-								'end' : fechaAusencia+'03:00',
+								'start' : fechaAusencia+'05:00',
+								'end' : fechaAusencia+'05:00',
 								'color' : 'red',
 								'textColor': 'white'
 								}
@@ -625,8 +629,8 @@ $(document).ready(function() {
 									 fechaAusencia = getFecha(listaFechasAusencia[a]);
 									 item = {
 												'title' : instructor.nombreInstructor ,
-												'start' : fechaAusencia+'00:00',
-												'end' : fechaAusencia+'00:00',
+												'start' : fechaAusencia+'05:00',
+												'end' : fechaAusencia+'05:00',
 												'color' : 'red',
 												'textColor': 'white'
 										}
@@ -689,8 +693,8 @@ $(document).ready(function() {
 						 if(fechaAusencia.toString() === inicio.toString()){
 							 item = {
 										'title' : instructor.nombreInstructor ,
-										'start' : fechaAusencia+'00:00',
-										'end' : fechaAusencia+'00:00',
+										'start' : fechaAusencia+'05:00',
+										'end' : fechaAusencia+'05:00',
 										'color' : 'red',
 										'textColor': 'white'
 										}
@@ -758,6 +762,8 @@ $(document).ready(function() {
 //		//console.log(fecha);
 		return fecha;
 	}
+	
+	
 	
 	function horaInicio(horario){
 		//"1200;2300;undefined;undefined;11:00"
