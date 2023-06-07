@@ -12,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.uniprotec.application.dao.IPreAsignacionAEDao;
 import mx.uniprotec.application.dao.IPreAsignacionDao;
+import mx.uniprotec.application.dao.IReporteSemanalDao;
 import mx.uniprotec.application.dao.IVendedorDEDao;
 import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.DatosEconomicosEntity;
 import mx.uniprotec.application.entity.ParticipanteEntity;
 import mx.uniprotec.application.entity.PreAsignacion;
 import mx.uniprotec.application.entity.PreAsignacionAEEntity;
+import mx.uniprotec.application.entity.ReporteSemanalEntity;
 import mx.uniprotec.application.entity.VendedorDatosEconomicos;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 
@@ -37,6 +39,8 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 	IVendedorDEDao vendedorDatosEconomicosDao;
 	@Autowired
 	IAsignacionService asignacionService;
+	@Autowired
+	IReporteSemanalDao reporteSemanalDao;
 
 		
 	/*
@@ -206,6 +210,15 @@ public class PreAsignacionAEServiceImpl implements IPreAsignacionAEService {
 		} catch (Exception e) {
 			Log.info(e.getMessage());
 		}	
+	}
+
+
+
+
+
+	@Override
+	public ReporteSemanalEntity saveReporteSemanal(ReporteSemanalEntity reporteSemanalEntity) {
+		return reporteSemanalDao.save(reporteSemanalEntity);
 	}
 
 	

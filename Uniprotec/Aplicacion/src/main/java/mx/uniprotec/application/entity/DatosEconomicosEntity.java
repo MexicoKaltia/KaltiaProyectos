@@ -65,6 +65,11 @@ public class DatosEconomicosEntity {
 		private String userCreateTexto;
 	@Column(nullable=false)
 		private String status;
+
+	@Column
+	private String estatusDatoEconomico;
+	@Column
+	private String fechaCambioEstatus;
 	
 	//no se ocupan
 	@Column(nullable=false)
@@ -205,6 +210,18 @@ public class DatosEconomicosEntity {
 	}
 	public void setFormAEListAsignaciones(String formAEListAsignaciones) {
 		this.formAEListAsignaciones = formAEListAsignaciones;
+	}
+	public String getEstatusDatoEconomico() {
+		return estatusDatoEconomico;
+	}
+	public void setEstatusDatoEconomico(String estatusDatoEconomico) {
+		this.estatusDatoEconomico = estatusDatoEconomico;
+	}
+	public String getFechaCambioEstatus() {
+		return fechaCambioEstatus;
+	}
+	public void setFechaCambioEstatus(String fechaCambioEstatus) {
+		this.fechaCambioEstatus = fechaCambioEstatus;
 	}
 
 

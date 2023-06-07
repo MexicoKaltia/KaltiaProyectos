@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.service;
 
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 
 public interface IDatosEconomicosService {
@@ -16,6 +17,8 @@ public interface IDatosEconomicosService {
 	public ResultVO consultaVendoresDatosEconomicos(String token);
 
 	ResultVO consultaVendedoresAnalisis(String token);
+
+	public ResultVO altaReporteSemanal(ReporteSemanalModelo reporteSemanalItem, String accesToken);
 	
 
 		

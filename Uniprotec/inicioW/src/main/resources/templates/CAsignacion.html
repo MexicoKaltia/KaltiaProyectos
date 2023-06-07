@@ -641,22 +641,20 @@
 		                                            <label for="validationCustom02">Observaciones</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelViaticosTotales" ></label></div>
 		                                            <textarea class="form-control" th:field="*{observacion}" id="observacion" rows="3" cols="150" ></textarea>
 		                                        </div>
-		                                        </div>
-<!-- 		                                        <div class="form-row"> -->
-<!-- 			                                        <div class="col-md-6 mb-3"> -->
-<!-- 			                                            <label for="validationCustom02">Estatus Factura Datos Económicos</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelViaticosTotales" ></label></div> -->
-<!-- <!-- 			                                            <input type="text" class="form-control"  id="estatusDatosEconomicos" placeholder="viaticos totales" value="" maxlength="100" onfocusout="formatoViaticosTotales()" required> --> 
-<!-- <select name="cars" id="cars"> -->
-<!--   <option value="volvo">VIGENTE</option> -->
-<!--   <option value="saab">PENDIENTE</option> -->
-<!--   <option value="mercedes">PAGADA</option> -->
-<!--   <option value="audi">CANCELADA</option> -->
-<!-- </select> -->
-<!-- 			                                            <div class="invalid-feedback"> -->
-<!-- 			                                                Capturar Datos Númericos -->
-<!-- 			                                            </div> -->
-<!-- 			                                        </div> -->
-<!-- 			                                    </div> -->
+		                                      </div>
+		                                      <div class="form-row">
+			                                        <div class="col-md-6 mb-3">
+			                                            <label for="validationCustom02">Estatus Factura Datos Económicos</label>
+															<select name="estatusDatoEconomico" id="estatusDatoEconomico" th:field="*{estatusDatoEconomico}">
+															</select>
+			                                        </div>
+			                                        <div class="col-md-6 mb-3">
+			                                        	Actual Estatus : <h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b><span id="estatusDatoEconomicoActual"></span></b></h2>
+			                                        	<br>
+			                                        	Última Fecha Actualización : <h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b><span id="fechaCambioEstatusOld"></span></b></h2>
+			                                        	</div>
+			                                  </div>
+		                                        
 												<input type="hidden" th:field="*{idAsignacion}" id="idAsignacionDatosEconomicos" />
 												<input type="hidden" th:field="*{userCreateAsignacion}" id="userCreateAsignacionDatosEconomicos" />
 												<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicos" />
@@ -665,7 +663,7 @@
 												<input type="hidden" th:field="*{prospectoCliente}" id="prospectoCliente" />
 												<input type="hidden" th:field="*{prospectoClienteTexto}" id="prospectoClienteTexto" />
 												<input type="hidden" th:field="*{numFactura}" id="numFactura" />
-<!-- 												<input type="hidden" th:field="*{strFechaPromesaPago}" id="strFechaPromesaPago" /> -->
+												<input type="hidden" th:field="*{fechaCambioEstatus}" id="fechaCambioEstatus" />
 <!-- 												<input type="hidden" th:field="*{strFechaConfirmacion}" id="strFechaConfirmacion" /> -->
                                                <br>
                                        		<span class="float-left">

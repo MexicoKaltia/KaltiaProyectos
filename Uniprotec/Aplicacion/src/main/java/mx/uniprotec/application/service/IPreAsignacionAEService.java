@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import mx.uniprotec.application.entity.DatosEconomicosEntity;
+import mx.uniprotec.application.entity.ReporteSemanalEntity;
 import mx.uniprotec.application.entity.VendedorDatosEconomicos;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 
@@ -34,6 +35,8 @@ public interface IPreAsignacionAEService {
 	public List<VendedorDatosEconomicos> findVendedoresIdDatosEconomicos(Long idDatosEconomicos);
 
 	public void updateAsignacionFactura(@Valid DatosEconomicosModelo datosEconomicos);
+
+	public ReporteSemanalEntity saveReporteSemanal(ReporteSemanalEntity reporteSemanalEntity);
 
 
 }

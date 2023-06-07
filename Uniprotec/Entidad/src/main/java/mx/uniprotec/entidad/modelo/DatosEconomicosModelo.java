@@ -32,6 +32,8 @@ public class DatosEconomicosModelo {
 	private int prospectoCliente;
 	private String prospectoClienteTexto;
 	private List<Integer> listAsignaciones;
+	private String estatusDatoEconomico;
+	private String fechaCambioEstatus;
 	
 	public Long getIdDatosEconomicos() {
 		return idDatosEconomicos;
@@ -176,7 +178,8 @@ public class DatosEconomicosModelo {
 				+ ", userCreateAsignacion=" + userCreateAsignacion + ", listFechaPromesaPago=" + listFechaPromesaPago
 				+ ", listFechaConfirmacion=" + listFechaConfirmacion + ", vendedores=" + vendedores + ", vendedoresStr="
 				+ vendedoresStr + ", numFactura=" + numFactura + ", prospectoCliente=" + prospectoCliente
-				+ ", prospectoClienteTexto=" + prospectoClienteTexto + ", listAsignaciones=" + listAsignaciones + "]";
+				+ ", prospectoClienteTexto=" + prospectoClienteTexto + ", listAsignaciones=" + listAsignaciones
+				+ ", estatusDatoEconomico=" + estatusDatoEconomico + ", fechaCambioEstatus=" + fechaCambioEstatus + "]";
 	}
 	public DatosEconomicosModelo(Long idDatosEconomicos, Double ventaReal, Double porcentajeVenta, Double comisionReal,
 			Double porcentajeComision, Double viaticosTotales, String fechaPromesaPago, String fechaPromesaPagoFormat,
@@ -219,6 +222,18 @@ public class DatosEconomicosModelo {
 	}
 	public void setListAsignaciones(List<Integer> listAsignaciones) {
 		this.listAsignaciones = listAsignaciones;
+	}
+	public String getEstatusDatoEconomico() {
+		return estatusDatoEconomico;
+	}
+	public void setEstatusDatoEconomico(String estatusDatoEconomico) {
+		this.estatusDatoEconomico = estatusDatoEconomico;
+	}
+	public String getFechaCambioEstatus() {
+		return fechaCambioEstatus;
+	}
+	public void setFechaCambioEstatus(String fechaCambioEstatus) {
+		this.fechaCambioEstatus = fechaCambioEstatus;
 	}
 
 	

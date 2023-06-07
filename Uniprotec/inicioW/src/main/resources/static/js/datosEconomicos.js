@@ -6,6 +6,7 @@ $(document).ready(function() {
 
 	console.log(datosEconomicos);
 	console.log(vendedoresDatosEconomicos);
+	
 	 $('#ventaReal').focus();	
 	
 	
@@ -34,6 +35,7 @@ $("#btnActualizarDatosEconomicos").click(function(){
 		finalVendedores.push(JSON.stringify(vendedorFinal));
 	}
 	$('#vendedoresStr').val(finalVendedores);
+	
 	
 });
 		

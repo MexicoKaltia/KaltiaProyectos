@@ -20,6 +20,7 @@ import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.PreAsignacionAE;
 import mx.uniprotec.entidad.modelo.Region;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.VendedorDEModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -133,14 +134,12 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 						JSONObject jsonVendedoresDatosEconomicos = rs.getJsonResponse();
 						jsonConsulta.put("vendedoresDatosEconomicos", jsonVendedoresDatosEconomicos.get("vendedoresDatosEconomicos"));
 					}			
-			}
+				}
 			rs.setJsonResponseObject(jsonConsulta);
+			}
 		}
-	}
 		return rs;
 	}	
-	
-
 
 
 	@Override
@@ -151,7 +150,20 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 	}
 	
 	
-	
+	@Override
+	public ResultVO altaReporteSemanal(ReporteSemanalModelo reporteSemanalItem, String accesToken) {
+		me = ComponenteComun.monitorCampos();
+		
+		reporteSemanalItem.setCreateAt(me.getNowEntidad());
+		reporteSemanalItem.setStatus("ALTA");
+		
+		resultVO = (ResultVO) baseClientRest.objetoPost(
+				accesToken, BaseClientRest.URL_CRUD_REPORTESEMANAL, reporteSemanalItem);
+
+		return resultVO;
+
+	}
+
 	
 	
 	/*
@@ -200,6 +212,8 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 		}
 		return vendedores;
 	}
+
+
 
 
 

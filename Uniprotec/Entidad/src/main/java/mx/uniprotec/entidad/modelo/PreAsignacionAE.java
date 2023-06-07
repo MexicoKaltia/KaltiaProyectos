@@ -63,6 +63,9 @@ public class PreAsignacionAE {
 	private Long userCreate;
 	private String userCreateTexto;
 	private String status;
+	
+	private String estatusDatoEconomico;
+	private String fechaCambioEstatus;
 
 	public String getFormAECurso() {
 		return formAECurso;
@@ -430,6 +433,22 @@ public class PreAsignacionAE {
 
 	public void setMensajeSeguimiento(String mensajeSeguimiento) {
 		this.mensajeSeguimiento = mensajeSeguimiento;
+	}
+
+	public String getEstatusDatoEconomico() {
+		return estatusDatoEconomico;
+	}
+
+	public void setEstatusDatoEconomico(String estatusDatoEconomico) {
+		this.estatusDatoEconomico = estatusDatoEconomico;
+	}
+
+	public String getFechaCambioEstatus() {
+		return fechaCambioEstatus;
+	}
+
+	public void setFechaCambioEstatus(String fechaCambioEstatus) {
+		this.fechaCambioEstatus = fechaCambioEstatus;
 	}
 
 	

@@ -27,24 +27,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.uniprotec.application.dao.INotificacionDao;
-import mx.uniprotec.application.dao.IPreAsignacionAEDao;
-import mx.uniprotec.application.dao.IPreAsignacionDao;
-import mx.uniprotec.application.entity.ClienteProspectoEntity;
-import mx.uniprotec.application.entity.Curso;
 import mx.uniprotec.application.entity.DatosEconomicosEntity;
-import mx.uniprotec.application.entity.Instructor;
-import mx.uniprotec.application.entity.PreAsignacion;
-import mx.uniprotec.application.entity.PreAsignacionAEEntity;
+import mx.uniprotec.application.entity.ReporteSemanalEntity;
 import mx.uniprotec.application.entity.VendedorDatosEconomicos;
-import mx.uniprotec.application.service.IClienteProspecto;
 import mx.uniprotec.application.service.IPreAsignacionAEService;
-import mx.uniprotec.application.service.IPreAsignacionService;
 import mx.uniprotec.application.util.UtilController;
-import mx.uniprotec.entidad.modelo.AsignacionModelo;
-import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
-import mx.uniprotec.entidad.modelo.PreAsignacionAE;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.VendedorDEModelo;
 
 @CrossOrigin(origins = { "*" })
@@ -53,22 +42,8 @@ import mx.uniprotec.entidad.modelo.VendedorDEModelo;
 public class PreAsignacionRestController {
 	
 	@Autowired
-	private IPreAsignacionService preAsignacionService;
-	@Autowired
 	private IPreAsignacionAEService preAsignacionAEService;
-	@Autowired
-	private INotificacionDao notificacionDao;
-	@Autowired
-	private IPreAsignacionDao preAsignacionDao;
-	@Autowired
-	private IPreAsignacionAEDao preAsignacionAEDao;
-	@Autowired
-	private IClienteProspecto clienteProspectoService;
-	
-	
-	
-	
-	 private final Logger log = LoggerFactory.getLogger(PreAsignacionRestController.class);
+	private final Logger log = LoggerFactory.getLogger(PreAsignacionRestController.class);
 	public PreAsignacionRestController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -126,6 +101,10 @@ public class PreAsignacionRestController {
 			preAsignacionAENew.setStatus(datosEconomicos.getStatus());
 			preAsignacionAENew.setUserCreate(datosEconomicos.getUserCreateAsignacion());
 			preAsignacionAENew.setCreateAt(datosEconomicos.getCreateAtAsignacion());
+			
+			preAsignacionAENew.setEstatusDatoEconomico(datosEconomicos.getEstatusDatoEconomico());
+			preAsignacionAENew.setFechaCambioEstatus(datosEconomicos.getFechaCambioEstatus());
+			
 			
 			if(datosEconomicos.getListFechaPromesaPago().size()>0) {
 				preAsignacionAENew.setFormAEListFechaPromesaPago(UtilController.listToString(datosEconomicos.getListFechaPromesaPago()));
@@ -330,6 +309,57 @@ public class PreAsignacionRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+	}
+	
+	
+	@PostMapping("/reporteSemanal")
+	public ResponseEntity<?> altaReporteSemanal(@Valid @RequestBody ReporteSemanalModelo reporteSemanal, BindingResult result) {
+		log.info("ReporteSemanal create");
+		
+		ReporteSemanalEntity reporteSemanalEntity = new ReporteSemanalEntity();
+		Map<String, Object> response = new HashMap<>();
+		
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		try {
+
+			reporteSemanalEntity.setTotalCobranza(reporteSemanal.getTotalCobranza());
+			reporteSemanalEntity.setTotalProgramadoSemana(reporteSemanal.getTotalProgramadoSemana());
+			reporteSemanalEntity.setTotalVencido(reporteSemanal.getTotalVencido());
+			reporteSemanalEntity.setTotalSinFecha(reporteSemanal.getTotalSinFecha());
+			reporteSemanalEntity.setTotalProgramadoMes1(reporteSemanal.getTotalProgramadoMes1());
+			reporteSemanalEntity.setTotalProgramadoMes2(reporteSemanal.getTotalProgramadoMes2());
+			reporteSemanalEntity.setTotalProgramadoMes3(reporteSemanal.getTotalProgramadoMes3());
+			reporteSemanalEntity.setSemanaReporte(reporteSemanal.getSemanaReporte());
+			reporteSemanalEntity.setDayInit(reporteSemanal.getDayInit());
+			reporteSemanalEntity.setDayFinish(reporteSemanal.getDayFinish());
+			reporteSemanalEntity.setCreateAt(reporteSemanal.getCreateAt());
+			reporteSemanalEntity.setStatus(reporteSemanal.getStatus());
+			reporteSemanalEntity.setUserCreate(reporteSemanal.getUserCreate());
+			
+			reporteSemanalEntity = preAsignacionAEService.saveReporteSemanal(reporteSemanalEntity);
+			
+			 response.put("reporteSemanal", reporteSemanalEntity);
+			 response.put("mensaje", "reporteSemanal creada con Exito");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("reporteSemanalEntity  create fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			log.info("catch reporteSemanalEntity   create fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 

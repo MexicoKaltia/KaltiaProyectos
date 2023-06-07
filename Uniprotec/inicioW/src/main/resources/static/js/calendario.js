@@ -399,6 +399,14 @@ $(document).ready(function() {
 		$('#viaticosTotales').val(0);
 		$('#observaciones').val("");
 		
+		$('#estatusDatoEconomico').empty();
+		$('#estatusDatoEconomico').append('<option value="VIGENTE" >VIGENTE</option>');
+		$('#estatusDatoEconomico').append('<option value="PENDIENTE" >PENDIENTE</option>');
+		$('#estatusDatoEconomico').append('<option value="PAGADA" >PAGADA</option>');
+		$('#estatusDatoEconomico').append('<option value="CANCELADA" >CANCELADA</option>');
+		$('#estatusDatoEconomicoActual').text("");
+		
+		
 		flagExistDatosEconomicos = false;
 		console.log(datosEconomicos);
 		for(var a in datosEconomicos){
@@ -424,6 +432,9 @@ $(document).ready(function() {
 		
 		if(!flagExistDatosEconomicos){
 			console.log(flagExistDatosEconomicos);
+			$('#estatusDatoEconomicoActual').text("VIGENTE");
+			$('#fechaCambioEstatusOld').text(convierteMX(hoyCambioEstatus()));
+			$('#fechaCambioEstatus').val(hoyCambioEstatus());
 			porcentajeVendedor(idAsignacionClic);
 		}
 	}
@@ -443,6 +454,11 @@ $(document).ready(function() {
 		$('#observacion').val(datoEconomico.formAEObservaciones);
 		$('#listFechaPromesaPago').val(datoEconomico.formAEListFechaPromesaPago);
 		$('#listFechaConfirmacion').val(datoEconomico.formAEListFechaConfirmacion);
+		
+		$('#estatusDatoEconomico').append('<option value="'+datoEconomico.estatusDatoEconomico+'" selected >'+datoEconomico.estatusDatoEconomico+'</option>');
+		$('#estatusDatoEconomicoActual').text($('#estatusDatoEconomico').val());
+		$('#fechaCambioEstatus').val(hoyCambioEstatus());
+		$('#fechaCambioEstatusOld').text(datoEconomico.fechaCambioEstatus);
 		
 //		formatoVentaReal();
 		formatoPorcentajeVenta();
@@ -541,6 +557,20 @@ $(document).ready(function() {
 		var today = anio + '-' + mes + '-' + dia;
 //		//console.log(today);
 		return today;
+	}
+	
+	function hoyCambioEstatus() {
+		var d = new Date();
+		var dia = d.getDate();
+		var mes = (d.getMonth() + 1);
+		var anio = d.getFullYear();
+		var today = mes + '/' + dia + '/' + anio;
+		return today;
+	}
+	
+	function convierteMX(str){
+		var tmp = str.split("/");
+		return tmp[1]+"/"+tmp[0]+"/"+tmp[2];
 	}
 
 	function publicaEventos(asignaciones, instructoresFiltro){

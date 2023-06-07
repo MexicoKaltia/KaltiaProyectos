@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -215,26 +216,50 @@ public class ControllerDatosEconomicos {
 
 
 
-//	@GetMapping("CVendedorAnalisis")
-//	public ModelAndView CVendedorAnalisis(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
-//			@RequestParam(name="error", required=false) boolean error,
-//			ModelMap model) {
-//			log.info("CVendedorAnalisis model Activo");
-//			
-//			ResultVO resultVO = (ResultVO)model.get("model");
-//			model.addAttribute("model", resultVO);
-//			
-//			ResultVO rs = vendedorService.consultaVendedoresAnalisis(resultVO.getAccesToken());
-//			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
-//			
-//			ModelAndView mav = new ModelAndView("CVendedorAnalisis", model);
-//			if(resultVO.getCodigo() != 500) {	
-//				mav.addObject("error", error);
-//				mav.addObject("ejecucion", ejecucion);
-//			}
-//			return mav;
-//		}	
+	@GetMapping("/CReporteSemanal")
+	public ModelAndView CReporteSemanal(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("CReporteSemanal model Activo");
+			model.addAttribute("reporteSemanalItem", new ReporteSemanalModelo());
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = datosEconomicosService.consultaVendedoresAnalisis(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ModelAndView mav = new ModelAndView("CReporteSemanal", model);
+			if(resultVO.getCodigo() != 500) {	
+//				log.info(model.values().toString());
+				
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+			}else {
+				mav.addObject("consulta", true);
+			}
+			return mav;
+		}	
 	
+	@PostMapping("/AReporteSemanal")
+	public ModelAndView altaReporteSemanal(@ModelAttribute("reporteSemanalItem") ReporteSemanalModelo reporteSemanalItem, ModelMap model) {
+		log.info("alta ReporteSemanal model Activo");
+		log.info(reporteSemanalItem.toString());
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+
+		ResultVO rs = datosEconomicosService.altaReporteSemanal(reporteSemanalItem, resultVO.getAccesToken());
+		ModelAndView mav = null;
+		
+		mav = new ModelAndView("redirect:/CReporteSemanal", model);		
+		if(rs.getCodigo() != 500) {
+			mav.addObject("ejecucion", true);
+
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK altaDatosEconomicos");
+		}
+		return mav;			
+	}
 
 	
 	
