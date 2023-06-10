@@ -21,6 +21,11 @@ public class ReporteSemanalModelo implements Serializable{
 	private String totalProgramadoMes2;
 	private String totalProgramadoMes3;
 	private Integer semanaReporte;
+	private String semanaInicio;
+	private String semanaFinal;
+	private String mes1;
+	private String mes2;
+	private String mes3;
 	private String dayInit;
 	private String dayFinish;
 	private String status;
@@ -28,34 +33,7 @@ public class ReporteSemanalModelo implements Serializable{
 	private LocalDateTime createAt;
 	
 	
-	@Override
-	public String toString() {
-		return "ReporteSemanalModelo [totalCobranza=" + totalCobranza + ", totalProgramadoSemana="
-				+ totalProgramadoSemana + ", totalVencido=" + totalVencido + ", totalSinFecha=" + totalSinFecha
-				+ ", totalProgramadoMes1=" + totalProgramadoMes1 + ", totalProgramadoMes2=" + totalProgramadoMes2
-				+ ", totalProgramadoMes3=" + totalProgramadoMes3 + ", semanaReporte=" + semanaReporte + ", dayInit="
-				+ dayInit + ", dayFinish=" + dayFinish + ", status=" + status + ", userCreate=" + userCreate
-				+ ", createAt=" + createAt + "]";
-	}
-	public ReporteSemanalModelo(String totalCobranza, String totalProgramadoSemana, String totalVencido,
-			String totalSinFecha, String totalProgramadoMes1, String totalProgramadoMes2, String totalProgramadoMes3,
-			Integer semanaReporte, String dayInit, String dayFinish, String status, Long userCreate,
-			LocalDateTime createAt) {
-		super();
-		this.totalCobranza = totalCobranza;
-		this.totalProgramadoSemana = totalProgramadoSemana;
-		this.totalVencido = totalVencido;
-		this.totalSinFecha = totalSinFecha;
-		this.totalProgramadoMes1 = totalProgramadoMes1;
-		this.totalProgramadoMes2 = totalProgramadoMes2;
-		this.totalProgramadoMes3 = totalProgramadoMes3;
-		this.semanaReporte = semanaReporte;
-		this.dayInit = dayInit;
-		this.dayFinish = dayFinish;
-		this.status = status;
-		this.userCreate = userCreate;
-		this.createAt = createAt;
-	}
+	
 	public String getTotalCobranza() {
 		return totalCobranza;
 	}
@@ -133,6 +111,46 @@ public class ReporteSemanalModelo implements Serializable{
 	}
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
+	}
+	public String getSemanaInicio() {
+		return semanaInicio;
+	}
+	public void setSemanaInicio(String semanaInicio) {
+		this.semanaInicio = semanaInicio;
+	}
+	public String getSemanaFinal() {
+		return semanaFinal;
+	}
+	public void setSemanaFinal(String semanaFinal) {
+		this.semanaFinal = semanaFinal;
+	}
+	public String getMes1() {
+		return mes1;
+	}
+	public void setMes1(String mes1) {
+		this.mes1 = mes1;
+	}
+	public String getMes2() {
+		return mes2;
+	}
+	public void setMes2(String mes2) {
+		this.mes2 = mes2;
+	}
+	public String getMes3() {
+		return mes3;
+	}
+	public void setMes3(String mes3) {
+		this.mes3 = mes3;
+	}
+	@Override
+	public String toString() {
+		return "ReporteSemanalModelo [totalCobranza=" + totalCobranza + ", totalProgramadoSemana="
+				+ totalProgramadoSemana + ", totalVencido=" + totalVencido + ", totalSinFecha=" + totalSinFecha
+				+ ", totalProgramadoMes1=" + totalProgramadoMes1 + ", totalProgramadoMes2=" + totalProgramadoMes2
+				+ ", totalProgramadoMes3=" + totalProgramadoMes3 + ", semanaReporte=" + semanaReporte
+				+ ", semanaInicio=" + semanaInicio + ", semanaFinal=" + semanaFinal + ", mes1=" + mes1 + ", mes2="
+				+ mes2 + ", mes3=" + mes3 + ", dayInit=" + dayInit + ", dayFinish=" + dayFinish + ", status=" + status
+				+ ", userCreate=" + userCreate + ", createAt=" + createAt + "]";
 	}
 	
 	

@@ -25,9 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.inicio.entity.MailVO;
 import mx.uniprotec.inicio.entity.StatusVO;
+import mx.uniprotec.inicio.util.BaseClientRest;
+import mx.uniprotec.inicio.util.IBaseClientRest;
 
 @Service
 public class MailService implements IMailService{
@@ -38,6 +41,9 @@ public class MailService implements IMailService{
 	
 	@Autowired
 	IAplicacionService aplicacionService;
+	@Autowired
+	IBaseClientRest baseClientRest ;
+
 
 	public MailService() {	}
 	
@@ -140,7 +146,7 @@ public class MailService implements IMailService{
 	public void mailServicePreCorreoSustitucion(AsignacionModelo asignacion, String token, Long idInstructor) {
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
 
-		  String staffDestino ;
+		String staffDestino ;
 		String referencia;
 		String nombreBoton ;
 		String subTitulo;
@@ -184,6 +190,52 @@ public class MailService implements IMailService{
 			i++;
 		}
 	}
+	
+	
+	@Override
+	public Boolean enviaMailReporteSemanal(ReporteSemanalModelo reporteSemanalItem, String accesToken) {
+		Boolean flag = false;
+		String staffDestino = "Olivier Sanchez, Jesus Mares";
+		String subTitulo = "Resumen Cobranza Semanal ";
+		
+		StatusVO statusVO = new StatusVO();
+		List<UserCorreo> usersCorreo = new ArrayList<UserCorreo>();
+		
+		try {
+			usersCorreo =  (List<UserCorreo>) baseClientRest.objetoGetObject(accesToken, BaseClientRest.URL_CRUD_CORREOS, usersCorreo);
+			
+			List<String> correoDireccion = new ArrayList<String>();
+			for(UserCorreo uc : usersCorreo) {
+//				if(uc.getPerfil().equals("Direccion") && (uc.getIdUser().equals(37l) || uc.getIdUser().equals(38l))) {
+				if(uc.getPerfil().equals("Direccion") && (uc.getIdUser().equals(54l))) {
+					correoDireccion.add(uc.getEmailUniprotec());
+				}
+			}
+				
+				MailVO mailVO = new MailVO();		
+				
+				mailVO.setAsuntoMail("Resumen Cobranza Semanal : "+reporteSemanalItem.getSemanaReporte());
+				mailVO.setBodyMail(bodyReporteSemanal(reporteSemanalItem, staffDestino, subTitulo));
+				mailVO.setMensajeMail(PLANTILLA_CORREO);
+				mailVO.setDestinatarioMailList(correoDireccion);
+				log.info("Direccion : "+ mailVO.getDestinatarioMailList().toString());
+
+				mailVO.setReporteSemanalMail(reporteSemanalItem);
+				mailVO.setAsignacionMail(new AsignacionModelo());
+				mailVO.getAsignacionMail().setIdAsignacionLogica(reporteSemanalItem.getSemanaReporte().toString());
+				statusVO = mailServiceGeneraCorreo(mailVO);
+				if(statusVO.getCodigo() == 0) {
+					flag = true;
+				}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
+				
+	}
+
 
 
 	
@@ -370,6 +422,89 @@ public class MailService implements IMailService{
 		
 		return body;
 	}
+	
+	private String bodyReporteSemanal(ReporteSemanalModelo reporteSemanal, String staffDestino, String subTitulo) {
+		
+		String body =	 "<div class='row'>" + 
+				"<div class='col-md-12'>" + 
+				"<h3 class='text-left' style='text-align: left;'>Buen D&iacute;a: "+ staffDestino +"</h3>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'>"+ subTitulo +"<b><strong>"+reporteSemanal.getSemanaReporte()+"</strong></b>.</p>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'>Con los siguientes datos:</p>" + 
+				"<div class='col-md-2'>" + 
+				"<table style='height: 520px; width: 75%;  background-color: #D6FBFC; margin-left: 40; margin-right: auto;' >" + 
+				"<tbody>" + 
+				 
+				"<tr style='height: 53px;'>" + 
+				"<td style='width: 100%; height: 53px;'>" + 
+				"<b><h3  style='text-align: left;'>Resumen inicio : "+reporteSemanal.getSemanaInicio()+", final : "+reporteSemanal.getSemanaFinal()+"</h3></b>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL COBRANZA : <b>"+ reporteSemanal.getTotalCobranza() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL PROGRAMADO SEMANA "+reporteSemanal.getSemanaReporte()+" : <b>"+ reporteSemanal.getTotalProgramadoSemana()+"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL VENCIDO : <b>"+ reporteSemanal.getTotalVencido() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL SIN FECHA DE PAGO : <b>"+reporteSemanal.getTotalSinFecha()+"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" +
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL PROGRAMADO SIGUIENTE MES "+reporteSemanal.getMes1()+" : <b>"+ reporteSemanal.getTotalProgramadoMes1() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" +
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL PROGRAMADO SIGUIENTE MES "+reporteSemanal.getMes2()+" : <b>"+ reporteSemanal.getTotalProgramadoMes2() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"<tr style='height: 46px;'>" + 
+				"<td style='width: 100%; height: 46px;'>" + 
+				"<ul>" + 
+				"<li>TOTAL PROGRAMADO SIGUIENTE MES "+reporteSemanal.getMes3()+" : <b>"+ reporteSemanal.getTotalProgramadoMes3() +"</b></li>" + 
+				"</ul>" + 
+				"</td>" + 
+				"</tr>" + 
+				"</tbody>" + 
+				"</table><div class='card text-white bg-info'>" + 
+				"<div class='card-body'></div>" + 
+				"</div>" + 
+				"</div>" + 
+				"</div>" + 
+				"<br /><br />" + 
+				"<div class='row'>" + 
+				"<div class='col-md-12' style='text-align: left;'><address><strong>Control-Uniprotec.</strong><br/> Ambar 20 Misi&oacute;n Mariana , Corregidora, Quer&eacute;taro, 76903 <br /> Santiago de Quer&eacute;taro<br /><abbr title='Phone'> P:</abbr> + 52 - 4423341671</address></div>" + 
+				"<p class='text-left text-primary lead' style='text-align: left;'><em><small>Ha recib&iacute;do este correo electr&oacute;nico porque est&aacute; suscrito como usuario registrado del sistema control-uniprotec.com .</small></em></p>" + 
+				"</div>" + 
+				"</div>" + 
+				"</body></html>";
+		
+		
+		return body;
+	}
 			
 	
 
@@ -412,7 +547,7 @@ public class MailService implements IMailService{
 	   MimeMessage mimeMessage = new MimeMessage(session);
 	 
 	   // Agregar quien envía el correo
-	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Uniprotec"));
+	   mimeMessage.setFrom(new InternetAddress(correoEnvia, "Control-Uniprotec"));
 	 
 	   // Los destinatarios
 	   InternetAddress[] internetAddresses=  InternetAddress.parse(mailVO.getDestinatarioMail()) ;
@@ -469,7 +604,6 @@ public class MailService implements IMailService{
 		   } else {
 		    System.out.println("No hay archivos en el directorio");
 		   }
-
 	   }
 	 
 	   // Agregar la parte del mensaje HTML al multiPart
@@ -572,6 +706,8 @@ public class MailService implements IMailService{
 		return a;
 	}
 
+
+	
 
 
 

@@ -39,6 +39,10 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 	IAplicacionService aplicacionService;
 	@Autowired
 	IInstructorService instructorService;
+	@Autowired
+	IMailService mailService;
+
+
 	
 	public DatosEconomicosService() {
 		// TODO Auto-generated constructor stub
@@ -157,8 +161,12 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 		reporteSemanalItem.setCreateAt(me.getNowEntidad());
 		reporteSemanalItem.setStatus("ALTA");
 		
-		resultVO = (ResultVO) baseClientRest.objetoPost(
-				accesToken, BaseClientRest.URL_CRUD_REPORTESEMANAL, reporteSemanalItem);
+		resultVO = (ResultVO) baseClientRest.objetoPost(accesToken, BaseClientRest.URL_CRUD_REPORTESEMANAL, reporteSemanalItem);
+		
+		if(!resultVO.getCodigo().equals(500)) {
+			//envia reporte por  correo
+			mailService.enviaMailReporteSemanal(reporteSemanalItem, accesToken);
+		}
 
 		return resultVO;
 

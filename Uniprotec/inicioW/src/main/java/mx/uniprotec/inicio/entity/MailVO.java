@@ -3,6 +3,7 @@ package mx.uniprotec.inicio.entity;
 import java.util.List;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 
 public class MailVO {
 
@@ -16,6 +17,9 @@ public class MailVO {
 	private String destinatarioMail;
 	private List<String> destinatarioMailList;
 	private AsignacionModelo asignacionMail;
+	private ReporteSemanalModelo reporteSemanalMail;
+	
+	
 	public String getAsuntoMail() {
 		return asuntoMail;
 	}
@@ -51,6 +55,12 @@ public class MailVO {
 	}
 	public void setDestinatarioMailList(List<String> destinatarioMailList) {
 		this.destinatarioMailList = destinatarioMailList;
+	}
+	public ReporteSemanalModelo getReporteSemanalMail() {
+		return reporteSemanalMail;
+	}
+	public void setReporteSemanalMail(ReporteSemanalModelo reporteSemanalMail) {
+		this.reporteSemanalMail = reporteSemanalMail;
 	}
 	
 	

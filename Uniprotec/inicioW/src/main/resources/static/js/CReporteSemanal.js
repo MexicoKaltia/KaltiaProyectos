@@ -17,8 +17,8 @@ $(document).ready(function(){
 	calculateWeek();
 	calculateDaysWeek();
 		
-	$('#semanaInicio').html(transformaDia(dayInit));
-	$('#semanaFinal').html(transformaDia(dayFinish));
+	$('.semanaInicio').html(transformaDia(dayInit));
+	$('.semanaFinal').html(transformaDia(dayFinish));
 	$('.semanaNumero').html(weekNumber);
 	
 	calculateTotal(dayInit, dayFinish, new Date());
@@ -40,9 +40,14 @@ $(document).ready(function(){
 	$('#labeltotalProgramadoMes2').text(formatIVA(totalProgramadoMes2));
 	$('#labeltotalProgramadoMes3').text(formatIVA(totalProgramadoMes3));
 	
-	$('#mes1').html(mes1);
-	$('#mes2').html(mes2);
-	$('#mes3').html(mes3);
+	$('.mes1').html(mes1);
+	$('.mes2').html(mes2);
+	$('.mes3').html(mes3);
+	$('#mes1').val(mes1);
+	$('#mes2').val(mes2);
+	$('#mes3').val(mes3);
+	$('#semanaInicio').val(transformaDia(dayInit));
+	$('#semanaFinal').val(transformaDia(dayFinish));
 	
 	$('#semanaReporte').val(weekNumber);
 	$('#dayInit').val(dayInit);
@@ -92,8 +97,8 @@ $(document).ready(function(){
 		
 		$('.semanaNumero').html(weekNumber);
 		
-		$('#semanaInicio').html(transformaDia(dayInit));
-		$('#semanaFinal').html(transformaDia(dayFinish));
+		$('.semanaInicio').html(transformaDia(dayInit));
+		$('.semanaFinal').html(transformaDia(dayFinish));
 	}
 	
 	//dias de la semana
@@ -185,9 +190,15 @@ $(document).ready(function(){
 		$('#labeltotalProgramadoMes3').text(formatIVA(totalProgramadoMes3));
 		
 		calculateMes(fechaSelect);
-		$('#mes1').html(mes1);
-		$('#mes2').html(mes2);
-		$('#mes3').html(mes3);
+		$('.mes1').html(mes1);
+		$('.mes2').html(mes2);
+		$('.mes3').html(mes3);
+		$('#mes1').val(mes1);
+		$('#mes2').val(mes2);
+		$('#mes3').val(mes3);
+		
+		$('#semanaInicio').val(transformaDia(dayInit));
+		$('#semanaFinal').val(transformaDia(dayFinish));
 		
 		$('#semanaReporte').val(weekNumber);
 		$('#dayInit').val(dayInit);

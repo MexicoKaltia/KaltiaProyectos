@@ -2,8 +2,11 @@ package mx.uniprotec.inicio.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.entidad.modelo.ZonaBaseModelo;

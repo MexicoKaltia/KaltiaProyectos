@@ -21,6 +21,7 @@ import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
+import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -223,35 +224,33 @@ public class AplicacionService implements IAplicacionService {
 		
 		usersCorreo =  (List<UserCorreo>) baseClientRest.objetoGetObject(token, BaseClientRest.URL_CRUD_CORREOS, usersCorreo);
 		
-//			JSONObject jsonGeneral = rs.getJsonResponse();
-//			JSONObject jsonuserCorreo = new JSONObject();
-//			jsonuserCorreo.put("usersCorreo", jsonGeneral.get("usersCorreo"));
-//			log.info(jsonuserCorreo.toJSONString());
-//			
-//			JSONArray ja = new JSONArray();
-//			ja.add(jsonuserCorreo);
-//			
-//			
-//			Iterator<JSONObject> iter = ja.iterator();//jsonUsuariosCorreo.iterator(); 
-//			while(iter.hasNext()){
-//				log.info(iter.toString());
-//				JSONObject node = iter.next();
-//				log.info(node.get("idUser").toString());
-//				log.info(node.get("perfil").toString());
-//				log.info(node.get("emailUniprotec").toString());
-//				log.info(node.get("emailGmail").toString());
-//				
-//				UserCorreo userCorreo = new UserCorreo(Long.valueOf(node.get("idUser").toString()),node.get("perfil").toString(),node.get("emailUniprotec").toString(),node.get("emailGmail").toString());
-//				usersCorreo.add(userCorreo);
-//			}
-			
-			return usersCorreo;
+		return usersCorreo;
 		
 	}
 	
 	@Override
 	public void actualizaNotificacion(String token, String idAsignacion) {
 		baseClientRest.objetoPut(token, BaseClientRest.URL_CRUD_NOTIFICACION, null, Long.valueOf(idAsignacion) );
+	}
+	
+	@Override
+	public StatusVO enviaMail(AsignacionModelo asignacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultVO consultaOperacion(String accesToken) {
+		ResultVO rsOperacion = (ResultVO) baseClientRest.objetoGetAll(accesToken, BaseClientRest.URL_CRUD_OPERADORES);
+		if(rsOperacion.getCodigo() == 202) {
+			JSONObject jsonGeneral = rsOperacion.getJsonResponse();
+			JSONObject jsonOperacion = new JSONObject();
+			jsonOperacion.put("operadores", jsonGeneral.get("operadores"));
+			
+			rsOperacion.setJsonResponseObject(jsonOperacion);
+	
+		}
+		return rsOperacion;
 	}
 	
 	@Override
@@ -274,11 +273,12 @@ public class AplicacionService implements IAplicacionService {
 		}
 		
 	}
+	
+	
 
-
-	
-	
-	
+	/*
+	 * privates
+	 */
 	private String hora() {
 		
 		java.util.Date date = new java.util.Date();
@@ -290,25 +290,5 @@ public class AplicacionService implements IAplicacionService {
 	}
 
 
-
-	@Override
-	public StatusVO enviaMail(AsignacionModelo asignacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ResultVO consultaOperacion(String accesToken) {
-		ResultVO rsOperacion = (ResultVO) baseClientRest.objetoGetAll(accesToken, BaseClientRest.URL_CRUD_OPERADORES);
-		if(rsOperacion.getCodigo() == 202) {
-			JSONObject jsonGeneral = rsOperacion.getJsonResponse();
-			JSONObject jsonOperacion = new JSONObject();
-			jsonOperacion.put("operadores", jsonGeneral.get("operadores"));
-			
-			rsOperacion.setJsonResponseObject(jsonOperacion);
-	
-		}
-		return rsOperacion;
-	}
 	
 }

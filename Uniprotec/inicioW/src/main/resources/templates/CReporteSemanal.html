@@ -229,7 +229,7 @@
 							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
-									<b>Revisión : </b><u>No se envío correctamente Reporte Semanal, Notifique Administrador de Sistema. </u>
+									<b>Revisión : </b><u>No se envío correctamente Reporte Semanal , Notifique Administrador de Sistema. </u>
 								</div>
 							</span>
 					 </div>
@@ -257,7 +257,7 @@
 															<h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b>REPORTE DE COBRANZA : Semana <span class="semanaNumero"></span></b></h2>	
 														</div>
 														<div class="col-6">
-															<h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b><span id="semanaInicio"></span><br><span id="semanaFinal"></span></b></h2>
+															<h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b><span class="semanaInicio"></span><br><span class="semanaFinal"></span></b></h2>
 														</div>
 													</div>
 													<br>
@@ -288,19 +288,19 @@
 					                                                <b><label id="labeltotalSinFecha" class="text-primary"></label></b>
 				                                                </div>
 				                                            </div>
-				                                            <div class="position-relative row form-group widget-numbers mt-0 fsize-1 text-primary pull-left"><label for="exampletext" class="col-sm-5 col-form-label">TOTAL PROGRAMADO SIGUIENTE MES <span id="mes1"></span></label>
+				                                            <div class="position-relative row form-group widget-numbers mt-0 fsize-1 text-primary pull-left"><label for="exampletext" class="col-sm-5 col-form-label">TOTAL PROGRAMADO SIGUIENTE MES <span class="mes1"></span></label>
 				                                                <div class="col-sm-5">
 					                                                <input name="text" th:field="*{totalProgramadoMes1}" id="totalProgramadoMes1" placeholder="text placeholder" type="text" class="form-control widget-numbers mt-0 fsize-2 text-success" required>
 					                                                <b><label id="labeltotalProgramadoMes1" class="text-primary"></label></b>
 				                                                </div>
 				                                            </div>
-				                                            <div class="position-relative row form-group widget-numbers mt-0 fsize-1 text-primary pull-left"><label for="exampletext" class="col-sm-5 col-form-label">TOTAL PROGRAMADO SIGUIENTE MES <span id="mes2"></span></label>
+				                                            <div class="position-relative row form-group widget-numbers mt-0 fsize-1 text-primary pull-left"><label for="exampletext" class="col-sm-5 col-form-label">TOTAL PROGRAMADO SIGUIENTE MES <span class="mes2"></span></label>
 				                                                <div class="col-sm-5">
 					                                                <input name="text" th:field="*{totalProgramadoMes2}" id="totalProgramadoMes2" placeholder="text placeholder" type="text" class="form-control widget-numbers mt-0 fsize-2 text-success" required>
 					                                                <b><label id="labeltotalProgramadoMes2" class="text-primary"></label></b>
 				                                                </div>
 				                                            </div>
-				                                            <div class="position-relative row form-group widget-numbers mt-0 fsize-1 text-primary pull-left"><label for="exampletext" class="col-sm-5 col-form-label">TOTAL PROGRAMADO SIGUIENTE MES <span id="mes3"></span></label>
+				                                            <div class="position-relative row form-group widget-numbers mt-0 fsize-1 text-primary pull-left"><label for="exampletext" class="col-sm-5 col-form-label">TOTAL PROGRAMADO SIGUIENTE MES <span class="mes3"></span></label>
 				                                                <div class="col-sm-5">
 				                                                	<input name="text" th:field="*{totalProgramadoMes3}" id="totalProgramadoMes3" placeholder="text placeholder" type="text" class="form-control widget-numbers mt-0 fsize-2 text-success" required>
 				                                                	<b><label id="labeltotalProgramadoMes3" class="text-primary"><span> IVA</span></label></b>
@@ -310,6 +310,12 @@
 				                                            <input type="hidden" th:field="*{dayInit}" id="dayInit" />
 				                                            <input type="hidden" th:field="*{dayFinish}" id="dayFinish" />
 				                                            <input type="hidden" th:field="*{userCreate}" id="idUsuario" />
+				                                            <input type="hidden" th:field="*{mes1}" id="mes1" />
+				                                            <input type="hidden" th:field="*{mes2}" id="mes2" />
+				                                            <input type="hidden" th:field="*{mes3}" id="mes3" />
+				                                            <input type="hidden" th:field="*{semanaInicio}" id="semanaInicio" />
+				                                            <input type="hidden" th:field="*{semanaFinal}" id="semanaFinal" />
+				                                            
 				                                            
 															<hr>
 															<br>   
