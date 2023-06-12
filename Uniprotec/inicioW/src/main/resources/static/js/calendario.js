@@ -1,6 +1,7 @@
 /**
  * Archivo de control JS para Modulo Calendario 
  */
+var datoEconomicoSelec;
 
 $(document).ready(function() {
 	
@@ -413,7 +414,9 @@ $(document).ready(function() {
 			var datoEconomico = datosEconomicos[a];
 			if(datoEconomico.formAEidPreAsignacion*1 === idAsignacionClic*1){
 				console.log("Asignacion Ordinaria");
-				asignaDatosEconomicos(datoEconomico);	
+				datoEconomicoSelec = datoEconomico;
+//				console.log(datoEconomicoSelec);
+				asignaDatosEconomicos(datoEconomico);
 				break;
 			}
 			if(datoEconomico.formAEidPreAsignacion == null){
@@ -423,6 +426,7 @@ $(document).ready(function() {
 						var asignacion = arrayAsignaciones[e]; 
 						if(asignacion*1 === idAsignacionClic*1){
 							asignaDatosEconomicos(datoEconomico);
+							datoEconomicoSelec = datoEconomico;
 							break;
 						}
 					}

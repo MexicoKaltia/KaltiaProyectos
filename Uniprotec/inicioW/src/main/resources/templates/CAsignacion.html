@@ -643,12 +643,19 @@
 		                                        </div>
 		                                      </div>
 		                                      <div class="form-row">
-			                                        <div class="col-md-6 mb-3">
+			                                        <div class="col-md-4 mb-3">
 			                                            <label for="validationCustom02">Estatus Factura Datos Económicos</label>
-															<select name="estatusDatoEconomico" id="estatusDatoEconomico" th:field="*{estatusDatoEconomico}">
+															<select name="estatusDatoEconomico" id="estatusDatoEconomico" th:field="*{estatusDatoEconomico}" onChange="validaEstatusDatoEconomico(this)">
 															</select>
 			                                        </div>
-			                                        <div class="col-md-6 mb-3">
+			                                        <div class="col-md-4 mb-3">
+			                                            <label for="validationCustom02">Fecha Cambio de Estatus</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPromesaPago" ></label></div>
+			                                            <input type="text" class="datepicker  form-control"  id="fechaCambioEstatusCalendar" disabled>
+			                                            <div id="btnAgregarFechas"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+			                                            	<small class="form-text text-muted">Click en el campo calendario para actualizar Fechas de Pago de Factura</small>
+			                                            </div>
+		                                        	</div>
+			                                        <div class="col-md-4 mb-3">
 			                                        	Actual Estatus : <h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b><span id="estatusDatoEconomicoActual"></span></b></h2>
 			                                        	<br>
 			                                        	Última Fecha Actualización : <h2 class="widget-numbers mt-0 fsize-2 text-primary pull-left"><b><span id="fechaCambioEstatusOld"></span></b></h2>
@@ -664,7 +671,7 @@
 												<input type="hidden" th:field="*{prospectoClienteTexto}" id="prospectoClienteTexto" />
 												<input type="hidden" th:field="*{numFactura}" id="numFactura" />
 												<input type="hidden" th:field="*{fechaCambioEstatus}" id="fechaCambioEstatus" />
-<!-- 												<input type="hidden" th:field="*{strFechaConfirmacion}" id="strFechaConfirmacion" /> -->
+<!-- 												<input type="hidden" th:field="*{fechaCambioEstatusFormat}" id="fechaCambioEstatusFormat" /> -->
                                                <br>
                                        		<span class="float-left">
                                        			<button type="submit" class="btn btn-success pull-left" id="btnActualizarDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
@@ -843,6 +850,9 @@
     var $datepicker = $( '#fechaPromesaPago' ).pickadate({
 //    	 min : today
    });
+    var $datepicker3 = $( '#fechaCambioEstatusCalendar' ).pickadate({
+//   	 min : today
+  });
     </script>     
      			
 </body>

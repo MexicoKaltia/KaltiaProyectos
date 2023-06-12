@@ -2,6 +2,8 @@
  * Archivo de control JS para Datos Economicos 
  */
 
+var datoEconomico = datoEconomicoSelec;
+
 $(document).ready(function() {
 
 	console.log(datosEconomicos);
@@ -35,13 +37,38 @@ $("#btnActualizarDatosEconomicos").click(function(){
 		finalVendedores.push(JSON.stringify(vendedorFinal));
 	}
 	$('#vendedoresStr').val(finalVendedores);
+	var tmpFechaConfirmacion = 	$('#fechaPromesaPago').val();
+	if(tmpFechaConfirmacion != null || !tmpFechaConfirmacion.equals("")){
+		var tmpEstatusDatoEconomico = 	$('#estatusDatoEconomico').val();
+		if(tmpEstatusDatoEconomico !="PAGADA"){
+			$('#estatusDatoEconomico').val("PENDIENTE");
+		}else{
+			var elementoPicker = $datepicker3.pickadate('picker');
+			var asignaFecha = elementoPicker.get('select', 'mm/dd/yyyy');
+			var asignaFechaMX = elementoPicker.get('select', 'dd/mm/yyyy');
+			$('#fechaCambioEstatusFormat').val(asignaFecha);
+			$('#fechaCambioEstatus').val(asignaFechaMX);
+		}
+	}
 	
-	
-});
+}); //finJQuery
+
+
+
 		
 	var vendedoresArray =  new Array();
 	var idAsignacionClic;
 	var flagExistDatosEconomicos = false;
+	
+	function validaEstatusDatoEconomico(element){
+		var tmpEstatusDatoEconomico = 	$('#estatusDatoEconomico').val();
+		console.log(tmpEstatusDatoEconomico);
+		$('#fechaCambioEstatusCalendar').attr("disabled", true);
+		
+		if(tmpEstatusDatoEconomico =="PAGADA"){
+			$('#fechaCambioEstatusCalendar').attr("disabled", false);		
+		}
+	}
 	
 	function porcentajeVendedor(idAsignacion){
 		console.log("Nuevo Expediente Datos Economicos");
@@ -73,6 +100,7 @@ $("#btnActualizarDatosEconomicos").click(function(){
 	
 	function cargaVendedoresDE(idAsignacion){
 		console.log("Existe el expediente datos Economicos");
+		console.log(datoEconomicoSelec);
 		idAsignacionClic = idAsignacion;
 		flagExistDatosEconomicos = true;
 		vendedoresArray.length = 0;	
@@ -96,11 +124,13 @@ $("#btnActualizarDatosEconomicos").click(function(){
 					vendedoresArray.push(vendedor);
 				}
 			}else{
-				var arrayAsignaciones = stringToList(vendedor.listAsignaciones);
-				for(var e in arrayAsignaciones){
-					var asignacion = arrayAsignaciones[e]; 
-					if(asignacion*1 === idAsignacion*1){
-						vendedoresArray.push(vendedor);
+				if(vendedor.listAsignaciones != null){
+					var arrayAsignaciones = stringToList(vendedor.listAsignaciones);
+					for(var e in arrayAsignaciones){
+						var asignacion = arrayAsignaciones[e]; 
+						if(asignacion*1 === idAsignacion*1){
+							vendedoresArray.push(vendedor);
+						}
 					}
 				}
 			}
