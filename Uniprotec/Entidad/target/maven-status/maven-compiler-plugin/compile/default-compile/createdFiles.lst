@@ -15,6 +15,7 @@ mx\uniprotec\entidad\modelo\Role.class
 mx\uniprotec\entidad\modelo\VendedorDEModelo.class
 mx\uniprotec\entidad\modelo\CursoModelo.class
 mx\uniprotec\entidad\modelo\MonitorEntidades.class
+mx\uniprotec\entidad\modelo\ReporteSemanalModelo.class
 mx\uniprotec\entidad\modelo\User.class
 mx\uniprotec\entidad\modelo\EntregableDiploma.class
 mx\uniprotec\entidad\modelo\EntregableModelo.class

@@ -62,7 +62,6 @@ $("#btnActualizarDatosEconomicos").click(function(){
 	
 	function validaEstatusDatoEconomico(element){
 		var tmpEstatusDatoEconomico = 	$('#estatusDatoEconomico').val();
-		console.log(tmpEstatusDatoEconomico);
 		$('#fechaCambioEstatusCalendar').attr("disabled", true);
 		
 		if(tmpEstatusDatoEconomico =="PAGADA"){
@@ -119,7 +118,6 @@ $("#btnActualizarDatosEconomicos").click(function(){
 			var vendedor = vendedoresDatosEconomicos[e];
 			if(vendedor.idAsignacion > 0){	
 				if(vendedor.idAsignacion == idAsignacion){
-					console.log("vendedor.idAsignacion != null");
 					$('#idAsignacionDatosEconomicos').val(idAsignacionClic);
 					vendedoresArray.push(vendedor);
 				}

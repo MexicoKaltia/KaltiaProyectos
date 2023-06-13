@@ -1,5 +1,6 @@
 package mx.uniprotec.inicio.controller;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
@@ -262,7 +264,29 @@ public class ControllerDatosEconomicos {
 	}
 
 	
-	
+	@GetMapping("/CReporteFactura")
+	public ModelAndView CReporteFactura(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+			@RequestParam(name="error", required=false) boolean error,
+			ModelMap model) {
+			log.info("CReporteFactura model Activo");
+			model.addAttribute("reporteFacturaItem", new ReporteSemanalModelo());
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			
+			ResultVO rs = datosEconomicosService.consultaVendedoresAnalisis(resultVO.getAccesToken());
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			
+			ModelAndView mav = new ModelAndView("CReporteFactura", model);
+			if(resultVO.getCodigo() != 500) {	
+//				log.info(model.values().toString());
+				
+				mav.addObject("error", error);
+				mav.addObject("ejecucion", ejecucion);
+			}else {
+				mav.addObject("consulta", true);
+			}
+			return mav;
+		}		
 	
 
 }
