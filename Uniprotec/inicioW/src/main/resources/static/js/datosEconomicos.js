@@ -38,8 +38,10 @@ $("#btnActualizarDatosEconomicos").click(function(){
 	}
 	$('#vendedoresStr').val(finalVendedores);
 	var tmpFechaConfirmacion = 	$('#fechaPromesaPago').val();
-	if(tmpFechaConfirmacion != null || !tmpFechaConfirmacion.equals("")){
+	if(!tmpFechaConfirmacion.equals("")){
 		var tmpEstatusDatoEconomico = 	$('#estatusDatoEconomico').val();
+		console.log(tmpFechaConfirmacion);
+		alert("");
 		if(tmpEstatusDatoEconomico !="PAGADA"){
 			$('#estatusDatoEconomico').val("PENDIENTE");
 		}else{

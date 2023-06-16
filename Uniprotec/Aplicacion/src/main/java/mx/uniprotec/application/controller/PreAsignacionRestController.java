@@ -104,6 +104,7 @@ public class PreAsignacionRestController {
 			
 			preAsignacionAENew.setEstatusDatoEconomico(datosEconomicos.getEstatusDatoEconomico());
 			preAsignacionAENew.setFechaCambioEstatus(datosEconomicos.getFechaCambioEstatus());
+			preAsignacionAENew.setFechaPago(datosEconomicos.getFechaPago());
 			
 			
 			if(datosEconomicos.getListFechaPromesaPago().size()>0) {

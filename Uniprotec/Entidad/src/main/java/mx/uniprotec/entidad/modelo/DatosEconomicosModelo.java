@@ -34,6 +34,8 @@ public class DatosEconomicosModelo {
 	private List<Integer> listAsignaciones;
 	private String estatusDatoEconomico;
 	private String fechaCambioEstatus;
+	private String fechaPago;
+	
 	
 	public Long getIdDatosEconomicos() {
 		return idDatosEconomicos;
@@ -179,38 +181,10 @@ public class DatosEconomicosModelo {
 				+ ", listFechaConfirmacion=" + listFechaConfirmacion + ", vendedores=" + vendedores + ", vendedoresStr="
 				+ vendedoresStr + ", numFactura=" + numFactura + ", prospectoCliente=" + prospectoCliente
 				+ ", prospectoClienteTexto=" + prospectoClienteTexto + ", listAsignaciones=" + listAsignaciones
-				+ ", estatusDatoEconomico=" + estatusDatoEconomico + ", fechaCambioEstatus=" + fechaCambioEstatus + "]";
+				+ ", estatusDatoEconomico=" + estatusDatoEconomico + ", fechaCambioEstatus=" + fechaCambioEstatus
+				+ ", fechaPago=" + fechaPago + "]";
 	}
-	public DatosEconomicosModelo(Long idDatosEconomicos, Double ventaReal, Double porcentajeVenta, Double comisionReal,
-			Double porcentajeComision, Double viaticosTotales, String fechaPromesaPago, String fechaPromesaPagoFormat,
-			String fechaConfirmacion, String fechaConfirmacionFormat, String observacion, Long idAsignacion,
-			String status, LocalDateTime createAtAsignacion, Long userCreateAsignacion,
-			List<String> listFechaPromesaPago, List<String> listFechaConfirmacion, List<VendedorDEModelo> vendedores,
-			String vendedoresStr, String numFactura, int prospectoCliente, String prospectoClienteTexto) {
-		super();
-		this.idDatosEconomicos = idDatosEconomicos;
-		this.ventaReal = ventaReal;
-		this.porcentajeVenta = porcentajeVenta;
-		this.comisionReal = comisionReal;
-		this.porcentajeComision = porcentajeComision;
-		this.viaticosTotales = viaticosTotales;
-		this.fechaPromesaPago = fechaPromesaPago;
-		this.fechaPromesaPagoFormat = fechaPromesaPagoFormat;
-		this.fechaConfirmacion = fechaConfirmacion;
-		this.fechaConfirmacionFormat = fechaConfirmacionFormat;
-		this.observacion = observacion;
-		this.idAsignacion = idAsignacion;
-		this.status = status;
-		this.createAtAsignacion = createAtAsignacion;
-		this.userCreateAsignacion = userCreateAsignacion;
-		this.listFechaPromesaPago = listFechaPromesaPago;
-		this.listFechaConfirmacion = listFechaConfirmacion;
-		this.vendedores = vendedores;
-		this.vendedoresStr = vendedoresStr;
-		this.numFactura = numFactura;
-		this.prospectoCliente = prospectoCliente;
-		this.prospectoClienteTexto = prospectoClienteTexto;
-	}
+	
 	public int getProspectoCliente() {
 		return prospectoCliente;
 	}
@@ -234,6 +208,12 @@ public class DatosEconomicosModelo {
 	}
 	public void setFechaCambioEstatus(String fechaCambioEstatus) {
 		this.fechaCambioEstatus = fechaCambioEstatus;
+	}
+	public String getFechaPago() {
+		return fechaPago;
+	}
+	public void setFechaPago(String fechaPago) {
+		this.fechaPago = fechaPago;
 	}
 
 	

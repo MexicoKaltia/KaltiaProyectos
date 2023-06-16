@@ -70,6 +70,8 @@ public class DatosEconomicosEntity {
 	private String estatusDatoEconomico;
 	@Column
 	private String fechaCambioEstatus;
+	@Column
+	private String fechaPago;
 	
 	//no se ocupan
 	@Column(nullable=false)
@@ -222,6 +224,12 @@ public class DatosEconomicosEntity {
 	}
 	public void setFechaCambioEstatus(String fechaCambioEstatus) {
 		this.fechaCambioEstatus = fechaCambioEstatus;
+	}
+	public String getFechaPago() {
+		return fechaPago;
+	}
+	public void setFechaPago(String fechaPago) {
+		this.fechaPago = fechaPago;
 	}
 
 

@@ -270,6 +270,7 @@ public class ControllerDatosEconomicos {
 			ModelMap model) {
 			log.info("CReporteFactura model Activo");
 			model.addAttribute("reporteFacturaItem", new ReporteSemanalModelo());
+			model.addAttribute("datosEconomicosItem", new DatosEconomicosModelo());
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);
 			

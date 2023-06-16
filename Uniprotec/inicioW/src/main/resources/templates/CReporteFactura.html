@@ -72,17 +72,17 @@
                                 <div class="widget-content-left">
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
-                                                alt="">
-                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                        </a>
-                                        <div tabindex="-1" role="menu" aria-hidden="true"
-                                            class="dropdown-menu dropdown-menu-right">
-                                            <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
-                                            
-                                            <div tabindex="-1" class="dropdown-divider"></div>
-                                            <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
+											 class="p-0 btn">
+											 <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+											     alt="">
+											 <i class="fa fa-angle-down ml-2 opacity-8"></i>
+											                                        </a>
+											                                        <div tabindex="-1" role="menu" aria-hidden="true"
+											 class="dropdown-menu dropdown-menu-right">
+											 <a href="/CUsuario"><button type="button" tabindex="0" class="dropdown-item">Cuenta de Usuario</button></a>
+											 
+											 <div tabindex="-1" class="dropdown-divider"></div>
+											 <a href="/OffSession"><button type="button" tabindex="0" class="dropdown-item">Cerrar Sesion</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
 											Ventas
 										</span>
 										<span th:unless='${model.jsonResponse.user.perfil == "Vendedor"}'>
-											<span th:text="${model.jsonResponse.user.perfil}"></span>
+										<span th:text="${model.jsonResponse.user.perfil}"></span>
 										</span>
                                     </div>
                                 </div>
@@ -168,8 +168,8 @@
                                 <ul>
                                     <li th:each= "submodulo : ${modulo.submodules}">
                                         <a th:href="${submodulo.referenciaSubmodulo}">
-                                            <i class="metismenu-icon"></i>
-                                            <span th:text="${submodulo.nombreSubmodulo}"></span>
+											 <i class="metismenu-icon"></i>
+											 <span th:text="${submodulo.nombreSubmodulo}"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -253,17 +253,17 @@
 										data-detail-view="true"
   										data-detail-formatter="detailFormatter">
 										<thead class='thead-dark'>
-											<tr>
-												<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='idPreAsignacionAE' data-sortable='true'>ID EXPEDIENTE</th>
-												<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='formAENumFactura' data-sortable='true'>FACTURA</th>
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEidPreAsignacion' data-sortable='true'>ASIGNACION</th>
-												<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='formAECliente' data-sortable='true'>CLIENTE</th>
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEPrecioVentaReal' data-sortable='true'>MONTO</th>
-												<th data-width="15" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEFechaPromesaPago' data-sortable='true'>Promesa de Pago</th>
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='estatusDatoEconomico' data-sortable='true'>ESTATUS</th>
-												<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
-<!-- 												<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
-											</tr>
+										<tr>
+											<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='idPreAsignacionAE' data-sortable='true'>ID EXPEDIENTE</th>
+											<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='formAENumFactura' data-sortable='true'>FACTURA</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEidPreAsignacion' data-sortable='true'>ASIGNACION</th>
+											<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='formAECliente' data-sortable='true'>CLIENTE</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEPrecioVentaReal' data-sortable='true'>MONTO</th>
+											<th data-width="15" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEFechaPromesaPago' data-sortable='true'>Promesa de Pago</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='estatusDatoEconomico' data-sortable='true'>ESTATUS</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
+										<!-- 	<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
+										</tr>
 										</thead>					
 									</table>
 									<script>
@@ -287,25 +287,22 @@
 					<!-- Footer-->
                                        <div class="app-wrapper-footer">
                                         <div class="app-footer">
-                                            <div class="app-footer__inner">
-                                                <div class="app-footer-right">
-                                                    <ul class="nav">
-                                                        
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">
-                                                                <div class="badge badge-success mr-1 ml-0">
-                                                                    <small>v 3.2.0</small>
-                                                                </div>
-                                                                Derechos Reservados © Uniprotec 2023
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div></div></div>
-                                    
+										 <div class="app-footer__inner">
+										     <div class="app-footer-right">
+										         <ul class="nav">
+										             
+										             <li class="nav-item">
+										                 <a href="javascript:void(0);" class="nav-link">
+										                     <div class="badge badge-success mr-1 ml-0">
+										                         <small>v 3.2.0</small>
+										                     </div>
+										                     Derechos Reservados © Uniprotec 2023
+										                 </a>
+										             </li>
+										         </ul>
+										     </div>
+										 </div></div></div>
                                 <!-- Fin Footer-->
-
-
 			</div>
 			<!--  app-main__inner -->
         </div>  <!-- fin de app-main__outer-->
@@ -313,8 +310,6 @@
 </div>   <!-- app-container -->
 
 <!--  -->
-
-
 	
     <script type="text/javascript" th:src="@{js/main.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
@@ -322,6 +317,7 @@
 <script th:inline="javascript">
 var asignaciones = [[${model.jsonResponseObject.asignaciones}]];
 var datosEconomicos= [[${model.jsonResponseObject.datosEconomicos}]];
+
 var vendedoresDatosEconomicos= [[${model.jsonResponseObject.vendedoresDatosEconomicos}]];
 var vendedores= [[${model.jsonResponseObject.vendedores}]];
 var clientes= [[${model.jsonResponseObject.clientes}]];
@@ -332,62 +328,132 @@ var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 
 </script>  
-
-											    
-    
+	<script type="text/javascript" th:src="@{js/CReporteFactura.js}"></script>										    
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/CReporteFactura.js}"></script>
-	
-	
-
 </body>
 
 </html>
 
-
  <!-- Modal -->
-  <div class="modal fade" id="modalRegistro" role="dialog">
+  <div class="modal fade" id="modalReporteFactura" role="dialog">
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background-color: #F1FFFE">
-          <div class="logo-src2" ><img width="90%"  th:src="@{assets/images/logo.png}"alt=""></div>
-          <h4 style="padding:35px 50px; position: center">Edicion Expediente Economico</h4>
+          <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
-        <div class="modal-body" style="padding:40px 50px; ">
-          <form id="altaCliente" class="login100-form validate-form needs-validation" novalidate action="#" th:action="@{/actualizaCliente}"  th:object="${clienteForm}" method="post">
-
-
-          </form>
-            
-                                <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                </script>
-
+        <div class="modal-body">
+        <br>
+        <h3>Edicion Reporte Factura : <span id="modalNombreVendedorAnalisis"></span></h3>
+        <br><hr><br>
+            <form role="form" id="edicionDatosEconomicos" th:action="@{/BReporteFactura}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
+			    <h4 class="card-title">Resumen datos económicos <b><span class="widget-numbers mt-0 fsize-2 text-primary pull-left" id="idExpedienteEconomico" ></span></b></h4>
+			    <div class="form-row">
+				  <div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Número de Factura</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelNumFacturaEdicion" ></label></div>
+					 
+				  </div>
+				  <div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Estatus Factura</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelEstatusFactura" ></label></div>
+				</div>
+				<div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Fecha Emisión</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaEmision" ></label></div>
+				</div>
+				</div>
+				<div class="form-row">
+				  <div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Monto</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelVentaRealEdicion" ></label></div>
+					 
+				  </div>
+				  	<div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Total IVA</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelVentaRealIVAEdicion" ></label></div>
+					</div>
+					<div class="col-md-4 mb-3">
+						 <label for="validationCustom02">Porcentaje de Venta</label>
+						 <br><div class="widget-numbers mt-0 fsize-2 text-success pull-left" id="divPorcentajeVentaEdicion"><label id="labelPorcentajeVentaEdicion" ></label></div>
+					</div>
+				</div>
+				<div class="form-row">
+				  <div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Fecha Confirmación</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaConfirmacionEdicion" ></label></div>
+				  </div>
+				  <div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Fecha Promesa Pago</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaPromesaPagoEdicion" ></label></div>
+				  </div>
+				  <div class="col-md-4 mb-3">
+					 <label for="validationCustom02">Fecha Pago/Cancelación</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaPago" ></label></div>
+				  </div>
+				</div>
+				<hr>
+				<div class="form-row">
+				  <div class="col-md-6 mb-3">
+					 <label for="validationCustom02">Razon Social</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelRFCCliente" ></label></div>
+				  </div>
+				  <div class="col-md-6 mb-3">
+					 <label for="validationCustom02">Nombre Corto</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-success pull-left" ><label id="labelCliente" ></label></div>
+				  </div>
+				</div>
+				<div class="form-row">
+				  <div class="col-md-6 mb-3">
+					 <label for="validationCustom02">Id Asignacion</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelIdAsignacion" ></label></div>
+				  </div>
+				  <div class="col-md-6 mb-3">
+					 <label for="validationCustom02">Nombre Comercial</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-success pull-left" ><label id="labelClienteRazonSocial" ></label></div>
+				  </div>
+				</div>
+				<hr>
+				<div class="form-row">
+				  <div class="col-md-12 mb-3">
+					 <h5 class="card-title">Vendedores</h5>
+					 <br><div  id="divVendedoresEdicion"></div>
+				  </div>
+				</div>
+				<hr>
+				<div class="form-row">
+				  <div class="col-md-6 mb-3">
+					 <label for="validationCustom02">Viáticos Totales de Asignación</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelViaticosTotalesEdicion" ></label></div>
+				  </div>
+				  <div class="col-md-6 mb-3">
+					 <label for="validationCustom02">Observaciones</label>
+					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelObservacionesEdicion" ></label></div>
+				  </div>
+				 </div>
+				 <hr>
+				
+				<input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicosEdicion" />
+				<input type="hidden" th:field="*{idAsignacion}" id="idAsignacionDatosEconomicos" />
+				<input type="hidden" th:field="*{userCreateAsignacion}" id="userCreateAsignacionDatosEconomicos" />
+				<input type="hidden" th:field="*{listFechaPromesaPago}" id="listFechaPromesaPago" />
+				<input type="hidden" th:field="*{listFechaConfirmacion}" id="listFechaConfirmacion" />
+				<input type="hidden" th:field="*{listAsignaciones}" id="listAsignaciones" />
+			    <br>
+			    <div class="form-row">
+				    	<div class="col-md-6 mb-3">
+				    		<span class="float-left">
+			 				<button type="submit" class="btn btn-success pull-left" id="btnAsignacionDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
+			 				</span>
+				    	</div>
+			   </div>
+			</form>
         </div>
         <div class="modal-footer" style=" background-color: #F1FFFE">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
           
         </div>
       </div>

@@ -136,21 +136,11 @@ $(document).ready(function(){
 		    		console.log(asignacionSelect);
 		    		
 		    		$("#edicionDatosEconomicos").attr("action", "/DDatosEconomicos/"+row.idPreAsignacionAE);
-//		    		$("#edicionDatosEconomicos").attr("method", "delete");
 		    		
 		    		alert("Se Elimina Expediente Económico");
 		    		
 		    	});
 
-//		    	$('#asignacionesOutDETable').bootstrapTable({data : $arrayAsignacionesSin});
-//		    	var $table = $('#asignacionesOutDETable')
-//
-//				  $(function() {
-//					  $('#modalEdicionDatosEconomicos').on('shown.bs.modal', function () {
-//						  $table.bootstrapTable('resetView');
-//						  $('#asignacionesOutDETable').bootstrapTable({data : $arrayAsignacionesSin});
-//				    })
-//				  })
 	    }
 		    	
    	}
