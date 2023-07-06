@@ -11,7 +11,11 @@
         <link rel="icon" type="image/png" href="assets/images/logo.ico"/>
 	    <link th:href="@{main.css}" rel="stylesheet">
 	    <link rel="stylesheet" th:href="@{css/bootstrap-table.min.css}">
-	    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+	    
+	    <link th:href="@{css/default.css}" rel="stylesheet">
+	    <link th:href="@{css/default.date.css}" rel="stylesheet">
+	    <link th:href="@{css/default.time.css}" rel="stylesheet">
+	    
 	    
 </head>
 
@@ -241,11 +245,23 @@
 							<div class="main-card mb-3 card">
 								<div class="card-body">
 									<h5 class="card-title">RELACION FACTURAS UNIPROTEC</h5>
+									<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                            <li class="nav-item">
+                                <a  class="nav-link active" id="btnFiltroFechas" data-toggle="modal" data-target="#modalFiltroFechas">
+                                    <span>Filtro Fechas </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link active" id="btnFiltroVendedores" data-toggle="modal" data-target="#modalFiltroVendedores">
+                                    <span>Filtro Vendedores</span>
+                                </a>
+                            </li>
+                            </ul>
 
 									<table id='facturaTable' class="mb-0 table table-striped table-sm"
 										data-locale="es-MX" 
 										data-toggle='table' 
-										data-sort-name='idPreAsignacionAE'
+										data-sort-name='idExpedienteEconomico'
 										data-search='true' 
 										data-sort-order='asc'
 										data-pagination='true'
@@ -254,13 +270,13 @@
   										data-detail-formatter="detailFormatter">
 										<thead class='thead-dark'>
 										<tr>
-											<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='idPreAsignacionAE' data-sortable='true'>ID EXPEDIENTE</th>
-											<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='formAENumFactura' data-sortable='true'>FACTURA</th>
-											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEidPreAsignacion' data-sortable='true'>ASIGNACION</th>
-											<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='formAECliente' data-sortable='true'>CLIENTE</th>
-											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEPrecioVentaReal' data-sortable='true'>MONTO</th>
-											<th data-width="15" data-width-unit="%" data-halign="center" data-align="center" data-field='formAEFechaPromesaPago' data-sortable='true'>Promesa de Pago</th>
-											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='estatusDatoEconomico' data-sortable='true'>ESTATUS</th>
+											<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='idExpedienteEconomico' data-sortable='true'>ID EXPEDIENTE</th>
+											<th data-width="5" data-width-unit="%" data-halign="center" data-align="center" data-field='Factura' data-sortable='true'>FACTURA</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='Asignacion' data-sortable='true'>ASIGNACION</th>
+											<th data-width="30" data-width-unit="%" data-halign="center" data-align="center" data-field='Cliente' data-sortable='true'>CLIENTE</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='Monto' data-sortable='true'>MONTO</th>
+											<th data-width="15" data-width-unit="%" data-halign="center" data-align="center" data-field='FechaPromesaPago' data-sortable='true'>Promesa de Pago</th>
+											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field='Estatus' data-sortable='true'>ESTATUS</th>
 											<th data-width="10" data-width-unit="%" data-halign="center" data-align="center" data-field="operateUpdate" data-formatter="operateFormatterUpdate" data-events="window.operateEventsUpdate">Editar</th>
 										<!-- 	<th data-width="20" data-width-unit="%" data-halign="center" data-align="center" data-field="operateDelete" data-formatter="operateFormatterDelete" data-events="window.operateEventsDelete">Eliminar</th> -->
 										</tr>
@@ -328,7 +344,8 @@ var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 
 </script>  
-	<script type="text/javascript" th:src="@{js/CReporteFactura.js}"></script>										    
+	<script type="text/javascript" th:src="@{js/CReporteFactura.js}"></script>
+	<script type="text/javascript" th:src="@{js/filtrosReporteFactura.js}"></script>										    
     <script th:src="@{js/bootstrap-table.min.js}"></script>
     <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
 </body>
@@ -347,11 +364,12 @@ var operacionId =  [[${model.jsonResponse.user.operacionId}]];
           <h4><span class="glyphicon glyphicon-lock"></span></h4>
         </div>
         <div class="modal-body">
-        <br>
-        <h3>Edicion Reporte Factura : <span id="modalNombreVendedorAnalisis"></span></h3>
-        <br><hr><br>
-            <form role="form" id="edicionDatosEconomicos" th:action="@{/BReporteFactura}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
+<!--         <br> -->
+<!--         <h3>Edicion Reporte Factura : <span id="modalNombreVendedorAnalisis"></span></h3> -->
+        
+            <form role="form" id="edicionDatosEconomicos" th:action="@{/BDatosEconomicos2}" class="login100-form validate-form needs-validation" th:object="${datosEconomicosItem}" method="post">
 			    <h4 class="card-title">Resumen datos económicos <b><span class="widget-numbers mt-0 fsize-2 text-primary pull-left" id="idExpedienteEconomico" ></span></b></h4>
+			    <input type="hidden" th:field="*{idDatosEconomicos}" id="idDatosEconomicos" />
 			    <div class="form-row">
 				  <div class="col-md-4 mb-3">
 					 <label for="validationCustom02">Número de Factura</label>
@@ -363,8 +381,12 @@ var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelEstatusFactura" ></label></div>
 				</div>
 				<div class="col-md-4 mb-3">
-					 <label for="validationCustom02">Fecha Emisión</label>
-					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaEmision" ></label></div>
+					 <label for="validationCustom02">Fecha Emisión</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaEmision" ></label></div>
+					 <input type="text" class="datepicker form-control" th:field="*{fechaEmision}" id="fechaEmision"   onchange="formatoFechaEmision()" required>
+		             <input type="hidden" th:field="*{fechaEmisionFormat}" id="fechaEmisionFormat" />
+		             <div id="btnAgregarFechasEmision"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+		            	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas de Emisión Factura</small>
+					 </div>
 				</div>
 				</div>
 				<div class="form-row">
@@ -383,17 +405,29 @@ var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 					</div>
 				</div>
 				<div class="form-row">
-				  <div class="col-md-4 mb-3">
-					 <label for="validationCustom02">Fecha Confirmación</label>
-					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaConfirmacionEdicion" ></label></div>
-				  </div>
-				  <div class="col-md-4 mb-3">
-					 <label for="validationCustom02">Fecha Promesa Pago</label>
-					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaPromesaPagoEdicion" ></label></div>
-				  </div>
-				  <div class="col-md-4 mb-3">
-					 <label for="validationCustom02">Fecha Pago/Cancelación</label>
-					 <br><div class="widget-numbers mt-0 fsize-2 text-primary pull-left"><label id="labelFechaPago" ></label></div>
+					<div class="col-md-4 mb-3">
+		                 <label for="validationCustom02">Fecha Confirmacion Factura</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaConfirmacion" ></label></div>
+		                 <input type="text" class="datepicker form-control" th:field="*{fechaConfirmacion}" id="fechaConfirmacion"   onchange="formatoFechaConfirmacion()" required>
+		                 <input type="hidden" th:field="*{fechaConfirmacionFormat}" id="fechaConfirmacionFormat" />
+		                 <div id="btnAgregarFechas"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+		                	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas de Confirmacion Recibo Factura</small>
+						</div>
+					  </div>
+		              <div class="col-md-4 mb-3">
+		                 <label for="validationCustom02">Fecha Promesa de Pago</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPromesaPago" ></label></div>
+		                 <input type="text" class="datepicker  form-control" th:field="*{fechaPromesaPago}" id="fechaPromesaPago"   onchange="formatoFechaPromesaPago()" required>
+		                 <input type="hidden" th:field="*{fechaPromesaPagoFormat}" id="fechaPromesaPagoFormat" />
+		                 <div id="btnAgregarFechas"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+		                	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas de Cobro Facturacion</small>
+		             	</div>
+					 </div>
+					 <div class="col-md-4 mb-3">
+						 <label for="validationCustom02">Fecha Pago / Cancelación</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPago" ></label></div>
+						 <input type="text" class="datepicker form-control" th:field="*{fechaPago}" id="fechaPago"   onchange="formatoFechaPago()" required>
+			             <input type="hidden" th:field="*{fechaPagoFormat}" id="fechaPagoFormat" />
+			             <div id="btnAgregarFechasEmision"><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+			            	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas de Pago Factura</small>
+						 </div>
 				  </div>
 				</div>
 				<hr>
@@ -447,7 +481,7 @@ var operacionId =  [[${model.jsonResponse.user.operacionId}]];
 			    <div class="form-row">
 				    	<div class="col-md-6 mb-3">
 				    		<span class="float-left">
-			 				<button type="submit" class="btn btn-success pull-left" id="btnAsignacionDatosEconomicos"   disabled>Actualizar Datos Económicos</button>
+			 				<button type="submit" class="btn btn-success pull-left" id="btnAsignacionDatosEconomicos"  >Actualizar Datos Económicos</button>
 			 				</span>
 				    	</div>
 			   </div>
@@ -460,3 +494,142 @@ var operacionId =  [[${model.jsonResponse.user.operacionId}]];
       
     </div>
   </div> 
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       
+                       <div class="modal" id="modalFiltroVendedores" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Vendedores</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body" >
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosVendedores" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;" id="modalNombreVendedor">Todos Vendedores</span>
+											</div>
+			                            </li>
+			                            <hr>
+			                            <div  id="modalFiltroVendedor">
+									    <li th:each= "vendedor : ${model.jsonResponseObject.vendedores}" style="list-style-type:none" >
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxFiltroV" th:id="${vendedor.idVendedor}" >
+											    </div>
+											  </div>
+											  <span th:text="${vendedor.nombreVendedor}" style="padding-left: 10px;"></span>
+											</div>
+			                            </li>
+			                            </div>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="submit"  class="btn btn-info pull-left" id="btnFiltroV" data-dismiss="modal">Actualizar Reporte</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       
+                       <div class="modal" id="modalFiltroFechas" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog modal-lg" role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Fechas Factura</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body" >
+				                      <div class="form-row">
+										<div class="col-md-4 mb-3">
+							                 <label for="validationCustom02">Tipo de Fecha</label>
+												<select name="tipoFecha" id="tipoFecha" onChange="validaTipoFecha(this)">
+												<option value="" selected >Seleccione Tipo de Fecha</option>
+													<option value="EMISION">Fechas Emision</option>
+													<option value="CONFIRMACION">Fechas Confirmacion</option>
+													<option value="PROMESA">Fechas Promesa de Pago</option>
+													<option value="PAGO">Fechas Pago</option>
+												</select>
+										  </div>
+							              <div class="col-md-4 mb-3">
+							                 <label for="validationCustom02">Fecha Inicial</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPromesaPago" ></label></div>
+							                 <input type="text" class="datepicker  form-control"  id="fechaInicial"  onchange="formatoFechaInicial()" required disabled >
+							                 <div ><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+							                	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas Inicial</small>
+							             	</div>
+										 </div>
+										 <div class="col-md-4 mb-3">
+											 <label for="validationCustom02">Fecha Fecha Final</label><div class="widget-numbers mt-0 fsize-2 text-primary pull-right"><label id="labelFechaPago" ></label></div>
+											 <input type="text" class="datepicker form-control"  id="fechaFinal"   onchange="formatoFechaFinal()" required disabled>
+								             <div ><img width="50%" src="images/calendario.png" style="max-width: 6.0rem; max-height: 6.0rem; width: 15%;">
+								            	<small class="form-text text-muted">Click en el campo calendario para agregar Fechas Final</small>
+											 </div>
+									  </div>
+									</div>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroFechasActualizar" data-dismiss="modal" disabled onclick="actualizaFechas()">Actualizar Reporte</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
+      <script th:src="@{js/picker.js}"></script>   
+    <script th:src="@{js/picker.date.js}"></script>   
+    <script th:src="@{js/picker.time.js}"></script>   
+    <script th:src="@{js/es_ES.js}"></script>
+  
+<script type="text/javascript">
+    var today = new Date();
+    var $datepicker1 = $( '#fechaEmision' ).pickadate({
+//     	 min : today
+    });
+    var $datepicker = $( '#fechaPago' ).pickadate({
+//    	 min : today
+   });
+    var $datepicker2 = $( '#fechaConfirmacion' ).pickadate({
+//   	 min : today
+  });
+    var $datepicker3 = $( '#fechaPromesaPago' ).pickadate({
+//   	 min : today
+  });
+    var $datepicker4 = $( '#fechaInicial' ).pickadate({
+//  	 min : today
+ });
+    var $datepicker5 = $( '#fechaFinal' ).pickadate({
+//  	 min : today
+ });
+      
+    
+    </script>
+  

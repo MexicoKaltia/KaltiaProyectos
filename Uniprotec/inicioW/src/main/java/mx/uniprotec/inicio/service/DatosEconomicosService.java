@@ -105,6 +105,19 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 		return resultVO;
 	}
 	
+	@Override
+	public ResultVO actualizaDatosEconomicos2(DatosEconomicosModelo datosEconomicos, String accesToken) {
+		me = ComponenteComun.monitorCampos();
+		datosEconomicos.setCreateAtAsignacion(me.getNowEntidad());
+		resultVO = (ResultVO) baseClientRest.objetoPut(
+				accesToken,
+				BaseClientRest.URL_CRUD_DATOSECONOMICOS_FECHAS,
+				datosEconomicos,
+				datosEconomicos.getIdDatosEconomicos());
+			
+		return resultVO;
+	}
+	
 	
 
 	

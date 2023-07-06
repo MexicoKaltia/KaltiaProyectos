@@ -67,17 +67,23 @@ public class DatosEconomicosEntity {
 		private String status;
 
 	@Column
-	private String estatusDatoEconomico;
+		private String estatusDatoEconomico;
 	@Column
-	private String fechaCambioEstatus;
-	@Column
-	private String fechaPago;
+		private String fechaCambioEstatus;
+	@Column(nullable=false)
+		private String fechaPago;
+	@Column(nullable=false)
+		private String fechaPagoFormat;
+	@Column(nullable=false)
+		private String fechaEmision;
+	@Column(nullable=false)
+		private String fechaEmisionFormat;
 	
 	//no se ocupan
 	@Column(nullable=false)
-	private String formAEFechaCotizacion;
+		private String formAEFechaCotizacion;
 	@Column(nullable=false)
-	private int formAENuevaComisionReal;
+		private int formAENuevaComisionReal;
 	
 	
 	
@@ -230,6 +236,24 @@ public class DatosEconomicosEntity {
 	}
 	public void setFechaPago(String fechaPago) {
 		this.fechaPago = fechaPago;
+	}
+	public String getFechaPagoFormat() {
+		return fechaPagoFormat;
+	}
+	public void setFechaPagoFormat(String fechaPagoFormat) {
+		this.fechaPagoFormat = fechaPagoFormat;
+	}
+	public String getFechaEmision() {
+		return fechaEmision;
+	}
+	public void setFechaEmision(String fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+	public String getFechaEmisionFormat() {
+		return fechaEmisionFormat;
+	}
+	public void setFechaEmisionFormat(String fechaEmisionFormat) {
+		this.fechaEmisionFormat = fechaEmisionFormat;
 	}
 
 

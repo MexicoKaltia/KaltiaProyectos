@@ -105,6 +105,9 @@ public class PreAsignacionRestController {
 			preAsignacionAENew.setEstatusDatoEconomico(datosEconomicos.getEstatusDatoEconomico());
 			preAsignacionAENew.setFechaCambioEstatus(datosEconomicos.getFechaCambioEstatus());
 			preAsignacionAENew.setFechaPago(datosEconomicos.getFechaPago());
+			preAsignacionAENew.setFechaPago(datosEconomicos.getFechaPagoFormat());
+			preAsignacionAENew.setFechaPago(datosEconomicos.getFechaEmision());
+			preAsignacionAENew.setFechaPago(datosEconomicos.getFechaEmisionFormat());
 			
 			
 			if(datosEconomicos.getListFechaPromesaPago().size()>0) {
@@ -241,7 +244,6 @@ public class PreAsignacionRestController {
 
 		try {
 			
-			
 			datosEconomicosActual.setFormAEListAsignaciones(listToString(datosEconomicos.getListAsignaciones()));
 			datosEconomicosActual.setStatus("ACTUALIZADO");
 
@@ -279,10 +281,86 @@ public class PreAsignacionRestController {
 		}
 	}
 
-	
-	
+	@PutMapping("/datosEconomicosFechas/{idDatosEconomicos}")
+	public ResponseEntity<?> updateFechas(@Valid @RequestBody DatosEconomicosModelo datosEconomicos, BindingResult result, @PathVariable Long idDatosEconomicos) {
+		log.info(datosEconomicos.toString());
+		
+		DatosEconomicosEntity datosEconomicosActual = preAsignacionAEService.findByIdDatoEconomico(idDatosEconomicos);
+		Map<String, Object> response = new HashMap<>();
+
+		if(result.hasErrors()) {
+
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("mensaje", errors);
+			 response.put("status", HttpStatus.BAD_REQUEST);
+			 response.put("code", HttpStatus.BAD_REQUEST.value());
+			 log.info("datosEconomicos ERROR update fin:"+datosEconomicos.toString());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+		if (datosEconomicosActual == null) {
+			response.put("mensaje", "Error: no se pudo editar, el datosEconomicos ID: "
+					.concat(idDatosEconomicos.toString().concat(" no existe en la base de datos!")));
+			
+			response.put("status", HttpStatus.NOT_FOUND);
+			response.put("code", HttpStatus.NOT_FOUND.value());
+			log.info("datosEconomicos NULL  update fin:"+datosEconomicos.toString());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
+		try {
+			if(!datosEconomicos.getFechaConfirmacion().equals("")) {
+				datosEconomicosActual.setFormAEFechaConfirmacion(datosEconomicos.getFechaConfirmacion());
+				datosEconomicosActual.setFormAEFechaConfirmacionFormat(datosEconomicos.getFechaConfirmacionFormat());
+				datosEconomicosActual.setFormAEFechaPromesaPago("");
+				datosEconomicosActual.setFormAEFechaPromesaPagoFormat("");
+				datosEconomicosActual.setFechaPago("");
+				datosEconomicosActual.setFechaPagoFormat("");
+				datosEconomicosActual.setEstatusDatoEconomico("VIGENTE");
+			}
+			if(!datosEconomicos.getFechaPromesaPago().equals("")) {
+				datosEconomicosActual.setFormAEFechaPromesaPago(datosEconomicos.getFechaPromesaPago());
+				datosEconomicosActual.setFormAEFechaPromesaPagoFormat(datosEconomicos.getFechaPromesaPagoFormat());
+				datosEconomicosActual.setFechaPago("");
+				datosEconomicosActual.setFechaPagoFormat("");
+				datosEconomicosActual.setEstatusDatoEconomico("PENDIENTE");
+			}
+			if(!datosEconomicos.getFechaPago().equals("")) {
+				datosEconomicosActual.setFechaPago(datosEconomicos.getFechaPago());
+				datosEconomicosActual.setFechaPagoFormat(datosEconomicos.getFechaPagoFormat());
+				datosEconomicosActual.setEstatusDatoEconomico("PAGADA");
+			}
+			
+			datosEconomicosActual.setFechaCambioEstatus(hoy());
+			datosEconomicosActual.setStatus("ACTUALIZADO");
+
+			datosEconomicosActual = preAsignacionAEService.savePreAsignacionAE(datosEconomicosActual);
+
+						
+			 response.put("datosEconomicos", datosEconomicosActual);
+			 response.put("mensaje", "El datosEconomicosActual se ha creado con Exito");
+			 response.put("status", HttpStatus.CREATED);
+			 response.put("code", HttpStatus.CREATED.value());
+			 log.info("datosEconomicos update fin:"+datosEconomicos.toString());
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+
+
+		} catch (DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			 log.info("catch datosEconomicosActual update fin:"+datosEconomicos.toString());
+			 e.printStackTrace();
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	
+
 
 	/*
 	 * Vendedores Datos Economicos
@@ -386,6 +464,16 @@ public class PreAsignacionRestController {
 		
 		return seguimiento+nuevoSeguimiento1+fechaHoy+"  "+perfilUsuario+" "+nombreUsuario+nuevoSeguimiento2+mensaje+nuevoSeguimiento3;
 	}
+	
+	private String hoy() {
+		Calendar c1 = Calendar.getInstance();
+		String dia = Integer.toString(c1.get(Calendar.DATE));
+		String mes = Integer.toString(c1.get(Calendar.MONTH)+1);
+		String anio = Integer.toString(c1.get(Calendar.YEAR));
+		String fechaHoy = dia + "/" + mes + "/" + anio ;
+		return fechaHoy;
+	}
+
 
 	private String diaSemana(int i) {
 		
@@ -413,8 +501,6 @@ public class PreAsignacionRestController {
 			diaSemana = "SABADO";
 			break;
 		}
-		
-		
 		return diaSemana;
 	}
 	

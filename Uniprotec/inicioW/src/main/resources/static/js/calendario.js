@@ -400,11 +400,11 @@ $(document).ready(function() {
 		$('#viaticosTotales').val(0);
 		$('#observaciones').val("");
 		
-		$('#estatusDatoEconomico').empty();
-		$('#estatusDatoEconomico').append('<option value="VIGENTE" >VIGENTE</option>');
-		$('#estatusDatoEconomico').append('<option value="PENDIENTE" >PENDIENTE</option>');
-		$('#estatusDatoEconomico').append('<option value="PAGADA" >PAGADA</option>');
-		$('#estatusDatoEconomico').append('<option value="CANCELADA" >CANCELADA</option>');
+//		$('#estatusDatoEconomico').empty();
+//		$('#estatusDatoEconomico').append('<option value="VIGENTE" >VIGENTE</option>');
+//		$('#estatusDatoEconomico').append('<option value="PENDIENTE" >PENDIENTE</option>');
+//		$('#estatusDatoEconomico').append('<option value="PAGADA" >PAGADA</option>');
+//		$('#estatusDatoEconomico').append('<option value="CANCELADA" >CANCELADA</option>');
 		$('#estatusDatoEconomicoActual').text("");
 		
 		
@@ -437,6 +437,7 @@ $(document).ready(function() {
 		if(!flagExistDatosEconomicos){
 			console.log(flagExistDatosEconomicos);
 			$('#estatusDatoEconomicoActual').text("VIGENTE");
+			$('#estatusDatoEconomico').val("VIGENTE");
 			$('#fechaCambioEstatusOld').text(convierteMX(hoyCambioEstatus()));
 			$('#fechaCambioEstatus').val(hoyCambioEstatus());
 			porcentajeVendedor(idAsignacionClic);
@@ -459,8 +460,9 @@ $(document).ready(function() {
 		$('#listFechaPromesaPago').val(datoEconomico.formAEListFechaPromesaPago);
 		$('#listFechaConfirmacion').val(datoEconomico.formAEListFechaConfirmacion);
 		
-		$('#estatusDatoEconomico').append('<option value="'+datoEconomico.estatusDatoEconomico+'" selected >'+datoEconomico.estatusDatoEconomico+'</option>');
-		$('#estatusDatoEconomicoActual').text($('#estatusDatoEconomico').val());
+//		$('#estatusDatoEconomico').append('<option value="'+datoEconomico.estatusDatoEconomico+'" selected >'+datoEconomico.estatusDatoEconomico+'</option>');
+		$('#estatusDatoEconomicoActual').text(datoEconomico.estatusDatoEconomico);
+		$('#estatusDatoEconomico').val(datoEconomico.estatusDatoEconomico);
 		$('#fechaCambioEstatus').val(hoyCambioEstatus());
 		$('#fechaCambioEstatusOld').text(datoEconomico.fechaCambioEstatus);
 		

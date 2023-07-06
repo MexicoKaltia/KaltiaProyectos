@@ -166,6 +166,27 @@ public class ControllerDatosEconomicos {
 		return mav;			
 	}
 
+	@PostMapping("/BDatosEconomicos2")
+	public ModelAndView edicionDatosEconomicos2(@ModelAttribute("datosEconomicosItem") DatosEconomicosModelo datosEconomicosItem, ModelMap model) {
+		log.info("edicionDatosEconomicos model Activo");
+		log.info(datosEconomicosItem.toString());
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+
+		ResultVO rs = datosEconomicosService.actualizaDatosEconomicos2(datosEconomicosItem, resultVO.getAccesToken());
+		ModelAndView mav = null;
+		mav = new ModelAndView("redirect:/CReporteFactura", model);
+		
+		if(rs.getCodigo() != 500) {
+			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+			log.info("NOK altaDatosEconomicos");
+		}
+		return mav;			
+	}
+
 	
 	@PostMapping("/DDatosEconomicos/{idDatosEconomicos}")
 	public ModelAndView DDatosEconomicos(@PathVariable String idDatosEconomicos, ModelMap model) {

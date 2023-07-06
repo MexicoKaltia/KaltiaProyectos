@@ -19,6 +19,8 @@ public interface IDatosEconomicosService {
 	ResultVO consultaVendedoresAnalisis(String token);
 
 	public ResultVO altaReporteSemanal(ReporteSemanalModelo reporteSemanalItem, String accesToken);
+
+	public ResultVO actualizaDatosEconomicos2(DatosEconomicosModelo datosEconomicosItem, String accesToken);
 	
 
 		

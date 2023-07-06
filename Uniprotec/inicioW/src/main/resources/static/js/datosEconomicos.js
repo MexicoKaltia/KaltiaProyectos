@@ -37,11 +37,13 @@ $("#btnActualizarDatosEconomicos").click(function(){
 		finalVendedores.push(JSON.stringify(vendedorFinal));
 	}
 	$('#vendedoresStr').val(finalVendedores);
-	var tmpFechaConfirmacion = 	$('#fechaPromesaPago').val();
-	if(!tmpFechaConfirmacion.equals("")){
+	
+	var tmpFechaPromesaPago = 	$('#fechaPromesaPago').val();
+	
+	
+	if(isEmpty(tmpFechaPromesaPago)){
 		var tmpEstatusDatoEconomico = 	$('#estatusDatoEconomico').val();
-		console.log(tmpFechaConfirmacion);
-		alert("");
+		console.log(tmpEstatusDatoEconomico);
 		if(tmpEstatusDatoEconomico !="PAGADA"){
 			$('#estatusDatoEconomico').val("PENDIENTE");
 		}else{

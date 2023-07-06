@@ -1,6 +1,8 @@
 
 
 console.log(datosEconomicos);
+console.log(asignaciones);
+console.log(clientes);
 
 function operateFormatterUpdate(value, row, index) {
     return [
@@ -10,29 +12,61 @@ function operateFormatterUpdate(value, row, index) {
     ].join('')
   }
   
-
+//var $data = new Array();
 
 $(document).ready(function(){
 	
-	var $data = datosEconomicos;
+	var dataTable = asignaData(datosEconomicos);
 	
-
+	console.log(dataTable);
+	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
+		    	
+//		    	var asignacionSelect = findAsignacion(row);
 		    	console.log(row);
-		    	asignacionSelect = row;
-		    	$arrayAsignacionesSin = new Array();
+//		    	console.log(asignacionSelect);
+//		    	$arrayAsignacionesSin = new Array();
 		    	
-		    	$('#idExpedienteEconomico').text(row.idPreAsignacionAE);
+		    	$('#idExpedienteEconomico').text("");
+		    	$('#labelNumFacturaEdicion').text("");
+		    	$('#labelEstatusFactura').text("");
+		    	$('#labelFechaEmision').text("");
+		    	$('#labelVentaRealEdicion').text("");
+		    	$('#labelVentaRealIVAEdicion').text("");
+		    	$('#labelPorcentajeVentaEdicion').text("");
+		    	$('#labelFechaConfirmacionEdicion').text("");
+			    $('#labelFechaPromesaPagoEdicion').text("");
+			    $('#labelFechaPago').text("");
+			    $('#labelRFCCliente').text("");
+		    	$('#labelCliente').text("");
+		    	$('#labelIdAsignacion').text("");
+		    	$('#labelClienteRazonSocial').text("");
+		    	$('#labelViaticosTotalesEdicion').text("");
+		    	$('#labelObservacionesEdicion').text("");
+//		    	$('#divVendedoresEdicion').empty();
 		    	
-		    	if(row.formAENumFactura != ""){
-		    		$('#labelNumFacturaEdicion').text(row.formAENumFactura);
-		    	}
-		    	$('#labelEstatusFactura').text(row.estatusDatoEconomico);
-		    	 $('#labelFechaEmision').text("");
-		    	$('#labelVentaRealEdicion').text(formatter.format(row.formAEPrecioVentaReal));
-		    	$('#labelVentaRealIVAEdicion').text(formatter.format(row.formAEPrecioVentaReal * 1.16));
-		    	var porcentajeVenta = row.formAEPorcentajeVentaReal;
+		    	$('#fechaPromesaPago').val(row.FechaPromesaPago);
+				$('#fechaPromesaPagoFormat').val(row.FechaPromesaPagoFormat);
+				$('#fechaConfirmacion').val(row.FechaConfirmacion);
+				$('#fechaConfirmacionFormat').val(row.FechaConfirmacionFormat);
+				$('#fechaPago').val(row.FechaPago);
+				$('#fechaPagoFormat').val(row.FechaPagoFormat);
+				$('#fechaEmision').val(row.FechaEmision);
+				$('#fechaEmisionFormat').val(row.FechaEmisionFormat);
+		    	
+		    	/*
+		    	 * 
+		    	 */
+		    	$('#idExpedienteEconomico').text(row.idExpedienteEconomico);
+		    	$('#idDatosEconomicos').val(row.idExpedienteEconomico);
+		    	
+		    	$('#labelNumFacturaEdicion').text(row.Factura);
+		    	$('#labelEstatusFactura').text(row.Estatus);
+		    	$('#labelFechaEmision').text("");
+		    	$('#labelVentaRealEdicion').text(formatter.format(row.Monto));
+		    	$('#labelVentaRealIVAEdicion').text(formatter.format(row.Monto * 1.16));
+		    	var porcentajeVenta = row.PorcentajeVentaReal;
 		    	if(porcentajeVenta < 99){
 					$('#divPorcentajeVentaEdicion').removeClass("text-success");
 					$('#divPorcentajeVentaEdicion').addClass("text-danger");
@@ -40,116 +74,182 @@ $(document).ready(function(){
 					$('#divPorcentajeVentaEdicion').removeClass("text-danger");
 					$('#divPorcentajeVentaEdicion').addClass("text-success");
 				}
-		    	$('#labelFechaConfirmacionEdicion').text(row.formAEFechaConfirmacion);
-			    $('#labelFechaPromesaPagoEdicion').text(row.formAEFechaPromesaPago);
-			    $('#labelFechaPago').text(row.fechaPago);
-			     
-			    var idCliente;
-			    var idAsignacion;
-			    if(row.formAEidPreAsignacion != null){
-			    		idCliente = findCliente(row.formAEidPreAsignacion);
-			    		idAsignacion = row.formAEidPreAsignacion;
-			    }else{
-			    	if(row.formAEListAsignaciones != null){
-			    		var listAsignaciones = row.formAEListAsignaciones;
-			    		idCliente = findCliente(listAsignaciones[0]);
-			    		idAsignacion = row.formAEListAsignaciones;
-			    	}
-			    }
-			    var clienteRFC;
-			    var clienteRazonSocial;
-			    var clienteNombreCorto;
-			    for(var e in clientes){
-			    	var cliente = clientes[e];
-			    	if(idCliente === cliente.idCliente){
-			    		clienteRFC = cliente.rfcCliente;
-					    clienteRazonSocial = cliente.nombreCompletoCliente;
-					    clienteNombreCorto = cliente.nombreCortoCliente;
-			    	}
-			    }
-		    	$('#labelRFCCliente').text(clienteRFC);
-		    	$('#labelCliente').text(clienteNombreCorto);
-		    	$('#labelIdAsignacion').text(idAsignacion);
-		    	$('#labelClienteRazonSocial').text(clienteRazonSocial);
-		    	 
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
-		    	
 		    	$('#labelPorcentajeVentaEdicion').text(porcentajeVenta+"%");
+		    	$('#labelFechaConfirmacionEdicion').text(row.FechaConfirmacion);
+			    $('#labelFechaPromesaPagoEdicion').text(row.FechaPromesaPago);
+			    $('#labelFechaPago').text(row.FechaPago);
+			     
+//			    var cliente = findCliente(asignacionSelect.idClienteAsignacion)
+			    
+		    	$('#labelRFCCliente').text(row.RFC);
+		    	$('#labelCliente').text(row.Cliente);
+		    	$('#labelIdAsignacion').text(row.Asignacion);
+		    	$('#labelClienteRazonSocial').text(row.NombreComercial);
+
+		    	$('#labelViaticosTotalesEdicion').text(formatter.format(row.Viaticos));
+		    	$('#labelObservacionesEdicion').text(row.Observaciones);
 		    	
-		    	$('#labelViaticosTotalesEdicion').text(formatter.format(row.formAEViaticosTotal));
-		    	$('#labelObservacionesEdicion').text(row.formAEObservaciones);
-		    	//Vendedores
-		    	$('#divVendedoresEdicion').empty();
-		    	var idDatosEconomicos = row.idPreAsignacionAE;
-		    	var vendedoresDE = new Array();
-		    	for(var a in vendedoresDatosEconomicos){
-		    		var vendedor = vendedoresDatosEconomicos[a];
-		    		if(vendedor.idDatosEconomicos === idDatosEconomicos){
-		    			vendedoresDE.push(vendedor);
-		    			var registroVendedor = '<div class="row"><div class="col-md-12">Nombre Vendedor : <label class="widget-numbers mt-0 fsize-2 text-primary pull-left">'+vendedor.nombreVendedor+'</label></div></div>\
-		    			<div class="row">\
-		    				<div class="col-md-6">\
-		    					Porcentaje Comision : <label class="widget-numbers mt-0 fsize-2 text-primary pull-left">'+vendedor.porcentajeComisionVendedor+'%</label>\
-		    				</div>\
-		    				<div class="col-md-6">\
-		    					Monto Comisión : <label class="widget-numbers mt-0 fsize-2 text-primary pull-left">'+formatter.format(vendedor.comisionRealVendedor)+'</label>\
-		    				</div>\
-		    			</div><br>';
-		    			$('#divVendedoresEdicion').append(registroVendedor);
-		    		}
-		    	}
+		    	//vendedores
+		    	funcionVendedoresDatosEconomicos(row);
 		    	
 		    	// Registros asignacionesOutDETable
-		    	$arrayAsignacionesSin.length = 0;
-		    	$('#bodyAsignacion').empty();
-		    	var idCliente = row.formAECliente;
-		    	for(var a in asignaciones){
-		    		var asignacion = asignaciones[a];
-		    		if(asignacion.statusAsignacion !== "Evento Cancelado"){
-		    			if(idCliente*1 === asignacion.idClienteAsignacion*1){
-			    			if(!validateDatosEconomicos(asignacion.idAsignacion)){
-			    				$arrayAsignacionesSin.push(asignacion);
-			    				var registro = "<tr><td ><input type='checkbox'  class='checkAsignacion' id='"+asignacion.idAsignacion+"' value='"+asignacion.idAsignacion+"'>" +
-			    				"</td><td>"+asignacion.idAsignacion+
-				    			"</td><td>"+transformaDia(asignacion.fechaAsignacion.toString())+
-				    			"</td><td>"+asignacion.cursoAsignacion+
-				    			"</td><td>"+asignacion.instructorAsignacion+
-				    			"</td><td>"+asignacion.statusAsignacion+
-				    			"</td><td><a class='like' id='"+asignacion.idAsignacion+"' href='javascript:function(0)' onclick='expedienteAsignacion("+asignacion.idAsignacion+")' title='Consultar'  data-toggle='modal' data-target='#modalAsignacion'><i class='fa fa-2x fa-indent'></i></a></td></tr>";
-    			
-			    				$('#bodyAsignacion').append(registro);
-			    			}
-			    		}
-		    		}
-		    	}
-
-		    	
-		      	      
+//		    	$arrayAsignacionesSin.length = 0;
+//		    	$('#bodyAsignacion').empty();
+//		    	var idCliente = row.formAECliente;
+//		    	for(var a in asignaciones){
+//		    		var asignacion = asignaciones[a];
+//		    		if(asignacion.statusAsignacion !== "Evento Cancelado"){
+//		    			if(idCliente*1 === asignacion.idClienteAsignacion*1){
+//			    			if(!validateDatosEconomicos(asignacion.idAsignacion)){
+//			    				$arrayAsignacionesSin.push(asignacion);
+//			    				var registro = "<tr><td ><input type='checkbox'  class='checkAsignacion' id='"+asignacion.idAsignacion+"' value='"+asignacion.idAsignacion+"'>" +
+//			    				"</td><td>"+asignacion.idAsignacion+
+//				    			"</td><td>"+transformaDia(asignacion.fechaAsignacion.toString())+
+//				    			"</td><td>"+asignacion.cursoAsignacion+
+//				    			"</td><td>"+asignacion.instructorAsignacion+
+//				    			"</td><td>"+asignacion.statusAsignacion+
+//				    			"</td><td><a class='like' id='"+asignacion.idAsignacion+"' href='javascript:function(0)' onclick='expedienteAsignacion("+asignacion.idAsignacion+")' title='Consultar'  data-toggle='modal' data-target='#modalAsignacion'><i class='fa fa-2x fa-indent'></i></a></td></tr>";
+//    			
+//			    				$('#bodyAsignacion').append(registro);
+//			    			}
+//			    		}
+//		    		}
+//		    	}
 		    }
 		   }
 
-	$('#facturaTable').bootstrapTable({data : $data})
+	$('#facturaTable').bootstrapTable({data : dataTable})
+	
 }); //fin jQuery
+
+function asignaData(datosEconomicos){
+	var dataTable = new Array();
+	for(var a in datosEconomicos){
+		var datoEconomico = datosEconomicos[a];
+		if(datoEconomico.formAEidPreAsignacion !== ""  || datoEconomico.formAEListAsignaciones !== "" ){
+			var asignacionSelect   = findAsignacion(datoEconomico);
+			if(asignacionSelect.length > 0){
+//				console.log(asignacionSelect);
+				var idAsignacion       = findIdAsignacion(asignacionSelect);
+				var cliente            = findCliente(asignacionSelect[0].idAsignacion);
+				var idCliente          = cliente.idCliente;
+				var clienteRFC         = cliente.rfcCliente;
+				var clienteRazonSocial = cliente.nombreCompletoCliente;
+				var clienteNombreCorto = cliente.nombreCortoCliente;
+
+				var registro = {
+						idExpedienteEconomico : datoEconomico.idPreAsignacionAE,
+						Factura :  asignacionSelect[0].numeroFactura,
+						Asignacion : idAsignacion,
+						Cliente : cliente.nombreCortoCliente,
+						PorcentajeVentaReal : datoEconomico.formAEPorcentajeVentaReal,
+						Monto : datoEconomico.formAEPrecioVentaReal,
+						Estatus : datoEconomico.estatusDatoEconomico,
+						FechaConfirmacion : datoEconomico.formAEFechaConfirmacion,
+						FechaPromesaPago : datoEconomico.formAEFechaPromesaPago,
+						FechaEmision : datoEconomico.fechaEmision,
+						FechaPago : datoEconomico.fechaPago,
+						FechaConfirmacionFormat : datoEconomico.formAEFechaConfirmacionFormat,
+						FechaPromesaPagoFormat : datoEconomico.formAEFechaPromesaPagoFormat,
+						FechaEmisionFormat : datoEconomico.fechaEmisionFormat,
+						FechaPagoFormat : datoEconomico.fechaPagoFormat,
+						RFC : cliente.rfcCliente,
+						RazonSocial : cliente.rfcCliente, 
+						NombreCorto : cliente.nombreCortoCliente,
+						IdAsignacion : idAsignacion,
+						NombreComercial : cliente.nombreCompletoCliente,
+						Viaticos : datoEconomico.formAEViaticosTotal,
+						Observaciones : datoEconomico.formAEObservaciones
+				};
+				dataTable.push(registro);
+			}
+		}
+	}	
+	return dataTable;
+//	console.log($data);
+//	$('#facturaTable').bootstrapTable({data : dataTable})
+}
+
+function funcionVendedoresDatosEconomicos(item){
+	//Vendedores
+	$('#divVendedoresEdicion').empty();
+//	console.log("vendedores");
+//	console.log(item);
+	var idDatosEconomicos = item.idExpedienteEconomico;
+//	console.log(idDatosEconomicos);
+	var vendedoresDE = new Array();
+	for(var a in vendedoresDatosEconomicos){
+		var vendedor = vendedoresDatosEconomicos[a];
+		if(vendedor.idDatosEconomicos*1 === idDatosEconomicos*1){
+			vendedoresDE.push(vendedor);
+//			console.log("vendedor");console.log(vendedor);
+			var registroVendedor = '<div class="row"><div class="col-md-12">Nombre Vendedor : <label class="widget-numbers mt-0 fsize-2 text-primary pull-left">'+vendedor.nombreVendedor+'</label></div></div>\
+			<div class="row">\
+				<div class="col-md-6">\
+					Porcentaje Comision : <label class="widget-numbers mt-0 fsize-2 text-primary pull-left">'+vendedor.porcentajeComisionVendedor+'%</label>\
+				</div>\
+				<div class="col-md-6">\
+					Monto Comisión : <label class="widget-numbers mt-0 fsize-2 text-primary pull-left">'+formatter.format(vendedor.comisionRealVendedor)+'</label>\
+				</div>\
+			</div><br>';
+			$('#divVendedoresEdicion').append(registroVendedor);
+		}
+	}
+}
+
+function findAsignacion(datoEconomico){
+	var listaAsignacion = new Array();
+	for(var a in asignaciones){
+		var asignacion = asignaciones[a];
+		if(asignacion.statusAsignacion !== "Evento Cancelado"){
+			if(datoEconomico.formAEidPreAsignacion !== "" || datoEconomico.formAEidPreAsignacion !== null){  
+				if(asignacion.idAsignacion*1 === datoEconomico.formAEidPreAsignacion*1){
+					listaAsignacion.push(asignacion);
+				}
+			}else{
+			 	if(datoEconomico.formAEListAsignaciones !== null || datoEconomico.formAEListAsignaciones !== ""){
+					var listAsignaciones = split(datoEconomico.formAEListAsignaciones,",");
+					for(var e in listAsignaciones){
+						if(asignacion.idAsignacion === listAsignaciones[e]){
+							listaAsignacion.push(asignacion);
+						}
+					}
+			 	}
+			}	
+		}
+	}
+	return listaAsignacion;
+}
+
+
+
+function findIdAsignacion(asignaArray){
+//	console.log(asignaArray);
+	var asignacion = "";
+	for(var a in asignaArray){
+		asignacion = asignacion + asignaArray[a].idAsignacion + "-";
+	}
+	asignacion = asignacion.substring(0, asignacion.length - 1);
+	return asignacion;
+}
 
 function findCliente(idAsignacion){
 	var idCliente;
+//	console.log(idAsignacion);
 	for(var a in asignaciones){
 		var asignacion = asignaciones[a];
 		if(idAsignacion === asignacion.idAsignacion){
 			idCliente = asignacion.idClienteAsignacion;
 		}
 	}
-	return idCliente;
+//	console.log(idCliente);
+	for(var e in clientes){
+		var cliente = clientes[e];
+		if(idCliente === cliente.idCliente){
+			return cliente;
+		}
+	}
+	
 }
 
 

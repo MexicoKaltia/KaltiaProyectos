@@ -207,7 +207,7 @@ public class MailService implements IMailService{
 			List<String> correoDireccion = new ArrayList<String>();
 			for(UserCorreo uc : usersCorreo) {
 //				if(uc.getPerfil().equals("Direccion") && (uc.getIdUser().equals(37l) || uc.getIdUser().equals(38l))) {
-				if(uc.getPerfil().equals("Direccion") && (uc.getIdUser().equals(54l))) {
+				if(uc.getPerfil().equals("Administracion") && (uc.getIdUser().equals(36l))) {
 					correoDireccion.add(uc.getEmailUniprotec());
 				}
 			}

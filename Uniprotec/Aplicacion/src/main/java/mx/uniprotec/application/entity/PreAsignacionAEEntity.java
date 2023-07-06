@@ -3,14 +3,9 @@ package mx.uniprotec.application.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 //@Entity
 //@Table(name="preAsignacionesAE")
@@ -127,6 +122,14 @@ public class PreAsignacionAEEntity {
 		private String formAEFechaConfirmacion;
 	@Column(nullable=false)
 		private String formAEFechaConfirmacionFormat;
+	@Column(nullable=false)
+		private String formAEFechaPago;
+	@Column(nullable=false)
+		private String formAEFechaPagoFormat;
+	@Column(nullable=false)
+		private String formAEFechaEmision;
+	@Column(nullable=false)
+		private String formAEFechaEmisionFormat;
 	@Column(nullable=false)
 		private String formAEListFechaPromesaPago;
 	@Column(nullable=false)
@@ -442,6 +445,30 @@ public class PreAsignacionAEEntity {
 	}
 	public void setFormAEClienteTexto(String formAEClienteTexto) {
 		this.formAEClienteTexto = formAEClienteTexto;
+	}
+	public String getFormAEFechaPago() {
+		return formAEFechaPago;
+	}
+	public void setFormAEFechaPago(String formAEFechaPago) {
+		this.formAEFechaPago = formAEFechaPago;
+	}
+	public String getFormAEFechaPagoFormat() {
+		return formAEFechaPagoFormat;
+	}
+	public void setFormAEFechaPagoFormat(String formAEFechaPagoFormat) {
+		this.formAEFechaPagoFormat = formAEFechaPagoFormat;
+	}
+	public String getFormAEFechaEmision() {
+		return formAEFechaEmision;
+	}
+	public void setFormAEFechaEmision(String formAEFechaEmision) {
+		this.formAEFechaEmision = formAEFechaEmision;
+	}
+	public String getFormAEFechaEmisionFormat() {
+		return formAEFechaEmisionFormat;
+	}
+	public void setFormAEFechaEmisionFormat(String formAEFechaEmisionFormat) {
+		this.formAEFechaEmisionFormat = formAEFechaEmisionFormat;
 	}
 	
 	

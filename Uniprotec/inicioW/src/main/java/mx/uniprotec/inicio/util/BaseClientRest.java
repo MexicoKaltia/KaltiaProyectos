@@ -38,11 +38,11 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	}
 	
 	////////////   URL LOCAL /////////////////
-//	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
-//	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
+	public static final String URL_POST_LOGIN 	      =	"http://localhost:8016/oauth/token";
+	public static final String URL_CRUD				  = "http://localhost:8016/crud/";
 
-	public static final String URL_POST_LOGIN 		  =	"http://82.180.173.206:8016/oauth/token";
-	public static final String URL_CRUD				  = "http://82.180.173.206:8016/crud/";
+//	public static final String URL_POST_LOGIN 		  =	"http://82.180.173.206:8016/oauth/token";
+//	public static final String URL_CRUD				  = "http://82.180.173.206:8016/crud/";
 
 	public static final String URL_CRUD_CLIENTE		  =	"cliente";
 	public static final String URL_CRUD_INSTRUCTOR	  =	"instructor";
@@ -70,6 +70,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_PARTICIPANTES_IMPORTAR = "participantesImportar";
 	public static final String URL_CRUD_ZONABASE = "zonabase";
 	public static final String URL_CRUD_DATOSECONOMICOS = "datosEconomicos";
+	public static final String URL_CRUD_DATOSECONOMICOS_FECHAS = "datosEconomicosFechas";
 	public static final String URL_CRUD_VENDEDORESDATOSECONOMICOS = "vendedoresDatosEconomicos";
 	public static final String URL_CRUD_OPERADORES = "operadores";
 	public static final String URL_CRUD_REPORTESEMANAL = "reporteSemanal";
@@ -81,6 +82,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 	
 	public static final Long MAX_TIME_TOKEN = (long) 3600000;
+	
 	
 	
 	

@@ -35,6 +35,10 @@ public class DatosEconomicosModelo {
 	private String estatusDatoEconomico;
 	private String fechaCambioEstatus;
 	private String fechaPago;
+	private String fechaPagoFormat;
+	private String fechaEmision;
+	private String fechaEmisionFormat;
+	
 	
 	
 	public Long getIdDatosEconomicos() {
@@ -214,6 +218,24 @@ public class DatosEconomicosModelo {
 	}
 	public void setFechaPago(String fechaPago) {
 		this.fechaPago = fechaPago;
+	}
+	public String getFechaPagoFormat() {
+		return fechaPagoFormat;
+	}
+	public void setFechaPagoFormat(String fechaPagoFormat) {
+		this.fechaPagoFormat = fechaPagoFormat;
+	}
+	public String getFechaEmision() {
+		return fechaEmision;
+	}
+	public void setFechaEmision(String fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+	public String getFechaEmisionFormat() {
+		return fechaEmisionFormat;
+	}
+	public void setFechaEmisionFormat(String fechaEmisionFormat) {
+		this.fechaEmisionFormat = fechaEmisionFormat;
 	}
 
 	
