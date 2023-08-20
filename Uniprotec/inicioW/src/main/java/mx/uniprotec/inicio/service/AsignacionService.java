@@ -239,7 +239,7 @@ public class AsignacionService implements IAsignacionService{
 	@Override
 	public ResultVO consultaAsignacionCliente(String token) {
 		
-		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
+		ResultVO rs= (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES_ALL);
 		if(rs.getCodigo() != 500) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
 //			log.info(rs.getJsonResponse().toJSONString());

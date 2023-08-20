@@ -90,6 +90,8 @@ public class AsignacionHistorico implements Serializable{
 		private String archivoParticipantes;
 		@Column
 		private String costoHotel;
+		@Column
+		private String dateAsignacion;
 
 		@Override
 		public String toString() {
@@ -343,6 +345,14 @@ public class AsignacionHistorico implements Serializable{
 
 		public void setCostoHotel(String costoHotel) {
 			this.costoHotel = costoHotel;
+		}
+		
+		public String getDateAsignacion() {
+			return dateAsignacion;
+		}
+
+		public void setDateAsignacion(String dateAsignacion) {
+			this.dateAsignacion = dateAsignacion;
 		}
 		
 

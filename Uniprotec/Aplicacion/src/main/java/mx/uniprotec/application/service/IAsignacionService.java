@@ -16,5 +16,7 @@ public interface IAsignacionService {
 	public void delete(Long id);
 
 	public List<AsignacionHistorico> findAllHistorico();
+
+	public List<Asignacion> findTrimestre();
 	
 }

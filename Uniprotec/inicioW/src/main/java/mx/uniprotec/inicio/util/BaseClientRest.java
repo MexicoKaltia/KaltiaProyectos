@@ -56,6 +56,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_USUARIOS	  =	"usuarios";
 	public static final String URL_CRUD_REGIONES	  =	"regiones";
 	public static final String URL_CRUD_ASIGNACIONES  =	"asignaciones";
+	public static final String URL_CRUD_ASIGNACIONES_ALL  =	"asignacionesAll";
 	public static final String URL_CRUD_ASIGNACIONES_HISTORICO  =	"asignacionesHistorico";
 	public static final String URL_CRUD_ASIGNACION	  =	"asignacion";
 	public static final String URL_CRUD_PREASIGNACIONES  =	"preAsignaciones";

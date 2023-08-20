@@ -129,7 +129,7 @@ public class DatosEconomicosService implements IDatosEconomicosService{
 			JSONObject jsonGeneral = rs.getJsonResponse();
 			JSONObject jsonConsulta = new JSONObject();
 			jsonConsulta.put("vendedores", jsonGeneral.get("vendedores"));
-			rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES);
+			rs = (ResultVO) baseClientRest.objetoGetAll(token, BaseClientRest.URL_CRUD_ASIGNACIONES_ALL);
 			jsonGeneral = rs.getJsonResponse();
 			JSONObject jsonAsignaciones = new JSONObject();
 			jsonConsulta.put("asignaciones", jsonGeneral.get("asignaciones"));

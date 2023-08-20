@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.uniprotec.application.dao.IAsignacionHistoricoDao;
 import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.entity.Asignacion;
 import mx.uniprotec.application.entity.AsignacionHistorico;
@@ -44,6 +45,8 @@ public class AsignacionRestController {
 	private INotificacionDao notificacionDao;
 	@Autowired
 	private IEntregableService entregableService;
+	@Autowired
+	IAsignacionHistoricoDao asignacionHistoricoDao;
 
 	
 	
@@ -53,7 +56,10 @@ public class AsignacionRestController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@GetMapping("/asignaciones")
+	/*
+	 * asignaciones totales 
+	 */
+	@GetMapping("/asignacionesAll")
 	public ResponseEntity<?> index() {
 		log.info("asignaciones");
 		List<Asignacion> asignaciones = null;
@@ -77,6 +83,35 @@ public class AsignacionRestController {
 		}
 		
 	}
+	
+	/*
+	 * asignaciones 3 meses pasado
+	 */
+	@GetMapping("/asignaciones")
+	public ResponseEntity<?> getAsignacionesTresMeses() {
+		log.info("asignaciones");
+		List<Asignacion> asignaciones = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			asignaciones  = asignacionService.findTrimestre();
+			log.info("size : "+asignaciones.size());
+			 response.put("asignaciones", asignaciones );
+			 response.put("mensaje", "Exito en la busqueda de asignaciones ");
+			 response.put("status", HttpStatus.ACCEPTED);
+			 response.put("code", HttpStatus.ACCEPTED.value());
+			 log.info("asignaciones fin");
+			 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			e.printStackTrace();
+			log.info("asignaciones fin");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+
 
 	 /*
 	  * 
@@ -175,6 +210,8 @@ public class AsignacionRestController {
 			asignacionNew.setErrorProceso("");
 			
 			asignacionNew = asignacionService.save(asignacionNew);
+			createAsignacionHistorico(asignacionNew);
+			
 			 response.put("asignacion", asignacionNew );
 			 response.put("mensaje", "Asignacion creada con Exito");
 			 response.put("status", HttpStatus.CREATED);
@@ -189,7 +226,6 @@ public class AsignacionRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
 	
 	/*
 	 * 
@@ -277,6 +313,7 @@ public class AsignacionRestController {
 				
 				asignacionUpdated = asignacionService.save(asignacionActual);
 //				EntregableEntity ee = (EntregableEntity) entregableService.consultaEntregable(asignacion.getIdAsignacion());
+				updateAsignacionHistorico(asignacionUpdated);
 				
 				response.put("asignacion", asignacionUpdated  );
 				 response.put("mensaje", "Asignacion actualizada con Exito");
@@ -296,7 +333,7 @@ public class AsignacionRestController {
 
 	}
 	
-	
+
 	@GetMapping("/asignacionesHistorico")
 	public ResponseEntity<?> asignacionesHistorico() {
 		log.info("asignacion historico");
@@ -323,6 +360,54 @@ public class AsignacionRestController {
 		
 	}	
 	
+	private void createAsignacionHistorico(Asignacion asignacionNew) {
+		AsignacionHistorico asignacionHistorico = toCastAsignacionHistorico(asignacionNew);
+		asignacionHistoricoDao.save(asignacionHistorico);
+	}
+
+	
+	private void updateAsignacionHistorico(Asignacion asignacionUpdated) {
+		AsignacionHistorico asignacionHistorico = asignacionHistoricoDao.findById(asignacionUpdated.getIdAsignacion()).orElse(null);
+		asignacionHistorico = toCastAsignacionHistorico(asignacionUpdated);
+		asignacionHistoricoDao.save(asignacionHistorico);
+	}
+
+	private AsignacionHistorico toCastAsignacionHistorico(Asignacion asignacion) {
+		AsignacionHistorico asignacionHistorico = new AsignacionHistorico();
+		if(asignacion.getIdAsignacion() != null) {
+			asignacionHistorico.setIdAsignacion(asignacion.getIdAsignacion());
+		}
+		
+		asignacionHistorico.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
+		asignacionHistorico.setFechaAsignacion(asignacion.getFechaAsignacion());
+		asignacionHistorico.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());
+		asignacionHistorico.setClienteAsignacion(asignacion.getClienteAsignacion());
+		asignacionHistorico.setIdCursoAsignacion(asignacion.getIdCursoAsignacion());
+		asignacionHistorico.setCursoAsignacion(asignacion.getCursoAsignacion());
+		asignacionHistorico.setIdInstructorAsignacion(asignacion.getIdInstructorAsignacion());
+		asignacionHistorico.setInstructorAsignacion(asignacion.getInstructorAsignacion());
+		asignacionHistorico.setHorarioAsignacion(asignacion.getHorarioAsignacion());
+		asignacionHistorico.setParticipantesAsignacion(asignacion.getParticipantesAsignacion());
+		asignacionHistorico.setNivelAsignacion(asignacion.getNivelAsignacion());
+		asignacionHistorico.setArchivosAsignacion(asignacion.getArchivosAsignacion());
+		asignacionHistorico.setObservacionesAsignacion(asignacion.getObservacionesAsignacion());
+		asignacionHistorico.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
+		asignacionHistorico.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
+		asignacionHistorico.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
+		asignacionHistorico.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
+		asignacionHistorico.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
+		asignacionHistorico.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
+		asignacionHistorico.setStatusAsignacion(asignacion.getStatusAsignacion());
+		asignacionHistorico.setVerificarEntregable(asignacion.getVerificarEntregable());
+		asignacionHistorico.setGuiaEntregable(asignacion.getGuiaEntregable());
+		asignacionHistorico.setFechaPago(asignacion.getFechaPago());
+		asignacionHistorico.setNumeroFactura(asignacion.getNumeroFactura());
+		asignacionHistorico.setArchivoParticipantes(asignacion.getArchivoParticipantes());
+		asignacionHistorico.setCostoHotel(asignacion.getCostoHotel());
+		asignacionHistorico.setDateAsignacion(asignacion.getDateAsignacion());
+		
+		return asignacionHistorico;
+	}
 	
 	
 }

@@ -545,6 +545,7 @@ $(document).ready(function(){
 	var instructoresDmas1 = new Array();
 	var instructoresDiaAyer = new Array();
 	var instructoresDiaMan = new Array();
+	var instructoresFinal = new Array();
 	 var asignacionesAyer  = new Array();
 	 var horarioInstructorDisponible;
 
@@ -579,6 +580,7 @@ $(document).ready(function(){
 		 instructoresDmas1.length = 0;
 		 instructoresDiaAyer.length = 0;
 		 instructoresDiaMan.length = 0;
+		 instructoresFinal.length = 0;
 		 asignacionesAyer.length = 0;
 		 horarioInstructorDisponible ="";
 
@@ -726,9 +728,24 @@ $(document).ready(function(){
 						}
 					}
 				}
-//				//console.log(instructoresDiaMan);
-				for(i in instructoresDiaMan){
-					instructor = instructoresDiaMan[i];
+				/*
+				 * elimina instructor Juan alberto Zuñiga, limitar solamente en su zona 
+				 */
+//				console.log("idRegionOrigen : " + regionCliente);
+				for(ai in instructoresDiaMan){
+					instructor = instructoresDiaMan[ai];
+					var regionInstructor = instructor.regionInstructor.idRegion;
+					if(instructor.idInstructor == 8){
+						if(regionInstructor === regionCliente){
+							instructoresFinal.push(instructor);
+						}
+					}else{
+						instructoresFinal.push(instructor);
+					}
+				}
+
+				for(ae in instructoresFinal){
+					instructor = instructoresFinal[ae];
 					$('#asignaInstructor').append('<option value="'+instructor.idInstructor+'">'+instructor.nombreInstructor+'</option>');
 				}
 				

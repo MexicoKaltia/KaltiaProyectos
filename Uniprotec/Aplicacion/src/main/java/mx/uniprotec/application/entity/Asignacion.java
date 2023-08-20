@@ -90,6 +90,8 @@ public class Asignacion implements Serializable{
 	private String costoHotel;
 	@Column
 	private String errorProceso;
+	@Column
+	private String dateAsignacion;
 
 	@Override
 	public String toString() {
@@ -356,6 +358,14 @@ public class Asignacion implements Serializable{
 
 	public void setErrorProceso(String errorProceso) {
 		this.errorProceso = errorProceso;
+	}
+
+	public String getDateAsignacion() {
+		return dateAsignacion;
+	}
+
+	public void setDateAsignacion(String dateAsignacion) {
+		this.dateAsignacion = dateAsignacion;
 	}
 	
 	

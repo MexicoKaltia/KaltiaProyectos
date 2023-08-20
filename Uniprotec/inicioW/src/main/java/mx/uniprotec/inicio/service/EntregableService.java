@@ -94,10 +94,10 @@ public class EntregableService implements IEntregableService {
 	
 	@Override
 	public ResultVO createEntregable(EntregableModelo entregable, String accesToken, Long idUsuario) {
-//		log.info(entregable.toString());
+		log.info(entregable.toString());
 		List<ParticipantesModelo> participantes = getParticipantes(entregable, idUsuario);
 		this.pathLogico = "/uniprotec/entregables/";
-		
+		log.info(participantes.toString());
 		
 		if(entregable.getFormCEvidenciasFotograficasB() != null || !(entregable.getFormCEvidenciasFotograficasB().size() == 0)) {
 			if(entregable.getFormCEvidenciasFotograficas() == null || entregable.getFormCEvidenciasFotograficas().size() == 0) {

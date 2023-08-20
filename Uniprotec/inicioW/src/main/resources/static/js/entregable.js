@@ -235,7 +235,8 @@ $(document).ready(function() {
 		}
 
 		if(perfilUsuario === "Operacion" || perfilUsuario === "Direccion"){
-			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado" || asignaStatus ==="Omitir Entregable" ){ 
+//			if(asignaStatus ==="Curso Completado" || asignaStatus ==="Elaborar Entregable" || asignaStatus ==="Entregables Validado" || asignaStatus ==="Entregable Generado" || asignaStatus ==="Omitir Entregable" ){
+			if(asignaStatus !=="Evento Cancelado"){
 				$('#asignaConfirmar').attr("disabled", false);
 				$('#edicionEntregable').attr("disabled", false);
 				$('#edicionEntregable').click(function(){
@@ -243,8 +244,9 @@ $(document).ready(function() {
 				})
 				
 			}
-			else if(asignaStatus ==="Evento Cancelado") {
+			else {
 				$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El curso es Cancelado, no se realiza Edición. </u></div>');
+				
 			}
 		}else{
 			$('#modalStatus').append('<div class="alert alert-warning" role="alert" id="dataError"><b>Importante : </b><u>  El Status de ser CURSO COMPLETADO y Perfil OPERACION / DIRECCION, para realizar Validación de Entregable. </u></div>');
