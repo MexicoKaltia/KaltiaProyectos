@@ -324,7 +324,6 @@
 						                                                        <input type="checkbox" class="check" id="checkFormARazonSocial" name="checkFormARazonSocial">
 						                                                      </div>
 						                                                    </div>
-<!-- 						                                                    <input type="text" class="form-control"  id="formARazonSocial" name="formARazonSocial" placeholder="Razon Social " value="" maxlength="100" required> -->
 																			<select id="formARazonSocial"  name="formARazonSocial" class="form-control chosen"   required onchange="validaCliente()">
 										                						 <option id="optionSelectCliente" value="" selected  >Selecciona Cliente</option>
 										                						 <option th:each="cliente: ${model.jsonResponseObject.clientes.clientes}"
@@ -378,14 +377,14 @@
 						                                            </div>
 						                                            <!------------------------------------------------------------------------------>
 						                                            <div class="col-md-6 mb-3">
-						                                                <label for="nombreCompletoCliente">Duracion</label>
+						                                                <label for="nombreCompletoCliente">Duración</label>
 						                                                <div class="input-group mb-3">
 						                                                    <div class="input-group-prepend">
 						                                                      <div class="input-group-text">
 						                                                        <input type="checkbox" class="check" id="checkFormADuracion" name="checkFormADuracion">
 						                                                      </div>
 						                                                    </div>
-						                                                    <input type="text" class="form-control"  id="formADuracion" name="formADuracion" placeholder="Duracion" value="" maxlength="100" required>
+						                                                    <input type="text" class="form-control"  id="formADuracion" name="formADuracion" placeholder="Duracion" value="" maxlength="100" onfocusout="copyDuracion()" required>
 						                                                  </div>
 						                                                <div class="invalid-feedback">
 						                                                    Validar Duracion
@@ -723,7 +722,7 @@
 									                                        <!------------------------------------------------------------------------------>
 									                                        <input type="hidden"  th:field="*{idEntregable}" id="idEntregable" />
 									                                        <input type="hidden"  th:field="*{idAsignacion}" id="idAsignacion" />
-									                                        <input type="hidden"  th:field="*{formARazonSocial}" id="formARazonSocialA" />
+									                                        <input type="hidden"  th:field="*{formARazonSocial}" id="formAClienteA" />
 																			<input type="hidden"  th:field="*{formACurso}" id="formACursoA" />
 																			<input type="hidden"  th:field="*{formARFC}" id="formARFCA" />
 																			<input type="hidden"  th:field="*{formADuracion}" id="formADuracionA" />
@@ -904,9 +903,9 @@
           }, false);
         })();
 			
-    $("#formACurso").chosen({allow_single_deselect: true});
-	$("#formARazonSocial").chosen({allow_single_deselect: true});
-	$("#formAInstructor").chosen({allow_single_deselect: true});
+    $("#formACurso").chosen();
+	$("#formARazonSocial").chosen();
+	$("#formAInstructor").chosen();
     
     </script>
     

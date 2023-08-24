@@ -208,6 +208,7 @@ public class AsignacionRestController {
 			asignacionNew.setArchivoParticipantes("");
 			asignacionNew.setCostoHotel("");
 			asignacionNew.setErrorProceso("");
+			asignacionNew.setDateAsignacion(getDateAsignacion(asignacion.getFechaAsignacion()));
 			
 			asignacionNew = asignacionService.save(asignacionNew);
 			createAsignacionHistorico(asignacionNew);
@@ -227,6 +228,11 @@ public class AsignacionRestController {
 		}
 	}
 	
+	private String getDateAsignacion(String fechaAsignacion) {
+		String[] fecha = fechaAsignacion.split("/");
+		return fecha[2]+"-"+fecha[0]+"-"+fecha[1];
+	}
+
 	/*
 	 * 
 	 */
@@ -361,23 +367,24 @@ public class AsignacionRestController {
 	}	
 	
 	private void createAsignacionHistorico(Asignacion asignacionNew) {
-		AsignacionHistorico asignacionHistorico = toCastAsignacionHistorico(asignacionNew);
+		AsignacionHistorico asignacionHistorico = toCastAsignacionHistorico(asignacionNew, false);
 		asignacionHistoricoDao.save(asignacionHistorico);
 	}
 
 	
 	private void updateAsignacionHistorico(Asignacion asignacionUpdated) {
 		AsignacionHistorico asignacionHistorico = asignacionHistoricoDao.findById(asignacionUpdated.getIdAsignacion()).orElse(null);
-		asignacionHistorico = toCastAsignacionHistorico(asignacionUpdated);
+		asignacionHistorico = toCastAsignacionHistorico(asignacionUpdated, true);
 		asignacionHistoricoDao.save(asignacionHistorico);
 	}
 
-	private AsignacionHistorico toCastAsignacionHistorico(Asignacion asignacion) {
+	private AsignacionHistorico toCastAsignacionHistorico(Asignacion asignacion, boolean flag) {
 		AsignacionHistorico asignacionHistorico = new AsignacionHistorico();
-		if(asignacion.getIdAsignacion() != null) {
-			asignacionHistorico.setIdAsignacion(asignacion.getIdAsignacion());
-		}
-		
+//		if(asignacion.getIdAsignacion() != null) {
+//		if(flag) {
+//			asignacionHistorico.setIdAsignacion(asignacion.getIdAsignacion());
+//		}
+		asignacionHistorico.setIdAsignacion(asignacion.getIdAsignacion());
 		asignacionHistorico.setIdAsignacionLogica(asignacion.getIdAsignacionLogica());
 		asignacionHistorico.setFechaAsignacion(asignacion.getFechaAsignacion());
 		asignacionHistorico.setIdClienteAsignacion(asignacion.getIdClienteAsignacion());

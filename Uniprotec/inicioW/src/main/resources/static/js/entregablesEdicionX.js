@@ -24,10 +24,10 @@ var nombreFirmaInstructor
 $(document).ready(function() {
 	
 //	console.log(asignacionItem);
-	console.log(clientes);
+//	console.log(clientes);
 //	console.log(entregables);
 //	console.log(entregables.length);
-	console.log(participantes);
+//	console.log(participantes);
 //	console.log(prtsImportar);
 //	console.log(participantes.length);
 	var e=0;
@@ -38,7 +38,7 @@ $(document).ready(function() {
 	var $participantesImportar =""// prtsImportar;
 	var $idParticipante = "";
 
-	idClienteAsignacion = asignacionItem.idClienteAsignacion;
+	idClienteAsignacion = "extra";
 	entregablesLength = entregables.length;
 	participantesLength = participantes.length;
 	
@@ -69,14 +69,6 @@ $(document).ready(function() {
 			e++;
 		}
 
-		$("#formADuracion").val("");
-		$("#formAInstructor").val(asignacionItem.instructorAsignacion);
-		
-		$('#formCRazonSocial').val($("#formARazonSocial").val());
-		$('#formCCurso').val($("#formACurso").val());
-		$('#formCDuracion').val($("#formADuracion").val());
-		$('#formCInstructor').val($("#formAInstructor").val());
-		$('#formCSede').val(asignacionCliente.domicilioCliente);
 		
 		$('.entregable').click(function(){
 			var valorEntregable = $(this).attr("id");
@@ -89,9 +81,11 @@ $(document).ready(function() {
 					$idEntregable = i;
 					$idEntregableLogico = asignacionItem.idAsignacion+"_"+$idEntregable;
 					
-//					console.log($entregable);
-//					console.log($idEntregableLogico);
-
+					console.log($entregable);
+					
+					$("#formADuracion").val("");
+					$("#formAInstructor").val(asignacionItem.instructorAsignacion);
+					
 					$("#formARazonSocial").val(entregable.formARazonSocial);
 					$("#formARFC").val(entregable.formARFC);
 					$("#formACurso").val(entregable.formACurso);
@@ -118,8 +112,8 @@ $(document).ready(function() {
 					$("#formARepresentanteEmpresa").val(entregable.formARepresentanteEmpresa);
 					$("#formARepresentanteTrabajador").val(entregable.formARepresentanteTrabajador);
 					
-					$('#imagenLogoClienteEdicion').attr('src', "/uploadsEntregables/"+asignacionCliente.rfcCliente+"/"+$idEntregableLogico+"/imageLogo/"+entregable.formALogo);
-				    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
+					$('#imagenLogoClienteEdicion').attr('src', "/uploadsEntregables/"+entregable.formARFC+"/"+$idEntregableLogico+"/imageLogo/"+entregable.formALogo);
+//				    $('#imagenLogoClienteEdicion').attr('alt', asignacionCliente.imagenLogoCliente);
 					
 					var arrayParticipantes = new Array();
 					
@@ -224,11 +218,11 @@ $(document).ready(function() {
 	});
 	
 	
-	$("#checkFormARazonSocial").attr('checked', true);
+//	$("#checkFormARazonSocial").attr('checked', true);
 	$("#checkFormARFC").attr('checked', true);
-	$("#checkFormACurso").attr('checked', true);
+//	$("#checkFormACurso").attr('checked', true);
 //	$("#checkFormADuracion").attr('checked', true);
-	$("#checkFormAInstructor").attr('checked', true);
+//	$("#checkFormAInstructor").attr('checked', true);
 	$("#checkFormARepresentanteEmpresa").attr('checked', true);
 	$("#checkFormARepresentanteTrabajador").attr('checked', true);
 	
@@ -245,7 +239,7 @@ $(document).ready(function() {
 	// Form C
 	$("#checkFormCRazonSocial").attr('checked', true);
 	$("#checkFormCCurso").attr('checked', true);
-//	$("#checkFormCDuracion").attr('checked', true);
+	$("#checkFormCDuracion").attr('checked', true);
 	$("#checkFormCInstructor").attr('checked', true);
 	$("#checkFormCSede").attr('checked', true);
 	
@@ -520,7 +514,7 @@ $(document).ready(function() {
 	$('#btnAgregarParticipante').click(function(){
 //		console.log("btnAgregarParticipante");
 		var jsonParticipante = {
-				idParticipante: asignacionItem.idClienteAsignacion +"-"+ (entregables.length+1) +"-"+ $participantesLength,
+				idParticipante: "extra-"+ (entregables.length+1) +"-"+ $participantesLength,
 				participanteNombre: $('#participanteNombre').val(),
 				participanteCURP: $('#participanteCURP').val().toUpperCase(),
 				participantePuesto: $('#participantePuesto').val(),
@@ -598,20 +592,6 @@ $(document).ready(function() {
 	});
 	
 	
-
-	/**
-	 *  ALTA ENTREGABLE y ALTA DOCUMENTACION
-	 */
-//	var idInstructorAsignado = $('#formAInstructor').val();
-//	console.log($('#formAInstructor').val());
-//	var formARazonSocial = $("#formARazonSocial option:selected").text();
-//	console.log($("#formARazonSocial option:selected").text());
-//	var formACurso = $("#formACurso option:selected").text();
-//	console.log($("#formACurso option:selected").text());
-//	var formAInstructor = $("#formAInstructor option:selected").text();
-//	console.log($("#formAInstructor option:selected").text());
-//	idInstructorAsignado = idInstructorAsignado*1;
-	
 	$('#btnAltaEntregable').click(function(){
 		console.log("Alta Formulario Entregable");
 		$participantes = $('#participantesTable').bootstrapTable('getData');
@@ -638,9 +618,9 @@ $(document).ready(function() {
 			$("#idEntregable").val($entregable.idEntregable);
 //			console.log($entregable.idEntregable);
 		}
-		 		 
-		$("#formARazonSocialA").val(formARazonSocial);
-		$("#formACursoA").val(formACurso);
+		var cliente = getCliente($("#formARazonSocial").val());
+		$("#formAClienteA").val(cliente.nombreCompletoCliente);
+		$("#formACursoA").val($("#formACurso option:selected").text());
 		$("#formARFCA").val($("#formARFC").val());
 		$("#formADuracionA").val($("#formADuracion").val());
 		$("#formAFechaInicioDC3A").val($("#formAFechaInicioDC3").val());
@@ -649,7 +629,7 @@ $(document).ready(function() {
 		$("#formAEquipoCredencialA").val($("#formAEquipoCredencial").val());
 		$("#formAFechaInicioCredencialesA").val($("#formAFechaInicioCredenciales").val());
 		$("#formAFechaFinalCredencialesA").val($("#formAFechaFinalCredenciales").val());
-		$("#formAInstructorA").val(formAInstructor);
+		$("#formAInstructorA").val($("#formAInstructor option:selected").text());
 		$("#formARepresentanteEmpresaA").val($("#formARepresentanteEmpresa").val());
 		$("#formARepresentanteTrabajadorA").val($("#formARepresentanteTrabajador").val());	
 		
@@ -666,17 +646,17 @@ $(document).ready(function() {
 
 		$("#formBParticipantesA").val(arrayParticipantes);
 
-		$("#formCRazonSocialA").val($("#formCRazonSocial").val());
-		$("#formCCursoA").val($("#formCCurso").val());
+		$("#formCRazonSocialA").val(cliente.nombreCompletoCliente);
+		$("#formCCursoA").val($("#formACurso option:selected").text());
 		$("#formCDuracionA").val($("#formCDuracion").val());
-		$("#formCInstructorA").val($("#formCInstructor").val());
+		$("#formCInstructorA").val($("#formAInstructor option:selected").text());
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
 		$("#formCFechaFinalA").val($("#formCFechaFinal").val());
 		$("#formCSedeA").val($("#formCSede").val());
 		formCTextArea($entregable);
 				
 		$("#idEntregableLogico").val($idEntregableLogico);
-		$("#idCliente").val(asignacionItem.idClienteAsignacion);
+		$("#idCliente").val($("#formARazonSocial").val());
 		
 		if($("#entregableEdicion").valid()){
 			$('#myModalProcess').modal();
@@ -688,13 +668,17 @@ $(document).ready(function() {
 	$('#btnGeneraDocto').click(function(){
 		console.log("Alta Documentacion Entregable");
 		console.log("boton alta documentacion");
+		var cliente = getCliente($('#formARazonSocial').val());
+		console.log(cliente);
+		console.log(formARazonSocial);
+		console.log($('#formARazonSocial').val());
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 		var arrayParticipantes = new Array();
-		
+		alert("hola");
 		$("#idAsignacion").val(0);
 		$("#idInstructorAsignacion").val(idInstructorAsignado);
 		$("#nombreFirmaInstructorAsignacion").val(nombreFirmaInstructor);
-		$("#idCliente").val(asignacionItem.idClienteAsignacion);
+		$("#idCliente").val($("#formARazonSocial").val());
 		
 		if($entregable){
 			$("#idEntregable").val($entregable.idEntregable);
@@ -703,8 +687,9 @@ $(document).ready(function() {
 			arrayParticipantes.push(JSON.stringify($participantes[a]));
 		}
 			
-		$("#formARazonSocialA").val($("#formARazonSocial").val());
-		$("#formACursoA").val($("#formACurso").val());
+//		var cliente = getCliente($("#formARazonSocial").val());
+		$("#formAClienteA").val(cliente.nombreCompletoCliente);
+		$("#formACursoA").val($("#formACurso option:selected").text());
 		$("#formARFCA").val($("#formARFC").val());
 		$("#formADuracionA").val($("#formADuracion").val());
 		$("#formAFechaInicioDC3A").val($("#formAFechaInicioDC3").val());
@@ -713,7 +698,7 @@ $(document).ready(function() {
 		$("#formAEquipoCredencialA").val($("#formAEquipoCredencial").val());
 		$("#formAFechaInicioCredencialesA").val($("#formAFechaInicioCredenciales").val());
 		$("#formAFechaFinalCredencialesA").val($("#formAFechaFinalCredenciales").val());
-		$("#formAInstructorA").val($("#formAInstructor").val());
+		$("#formAInstructorA").val($("#formAInstructor option:selected").text());
 		$("#formARepresentanteEmpresaA").val($("#formARepresentanteEmpresa").val());
 		$("#formARepresentanteTrabajadorA").val($("#formARepresentanteTrabajador").val());
 		
@@ -729,10 +714,10 @@ $(document).ready(function() {
 
 		$("#formBParticipantesA").val(arrayParticipantes);
 
-		$("#formCRazonSocialA").val($("#formCRazonSocial").val());
-		$("#formCCursoA").val($("#formCCurso").val());
+		$("#formCRazonSocialA").val(cliente.nombreCompletoCliente);
+		$("#formCCursoA").val($("#formACurso option:selected").text());
 		$("#formCDuracionA").val($("#formCDuracion").val());
-		$("#formCInstructorA").val($("#formCInstructor").val());
+		$("#formCInstructorA").val($("#formAInstructor option:selected").text());
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
 		$("#formCFechaFinalA").val($("#formCFechaFinal").val());
 		$("#formCSedeA").val($("#formCSede").val());
@@ -765,6 +750,20 @@ $(document).ready(function() {
 			
 });  // Fin JQRY
 
+function copyDuracion(){
+	//$("#formCDuracion").val($("#formADuracion").val());
+
+}
+
+function getCliente(idCliente){
+	for(var a in clientes){
+		var cliente = clientes[a];
+		if(cliente.idCliente == idCliente){
+			return cliente;
+		}
+	}
+}
+
 function validaCliente(){
 	var idCliente = $('#formARazonSocial').val();
 	for(var a in clientes){
@@ -781,7 +780,7 @@ function validaCliente(){
 	}
 		
 	$("#encabezadoCliente").text(asignacionCliente.nombreCortoCliente);
-	$("#formARazonSocial").val(asignacionCliente.nombreCompletoCliente);
+//	$("#formARazonSocial").val(asignacionCliente.nombreCompletoCliente);
 	$("#formARFC").val(asignacionCliente.rfcCliente);
 	$("#formARepresentanteEmpresa").val(asignacionCliente.representanteEmpresaCliente);
 	$("#formARepresentanteTrabajador").val(asignacionCliente.representanteTrabajadorCliente);
@@ -821,7 +820,7 @@ function validaCurso(){
 	
 	$("#encabezadoCurso").html(asignacionCurso.nombreCurso);
 	
-	$("#formACurso").val(asignacionCurso.nombreCurso);	
+//	$("#formACurso").val(asignacionCurso.nombreCurso);	
 	$('#formCCurso').val(asignacionCurso.nombreCurso);
 		
 }
@@ -848,7 +847,7 @@ function validaInstructor(){
 	
 	$("#encabezadoInstructor").html(asignacionInstructor.nombreInstructor);
 	
-	$("#formAInstructor").val(asignacionInstructor.nombreInstructor);
+//	$("#formAInstructor").val(asignacionInstructor.nombreInstructor);
 	$('#formCInstructor').val(asignacionInstructor.nombreInstructor);
 		
 }
@@ -1275,7 +1274,7 @@ function duracion(str){
 					var participante = participantesExcel[a];
 //					console.log(entregables.length);
 //					console.log(participantes.length);
-					participante.idParticipante =  idClienteAsignacion +"-"+ (entregables.length+1) +"-"+ (participantes.length+i);
+					participante.idParticipante =  "extra-"+ (entregables.length+1) +"-"+ (participantes.length+i);
 					var liParticipanteImportar = '<li style="list-style-type:none">\
                         <div class="input-group mb-1">\
 						  <div class="input-group-prepend">\
