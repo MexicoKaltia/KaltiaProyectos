@@ -299,7 +299,7 @@ $(document).ready(function(){
 		$.asignaFechaCalendario = $('#fechaPago').val();
 	}
 	
-	if(perfilUsuario !== "Operacion"){
+	if(perfilUsuario !== "Operacion" && perfilUsuario !== "Direccion"){
 		$('#formOperacion').hide();
 	}
 	
