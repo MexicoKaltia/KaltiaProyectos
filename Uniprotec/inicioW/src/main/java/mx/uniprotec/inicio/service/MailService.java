@@ -526,7 +526,7 @@ public class MailService implements IMailService{
 		 mailVO.setDestinatarioMail(limpia(mailVO.getDestinatarioMailList().toString()));
 	  // El correo gmail de envío
 	  final String correoEnvia = "notificacion@control-uniprotec.com";
-	  final String claveCorreo = "Uniprotec1311#";
+	  final String claveCorreo = "Uniprotec2023#";
 	 
 	  // La configuración para enviar correo
 	  Properties properties = new Properties();
