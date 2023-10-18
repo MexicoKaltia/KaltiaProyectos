@@ -1,5 +1,6 @@
 package mx.uniprotec.inicio.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
@@ -232,6 +235,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 		ResultVO rs3 = new ResultVO();
 		ResultVO rs4 = new ResultVO();
 		model.addAttribute("clienteForm", new ClienteModelo());
+		model.addAttribute("asignacionesDescargaForm",new AsignacionModeloDescarga());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 		model.addAttribute("model", resultVO);

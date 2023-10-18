@@ -25,6 +25,7 @@ mx\uniprotec\entidad\modelo\ZonaBaseModelo.class
 mx\uniprotec\entidad\modelo\AsignacionModelo_old.class
 mx\uniprotec\entidad\modelo\Region.class
 mx\uniprotec\entidad\modelo\SubModulo.class
+mx\uniprotec\entidad\modelo\AsignacionModeloDescarga.class
 mx\uniprotec\entidad\modelo\LoginSingle.class
 mx\uniprotec\entidad\modelo\ResultLocal.class
 mx\uniprotec\entidad\modelo\UsuarioModelo.class

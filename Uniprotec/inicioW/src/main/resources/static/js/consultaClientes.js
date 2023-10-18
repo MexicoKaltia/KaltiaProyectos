@@ -140,51 +140,81 @@ $(document).ready(function(){
 	
 	var	asignacion;
 	$.asignacionesArray = new Array();
-//	for(var a in asignaciones){
-//		asignacion = asignaciones[a];
-//		for(var i in asignacion){
-////    			//console.log(asignacion[i].idAsignacion);
-////    			asignacion[i] = JSON.stringify(asignacion[i]);
-////    			asignacion[i] = JSON.parse(asignacion[i]);
-//    			$.asignacionesArray.push(asignacion[i]);
-//		}
-//	}
 	
 	window.operateEventsAsignaciones = {
 		    'click .like': function (e, value, row, index) {
 		    	var idCliente = row.idCliente;
-//		    	//console.log("A:"+idCliente);
 		    	$.asignacionesArray = new Array();
 		    	$('#regsitroAsignacion').empty();
+		    	$('#asignacionesDownload').val("");
+		    	var clienteAsignacion = "";
 		    	for(var a in asignaciones){
-		    		asignacion = asignaciones[a];
-		    		for(var i in asignacion){
-			    		var idClienteAsignacion = asignacion[i].idClienteAsignacion;
-			    		
-			    		if((idClienteAsignacion*1) === (idCliente*1)){
-			    			asignacion[i] = JSON.stringify(asignacion[i]);
-			    			asignacion[i] = JSON.parse(asignacion[i]);
-			    			$.asignacionesArray.push(asignacion[i]);
-			    			var registro = "<tr><td>"+asignacion[i].idAsignacion+
-							    			"</td><td>"+transformaDia(asignacion[i].fechaAsignacion.toString())+
-							    			"</td><td>"+asignacion[i].cursoAsignacion+
-							    			"</td><td>"+asignacion[i].instructorAsignacion+
-							    			"</td><td>"+asignacion[i].statusAsignacion+
-							    			"</td><td><a class='like' id='"+asignacion[i].idAsignacion+"' href='javascript:function(0)' onclick='expedienteAsignacion("+asignacion[i].idAsignacion+")' title='Consultar'  data-toggle='modal' data-target='#modalAsignacion'><i class='fa fa-2x fa-indent'></i></a></td></tr>";
-			    			
-			    			$('#regsitroAsignacion').append(registro);
-//			    			//console.log(asignacion[i]);
-			    			var clienteAsignacion = asignacion[i].clienteAsignacion;
-			    		}
-		    		}
-		    		$('#nombreCliente').html(clienteAsignacion);
-		    		$('#numAsignaciones').html($.asignacionesArray.length)
-		    	}
-		    	$.asignacionesArray =JSON.stringify($.asignacionesArray);
-		    	$.asignacionesArray =JSON.parse($.asignacionesArray);
+					asignacion = asignaciones[a];
+					var idClienteAsignacion = asignacion.idClienteAsignacion;
+					if((idClienteAsignacion*1) === (idCliente*1)){
+						asignacion.fechaAsignacionNew = transformaDia(asignacion.fechaAsignacion.toString())
+						$.asignacionesArray.push(asignacion);
+			    		var clienteAsignacion = asignacion.clienteAsignacion;
+					}
+				}
+		    	$('#nombreCliente').html(clienteAsignacion);
+	    		$('#numAsignaciones').html($.asignacionesArray.length)
+	    		console.log($.asignacionesArray);
+//		    	
+	    		var $asignacionesTable = $('#asignacionesTable')
+	    		$('#asignacionesTable').bootstrapTable('load', $.asignacionesArray);
+	    	    $('#asignacionesTable').bootstrapTable({data : $.asignacionesArray});
+
+//	    	    $.asignacionesArray =JSON.stringify($.asignacionesArray);
+//		    	$.asignacionesArray =JSON.parse($.asignacionesArray);
+		    	var arrayAsignaciones = new Array();
+		      	var lstArrayAsignaciones = new Array();
+		    	for(var a in $.asignacionesArray){
+		    		arrayAsignaciones.push(JSON.stringify($.asignacionesArray[a]));
+//		    		lstArrayAsignaciones.push(JSON.parse($.asignacionesArray[a]));
+				}
+	    	    $('#strAsignacionesDescargas').val(arrayAsignaciones);
+//	    	    $('#lstAsignacionesDescargas').val(lstArrayAsignaciones);
 		   }
 	}
 	
+	window.operateEventsExpedienteAsignacion= {
+		    'click .like': function (e, value, row, index) {
+		    	console.log("ExpedienteAsignacion");
+		    	var idAsignacion = row.idAsignacion;
+		    	var asignacion = row;
+//		    	console.log(asignacion);
+    			$('#modalFecha').html('<b>'+transformaDia(asignacion.fechaAsignacion)+'</b>'); 
+    			$('#modalCliente').html('<b>'+asignacion.clienteAsignacion+' : </b>'+asignacion.nombreRegionAsignacion);
+    			$('#modalCurso').html('<b>'+asignacion.cursoAsignacion+'</b>'+" : <i><u><b>"+asignacion.tipoCursoAsignacion+"</b></u></i>");
+    			$('#modalInstructor').html('<b>'+asignacion.instructorAsignacion+'</b>');
+    			var asignaHorasEfectivas = asignacion.horarioAsignacion.split(";");
+    			$('#modalHorario').html("<b>"+ horaInicio(asignacion.horarioAsignacion)+"-"+horaFin(asignacion.horarioAsignacion)+"</b> - Horas Efectivas: <b>"+asignaHorasEfectivas[4]+"</b>");
+    			$('#modalParticipantes').html('<b>'+asignacion.participantesAsignacion+'</b>'); 
+    			$('#modalNivel').html('<b>'+asignacion.nivelAsignacion+'</b>');
+    			$('#modalObservaciones').html('<b>'+asignacion.observacionesAsignacion+'</b>');
+    			$('#modalArchivos').html("<a id='link'><b>"+asignacion.archivosAsignacion+"</b></a>");
+    			$("#link").attr('href', '/uploads/fileAsignacion/'+asignacion.idAsignacionLogica+'/'+asignacion.archivosAsignacion)
+    			if(asignacion.statusAsignacion ==="Entregable Enviado") {
+    				$('#modalStatus').html('<b>'+asignacion.statusAsignacion+'</b>');
+    				$('#modalStatus').append('<div class="alert alert-success" role="alert" >Guía Paqueteria : <b>'+asignacion.guiaEntregable+' <b></div>');
+    			}else{
+    				$('#modalStatus').html('<b>'+asignacion.statusAsignacion+'</b>');
+    			}
+    			$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
+    			$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
+    			$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
+    			$('#modalArchivoParticipantes').html("<a id='linkArchivoParticipantes'><b>"+asignacion.archivoParticipantes+"</b></a>");
+    			$("#linkArchivoParticipantes").attr('href', '/uploads/fileAsignacion/V'+asignacion.idAsignacionLogica+'/'+asignacion.archivoParticipantes)
+		    			
+    			$('#modalCostoHotel').html('<b>'+asignacion.costoHotel+'</b>');
+    			if(perfilUsuario !== "Administracion"){
+    				$('#admon').hide();
+    			}
+		    	
+		    }
+		  }
+			
 	
 	
 	window.operateEventsDelete = {
@@ -235,6 +265,8 @@ function transformaDia(fechaSelectString){
 	anio = fechaSelect.getFullYear();
 	sem = getDia(fechaSelect.getDay());
 	
+//	return fechaSelect;
+//	return new Date(anio , mes , dia);
 	return (sem + ", " + dia + "/"+ mes + "/" + anio);
 }
 function getDia(dia){

@@ -43,8 +43,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,11 +54,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.EntregableModelo;
 import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
+import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IClienteService;
 
 
@@ -69,14 +75,14 @@ public class ControllerUtil {
 	protected final Log log = LogFactory.getLog(getClass());
 
 	@Autowired
-	private IClienteService clienteService;	
+	private IAplicacionService aplicacionService;	
 	
 	
 	private ResultVO resultVO = new ResultVO();
 	
 	@GetMapping("/version")
 	public  String version() {
-		return  "01072020";
+		return  "17102023";
 	}
 
 
@@ -866,7 +872,46 @@ public class ControllerUtil {
 		
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
+
 	
+	@PostMapping("/descargaAsignaciones")
+	public ModelAndView descargaAsignaciones(@ModelAttribute("asignacionesDescargaForm") AsignacionModeloDescarga asignacionesDescarga, ModelMap model) { 
+		log.info("descargaAsignaciones");
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		ResultVO rs = aplicacionService.descargaAsignaciones(asignacionesDescarga);
+		ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
+		if(rs.getCodigo() != 500) {
+//			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+		}
+		return mav;
+	}
+
+	@GetMapping("/descargaAsignaciones")
+	public ResponseEntity<Resource> detDescargaAsignaciones() { 
+		Path rutaArchivo = Paths.get("/uniprotec/descargaAsignaciones/descargaAsignaciones.csv").toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la imagen: " );
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+
 	
 	/*
 	 * Private

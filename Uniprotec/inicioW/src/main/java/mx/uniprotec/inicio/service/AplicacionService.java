@@ -1,25 +1,40 @@
 package mx.uniprotec.inicio.service;
 
-import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.supercsv.cellprocessor.Optional;
+import org.supercsv.cellprocessor.ParseInt;
+import org.supercsv.cellprocessor.ParseLong;
+import org.supercsv.cellprocessor.constraint.NotNull;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
@@ -28,6 +43,7 @@ import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 import mx.uniprotec.inicio.entity.StatusVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
+import mx.uniprotec.inicio.util.ComponenteComun;
 import mx.uniprotec.inicio.util.IBaseClientRest;
 
 
@@ -254,6 +270,24 @@ public class AplicacionService implements IAplicacionService {
 	}
 	
 	@Override
+	public ResultVO descargaAsignaciones(AsignacionModeloDescarga asignacionesDescarga) {
+		ResultVO rs = new ResultVO();
+		try {
+			List<AsignacionModelo> asignaciones = converterAsignaciones(asignacionesDescarga);
+			ICsvBeanWriter beanWriter = beanWriter(asignaciones);
+			rs.setCodigo(200l);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+
+	
+	
+	
+	@Override
 	public ResultVO getNotificacion(Long idNotificacion) {
 		// TODO Auto-generated method stub
 		return null;
@@ -273,6 +307,7 @@ public class AplicacionService implements IAplicacionService {
 		}
 		
 	}
+
 	
 	
 
@@ -289,6 +324,129 @@ public class AplicacionService implements IAplicacionService {
 		return hourFormat.format(date);
 	}
 
+	private List<AsignacionModelo> converterAsignaciones(AsignacionModeloDescarga asignacionesDescarga) {
+		String[] tmp = null;
+		List<AsignacionModelo> asignaciones = new ArrayList<AsignacionModelo>();
+		me = ComponenteComun.monitorCampos();
+		
+			 tmp = asignacionesDescarga.getStrAsignacionesDescargas().split("},");
+			 if(tmp.length > 0) {
+					for(String a : tmp) {
+						if(!a.contains("}")) {
+							a = a.concat("}");
+						}
+						JSONParser parser = new JSONParser();
+						try {
+							
+							AsignacionModelo asignacion = new AsignacionModelo(); 
+							JSONObject json = (JSONObject) parser.parse(a);
+//							log.info(json.toJSONString());
+							
+							asignacion.setIdAsignacion((Long) json.get("idAsignacion"));
+							asignacion.setIdAsignacionLogica((String) json.get("idAsignacionLogica"));
+							asignacion.setFechaAsignacion((String) json.get("fechaAsignacion"));
+							asignacion.setClienteAsignacion((String) json.get("clienteAsignacion"));
+							asignacion.setCursoAsignacion((String) json.get("cursoAsignacion"));
+							asignacion.setTipoCursoAsignacion((String) json.get("tipoCursoAsignacion"));
+							asignacion.setInstructorAsignacion((String) json.get("instructorAsignacion"));
+							asignacion.setHorarioAsignacion((String) json.get("horarioAsignacion"));
+							asignacion.setParticipantesAsignacion((String) json.get("participantesAsignacion"));
+							asignacion.setNivelAsignacion((String) json.get("nivelAsignacion"));
+//							asignacion.setObservacionesAsignacion((String) json.get("observacionesAsignacion"));
+//							asignacion.setArchivosAsignacion(validateEmpty((String) json.get("archivosAsignacionTexto")));
+							asignacion.setNombreRegionAsignacion((String) json.get("nombreRegionAsignacion"));
+							asignacion.setCreateAtAsignacion(LocalDateTime.parse((String) json.get("createAtAsignacion")));
+							asignacion.setUserCreateAsignacionTexto((String) json.get("userCreateAsignacionTexto"));
+							asignacion.setStatusAsignacion((String) json.get("statusAsignacion"));
+							asignacion.setFechaPago(validateEmpty((String) json.get("fechaPago")));
+							asignacion.setGuiaEntregable(validateEmpty((String) json.get("guiaEntregable")));
+							asignacion.setNumeroFactura(validateEmpty((String) json.get("numeroFactura")));
+//							asignacion.setArchivoParticipantes(validateEmpty((String) json.get("archivoParticipantesTexto")));
+							asignacion.setCostoHotel(validateEmpty((String) json.get("costoHotel")));
+																				
+							asignaciones.add(asignacion);
 
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			 return asignaciones;
+	}
+
+	private String validateEmpty(String string) {
+//		log.info(string);
+		String dot = ".";
+		if(string == null) {
+			return dot;
+		}
+		if(string.equals("") || string.isEmpty()) {
+			return dot;
+		}else {
+			return string;
+		}
+		
+	}
+
+	private static CellProcessor[] getProcessors(){
+		
+		final CellProcessor[] processors = new CellProcessor[] {
+				new NotNull(), // idAsignacion
+				new NotNull(), // idAsignacionLogica
+				new NotNull(), // fechaAsignacion
+				new NotNull(), // clienteAsignacion
+				new NotNull(), // cursoAsignacion
+				new NotNull(), // tipoCursoAsignacion
+				new NotNull(), // instructorAsignacion
+				new NotNull(), // horarioAsignacion
+				new NotNull(), // participantesAsignacion
+				new NotNull(), // nivelAsignacion
+				new Optional(), // observacionesAsignacion
+//				new Optional(), // archivosAsignacionTexto
+				new NotNull(), // nombreRegionAsignacion
+				new NotNull(), // createAtAsignacion
+				new NotNull(), // userCreateAsignacionTexto
+				new NotNull(), // statusAsignacion
+				new Optional(), // fechaPago
+				new Optional(), // guiaEntregable
+				new Optional(), // numeroFactura
+//				new Optional(), // archivoParticipantesTexto
+				new Optional(), // costoHotel	
+		};
+		return processors;
+	}
+	
+	private ICsvBeanWriter beanWriter(List<AsignacionModelo> asignaciones) {
+		ICsvBeanWriter beanWriter = null;
+
+		try
+		{
+			beanWriter = new CsvBeanWriter(new FileWriter("/uniprotec/descargaAsignaciones/descargaAsignaciones.csv"), CsvPreference.STANDARD_PREFERENCE);
+			
+			final String[] header = new String[] { "idAsignacion","idAsignacionLogica","fechaAsignacion","clienteAsignacion",
+					"cursoAsignacion","tipoCursoAsignacion","instructorAsignacion","horarioAsignacion","participantesAsignacion",
+					"nivelAsignacion", "observacionesAsignacion", "nombreRegionAsignacion","createAtAsignacion",
+					"userCreateAsignacionTexto","statusAsignacion","fechaPago","guiaEntregable","numeroFactura","costoHotel" };
+
+			final CellProcessor[] processors = getProcessors();
+
+			// write the header
+			beanWriter.writeHeader(header);
+
+			// write the beans data
+			for (AsignacionModelo asignacion : asignaciones) {
+				beanWriter.write(asignacion , header, processors);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  finally {
+			try {
+				beanWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return beanWriter;
+	}
 	
 }
