@@ -355,6 +355,9 @@
  		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
 		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
 		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+		 var zonaBase = [[${model.regiones}]];
+		 var cursos = [[${model.cursos}]];
+		 var clientes = [[${model.clientes}]];
 	</script>
 
 	
@@ -518,7 +521,7 @@
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-											<button type="button"  class="btn btn-info pull-left" id="btnFiltroInstructorActualizar" data-dismiss="modal" disabled onclick="actualizaInstructor()">Actualizar Resultados</button>
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroInstructorActualizar" data-dismiss="modal"  onclick="actualizaInstructor()">Actualizar Resultados</button>
 											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
                                    </div>
 
@@ -530,7 +533,7 @@
   <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalFiltroZona" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					    <div class="modal-dialog " role="document">
+					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
                                    <!-- Modal Header -->
@@ -548,20 +551,30 @@
 			                                <div class="input-group mb-1">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="checkbox" id="todosInstructores" checked>
+											      <input type="checkbox" id="todosZona" checked>
 											    </div>
 											  </div>
 											  <span  style="padding-left: 10px;">Alcance Zona</span>
 											</div>
 			                            </li>
 			                            <hr>
-									    aqui van las zonas
+									    <li th:each= "zonaBase : ${model.regiones}" style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxZona" th:id="${zonaBase.idRegion}" >
+											    </div>
+											  </div>
+											  <span th:text="${zonaBase.nombreRegion}" style="padding-left: 10px;"></span>
+<!-- 											  <input type="text" class="form-control" value='th:text="${instructor.nombreInstructor}"' disabled> -->
+											</div>
+			                            </li>
 									 </ul>
                                    </div>
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-											<button type="button"  class="btn btn-info pull-left" id="btnFiltroZonaActualizar" data-dismiss="modal" disabled onclick="actualizaZona()">Actualizar Resultados</button>
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroZonaActualizar" data-dismiss="modal"  onclick="actualizaZona()">Actualizar Resultados</button>
 											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
                                    </div>
 
@@ -573,7 +586,7 @@
   <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalFiltroCurso" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					    <div class="modal-dialog " role="document">
+					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
                                    <!-- Modal Header -->
@@ -591,20 +604,29 @@
 			                                <div class="input-group mb-1">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="checkbox" id="todosInstructores" checked>
+											      <input type="checkbox" id="todosCursos" checked>
 											    </div>
 											  </div>
 											  <span  style="padding-left: 10px;">Selecciona Curso</span>
 											</div>
 			                            </li>
 			                            <hr>
-									    aqui van las Curso
+									    <li th:each= "curso: ${model.cursos}" style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxCursos" th:id="${curso.idCurso}" >
+											    </div>
+											  </div>
+											  <span th:text="${curso.nombreCurso}" style="padding-left: 10px;"></span>
+											</div>
+			                            </li>
 									 </ul>
                                    </div>
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-											<button type="button"  class="btn btn-info pull-left" id="btnFiltroCursoActualizar" data-dismiss="modal" disabled onclick="actualizaCurso()">Actualizar Resultados</button>
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroCursoActualizar" data-dismiss="modal"  onclick="actualizaCurso()">Actualizar Resultados</button>
 											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
                                    </div>
 
@@ -616,7 +638,7 @@
                          <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalFiltroCliente" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					    <div class="modal-dialog " role="document">
+					    <div class="modal-dialog modal-lg" role="document">
 					        <div class="modal-content">
 
                                    <!-- Modal Header -->
@@ -634,20 +656,29 @@
 			                                <div class="input-group mb-1">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="checkbox" id="todosInstructores" checked>
+											      <input type="checkbox" id="todosClientes" checked>
 											    </div>
 											  </div>
 											  <span  style="padding-left: 10px;">Alcance Cliente</span>
 											</div>
 			                            </li>
 			                            <hr>
-									    aqui van las Cliente
+									    <li th:each= "cliente: ${model.clientes}" style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxClientes" th:id="${cliente.idCliente}" >
+											    </div>
+											  </div>
+											  <span th:text="${cliente.nombreCortoCliente}" style="padding-left: 10px;"></span>
+											</div>
+			                            </li>
 									 </ul>
                                    </div>
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-											<button type="button"  class="btn btn-info pull-left" id="btnFiltroClienteActualizar" data-dismiss="modal" disabled onclick="actualizaCliente()">Actualizar Resultados</button>
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroClienteActualizar" data-dismiss="modal"  onclick="actualizaCliente()">Actualizar Resultados</button>
 											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
                                    </div>
 
@@ -708,12 +739,14 @@
   
 <script type="text/javascript">
     var today = new Date();
-    console.log(today);
     var $datepicker4 = $( '#fechaInicial' ).pickadate({
-//  	 min : today
+  	 min: new Date(2020,09,1),
+  	 selectMonths: true,
+     selectYears: true
  });
     var $datepicker5 = $( '#fechaFinal' ).pickadate({
-//  	 min : today
+    	selectMonths: true,
+        selectYears: true
  });
       
     

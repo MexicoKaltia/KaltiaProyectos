@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
+import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.inicio.util.BaseClientRest;
 import mx.uniprotec.inicio.util.ComponenteComun;
@@ -92,7 +93,7 @@ private static Logger log = LoggerFactory.getLogger(CursoService.class);
 			JSONObject jsonGeneral = rs.getJsonResponse();
 			JSONObject jsonClientes = new JSONObject();
 			jsonClientes.put("cursos", jsonGeneral.get("cursos"));
-			
+			rs.setCursos((List<CursoModelo>) jsonGeneral.get("cursos"));
 			rs.setJsonResponseObject(jsonClientes);
 			return rs;
 		}else {

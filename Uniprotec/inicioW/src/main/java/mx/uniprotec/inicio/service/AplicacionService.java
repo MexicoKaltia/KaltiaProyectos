@@ -72,10 +72,10 @@ public class AplicacionService implements IAplicacionService {
 		
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
-			JSONObject jsonClientes = new JSONObject();
-			jsonClientes.put("regiones", jsonGeneral.get("regiones"));
-			
-			rs.setJsonResponseObject(jsonClientes);
+			JSONObject jsonRegiones = new JSONObject();
+			jsonRegiones.put("regiones", jsonGeneral.get("regiones"));
+			rs.setRegiones((List<Region>) jsonGeneral.get("regiones"));
+			rs.setJsonResponseObject(jsonRegiones);
 			return rs;
 		}else {
 			return rs;

@@ -26,6 +26,7 @@ import mx.uniprotec.entidad.modelo.VendedorModelo;
 import mx.uniprotec.inicio.service.IAplicacionService;
 import mx.uniprotec.inicio.service.IAsignacionService;
 import mx.uniprotec.inicio.service.IClienteService;
+import mx.uniprotec.inicio.service.ICursoService;
 import mx.uniprotec.inicio.service.IDatosEconomicosService;
 import mx.uniprotec.inicio.service.ILoginService;
 import mx.uniprotec.inicio.service.IUsuarioService;
@@ -52,6 +53,8 @@ public class ControllerEstadisticas {
 	@Autowired
 	IVendedorService vendedorService;
 	@Autowired
+	ICursoService cursoService;
+	@Autowired
 	IDatosEconomicosService datosEconomicosService;
 	
 	
@@ -76,6 +79,16 @@ public class ControllerEstadisticas {
 			
 			ResultVO rs = asignacionService.consultaAsignacionHistorico(resultVO.getAccesToken());
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+
+			rs = aplicacionService.consultaRegiones(resultVO.getAccesToken());
+			resultVO.setRegiones(rs.getRegiones());
+
+			rs = cursoService.consultaCursos(resultVO.getAccesToken());
+			resultVO.setCursos(rs.getCursos());
+			
+			rs = clienteService.consultaClientes(resultVO.getAccesToken());
+			resultVO.setClientes(rs.getClientes());
+
 			
 			ModelAndView mav = new ModelAndView("CEstadisticaInstructor", model);
 			if(resultVO.getCodigo() != 500) {	

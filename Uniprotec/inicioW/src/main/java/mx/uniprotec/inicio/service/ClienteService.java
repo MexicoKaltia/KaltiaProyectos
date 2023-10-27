@@ -1,5 +1,7 @@
 package mx.uniprotec.inicio.service;
 
+import java.util.List;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +111,7 @@ public class ClienteService implements IClienteService {
 			JSONObject jsonGeneral = rs.getJsonResponse();
 			JSONObject jsonClientes = new JSONObject();
 			jsonClientes.put("clientes", jsonGeneral.get("clientes"));
-			
+			rs.setClientes((List<ClienteModelo>) jsonGeneral.get("clientes"));
 			rs.setJsonResponseObject(jsonClientes);
 			return rs;
 		}else {
