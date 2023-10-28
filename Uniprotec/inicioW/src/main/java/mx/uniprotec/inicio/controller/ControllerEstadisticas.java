@@ -67,7 +67,7 @@ public class ControllerEstadisticas {
 	
 	
 	
-	@GetMapping("/CEstadisticaInstructor")
+	@GetMapping("/CEstadisticaGeneral")
 	public ModelAndView estadisticaInstructor(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
 			@RequestParam(name="error", required=false) boolean error,
 			ModelMap model) {
@@ -90,7 +90,7 @@ public class ControllerEstadisticas {
 			resultVO.setClientes(rs.getClientes());
 
 			
-			ModelAndView mav = new ModelAndView("CEstadisticaInstructor", model);
+			ModelAndView mav = new ModelAndView("CEstadisticaGeneral", model);
 			if(resultVO.getCodigo() != 500) {	
 //				log.info(model.values().toString());
 				

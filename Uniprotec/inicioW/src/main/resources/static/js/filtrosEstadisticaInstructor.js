@@ -100,15 +100,16 @@ $(document).ready(function() {
 
 //limpiar filtros
 $('#btnFiltroLimpiar').click(function(){
-	console.log($.asignaciones.length);
-	console.log($.asignacionesOriginal.length);
+//	console.log($.asignaciones.length);
+//	console.log($.asignacionesOriginal.length);
 //	$.asignaciones.length = 0;
 //	$.asignaciones = $.asignacionesOriginal;
+	$('#divFiltroActivo').empty();
 	asignaData($.asignacionesOriginal);
 });
 
 
-//FILTRO FECHAS
+
 function asignaData(dataTable){
 	$('#instructorAsignacionesTable').bootstrapTable('load', dataTable);
 	$('#instructorAsignacionesTable').bootstrapTable({data : dataTable});
@@ -116,11 +117,11 @@ function asignaData(dataTable){
 	$.asignaciones = dataTable;
 	
 //	$.asignacionesOriginal = asignacionesHistorico;
-	console.log($.asignacionesOriginal.length);
+//	console.log($.asignacionesOriginal.length);
 
 }
 
-
+//FILTRO FECHAS
 function formatoFechaInicial(){
 	var fechaFinal = $('#fechaFinal').val();
 	var fechaInicial = $('#fechaInicial').val();
@@ -151,18 +152,21 @@ function actualizaFechas(){
 	var asignaFecha2 = elementoPicker2.get('select', 'mm/dd/yyyy');
 	$('#fechaFinalFormat').val(asignaFecha2);
 	
-	var fechaInicial  = new Date(asignaFecha1);
-	var fechaFinal = new Date(asignaFecha2);
-	console.log(fechaInicial);console.log(fechaFinal);
+	var fechaInicialA  = new Date(asignaFecha1);
+	var fechaFinalA = new Date(asignaFecha2);
+	console.log(fechaInicialA);console.log(fechaFinalA);
 	for(var a in $.asignaciones ){
 	  var asignacion = $.asignaciones[a];
 	  var fechaRegistro = new Date(asignacion.fechaAsignacion)
-	  if((fechaInicial <= fechaRegistro)  && (fechaRegistro <= fechaFinal)){
+	  if((fechaInicialA <= fechaRegistro)  && (fechaRegistro <= fechaFinalA)){
 		  dataFechas.push(asignacion);
 		}
 	}
     
 	asignaData(dataFechas);
+	
+	var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Fechas : </b> '+fechaInicial+ '- '+ fechaFinal+'</u></div>';
+	$('#divFiltroActivo').append(notificacion);
 }
 
 
@@ -181,21 +185,24 @@ function actualizaInstructor(){
 		}
 	});
 //	console.log(filtroInstructores);
-	
+	var nombreInstructor = "";
 	for(e in $.asignaciones){
 		var asignacionA  = $.asignaciones[e];
 		for(a in filtroInstructores){
 			var instructorFiltro = filtroInstructores[a];
 			if((asignacionA.idInstructorAsignacion * 1) === (instructorFiltro * 1)){
 				dataInstructores.push(asignacionA);
+				nombreInstructor = asignacionA.instructorAsignacion;
 			}
 		}
 	}
+	var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Instructor : </b> '+nombreInstructor +'</u></div>';
+	$('#divFiltroActivo').append(notificacion);
 	asignaData(dataInstructores);
-//	console.log(filtroInstructores.length);
-//	console.log(dataInstructores.length);
+	
+
 }
-//$('#btnFiltroInstructorActualizar').click(function(){});
+
 
 //FIN FILTRO INSTRUCTOR
 //---------------------------------------------------------------------------------
@@ -218,10 +225,13 @@ function actualizaZona(){
 			var zona = filtroZona[a];
 			if((asignacion.idRegionAsignacion * 1) === (zona * 1)){
 				dataZona.push(asignacion);
+				nombreZona = asignacion.nombreRegionAsignacion;
 			}
 		}
 	}
 	asignaData(dataZona);
+	var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Nombre Región : </b> '+nombreZona +'</u></div>';
+	$('#divFiltroActivo').append(notificacion);
 //	console.log(filtroZona.length);
 //	console.log(dataZona.length);
 }
@@ -259,19 +269,20 @@ function actualizaZona(){
 				}
 			});
 //			console.log(filtroCurso);
-			
+			var nombreCurso;
 			for(e in $.asignaciones){
 				var asignacion  = $.asignaciones[e];
 				for(a in filtroCurso){
 					var zona = filtroCurso[a];
 					if((asignacion.idCursoAsignacion * 1) === (zona * 1)){
 						dataCurso.push(asignacion);
+						nombreCurso = asignacion.cursoAsignacion;
 					}
 				}
 			}
 			asignaData(dataCurso);
-//			console.log(filtroCurso.length);
-//			console.log(dataCurso.length);
+			var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Nombre Curso : </b> '+nombreCurso +'</u></div>';
+			$('#divFiltroActivo').append(notificacion);
 
 	 }
 	 
@@ -308,19 +319,20 @@ function actualizaZona(){
 					}
 				});
 //				console.log(filtroCliente);
-				
+				var nombreCliente;
 				for(e in $.asignaciones){
 					var asignacion  = $.asignaciones[e];
 					for(a in filtroCliente){
 						var zona = filtroCliente[a];
 						if((asignacion.idClienteAsignacion * 1) === (zona * 1)){
 							dataCliente.push(asignacion);
+							nombreCliente = asignacion.clienteAsignacion;
 						}
 					}
 				}
 				asignaData(dataCliente);
-//				console.log(filtroCliente.length);
-//				console.log(dataCliente.length);
+				var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Nombre Cliente : </b> '+nombreCliente +'</u></div>';
+				$('#divFiltroActivo').append(notificacion);
 
 		 }
 
@@ -338,19 +350,20 @@ function actualizaZona(){
 					}
 				});
 //				console.log(filtroEstatus);
-				
+				var nombreEstatus;
 				for(e in $.asignaciones){
 					var asignacion  = $.asignaciones[e];
 					for(a in filtroEstatus){
 						var estatus = filtroEstatus[a];
 						if(asignacion.statusAsignacion === estatus){
 							dataEstatus.push(asignacion);
+							nombreEstatus = asignacion.statusAsignacion;
 						}
 					}
 				}
 				asignaData(dataEstatus);
-//				console.log(filtroEstatus.length);
-//				console.log(dataEstatus.length);
+				var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Nombre Estatus : </b> '+nombreEstatus +'</u></div>';
+				$('#divFiltroActivo').append(notificacion);
 
 		 }
 
