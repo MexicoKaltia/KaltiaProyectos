@@ -15,8 +15,10 @@
 	    <link th:href="@{css/default.css}" rel="stylesheet">
 	    <link th:href="@{css/default.date.css}" rel="stylesheet">
 	    <link th:href="@{css/default.time.css}" rel="stylesheet">
-	    
-	    
+
+	    <!--  chosen select --> 
+   		 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   	 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
 </head>
 
 <body background="images/fondo1.png">
@@ -282,8 +284,7 @@
                                 </a>
                             </li>
                             </ul>
-
-									<table id='instructorAsignacionesTable' class="mb-0 table table-striped table-sm"
+                           		<table id='instructorAsignacionesTable' class="mb-0 table table-striped table-sm"
 										data-locale="es-MX" 
 										data-toggle='table' 
 										data-sort-name='idAsignacion'
@@ -346,33 +347,8 @@
 	</div>  <!-- app-main -->
 </div>   <!-- app-container -->
 
-<!--  -->
+ 	
 
- 	<script th:inline="javascript">
- 		 var asignacionesHistorico = [[${model.jsonResponseObject.asignacionesHistorico}]];
- 		 var instructores = [[${model.jsonResponseObject.instructores}]];
- 		 var idUsuario =  [[${model.jsonResponse.user.id}]];
- 		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
-		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
-		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
-		 var zonaBase = [[${model.regiones}]];
-		 var cursos = [[${model.cursos}]];
-		 var clientes = [[${model.clientes}]];
-	</script>
-
-	
-    <script type="text/javascript" th:src="@{js/main.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-    
-	<script type="text/javascript" th:src="@{js/CEstadisticaInstructor.js}"></script>
-	<script type="text/javascript" th:src="@{js/filtrosEstadisticaInstructor.js}"></script>										    
-    <script th:src="@{js/bootstrap-table.min.js}"></script>
-    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
-</body>
-
-</html>
-
- 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalExpedienteAsignacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -599,29 +575,32 @@
 
                                    <!-- Modal body -->
                                    <div class="modal-body">
+                                  	
                                     <ul>
                                     	<li  style=" list-style-type:none ">
 			                                <div class="input-group mb-1">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="checkbox" id="todosCursos" checked>
+											      <span  style="padding-left: 10px;">Captura Curso</span>
 											    </div>
 											  </div>
-											  <span  style="padding-left: 10px;">Selecciona Curso</span>
+											  <input type="text" id="capturaCurso" onkeyup=filtroCurso(this)>
 											</div>
 			                            </li>
 			                            <hr>
-									    <li th:each= "curso: ${model.cursos}" style=" list-style-type:none ">
-			                                <div class="input-group mb-1">
-											  <div class="input-group-prepend">
-											    <div class="input-group-text">
-											      <input type="checkbox" class="checkboxCursos" th:id="${curso.idCurso}" >
-											    </div>
-											  </div>
-											  <span th:text="${curso.nombreCurso}" style="padding-left: 10px;"></span>
-											</div>
-			                            </li>
+			                           	
+<!-- 									    <li th:each= "curso: ${model.cursos}" style=" list-style-type:none "> -->
+<!-- 			                                <div class="input-group mb-1"> -->
+<!-- 											  <div class="input-group-prepend"> -->
+<!-- 											    <div class="input-group-text"> -->
+<!-- 											      <input type="checkbox" class="checkboxCursos" th:id="${curso.idCurso}" > -->
+<!-- 											    </div> -->
+<!-- 											  </div> -->
+<!-- 											  <span th:text="${curso.nombreCurso}" style="padding-left: 10px;"></span> -->
+<!-- 											</div> -->
+<!-- 			                            </li> -->
 									 </ul>
+									 <div class="input-group mb-1" id="sectionFiltroCurso"></div>
                                    </div>
 
                                    <!-- Modal footer -->
@@ -651,29 +630,32 @@
 
                                    <!-- Modal body -->
                                    <div class="modal-body">
+                                     
                                     <ul>
                                     	<li  style=" list-style-type:none ">
 			                                <div class="input-group mb-1">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="checkbox" id="todosClientes" checked>
+											      <span  style="padding-left: 10px;">Captura Cliente</span>
 											    </div>
 											  </div>
-											  <span  style="padding-left: 10px;">Alcance Cliente</span>
+											  <input type="text" id="capturaCliente" onkeyup=filtroCliente(this)>
 											</div>
 			                            </li>
 			                            <hr>
-									    <li th:each= "cliente: ${model.clientes}" style=" list-style-type:none ">
-			                                <div class="input-group mb-1">
-											  <div class="input-group-prepend">
-											    <div class="input-group-text">
-											      <input type="checkbox" class="checkboxClientes" th:id="${cliente.idCliente}" >
-											    </div>
-											  </div>
-											  <span th:text="${cliente.nombreCortoCliente}" style="padding-left: 10px;"></span>
-											</div>
-			                            </li>
+			                           	
+<!-- 									    <li th:each= "cliente: ${model.clientes}" style=" list-style-type:none "> -->
+<!-- 			                                <div class="input-group mb-1"> -->
+<!-- 											  <div class="input-group-prepend"> -->
+<!-- 											    <div class="input-group-text"> -->
+<!-- 											      <input type="checkbox" class="checkboxClientes" th:id="${cliente.idCliente}" > -->
+<!-- 											    </div> -->
+<!-- 											  </div> -->
+<!-- 											  <span th:text="${cliente.nombreCortoCliente}" style="padding-left: 10px;"></span> -->
+<!-- 											</div> -->
+<!-- 			                            </li> -->
 									 </ul>
+									 <div class="input-group mb-1" id="sectionFiltroCliente"></div>
                                    </div>
 
                                    <!-- Modal footer -->
@@ -708,20 +690,29 @@
 			                                <div class="input-group mb-1">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="checkbox" id="todosInstructores" checked>
+											      <input type="checkbox" id="todosEstatus" checked>
 											    </div>
 											  </div>
-											  <span  style="padding-left: 10px;">Alcance Estatus</span>
+											  <span  style="padding-left: 10px;">Tipo Estatus</span>
 											</div>
 			                            </li>
 			                            <hr>
-									    aqui van las Estatus
+									    <li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Curso Asignado" ></div></div><span style="padding-left: 10px;">Curso Asignado</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Curso Editado" ></div></div><span style="padding-left: 10px;">Curso Editado</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Confirmado Instructor" ></div></div><span style="padding-left: 10px;">Confirmado Instructor</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Curso Completado" ></div></div><span style="padding-left: 10px;">Curso Completado</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Elaborar Entregable" ></div></div><span style="padding-left: 10px;">Elaborar Entregable</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Omitir Entregable" ></div></div><span style="padding-left: 10px;">Omitir Entregable</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Entregables Validado" ></div></div><span style="padding-left: 10px;">Entregables Validado</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Entregable Enviado" ></div></div><span style="padding-left: 10px;">Entregable Enviado</span></div></li>
+										<li  style=" list-style-type:none "><div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxEstatus" id="Evento Cancelado" ></div></div><span style="padding-left: 10px;">Evento Cancelado</span></div></li>
+																			    
 									 </ul>
                                    </div>
 
                                    <!-- Modal footer -->
                                    <div class="modal-footer">
-											<button type="button"  class="btn btn-info pull-left" id="btnFiltroEstatusActualizar" data-dismiss="modal" disabled onclick="actualizaEstatus()">Actualizar Resultados</button>
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroEstatusActualizar" data-dismiss="modal"  onclick="actualizaEstatus()">Actualizar Resultados</button>
 											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
                                    </div>
 
@@ -732,11 +723,44 @@
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
                                               
                        
-      <script th:src="@{js/picker.js}"></script>   
+  
+<!--  -->
+ 	
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+    
+	<script type="text/javascript" th:src="@{js/CEstadisticaInstructor.js}"></script>
+	<script type="text/javascript" th:src="@{js/filtrosEstadisticaInstructor.js}"></script>										    
+    <script th:src="@{js/bootstrap-table.min.js}"></script>
+    <script th:src="@{js/bootstrap-table-es-MX.min.js}"></script>
+    
+    <!-- chosen select -->
+    <script th:src="@{js/chosen/chosenui.js}"></script>
+    <script th:src="@{js/chosen/chosenmin.js}"></script>
+   
+    <script th:src="@{js/picker.js}"></script>   
     <script th:src="@{js/picker.date.js}"></script>   
     <script th:src="@{js/picker.time.js}"></script>   
     <script th:src="@{js/es_ES.js}"></script>
   
+  <script th:inline="javascript">
+ 		 var asignacionesHistorico = [[${model.jsonResponseObject.asignacionesHistorico}]];
+ 		 $.asignacionesOriginal= [[${model.jsonResponseObject.asignacionesHistorico}]];
+ 		 var instructores = [[${model.jsonResponseObject.instructores}]];
+ 		 var idUsuario =  [[${model.jsonResponse.user.id}]];
+ 		 var nombreUsuario =  [[${model.jsonResponse.user.nombre}]];
+		 var perfilUsuario =  [[${model.jsonResponse.user.perfil}]];
+		 var operacionId =  [[${model.jsonResponse.user.operacionId}]];
+		 var zonaBase = [[${model.regiones}]];
+		 var cursos = [[${model.cursos}]];
+		 var clientes = [[${model.clientes}]];
+	</script>
+	
+  <script>
+    $("#asignaCurso").chosen();
+	$("#asignaCliente").chosen();
+    </script>  
+    
 <script type="text/javascript">
     var today = new Date();
     var $datepicker4 = $( '#fechaInicial' ).pickadate({
@@ -749,6 +773,14 @@
         selectYears: true
  });
       
-    
-    </script>
+  </script>
   
+  
+  
+</body>
+
+</html>
+
+ 
+  
+    

@@ -1,6 +1,6 @@
-console.log(asignacionesHistorico);
-console.log(cursos);
-console.log(clientes);
+//console.log(asignacionesHistorico);
+//console.log(cursos);
+//console.log(clientes);
 
 function operateFormatterExpediente(value, row, index) {
     return [

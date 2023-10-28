@@ -1,7 +1,6 @@
 /**
  * Archivo de control JS para Modulo Calendario 
  */
-var datoEconomicoSelec;
 
 
 $(document).ready(function() {
@@ -13,7 +12,8 @@ $(document).ready(function() {
 	var asignacionesFiltroV = new Array();
 	
 	$.asignaciones = asignacionesHistorico;
-	
+	console.log($.asignaciones.length);
+
 	$('#instructorAsignacionesTable').bootstrapTable({data : $.asignaciones})
 
 	// FECHA
@@ -78,17 +78,46 @@ $(document).ready(function() {
 		
 	});
 
+	//Estatus
+	//check box filtro Estatus
+	var check = true;
+	$('#btnFiltroEstatus').click(function(){
+		$('#todosEstatus').prop( "checked", check );
+		$('.checkboxEstatus').prop( "checked", check );
+	});
+
+	$( '#todosEstatus' ).on( 'click', function() {
+		check = $('#todosEstatus').prop( "checked");
+		$('.checkboxEstatus').prop( "checked", check );
+		
+	});
+	
+
 		
 	
 				
 }); // Fin Jquery
 
+//limpiar filtros
+$('#btnFiltroLimpiar').click(function(){
+	console.log($.asignaciones.length);
+	console.log($.asignacionesOriginal.length);
+//	$.asignaciones.length = 0;
+//	$.asignaciones = $.asignacionesOriginal;
+	asignaData($.asignacionesOriginal);
+});
+
+
 //FILTRO FECHAS
 function asignaData(dataTable){
 	$('#instructorAsignacionesTable').bootstrapTable('load', dataTable);
 	$('#instructorAsignacionesTable').bootstrapTable({data : dataTable});
-	$.asignaciones.length = 0;
+//	$.asignaciones.length = 0;
 	$.asignaciones = dataTable;
+	
+//	$.asignacionesOriginal = asignacionesHistorico;
+	console.log($.asignacionesOriginal.length);
+
 }
 
 
@@ -151,7 +180,7 @@ function actualizaInstructor(){
 			filtroInstructores.push(idInstructor);
 		}
 	});
-	console.log(filtroInstructores);
+//	console.log(filtroInstructores);
 	
 	for(e in $.asignaciones){
 		var asignacionA  = $.asignaciones[e];
@@ -163,8 +192,8 @@ function actualizaInstructor(){
 		}
 	}
 	asignaData(dataInstructores);
-	console.log(filtroInstructores.length);
-	console.log(dataInstructores.length);
+//	console.log(filtroInstructores.length);
+//	console.log(dataInstructores.length);
 }
 //$('#btnFiltroInstructorActualizar').click(function(){});
 
@@ -181,7 +210,7 @@ function actualizaZona(){
 			filtroZona.push(idZona);
 		}
 	});
-	console.log(filtroZona);
+//	console.log(filtroZona);
 	
 	for(e in $.asignaciones){
 		var asignacion  = $.asignaciones[e];
@@ -193,20 +222,137 @@ function actualizaZona(){
 		}
 	}
 	asignaData(dataZona);
-	console.log(filtroZona.length);
-	console.log(dataZona.length);
+//	console.log(filtroZona.length);
+//	console.log(dataZona.length);
 }
 //FIN FILTRO ZONA
 //---------------------------------------------------------------------------------
 //FILTRO CURSO
+ 
+	 function filtroCurso(element){
+	 var tmp = $(element).val();
+	 var arrayCursos = new Array();
+	 $('#sectionFiltroCurso').empty();
+//	 console.log(tmp);
+	 for(a in cursos){
+		 var curso = cursos[a];
+		 if(curso.nombreCurso.includes(tmp)){
+			 arrayCursos.push(curso);
+		 }
+	 }
+//	 console.log(arrayCursos);
+	 for(e in arrayCursos){
+		 var registroCurso = arrayCursos[e];
+		 var registro = '<div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxCurso"  checked id='+registroCurso.idCurso +' ></div></div><span style="padding-left: 10px;">'+registroCurso.nombreCurso +'</span></div>'
+		 $('#sectionFiltroCurso').append(registro);
+	 }
+ }
+	 
+	 function actualizaCurso(){
+		 var filtroCurso = new Array();
+			var dataCurso = new Array();
 
+			$('.checkboxCurso:checked').each(function(){
+				if($(this).attr('checked',true)){
+					idCurso = $(this).attr('id')
+					filtroCurso.push(idCurso);
+				}
+			});
+//			console.log(filtroCurso);
+			
+			for(e in $.asignaciones){
+				var asignacion  = $.asignaciones[e];
+				for(a in filtroCurso){
+					var zona = filtroCurso[a];
+					if((asignacion.idCursoAsignacion * 1) === (zona * 1)){
+						dataCurso.push(asignacion);
+					}
+				}
+			}
+			asignaData(dataCurso);
+//			console.log(filtroCurso.length);
+//			console.log(dataCurso.length);
+
+	 }
+	 
 //FIN FILTRO CURSO
 //---------------------------------------------------------------------------------
 //FILTRO CLIENTE
+	 function filtroCliente(element){
+		 var tmp = $(element).val();
+		 var arrayClientes = new Array();
+		 $('#sectionFiltroCliente').empty();
+//		 console.log(tmp);
+		 for(a in clientes){
+			 var cliente = clientes[a];
+			 if(cliente.nombreCortoCliente.includes(tmp)){
+				 arrayClientes.push(cliente);
+			 }
+		 }
+//		 console.log(arrayClientes);
+		 for(e in arrayClientes){
+			 var registroCliente = arrayClientes[e];
+			 var registro = '<div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxCliente"  checked id='+registroCliente.idCliente +' ></div></div><span style="padding-left: 10px;">'+registroCliente.nombreCortoCliente +'</span></div>'
+			 $('#sectionFiltroCliente').append(registro);
+		 }
+	 }
+		 
+		 function actualizaCliente(){
+			 var filtroCliente = new Array();
+				var dataCliente = new Array();
+
+				$('.checkboxCliente:checked').each(function(){
+					if($(this).attr('checked',true)){
+						idCliente = $(this).attr('id')
+						filtroCliente.push(idCliente);
+					}
+				});
+//				console.log(filtroCliente);
+				
+				for(e in $.asignaciones){
+					var asignacion  = $.asignaciones[e];
+					for(a in filtroCliente){
+						var zona = filtroCliente[a];
+						if((asignacion.idClienteAsignacion * 1) === (zona * 1)){
+							dataCliente.push(asignacion);
+						}
+					}
+				}
+				asignaData(dataCliente);
+//				console.log(filtroCliente.length);
+//				console.log(dataCliente.length);
+
+		 }
 
 //FIN FILTRO CLIENTE
 //---------------------------------------------------------------------------------
 //FILTRO ESTATUS
+		 function actualizaEstatus(){
+			 var filtroEstatus = new Array();
+				var dataEstatus = new Array();
+
+				$('.checkboxEstatus:checked').each(function(){
+					if($(this).attr('checked',true)){
+						idEstatus = $(this).attr('id')
+						filtroEstatus.push(idEstatus);
+					}
+				});
+//				console.log(filtroEstatus);
+				
+				for(e in $.asignaciones){
+					var asignacion  = $.asignaciones[e];
+					for(a in filtroEstatus){
+						var estatus = filtroEstatus[a];
+						if(asignacion.statusAsignacion === estatus){
+							dataEstatus.push(asignacion);
+						}
+					}
+				}
+				asignaData(dataEstatus);
+//				console.log(filtroEstatus.length);
+//				console.log(dataEstatus.length);
+
+		 }
 
 //FIN FILTRO ESTATUS
 //---------------------------------------------------------------------------------
