@@ -20,6 +20,14 @@
 	      '</a>'
 	    ].join('')
 	  }
+ function operateFormatterParticipantes(value, row, index) {
+	    return [
+	      '<a class="like" href="javascript:void(0)" title="Descarga" id="UserUpdate" data-toggle="modal" data-target="#modalParticipantesDescarga">',
+	      '<i class="fa fa-users  fa-2x"></i>',
+	      '</a>'
+	    ].join('')
+	  }
+
  function operateFormatterExpedienteAsignacion(value, row, index) {
 	    return [
 	      '<a class="like" href="javascript:void(0)" title="Consultar"  data-toggle="modal" data-target="#modalAsignacion">',
@@ -35,6 +43,7 @@
 		      '</a>'
 		    ].join('')
 		  }
+	  
 	  
 
 	
@@ -107,7 +116,7 @@ $(document).ready(function(){
 		    		row.pautaOperativaCliente = row.pautaOperativaCliente.replace('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>', '')	
 		    	}
 		    	
-//		    	//console.log(row);
+//		    	console.log(row);
 		    	$('#nombreCortoCliente').html('<b>'+row.nombreCortoCliente+'</b>');
 		    	$('#regionCliente').html('<b>'+row.regionCliente.nombreRegion+'</b>');
 		    	$('#nombreCompletoCliente').html('<b>'+row.nombreCompletoCliente+'</b>');
@@ -118,6 +127,7 @@ $(document).ready(function(){
 		    	$('#emailCliente').html('<b>'+row.emailCliente+'</b>');
 		    	$('#documentosAccesoCliente').html('<b>'+row.documentosAccesoCliente+'</b>');
 		    	$('#reglasAccesoCliente').html('<b>'+row.reglasAccesoCliente+'</b>');
+		    	$('#vendedorCliente').html('<b>'+row.vendedorCliente.nombreVendedor+'</b>');
 		    	$('#representanteEmpresaCliente').html('<b>'+row.representanteEmpresaCliente+'</b>');
 		    	$('#representanteTrabajadorCliente').html('<b>'+row.representanteTrabajadorCliente+'</b>');
 		    	$('#nombreContactoRecibeCliente').html('<b>'+row.nombreContactoRecibeCliente+'</b>');
@@ -140,6 +150,7 @@ $(document).ready(function(){
 	
 	var	asignacion;
 	$.asignacionesArray = new Array();
+	
 	
 	window.operateEventsAsignaciones = {
 		    'click .like': function (e, value, row, index) {
@@ -165,17 +176,20 @@ $(document).ready(function(){
 	    		$('#asignacionesTable').bootstrapTable('load', $.asignacionesArray);
 	    	    $('#asignacionesTable').bootstrapTable({data : $.asignacionesArray});
 
-//	    	    $.asignacionesArray =JSON.stringify($.asignacionesArray);
-//		    	$.asignacionesArray =JSON.parse($.asignacionesArray);
 		    	var arrayAsignaciones = new Array();
 		      	var lstArrayAsignaciones = new Array();
 		    	for(var a in $.asignacionesArray){
 		    		arrayAsignaciones.push(JSON.stringify($.asignacionesArray[a]));
-//		    		lstArrayAsignaciones.push(JSON.parse($.asignacionesArray[a]));
 				}
 	    	    $('#strAsignacionesDescargas').val(arrayAsignaciones);
-//	    	    $('#lstAsignacionesDescargas').val(lstArrayAsignaciones);
 		   }
+	}
+	
+	window.operateEventsParticipantes = {
+		    'click .like': function (e, value, row, index) {
+		    	var idCliente = row.idCliente;
+		    	console.log(row);
+		    }
 	}
 	
 	window.operateEventsExpedienteAsignacion= {
@@ -202,6 +216,8 @@ $(document).ready(function(){
     				$('#modalStatus').html('<b>'+asignacion.statusAsignacion+'</b>');
     			}
     			$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
+    			$('#modalUsuarioRegistro').html('<b>'+asignacion.realCapturaNombre+'</b>');
+    			
     			$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
     			$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
     			$('#modalArchivoParticipantes').html("<a id='linkArchivoParticipantes'><b>"+asignacion.archivoParticipantes+"</b></a>");

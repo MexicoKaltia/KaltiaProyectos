@@ -158,7 +158,7 @@ $(document).ready(function(){
 	
 	
 	
-	//console.log(asignacionCliente);
+//	console.log(asignacionCliente);
 	$('#nombreCortoCliente').html('<b>'+asignacionCliente.nombreCortoCliente+'</b>');
 	$('#regionCliente').html('<b>'+asignacionCliente.regionCliente.nombreRegion+'</b>');
 	$('#nombreCompletoCliente').html('<b>'+asignacionCliente.nombreCompletoCliente+'</b>');
@@ -168,6 +168,7 @@ $(document).ready(function(){
 	$('#googleMapsCliente').html('<b><a href="'+asignacionCliente.googleMapsCliente+'" target="_blank">Ver Mapa</b>');
 	$('#emailCliente').html('<b>'+asignacionCliente.emailCliente+'</b>');
 	$('#documentosAccesoCliente').html('<b>'+asignacionCliente.documentosAccesoCliente+'</b>');
+	$('#vendedorCliente').html('<b>'+asignacionCliente.vendedorCliente.nombreVendedor+'</b>');
 	$('#reglasAccesoCliente').html('<b>'+asignacionCliente.reglasAccesoCliente+'</b>');
 	$('#representanteEmpresaCliente').html('<b>'+asignacionCliente.representanteEmpresaCliente+'</b>');
 	$('#representanteTrabajadorCliente').html('<b>'+asignacionCliente.representanteTrabajadorCliente+'</b>');

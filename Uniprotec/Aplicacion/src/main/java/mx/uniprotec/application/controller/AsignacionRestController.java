@@ -191,19 +191,17 @@ public class AsignacionRestController {
 			asignacionNew.setArchivosAsignacion(asignacion.getArchivosAsignacionTexto());
 			asignacionNew.setIdRegionAsignacion(asignacion.getIdRegionAsignacion());
 			asignacionNew.setNombreRegionAsignacion(asignacion.getNombreRegionAsignacion());
-			if(asignacion.getTipoCursoAsignacion().equals("")) {
-				asignacionNew.setTipoCursoAsignacion("PRESENCIAL");
-			}else {
-				asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
-			}
+			asignacionNew.setTipoCursoAsignacion(asignacion.getTipoCursoAsignacion());
 			asignacionNew.setCreateAtAsignacion(asignacion.getCreateAtAsignacion());
 			asignacionNew.setUserCreateAsignacion(asignacion.getUserCreateAsignacion());
 			asignacionNew.setUserCreateAsignacionTexto(asignacion.getUserCreateAsignacionTexto());
 			asignacionNew.setStatusAsignacion(asignacion.getStatusAsignacion());
 			
+			asignacionNew.setRealCapturaId(asignacion.getRealCapturaId());
+			asignacionNew.setRealCapturaNombre(asignacion.getRealCapturaNombre());
+						
 			asignacionNew.setFechaPago("");
 			asignacionNew.setGuiaEntregable("");
-//			asignacionNew.setVerificarEntregable("");
 			asignacionNew.setNumeroFactura("");
 			asignacionNew.setArchivoParticipantes("");
 			asignacionNew.setCostoHotel("");

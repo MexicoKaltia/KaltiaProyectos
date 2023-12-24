@@ -225,7 +225,7 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 	
 	@GetMapping("/CCliente")
-	public ModelAndView ccliente(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+	public ModelAndView CCliente(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
 			@RequestParam(name="error", required=false) boolean error,
 			ModelMap model) {
 		log.info("CCliente model Activo");

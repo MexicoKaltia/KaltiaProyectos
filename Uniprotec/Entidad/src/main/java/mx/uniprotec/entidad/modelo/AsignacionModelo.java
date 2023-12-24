@@ -79,6 +79,9 @@ public class AsignacionModelo implements Serializable{
 	private String fechaFinFactura;
 	private String fechaHoy;
 	
+	private String realCapturaId;
+	private String realCapturaNombre;
+	
 	
 
 	private Long idPreAsignacion; // Este valor solo se carga una vez aprobado el evento. 
@@ -496,6 +499,18 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setFechaHoy(String fechaHoy) {
 		this.fechaHoy = fechaHoy;
+	}
+	public String getRealCapturaId() {
+		return realCapturaId;
+	}
+	public void setRealCapturaId(String realCapturaId) {
+		this.realCapturaId = realCapturaId;
+	}
+	public String getRealCapturaNombre() {
+		return realCapturaNombre;
+	}
+	public void setRealCapturaNombre(String realCapturaNombre) {
+		this.realCapturaNombre = realCapturaNombre;
 	}
 
 

@@ -52,29 +52,29 @@ $(document).ready(function() {
 
 	//Cursos
 	//check box filtro Cursos
-	var check = true;
+	var checkFalse = false;
 	$('#btnFiltroCursos').click(function(){
-		$('#todosCursos').prop( "checked", check );
-		$('.checkboxCursos').prop( "checked", check );
+		$('#todosCursos').prop( "checked", checkFalse );
+		$('.checkboxCursos').prop( "checked", checkFalse );
 	});
 
 	$( '#todosCursos' ).on( 'click', function() {
 		check = $('#todosCursos').prop( "checked");
-		$('.checkboxCursos').prop( "checked", check );
+		$('.checkboxCursos').prop( "checked", checkFalse );
 		
 	});
 
 	//Clientes
 	//check box filtro Clientes
-	var check = true;
+	var check = false;
 	$('#btnFiltroClientes').click(function(){
-		$('#todosClientes').prop( "checked", check );
-		$('.checkboxClientes').prop( "checked", check );
+		$('#todosClientes').prop( "checked", checkFalse );
+		$('.checkboxClientes').prop( "checked", checkFalse );
 	});
 
 	$( '#todosClientes' ).on( 'click', function() {
 		check = $('#todosClientes').prop( "checked");
-		$('.checkboxClientes').prop( "checked", check );
+		$('.checkboxClientes').prop( "checked", checkFalse );
 		
 	});
 
@@ -100,10 +100,6 @@ $(document).ready(function() {
 
 //limpiar filtros
 $('#btnFiltroLimpiar').click(function(){
-//	console.log($.asignaciones.length);
-//	console.log($.asignacionesOriginal.length);
-//	$.asignaciones.length = 0;
-//	$.asignaciones = $.asignacionesOriginal;
 	$('#divFiltroActivo').empty();
 	asignaData($.asignacionesOriginal);
 });
@@ -113,12 +109,15 @@ $('#btnFiltroLimpiar').click(function(){
 function asignaData(dataTable){
 	$('#instructorAsignacionesTable').bootstrapTable('load', dataTable);
 	$('#instructorAsignacionesTable').bootstrapTable({data : dataTable});
-//	$.asignaciones.length = 0;
 	$.asignaciones = dataTable;
 	
-//	$.asignacionesOriginal = asignacionesHistorico;
-//	console.log($.asignacionesOriginal.length);
-
+	var arrayAsignaciones = new Array();
+//  	var lstArrayAsignaciones = new Array();
+	for(var a in $.asignaciones){
+		arrayAsignaciones.push(JSON.stringify($.asignaciones[a]));
+	}
+    $('#strAsignacionesDescargas').val(arrayAsignaciones);
+	
 }
 
 //FILTRO FECHAS
@@ -253,7 +252,7 @@ function actualizaZona(){
 //	 console.log(arrayCursos);
 	 for(e in arrayCursos){
 		 var registroCurso = arrayCursos[e];
-		 var registro = '<div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxCurso"  checked id='+registroCurso.idCurso +' ></div></div><span style="padding-left: 10px;">'+registroCurso.nombreCurso +'</span></div>'
+		 var registro = '<div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxCurso"  id='+registroCurso.idCurso +' ></div></div><span style="padding-left: 10px;">'+registroCurso.nombreCurso +'</span></div>'
 		 $('#sectionFiltroCurso').append(registro);
 	 }
  }
@@ -303,7 +302,7 @@ function actualizaZona(){
 //		 console.log(arrayClientes);
 		 for(e in arrayClientes){
 			 var registroCliente = arrayClientes[e];
-			 var registro = '<div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxCliente"  checked id='+registroCliente.idCliente +' ></div></div><span style="padding-left: 10px;">'+registroCliente.nombreCortoCliente +'</span></div>'
+			 var registro = '<div class="input-group mb-1"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" class="checkboxCliente"  id='+registroCliente.idCliente +' ></div></div><span style="padding-left: 10px;">'+registroCliente.nombreCortoCliente +'</span></div>'
 			 $('#sectionFiltroCliente').append(registro);
 		 }
 	 }

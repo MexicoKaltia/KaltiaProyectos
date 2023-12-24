@@ -237,6 +237,12 @@
 									<b>Éxito : </b><u>Se ha Actualizado correctamente la Asignación.</u>
 								</div>
 							</span>
+							<span th:if='${cancela}'>
+								<div class="alert alert-warning" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Notificacion : </b><u>Se ha Cancelado Correctamente la Asignación.</u>
+								</div>
+							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
@@ -340,6 +346,7 @@
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Usuario Registro : <span id="modalUserRegistro"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
                                                    <li id="admon" class="list-group-item list-group-item-info">Fecha de Pago : <span id="modalFechaPago"></span></li>
                                                    <li id="admon" class="list-group-item list-group-item-info">Numero de Factura : <span id="modalFactura"></span></li>
@@ -377,9 +384,10 @@
                                                <input type="hidden" id="errorProceso" th:field="*{errorProceso}" />
                                        			<br>
                                       			<div class="row container">
-                                      				<div class="col-4" id="divOperacion"></div>
-                                      				<div class="col-4" id="divArchivoParticipantes"></div>
-                                      				<div class="col-4" id="divEdicionVentas"></div>
+                                      				<div class="col-3" id="divOperacion"></div>
+                                      				<div class="col-3" id="divArchivoParticipantes"></div>
+                                      				<div class="col-3" id="divEdicionVentas"></div>
+                                      				<div class="col-3" id="divCancela"></div>
                                       			</div>
                                       			<br>
                                       			<div class="row container">
@@ -803,17 +811,6 @@
                                    <!-- Modal body -->
                                    <div class="modal-body" >
                                     <ul>
-<!--                                     	<li  style=" list-style-type:none "> -->
-<!-- 			                                <div class="input-group mb-1"> -->
-<!-- 											  <div class="input-group-prepend"> -->
-<!-- 											    <div class="input-group-text"> -->
-<!-- 											      <input type="checkbox" id="todosVendedores" checked> -->
-<!-- 											    </div> -->
-<!-- 											  </div> -->
-<!-- 											  <span  style="padding-left: 10px;" id="modalNombreVendedor">Todos Vendedores</span> -->
-<!-- 											</div> -->
-<!-- 			                            </li> -->
-<!-- 			                            <hr> -->
 			                            <div  id="modalFiltroVendedor">
 									    <li th:each= "vendedor : ${model.jsonResponseObject.vendedores}" style="list-style-type:none" >
 			                                <div class="input-group mb-1">

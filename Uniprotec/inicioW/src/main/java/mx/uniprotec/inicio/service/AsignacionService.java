@@ -73,10 +73,7 @@ public class AsignacionService implements IAsignacionService{
 		return resultVO;
 	}
 
-	private String fecha(String fechaAsignacion) {
-		String[] fechas = fechaAsignacion.split("/");
-		return fechas[1]+fechas[0]+fechas[2];
-	}
+	
 
 	@Override
 	public ResultVO edicionAsignacion(AsignacionModelo asignacion, String token, String status) {
@@ -132,6 +129,14 @@ public class AsignacionService implements IAsignacionService{
 		
 		return resultVO;
 	}
+	
+	@Override
+	public ResultVO deleteAsignacion(String accesToken, Long idAsignacion) {
+		log.info("DeleteAsignacion");
+		return null;
+	}
+
+
 	
 	@Override
 	public ResultVO edicionAsignacionV(AsignacionModelo asignacion, String token) {
@@ -298,6 +303,15 @@ public class AsignacionService implements IAsignacionService{
 		}
 
 	}
+	
+	
+	/*
+	 * PRIVATE
+	 */
 
+	private String fecha(String fechaAsignacion) {
+		String[] fechas = fechaAsignacion.split("/");
+		return fechas[1]+fechas[0]+fechas[2];
+	}
 
 }

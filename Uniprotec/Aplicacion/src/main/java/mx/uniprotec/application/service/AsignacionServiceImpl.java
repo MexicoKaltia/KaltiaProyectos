@@ -45,7 +45,7 @@ public class AsignacionServiceImpl implements IAsignacionService {
 		 hoy.add(Calendar.MONTH, -3);
 		 
 		 String pasado= String.valueOf(hoy.get(Calendar.YEAR)).concat("-").concat(String.valueOf(hoy.get(Calendar.MONTH)+1)).concat("-01");
-		 String futuro= String.valueOf(hoyFuturo.get(Calendar.YEAR)).concat("-12-31");
+		 String futuro= String.valueOf(hoyFuturo.get(Calendar.YEAR) + 1).concat("-12-31");
 		 log.info("periodo  : " + pasado + "-" + futuro);
 		return (List<Asignacion>) asignacionDao.findTrimestre(pasado, futuro);
 	}

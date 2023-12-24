@@ -71,12 +71,12 @@ public class Cliente implements Serializable {
 	
 	
 	@NotEmpty(message ="emailCliente no puede estar vacio")
-	@Email(message="no es una dirección de correo bien formada")
+	//@Email(message="no es una dirección de correo bien formada")
 	@Column(nullable=false)
 	private String emailCliente;
 	
 	@NotEmpty(message ="telefonoCliente no puede estar vacio")
-	@Size(min=1, max=50, message="el tamaño tiene que estar entre 8 y 50")
+	@Size(min=1, max=120, message="el tamaño tiene que estar entre 8 y 50")
 	@Column(nullable=false)
 	private String telefonoCliente;
 	

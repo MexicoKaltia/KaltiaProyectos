@@ -380,14 +380,14 @@
                                      <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Email</label>
-                                            <input type="email" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
+                                            <input type="text" class="form-control" th:field="*{emailCliente}" id="emailCliente" placeholder="email" value="" maxlength="100" required>
                                             <div class="invalid-feedback">
                                                 Capturar Email Valido
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom02">Telefono</label>
-                                            <input type="number" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="50" required>
+                                            <input type="text" class="form-control" th:field="*{telefonoCliente}" id="telefonoCliente" placeholder="telefono" value="" maxlength="120" required>
                                             <div class="invalid-feedback">
                                                 Capturar Telefono Valido
                                             </div>
@@ -628,10 +628,10 @@
     										   	<small class="form-text text-muted">Adjuntar Archivos formato *pdf , *.doc, *.xls.  *.mp3  no mayor a 10 MB</small> 
     									</div>    
                                      </div>
-                                        
-                                <br>
-                                    
-                                    <button class="btn btn-success" type="submit"  onclick="pautaEdicion()">Edicion Cliente</button>
+                                                            <input type="hidden" id="statusCliente" th:field="*{statusCliente}" />
+                                <br><br>
+                                    <button class="btn btn-warning btn-default pull-left"  id="bajaCliente" >Dar de Baja  Cliente</button>
+                                    <button class="btn btn-success btn-default pull-right" type="submit"  onclick="pautaEdicion()">Edicion Cliente</button>
                                 </form>
             
                                 <script>

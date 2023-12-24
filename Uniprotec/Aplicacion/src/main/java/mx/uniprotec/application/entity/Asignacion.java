@@ -92,6 +92,11 @@ public class Asignacion implements Serializable{
 	private String errorProceso;
 	@Column
 	private String dateAsignacion;
+	@Column
+	private String realCapturaId;
+	@Column
+	private String realCapturaNombre;
+	
 
 	@Override
 	public String toString() {
@@ -108,7 +113,8 @@ public class Asignacion implements Serializable{
 				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", verificarEntregable="
 				+ verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago=" + fechaPago
 				+ ", numeroFactura=" + numeroFactura + ", archivoParticipantes=" + archivoParticipantes
-				+ ", costoHotel=" + costoHotel + ", errorProceso=" + errorProceso + "]";
+				+ ", costoHotel=" + costoHotel + ", errorProceso=" + errorProceso + ", dateAsignacion=" + dateAsignacion
+				+ ", realCapturaId=" + realCapturaId + ", realCapturaNombre=" + realCapturaNombre + "]";
 	}
 
 	public Asignacion(Long idAsignacion, String fechaAsignacion, Long idClienteAsignacion,
@@ -366,6 +372,22 @@ public class Asignacion implements Serializable{
 
 	public void setDateAsignacion(String dateAsignacion) {
 		this.dateAsignacion = dateAsignacion;
+	}
+
+	public String getRealCapturaId() {
+		return realCapturaId;
+	}
+
+	public void setRealCapturaId(String realCapturaId) {
+		this.realCapturaId = realCapturaId;
+	}
+
+	public String getRealCapturaNombre() {
+		return realCapturaNombre;
+	}
+
+	public void setRealCapturaNombre(String realCapturaNombre) {
+		this.realCapturaNombre = realCapturaNombre;
 	}
 	
 	

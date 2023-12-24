@@ -89,8 +89,6 @@ public class ClienteService implements IClienteService {
 		me = ComponenteComun.monitorCampos();
 		cliente.setCreateAtCliente(me.getNowEntidad());
 		cliente.setUserCreateCliente(me.getIdUsuarioEntidad());
-		cliente.setStatusCliente("Actualizado");
-//		log.info(cliente.toString());
 		
 		resultVO = (ResultVO) baseClientRest.objetoPut(
 				token,

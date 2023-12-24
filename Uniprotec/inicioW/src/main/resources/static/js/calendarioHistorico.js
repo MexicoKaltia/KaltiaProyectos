@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		}
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
+		$('#modalUserRegistro').html('<b>'+ asignacion0.realCapturaNombre +'</b>');
 		$('#modalFechaPago').html('<b>'+asignaFechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignaFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');

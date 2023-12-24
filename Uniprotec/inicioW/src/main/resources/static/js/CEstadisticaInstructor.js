@@ -35,6 +35,7 @@ $(document).ready(function(){
 					$('#modalStatus').html('<b>'+row.statusAsignacion+'</b>');
 				}
 				$('#modalVentas').html('<b>'+row.userCreateAsignacionTexto+'</b>');
+				$('#modalUsuarioRegistro').html('<b>'+row.realCapturaNombre+'</b>');
 				$('#modalFechaPago').html('<b>'+row.fechaPago+'</b>');
 				$('#modalFactura').html('<b>'+row.numeroFactura+'</b>');
 				$('#modalArchivoParticipantes').html("<a id='linkArchivoParticipantes'><b>"+row.archivoParticipantes+"</b></a>");

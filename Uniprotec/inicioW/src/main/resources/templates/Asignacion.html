@@ -386,16 +386,9 @@
 							                   <div class="col-md-12">
 							                   	<div class="col-md-12">
 							                       <h3> Horario</h3><label for="exampleFormControlSelect1">Paso 5</label>
+							                       <!-- BODY FORMULARIO -->
 							                       <div id="horarioInstructorNoDisponible"></div>
-							                       <div class="form-inline">
-								                       <div class="alert alert-dark" role="alert">Horas Efectivas: 
-									                       <b><select  id="horasEfectivas" class="form-control" name="horasEfectivas" disabled></select></b>
-									                       <button class="btn btn-primary" id="confirmarHorario" type="button" disabled>Confirmar Horario</button>
-									                   </div>
-	                                               </div>
-							                     </div>  
-							                   <!-- BODY FORMULARIO -->
-							                   		<div class="form-row">
+							                       <div class="form-row">
 		                                                <div class="col-md-6">
 		                                                    <div class="position-relative form-group">
 			                                                       <label class="form-check-label" for="asignaHorarioInicio">Horario Inicial</label>
@@ -411,26 +404,14 @@
 								                             </div>
 		                                                </div>
 		                                            </div>
-<!-- 							                   		<div class="form-row"> -->
-<!-- 		                                                <div class="col-md-6"> -->
-<!-- 		                                                    <div class="position-relative form-group"> -->
-<!-- 			                                                       <label class="form-check-label" for="asignaRecesoInicio">Receso Inicial</label> -->
-<!-- 								                                   <select id="asignaRecesoInicio" name="asignaRecesoInicio" class="form-control"  onchange="validaRecesoInicio()" disabled> -->
-<!-- 								                                       <option value="" selected  >Selecciona Receso Inicio Opcional</option> -->
-
-<!-- 								                                   </select> -->
-<!-- 		                                                    </div> -->
-<!-- 		                                                </div> -->
-<!-- 		                                                <div class="col-md-6"> -->
-<!-- 		                                                    <div class="position-relative form-group"> -->
-<!-- 		                      										<label class="form-check-label" for="asignaRecesoFinal">Receso . Final </label> -->
-<!-- 								                                   <select id="asignaRecesoFinal" name="asignaRecesoFinal" class="form-control"  onchange="validaRecesoFinal()" disabled>   </select> -->
-<!-- 								                             </div> -->
-<!-- 		                                                </div> -->
-<!-- 		                                            </div>	 -->
-<!-- 							                        <div class="alerta"> -->
-<!-- 														<hiden class="alerta_in"></hiden> -->
-<!-- 													</div> -->
+							                       
+							                       <div class="form-inline">
+								                       <div class="alert alert-dark" role="alert">Horas Efectivas: 
+									                       <b><select  id="horasEfectivas" class="form-control" name="horasEfectivas" disabled></select></b>
+									                       <button class="btn btn-primary" id="confirmarHorario" type="button" disabled>Confirmar Horario</button>
+									                   </div>
+	                                               </div>
+							                     </div>  
 							                   <!-- FIN BODY FORMULARIO -->
 							                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
 							                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnAsignaHorario" disabled>Siguiente</button>
@@ -503,9 +484,7 @@
 														<hiden class="alerta_inVacio"></hiden>
 													</div>
 							                       <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previo</button>
-							                       <button type="button" id="asignar" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal" >
-							                           Agendar
-							                       </button>
+							                       <button type="button" id="asignar" class="btn btn-success btn-lg pull-right" data-toggle="modal" data-target="#myModal" >Agendar</button>
 							
 							
 							                   </div>
@@ -567,18 +546,12 @@
     <script th:src="@{js/picker.time.js}"></script>   
     <script th:src="@{js/es_ES.js}"></script>
     
-    <script th:src="@{js/asignacion.js}"></script> 
-    
+    <script th:src="@{js/asignacion.js}"></script>   
     
     <!-- chosen select -->
     <script th:src="@{js/chosen/chosenui.js}"></script>
     <script th:src="@{js/chosen/chosenmin.js}"></script>
-<!--     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> -->
-    
-    
-    
-<!--     <script th:src="@{js/autoComplete.js}"></script> -->
+
     <script type="text/javascript">
     var today = new Date();
     var $datepicker = $( '.datepicker' ).pickadate({
@@ -647,6 +620,8 @@
                                                <input type="hidden" id="tipoCursoAsignacion" th:field="*{tipoCursoAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacion" th:field="*{userCreateAsignacion}" />
                                                <input type="hidden" id="userCreateAsignacionTexto" th:field="*{userCreateAsignacionTexto}" />
+                                               <input type="hidden" id="realCapturaId" th:field="*{realCapturaId}" />
+                                               <input type="hidden" id="realCapturaNombre" th:field="*{realCapturaNombre}" />
                                        			<br>
                                        			<br>
                                        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

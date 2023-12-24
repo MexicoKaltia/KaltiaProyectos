@@ -98,7 +98,7 @@ public class ControllerAsignacion {
 	@PostMapping("/altaAsignacion")
 	public ModelAndView altaAsignacion(@ModelAttribute("asignacionForm") AsignacionModelo asignacion, ModelMap model) {
 		log.info("Metodo de alta Asignacion");
-//		log.info(asignacion.toString());
+		log.info(asignacion.toString());
 		
 		ResultVO resultVO = (ResultVO)model.get("model");
 //		log.info(resultVO.getJsonResponse().toJSONString());
@@ -149,6 +149,7 @@ public class ControllerAsignacion {
 	@GetMapping("/CAsignacion")
 	public ModelAndView consultaAsignacion(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
 			@RequestParam(name="ejecucion2", required=false) boolean ejecucion2,
+			@RequestParam(name="cancela", required=false) boolean cancela,
 			@RequestParam(name="error", required=false) boolean error,
 			ModelMap model) {
 			log.info("Calendario model Activo");
@@ -164,6 +165,7 @@ public class ControllerAsignacion {
 			if(rs.getCodigo() != 500) {
 				mav.addObject("ejecucion", ejecucion);
 				mav.addObject("ejecucion2", ejecucion2);
+				mav.addObject("cancela", cancela);
 				mav.addObject("error", error);
 				return mav;
 			}else {
@@ -286,6 +288,28 @@ public class ControllerAsignacion {
 		}		
 	}
 	
+	@PostMapping("/DAsignacion")
+	public ModelAndView DAsignacion(@ModelAttribute("asignacionItem") AsignacionModelo asignacion, ModelMap model) {
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("Delete Asignacion model Activo");
+			asignacion.setStatusAsignacion("Evento Cancelado");
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			ResultVO rs = asignacionService.edicionAsignacion(asignacion, resultVO.getAccesToken(),  asignacion.getStatusAsignacion());
+			log.info(rs.getCodigo().toString());
+			ModelAndView mav = new  ModelAndView("redirect:/CAsignacion",  model);
+			if(rs.getCodigo() != 500) {
+				mav.addObject("cancela", true);
+				return mav;
+			}else {
+				return mav;	
+			}
+		}		
+	}
+	
 	
 	
 	@PostMapping("/BAsignacionV")
@@ -326,9 +350,6 @@ public class ControllerAsignacion {
 		}else {
 			mav = new ModelAndView("redirect:/CEntregableI", model);
 		}
-			
-		
-		
 		
 		if(rs.getCodigo() != 500) {
 			resultVO.setJsonResponseObject(rs.getJsonResponseObject());

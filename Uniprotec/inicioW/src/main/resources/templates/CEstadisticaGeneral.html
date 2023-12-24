@@ -217,19 +217,20 @@
 							<br>
                             <span th:if='${ejecucion}'>
 								<div class="alert alert-success" role="alert" id="dataExito">
-									<b>Éxito : </b><u>Se ha Actualizado correctamente el Expediente Económico.</u>
+									<b>Éxito : </b>Se ha generado correctamente la información.
+									<p><a href='descargaAsignaciones'> <b>Descargar Registros Filtros Asignaciones.</b></a></p>
 								</div>
 							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Revisión : </b><u>No se realizó la Actualizacion el Expediente Económico, Verifique datos. </u>
+									<b>Revisión : </b><u>No se realizó la Descarga de Registros Filtros Asignaciones, Verifique datos. </u>
 								</div>
 							</span>
 							<span th:if='${consulta}'>
 								<div class="alert alert-warning" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
-									<b>Consulta : </b><u>No se realizó la consulta del Expediente Económico. Notifique Administrador. </u>
+									<b>Consulta : </b><u>No se realizó la consulta de Asignaciones. Notifique Administrador. </u>
 								</div>
 							</span>
 
@@ -314,7 +315,12 @@
 									    return html.join('')
 									  }
 									</script>
-								
+									<br><br>
+									<form id="descargaForm"  th:action="@{/descargaFiltros}"  enctype="multipart/form-data" th:object="${asignacionesDescargaForm}" method="post">
+							      	<input type="hidden" id="strAsignacionesDescargas" th:field="*{strAsignacionesDescargas}" />
+	<!-- 						      	<input type="hidden" id="listAsignacionesDescargas" th:field="*{listAsignacionesDescargas}" /> -->
+							      	<button type="submit" class="btn btn-success pull-left btn-lg" >Descarga Asignaciones</button>
+							        </form>
 								</div>
 								<!-- FIN DE SECCION TABLA                  			-->
 							</div>
@@ -381,18 +387,12 @@
                                                    <li class="list-group-item list-group-item-info">Archivos : <span id="modalArchivos"></span></li>
                                                    <li class="list-group-item list-group-item-info">Status : <span id="modalStatus"></span></li>
                                                    <li class="list-group-item list-group-item-info">Ventas : <span id="modalVentas"></span></li>
+                                                   <li class="list-group-item list-group-item-info">Usuario Registro : <span id="modalUsuarioRegistro"></span></li>
                                                    <li class="list-group-item list-group-item-info">Archivo Participantes : <span id="modalArchivoParticipantes"></span></li>
                                                </ul>
                                                
-<!--                                                <input type="hidden" id="fechaPago" th:field="*{fechaPago}" /> -->
-<!--                                                <input type="hidden" id="guiaEntregable" th:field="*{guiaEntregable}" /> -->
-<!--                                                <input type="hidden" id="numeroFactura" th:field="*{numeroFactura}" /> -->
-<!--                                                <input type="hidden" id="verificarEntregable" th:field="*{verificarEntregable}" /> -->
-<!--                                                <input type="hidden" id="costoHotel" th:field="*{costoHotel}" /> -->
                                        			<br>
                                        			<br>
-                                       			
-<!--                                        			<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg" >Confirmar y Revision Expediente Asignación</button>         -->
 											</form>
                                            </div>
                                        </div>
@@ -590,16 +590,6 @@
 			                            </li>
 			                            <hr>
 			                           	
-<!-- 									    <li th:each= "curso: ${model.cursos}" style=" list-style-type:none "> -->
-<!-- 			                                <div class="input-group mb-1"> -->
-<!-- 											  <div class="input-group-prepend"> -->
-<!-- 											    <div class="input-group-text"> -->
-<!-- 											      <input type="checkbox" class="checkboxCursos" th:id="${curso.idCurso}" > -->
-<!-- 											    </div> -->
-<!-- 											  </div> -->
-<!-- 											  <span th:text="${curso.nombreCurso}" style="padding-left: 10px;"></span> -->
-<!-- 											</div> -->
-<!-- 			                            </li> -->
 									 </ul>
 									 <div class="input-group mb-1" id="sectionFiltroCurso"></div>
                                    </div>
@@ -645,16 +635,6 @@
 			                            </li>
 			                            <hr>
 			                           	
-<!-- 									    <li th:each= "cliente: ${model.clientes}" style=" list-style-type:none "> -->
-<!-- 			                                <div class="input-group mb-1"> -->
-<!-- 											  <div class="input-group-prepend"> -->
-<!-- 											    <div class="input-group-text"> -->
-<!-- 											      <input type="checkbox" class="checkboxClientes" th:id="${cliente.idCliente}" > -->
-<!-- 											    </div> -->
-<!-- 											  </div> -->
-<!-- 											  <span th:text="${cliente.nombreCortoCliente}" style="padding-left: 10px;"></span> -->
-<!-- 											</div> -->
-<!-- 			                            </li> -->
 									 </ul>
 									 <div class="input-group mb-1" id="sectionFiltroCliente"></div>
                                    </div>

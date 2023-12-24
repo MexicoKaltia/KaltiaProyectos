@@ -889,10 +889,48 @@ public class ControllerUtil {
 		}
 		return mav;
 	}
+	
+	@PostMapping("/descargaFiltros")
+	public ModelAndView descargaFiltros(@ModelAttribute("asignacionesDescargaForm") AsignacionModeloDescarga asignacionesDescarga, ModelMap model) { 
+		log.info("descargaFiltros");
+		ResultVO resultVO = (ResultVO)model.get("model");
+		model.addAttribute("model", resultVO);
+		ResultVO rs = aplicacionService.descargaAsignaciones(asignacionesDescarga);
+		ModelAndView mav = new ModelAndView("redirect:/CEstadisticaGeneral", model);
+		if(rs.getCodigo() != 500) {
+//			resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+			mav.addObject("ejecucion", true);
+		}else {
+			mav.addObject("error", true);
+		}
+		return mav;
+	}
 
 	@GetMapping("/descargaAsignaciones")
 	public ResponseEntity<Resource> detDescargaAsignaciones() { 
 		Path rutaArchivo = Paths.get("/uniprotec/descargaAsignaciones/descargaAsignaciones.csv").toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la imagen: " );
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+
+	@GetMapping("/descargaFiltros")
+	public ResponseEntity<Resource> detDescargaFiltros() { 
+		Path rutaArchivo = Paths.get("/uniprotec/descargaFiltros/descargaFiltros.csv").toAbsolutePath();
 		log.info(rutaArchivo.toString());
 		
 		Resource recurso = null;

@@ -17,6 +17,7 @@ public interface IAsignacionService {
 	public ResultVO edicionAsignacionVConfirma(AsignacionModelo asignacion, String token);
 	public ResultVO consultaAsignacionHistorico(String accesToken);
 	ResultVO consultaAsignacionCliente(String token);
+	public ResultVO deleteAsignacion(String accesToken, Long idAsignacion);
 
 	
 	

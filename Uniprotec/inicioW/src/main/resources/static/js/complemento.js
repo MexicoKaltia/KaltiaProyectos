@@ -43,7 +43,7 @@ $(document).ready(function(){
 	
 	window.operateEventsUpdate = {
 		    'click .like': function (e, value, row, index) {
-//		    	//console.log(JSON.stringify(row));
+		    	console.log(row);
 //		      alert('You click like action, row: ' + JSON.stringify(row.regionCliente.nombreRegion) + ' ' + JSON.stringify(row.regionCliente.idRegion));
 		      $('#idCliente').val(row.idCliente);
 		      $('#nombreCortoCliente').val(row.nombreCortoCliente);
@@ -79,6 +79,20 @@ $(document).ready(function(){
 		      
 		      $("#linkImg").attr('href', '/uploads/img/'+row.rfcCliente+'/'+row.imagenLogoCliente)
 		      $("#linkImg").html('<b>'+row.imagenLogoCliente+'</b>');
+		      
+		      
+		      if(row.statusCliente === "Baja"){
+		    	  var uno = document.getElementById('bajaCliente');
+        	  	  uno.innerText = 'Activar Cliente';
+		    	  console.log("cliente Baja");
+		      }
+		      $("#bajaCliente").click(function(){
+		    	  $('#statusCliente').val("Baja");
+		    	  if(row.statusCliente === "Baja"){
+		    		  $('#statusCliente').val("Actualizado");
+		    	  }
+		    	  console.log($('#statusCliente').val());
+		      });
 	      
 		    }
 		   }

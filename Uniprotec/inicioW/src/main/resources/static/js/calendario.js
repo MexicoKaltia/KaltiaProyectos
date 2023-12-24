@@ -6,6 +6,7 @@ var datoEconomicoSelec;
 $(document).ready(function() {
 	
 	console.log("calendario");
+	console.log(asignaciones); 
 
 	var asignaFechaCalendario ;
 	var asignaClienteTexto ;
@@ -25,7 +26,6 @@ $(document).ready(function() {
 	
 	
 	const identificadorUsuario = idUsuario;
-//	//console.log("id usuario sesion:"+idUsuario)
 	var filtroInstructores = new Array();
 	var filtroInstructoresDisponibles = new Array();
 	var asignacionesFiltro = new Array();
@@ -233,8 +233,8 @@ $(document).ready(function() {
 		var asignacion0="";
 		for(i in asignaciones){
 			var asignacion01= asignaciones[i];
-			asignacion0 = asignacion01;
 			if((asignacion01.idAsignacion*1) === (item[0]*1)){
+				asignacion0 = asignacion01;
 				idAsignacionClic = asignacion01.idAsignacion*1;
 				break;
 			}
@@ -246,6 +246,7 @@ $(document).ready(function() {
 			$("#divEdicionVentas").empty();
 			$("#divArchivoParticipantes").empty();
 			$("#divErrorProceso").empty();
+			$("#divCancela").empty();
 			$('#seccionErrorProceso').html("");
 			if(perfilUsuario === "Vendedor"){
 				if(identificadorUsuario === asignacion0.userCreateAsignacion){
@@ -255,6 +256,7 @@ $(document).ready(function() {
 					
 					if(status === "Curso Asignado" || status === "Confirmado Instructor" || status === "Curso Editado"){
 						$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>');
+						$("#divCancela").append('<button type="submit" id="asignaCancela" class="btn btn-danger pull-right btn-lg"  value="">Cancelar Asignación</button>');
 					}
 					
 					$("#divOperacion").click(function(){
@@ -263,6 +265,9 @@ $(document).ready(function() {
 					$("#divArchivoParticipantes").click(function(){
 						$("#edicionAsignacion").attr("action", "/BAsignacionV");
 					})
+					$("#divCancela").click(function(){
+					$("#edicionAsignacion").attr("action", "/DAsignacion");
+				})
 				}
 			}
 			
@@ -282,6 +287,7 @@ $(document).ready(function() {
 				
 				if(status === "Curso Asignado" || status === "Confirmado Instructor" || status === "Curso Editado"){
 					$("#divEdicionVentas").append('<button type="submit" id="asignaConfirmar" class="btn btn-success pull-right btn-lg"  value="">Edicion Atributos Asignación</button>');
+					$("#divCancela").append('<button type="submit" id="asignaCancela" class="btn btn-danger pull-right btn-lg"  value="">Cancelar Asignación</button>');
 				}
 				
 				$("#divOperacion").click(function(){
@@ -289,6 +295,9 @@ $(document).ready(function() {
 				})
 				$("#divArchivoParticipantes").click(function(){
 					$("#edicionAsignacion").attr("action", "/BAsignacionV");
+				})
+				$("#divCancela").click(function(){
+					$("#edicionAsignacion").attr("action", "/DAsignacion");
 				})
 				/*
 				 * btn errorProceso
@@ -324,7 +333,11 @@ $(document).ready(function() {
 				asignacionTipoCurso = asignacion0.tipoCursoAsignacion;
 				asignaHorasEfectivas = asignacion0.horarioAsignacion.split(";");
 				asignaStatus = asignacion0.statusAsignacion;
-				asignaUserCreateAsignacion = asignacion0.userCreateAsignacionTexto
+				asignaUserCreateAsignacion = asignacion0.userCreateAsignacionTexto;
+				asignaUserRealAsignacion = "";
+				if(asignacion0.realCapturaNombre){
+					asignaUserRealAsignacion = asignacion0.realCapturaNombre;
+				}
 				asignaFechaPago= asignacion0.fechaPago;
 				asignaFactura = asignacion0.numeroFactura;
 				archivoParticipantes=asignacion0.archivoParticipantes;
@@ -365,12 +378,13 @@ $(document).ready(function() {
 			$('#modalStatus').html('<b>'+asignaStatus+'</b>');
 		}
 		$('#modalVentas').html('<b>'+asignaUserCreateAsignacion+'</b>');
+////		
+		$('#modalUserRegistro').html('<b>'+ asignaUserRealAsignacion +'</b>');
 		$('#modalFechaPago').html('<b>'+asignaFechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignaFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+archivoParticipantes+'</b>');
 		$('#modalCostoHotel').html('<b>'+costoHotel+'</b>');
 		if(errorProceso !== "" && errorProceso){
-//			//console.log(errorProceso);
 			$('#liErrorProceso').remove();
 			liErrorProceso = '<li id="liErrorProceso" class="list-group-item list-group-item-info">Error Proceso : <span id="modalErrorProceso"></span></li>'
 			$('#resumenAsignacionModal').append(liErrorProceso);	
@@ -384,8 +398,6 @@ $(document).ready(function() {
 		$('#myModal').modal();
 		
 		//llenado de form Datos Economicos
-		
-//		$('#idAsignacionDatosEconomicos').val(idAsignacionClic);    //se comenta y se integra en las lineas de function porcentajeVendedor(idAsignacionClick)
 		$('#userCreateAsignacionDatosEconomicos').val(identificadorUsuario );
 		
 		$('#ventaReal').val(0);$('#labelVentaReal').text("");
@@ -399,14 +411,6 @@ $(document).ready(function() {
 		
 		$('#viaticosTotales').val(0);
 		$('#observaciones').val("");
-		
-//		$('#estatusDatoEconomico').empty();
-//		$('#estatusDatoEconomico').append('<option value="VIGENTE" >VIGENTE</option>');
-//		$('#estatusDatoEconomico').append('<option value="PENDIENTE" >PENDIENTE</option>');
-//		$('#estatusDatoEconomico').append('<option value="PAGADA" >PAGADA</option>');
-//		$('#estatusDatoEconomico').append('<option value="CANCELADA" >CANCELADA</option>');
-		$('#estatusDatoEconomicoActual').text("");
-		
 		
 		flagExistDatosEconomicos = false;
 		console.log(datosEconomicos);

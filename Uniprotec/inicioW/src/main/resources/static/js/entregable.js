@@ -254,6 +254,7 @@ $(document).ready(function() {
 		
 		
 		$('#modalVentas').html('<b>'+asignacion.userCreateAsignacionTexto+'</b>');
+		$('#modalUsuarioRegistro').html('<b>'+asignacion.realCapturaNombre+'</b>');
 		$('#modalFechaPago').html('<b>'+asignacion.fechaPago+'</b>');
 		$('#modalFactura').html('<b>'+asignacion.numeroFactura+'</b>');
 		$('#modalArchivoParticipantes').html('<b>'+asignacion.archivoParticipantes+'</b>');

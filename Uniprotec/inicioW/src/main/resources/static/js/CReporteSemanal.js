@@ -272,11 +272,29 @@ $(document).ready(function(){
 	}
 	
 	function calculateMes(currentDate){
+		console.log(currentDate);
 		var calMes = new Date(currentDate);
-		mes1 = getMesNombre(calMes.getMonth() + 1);
-		mes2 = getMesNombre(calMes.getMonth() + 2);
-		mes3 = getMesNombre(calMes.getMonth() + 3);
 		
+		if(calMes.getMonth() < 9){
+			mes1 = getMesNombre(calMes.getMonth() + 1);
+			mes2 = getMesNombre(calMes.getMonth() + 2);
+			mes3 = getMesNombre(calMes.getMonth() + 3);
+		}
+		if(calMes.getMonth() == 9){
+			mes1 = getMesNombre(calMes.getMonth() + 1);
+			mes2 = getMesNombre(calMes.getMonth() + 2);
+			mes3 = getMesNombre(0);
+		}
+		if(calMes.getMonth() == 10){
+			mes1 = getMesNombre(calMes.getMonth() + 1);
+			mes2 = getMesNombre(0);
+			mes3 = getMesNombre(1);
+		}
+		if(calMes.getMonth() > 10){
+			mes1 = getMesNombre(0);
+			mes2 = getMesNombre(1);
+			mes3 = getMesNombre(2);
+		}
 	}
 	
 

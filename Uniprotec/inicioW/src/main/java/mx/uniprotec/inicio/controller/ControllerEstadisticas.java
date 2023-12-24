@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
+import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.DatosEconomicosModelo;
 import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
@@ -73,6 +74,8 @@ public class ControllerEstadisticas {
 			ModelMap model) {
 			log.info("CEstadisticaInstructor model Activo");
 			model.addAttribute("asignacionItem", new AsignacionModelo());
+			model.addAttribute("asignacionesDescargaForm",new AsignacionModeloDescarga());
+			
 			
 			ResultVO resultVO = (ResultVO)model.get("model");
 			model.addAttribute("model", resultVO);

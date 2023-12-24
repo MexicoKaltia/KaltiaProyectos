@@ -150,20 +150,15 @@ $(document).ready(function(){
 	})
 
 	var clientesVendedor = new Array();
+	clientesVendedor = vendedorCliente(operacionId, perfilUsuario);
 	if(perfilUsuario ==="Vendedor"){
 		$('#asignaCliente').empty();
-		clientesVendedor = vendedorCliente(operacionId);
 		$('#asignaCliente').append("<option value='' selected  >Selecciona Cliente</option>");
 		for(i in clientesVendedor){
 			$('#asignaCliente').append("<option value='"+clientesVendedor[i].idCliente+"'>"+clientesVendedor[i].nombreCortoCliente+"</option>");
-//			$('#optionSelectCliente').after("<option value='"+clientesVendedor[i].idCliente+"'>"+clientesVendedor[i].nombreCortoCliente+"</option>");
 		}
 		$("#asignaCliente").trigger("chosen:updated");
 	}
-	else{
-		clientesVendedor = asignacionClientes;
-	}
-//	console.log(clientesVendedor);
 	
 	$("#asignaHorarioInicio").append('<option value="" selected  >Selecciona Horario Inicio</option>');
 	for(var i = 0; i < 24 ; i++){
@@ -234,8 +229,31 @@ var alerta, proceso;
 		$('#idRegionAsignacion').val($.asignaIdRegion);
 		$('#nombreRegionAsignacion').val($.asignaNombreRegion);
 		$('#tipoCursoAsignacion').val($.asignaTipoCurso);
-		$('#userCreateAsignacion').val(idUsuario);
-		$('#userCreateAsignacionTexto').val(nombreUsuario);
+		
+		if(perfilUsuario === "Vendedor"){
+			$('#userCreateAsignacion').val(idUsuario);
+			$('#userCreateAsignacionTexto').val(nombreUsuario);
+		}else{
+			var realVendedor = validaUserCaptura();
+			$('#userCreateAsignacion').val(realVendedor.vendedorCliente.idVendedor);
+			$('#userCreateAsignacionTexto').val(realVendedor.vendedorCliente.nombreVendedor);
+		}
+		
+		$('#realCapturaId').val(idUsuario);
+		$('#realCapturaNombre').val(nombreUsuario);
+		
+		
+	}
+	
+	function validaUserCaptura(){
+		var jsonCliente;
+		for(var a in asignacionClientes){
+			var cliente = asignacionClientes[a];
+			if((cliente.idCliente * 1) === ($('#asignaCliente').val() * 1)){
+				jsonCliente = cliente;
+			}
+		}
+		return jsonCliente;
 	}
 
 
@@ -297,15 +315,25 @@ var alerta, proceso;
 		var zonaCliente = colorZonaCliente($.asignaCliente);
 //		zonaCliente = '<div class="zona" style="background-color:yellow">1</div>';
 		procesoCliente="<li>Prospecto Cliente : <b>"+ $.asignaClienteTexto +"</b>"+zonaCliente+"</li>";
+	
 	}
 	
-	function vendedorCliente(idV){
+	
+	
+	function vendedorCliente(idV, perfil){
 		var idVendedorCliente;
 		var clientes= new Array();
 		for(i in asignacionClientes){
-			idVendedorCliente = asignacionClientes[i].vendedorCliente.idVendedor;
-			if((idVendedorCliente *1) === (idV*1))
-				clientes.push(asignacionClientes[i]);
+			var cliente = asignacionClientes[i];
+			idVendedorCliente = cliente.vendedorCliente.idVendedor;
+			if(cliente.statusCliente !== "Baja"){
+				if(perfil === "Vendedor"){
+					if((idVendedorCliente *1) === (idV*1))
+						clientes.push(cliente);
+				}else{
+					clientes.push(cliente);
+				}
+			}		
 		}
 		return clientes;
 	}
@@ -382,7 +410,7 @@ var alerta, proceso;
 	 * ValidaCURSO
 	 */
 	var tipoCurso = true;
-	var tipoCursoVal = "";
+	var tipoCursoVal = "PRESENCIAL";
 	var arrayInstructores = new Array();
 	var instructoresDiaSelect = new Array();
 	var instructoresDmin1 = new Array();
@@ -736,34 +764,6 @@ var alerta, proceso;
 		return fechaDisponible;
 	}
 	
-//	function validaDiaSelect2(idInstructor, cliente){
-//		var fechaDisponible = true;
-//		var asignacion;
-//		var asigna;
-//		var dia;
-//		for(i in asignacionAsignaciones){
-//			asignacion = asignacionAsignaciones[i];
-//			asigna = asignacion.fechaAsignacion.toString().split("/");
-//			dia = asigna[1]+"/"+asigna[0]+"/"+asigna[2];
-//			if((dia === $.asignaFecha.toString()) && (asignacion.idInstructorAsignacion.toString() === idInstructor.toString())){
-//				fechaDisponible = false;
-//				if(asignacion.idClienteAsignacion === cliente.idCliente){
-////					console.log(dia);
-////					console.log($.asignaFecha.toString());
-////					console.log(asignacion.idInstructorAsignacion.toString());
-////					console.log(idInstructor.toString());
-////					console.log(cliente.idCliente);
-////					console.log(asignacion.idClienteAsignacion);
-////					
-//					$.asignacionMismoDia = asignacion;
-//					console.log($.asignacionMismoDia);
-//					fechaDisponible = true;
-//				}
-//				break;
-//			}
-//		}
-//		return fechaDisponible;
-//	}
 	
 	function validaMismoDia(idInstructor, cliente){
 		var fechaDisponible = false;
@@ -940,14 +940,15 @@ var alerta, proceso;
 	}
 	
 	function validarHorarioMismoDia(asignacionMismoDia, idInstructor){
-		var horario = asignacion.horarioAsignacion.split(";");
-//		console.log(horario);
-//		console.log(horarioInstructorDisponible);
-//		console.log($.asignacionMismoDia);
-		if($.asignacionMismoDia.idInstructorAsignacion === idInstructor*1){
-			var horario = $.asignacionMismoDia.horarioAsignacion.split(";");
-			horarioInstructorDisponible = ((horarioInstructorDisponible*1) + (horario[1]*1));
-//			console.log(horarioInstructorDisponible);
+		if(asignacionMismoDia){
+			console.log(asignacionMismoDia);
+			
+			var horario = asignacionMismoDia.horarioAsignacion.split(";");
+			
+			if($.asignacionMismoDia.idInstructorAsignacion === idInstructor*1){
+				var horario = $.asignacionMismoDia.horarioAsignacion.split(";");
+				horarioInstructorDisponible = ((horarioInstructorDisponible*1) + (horario[1]*1));
+			}
 		}
 	}
 	
@@ -1068,12 +1069,9 @@ var alerta, proceso;
 		$("#horasEfectivas").attr('disabled', false);
 		$("#horasEfectivas").empty();
 		$("#horasEfectivas").append('<option value="" selected  >Selecciona Horas Efectivas</option>');
-//		$("#horasEfectivas").append('<option value="'+horaEfectiva.substring(0,2)+":"+horaEfectiva.substring(3,2)+'" >'+horaEfectiva+'</option>');
+
 		var hrEf = horaEfectiva.split(":");
 		var inicioEfe = 0;
-//		if(inicioEfe < ((hrEf[0]*1)-4)){
-//			inicioEfe = (hrEf[0]*1)-4;
-//		}
 		if(hrEf[1] === "00"){
 				for(var i = inicioEfe; i <((hrEf[0]*1)+ 0) ; i++){
 						$("#horasEfectivas").append('<option value="'+(i)+'30">'+(i)+':30</option>');
@@ -1082,7 +1080,6 @@ var alerta, proceso;
 			}else{
 				for(var i = inicioEfe; i <((hrEf[0]*1)+ 0) ; i++){
 					o = i - 0.3;
-//					//console.log(o);
 					$("#horasEfectivas").append('<option value="'+(i+1)+'00">'+(i+1)+':00</option>');
 					$("#horasEfectivas").append('<option value="'+(i+1)+'30">'+(i+1)+':30</option>');
 				}
@@ -1091,7 +1088,6 @@ var alerta, proceso;
 	
 	$("#horasEfectivas").change(function(){
 		var horasE = $("#horasEfectivas").val(); 
-//		//console.log(horasE);
 		if( horasE > 0){
 			$('#confirmarHorario').attr('disabled', false);
 		}else{
