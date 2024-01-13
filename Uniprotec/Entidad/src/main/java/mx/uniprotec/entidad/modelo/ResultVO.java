@@ -33,6 +33,7 @@ public class ResultVO implements Serializable{
 	private List<VendedorModelo> vendedores;
 	private List<UsuarioModelo> usuarios;
 	private List<AsignacionModelo> asignaciones;
+	private List<ParticipanteDescarga> participantes;
 	
 	@Override
 	public String toString() {
@@ -182,6 +183,16 @@ public class ResultVO implements Serializable{
 
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
+	}
+
+
+	public List<ParticipanteDescarga> getParticipantes() {
+		return participantes;
+	}
+
+
+	public void setParticipantes(List<ParticipanteDescarga> participantes) {
+		this.participantes = participantes;
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UserCorreo;
@@ -31,5 +32,7 @@ public interface IAplicacionService {
 	public ResultVO updateMovilidad(String accesToken, ZonaBaseModelo zonaBase);
 	public ResultVO consultaOperacion(String accesToken);
 	public ResultVO descargaAsignaciones(AsignacionModeloDescarga asignacionesDescarga);
+	public ResultVO consultaParticipantesCliente(String accesToken, String idCliente);
+	public ResultVO descargaParticipantesCliente(String accesToken, String idCliente);
 
 }

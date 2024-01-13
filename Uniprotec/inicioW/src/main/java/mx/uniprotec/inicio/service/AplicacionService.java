@@ -1,15 +1,14 @@
 package mx.uniprotec.inicio.service;
 
-import java.security.GeneralSecurityException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,13 +18,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.supercsv.cellprocessor.Optional;
-import org.supercsv.cellprocessor.ParseInt;
-import org.supercsv.cellprocessor.ParseLong;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
@@ -34,9 +34,8 @@ import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
-import mx.uniprotec.entidad.modelo.ParticipantesModelo;
+import mx.uniprotec.entidad.modelo.ParticipanteDescarga;
 import mx.uniprotec.entidad.modelo.Region;
-import mx.uniprotec.entidad.modelo.ReporteSemanalModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -305,10 +304,37 @@ public class AplicacionService implements IAplicacionService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ResultVO consultaParticipantesCliente(String accesToken, String idCliente) {
 		
+		ResultVO rs  = baseClientRest.objetoGetId(accesToken, BaseClientRest.URL_CRUD_PARTICIPANTES_CLIENTE, null, idCliente);
+		return rs;
 	}
 
-	
+	@Override
+	public ResultVO descargaParticipantesCliente(String accesToken, String idCliente) {
+		
+		ResultVO rsDescarga = new ResultVO(); 
+		try {
+			ResultVO rs = consultaParticipantesCliente(accesToken, idCliente);
+			rs.setParticipantes((List<ParticipanteDescarga>) rs.getJsonResponse().get("participantes"));
+			JSONObject jsonGeneral = rs.getJsonResponse();
+//			JSONObject jsonRegiones = new JSONObject();
+//			jsonRegiones.put("participantes", jsonGeneral.get("participantes"));
+			
+			List<ParticipanteDescarga> participantes = getListParticipantes(rs.getParticipantes());
+			ICsvBeanWriter beanWriter = beanWriterParticipantes(participantes);
+			rsDescarga.setCodigo(200l);
+			return rsDescarga;
+		} catch (Exception e) {
+			rsDescarga.setCodigo(500l);
+			e.printStackTrace();
+			return rsDescarga;
+		}
+	}
+
 	
 
 	/*
@@ -416,6 +442,18 @@ public class AplicacionService implements IAplicacionService {
 		return processors;
 	}
 	
+	private static CellProcessor[] getProcessorsParticipantes(){
+		
+		final CellProcessor[] processors = new CellProcessor[] {
+				new NotNull(), // "participanteNombre"
+				new NotNull(), // "participanteCURP"
+				new NotNull(), // "participantePuesto"
+				
+					
+		};
+		return processors;
+	}
+	
 	private ICsvBeanWriter beanWriter(List<AsignacionModelo> asignaciones) {
 		ICsvBeanWriter beanWriter = null;
 
@@ -448,5 +486,80 @@ public class AplicacionService implements IAplicacionService {
 		}
 		return beanWriter;
 	}
+	
+	
+	private ICsvBeanWriter beanWriterParticipantes(List<ParticipanteDescarga> participantes) {
+		ICsvBeanWriter beanWriter = null;
+		try
+		{
+			beanWriter = new CsvBeanWriter(new FileWriter("/uniprotec/descargaParticipantes/descargaParticipantes.csv"), CsvPreference.STANDARD_PREFERENCE);
+			final String[] header = new String[] { "participanteNombre","participanteCURP","participantePuesto"};
+
+			final CellProcessor[] processors = getProcessorsParticipantes();
+
+			// write the header
+			beanWriter.writeHeader(header);
+
+			// write the beans data
+			for (ParticipanteDescarga participante : participantes) {
+				beanWriter.write(participante  , header, processors);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  finally {
+			try {
+				beanWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return beanWriter;
+	}
+
+	private List<ParticipanteDescarga> getListParticipantes(List<ParticipanteDescarga> participantes) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		List<ParticipanteDescarga> listParticipantes = mapper.convertValue(participantes, new TypeReference<List<ParticipanteDescarga>>() { });
+		
+
+//		List<ParticipanteDescarga> newParticipantes = participantes;new ArrayList<ParticipanteDescarga>();
+//		
+//		for(ParticipanteDescarga participante : listParticipantes) {
+//			newParticipantes.add(participante);
+//		}
+		
+//		Map mapParticipantes = (Map) participantes.get("participantes");
+//		JSONObject jsonParticipantes = new JSONObject((Map) participantes.get("participantes"));
+//		new JSONObject((Map) jsonObject.get("asignacion"));
+//		String[] tmp = jsonParticipantes.toString().split("},");
+//		 if(tmp.length > 0) {
+//				for(String a : tmp) {
+//					if(!a.contains("}")) {
+//						a = a.concat("}");
+//					}
+//					JSONParser parser = new JSONParser();
+//					try {
+//						
+//						ParticipanteDescarga participante = new ParticipanteDescarga(); 
+//						JSONObject json = (JSONObject) parser.parse(a);
+////						log.info(json.toJSONString());
+//						
+//						participante.setParticipanteNombre((String)json.get("participanteNombre"));
+//						participante.setParticipanteCURP((String)json.get("participanteCURP"));
+//						participante.setParticipantePuesto((String)json.get("participantePuesto"));
+//																			
+//						listParticipantes.add(participante);
+//
+//					} catch (ParseException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+		return listParticipantes;
+	}
+
+
+
 	
 }

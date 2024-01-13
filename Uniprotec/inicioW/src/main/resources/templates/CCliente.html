@@ -215,6 +215,13 @@
 									<p><a href='descargaAsignaciones'> <b>Dar Click para descargar Asignaciones Cliente.</b></a></p> 
 								</div>
 							</span>
+							<span th:if='${ejecucionP}'>
+								<div class="alert alert-success" role="alert" id="dataExito">
+		<!-- 			  					<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
+									<b>Éxito : </b>Se ha Generado Correctamente la Documentación Digital.
+									<p><a href='descargaParticipantes'> <b>Dar Click para descargar Participantes Cliente.</b></a></p> 
+								</div>
+							</span>
 							<span th:if='${error}'>
 								<div class="alert alert-danger" role="alert" id="dataError">
 		<!-- 			  							<b>Revision</b><span th:text="${dataEjecucion.mensaje}"></span> -->
@@ -530,9 +537,7 @@
                                            <img class="card-img-top" th:src="@{assets/images/logo.png}" alt="Uniprotec" style="max-width: 20.0rem; max-height: 20.0rem; display: block; margin-left: auto; margin-right: auto; width: 50%;">
                                            <div class="card-body">
                                            <form role="form"  class="login100-form validate-form needs-validation" >
-                                               <h5 class="card-title">Cantidad de Participantes</h5>
-                                               
-                                            	<br>                                      			
+                                                             			
                                             	<button type="submit" class="btn btn-success" >Descarga Participantes</button>
 											</form>
                                            </div>

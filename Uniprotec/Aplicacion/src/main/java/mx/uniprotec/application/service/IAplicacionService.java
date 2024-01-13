@@ -15,6 +15,7 @@ import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.entity.ZonaBase;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 
 
@@ -32,5 +33,6 @@ public interface IAplicacionService {
 	public String getMensaje();
 	public List<Notificacion> getNotificaciones(Long idUsuario, String perfilUsuario);
 	public ZonaBase getZonaBase();
+	
 
 }

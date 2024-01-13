@@ -11,6 +11,7 @@ import mx.uniprotec.application.dao.IEntregableDao;
 import mx.uniprotec.application.dao.IParticipanteDao;
 import mx.uniprotec.application.entity.EntregableEntity;
 import mx.uniprotec.application.entity.ParticipanteEntity;
+import mx.uniprotec.entidad.modelo.ParticipanteDescarga;
 import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 
 @Service
@@ -83,7 +84,7 @@ public class EntregableService implements IEntregableService {
 		try {
 			List<ParticipanteEntity> participantes = participanteDao.findByIdCliente(idCliente);
 			List<ParticipanteEntity> participantesImportar = getParticipantesUnicos(participantes);
-			return participantesImportar;
+			return participantesImportar ;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<ParticipanteEntity>();
@@ -92,6 +93,8 @@ public class EntregableService implements IEntregableService {
 	}
 
 
+
+	
 
 	@Override
 	public ParticipanteEntity createParticipantes(List<ParticipanteEntity> formBParticipantes) {

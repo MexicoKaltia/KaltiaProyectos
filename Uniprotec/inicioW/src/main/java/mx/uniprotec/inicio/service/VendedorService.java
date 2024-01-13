@@ -12,6 +12,7 @@ import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.MonitorEntidades;
 import mx.uniprotec.entidad.modelo.Region;
 import mx.uniprotec.entidad.modelo.ResultVO;
@@ -115,6 +116,7 @@ public class VendedorService implements IVendedorService {
 		if(rs.getCodigo() == 202) {
 			JSONObject jsonGeneral = rs.getJsonResponse();
 			JSONObject jsonClientes = new JSONObject();
+			rs.setVendedores((List<VendedorModelo>) jsonGeneral.get("vendedores"));
 			jsonClientes.put("vendedores", jsonGeneral.get("vendedores"));
 			
 			rs.setJsonResponseObject(jsonClientes);

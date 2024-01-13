@@ -19,6 +19,7 @@ mx\uniprotec\entidad\modelo\ReporteSemanalModelo.class
 mx\uniprotec\entidad\modelo\User.class
 mx\uniprotec\entidad\modelo\EntregableDiploma.class
 mx\uniprotec\entidad\modelo\EntregableModelo.class
+mx\uniprotec\entidad\modelo\ParticipanteDescarga.class
 mx\uniprotec\entidad\modelo\ParticipantesModelo.class
 mx\uniprotec\entidad\modelo\MensajeModelo.class
 mx\uniprotec\entidad\modelo\ZonaBaseModelo.class

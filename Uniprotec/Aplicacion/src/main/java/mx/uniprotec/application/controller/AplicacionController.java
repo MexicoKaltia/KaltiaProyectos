@@ -30,12 +30,16 @@ import mx.uniprotec.application.dao.INotificacionDao;
 import mx.uniprotec.application.dao.IZonaBaseDao;
 import mx.uniprotec.application.entity.Mensaje;
 import mx.uniprotec.application.entity.Notificacion;
+import mx.uniprotec.application.entity.ParticipanteEntity;
 import mx.uniprotec.application.entity.Perfil;
 import mx.uniprotec.application.entity.Region;
 import mx.uniprotec.application.entity.ZonaBase;
 import mx.uniprotec.application.service.IAplicacionService;
+import mx.uniprotec.application.service.IEntregableService;
 import mx.uniprotec.entidad.modelo.AsignacionModelo;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
+import mx.uniprotec.entidad.modelo.ParticipanteDescarga;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 import mx.uniprotec.entidad.modelo.ZonaBaseModelo;
 
@@ -47,7 +51,8 @@ public class AplicacionController {
 
 	@Autowired
 	private IAplicacionService aplicacionService;
-	
+	@Autowired
+	private IEntregableService entregableService;
 	@Autowired
 	private INotificacionDao notificacionDao;
 	@Autowired
@@ -235,6 +240,39 @@ public class AplicacionController {
 		
 	}
 	
+	@GetMapping("/participantesCliente/{idCliente}")
+	public ResponseEntity<?> getParticipantesCliente(@PathVariable Long idCliente) {
+		log.info("participantesCliente:"+idCliente);
+		Map<String, Object> response = new HashMap<>();
+		List<ParticipanteEntity> participantes = new ArrayList<ParticipanteEntity>();
+		try {
+//			log.info(nombrePerfil);
+			participantes = entregableService.consultaParticipantesImportar(idCliente);
+			
+			List<ParticipanteDescarga> participantesDescarga= getParticipantesDescarga(participantes);
+			if(participantes == null) {
+				log.info("participantes null");
+				response.put("mensaje", "participantes null");
+				 response.put("status", HttpStatus.NOT_FOUND);
+				 response.put("code", HttpStatus.NOT_FOUND.value());
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+			}else {
+				response.put("participantes", participantesDescarga);
+				 response.put("mensaje", "Exito en la busqueda de participantes");
+				 response.put("status", HttpStatus.ACCEPTED);
+				 response.put("code", HttpStatus.ACCEPTED.value());
+				 log.info("fin participantesCliente:"+idCliente);
+				 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+			}
+		} catch(DataAccessException e) {
+			response.put("mensaje", e.getMessage().concat(": ").concat(((NestedRuntimeException) e).getMostSpecificCause().getMessage()));
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			 response.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
 	@PostMapping("/notificacion")
 	public ResponseEntity<?> notificacionCreate(@Valid @RequestBody AsignacionModelo asignacion, BindingResult result) {
 		log.info("notificiacion create");
@@ -378,4 +416,22 @@ public class AplicacionController {
 		
 	}
 	
+	//private
+	private List<ParticipanteDescarga> getParticipantesDescarga(List<ParticipanteEntity> participantesImportar) {
+		List<ParticipanteDescarga> listParticipantes = new ArrayList<>();
+		for(ParticipanteEntity participanteEntity : participantesImportar) {
+			ParticipanteDescarga participante = new ParticipanteDescarga();
+			participante.setParticipanteNombre(participanteEntity.getParticipanteNombre());
+			participante.setParticipanteCURP(participanteEntity.getParticipanteCURP());
+			participante.setParticipantePuesto(participanteEntity.getParticipantePuesto());
+//			participante.setParticipanteFoto(participanteEntity.getParticipanteFoto());
+			
+			listParticipantes.add(participante);
+		}
+		
+		return listParticipantes;
+	}
+	
 }
+
+

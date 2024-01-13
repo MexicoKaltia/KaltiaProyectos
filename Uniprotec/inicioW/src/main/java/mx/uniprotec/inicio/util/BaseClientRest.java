@@ -32,7 +32,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	
 	private static Logger log = LoggerFactory.getLogger(BaseClientRest.class);
 	
-	
+	 
 	public BaseClientRest() {
 		// TODO Auto-generated constructor stub
 	}
@@ -75,6 +75,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String URL_CRUD_VENDEDORESDATOSECONOMICOS = "vendedoresDatosEconomicos";
 	public static final String URL_CRUD_OPERADORES = "operadores";
 	public static final String URL_CRUD_REPORTESEMANAL = "reporteSemanal";
+	public static final String URL_CRUD_PARTICIPANTES_CLIENTE = "participantesCliente";
 	
 	public static final String POST = "HttpMethod.POST";
 	public static final String GET  = "HttpMethod.GET";
@@ -83,6 +84,7 @@ public class BaseClientRest extends WebMvcConfigurerAdapter implements IBaseClie
 	public static final String APP_ID = "UNIPROTEC:KALTIA2020";
 	
 	public static final Long MAX_TIME_TOKEN = (long) 3600000;
+	
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.uniprotec.application.entity.EntregableEntity;
 import mx.uniprotec.application.entity.ParticipanteEntity;
+import mx.uniprotec.entidad.modelo.ParticipanteDescarga;
 import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 
 public interface IEntregableService {

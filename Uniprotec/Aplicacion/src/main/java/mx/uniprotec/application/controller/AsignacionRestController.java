@@ -411,6 +411,10 @@ public class AsignacionRestController {
 		asignacionHistorico.setCostoHotel(asignacion.getCostoHotel());
 		asignacionHistorico.setDateAsignacion(asignacion.getDateAsignacion());
 		
+		asignacionHistorico.setRealCapturaId(asignacion.getRealCapturaId());
+		asignacionHistorico.setRealCapturaNombre(asignacion.getRealCapturaNombre());
+		
+		
 		return asignacionHistorico;
 	}
 	

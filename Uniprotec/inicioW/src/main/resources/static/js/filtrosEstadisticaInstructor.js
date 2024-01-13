@@ -12,7 +12,6 @@ $(document).ready(function() {
 	var asignacionesFiltroV = new Array();
 	
 	$.asignaciones = asignacionesHistorico;
-	console.log($.asignaciones.length);
 
 	$('#instructorAsignacionesTable').bootstrapTable({data : $.asignaciones})
 
@@ -33,6 +32,20 @@ $(document).ready(function() {
 	$( '#todosInstructores' ).on( 'click', function() {
 		check = $('#todosInstructores').prop( "checked");
 		$('.checkboxFiltro').prop( "checked", check );
+		
+	});
+
+	//Vendedores
+	//check box filtro Vendedores
+	var check = true;
+	$('#btnFiltroVendedor').click(function(){
+		$('#todosVendedores').prop( "checked", check );
+		$('.checkboxFiltroV').prop( "checked", check );
+	});
+
+	$( '#todosVendedores' ).on( 'click', function() {
+		check = $('#todosVendedores').prop( "checked");
+		$('.checkboxFiltroV').prop( "checked", check );
 		
 	});
 
@@ -205,6 +218,53 @@ function actualizaInstructor(){
 
 //FIN FILTRO INSTRUCTOR
 //---------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------
+//FILTRO VENDEDOR
+
+function actualizaVendedor(){
+	var filtroVendedores = new Array();
+	var dataVendedores = new Array();
+
+	$('.checkboxFiltroV:checked').each(function(){
+		if($(this).attr('checked',true)){
+			idVendedor = $(this).attr('id')
+			filtroVendedores.push(idVendedor);
+		}
+	});
+	
+	var filtroVendedor = new Array();
+	for(e in vendedores){
+		var vendedor  = vendedores[e];
+		for(a in filtroVendedores){
+			var filtrovendedor  = filtroVendedores[a];
+			if(vendedor.idVendedor*1 == filtrovendedor*1){
+				filtroVendedor.push(vendedor);
+			}
+		}
+	}
+	
+	var nombreVendedor = "";
+	for(e in $.asignaciones){
+		var asignacionA  = $.asignaciones[e];
+		for(e in filtroVendedor){
+			var vendedor = filtroVendedor[e];
+			if((asignacionA.userCreateAsignacion * 1) === (vendedor.usuarioVendedor.idUsuario * 1)){
+				dataVendedores.push(asignacionA);
+				nombreVendedor = vendedor.nombreVendedor;
+			}
+		}
+	}
+	var notificacion = '<div class="alert alert-success" role="alert" ><u><b>Vendedor : </b> '+nombreVendedor +'</u></div>';
+	$('#divFiltroActivo').append(notificacion);
+	asignaData(dataVendedores);
+	
+
+}
+
+
+//FIN FILTRO INSTRUCTOR
+//---------------------------------------------------------------------------------
+
 //FILTRO ZONA
 function actualizaZona(){
 	var filtroZona = new Array();

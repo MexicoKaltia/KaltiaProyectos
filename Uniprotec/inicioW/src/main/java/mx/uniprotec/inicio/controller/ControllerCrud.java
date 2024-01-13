@@ -1,6 +1,7 @@
 package mx.uniprotec.inicio.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -24,6 +26,7 @@ import mx.uniprotec.entidad.modelo.AsignacionModeloDescarga;
 import mx.uniprotec.entidad.modelo.ClienteModelo;
 import mx.uniprotec.entidad.modelo.CursoModelo;
 import mx.uniprotec.entidad.modelo.InstructorModelo;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.ResultVO;
 import mx.uniprotec.entidad.modelo.UsuarioModelo;
 import mx.uniprotec.entidad.modelo.VendedorModelo;
@@ -225,7 +228,8 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 	}
 	
 	@GetMapping("/CCliente")
-	public ModelAndView CCliente(@RequestParam(name="ejecucion", required=false) boolean ejecucion, 
+	public ModelAndView CCliente(@RequestParam(name="ejecucion", required=false) boolean ejecucion,
+			@RequestParam(name="ejecucionP", required=false) boolean ejecucionP,
 			@RequestParam(name="error", required=false) boolean error,
 			ModelMap model) {
 		log.info("CCliente model Activo");
@@ -260,35 +264,63 @@ private static Logger log = LoggerFactory.getLogger(ControllerCrud.class);
 						ModelAndView mav = new ModelAndView("CCliente", model);
 						mav.addObject("error", error);
 						mav.addObject("ejecucion", ejecucion);
+						mav.addObject("ejecucionP", ejecucionP);
 						
 						return mav;
 					}else {
 						ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
-						mav.addObject("consulta", true);
+						mav.addObject("error", true);
 						return mav;
 					}
 					
 				}else {
 //					model.addAttribute("model", rs3);
 					ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
-					mav.addObject("consulta", true);
+					mav.addObject("error", true);
 					return mav;
 				}
 				
 			}else {
 //				model.addAttribute("model", rs2);
 				ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
-				mav.addObject("consulta", true);
+				mav.addObject("error", true);
 				return mav;
 			}
 			
 		}else {
 //			model.addAttribute("model", rs);
 			ModelAndView mav = new ModelAndView("redirect:/CCliente", model);
-			mav.addObject("consulta", true);
+			mav.addObject("error", true);
 			return mav;
 		}
 	}
+	
+	@GetMapping("/CCliente/{idCliente}")
+	public ModelAndView acliente(@PathVariable String idCliente,
+			ModelMap model) {
+		ModelAndView mav = new ModelAndView("redirect:/CCliente");
+		 
+		if(model.equals(null)) {
+			log.info("NULL");
+			return new  ModelAndView("login");
+		}else {
+			log.info("CCliente Descarga Participantes model Activo");
+			
+			ResultVO resultVO = (ResultVO)model.get("model");
+			model.addAttribute("model", resultVO);
+			ResultVO rs = aplicacionService.descargaParticipantesCliente(resultVO.getAccesToken(), idCliente);
+			if(rs.getCodigo() != 500) {
+				resultVO.setJsonResponseObject(rs.getJsonResponseObject());
+				mav.addObject("ejecucionP", true);
+				return mav;
+			}else {
+				mav.addObject("error", true);
+				return mav;
+			}
+		}
+
+	}
+
 				
 		
 

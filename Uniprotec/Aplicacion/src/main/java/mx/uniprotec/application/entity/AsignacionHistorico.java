@@ -92,28 +92,26 @@ public class AsignacionHistorico implements Serializable{
 		private String costoHotel;
 		@Column
 		private String dateAsignacion;
+		@Column
+		private String realCapturaId;
+		@Column
+		private String realCapturaNombre;
 
-		@Override
-		public String toString() {
-			return "Asignacion [idAsignacion=" + idAsignacion + ", fechaAsignacion=" + fechaAsignacion
-					+ ", idClienteAsignacion=" + idClienteAsignacion + ", clienteAsignacion=" + clienteAsignacion
-					+ ", idCursoAsignacion=" + idCursoAsignacion + ", cursoAsignacion=" + cursoAsignacion
-					+ ", idInstructorAsignacion=" + idInstructorAsignacion + ", instructorAsignacion="
-					+ instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion + ", participantesAsignacion="
-					+ participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion + ", archivosAsignacion="
-					+ archivosAsignacion + ", observacionesAsignacion=" + observacionesAsignacion + ", createAtAsignacion="
-					+ createAtAsignacion + ", userCreateAsignacion=" + userCreateAsignacion + ", statusAsignacion="
-					+ statusAsignacion + "]";
-		}
-
-		public AsignacionHistorico(Long idAsignacion, String fechaAsignacion, Long idClienteAsignacion,
+		
+		public AsignacionHistorico(Long idAsignacion, String idAsignacionLogica, String fechaAsignacion,
+				Long idClienteAsignacion,
 				@NotEmpty(message = "clienteAsignacion no puede estar vacio") @Size(min = 1, max = 300, message = "el tamaño tiene que estar entre 4 y 300") String clienteAsignacion,
-				Long idCursoAsignacion, String cursoAsignacion, Long idInstructorAsignacion, String instructorAsignacion,
-				String horarioAsignacion, String participantesAsignacion, String nivelAsignacion, String archivosAsignacion,
-				String observacionesAsignacion, LocalDateTime createAtAsignacion, Long userCreateAsignacion,
-				String statusAsignacion) {
+				Long idCursoAsignacion, String cursoAsignacion, Long idInstructorAsignacion,
+				String instructorAsignacion, String horarioAsignacion, String participantesAsignacion,
+				String nivelAsignacion, String archivosAsignacion, String observacionesAsignacion,
+				long idRegionAsignacion, String nombreRegionAsignacion, String tipoCursoAsignacion,
+				LocalDateTime createAtAsignacion, Long userCreateAsignacion, String userCreateAsignacionTexto,
+				String statusAsignacion, Boolean verificarEntregable, String guiaEntregable, String fechaPago,
+				String numeroFactura, String archivoParticipantes, String costoHotel, String dateAsignacion,
+				String realCapturaId, String realCapturaNombre) {
 			super();
 			this.idAsignacion = idAsignacion;
+			this.idAsignacionLogica = idAsignacionLogica;
 			this.fechaAsignacion = fechaAsignacion;
 			this.idClienteAsignacion = idClienteAsignacion;
 			this.clienteAsignacion = clienteAsignacion;
@@ -126,9 +124,22 @@ public class AsignacionHistorico implements Serializable{
 			this.nivelAsignacion = nivelAsignacion;
 			this.archivosAsignacion = archivosAsignacion;
 			this.observacionesAsignacion = observacionesAsignacion;
+			this.idRegionAsignacion = idRegionAsignacion;
+			this.nombreRegionAsignacion = nombreRegionAsignacion;
+			this.tipoCursoAsignacion = tipoCursoAsignacion;
 			this.createAtAsignacion = createAtAsignacion;
 			this.userCreateAsignacion = userCreateAsignacion;
+			this.userCreateAsignacionTexto = userCreateAsignacionTexto;
 			this.statusAsignacion = statusAsignacion;
+			this.verificarEntregable = verificarEntregable;
+			this.guiaEntregable = guiaEntregable;
+			this.fechaPago = fechaPago;
+			this.numeroFactura = numeroFactura;
+			this.archivoParticipantes = archivoParticipantes;
+			this.costoHotel = costoHotel;
+			this.dateAsignacion = dateAsignacion;
+			this.realCapturaId = realCapturaId;
+			this.realCapturaNombre = realCapturaNombre;
 		}
 
 		public Long getIdAsignacion() {
@@ -353,6 +364,42 @@ public class AsignacionHistorico implements Serializable{
 
 		public void setDateAsignacion(String dateAsignacion) {
 			this.dateAsignacion = dateAsignacion;
+		}
+
+		public String getRealCapturaId() {
+			return realCapturaId;
+		}
+
+		public void setRealCapturaId(String realCapturaId) {
+			this.realCapturaId = realCapturaId;
+		}
+
+		public String getRealCapturaNombre() {
+			return realCapturaNombre;
+		}
+
+		public void setRealCapturaNombre(String realCapturaNombre) {
+			this.realCapturaNombre = realCapturaNombre;
+		}
+
+		@Override
+		public String toString() {
+			return "AsignacionHistorico [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
+					+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
+					+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
+					+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
+					+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
+					+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
+					+ ", archivosAsignacion=" + archivosAsignacion + ", observacionesAsignacion="
+					+ observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
+					+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion="
+					+ tipoCursoAsignacion + ", createAtAsignacion=" + createAtAsignacion + ", userCreateAsignacion="
+					+ userCreateAsignacion + ", userCreateAsignacionTexto=" + userCreateAsignacionTexto
+					+ ", statusAsignacion=" + statusAsignacion + ", verificarEntregable=" + verificarEntregable
+					+ ", guiaEntregable=" + guiaEntregable + ", fechaPago=" + fechaPago + ", numeroFactura="
+					+ numeroFactura + ", archivoParticipantes=" + archivoParticipantes + ", costoHotel=" + costoHotel
+					+ ", dateAsignacion=" + dateAsignacion + ", realCapturaId=" + realCapturaId + ", realCapturaNombre="
+					+ realCapturaNombre + "]";
 		}
 		
 

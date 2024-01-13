@@ -22,7 +22,7 @@
 	  }
  function operateFormatterParticipantes(value, row, index) {
 	    return [
-	      '<a class="like" href="javascript:void(0)" title="Descarga" id="UserUpdate" data-toggle="modal" data-target="#modalParticipantesDescarga">',
+	      '<a class="like" id="descarga" href="javascript:void(0)" title="Descarga" >',
 	      '<i class="fa fa-users  fa-2x"></i>',
 	      '</a>'
 	    ].join('')
@@ -58,7 +58,7 @@ $(document).ready(function(){
 	$.statusCurso="";
 	$.listFechas="";
 	
-	console.log(asignaciones);
+//	console.log(asignaciones);
 	arrayClientesInstructor = new Array();
 	if(perfilUsuario === "Instructor"){
 		var idInstructor = operacionId;
@@ -170,7 +170,7 @@ $(document).ready(function(){
 				}
 		    	$('#nombreCliente').html(clienteAsignacion);
 	    		$('#numAsignaciones').html($.asignacionesArray.length)
-	    		console.log($.asignacionesArray);
+//	    		console.log($.asignacionesArray);
 //		    	
 	    		var $asignacionesTable = $('#asignacionesTable')
 	    		$('#asignacionesTable').bootstrapTable('load', $.asignacionesArray);
@@ -186,9 +186,10 @@ $(document).ready(function(){
 	}
 	
 	window.operateEventsParticipantes = {
-		    'click .like': function (e, value, row, index) {
+		    'click #descarga': function (e, value, row, index) {
 		    	var idCliente = row.idCliente;
 		    	console.log(row);
+		    	 window.location = "/CCliente/"+idCliente;
 		    }
 	}
 	

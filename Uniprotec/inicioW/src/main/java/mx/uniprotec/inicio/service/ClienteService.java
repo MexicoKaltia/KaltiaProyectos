@@ -83,8 +83,6 @@ public class ClienteService implements IClienteService {
 		log.info("logoH:"+cliente.getImagenLogoClienteH());
 		log.info(cliente.getArchivosCliente());
 		log.info("archivosH:"+cliente.getArchivosClienteH());
-		
-
 
 		me = ComponenteComun.monitorCampos();
 		cliente.setCreateAtCliente(me.getNowEntidad());

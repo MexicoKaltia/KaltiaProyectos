@@ -91,6 +91,9 @@ public class ControllerEstadisticas {
 			
 			rs = clienteService.consultaClientes(resultVO.getAccesToken());
 			resultVO.setClientes(rs.getClientes());
+			
+			rs = vendedorService.consultaVendedores(resultVO.getAccesToken());
+			resultVO.setVendedores(rs.getVendedores());
 
 			
 			ModelAndView mav = new ModelAndView("CEstadisticaGeneral", model);

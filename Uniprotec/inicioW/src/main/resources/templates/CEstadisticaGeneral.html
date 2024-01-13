@@ -261,6 +261,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a  class="nav-link active" id="btnFiltroVentas" data-toggle="modal" data-target="#modalFiltroVentas">
+                                    <span>Filtro Ventas</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a  class="nav-link active" id="btnFiltroZona" data-toggle="modal" data-target="#modalFiltroZona">
                                     <span>Filtro Zona</span>
                                 </a>
@@ -508,6 +513,60 @@
                        <!-- Modal Fin-->
                        
   <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                       <!-- Modal Inicio-->
+                       <div class="modal" id="modalFiltroVentas" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					    <div class="modal-dialog " role="document">
+					        <div class="modal-content">
+
+                                   <!-- Modal Header -->
+                                   <div class="modal-header">
+                                       <img class="card-img-top" th:src="@{assets/images/logo.png}" style="max-width: 10.0em; max-height: 10.0em">
+                                       <h4 class="modal-title">Filtro Vendedores</h4>
+                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       
+                                   </div>
+
+                                   <!-- Modal body -->
+                                   <div class="modal-body">
+                                    <ul>
+                                    	<li  style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" id="todosInstructores" checked>
+											    </div>
+											  </div>
+											  <span  style="padding-left: 10px;">Todos Vendedores</span>
+											</div>
+			                            </li>
+			                            <hr>
+									    <li th:each= "vendedor : ${model.vendedores}" style=" list-style-type:none ">
+			                                <div class="input-group mb-1">
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="checkbox" class="checkboxFiltroV" th:id="${vendedor.idVendedor}" >
+											    </div>
+											  </div>
+											  <span th:text="${vendedor.nombreVendedor}" style="padding-left: 10px;"></span>
+											</div>
+			                            </li>
+									 </ul>
+                                   </div>
+
+                                   <!-- Modal footer -->
+                                   <div class="modal-footer">
+											<button type="button"  class="btn btn-info pull-left" id="btnFiltroVendedorActualizar" data-dismiss="modal"  onclick="actualizaVendedor()">Actualizar Resultados</button>
+											<button type="button" class="btn btn-secondary pull-right" id="btnFiltroCerrar" data-dismiss="modal">Cerrar</button>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Modal Fin-->
+                       
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+  
                        <!-- Modal Inicio-->
                        <div class="modal" id="modalFiltroZona" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 					    <div class="modal-dialog modal-lg" role="document">
@@ -735,6 +794,7 @@
 		 var zonaBase = [[${model.regiones}]];
 		 var cursos = [[${model.cursos}]];
 		 var clientes = [[${model.clientes}]];
+		 var vendedores = [[${model.vendedores}]];
 	</script>
 	
   <script>

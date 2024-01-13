@@ -927,6 +927,29 @@ public class ControllerUtil {
 		
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
+	
+	@GetMapping("/descargaParticipantes")
+	public ResponseEntity<Resource> detDescargaParticipantes() { 
+		Path rutaArchivo = Paths.get("/uniprotec/descargaParticipantes/descargaParticipantes.csv").toAbsolutePath();
+		log.info(rutaArchivo.toString());
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error no se pudo cargar la imagen: " );
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+
 
 	@GetMapping("/descargaFiltros")
 	public ResponseEntity<Resource> detDescargaFiltros() { 

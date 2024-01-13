@@ -32,6 +32,7 @@ import mx.uniprotec.application.entity.ParticipanteEntity;
 import mx.uniprotec.application.service.IAsignacionService;
 import mx.uniprotec.application.service.IEntregableService;
 import mx.uniprotec.entidad.modelo.EntregableModelo;
+import mx.uniprotec.entidad.modelo.ParticipanteDescarga;
 import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 
 @CrossOrigin(origins = { "*" })

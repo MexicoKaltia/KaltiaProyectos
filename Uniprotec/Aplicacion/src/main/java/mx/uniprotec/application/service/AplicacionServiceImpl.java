@@ -33,6 +33,7 @@ import mx.uniprotec.application.entity.Usuario;
 import mx.uniprotec.application.entity.Vendedor;
 import mx.uniprotec.application.entity.ZonaBase;
 import mx.uniprotec.entidad.modelo.MensajeModelo;
+import mx.uniprotec.entidad.modelo.ParticipantesModelo;
 import mx.uniprotec.entidad.modelo.UserCorreo;
 
 
@@ -260,11 +261,9 @@ public class AplicacionServiceImpl implements IAplicacionService {
 	public ZonaBase getZonaBase() {
 		Optional<ZonaBase> optional = zonaBaseDao.findById(1l);
 		ZonaBase zonaBase = optional.get();
-//		JSONObject dataZB =  new JSONObject(zonaBase.getDataZonabase());
-//		String dataZB = zonaBase.getDataZonabase();
 		log.info(zonaBase.getDataZonabase().toString());
-//		List<ZonaBase> zonaBase = zonaBaseDao.findAll();
 		return zonaBase;
 	}
+
 	
 }
