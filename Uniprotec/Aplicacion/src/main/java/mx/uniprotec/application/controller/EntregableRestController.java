@@ -199,6 +199,7 @@ public class EntregableRestController {
 						asignacion.setStatusAsignacion("Elaborar Entregable");
 						if(entregable.getStatus().equals("Entregable Generado")) {
 							asignacion.setStatusAsignacion("Entregable Generado");
+			
 						}
 						
 						asignacion.setCreateAtAsignacion(LocalDateTime.now()); 
@@ -291,18 +292,18 @@ public class EntregableRestController {
 			ParticipanteEntity pe = new ParticipanteEntity();
 			pe.setIdParticipante(pm.getIdParticipante());
 			pe.setIdEntregable(IdEntregable);
-			pe.setParticipanteNombre(pm.getParticipanteNombre());
-			pe.setParticipantePuesto(pm.getParticipantePuesto() != null ? pm.getParticipantePuesto() : " ");  
-			pe.setParticipanteOcupacion(pm.getParticipanteOcupacion() != null ? pm.getParticipanteOcupacion() : " "); 
- 			pe.setParticipanteCURP(pm.getParticipanteCURP() != null ? pm.getParticipanteCURP() : " ");
+			pe.setParticipanteNombre(pm.getParticipanteNombre().toUpperCase());
+			pe.setParticipantePuesto(pm.getParticipantePuesto().toUpperCase() != null ? pm.getParticipantePuesto() : " ");  
+			pe.setParticipanteOcupacion(pm.getParticipanteOcupacion().toUpperCase() != null ? pm.getParticipanteOcupacion() : " "); 
+ 			pe.setParticipanteCURP(pm.getParticipanteCURP().toUpperCase() != null ? pm.getParticipanteCURP() : " ");
 			pe.setParticipanteFoto(pm.getParticipanteFoto());
 			pe.setParticipanteExamenTeoricoInicial(Double.valueOf(pm.getParticipanteExamenTeoricoInicial()));
 			pe.setParticipanteExamenTeoricoFinal(Double.valueOf(pm.getParticipanteExamenTeoricoFinal()));
 			pe.setParticipanteExamenPractico(Double.valueOf(pm.getParticipanteExamenPractico()));
 			pe.setParticipantePromedio(Double.valueOf(pm.getParticipantePromedio()));
-			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento() != null ? pm.getParticipanteAprovechamiento() : " ");
+			pe.setParticipanteAprovechamiento(pm.getParticipanteAprovechamiento().toUpperCase() != null ? pm.getParticipanteAprovechamiento() : " ");
 			pe.setParticipanteAprobado(pm.isParticipanteAprobado());
-			pe.setParticipanteObservaciones(pm.getParticipanteObservaciones() != null ? pm.getParticipanteObservaciones() : " ");
+			pe.setParticipanteObservaciones(pm.getParticipanteObservaciones().toUpperCase() != null ? pm.getParticipanteObservaciones() : " ");
 			pe.setStatusParticipante(pm.getStatus());
 			pe.setUserCreateParticipante(pm.getUserCreate());
 			pe.setCreateAtParticipante(pm.getCreateAt());

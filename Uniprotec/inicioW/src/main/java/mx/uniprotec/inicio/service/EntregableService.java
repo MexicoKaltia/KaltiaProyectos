@@ -967,7 +967,13 @@ public class EntregableService implements IEntregableService {
 
 	private String recortaDia(String fecha) {
 		String tmp = fecha.substring(fecha.indexOf(" "), fecha.length());
-		return tmp;
+		tmp = tmp.replaceAll("de ", "");
+		tmp = tmp.substring(1, tmp.length());
+		String[] tmp2 = tmp.split(" ");
+		String mes = convertToMes2(tmp2[1]);
+		
+		return tmp2[0].concat(" ").concat(mes).concat(" ").concat(tmp2[2]);
+
 	}
 
 	private String convertToDia(String string) {
@@ -993,6 +999,12 @@ public class EntregableService implements IEntregableService {
 			}
 			i++;
 		}
+		return r;
+	}
+	
+	private String convertToMes2(String string) {
+		String[] mes = {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"};
+	String r = string.substring(0, 3);
 		return r;
 	}
 	

@@ -674,7 +674,7 @@ $(document).ready(function() {
 		console.log($('#formARazonSocial').val());
 		$participantes = $('#participantesTable').bootstrapTable('getData');
 		var arrayParticipantes = new Array();
-		alert("hola");
+		
 		$("#idAsignacion").val(0);
 		$("#idInstructorAsignacion").val(idInstructorAsignado);
 		$("#nombreFirmaInstructorAsignacion").val(nombreFirmaInstructor);

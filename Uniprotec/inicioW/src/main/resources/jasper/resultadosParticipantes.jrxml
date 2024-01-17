@@ -187,7 +187,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Light" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{participanteNombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{participanteNombre}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="254" y="2" width="32" height="21" uuid="a47da84e-641e-471c-8111-85aa46c2be70"/>
@@ -257,7 +257,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Light" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{participanteAprovechamiento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{participanteAprovechamiento}.toUpperCase()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

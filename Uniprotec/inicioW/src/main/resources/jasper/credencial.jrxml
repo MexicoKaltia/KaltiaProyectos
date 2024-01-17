@@ -33,69 +33,70 @@
 	<field name="credencialLogoEmpresa" class="java.lang.String"/>
 	<field name="credencialFotoParticipante" class="java.lang.String"/>
 	<background>
-		<band height="555" splitType="Stretch"/>
+		<band height="555" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="802" height="555" uuid="5c0b765f-6404-4d98-8ee0-3db20ac10f75"/>
+				<imageExpression><![CDATA["jasper/imagenes/Credenciales.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<detail>
-		<band height="499" splitType="Stretch">
+		<band height="470" splitType="Stretch">
 			<componentElement>
-				<reportElement x="20" y="10" width="760" height="470" uuid="1cd7a7c8-04f3-4c59-b072-cbf0ff20492f"/>
+				<reportElement x="20" y="10" width="750" height="460" uuid="1cd7a7c8-04f3-4c59-b072-cbf0ff20492f"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="CredencialDataset" uuid="afcaa779-7fab-4edc-8ce7-3d6fd9398e09">
 						<dataSourceExpression><![CDATA[$P{credenciales}]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="470" width="760">
-						<image>
-							<reportElement x="10" y="10" width="750" height="460" uuid="6361799a-7abc-461c-afbf-1389c7969af0"/>
-							<imageExpression><![CDATA["jasper/imagenes/Credenciales.jpg"]]></imageExpression>
-						</image>
+					<jr:listContents height="460" width="750">
 						<textField textAdjust="ScaleFont">
-							<reportElement x="310" y="130" width="380" height="30" forecolor="#2859A8" uuid="bff96313-61d2-4715-9e40-b87cef8530eb"/>
+							<reportElement x="319" y="125" width="380" height="60" forecolor="#2859A8" uuid="bff96313-61d2-4715-9e40-b87cef8530eb"/>
 							<textElement>
-								<font fontName="Montserrat" size="24" isBold="true" pdfFontName=""/>
+								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{nombreParticipante}.toUpperCase()]]></textFieldExpression>
 						</textField>
 						<textField textAdjust="ScaleFont">
-							<reportElement x="310" y="190" width="380" height="30" forecolor="#2859A8" uuid="8f442387-055d-4837-9ac1-b149bfb807b4"/>
+							<reportElement x="319" y="196" width="380" height="62" forecolor="#2859A8" uuid="8f442387-055d-4837-9ac1-b149bfb807b4"/>
 							<textElement>
-								<font fontName="Montserrat" size="24" isBold="true" pdfFontName=""/>
+								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{nombreCurso}.toUpperCase()]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement x="310" y="260" width="171" height="30" forecolor="#2859A8" uuid="47868d6c-082a-4711-b82e-57c8052151d7"/>
+							<reportElement x="320" y="270" width="171" height="30" forecolor="#2859A8" uuid="47868d6c-082a-4711-b82e-57c8052151d7"/>
 							<textElement>
-								<font fontName="Montserrat" size="12" isBold="true" pdfFontName=""/>
+								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{fechaInicio}]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement x="490" y="260" width="169" height="30" forecolor="#2859A8" uuid="9f8d3525-76f3-46cb-bad3-656648dfa2da"/>
+							<reportElement x="530" y="270" width="169" height="30" forecolor="#2859A8" uuid="9f8d3525-76f3-46cb-bad3-656648dfa2da"/>
 							<textElement>
-								<font fontName="Montserrat" size="12" isBold="true" pdfFontName=""/>
+								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{fechaFinal}]]></textFieldExpression>
 						</textField>
 						<textField textAdjust="ScaleFont">
-							<reportElement x="310" y="320" width="378" height="30" forecolor="#2859A8" uuid="1596d395-8e56-40fd-97fb-6e4d3289ebe5"/>
+							<reportElement x="321" y="342" width="378" height="30" forecolor="#2859A8" uuid="1596d395-8e56-40fd-97fb-6e4d3289ebe5"/>
 							<textElement>
 								<font fontName="Montserrat" size="20" isBold="true" pdfFontName=""/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{instructor}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{instructor}.toUpperCase()]]></textFieldExpression>
 						</textField>
 						<image>
-							<reportElement x="89" y="110" width="210" height="210" uuid="023af781-9aac-480f-8d3f-f1e27694076f">
+							<reportElement x="69" y="103" width="233" height="244" uuid="023af781-9aac-480f-8d3f-f1e27694076f">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							</reportElement>
 							<imageExpression><![CDATA[$F{fotoParticipante}]]></imageExpression>
 						</image>
 						<image>
-							<reportElement x="508" y="30" width="180" height="91" uuid="6c3659a9-1e75-43b6-8e92-2721de5fc587"/>
+							<reportElement x="498" y="12" width="180" height="91" uuid="6c3659a9-1e75-43b6-8e92-2721de5fc587"/>
 							<imageExpression><![CDATA[$F{logoEmpresa}]]></imageExpression>
 						</image>
 						<image>
-							<reportElement x="400" y="340" width="150" height="54" uuid="8ffcf50f-808d-4bc6-bba2-674836f8ba80"/>
+							<reportElement x="400" y="365" width="220" height="75" uuid="8ffcf50f-808d-4bc6-bba2-674836f8ba80"/>
 							<imageExpression><![CDATA[$F{firmaInstructor}]]></imageExpression>
 						</image>
 					</jr:listContents>
