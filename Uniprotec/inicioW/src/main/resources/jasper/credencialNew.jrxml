@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credencialNew" pageWidth="240" pageHeight="155" orientation="Landscape" columnWidth="240" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="69629587-149a-479e-97e9-a10e58f2a54f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="nombreParticipante" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{nombreParticipante}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreCurso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{nombreCurso}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaInicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{fechaInicio}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{fechaFinal}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="instructor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{instructor}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logoEmpresa" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[$P{logoEmpresa}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fotoParticipante" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[$P{fotoParticipante}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="firmaInstructor" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[$P{firmaInstructor}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreParticipante" class="java.lang.String"/>
+	<field name="nombreCurso" class="java.lang.String"/>
+	<field name="fechaInicio" class="java.lang.String"/>
+	<field name="fechaFinal" class="java.lang.String"/>
+	<field name="instructor" class="java.lang.String"/>
+	<field name="logoEmpresa" class="java.io.InputStream"/>
+	<field name="fotoParticipante" class="java.io.InputStream"/>
+	<field name="firmaInstructor" class="java.io.InputStream"/>
+	<background>
+		<band height="155" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="240" height="155" uuid="12274d68-a361-48b6-bb8f-06f7f8c2b3db"/>
+				<imageExpression><![CDATA["jasper/imagenes/Credencial_2024.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<detail>
+		<band height="155" splitType="Stretch">
+			<textField textAdjust="ScaleFont">
+				<reportElement x="109" y="40" width="116" height="15" forecolor="#0066CC" backcolor="#0000FF" uuid="1764c2f9-105b-407b-ab49-680713b81ecb">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Montserrat Black" size="11" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreParticipante}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="109" y="60" width="116" height="15" forecolor="#0066CC" uuid="9b546dfa-7f4f-47ac-8de8-dca9e7a6d1e2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Montserrat Black" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreCurso}.toUpperCase()]]></textFieldExpression>
+				<patternExpression><![CDATA[$P{nombreCurso}.toUpperCase()]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="83" width="55" height="10" forecolor="#0066CC" uuid="d5d62832-a807-473b-8a77-70a4d13a722a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Montserrat ExtraBold" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="31" y="31" width="85" height="71" uuid="183b29e1-a715-41fd-9bf9-662a3692f643">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{fotoParticipante}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="172" y="8" width="50" height="39" uuid="34db51db-e911-40c9-987b-b653c7e0179c"/>
+				<imageExpression><![CDATA[$P{logoEmpresa}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="169" y="83" width="55" height="10" forecolor="#0066CC" uuid="41850c23-1f39-47eb-b71a-55450fcc71aa"/>
+				<textElement>
+					<font fontName="Montserrat ExtraBold" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="109" y="103" width="116" height="10" forecolor="#0066CC" uuid="bdaca8aa-c2b2-4d3e-8545-6f0ad8b15103"/>
+				<textElement>
+					<font fontName="Montserrat SemiBold" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{instructor}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="135" y="109" width="50" height="25" uuid="7a642b21-3b90-4fa8-bfd5-82deb2a1a6ae">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{firmaInstructor}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

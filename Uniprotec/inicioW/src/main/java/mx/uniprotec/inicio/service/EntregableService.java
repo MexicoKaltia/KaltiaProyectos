@@ -94,10 +94,10 @@ public class EntregableService implements IEntregableService {
 	
 	@Override
 	public ResultVO createEntregable(EntregableModelo entregable, String accesToken, Long idUsuario) {
-		log.info(entregable.toString());
+//		log.info(entregable.toString());
 		List<ParticipantesModelo> participantes = getParticipantes(entregable, idUsuario);
 		this.pathLogico = "/uniprotec/entregables/";
-		log.info(participantes.toString());
+//		log.info(participantes.toString());
 		
 		if(entregable.getFormCEvidenciasFotograficasB() != null || !(entregable.getFormCEvidenciasFotograficasB().size() == 0)) {
 			if(entregable.getFormCEvidenciasFotograficas() == null || entregable.getFormCEvidenciasFotograficas().size() == 0) {
@@ -421,11 +421,12 @@ public class EntregableService implements IEntregableService {
 		ResultLocal rl = new ResultLocal();
 		long start = System.currentTimeMillis();
 		JasperDesign toJasperdesign = null;
-		if(entregable.getFormACurso().length() > 30) {
-			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma2.jrxml"));
-		}else {
-			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma.jrxml"));
-		}
+		toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma.jrxml"));
+//		if(entregable.getFormACurso().length() > 30) {
+//			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma2.jrxml"));
+//		}else {
+//			toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/diploma.jrxml"));
+//		}
 		
 		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
 			
@@ -471,45 +472,80 @@ public class EntregableService implements IEntregableService {
 	
 	private ResultLocal generaCredenciales(EntregableModelo entregable) throws Exception, JRException{
 		ResultLocal rl = new ResultLocal();
-		List<CredencialModelo> credenciales = convertToCredenciales(entregable);
-		String path ="";
-		String fileName =this.pathLogico + "/documentacion/credenciales_"+entregable.getIdEntregableLogico()+".pdf";
 		long start = System.currentTimeMillis();
-
-		byte[] lyContent = null;
-		
-		Map<String, Object> pmParametros = new HashMap<String, Object>();
-		String pathSave = path + fileName;
-
-		JasperPrint jrJasperPr = null;
-		ByteArrayOutputStream baosPDFSummary = null;
-
-		
 		JasperDesign toJasperdesign = null;
-
-//		toJasperdesign = JRXmlLoader.load("jasper/credencial.jrxml");
-		toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/credencial.jrxml"));
+		
+		toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/credencialNew.jrxml"));
+		
+		JasperReport compileReport = JasperCompileManager.compileReport(toJasperdesign);
 			
-
-		JasperReport toJaspertRes = JasperCompileManager.compileReport(toJasperdesign);
-
-		baosPDFSummary = new ByteArrayOutputStream();
+		List<JasperPrint> jasperPrintCredenciales = new ArrayList<JasperPrint>();
+		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
+				
+			Map<String, Object> map = new HashMap<String, Object>();
+				map= convertToCredencialesNew(pm, entregable);
+				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
+				jasperPrintCredenciales.add(report);
+		}
 			
-		JRBeanCollectionDataSource dsCredenciales = null;
-		dsCredenciales = new JRBeanCollectionDataSource(credenciales);
-
-		pmParametros.put("credenciales", dsCredenciales);
-
-		jrJasperPr = JasperFillManager.fillReport(toJaspertRes, pmParametros, new JREmptyDataSource());
-		JasperExportManager.exportReportToPdfFile(jrJasperPr, pathSave);
-		JasperExportManager.exportReportToPdfStream(jrJasperPr, baosPDFSummary);
-		lyContent = baosPDFSummary.toByteArray();
-
-		baosPDFSummary.flush();
-
-		baosPDFSummary.close();
+			// guardar en disco local
+		OutputStream output = new FileOutputStream(new File(this.pathLogico + "/documentacion/credenciales_"+entregable.getIdEntregableLogico()+".pdf"));
+		JRPdfExporter exporter = new JRPdfExporter();
+		exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintCredenciales));
+		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(output));
+		
+		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+		configuration.setCreatingBatchModeBookmarks(true);
+		exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        output.flush();
+        output.close();
         log.info("Credenciales creation time : " + (System.currentTimeMillis() - start));
 		return rl;
+
+
+/*
+ * metodo antiguo		
+ */
+//		ResultLocal rl = new ResultLocal();
+//		List<CredencialModelo> credenciales = convertToCredenciales(entregable);
+//		String path ="";
+//		String fileName =this.pathLogico + "/documentacion/credenciales_"+entregable.getIdEntregableLogico()+".pdf";
+//		long start = System.currentTimeMillis();
+//
+//		byte[] lyContent = null;
+//		
+//		Map<String, Object> pmParametros = new HashMap<String, Object>();
+//		String pathSave = path + fileName;
+//
+//		JasperPrint jrJasperPr = null;
+//		ByteArrayOutputStream baosPDFSummary = null;
+//
+//		
+//		JasperDesign toJasperdesign = null;
+//
+//		toJasperdesign = JRXmlLoader.load(EntregableService.class.getClassLoader().getResourceAsStream("jasper/credencialNew.jrxml"));
+//			
+//
+//		JasperReport toJaspertRes = JasperCompileManager.compileReport(toJasperdesign);
+//
+//		baosPDFSummary = new ByteArrayOutputStream();
+//			
+//		JRBeanCollectionDataSource dsCredenciales = null;
+//		dsCredenciales = new JRBeanCollectionDataSource(credenciales);
+//
+//		pmParametros.put("credenciales", dsCredenciales);
+//
+//		jrJasperPr = JasperFillManager.fillReport(toJaspertRes, pmParametros, new JREmptyDataSource());
+//		JasperExportManager.exportReportToPdfFile(jrJasperPr, pathSave);
+//		JasperExportManager.exportReportToPdfStream(jrJasperPr, baosPDFSummary);
+//		lyContent = baosPDFSummary.toByteArray();
+//
+//		baosPDFSummary.flush();
+//
+//		baosPDFSummary.close();
+//        log.info("Credenciales creation time : " + (System.currentTimeMillis() - start));
+//		return rl;
 	}
 
 
@@ -739,15 +775,31 @@ public class EntregableService implements IEntregableService {
 				cm.setFechaFinal(recortaDia(entregable.getFormAFechaFinalCredenciales()));
 				cm.setInstructor(entregable.getFormAInstructor());
 				cm.setLogoEmpresa(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
-//				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
 				cm.setFotoParticipante(new ByteArrayInputStream(entregableService.getImage("/uniprotec/entregables/"+entregable.getRfcOriginalAsignacion()+"/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
 				cm.setFirmaInstructor(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
-//				cm.setFirmaDirector(new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
 				 listCM.add(cm);
 			}
 		}
 		return  listCM;
 	}
+	
+	private Map<String, Object> convertToCredencialesNew(ParticipantesModelo pm, EntregableModelo entregable) {
+
+		EntregableService entregableService = new EntregableService();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nombreParticipante", pm.getParticipanteNombre());
+		map.put("nombreCurso", entregable.getFormAEquipoCredencial());
+		map.put("fechaInicio", recortaDia(entregable.getFormAFechaInicioCredenciales()));
+		map.put("fechaFinal",recortaDia(entregable.getFormAFechaFinalCredenciales()));
+		map.put("instructor", entregable.getFormAInstructor());
+		
+		map.put("logoEmpresa", new ByteArrayInputStream(entregableService.getImage(this.pathLogico + "/imageLogo/".concat(entregable.getFormALogoEmpresa()))));
+		map.put("fotoParticipante", new ByteArrayInputStream(entregableService.getImage("/uniprotec/entregables/"+entregable.getRfcOriginalAsignacion()+"/imagenesParticipantes/".concat(pm.getParticipanteFoto()))));
+		map.put("firmaInstructor", new ByteArrayInputStream(entregableService.getImage("/uniprotec/firmaInstructor/"+entregable.getIdInstructorAsignacion()+"/image/"+entregable.getNombreFirmaInstructorAsignacion())));
+		
+		return map;
+	}
+
 
 	
 	private Map<String, Object> convertToDiploma(ParticipantesModelo pm, EntregableModelo entregable) {

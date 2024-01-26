@@ -135,6 +135,7 @@ $(document).ready(function() {
 					
 					$('#formCRazonSocial').val(entregable.formCRazonSocial);
 					$('#formCCurso').val(entregable.formCCurso);
+					$('#formCDuracion').val("");
 					$('#formCDuracion').val(entregable.formCDuracion);
 					$('#formCInstructor').val(entregable.formCInstructor);
 					
@@ -648,6 +649,7 @@ $(document).ready(function() {
 
 		$("#formCRazonSocialA").val(cliente.nombreCompletoCliente);
 		$("#formCCursoA").val($("#formACurso option:selected").text());
+		$('#formCDuracionA').val("");
 		$("#formCDuracionA").val($("#formCDuracion").val());
 		$("#formCInstructorA").val($("#formAInstructor option:selected").text());
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
@@ -716,6 +718,7 @@ $(document).ready(function() {
 
 		$("#formCRazonSocialA").val(cliente.nombreCompletoCliente);
 		$("#formCCursoA").val($("#formACurso option:selected").text());
+		$('#formCDuracionA').val("");
 		$("#formCDuracionA").val($("#formCDuracion").val());
 		$("#formCInstructorA").val($("#formAInstructor option:selected").text());
 		$("#formCFechaInicioA").val($("#formCFechaInicio").val());
@@ -956,6 +959,7 @@ function entregable2(element){
 			
 			$('#formCRazonSocial').val(entregable.formCRazonSocial);
 			$('#formCCurso').val(entregable.formCCurso);
+			$('#formCDuracion').val("");
 			$('#formCDuracion').val(entregable.formCDuracion);
 			$('#formCInstructor').val(entregable.formCInstructor);
 			$('#formCSede').val(entregable.formCSede);

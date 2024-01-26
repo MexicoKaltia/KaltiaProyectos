@@ -63,7 +63,7 @@ public class EntregableRestController {
 			for(EntregableEntity ee : entregables) {
 				idEntregable = ee.getIdEntregable();
 				List<ParticipanteEntity> participantes = entregableService.consultaParticipantes(idEntregable);
-				log.info(participantes.toString());
+//				log.info(participantes.toString());
 				arrayParticipantes.add(participantes);
 			}
 			
