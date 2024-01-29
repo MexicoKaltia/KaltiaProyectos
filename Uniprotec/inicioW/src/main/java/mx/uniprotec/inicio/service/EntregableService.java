@@ -481,11 +481,12 @@ public class EntregableService implements IEntregableService {
 			
 		List<JasperPrint> jasperPrintCredenciales = new ArrayList<JasperPrint>();
 		for(ParticipantesModelo pm : entregable.getFormBParticipantes()) {
-				
-			Map<String, Object> map = new HashMap<String, Object>();
+			if(pm.isParticipanteAprobado()) {
+				Map<String, Object> map = new HashMap<String, Object>();
 				map= convertToCredencialesNew(pm, entregable);
 				JasperPrint report = JasperFillManager.fillReport(compileReport, map,  new JREmptyDataSource());
 				jasperPrintCredenciales.add(report);
+			}
 		}
 			
 			// guardar en disco local
