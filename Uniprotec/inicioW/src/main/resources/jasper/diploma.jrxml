@@ -54,7 +54,7 @@
 				<textFieldExpression><![CDATA[$P{diplomaNombreParticipante}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="167" y="406" width="459" height="22" forecolor="#003366" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
+				<reportElement x="167" y="403" width="459" height="22" forecolor="#003366" uuid="93dc4790-8417-459a-b43d-d1af1c45c8ee"/>
 				<textElement textAlignment="Center">
 					<font fontName="Montserrat Medium" size="12" isBold="false" isItalic="false"/>
 				</textElement>
@@ -83,7 +83,7 @@
 				<imageExpression><![CDATA[$P{diplomaFirmaDirector}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="356" y="428" width="89" height="90" uuid="10a78f43-a569-4775-a6e2-a092d61f5062"/>
+				<reportElement x="356" y="433" width="84" height="85" uuid="10a78f43-a569-4775-a6e2-a092d61f5062"/>
 				<imageExpression><![CDATA["jasper/imagenes/QR.jpg"]]></imageExpression>
 			</image>
 		</band>
