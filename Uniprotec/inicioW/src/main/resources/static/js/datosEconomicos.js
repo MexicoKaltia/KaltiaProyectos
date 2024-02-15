@@ -43,7 +43,6 @@ $("#btnActualizarDatosEconomicos").click(function(){
 	
 	if(isEmpty(tmpFechaPromesaPago)){
 		var tmpEstatusDatoEconomico = 	$('#estatusDatoEconomico').val();
-		console.log(tmpEstatusDatoEconomico);
 		if(tmpEstatusDatoEconomico !="PAGADA"){
 			$('#estatusDatoEconomico').val("PENDIENTE");
 		}else{

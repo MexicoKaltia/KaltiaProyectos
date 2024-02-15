@@ -48,7 +48,6 @@ public class AsignacionService implements IAsignacionService{
 	public ResultVO altaAsignacion(AsignacionModelo asignacion, String token, Long idUser) {
 		me = ComponenteComun.monitorCampos();
 		asignacion.setCreateAtAsignacion(me.getNowEntidad());
-		asignacion.setUserCreateAsignacion(idUser);
 		asignacion.setStatusAsignacion("Curso Asignado");
 		
 		asignacion.setIdAsignacionLogica(fecha(asignacion.getFechaAsignacion())+"-"+asignacion.getIdClienteAsignacion()+"-"+asignacion.getIdInstructorAsignacion()+"-"+asignacion.getIdCursoAsignacion());

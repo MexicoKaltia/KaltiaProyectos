@@ -235,7 +235,8 @@ var alerta, proceso;
 			$('#userCreateAsignacionTexto').val(nombreUsuario);
 		}else{
 			var realVendedor = validaUserCaptura();
-			$('#userCreateAsignacion').val(realVendedor.vendedorCliente.idVendedor);
+
+			$('#userCreateAsignacion').val(getIdUser(realVendedor.vendedorCliente.idVendedor));
 			$('#userCreateAsignacionTexto').val(realVendedor.vendedorCliente.nombreVendedor);
 		}
 		
@@ -254,6 +255,17 @@ var alerta, proceso;
 			}
 		}
 		return jsonCliente;
+	}
+	
+	function getIdUser(id){
+		var jsonUser;
+		for(var a in asignacionVendedores){
+			var vendedor = asignacionVendedores[a];
+			if((vendedor.idVendedor * 1) === (id * 1)){
+				jsonUser = vendedor;
+			}
+		}
+		return jsonUser.usuarioVendedor.idUsuario;
 	}
 
 

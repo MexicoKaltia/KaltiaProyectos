@@ -1,7 +1,7 @@
 package mx.uniprotec.inicio.controller;
 
-import java.util.Map;
 
+import java.util.Map;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

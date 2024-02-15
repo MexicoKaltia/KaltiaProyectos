@@ -10,13 +10,6 @@ public class AsignacionModelo implements Serializable{
 	 */
 	private static final long serialVersionUID = 4597239901569908217L;
 
-
-
-
-
-	/**
-	 * 
-	 */
 	
 	public AsignacionModelo() {
 		// TODO Auto-generated constructor stub
@@ -103,7 +96,9 @@ public class AsignacionModelo implements Serializable{
 			String clienteStatus, String auxiliar0, String seguimiento, String nombreUsuarioSeguimiento,
 			String perfilUsuarioSeguimiento, String mensajeSeguimiento, String nombreCortoClienteProspecto,
 			String nombreCompletoClienteProspecto, String rfcClienteProspecto, int idRegionClienteProspecto,
-			String nombreRegionClienteProspecto, String direccionClienteProspecto, boolean flagClienteProspecto) {
+			String nombreRegionClienteProspecto, String direccionClienteProspecto, boolean flagClienteProspecto,
+			String agregarFactura, String agregarFacturaTexto, String fechaInicioFactura, String fechaFinFactura,
+			String fechaHoy, String realCapturaId, String realCapturaNombre, Long idPreAsignacion) {
 		super();
 		this.idAsignacion = idAsignacion;
 		this.idAsignacionLogica = idAsignacionLogica;
@@ -152,6 +147,14 @@ public class AsignacionModelo implements Serializable{
 		this.nombreRegionClienteProspecto = nombreRegionClienteProspecto;
 		this.direccionClienteProspecto = direccionClienteProspecto;
 		this.flagClienteProspecto = flagClienteProspecto;
+		this.agregarFactura = agregarFactura;
+		this.agregarFacturaTexto = agregarFacturaTexto;
+		this.fechaInicioFactura = fechaInicioFactura;
+		this.fechaFinFactura = fechaFinFactura;
+		this.fechaHoy = fechaHoy;
+		this.realCapturaId = realCapturaId;
+		this.realCapturaNombre = realCapturaNombre;
+		this.idPreAsignacion = idPreAsignacion;
 	}
 	public Long getIdAsignacion() {
 		return idAsignacion;
@@ -436,34 +439,6 @@ public class AsignacionModelo implements Serializable{
 	public void setFlagClienteProspecto(boolean flagClienteProspecto) {
 		this.flagClienteProspecto = flagClienteProspecto;
 	}
-	@Override
-	public String toString() {
-		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
-				+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
-				+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
-				+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
-				+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
-				+ ", archivosAsignacion=" + archivosAsignacion + ", archivosAsignacionTexto=" + archivosAsignacionTexto
-				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
-				+ ", observacionesAsignacion=" + observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
-				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
-				+ ", verificarEntregable=" + verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago="
-				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
-				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
-				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", idStatusAsignacion="
-				+ idStatusAsignacion + ", archivoParticipantes=" + archivoParticipantes + ", archivoParticipantesTexto="
-				+ archivoParticipantesTexto + ", costoHotel=" + costoHotel + ", errorProceso=" + errorProceso
-				+ ", nombreFirmaInstructor=" + nombreFirmaInstructor + ", idPreAsignacionAE=" + idPreAsignacionAE
-				+ ", preAsignacionAEStatus=" + preAsignacionAEStatus + ", clienteStatus=" + clienteStatus
-				+ ", auxiliar0=" + auxiliar0 + ", seguimiento=" + seguimiento + ", nombreUsuarioSeguimiento="
-				+ nombreUsuarioSeguimiento + ", perfilUsuarioSeguimiento=" + perfilUsuarioSeguimiento
-				+ ", mensajeSeguimiento=" + mensajeSeguimiento + ", nombreCortoClienteProspecto="
-				+ nombreCortoClienteProspecto + ", nombreCompletoClienteProspecto=" + nombreCompletoClienteProspecto
-				+ ", rfcClienteProspecto=" + rfcClienteProspecto + ", idRegionClienteProspecto="
-				+ idRegionClienteProspecto + ", nombreRegionClienteProspecto=" + nombreRegionClienteProspecto
-				+ ", direccionClienteProspecto=" + direccionClienteProspecto + ", flagClienteProspecto="
-				+ flagClienteProspecto + "]";
-	}
 	public Long getIdPreAsignacion() {
 		return idPreAsignacion;
 	}
@@ -511,6 +486,37 @@ public class AsignacionModelo implements Serializable{
 	}
 	public void setRealCapturaNombre(String realCapturaNombre) {
 		this.realCapturaNombre = realCapturaNombre;
+	}
+	@Override
+	public String toString() {
+		return "AsignacionModelo [idAsignacion=" + idAsignacion + ", idAsignacionLogica=" + idAsignacionLogica
+				+ ", fechaAsignacion=" + fechaAsignacion + ", idClienteAsignacion=" + idClienteAsignacion
+				+ ", clienteAsignacion=" + clienteAsignacion + ", idCursoAsignacion=" + idCursoAsignacion
+				+ ", cursoAsignacion=" + cursoAsignacion + ", idInstructorAsignacion=" + idInstructorAsignacion
+				+ ", instructorAsignacion=" + instructorAsignacion + ", horarioAsignacion=" + horarioAsignacion
+				+ ", archivosAsignacion=" + archivosAsignacion + ", archivosAsignacionTexto=" + archivosAsignacionTexto
+				+ ", participantesAsignacion=" + participantesAsignacion + ", nivelAsignacion=" + nivelAsignacion
+				+ ", observacionesAsignacion=" + observacionesAsignacion + ", idRegionAsignacion=" + idRegionAsignacion
+				+ ", nombreRegionAsignacion=" + nombreRegionAsignacion + ", tipoCursoAsignacion=" + tipoCursoAsignacion
+				+ ", verificarEntregable=" + verificarEntregable + ", guiaEntregable=" + guiaEntregable + ", fechaPago="
+				+ fechaPago + ", numeroFactura=" + numeroFactura + ", createAtAsignacion=" + createAtAsignacion
+				+ ", userCreateAsignacion=" + userCreateAsignacion + ", userCreateAsignacionTexto="
+				+ userCreateAsignacionTexto + ", statusAsignacion=" + statusAsignacion + ", idStatusAsignacion="
+				+ idStatusAsignacion + ", archivoParticipantes=" + archivoParticipantes + ", archivoParticipantesTexto="
+				+ archivoParticipantesTexto + ", costoHotel=" + costoHotel + ", errorProceso=" + errorProceso
+				+ ", nombreFirmaInstructor=" + nombreFirmaInstructor + ", idPreAsignacionAE=" + idPreAsignacionAE
+				+ ", preAsignacionAEStatus=" + preAsignacionAEStatus + ", clienteStatus=" + clienteStatus
+				+ ", auxiliar0=" + auxiliar0 + ", seguimiento=" + seguimiento + ", nombreUsuarioSeguimiento="
+				+ nombreUsuarioSeguimiento + ", perfilUsuarioSeguimiento=" + perfilUsuarioSeguimiento
+				+ ", mensajeSeguimiento=" + mensajeSeguimiento + ", nombreCortoClienteProspecto="
+				+ nombreCortoClienteProspecto + ", nombreCompletoClienteProspecto=" + nombreCompletoClienteProspecto
+				+ ", rfcClienteProspecto=" + rfcClienteProspecto + ", idRegionClienteProspecto="
+				+ idRegionClienteProspecto + ", nombreRegionClienteProspecto=" + nombreRegionClienteProspecto
+				+ ", direccionClienteProspecto=" + direccionClienteProspecto + ", flagClienteProspecto="
+				+ flagClienteProspecto + ", agregarFactura=" + agregarFactura + ", agregarFacturaTexto="
+				+ agregarFacturaTexto + ", fechaInicioFactura=" + fechaInicioFactura + ", fechaFinFactura="
+				+ fechaFinFactura + ", fechaHoy=" + fechaHoy + ", realCapturaId=" + realCapturaId
+				+ ", realCapturaNombre=" + realCapturaNombre + ", idPreAsignacion=" + idPreAsignacion + "]";
 	}
 
 

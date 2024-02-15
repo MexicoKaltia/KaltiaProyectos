@@ -53,18 +53,9 @@ public class MailService implements IMailService{
 		
 		
 		  List<String> INSTRUCTOR_PRE = new ArrayList<String>();
-//		  INSTRUCTOR_PRE.add("kaltiaservicios@gmail.com");
-//		  INSTRUCTOR_PRE.add("hugo.rivas@kaltiaservicios.tech");
-//		  INSTRUCTOR_PRE.add("sanchez.olivier@hotmail.com");
 		
 		 List<String> STAFF_PRE = new ArrayList<String>();
-//		STAFF_PRE.add("kaltiaservicios@gmail.com");
-//		STAFF_PRE.add("olivier.sanchez@uniprotec.net");
 		STAFF_PRE.add("operacion@uniprotec.net");
-//		STAFF_PRE.add("gasparinho@hotmail.fr");
-
-		
-//		log.info(asignacion.toString());
 		
 		String staffDestino ;
 		String referenciaBase = "https://control-uniprotec.com/CAsignacionIC/"+asignacion.getIdAsignacion()+"/";
@@ -74,16 +65,13 @@ public class MailService implements IMailService{
 		String[] envioCorreos = {"Instructor", "Staff"};
 		StatusVO statusVO = new StatusVO();
 		List<UserCorreo> usersCorreo = aplicacionService.usersCorreo(asignacion.getIdInstructorAsignacion(), asignacion.getUserCreateAsignacion(), token);
-//		log.info(usersCorreo.toString());
 		
 		String correoGmailInstructor="";
 		List<String> correoStaff = new ArrayList<String>();
 		List<String> correoInstructor = new ArrayList<String>();
 		correoStaff.clear();
 		for(UserCorreo uc : usersCorreo) {
-//			log.info(uc.toString());
 			if(uc.getPerfil().equals("Instructor")) {
-//				correoInstructor.add("uniprotec@kaltiaservicios.tech");
 				correoInstructor.add(uc.getEmailUniprotec());
 				correoInstructor.add(uc.getEmailGmail());
 				correoGmailInstructor = uc.getEmailGmail();
@@ -95,7 +83,6 @@ public class MailService implements IMailService{
 		
 		int i = 0;
 		while (i < envioCorreos.length) {
-//			log.info(envioCorreos[i]);
 			if(envioCorreos[i].equals("Instructor")) {
 				MailVO mailVO = new MailVO();		
 				staffDestino = asignacion.getInstructorAsignacion();
@@ -108,8 +95,6 @@ public class MailService implements IMailService{
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
 				mailVO.setDestinatarioMailList(correoInstructor);
 				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
-//				mailVO.setDestinatarioMailList(INSTRUCTOR_PRE);
-//				log.info("Instructor : "+ mailVO.getDestinatarioMailList().toString());
 				
 				mailVO.setAsignacionMail(asignacion);
 				statusVO = mailServiceGeneraCorreo(mailVO);		
@@ -126,8 +111,6 @@ public class MailService implements IMailService{
 				mailVO.setBodyMail(body(asignacion, staffDestino, referencia, nombreBoton, subTitulo));
 				
 				mailVO.setMensajeMail(PLANTILLA_CORREO );
-//				mailVO.setDestinatarioMailList(correoStaff);
-//				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				mailVO.setDestinatarioMailList(STAFF_PRE);
 				log.info("Staff : "+ mailVO.getDestinatarioMailList().toString());
 				
